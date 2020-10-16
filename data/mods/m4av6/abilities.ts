@@ -33,11 +33,17 @@ export const BattleAbilities: {[k: string]: ModdedAbilityData} = {
 		desc: "This Pokémon clears terrains on entry. It also prevents any new terrains from being set while it is present.",
 		shortDesc: "This Pokémon shuts down all terrains.",
 		onStart(source) {
-			this.add('-ability', source, 'Down-to-Earth');
-			this.field.clearTerrain();
+			if (this.field.terrain) {
+				this.add('-ability', source, 'Down-to-Earth');
+				this.add('-message', `${source.name} suppresses the effects of the terrain!`);
+			}
 		},
 		onAnyTerrainStart(target, source, terrain) {
-			this.field.clearTerrain();
+			this.add('-ability', source, 'Down-to-Earth');
+			this.add('-message', `${source.name} suppresses the effects of the terrain!`);
+		},
+		onEnd(source) {
+			this.add('-message', `${source.name} is no longer suppressing the effects of the terrain!`);
 		},
 		name: "Down-to-Earth",
 		rating: 2,
