@@ -645,7 +645,7 @@ export const BattlePokedex: {[speciesid: string]: SpeciesData} = {
 		baseSpecies: "Eelektross",
 		forme: "Mega",
 		types: ["Electric"],
-		baseStats: {hp: 85, atk: 115, def: 80, spa: 105, spd: 80, spe: 50},
+		baseStats: {hp: 85, atk: 145, def: 105, spa: 140, spd: 100, spe: 40},
 		abilities: {0: "Camo-Eel"},
 		heightm: 2.1,
 		weightkg: 80.5,
