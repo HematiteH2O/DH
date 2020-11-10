@@ -918,14 +918,6 @@ export const BattleAbilities: {[k: string]: ModdedAbilityData} = {
 	camoeel: {
 		shortDesc: "On entry, this Pokémon becomes a random type that's super effective against an adjacent opponent.",
 		onStart(pokemon) {
-			if (pokemon.side.foe.active.some(
-				foeActive => foeActive && this.isAdjacent(pokemon, foeActive) && foeActive.ability === 'noability'
-			)) {
-				this.effectData.gaveUp = true;
-			}
-		},
-		onUpdate(pokemon) {
-			if (!pokemon.isStarted || this.effectData.gaveUp) return;
 			const possibleTargets = pokemon.side.foe.active.filter(foeActive => foeActive && this.isAdjacent(pokemon, foeActive));
 			while (possibleTargets.length) {
 				let rand = 0;
