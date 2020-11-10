@@ -938,9 +938,9 @@ export const BattleAbilities: {[k: string]: ModdedAbilityData} = {
 					if (
 						this.dex.getImmunity(moveType, pokemon) && this.dex.getEffectiveness(moveType, target) > 0
 					) {
-						if (!source.setType(moveType)) return false;
+						if (!pokemon.setType(moveType)) return false;
 						this.add('-message', `${pokemon.name} changed its type to match its ${move.name}!`);
-						this.add('-start', source, 'typechange', moveType);
+						this.add('-start', pokemon, 'typechange', moveType);
 						return;
 					}
 				}
