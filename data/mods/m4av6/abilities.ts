@@ -915,6 +915,42 @@ export const BattleAbilities: {[k: string]: ModdedAbilityData} = {
 		rating: 3,
 		num: -1028,
 	},
+	camoeel: {
+		shortDesc: "On entry, this Pokémon becomes a random type that's super effective against an adjacent opponent.",
+		onStart(pokemon) {
+			if (pokemon.side.foe.active.some(
+				foeActive => foeActive && this.isAdjacent(pokemon, foeActive) && foeActive.ability === 'noability'
+			)) {
+				this.effectData.gaveUp = true;
+			}
+		},
+		onUpdate(pokemon) {
+			if (!pokemon.isStarted || this.effectData.gaveUp) return;
+			const possibleTargets = pokemon.side.foe.active.filter(foeActive => foeActive && this.isAdjacent(pokemon, foeActive));
+			while (possibleTargets.length) {
+				let rand = 0;
+				if (possibleTargets.length > 1) rand = this.random(possibleTargets.length);
+				const target = possibleTargets[rand];
+				for (const moveSlot of pokemon.moveSlots) {
+					const move = this.dex.getMove(moveSlot.move);
+					if (move.category === 'Status') continue;
+					const moveType = move.id === 'hiddenpower' ? target.hpType : move.type;
+					if (
+						this.dex.getImmunity(moveType, pokemon) && this.dex.getEffectiveness(moveType, target) > 0
+					) {
+						if (!source.setType(moveType)) return false;
+						this.add('-message', `${pokemon.name} changed its type to match its ${move.name}!`);
+						this.add('-start', source, 'typechange', moveType);
+						return;
+					}
+				}
+				this.add('-message', `${pokemon.name} can't hit ${target.name} super effectively!`);
+			}
+		},
+		name: "Camo-Eel",
+		rating: 3,
+		num: -1029,
+	},
 	curiousmedicine: {
 		onStart(pokemon) {
 			for (const ally of pokemon.side.active) {
