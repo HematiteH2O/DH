@@ -919,7 +919,7 @@ export const BattleAbilities: {[k: string]: ModdedAbilityData} = {
 		shortDesc: "On entry, this Pokémon becomes a random type that's super effective against an adjacent opponent.",
 		onStart(pokemon) {
 			const possibleTargets = pokemon.side.foe.active.filter(foeActive => foeActive && this.isAdjacent(pokemon, foeActive));
-			while (possibleTargets.length && this.effectData.gaveUp === false) {
+			while (possibleTargets.length) {
 				let rand = 0;
 				if (possibleTargets.length > 1) rand = this.random(possibleTargets.length);
 				const target = possibleTargets[rand];
@@ -937,7 +937,7 @@ export const BattleAbilities: {[k: string]: ModdedAbilityData} = {
 					}
 				}
 				this.add('-message', `${pokemon.name} can't hit ${target.name} super effectively!`);
-				this.effectData.gaveUp = true;
+				return;
 			}
 		},
 		name: "Camo-Eel",
