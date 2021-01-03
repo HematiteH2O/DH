@@ -496,7 +496,7 @@ export class RandomTeams {
 						// Ties between Physical and Special setup should broken in favor of STABs
 						counter[move.category] += 0.1;
 					}
-				} else if (movetype === 'Normal' && (hasAbility['Aerilate'] || hasAbility['Galvanize'] || hasAbility['Pixilate'] || hasAbility['Refrigerate'])) {
+				} else if (movetype === 'Normal' && (hasAbility['Aerilate'] || hasAbility['Galvanize'] || hasAbility['Pixilate'] || hasAbility['Refrigerate'] || hasAbility['Ignite'])) {
 					counter['stab']++;
 				} else if (move.priority === 0 && (hasAbility['Libero'] || hasAbility['Protean']) && !NoStab.includes(moveid)) {
 					counter['stab']++;
@@ -642,6 +642,23 @@ export class RandomTeams {
 			hasMove = {};
 			for (const moveid of moves) {
 				hasMove[moveid] = true;
+			}
+
+			// this part is to guarantee randbatsForcedMoves as the first priority
+			if (!isDoubles && species.randbatsForcedMove) {
+				const forcedPool = species.randbatsForcedMove.slice();
+				while (moves.length < 4 && forcedPool.length) {
+					const moveid = this.sampleNoReplace(forcedPool);
+					hasMove[moveid] = true;
+					moves.push(moveid);
+				}
+			} else if (isDoubles && species.randbatsDoublesForcedMoves)) {
+				const forcedPool = species.randbatsDoublesForcedMoves.slice();
+				while (moves.length < 4 && forcedPool.length) {
+					const moveid = this.sampleNoReplace(forcedPool);
+					hasMove[moveid] = true;
+					moves.push(moveid);
+				}
 			}
 
 			// Choose next 4 moves from learnset/viable moves and add them to moves list:
@@ -1258,40 +1275,20 @@ export class RandomTeams {
 				if (hasAbility['Telepathy'] && (ability === 'Pressure' || hasAbility['Analytic'])) ability = 'Telepathy';
 				if (hasAbility['Triage']) ability = 'Triage';
 			}
-		//Fix certain Mega abilities
-		} else if ((forme === 'Gourgeist' || forme === 'Gourgeist-Small' || forme === 'Gourgeist-Large' || forme === 'Gourgeist-Super') && mega) {
-			ability = 'Frisk';
-		} else if ((forme === 'Meowstic-F') && mega) {
-			ability = 'Competitive';
-		} else if ((forme === 'Meowstic') && mega) {
-			ability = 'Prankster'; 
-		} else if ((forme === 'Sawsbuck' || forme === 'Sawsbuck-Summer' || forme === 'Sawsbuck-Autumn' || forme === 'Sawsbuck-Winter') && mega ) {
-			ability = 'Sap Sipper'; 
-		} else if ((forme === 'Flareon') && mega) {
-			ability = 'Flash Fire';
-		} else if ((forme === 'Vaporeon') && mega) {
-			ability = 'Water Absorb';
-		} else if ((forme === 'Jolteon') && mega) {
-			ability = 'Volt Absorb';
-		} else if ((forme === 'Gigalith') && mega) {
-			if (teamDetails['sun']) ability = 'Sturdy';
-		} else if ((forme === 'Slowking') && mega) {
-			ability = 'Regenerator';
-		} else if ((forme === 'Aurorus') && mega) {
-			ability = 'Snow Warning';
-		} else if ((forme === 'Reuniclus') && mega) {
-			ability = 'Regenerator';
-		} else if ((forme === 'Raichu') && mega) {
-			ability = 'Lightning Rod';
-		} else if ((forme === 'Luxray' || forme === 'Staraptor') && mega) {
-			ability = 'Intimidate';
 		} else {
 			ability = ability0.name;
+		}
+		// adding this so you can guarantee a specific base Ability on a per-species basis
+		if ((!isDoubles && species.randbatsForcedAbility) || (isDoubles && species.randbatsDoublesForcedAbility)) {
+			ability = !isDoubles ? species.randbatsForcedAbility : (species.randbatsDoublesForcedAbility || species.randbatsForcedAbility);
 		}
 
 		item = !isDoubles ? 'Leftovers' : 'Sitrus Berry';
 		if (species.requiredItems) {
 			item = this.sample(species.requiredItems);
+		// adding this so you can define (a set of) species.forcedRandomItems manually if you want to guarantee something on a per-species basis
+		} else if ((!isDoubles && species.randbatsForcedItem) || (isDoubles && species.randbatsDoublesForcedItem)) {
+			ability = !isDoubles ? this.sample(species.randbatsForcedItem) : (this.sample(species.randbatsDoublesForcedItem) || this.sample(species.randbatsForcedItem));
 
 		// First, the extra high-priority items
 		// This version of the code doesn't include Z-Crystals, so I'm copying that part over
@@ -1326,34 +1323,15 @@ export class RandomTeams {
 			item = 'Aloraichium Z';
 		
 		// Normal code:
-		} else if (species.name === 'Eternatus' && counter.Status < 2) {
-			item = 'Metronome';
-		} else if (species.name === 'Farfetch\u2019d') {
-			item = 'Leek';
 		} else if (ability === 'Poison Heal' || ability === 'Toxic Boost') { //just for you bitio
-			item = 'Toxic Orb'; 
-		} else if (species.name === 'Froslass' && !isDoubles) {
-			item = 'Wide Lens';
-		} else if (species.name === 'Latios' && counter.Special === 2 && !isDoubles) {
-			item = 'Soul Dew';
-		} else if (species.name === 'Lopunny') {
-			item = isDoubles ? 'Iron Ball' : 'Toxic Orb';
-		} else if (species.baseSpecies === 'Marowak') {
-			item = 'Thick Club';
+			item = 'Toxic Orb';
 		} else if (species.baseSpecies === 'Pikachu') {
 			forme = 'Pikachu' + this.sample(['', '-Original', '-Hoenn', '-Sinnoh', '-Unova', '-Kalos', '-Alola', '-Partner', '-World']);
-			item = 'Light Ball';
-		} else if (species.name === 'Regieleki' && !isDoubles) {
-			item = 'Normal Gem';
 		} else if (species.name === 'Shedinja') {
 			item = (!teamDetails.defog && !teamDetails.rapidSpin && !isDoubles) ? 'Heavy-Duty Boots' : 'Focus Sash';
-		} else if (species.name === 'Shuckle' && hasMove['stickyweb']) {
-			item = 'Mental Herb';
 		} else if (['Corsola', 'Tangrowth'].includes(species.name) && !!counter.Status && !isDoubles) {
 			item = 'Rocky Helmet';
-		} else if (species.name === 'Unfezant' || hasMove['focusenergy']) {
-			item = 'Scope Lens';
-		} else if (species.name === 'Wobbuffet' || ['Cheek Pouch', 'Harvest', 'Ripen'].includes(ability)) {
+		} else if (['Cheek Pouch', 'Harvest', 'Ripen'].includes(ability)) {
 			item = 'Sitrus Berry';
 		} else if (ability === 'Gluttony') {
 			item = this.sample(['Aguav', 'Figy', 'Iapapa', 'Mago', 'Wiki']) + ' Berry';
@@ -1365,8 +1343,6 @@ export class RandomTeams {
 			} else {
 				item = (counter.Physical > counter.Special) ? 'Choice Band' : 'Choice Specs';
 			}
-		} else if (species.name === 'Unown') {
-			item = 'Choice Specs';
 		} else if (species.evos.length && !hasMove['uturn'] && !hasMove['partingshot']) {
 			item = 'Eviolite';
 		} else if (hasMove['bellydrum']) {
@@ -1712,7 +1688,7 @@ export class RandomTeams {
 					if (this.gen >= 7 && this.randomChance(1, 2)) continue;
 					break;
 				case 'Darmanitan':
-					if (species.gen === 8 && this.randomChance(1, 2)) continue;
+					if (this.randomChance(1, 2)) continue;
 					break;
 				case 'Magearna': case 'Toxtricity': case 'Zacian': case 'Zamazenta':
 				case 'Appletun': case 'Blastoise': case 'Butterfree': case 'Copperajah': case 'Grimmsnarl': case 'Inteleon': case 'Rillaboom': case 'Snorlax': case 'Urshifu':
@@ -1720,8 +1696,8 @@ export class RandomTeams {
 					break;
 				}
 
-				// Illusion shouldn't be on the last slot
-				if ((species.name === 'Zoroark' || species.name === 'Inteleon-Mega')&& pokemon.length > 4) continue;
+				// Illusion shouldn't be on the last slot, and I noticed the level-changing code messes up if you have both of these so I'm limiting you to one
+				if ((species.name === 'Zoroark' || species.name === 'Inteleon-Mega') && (teamDetails.illusion || pokemon.length > 4)) continue;
 
 				const tier = species.tier;
 				const types = species.types;
@@ -1751,7 +1727,7 @@ export class RandomTeams {
 					if (typeComboCount[typeCombo] >= (isMonotype ? 2 : 1)) continue;
 					
 					// Actually limit the number of Megas to one, 
-					// but make sure we always have one by the last member if we dont already
+					// but make sure we always have one by the last member if we don't already
 					if (isMega) {
 						if (megaCount >= 1) continue;
 						else megaCount++;
@@ -1814,9 +1790,10 @@ export class RandomTeams {
 				if (set.moves.includes('defog')) teamDetails['defog'] = 1;
 				if (set.moves.includes('rapidspin')) teamDetails['rapidSpin'] = 1;
 				if (set.moves.includes('auroraveil') || set.moves.includes('reflect') && set.moves.includes('lightscreen')) teamDetails['screens'] = 1;
+				if (set.item.zMove) teamDetails['zMove'] = 1;
 
 				// For setting Zoroark's level
-				if (set.ability === 'Illusion') teamDetails['illusion'] = pokemon.length;
+				if (set.ability === 'Illusion' || set.item === 'Inteleonite') teamDetails['illusion'] = pokemon.length;
 			}
 		}
 		if (pokemon.length < 6) throw new Error(`Could not build a random team for ${this.format} (seed=${seed})`);
