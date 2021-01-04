@@ -496,7 +496,7 @@ export class RandomTeams {
 						// Ties between Physical and Special setup should broken in favor of STABs
 						counter[move.category] += 0.1;
 					}
-				} else if (movetype === 'Normal' && (hasAbility['Aerilate'] || hasAbility['Galvanize'] || hasAbility['Pixilate'] || hasAbility['Refrigerate'] || hasAbility['Ignite'])) {
+				} else if (movetype === 'Normal' && (hasAbility['Aerilate'] || hasAbility['Galvanize'] || hasAbility['Pixilate'] || hasAbility['Refrigerate'] || hasAbility['Ignite'] || hasAbility['Desert Gales'])) {
 					counter['stab']++;
 				} else if (move.priority === 0 && (hasAbility['Libero'] || hasAbility['Protean']) && !NoStab.includes(moveid)) {
 					counter['stab']++;
@@ -1049,7 +1049,7 @@ export class RandomTeams {
 					(hasType['Grass'] && !counter['Grass'] && (species.baseStats.atk >= 100 || movePool.includes('leafstorm'))) ||
 					(hasType['Ground'] && !counter['Ground']) ||
 					(hasType['Ice'] && (!counter['Ice'] || movePool.includes('iciclecrash') || (hasAbility['Snow Warning'] && movePool.includes('blizzard')))) ||
-					((hasType['Normal'] && hasAbility['Guts'] && movePool.includes('facade')) || ((hasAbility['Pixilate'] || hasAbility['Refrigerate'] || hasAbility['Aerilate'] || hasAbility['Galvanize'] || hasAbility['Ignite']) && !counter['Normal'])) ||
+					((hasType['Normal'] && hasAbility['Guts'] && movePool.includes('facade')) || ((hasAbility['Pixilate'] || hasAbility['Refrigerate'] || hasAbility['Aerilate'] || hasAbility['Galvanize'] || hasAbility['Ignite'] || hasAbility['Desert Gales']) && !counter['Normal'])) ||
 					(hasType['Poison'] && !counter['Poison'] && (counter.setupType || hasAbility['Sheer Force'] || movePool.includes('gunkshot'))) ||
 					(hasType['Psychic'] && !counter['Psychic'] && !hasType['Ghost'] && !hasType['Steel'] && (counter.setupType || hasAbility['Psychic Surge'] || movePool.includes('psychicfangs'))) ||
 					(hasType['Rock'] && !counter['Rock'] && species.baseStats.atk >= 80) ||
@@ -1323,12 +1323,12 @@ export class RandomTeams {
 			item = 'Aloraichium Z';
 		
 		// Normal code:
+		} else if ((hasMove['defog'] || hasMove['rapidspin']) && this.dex.getEffectiveness('Rock', species) >= 1 && !isDoubles) {
+			item = 'Heavy-Duty Boots';
 		} else if (ability === 'Poison Heal' || ability === 'Toxic Boost') { //just for you bitio
 			item = 'Toxic Orb';
 		} else if (species.baseSpecies === 'Pikachu') {
 			forme = 'Pikachu' + this.sample(['', '-Original', '-Hoenn', '-Sinnoh', '-Unova', '-Kalos', '-Alola', '-Partner', '-World']);
-		} else if (species.name === 'Shedinja') {
-			item = (!teamDetails.defog && !teamDetails.rapidSpin && !isDoubles) ? 'Heavy-Duty Boots' : 'Focus Sash';
 		} else if (['Corsola', 'Tangrowth'].includes(species.name) && !!counter.Status && !isDoubles) {
 			item = 'Rocky Helmet';
 		} else if (['Cheek Pouch', 'Harvest', 'Ripen'].includes(ability)) {
@@ -1481,7 +1481,7 @@ export class RandomTeams {
 			item = 'Mystic Water';
 		} else if (hasMove['clangoroussoul'] || hasMove['boomburst'] && !!counter['speedsetup']) {
 			item = 'Throat Spray';
-		} else if (((this.dex.getEffectiveness('Rock', species) >= 1 && (!teamDetails.defog || ability === 'Intimidate' || hasMove['uturn'] || hasMove['voltswitch'])) ||
+		} else if (((this.dex.getEffectiveness('Rock', species) >= 1 && (ability === 'Intimidate' || hasMove['uturn'] || hasMove['voltswitch'])) ||
 			(hasMove['rapidspin'] && (ability === 'Regenerator' || !!counter['recovery']))) && !isDoubles
 		) {
 			item = 'Heavy-Duty Boots';
@@ -1694,6 +1694,9 @@ export class RandomTeams {
 				case 'Appletun': case 'Blastoise': case 'Butterfree': case 'Copperajah': case 'Grimmsnarl': case 'Inteleon': case 'Rillaboom': case 'Snorlax': case 'Urshifu':
 					if (this.gen >= 8 && this.randomChance(1, 2)) continue;
 					break;
+				case 'Calyrex':
+					if (this.randomChance(2, 3)) continue;
+					break;
 				}
 
 				// Illusion shouldn't be on the last slot, and I noticed the level-changing code messes up if you have both of these so I'm limiting you to one
@@ -1777,19 +1780,61 @@ export class RandomTeams {
 					typeComboCount[typeCombo] = 1;
 				}
 
-				
 				// Track what the team has
-				if (set.ability === 'Drizzle' || set.moves.includes('raindance') || species === 'Vanilluxe-Mega') teamDetails['rain'] = 1;
-				if (set.ability === 'Drought' || set.moves.includes('sunnyday')) teamDetails['sun'] = 1;
-				if (set.ability === 'Sand Stream'|| set.ability === 'Sand Spit') teamDetails['sand'] = 1;
+				if (set.ability === 'Drizzle' || set.item === 'Walreinite' || set.moves.includes('raindance') || species === 'Vanilluxe-Mega') teamDetails['rain'] = 1;
+				if (set.ability === 'Drought' || set.item === 'Charizardite Y' || set.moves.includes('sunnyday')) teamDetails['sun'] = 1;
+				if (set.ability === 'Sand Stream' || set.ability === 'Sand Spit' || set.item === 'Flygonite') teamDetails['sand'] = 1;
 				if (set.ability === 'Snow Warning' || species === 'Vanilluxe-Mega') teamDetails['hail'] = 1;
+				if (set.moves.includes('auroraveil') || set.moves.includes('reflect') && set.moves.includes('lightscreen')) teamDetails['screens'] = 1;
+				is (set.moves.includes('trickroom')) teamDetails['trickroom'] = 1;
+
 				if (set.moves.includes('spikes')) teamDetails['spikes'] = (teamDetails['spikes'] || 0) + 1;
 				if (set.moves.includes('stealthrock')) teamDetails['stealthRock'] = 1;
 				if (set.moves.includes('stickyweb')) teamDetails['stickyWeb'] = 1;
 				if (set.moves.includes('toxicspikes')) teamDetails['toxicSpikes'] = 1;
+				if (set.moves.includes('spikes') || set.moves.includes('stealthrock') || set.moves.includes('stickyweb') || set.moves.includes('toxicspikes')) teamDetails['entryHazards'] = 1;
+
 				if (set.moves.includes('defog')) teamDetails['defog'] = 1;
 				if (set.moves.includes('rapidspin')) teamDetails['rapidSpin'] = 1;
-				if (set.moves.includes('auroraveil') || set.moves.includes('reflect') && set.moves.includes('lightscreen')) teamDetails['screens'] = 1;
+				if (set.item === 'Garbodorite' || set.moves.includes('defog') || set.moves.includes('rapidspin')) teamDetails['hazardControl'] = 1;
+
+				if (set.moves.includes('toxic')) teamDetails['toxic'] = 1;
+
+				if (set.moves.includes('uturn') || set.moves.includes('voltswitch') || set.moves.includes('partingshot') || set.moves.includes('teleport') || set.moves.includes('flipturn')) teamDetails['pivoting'] = 1;
+
+				if (set.ability === 'Flame Body' || set.item === 'Magcargonite' || set.moves.includes('willowisp') || set.moves.includes('lavaplume') || set.moves.includes('scald') || set.moves.includes('scorchingsands') || set.moves.includes('sacredfire') || set.moves.includes('beakblast')) teamDetails['burn'] = 1;
+
+				if (
+					(set.ability === 'Moxie' || set.item === 'Nidokinite') || set.ability === 'Soul-Heart' || set.ability === 'Beast Boost' || set.ability === 'Contrary' || set.item === 'Reunite' || set.moves.includes('swordsdance') || set.moves.includes('dragondance') || set.moves.includes('shiftgear') || set.moves.includes('bellydrum') || set.moves.includes('acupressure') || set.moves.includes('nastyplot') || set.moves.includes('calmmind') || set.moves.includes('quiverdance') || set.moves.includes('clangoroussoul') || set.moves.includes('shellsmash') || (set.moves.includes('growth') && teamDetails.sun) || set.item === 'Gigalite' || set.item === 'Lurantisite' || (set.item === 'Luxrite' && set.moves.includes('agility'))
+				) {
+					teamDetails['setup'] = 1;
+				}
+
+				if (
+					set.moves.includes('extremespeed') || set.moves.includes('grassyglide') || set.moves.includes('suckerpunch') || set.item === 'Choice Scarf' || set.item === 'Slowkinite' || set.ability === 'Swift Swim' || set.ability === 'Chlorophyll' || set.ability === 'Sand Rush' || set.ability === 'Slush Rush' || set.ability === 'Surge Surfer' || set.ability === 'Gale Wings'
+				) {
+					teamDetails['speedcontrol'] = 1;
+				}
+				
+				if (this.dex.getEffectiveness('Fire', species) < 1 || set.ability === 'Flash Fire') teamDetails['fireResist'] = 1;
+				if (this.dex.getEffectiveness('Water', species) < 1 || set.ability === 'Storm Drain' || set.ability === 'Water Absorb') teamDetails['waterResist'] = 1;
+				if (this.dex.getEffectiveness('Electric', species) < 1 || set.ability === 'Lightning Rod' || set.ability === 'Motor Drive' || set.ability === 'Volt Absorb') teamDetails['electricResist'] = 1;
+				if (this.dex.getEffectiveness('Grass', species) < 1 || set.ability === 'Sap Sipper') teamDetails['grassResist'] = 1;
+				if (this.dex.getEffectiveness('Ice', species) < 1 || set.ability === 'Thick Fat') teamDetails['iceResist'] = 1;
+				if (this.dex.getEffectiveness('Fighting', species) < 1) teamDetails['fightingResist'] = 1;
+				if (this.dex.getEffectiveness('Poison', species) < 1) teamDetails['poisonResist'] = 1;
+				if (this.dex.getEffectiveness('Ground', species) < 1 || set.ability === 'Levitate' || set.ability === 'Grassy Surge' || set.item === 'Rillaboomite') teamDetails['groundResist'] = 1;
+				if (this.dex.getEffectiveness('Flying', species) < 1) teamDetails['flyingResist'] = 1;
+				if (this.dex.getEffectiveness('Psychic', species) < 1) teamDetails['psychicResist'] = 1;
+				if (this.dex.getEffectiveness('Bug', species) < 1) teamDetails['bugResist'] = 1;
+				if (this.dex.getEffectiveness('Rock', species) < 1) teamDetails['rockResist'] = 1;
+				if (this.dex.getEffectiveness('Ghost', species) < 1) teamDetails['ghostResist'] = 1;
+				if (this.dex.getEffectiveness('Dragon', species) < 1) teamDetails['dragonResist'] = 1;
+				if (this.dex.getEffectiveness('Dark', species) < 1) teamDetails['darkResist'] = 1;
+				if (this.dex.getEffectiveness('Steel', species) < 1) teamDetails['steelResist'] = 1;
+				if (this.dex.getEffectiveness('Fairy', species) < 1) teamDetails['fairyResist'] = 1;
+				if (this.dex.getEffectiveness('Normal', species) < 1) teamDetails['normalResist'] = 1;
+				
 				if (this.dex.getItem(set.item).zMove) teamDetails['zMove'] = 1;
 
 				// For setting Zoroark's level
