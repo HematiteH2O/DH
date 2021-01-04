@@ -652,7 +652,7 @@ export class RandomTeams {
 					hasMove[moveid] = true;
 					moves.push(moveid);
 				}
-			} else if (isDoubles && species.randbatsDoublesForcedMoves)) {
+			} else if (isDoubles && species.randbatsDoublesForcedMoves) {
 				const forcedPool = species.randbatsDoublesForcedMoves.slice();
 				while (moves.length < 4 && forcedPool.length) {
 					const moveid = this.sampleNoReplace(forcedPool);
