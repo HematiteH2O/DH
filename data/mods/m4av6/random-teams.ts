@@ -1387,6 +1387,7 @@ export class RandomTeams {
 				item = 'Misty Seed';
 			} else {
 				item = 'Sitrus Berry';
+			}
 		} else if (hasMove['acrobatics']) {
 			item = (ability === 'Grassy Surge') ? 'Grassy Seed' : '';
 		} else if (hasMove['auroraveil'] || hasMove['lightscreen'] && hasMove['reflect']) {
