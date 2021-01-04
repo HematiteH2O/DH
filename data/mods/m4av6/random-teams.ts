@@ -1652,14 +1652,13 @@ export class RandomTeams {
 		
 		const teamDetails: RandomTeamsTypes.TeamDetails = {};
 		
-		let megaCount = 0; 
+		let megaCount = 0;
 
 		// We make at most two passes through the potential Pokemon pool when creating a team - if the first pass doesn't
 		// result in a team of six Pokemon we perform a second iteration relaxing as many restrictions as possible.
 		for (const restrict of [true, false]) {
 			if (pokemon.length >= 6) break;
 			const pokemonPool = this.getPokemonPool(type, pokemon, isMonotype);
-			let triesSoFar = 0;
 			while (pokemonPool.length && pokemon.length < 6) {
 				let species = this.dex.getSpecies(this.sampleNoReplace(pokemonPool));
 				
@@ -1726,33 +1725,8 @@ export class RandomTeams {
 						if (skip) continue;
 					}
 				
-					let typeValid = false;
-					// if it adds at least one new resistance to the team, it's valid
-					if (!teamDetails.fireResist && (this.dex.getEffectiveness('Fire', species) < 1 || set.ability === 'Flash Fire' || set.ability === 'Water Bubble')) {
-						typeValid = true;
-					} else if (!teamDetails.electricResist && (this.dex.getEffectiveness('Electric', species) < 1 || set.ability === 'Lightning Rod' || set.ability === 'Motor Drive' || set.ability === 'Volt Absorb')) {
-						typeValid = true;
-					} else if (!teamDetails.iceResist && (this.dex.getEffectiveness('Ice', species) < 1 || set.ability === 'Thick Fat')) {
-						typeValid = true;
-					} else if (!teamDetails.fightingResist && (this.dex.getEffectiveness('Fighting', species) < 1)) {
-						typeValid = true;
-					} else if (!teamDetails.groundResist && (this.dex.getEffectiveness('Ground', species) < 1 || set.ability === 'Levitate' || set.ability === 'Grassy Surge' || set.item === 'Rillaboomite')) {
-						typeValid = true;
-					} else if (!teamDetails.flyingResist && (this.dex.getEffectiveness('Flying', species) < 1)) {
-						typeValid = true;
-					} else if (!teamDetails.rockResist && (this.dex.getEffectiveness('Rock', species) < 1)) {
-						typeValid = true;
-					} else if (
-						teamDetails.fireResist && teamDetails.electricResist && teamDetails.iceResist && teamDetails.fightingResist && teamDetails.groundResist && teamDetails.flyingResist && teamDetails.rockResist
-					) {
-						// if every type is already resisted, it's also fine
-						typeValid = true;
-						// Megas are exempt, and the last Pokémon is exempt
-					} else if (isMega || pokemon.length === 5) typeValid = true;
-
 					// Limit one of any type combination, two in Monotype
 					if (typeComboCount[typeCombo] >= (isMonotype ? 2 : 1)) continue;
-					if (!typeValid) continue;
 					
 					// Actually limit the number of Megas to one, 
 					// but guarantee one as soon as possible (except the lead) if we don't have one already
@@ -1797,11 +1771,9 @@ export class RandomTeams {
 				// once again allowing the last slot to be a freebie
 				if (pokemon.length === 5) roleValid = true;
 				
-				if ((leadValid && (roleValid || isMega)) || triesSoFar > 32) {
-					triesSoFar = 0;
+				if (leadValid && (roleValid || isMega)) {
 					pokemon.push(set);
 				} else {
-					triesSoFar++;
 					continue;
 				}
 
