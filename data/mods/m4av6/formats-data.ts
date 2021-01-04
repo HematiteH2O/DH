@@ -1954,6 +1954,8 @@ export const FormatsData: {[k: string]: SpeciesFormatsData} = {
 	shedinja: {
 		randomBattleMoves: ["swordsdance", "willowisp", "xscissor", "shadowsneak", "shadowclaw"],
 		randomDoubleBattleMoves: ["swordsdance", "willowisp", "xscissor", "shadowsneak", "allyswitch", "protect"],
+		randbatsForcedItem: ["Heavy-Duty Boots"],
+		randbatsDoublesForcedItem: ["Focus Sash"],
 		tier: "(PU)",
 		doublesTier: "(DUU)",
 	},
