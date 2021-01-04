@@ -1764,45 +1764,43 @@ export class RandomTeams {
 					if (set.ability === 'Flame Body' || set.item === 'Magcargonite' || set.moves.includes('willowisp') || set.moves.includes('lavaplume') || set.moves.includes('scald') || set.moves.includes('scorchingsands') || set.moves.includes('sacredfire') || set.moves.includes('beakblast')) {
 						roleValid = true;
 					}
-				}
-				if (!teamDetails.toxic) {
+				} else if (!teamDetails.toxic) {
 					if (set.moves.includes('toxic')) {
 						roleValid = true;
 					}
-				}
-				if (!teamDetails.pivoting) {
+				} else if (!teamDetails.pivoting) {
 					if (set.moves.includes('uturn') || set.moves.includes('voltswitch') || set.moves.includes('partingshot') || set.moves.includes('teleport') || set.moves.includes('flipturn')) {
 						roleValid = true;
 					}
-				}
-				if (!teamDetails.entryHazards) {
+				} else if (!teamDetails.entryHazards) {
 					if (set.moves.includes('spikes') || set.moves.includes('stealthrock') || set.moves.includes('stickyweb') || set.moves.includes('toxicspikes')) {
 						roleValid = true;
 					}
-				}
-				if (!teamDetails.hazardControl) {
+				} else if (!teamDetails.hazardControl) {
 					if (set.item === 'Garbodorite' || set.moves.includes('defog') || set.moves.includes('rapidspin')) {
 						roleValid = true;
 					}
-				}
-				if (!teamDetails.setup) {
+				} else if (!teamDetails.setup) {
 					if (
 						(set.ability === 'Moxie' || set.item === 'Nidokinite') || set.ability === 'Soul-Heart' || set.ability === 'Beast Boost' || set.ability === 'Contrary' || set.item === 'Reunite' || set.moves.includes('swordsdance') || set.moves.includes('dragondance') || set.moves.includes('shiftgear') || set.moves.includes('bellydrum') || set.moves.includes('acupressure') || set.moves.includes('nastyplot') || set.moves.includes('calmmind') || set.moves.includes('quiverdance') || set.moves.includes('clangoroussoul') || set.moves.includes('shellsmash') || (set.moves.includes('growth') && teamDetails.sun) || set.item === 'Gigalite' || set.item === 'Lurantisite' || (set.item === 'Luxrite' && set.moves.includes('agility'))
 					) {
 						roleValid = true;
 					}
-				}
-				if (!teamDetails.speedcontrol) {
+				} else if (!teamDetails.speedcontrol) {
 					if (
 						set.moves.includes('extremespeed') || set.moves.includes('grassyglide') || set.moves.includes('suckerpunch') || set.item === 'Choice Scarf' || set.item === 'Slowkinite' || set.ability === 'Swift Swim' || species.baseStats.spe >= 120 || set.ability === 'Chlorophyll' || set.ability === 'Sand Rush' || set.ability === 'Slush Rush' || set.ability === 'Surge Surfer' || set.ability === 'Gale Wings'
 					) {
 						roleValid = true;
 					}
+				} else {
+					// if all of the roles are already filled
+					roleValid = true;
 				}
 				// forcing Megas to be valid no matter what
 				if (isMega) roleValid = true;
 				// allowing the last slot to be a freebie, in favor of guaranteeing good synergy with the team's Mega typewise later
 				if (pokemon.length === 5) roleValid = true;
+				// everything is fine if all of the roles are covered
 				
 				// if it adds at least one new resistance to the team, it's valid...
 				if (this.dex.getEffectiveness('Fire', species) < 1 || set.ability === 'Flash Fire' || set.ability === 'Water Bubble') {
@@ -1896,7 +1894,11 @@ export class RandomTeams {
 					}
 				}
 				
-				if ((leadValid && roleValid && typeValid)) pokemon.push(set);
+				if ((leadValid && roleValid && typeValid)) {
+					pokemon.push(set);
+				} else {
+					continue;
+				}
 
 				if (pokemon.length === 6) {
 					// Set Zoroark's level to be the same as the last Pokemon
