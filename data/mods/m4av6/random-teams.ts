@@ -720,7 +720,7 @@ export class RandomTeams {
 					if (counter.Physical + counter.Special < 3 || hasMove['futuresight'] || hasMove['rapidspin']) rejected = true;
 					break;
 				case 'trickroom':
-					if (counter.damagingMoves.length < 2 || movePool.includes('nastyplot') || isLead || teamDetails.stickyWeb) rejected = true;
+					if (counter.damagingMoves.length < 2 || movePool.includes('nastyplot') || isLead || teamDetails.stickyWeb || teamDetails.megaEvolution === 'Slowking-Mega') rejected = true;
 					break;
 				case 'zenheadbutt':
 					if (movePool.includes('boltstrike')) rejected = true;
@@ -2032,7 +2032,7 @@ export class RandomTeams {
 				if (set.ability === 'Sand Stream' || set.ability === 'Sand Spit' || set.item === 'Flygonite') teamDetails['sand'] = 1;
 				if (set.ability === 'Snow Warning' || species === 'Vanilluxe-Mega') teamDetails['hail'] = 1;
 				if (set.moves.includes('auroraveil') || set.moves.includes('reflect') && set.moves.includes('lightscreen')) teamDetails['screens'] = 1;
-				is (set.moves.includes('trickroom')) teamDetails['trickroom'] = 1;
+				if (set.moves.includes('trickroom')) teamDetails['trickroom'] = 1;
 
 				if (set.moves.includes('spikes')) teamDetails['spikes'] = (teamDetails['spikes'] || 0) + 1;
 				if (set.moves.includes('stealthrock')) teamDetails['stealthRock'] = 1;
