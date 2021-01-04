@@ -3005,7 +3005,7 @@ export const FormatsData: {[k: string]: SpeciesFormatsData} = {
 		doublesTier: "(DUU)",
 	},
 	drapionmega: {
-		randomBattleMoves: ["knockoff", "pursuit", "taunt", "toxicspikes", "toxic", "earthquake", "stompingtantrum", "swordsdance", "shoreup"],
+		randomBattleMoves: ["knockoff", "pursuit", "taunt", "toxicspikes", "toxic", "stompingtantrum", "swordsdance", "shoreup"],
 		randomDoubleBattleMoves: ["snarl", "taunt", "protect", "stompingtantrum", "swordsdance", "poisonjab", "knockoff"],
 		tier: "RU",
 		doublesTier: "(DUU)",
