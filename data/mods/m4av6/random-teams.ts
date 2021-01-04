@@ -1659,6 +1659,7 @@ export class RandomTeams {
 		for (const restrict of [true, false]) {
 			if (pokemon.length >= 6) break;
 			const pokemonPool = this.getPokemonPool(type, pokemon, isMonotype);
+			let triesSoFar = 0;
 			while (pokemonPool.length && pokemon.length < 6) {
 				let species = this.dex.getSpecies(this.sampleNoReplace(pokemonPool));
 				
@@ -1706,7 +1707,6 @@ export class RandomTeams {
 				const types = species.types;
 				const typeCombo = types.slice().sort().join();
 				const isMega = (species.forme.startsWith('Mega'));
-				
 
 				if (restrict) {
 					// Limit one Pokemon per tier, two for Monotype
@@ -1806,9 +1806,12 @@ export class RandomTeams {
 					typeValid = true;
 				}
 				
-				if (leadValid && roleValid && typeValid) {
+				if ((leadValid && roleValid && typeValid) || triesSoFar > 128) {
+					if (megaCount > 0 && isMega) continue;
+					triesSoFar = 0;
 					pokemon.push(set);
 				} else {
+					triesSoFar++;
 					continue;
 				}
 
