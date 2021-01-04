@@ -1740,17 +1740,18 @@ export class RandomTeams {
 				let leadValid = false;
 				let roleValid = false;
 				
-				// if it's a hazard setter, a Pokémon that Mega Evolves to gain Magic Bounce, or some other special cases, it's valid as a lead specifically and should be considered early
+				// if it's a hazard setter, a Pokémon that Mega Evolves to gain Magic Bounce, has certain anti-lead tools or is some other special case, it's valid as a lead specifically and should be prioritized
 				if (['Sablenite', 'Diancite', 'Froslassite', 'Ariadosite', 'Magcargonite', 'Delibirdite'].includes(set.item)) {
 					leadValid = true;
 				}
 				if (set.ability === 'Magic Bounce' || set.moves.includes('taunt') || set.moves.includes('magiccoat') || set.moves.includes('destinybond') || set.moves.includes('spikes') || set.moves.includes('stealthrock') || set.moves.includes('stickyweb') || set.moves.includes('toxicspikes')) leadValid = true;
+				// don't need to check for lead validity if you're not the lead
 				if (pokemon.length !== 0) leadValid = true;
 				
 				// if it adds a necessary role, it's valid
-				if (!teamDetails.burn && (set.ability === 'Flame Body' || set.item === 'Magcargonite' || set.moves.includes('willowisp') || set.moves.includes('lavaplume') || set.moves.includes('scald') || set.moves.includes('scorchingsands') || set.moves.includes('sacredfire') || set.moves.includes('beakblast'))) {
+				if (!teamDetails.burn && set.ability !== 'Misty Surge' && (set.ability === 'Flame Body' || set.item === 'Magcargonite' || set.moves.includes('willowisp') || set.moves.includes('lavaplume') || set.moves.includes('scald') || set.moves.includes('scorchingsands') || set.moves.includes('sacredfire') || set.moves.includes('beakblast'))) {
 					roleValid = true;
-				} else if (!teamDetails.toxic && (set.moves.includes('toxic'))) {
+				} else if (!teamDetails.toxic && set.ability !== 'Misty Surge' && (set.moves.includes('toxic'))) {
 					roleValid = true;
 				} else if (!teamDetails.pivoting && (set.moves.includes('uturn') || set.moves.includes('voltswitch') || set.moves.includes('partingshot') || set.moves.includes('teleport') || set.moves.includes('flipturn'))) {
 					roleValid = true;
@@ -1766,7 +1767,7 @@ export class RandomTeams {
 					// if all of the roles are already filled, everything is fine
 					roleValid = true;
 				}
-				// once again allowing the last slot to be a freebie
+				// allowing the last slot to be a freebie to make sure no Pokémon end up left out by this system
 				if (pokemon.length === 5) roleValid = true;
 				if (isMega) roleValid = true;
 			
