@@ -1705,7 +1705,7 @@ export class RandomTeams {
 				const tier = species.tier;
 				const types = species.types;
 				const typeCombo = types.slice().sort().join();
-				const isMega = (species.name.endsWith('-Mega') || species.name.endsWith('-Mega-Y') || species.name.endsWith('-Mega-X'));
+				const isMega = (species.forme.startsWith('Mega'));
 				
 
 				if (restrict) {
@@ -1733,14 +1733,10 @@ export class RandomTeams {
 					// but make sure we always have one by the last member if we don't already
 					if (isMega) {
 						if (megaCount >= 1) continue;
-						else megaCount++;
 					} else {
-						if (megaCount === 0 && pokemon.length !== 0) continue;
+						if (megaCount === 0 && pokemon.length >= 1) continue;
 					}
 				}
-
-				// The Pokemon of the Day
-				if (!!potd && potd.exists && pokemon.length < 1) species = potd;
 
 				const set = this.randomSet(species, teamDetails, pokemon.length === 0, this.format.gameType !== 'singles');
 				
@@ -1850,7 +1846,10 @@ export class RandomTeams {
 				}
 
 				// Track what the team has
-				if (isMega) teamDetails.megaEvolution = species;
+				if (isMega) {
+					teamDetails.megaEvolution = species;
+					megaCount++;
+				}
 				if (set.ability === 'Drizzle' || set.item === 'Walreinite' || set.moves.includes('raindance') || species === 'Vanilluxe-Mega') teamDetails['rain'] = 1;
 				if (set.ability === 'Drought' || set.item === 'Charizardite Y' || set.moves.includes('sunnyday')) teamDetails['sun'] = 1;
 				if (set.ability === 'Sand Stream' || set.ability === 'Sand Spit' || set.item === 'Flygonite') teamDetails['sand'] = 1;
@@ -1873,7 +1872,7 @@ export class RandomTeams {
 				if (set.moves.includes('uturn') || set.moves.includes('voltswitch') || set.moves.includes('partingshot') || set.moves.includes('teleport') || set.moves.includes('flipturn')) teamDetails['pivoting'] = 1;
 
 				if (set.ability === 'Flame Body' || set.item === 'Magcargonite' || set.moves.includes('willowisp') || set.moves.includes('lavaplume') || set.moves.includes('scald') || set.moves.includes('scorchingsands') || set.moves.includes('sacredfire') || set.moves.includes('beakblast')) teamDetails['burn'] = 1;
-
+				
 				if (
 					(set.ability === 'Moxie' || set.item === 'Nidokinite') || set.ability === 'Soul-Heart' || set.ability === 'Beast Boost' || set.ability === 'Contrary' || set.item === 'Reunite' || set.moves.includes('swordsdance') || set.moves.includes('dragondance') || set.moves.includes('shiftgear') || set.moves.includes('bellydrum') || set.moves.includes('acupressure') || set.moves.includes('nastyplot') || set.moves.includes('calmmind') || set.moves.includes('quiverdance') || set.moves.includes('clangoroussoul') || set.moves.includes('shellsmash') || (set.moves.includes('growth') && teamDetails.sun) || set.item === 'Gigalite' || set.item === 'Lurantisite' || (set.item === 'Luxrite' && set.moves.includes('agility'))
 				) {
