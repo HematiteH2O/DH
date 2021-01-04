@@ -645,8 +645,8 @@ export class RandomTeams {
 			}
 
 			// this part is to guarantee randbatsForcedMoves as the first priority
-			if (!isDoubles && species.randbatsForcedMove) {
-				const forcedPool = species.randbatsForcedMove.slice();
+			if (!isDoubles && species.randbatsForcedMoves) {
+				const forcedPool = species.randbatsForcedMoves.slice();
 				while (moves.length < 4 && forcedPool.length) {
 					const moveid = this.sampleNoReplace(forcedPool);
 					hasMove[moveid] = true;
@@ -1049,7 +1049,7 @@ export class RandomTeams {
 					(hasType['Grass'] && !counter['Grass'] && (species.baseStats.atk >= 100 || movePool.includes('leafstorm'))) ||
 					(hasType['Ground'] && !counter['Ground']) ||
 					(hasType['Ice'] && (!counter['Ice'] || movePool.includes('iciclecrash') || (hasAbility['Snow Warning'] && movePool.includes('blizzard')))) ||
-					((hasType['Normal'] && hasAbility['Guts'] && movePool.includes('facade')) || (hasAbility['Pixilate'] && !counter['Normal'])) ||
+					((hasType['Normal'] && hasAbility['Guts'] && movePool.includes('facade')) || ((hasAbility['Pixilate'] || hasAbility['Refrigerate'] || hasAbility['Aerilate'] || hasAbility['Galvanize'] || hasAbility['Ignite']) && !counter['Normal'])) ||
 					(hasType['Poison'] && !counter['Poison'] && (counter.setupType || hasAbility['Sheer Force'] || movePool.includes('gunkshot'))) ||
 					(hasType['Psychic'] && !counter['Psychic'] && !hasType['Ghost'] && !hasType['Steel'] && (counter.setupType || hasAbility['Psychic Surge'] || movePool.includes('psychicfangs'))) ||
 					(hasType['Rock'] && !counter['Rock'] && species.baseStats.atk >= 80) ||
@@ -1288,7 +1288,7 @@ export class RandomTeams {
 			item = this.sample(species.requiredItems);
 		// adding this so you can define (a set of) species.forcedRandomItems manually if you want to guarantee something on a per-species basis
 		} else if ((!isDoubles && species.randbatsForcedItem) || (isDoubles && species.randbatsDoublesForcedItem)) {
-			ability = !isDoubles ? this.sample(species.randbatsForcedItem) : (this.sample(species.randbatsDoublesForcedItem) || this.sample(species.randbatsForcedItem));
+			item = !isDoubles ? this.sample(species.randbatsForcedItem) : (this.sample(species.randbatsDoublesForcedItem) || this.sample(species.randbatsForcedItem));
 
 		// First, the extra high-priority items
 		// This version of the code doesn't include Z-Crystals, so I'm copying that part over
@@ -1790,7 +1790,7 @@ export class RandomTeams {
 				if (set.moves.includes('defog')) teamDetails['defog'] = 1;
 				if (set.moves.includes('rapidspin')) teamDetails['rapidSpin'] = 1;
 				if (set.moves.includes('auroraveil') || set.moves.includes('reflect') && set.moves.includes('lightscreen')) teamDetails['screens'] = 1;
-				if (set.item.zMove) teamDetails['zMove'] = 1;
+				if (this.dex.getItem(set.item).zMove) teamDetails['zMove'] = 1;
 
 				// For setting Zoroark's level
 				if (set.ability === 'Illusion' || set.item === 'Inteleonite') teamDetails['illusion'] = pokemon.length;
