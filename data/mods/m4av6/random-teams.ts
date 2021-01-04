@@ -1652,7 +1652,7 @@ export class RandomTeams {
 		
 		const teamDetails: RandomTeamsTypes.TeamDetails = {};
 		
-		let megaCount = 0;
+		let hasMega = false;
 
 		// We make at most two passes through the potential Pokemon pool when creating a team - if the first pass doesn't
 		// result in a team of six Pokemon we perform a second iteration relaxing as many restrictions as possible.
@@ -1673,8 +1673,6 @@ export class RandomTeams {
 				
 				// Limit to one of each species (Species Clause)
 				if (baseFormes[species.baseSpecies]) continue;
-				
-				
 	
 				// Adjust rate for species with multiple sets
 				switch (species.baseSpecies) {
@@ -1731,9 +1729,9 @@ export class RandomTeams {
 					// Actually limit the number of Megas to one, 
 					// but guarantee one as soon as possible (except the lead) if we don't have one already
 					if (isMega) {
-						if (megaCount >= 1) continue;
+						if (hasMega) continue;
 					} else {
-						if (megaCount === 0 && pokemon.length >= 1) continue;
+						if (!hasMega && pokemon.length >= 1) continue;
 					}
 				}
 
@@ -1746,7 +1744,7 @@ export class RandomTeams {
 				if (['Sablenite', 'Diancite', 'Froslassite', 'Ariadosite', 'Magcargonite', 'Delibirdite'].includes(set.item)) {
 					leadValid = true;
 				}
-				if (set.moves.includes('spikes') || set.moves.includes('stealthrock') || set.moves.includes('stickyweb') || set.moves.includes('toxicspikes')) leadValid = true;
+				if (set.ability === 'Magic Bounce' || set.moves.includes('taunt') || set.moves.includes('magiccoat') || set.moves.includes('destinybond') || set.moves.includes('spikes') || set.moves.includes('stealthrock') || set.moves.includes('stickyweb') || set.moves.includes('toxicspikes')) leadValid = true;
 				if (pokemon.length !== 0) leadValid = true;
 				
 				// if it adds a necessary role, it's valid
@@ -1770,8 +1768,9 @@ export class RandomTeams {
 				}
 				// once again allowing the last slot to be a freebie
 				if (pokemon.length === 5) roleValid = true;
-				
-				if (leadValid && (roleValid || isMega)) {
+				if (isMega) roleValid = true;
+			
+				if (leadValid && roleValid) {
 					pokemon.push(set);
 				} else {
 					continue;
@@ -1812,8 +1811,8 @@ export class RandomTeams {
 
 				// Track what the team has
 				if (isMega) {
+					hasMega = true;
 					teamDetails.megaEvolution = species;
-					megaCount++;
 				}
 				if (set.ability === 'Drizzle' || set.item === 'Walreinite' || set.moves.includes('raindance') || species === 'Vanilluxe-Mega') teamDetails['rain'] = 1;
 				if (set.ability === 'Drought' || set.item === 'Charizardite Y' || set.moves.includes('sunnyday')) teamDetails['sun'] = 1;
@@ -1849,25 +1848,6 @@ export class RandomTeams {
 				) {
 					teamDetails['speedcontrol'] = 1;
 				}
-				
-				if (this.dex.getEffectiveness('Fire', species) < 1 || set.ability === 'Flash Fire' || set.ability === 'Water Bubble') teamDetails['fireResist'] = 1;
-				if (this.dex.getEffectiveness('Water', species) < 1 || set.ability === 'Storm Drain' || set.ability === 'Water Absorb') teamDetails['waterResist'] = 1;
-				if (this.dex.getEffectiveness('Electric', species) < 1 || set.ability === 'Lightning Rod' || set.ability === 'Motor Drive' || set.ability === 'Volt Absorb') teamDetails['electricResist'] = 1;
-				if (this.dex.getEffectiveness('Grass', species) < 1 || set.ability === 'Sap Sipper') teamDetails['grassResist'] = 1;
-				if (this.dex.getEffectiveness('Ice', species) < 1 || set.ability === 'Thick Fat') teamDetails['iceResist'] = 1;
-				if (this.dex.getEffectiveness('Fighting', species) < 1) teamDetails['fightingResist'] = 1;
-				if (this.dex.getEffectiveness('Poison', species) < 1) teamDetails['poisonResist'] = 1;
-				if (this.dex.getEffectiveness('Ground', species) < 1 || set.ability === 'Levitate' || set.ability === 'Grassy Surge' || set.item === 'Rillaboomite') teamDetails['groundResist'] = 1;
-				if (this.dex.getEffectiveness('Flying', species) < 1) teamDetails['flyingResist'] = 1;
-				if (this.dex.getEffectiveness('Psychic', species) < 1) teamDetails['psychicResist'] = 1;
-				if (this.dex.getEffectiveness('Bug', species) < 1) teamDetails['bugResist'] = 1;
-				if (this.dex.getEffectiveness('Rock', species) < 1) teamDetails['rockResist'] = 1;
-				if (this.dex.getEffectiveness('Ghost', species) < 1) teamDetails['ghostResist'] = 1;
-				if (this.dex.getEffectiveness('Dragon', species) < 1) teamDetails['dragonResist'] = 1;
-				if (this.dex.getEffectiveness('Dark', species) < 1) teamDetails['darkResist'] = 1;
-				if (this.dex.getEffectiveness('Steel', species) < 1) teamDetails['steelResist'] = 1;
-				if (this.dex.getEffectiveness('Fairy', species) < 1) teamDetails['fairyResist'] = 1;
-				if (this.dex.getEffectiveness('Normal', species) < 1) teamDetails['normalResist'] = 1;
 				
 				if (this.dex.getItem(set.item).zMove) teamDetails['zMove'] = 1;
 
