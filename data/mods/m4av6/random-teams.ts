@@ -1803,95 +1803,81 @@ export class RandomTeams {
 				// everything is fine if all of the roles are covered
 				
 				// if it adds at least one new resistance to the team, it's valid...
-				if (this.dex.getEffectiveness('Fire', species) < 1 || set.ability === 'Flash Fire' || set.ability === 'Water Bubble') {
-					if (!teamDetails.fireResist) {
+				if (!teamDetails.fireResist) {
+					if (this.dex.getEffectiveness('Fire', species) < 1 || set.ability === 'Flash Fire' || set.ability === 'Water Bubble') {
 						typeValid = true;
 					}
-				}
-				if (this.dex.getEffectiveness('Water', species) < 1 || set.ability === 'Storm Drain' || set.ability === 'Water Absorb') {
-					if (!teamDetails.waterResist) {
+				} else if (!teamDetails.waterResist) {
+					if (this.dex.getEffectiveness('Water', species) < 1 || set.ability === 'Storm Drain' || set.ability === 'Water Absorb') {
 						typeValid = true;
 					}
-				}
-				if (this.dex.getEffectiveness('Electric', species) < 1 || set.ability === 'Lightning Rod' || set.ability === 'Motor Drive' || set.ability === 'Volt Absorb') {
-					if (!teamDetails.electricResist) {
+				} else if (!teamDetails.electricResist) {
+					if (this.dex.getEffectiveness('Electric', species) < 1 || set.ability === 'Lightning Rod' || set.ability === 'Motor Drive' || set.ability === 'Volt Absorb') {
 						typeValid = true;
 					}
-				}
-				if (this.dex.getEffectiveness('Grass', species) < 1 || set.ability === 'Sap Sipper') {
-					if (!teamDetails.grassResist) {
+				} else if (!teamDetails.grassResist) {
+					if (this.dex.getEffectiveness('Grass', species) < 1 || set.ability === 'Sap Sipper') {
 						typeValid = true;
 					}
-				}
-				if (this.dex.getEffectiveness('Ice', species) < 1 || set.ability === 'Thick Fat') {
-					if (!teamDetails.iceResist) {
+				} else if (!teamDetails.iceResist) {
+					if (this.dex.getEffectiveness('Ice', species) < 1 || set.ability === 'Thick Fat') {
 						typeValid = true;
 					}
-				}
-				if (this.dex.getEffectiveness('Fighting', species) < 1) {
-					if (!teamDetails.fightingResist) {
+				} else if (!teamDetails.fightingResist) {
+					if (this.dex.getEffectiveness('Fighting', species) < 1) {
 						typeValid = true;
 					}
-				}
-				if (this.dex.getEffectiveness('Poison', species) < 1) {
-					if (!teamDetails.poisonResist) {
+				} else if (!teamDetails.poisonResist) {
+					if (this.dex.getEffectiveness('Poison', species) < 1) {
 						typeValid = true;
 					}
-				}
-				if (this.dex.getEffectiveness('Ground', species) < 1 || set.ability === 'Levitate' || set.ability === 'Grassy Surge' || set.item === 'Rillaboomite') {
-					if (!teamDetails.groundResist) {
+				} else if (!teamDetails.groundResist) {
+					if (this.dex.getEffectiveness('Ground', species) < 1 || set.ability === 'Levitate' || set.ability === 'Grassy Surge' || set.item === 'Rillaboomite') {
 						typeValid = true;
 					}
-				}
-				if (this.dex.getEffectiveness('Flying', species) < 1) {
-					if (!teamDetails.flyingResist) {
+				} else if (!teamDetails.flyingResist) {
+					if (this.dex.getEffectiveness('Flying', species) < 1) {
 						typeValid = true;
 					}
-				}
-				if (this.dex.getEffectiveness('Psychic', species) < 1) {
-					if (!teamDetails.psychicResist) {
+				} else if (!teamDetails.psychicResist) {
+					if (this.dex.getEffectiveness('Psychic', species) < 1) {
 						typeValid = true;
 					}
-				}
-				if (this.dex.getEffectiveness('Bug', species) < 1) {
-					if (!teamDetails.bugResist) {
+				} else if (!teamDetails.bugResist) {
+					if (this.dex.getEffectiveness('Bug', species) < 1) {
 						typeValid = true;
 					}
-				}
-				if (this.dex.getEffectiveness('Rock', species) < 1) {
-					if (!teamDetails.rockResist) {
+				} else if (!teamDetails.rockResist) {
+					if (this.dex.getEffectiveness('Rock', species) < 1) {
 						typeValid = true;
 					}
-				}
-				if (this.dex.getEffectiveness('Ghost', species) < 1) {
-					if (!teamDetails.ghostResist) {
+				} else if (!teamDetails.ghostResist) {
+					if (this.dex.getEffectiveness('Ghost', species) < 1) {
 						typeValid = true;
 					}
-				}
-				if (this.dex.getEffectiveness('Dragon', species) < 1) {
-					if (!teamDetails.dragonResist) {
+				} else if (!teamDetails.dragonResist) {
+					if (this.dex.getEffectiveness('Dragon', species) < 1) {
 						typeValid = true;
 					}
-				}
-				if (this.dex.getEffectiveness('Dark', species) < 1) {
-					if (!teamDetails.darkResist) {
+				} else if (!teamDetails.darkResist) {
+					if (this.dex.getEffectiveness('Dark', species) < 1) {
 						typeValid = true;
 					}
-				}
-				if (this.dex.getEffectiveness('Steel', species) < 1) {
-					if (!teamDetails.steelResist) {
+				} else if (!teamDetails.steelResist) {
+					if (this.dex.getEffectiveness('Steel', species) < 1) {
 						typeValid = true;
 					}
-				}
-				if (this.dex.getEffectiveness('Fairy', species) < 1) {
-					if (!teamDetails.fairyResist) {
+				} else if (!teamDetails.fairyResist) {
+					if (this.dex.getEffectiveness('Fairy', species) < 1) {
 						typeValid = true;
 					}
-				}
-				if (this.dex.getEffectiveness('Normal', species) < 1) {
-					if (!teamDetails.normalResist) {
+				} else if (!teamDetails.normalResist) {
+					if (this.dex.getEffectiveness('Normal', species) < 1) {
 						typeValid = true;
 					}
+				} else {
+					// if every type is already resisted
+					typeValid = true;
 				}
 				
 				if ((leadValid && roleValid && typeValid)) {
