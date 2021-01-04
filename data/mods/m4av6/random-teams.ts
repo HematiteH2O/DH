@@ -1735,7 +1735,7 @@ export class RandomTeams {
 						if (megaCount >= 1) continue;
 						else megaCount++;
 					} else {
-						if (megaCount === 0 && pokemon.length === 1) continue;
+						if (megaCount === 0 && pokemon.length !== 0) continue;
 					}
 				}
 
@@ -1753,130 +1753,73 @@ export class RandomTeams {
 					leadValid = true;
 				}
 				if (set.moves.includes('spikes') || set.moves.includes('stealthrock') || set.moves.includes('stickyweb') || set.moves.includes('toxicspikes')) leadValid = true;
-				if (pokemon.length !== 0)  leadValid = true;
-				// there's a small chance to bypass the lead requirements - enough that you'll USUALLY get something lead-specific, but not every battle starts with the same few Pokémon
-				if (!leadValid) {
-					if (this.randomChance(1, 64)) leadValid = true;
-				}
+				if (pokemon.length !== 0) leadValid = true;
 				
 				// if it adds a necessary role, it's valid
-				if (!teamDetails.burn) {
-					if (set.ability === 'Flame Body' || set.item === 'Magcargonite' || set.moves.includes('willowisp') || set.moves.includes('lavaplume') || set.moves.includes('scald') || set.moves.includes('scorchingsands') || set.moves.includes('sacredfire') || set.moves.includes('beakblast')) {
-						roleValid = true;
-					}
-				} else if (!teamDetails.toxic) {
-					if (set.moves.includes('toxic')) {
-						roleValid = true;
-					}
-				} else if (!teamDetails.pivoting) {
-					if (set.moves.includes('uturn') || set.moves.includes('voltswitch') || set.moves.includes('partingshot') || set.moves.includes('teleport') || set.moves.includes('flipturn')) {
-						roleValid = true;
-					}
-				} else if (!teamDetails.entryHazards) {
-					if (set.moves.includes('spikes') || set.moves.includes('stealthrock') || set.moves.includes('stickyweb') || set.moves.includes('toxicspikes')) {
-						roleValid = true;
-					}
-				} else if (!teamDetails.hazardControl) {
-					if (set.item === 'Garbodorite' || set.moves.includes('defog') || set.moves.includes('rapidspin')) {
-						roleValid = true;
-					}
-				} else if (!teamDetails.setup) {
-					if (
-						(set.ability === 'Moxie' || set.item === 'Nidokinite') || set.ability === 'Soul-Heart' || set.ability === 'Beast Boost' || set.ability === 'Contrary' || set.item === 'Reunite' || set.moves.includes('swordsdance') || set.moves.includes('dragondance') || set.moves.includes('shiftgear') || set.moves.includes('bellydrum') || set.moves.includes('acupressure') || set.moves.includes('nastyplot') || set.moves.includes('calmmind') || set.moves.includes('quiverdance') || set.moves.includes('clangoroussoul') || set.moves.includes('shellsmash') || (set.moves.includes('growth') && teamDetails.sun) || set.item === 'Gigalite' || set.item === 'Lurantisite' || (set.item === 'Luxrite' && set.moves.includes('agility'))
-					) {
-						roleValid = true;
-					}
-				} else if (!teamDetails.speedcontrol) {
-					if (
-						set.moves.includes('extremespeed') || set.moves.includes('grassyglide') || set.moves.includes('suckerpunch') || set.item === 'Choice Scarf' || set.item === 'Slowkinite' || set.ability === 'Swift Swim' || species.baseStats.spe >= 120 || set.ability === 'Chlorophyll' || set.ability === 'Sand Rush' || set.ability === 'Slush Rush' || set.ability === 'Surge Surfer' || set.ability === 'Gale Wings'
-					) {
-						roleValid = true;
-					}
-				} else {
-					// if all of the roles are already filled
+				if (!teamDetails.burn && (set.ability === 'Flame Body' || set.item === 'Magcargonite' || set.moves.includes('willowisp') || set.moves.includes('lavaplume') || set.moves.includes('scald') || set.moves.includes('scorchingsands') || set.moves.includes('sacredfire') || set.moves.includes('beakblast'))) {
+					roleValid = true;
+				} else if (!teamDetails.toxic && (set.moves.includes('toxic'))) {
+					roleValid = true;
+				} else if (!teamDetails.pivoting && (set.moves.includes('uturn') || set.moves.includes('voltswitch') || set.moves.includes('partingshot') || set.moves.includes('teleport') || set.moves.includes('flipturn'))) {
+					roleValid = true;
+				} else if (!teamDetails.entryHazards && (set.moves.includes('spikes') || set.moves.includes('stealthrock') || set.moves.includes('stickyweb') || set.moves.includes('toxicspikes'))) {
+					roleValid = true;
+				} else if (!teamDetails.hazardControl && (set.item === 'Garbodorite' || set.moves.includes('defog') || set.moves.includes('rapidspin'))) {
+					roleValid = true;
+				} else if (!teamDetails.setup && ((set.ability === 'Moxie' || set.item === 'Nidokinite') || set.ability === 'Soul-Heart' || set.ability === 'Beast Boost' || set.ability === 'Contrary' || set.item === 'Reunite' || set.moves.includes('swordsdance') || set.moves.includes('dragondance') || set.moves.includes('shiftgear') || set.moves.includes('bellydrum') || set.moves.includes('acupressure') || set.moves.includes('nastyplot') || set.moves.includes('calmmind') || set.moves.includes('quiverdance') || set.moves.includes('clangoroussoul') || set.moves.includes('shellsmash') || (set.moves.includes('growth') && teamDetails.sun) || set.item === 'Gigalite' || set.item === 'Lurantisite' || (set.item === 'Luxrite' && set.moves.includes('agility')))) {
+					roleValid = true;
+				} else if (!teamDetails.speedcontrol && (set.moves.includes('extremespeed') || set.moves.includes('grassyglide') || set.moves.includes('suckerpunch') || set.item === 'Choice Scarf' || set.item === 'Slowkinite' || set.ability === 'Swift Swim' || species.baseStats.spe >= 120 || set.ability === 'Chlorophyll' || set.ability === 'Sand Rush' || set.ability === 'Slush Rush' || set.ability === 'Surge Surfer' || set.ability === 'Gale Wings')) {
+					roleValid = true;
+				} else if (teamDetails.burn && teamDetails.toxic && teamDetails.pivoting && teamDetails.entryHazards && teamDetails.hazardControl && teamDetails.setup && teamDetails.speedControl) {
+					// if all of the roles are already filled, everything is fine
 					roleValid = true;
 				}
 				// forcing Megas to be valid no matter what
 				if (isMega) roleValid = true;
-				// allowing the last slot to be a freebie, in favor of guaranteeing good synergy with the team's Mega typewise later
+				// allowing the last slot to be a freebie
 				if (pokemon.length === 5) roleValid = true;
-				// everything is fine if all of the roles are covered
 				
-				// if it adds at least one new resistance to the team, it's valid...
-				if (!teamDetails.fireResist) {
-					if (this.dex.getEffectiveness('Fire', species) < 1 || set.ability === 'Flash Fire' || set.ability === 'Water Bubble') {
-						typeValid = true;
-					}
-				} else if (!teamDetails.waterResist) {
-					if (this.dex.getEffectiveness('Water', species) < 1 || set.ability === 'Storm Drain' || set.ability === 'Water Absorb') {
-						typeValid = true;
-					}
-				} else if (!teamDetails.electricResist) {
-					if (this.dex.getEffectiveness('Electric', species) < 1 || set.ability === 'Lightning Rod' || set.ability === 'Motor Drive' || set.ability === 'Volt Absorb') {
-						typeValid = true;
-					}
-				} else if (!teamDetails.grassResist) {
-					if (this.dex.getEffectiveness('Grass', species) < 1 || set.ability === 'Sap Sipper') {
-						typeValid = true;
-					}
-				} else if (!teamDetails.iceResist) {
-					if (this.dex.getEffectiveness('Ice', species) < 1 || set.ability === 'Thick Fat') {
-						typeValid = true;
-					}
-				} else if (!teamDetails.fightingResist) {
-					if (this.dex.getEffectiveness('Fighting', species) < 1) {
-						typeValid = true;
-					}
-				} else if (!teamDetails.poisonResist) {
-					if (this.dex.getEffectiveness('Poison', species) < 1) {
-						typeValid = true;
-					}
-				} else if (!teamDetails.groundResist) {
-					if (this.dex.getEffectiveness('Ground', species) < 1 || set.ability === 'Levitate' || set.ability === 'Grassy Surge' || set.item === 'Rillaboomite') {
-						typeValid = true;
-					}
-				} else if (!teamDetails.flyingResist) {
-					if (this.dex.getEffectiveness('Flying', species) < 1) {
-						typeValid = true;
-					}
-				} else if (!teamDetails.psychicResist) {
-					if (this.dex.getEffectiveness('Psychic', species) < 1) {
-						typeValid = true;
-					}
-				} else if (!teamDetails.bugResist) {
-					if (this.dex.getEffectiveness('Bug', species) < 1) {
-						typeValid = true;
-					}
-				} else if (!teamDetails.rockResist) {
-					if (this.dex.getEffectiveness('Rock', species) < 1) {
-						typeValid = true;
-					}
-				} else if (!teamDetails.ghostResist) {
-					if (this.dex.getEffectiveness('Ghost', species) < 1) {
-						typeValid = true;
-					}
-				} else if (!teamDetails.dragonResist) {
-					if (this.dex.getEffectiveness('Dragon', species) < 1) {
-						typeValid = true;
-					}
-				} else if (!teamDetails.darkResist) {
-					if (this.dex.getEffectiveness('Dark', species) < 1) {
-						typeValid = true;
-					}
-				} else if (!teamDetails.steelResist) {
-					if (this.dex.getEffectiveness('Steel', species) < 1) {
-						typeValid = true;
-					}
-				} else if (!teamDetails.fairyResist) {
-					if (this.dex.getEffectiveness('Fairy', species) < 1) {
-						typeValid = true;
-					}
-				} else if (!teamDetails.normalResist) {
-					if (this.dex.getEffectiveness('Normal', species) < 1) {
-						typeValid = true;
-					}
-				} else {
-					// if every type is already resisted
+				// if it adds at least one new resistance to the team, it's valid
+				if (!teamDetails.fireResist && (this.dex.getEffectiveness('Fire', species) < 1 || set.ability === 'Flash Fire' || set.ability === 'Water Bubble')) {
+					typeValid = true;
+				} else if (!teamDetails.waterResist && (this.dex.getEffectiveness('Water', species) < 1 || set.ability === 'Storm Drain' || set.ability === 'Water Absorb')) {
+					typeValid = true;
+				} else if (!teamDetails.electricResist && (this.dex.getEffectiveness('Electric', species) < 1 || set.ability === 'Lightning Rod' || set.ability === 'Motor Drive' || set.ability === 'Volt Absorb')) {
+					typeValid = true;
+				} else if (!teamDetails.grassResist && (this.dex.getEffectiveness('Grass', species) < 1 || set.ability === 'Sap Sipper')) {
+					typeValid = true;
+				} else if (!teamDetails.iceResist && (this.dex.getEffectiveness('Ice', species) < 1 || set.ability === 'Thick Fat')) {
+					typeValid = true;
+				} else if (!teamDetails.fightingResist && (this.dex.getEffectiveness('Fighting', species) < 1)) {
+					typeValid = true;
+				} else if (!teamDetails.poisonResist && (this.dex.getEffectiveness('Poison', species) < 1)) {
+					typeValid = true;
+				} else if (!teamDetails.groundResist && (this.dex.getEffectiveness('Ground', species) < 1 || set.ability === 'Levitate' || set.ability === 'Grassy Surge' || set.item === 'Rillaboomite')) {
+					typeValid = true;
+				} else if (!teamDetails.flyingResist && (this.dex.getEffectiveness('Flying', species) < 1)) {
+					typeValid = true;
+				} else if (!teamDetails.psychicResist && (this.dex.getEffectiveness('Psychic', species) < 1)) {
+					typeValid = true;
+				} else if (!teamDetails.bugResist && (this.dex.getEffectiveness('Bug', species) < 1)) {
+					typeValid = true;
+				} else if (!teamDetails.rockResist && (this.dex.getEffectiveness('Rock', species) < 1)) {
+					typeValid = true;
+				} else if (!teamDetails.ghostResist && (this.dex.getEffectiveness('Ghost', species) < 1)) {
+					typeValid = true;
+				} else if (!teamDetails.dragonResist && (this.dex.getEffectiveness('Dragon', species) < 1)) {
+					typeValid = true;
+				} else if (!teamDetails.darkResist && (this.dex.getEffectiveness('Dark', species) < 1)) {
+					typeValid = true;
+				} else if (!teamDetails.steelResist && (this.dex.getEffectiveness('Steel', species) < 1)) {
+					typeValid = true;
+				} else if (!teamDetails.fairyResist && (this.dex.getEffectiveness('Fairy', species) < 1)) {
+					typeValid = true;
+				} else if (!teamDetails.normalResist && (this.dex.getEffectiveness('Normal', species) < 1)) {
+					typeValid = true;
+				} else if (
+					teamDetails.fireResist && teamDetails.waterResist && teamDetails.electricResist && teamDetails.grassResist && teamDetails.iceResist && teamDetails.fightingResist && teamDetails.poisonResist && teamDetails.groundResist && teamDetails.flyingResist && teamDetails.psychicResist && teamDetails.bugResist && teamDetails.rockResist && teamDetails.ghostResist && teamDetails.dragonResist && teamDetails.darkResist && teamDetails.steelResist && teamDetails.fairyResist && teamDetails.normalResist
+				) {
+					// if every type is already resisted, it's also fine
 					typeValid = true;
 				}
 				
