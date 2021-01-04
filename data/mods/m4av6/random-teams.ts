@@ -646,14 +646,14 @@ export class RandomTeams {
 
 			// this part is to guarantee randbatsForcedMoves as the first priority
 			if (!isDoubles && species.randbatsForcedMoves) {
-				const forcedPool = species.randbatsForcedMoves.slice();
+				const forcedPool = species.randbatsForcedMoves;
 				while (moves.length < 4 && forcedPool.length) {
 					const moveid = this.sampleNoReplace(forcedPool);
 					hasMove[moveid] = true;
 					moves.push(moveid);
 				}
 			} else if (isDoubles && species.randbatsDoublesForcedMoves) {
-				const forcedPool = species.randbatsDoublesForcedMoves.slice();
+				const forcedPool = species.randbatsDoublesForcedMoves;
 				while (moves.length < 4 && forcedPool.length) {
 					const moveid = this.sampleNoReplace(forcedPool);
 					hasMove[moveid] = true;
@@ -1231,7 +1231,7 @@ export class RandomTeams {
 				} else if (ability === 'Unaware') {
 					rejectAbility = (counter.setupType || hasMove['stealthrock']);
 				} else if (ability === 'Unburden') {
-					rejectAbility = (hasAbility['Prankster'] || !counter.setupType && !isDoubles);
+					rejectAbility = ((hasAbility['Prankster'] || !counter.setupType && !isDoubles) && !teamDetails.electricSurge && !teamDetails.psychicSurge && !teamDetails.grassySurge && !teamDetails.mistySurge && !teamDetails.acidicSurge && teamDetails.megaEvolution !== 'Delibird-Mega');
 				} else if (ability === 'Volt Absorb') {
 					rejectAbility = (this.dex.getEffectiveness('Electric', species) < -1);
 				} else if (ability === 'Water Absorb') {
@@ -1323,10 +1323,21 @@ export class RandomTeams {
 			item = 'Aloraichium Z';
 		
 		// Normal code:
+		} else if (
+			(teamDetails.megaEvolution === 'Delibird-Mega' || hasMove['wish']) &&
+			(hasMove['leafstorm'] || hasMove['overheat'] || hasMove['dracometeor'] || hasMove['psychoboost'] || hasMove['fleurcannon']
+			 || hasMove['clangingscales'] || hasMove['closecombat'] || hasMove['dragonascent'] || hasMove['hyperspacefury'] || hasMove['superpower']
+			 || hasMove['vcreate'] || hasMove['hammerarm'] || hasMove['icehammer'])
+		) {
+			item = 'Eject Pack';
 		} else if ((hasMove['defog'] || hasMove['rapidspin']) && this.dex.getEffectiveness('Rock', species) >= 1 && !isDoubles) {
 			item = 'Heavy-Duty Boots';
 		} else if (ability === 'Poison Heal' || ability === 'Toxic Boost') { //just for you bitio
 			item = 'Toxic Orb';
+		} else if (teamDetails.megaEvolution === 'Delibird-Mega' && (ability === 'Filter' || ability === 'Solid Rock' || ability === 'Prism Armor')) {
+			item = 'Weakness Policy';
+		} else if (teamDetails.megaEvolution === 'Delibird-Mega' && ability === 'Sturdy') {
+			item = 'Red Card';
 		} else if (species.baseSpecies === 'Pikachu') {
 			forme = 'Pikachu' + this.sample(['', '-Original', '-Hoenn', '-Sinnoh', '-Unova', '-Kalos', '-Alola', '-Partner', '-World']);
 		} else if (['Corsola', 'Tangrowth'].includes(species.name) && !!counter.Status && !isDoubles) {
@@ -1360,7 +1371,22 @@ export class RandomTeams {
 		} else if (ability === 'Sheer Force' && !!counter['sheerforce']) {
 			item = 'Life Orb';
 		} else if (ability === 'Unburden') {
-			item = (hasMove['closecombat'] || hasMove['curse']) ? 'White Herb' : 'Sitrus Berry';
+			if (hasMove['closecombat'] || hasMove['leafstorm'] || hasMove['curse']) {
+				item = 'White Herb'
+			} else if (hasMove['fakeout']) {
+				item = 'Normal Gem';
+			} else if (teamDetails.acidicSurge) {
+				item = 'Acidic Seed';
+			} else if (teamDetails.electricSurge) {
+				item = 'Electric Seed';
+			} else if (teamDetails.psychicSurge) {
+				item = 'Psychic Seed';
+			} else if (teamDetails.grassySurge) {
+				item = 'Grassy Seed';
+			} else if (teamDetails.mistySurge) {
+				item = 'Misty Seed';
+			} else {
+				item = 'Sitrus Berry';
 		} else if (hasMove['acrobatics']) {
 			item = (ability === 'Grassy Surge') ? 'Grassy Seed' : '';
 		} else if (hasMove['auroraveil'] || hasMove['lightscreen'] && hasMove['reflect']) {
@@ -1368,6 +1394,8 @@ export class RandomTeams {
 		} else if (hasMove['rest'] && !hasMove['sleeptalk'] && ability !== 'Shed Skin') {
 			item = 'Chesto Berry';
 		} else if (hasMove['hypnosis'] && ability === 'Beast Boost') {
+			item = 'Blunder Policy';
+		} else if (hasMove['zapcannon'] || hasMove['inferno']) {
 			item = 'Blunder Policy';
 
 		// General Z-Crystal Recommendations: 
@@ -1479,8 +1507,10 @@ export class RandomTeams {
 			item = 'Focus Sash';
 		} else if (ability === 'Water Bubble' && !isDoubles) {
 			item = 'Mystic Water';
-		} else if (hasMove['clangoroussoul'] || hasMove['boomburst'] && !!counter['speedsetup']) {
+		} else if (hasMove['clangoroussoul'] || hasMove['hypervoice'] || hasMove['boomburst'] && !!counter['speedsetup']) {
 			item = 'Throat Spray';
+		} else if (teamDetails.megaEvolution === 'Delibird-Mega') {
+			item = 'Starf Berry';
 		} else if (((this.dex.getEffectiveness('Rock', species) >= 1 && (ability === 'Intimidate' || hasMove['uturn'] || hasMove['voltswitch'])) ||
 			(hasMove['rapidspin'] && (ability === 'Regenerator' || !!counter['recovery']))) && !isDoubles
 		) {
@@ -1510,6 +1540,82 @@ export class RandomTeams {
 			z = true;
 		}
 
+		// want to make sure I can check for legality before this goes live but I'm gonna do some things here
+
+		/*
+		if (teamDetails.megaEvolution === 'Orbeetle-Mega') {
+			if (!hasMove['zapcannon']) {
+				moves[moves.indexOf('thunderbolt')] = 'zapcannon';
+			}
+			if (!hasMove['thunder']) {
+				moves[moves.indexOf('thunderbolt')] = 'thunder';
+			}
+			if (!hasMove['inferno']) {
+				moves[moves.indexOf('flamethrower')] = 'inferno';
+			}
+			if (!hasMove['fireblast']) {
+				moves[moves.indexOf('flamethrower')] = 'fireblast';
+			}
+			if (!hasMove['blizzard']) {
+				moves[moves.indexOf('icebeam')] = 'blizzard';
+			}
+			if (!hasMove['gunkshot']) {
+				moves[moves.indexOf('poisonjab')] = 'gunkshot';
+			}
+			if (!hasMove['gunkshot']) {
+				moves[moves.indexOf('crosspoison')] = 'gunkshot';
+			}
+			if (!hasMove['focusblast']) {
+				moves[moves.indexOf('aurasphere')] = 'focusblast';
+			}
+		}
+		if (teamDetails.megaEvolution === 'Flygon-Mega') {
+			if (!hasMove['boomburst']) {
+				moves[moves.indexOf('earthpower')] = 'boomburst';
+			}
+			if (!hasMove['doubleedge']) {
+				moves[moves.indexOf('earthquake')] = 'doubleedge';
+			}
+		}
+		if (teamDetails.hail) {
+			if (!hasMove['bizzard']) {
+				moves[moves.indexOf('icebeam')] = 'blizzard';
+			}
+			if (!hasMove['auroraveil']) {
+				moves[moves.indexOf('reflect')] = 'auroraveil';
+			}
+			if (!hasMove['auroraveil']) {
+				moves[moves.indexOf('lightscreen')] = 'auroraveil';
+			}
+		}
+		if (teamDetails.sun) {
+			if (!hasMove['solarblade']) {
+				moves[moves.indexOf('leafblade')] = 'solarblade';
+			}
+		}
+		if (teamDetails.electricSurge) {
+			if (!hasMove['risingvoltage']) {
+				moves[moves.indexOf('thunderbolt')] = 'risingvoltage';
+			}
+		}
+		if (teamDetails.grassySurge) {
+			if (!hasMove['grassyglide']) {
+				moves[moves.indexOf('leafblade')] = 'grassyglide';
+			}
+			if (!hasMove['grassyglide']) {
+				moves[moves.indexOf('seedbomb')] = 'grassyglide';
+			}
+		}
+		if (teamDetails.psychicSurge) {
+			if (!hasMove['expandingforce']) {
+				moves[moves.indexOf('psyshock')] = 'expandingforce';
+			}
+			if (!hasMove['expandingforce']) {
+				moves[moves.indexOf('psychic')] = 'expandingforce';
+			}
+		}
+		*/
+
 		let level: number;
 
 		if (!isDoubles) {
@@ -1528,6 +1634,7 @@ export class RandomTeams {
 
 			// Custom level based on moveset
 			if (species.name === 'Zygarde-10%' && ability === 'Power Construct') level = 80;
+			if (species.name === 'Eternatus-Eternamax') level = 54;
 		} else {
 			// We choose level based on BST. Min level is 70, max level is 99. 600+ BST is 70, less than 300 is 99. Calculate with those values.
 			// Every 10.34 BST adds a level from 70 up to 99. Results are floored. Uses the Mega's stats if holding a Mega Stone
@@ -1696,6 +1803,9 @@ export class RandomTeams {
 					if (this.randomChance(2, 3)) continue;
 					break;
 				}
+				
+				// Make Eternamax a rare Easter egg
+				if (species.name === 'Eternatus-Eternamax' && this.randomChance(9, 10)) continue;
 
 				// Illusion shouldn't be on the last slot, and I noticed the level-changing code messes up if you have both of these so I'm limiting you to one
 				if ((species.name === 'Zoroark' || species.name === 'Inteleon-Mega') && (teamDetails.illusion || pokemon.length > 4)) continue;
@@ -1706,8 +1816,8 @@ export class RandomTeams {
 				const isMega = (species.forme.startsWith('Mega'));
 
 				if (restrict) {
-					// Limit one Pokemon per tier, two for Monotype
-					if ((tierCount[tier] >= (isMonotype ? 2 : 1)) && !this.randomChance(1, Math.pow(5, tierCount[tier]))) {
+					// Limit two Pokémon per tier
+					if ((tierCount[tier] >= 2) && !this.randomChance(1, Math.pow(5, tierCount[tier]))) {
 						continue;
 					}
 
@@ -1744,7 +1854,9 @@ export class RandomTeams {
 				if (['Sablenite', 'Diancite', 'Froslassite', 'Ariadosite', 'Magcargonite', 'Delibirdite'].includes(set.item)) {
 					leadValid = true;
 				}
-				if (set.ability === 'Magic Bounce' || set.moves.includes('taunt') || set.moves.includes('magiccoat') || set.moves.includes('destinybond') || set.moves.includes('spikes') || set.moves.includes('stealthrock') || set.moves.includes('stickyweb') || set.moves.includes('toxicspikes')) leadValid = true;
+				if (set.ability === 'Drought' || set.ability === 'Drizzle' || set.ability === 'Sand Stream' || (set.ability === 'Snow Warning' && set.item !== 'Aurorite') || set.item === 'Flygonite' || set.ability === 'Electric Surge' || set.ability === 'Psychic Surge' || set.ability === 'Grassy Surge' || set.ability === 'Misty Surge' || set.item === 'Dragalgite') leadValid = true;
+				if (set.ability === 'Magic Bounce' || set.ability === 'Intimidate' || set.moves.includes('taunt') || set.moves.includes('magiccoat') || set.moves.includes('destinybond') || set.moves.includes('spikes') || set.moves.includes('stealthrock') || set.moves.includes('stickyweb') || set.moves.includes('toxicspikes')) leadValid = true;
+				if (set.ability === 'Contrary' || set.item === 'Reunite' || set.moves.includes('swordsdance') || set.moves.includes('dragondance') || set.moves.includes('shiftgear') || set.moves.includes('bellydrum') || set.moves.includes('acupressure') || set.moves.includes('nastyplot') || set.moves.includes('calmmind') || set.moves.includes('quiverdance') || set.moves.includes('clangoroussoul') || set.moves.includes('shellsmash') || (set.moves.includes('growth') && teamDetails.sun) || set.item === 'Gigalite' || set.item === 'Lurantisite' || (set.item === 'Luxrite' && set.moves.includes('agility'))) leadValid = true;
 				// don't need to check for lead validity if you're not the lead
 				if (pokemon.length !== 0) leadValid = true;
 				
@@ -1761,7 +1873,7 @@ export class RandomTeams {
 					roleValid = true;
 				} else if (!teamDetails.setup && ((set.ability === 'Moxie' || set.item === 'Nidokinite') || set.ability === 'Soul-Heart' || set.ability === 'Beast Boost' || set.ability === 'Contrary' || set.item === 'Reunite' || set.moves.includes('swordsdance') || set.moves.includes('dragondance') || set.moves.includes('shiftgear') || set.moves.includes('bellydrum') || set.moves.includes('acupressure') || set.moves.includes('nastyplot') || set.moves.includes('calmmind') || set.moves.includes('quiverdance') || set.moves.includes('clangoroussoul') || set.moves.includes('shellsmash') || (set.moves.includes('growth') && teamDetails.sun) || set.item === 'Gigalite' || set.item === 'Lurantisite' || (set.item === 'Luxrite' && set.moves.includes('agility')))) {
 					roleValid = true;
-				} else if (!teamDetails.speedcontrol && (set.moves.includes('extremespeed') || set.moves.includes('grassyglide') || set.moves.includes('suckerpunch') || set.item === 'Choice Scarf' || set.item === 'Slowkinite' || set.ability === 'Swift Swim' || species.baseStats.spe >= 120 || set.ability === 'Chlorophyll' || set.ability === 'Sand Rush' || set.ability === 'Slush Rush' || set.ability === 'Surge Surfer' || set.ability === 'Gale Wings')) {
+				} else if (!teamDetails.speedControl && (set.moves.includes('extremespeed') || set.moves.includes('grassyglide') || set.moves.includes('suckerpunch') || set.item === 'Choice Scarf' || set.item === 'Slowkinite' || (set.ability === 'Swift Swim' && teamDetails.rain) || species.baseStats.spe >= 120 || (set.ability === 'Chlorophyll' && teamDetails.sun) || (set.ability === 'Sand Rush' && teamDetails.sand) || (set.ability === 'Slush Rush' && teamDetails.hail) || (set.ability === 'Surge Surfer' && teamDetails.electricSurge) || set.ability === 'Unburden' || set.ability === 'Gale Wings')) {
 					roleValid = true;
 				} else if (teamDetails.burn && teamDetails.toxic && teamDetails.pivoting && teamDetails.entryHazards && teamDetails.hazardControl && teamDetails.setup && teamDetails.speedControl) {
 					// if all of the roles are already filled, everything is fine
@@ -1818,7 +1930,12 @@ export class RandomTeams {
 				if (set.ability === 'Drizzle' || set.item === 'Walreinite' || set.moves.includes('raindance') || species === 'Vanilluxe-Mega') teamDetails['rain'] = 1;
 				if (set.ability === 'Drought' || set.item === 'Charizardite Y' || set.moves.includes('sunnyday')) teamDetails['sun'] = 1;
 				if (set.ability === 'Sand Stream' || set.ability === 'Sand Spit' || set.item === 'Flygonite') teamDetails['sand'] = 1;
-				if (set.ability === 'Snow Warning' || species === 'Vanilluxe-Mega') teamDetails['hail'] = 1;
+				if ((set.ability === 'Snow Warning' && set.item !== 'Aurorite') || set.item === 'Vanillite') teamDetails['hail'] = 1;
+				if (set.ability === 'Electric Surge' || set.item === 'Klinklite') teamDetails['electricSurge'] = 1;
+				if (set.ability === 'Psychic Surge') teamDetails['psychicSurge'] = 1;
+				if (set.ability === 'Grassy Surge') teamDetails['grassySurge'] = 1;
+				if (set.ability === 'Misty Surge') teamDetails['mistySurge'] = 1;
+				if (set.item === 'Dragalgite') teamDetails['acidicSurge'] = 1;
 				if (set.moves.includes('auroraveil') || set.moves.includes('reflect') && set.moves.includes('lightscreen')) teamDetails['screens'] = 1;
 				if (set.moves.includes('trickroom')) teamDetails['trickroom'] = 1;
 
@@ -1832,11 +1949,11 @@ export class RandomTeams {
 				if (set.moves.includes('rapidspin')) teamDetails['rapidSpin'] = 1;
 				if (set.item === 'Garbodorite' || set.moves.includes('defog') || set.moves.includes('rapidspin')) teamDetails['hazardControl'] = 1;
 
-				if (set.moves.includes('toxic')) teamDetails['toxic'] = 1;
+				if (set.ability !== 'Misty Surge' && set.moves.includes('toxic')) teamDetails['toxic'] = 1;
 
 				if (set.moves.includes('uturn') || set.moves.includes('voltswitch') || set.moves.includes('partingshot') || set.moves.includes('teleport') || set.moves.includes('flipturn')) teamDetails['pivoting'] = 1;
 
-				if (set.ability === 'Flame Body' || set.item === 'Magcargonite' || set.moves.includes('willowisp') || set.moves.includes('lavaplume') || set.moves.includes('scald') || set.moves.includes('scorchingsands') || set.moves.includes('sacredfire') || set.moves.includes('beakblast')) teamDetails['burn'] = 1;
+				if (set.ability !== 'Misty Surge' && (set.ability === 'Flame Body' || set.item === 'Magcargonite' || set.moves.includes('willowisp') || set.moves.includes('lavaplume') || set.moves.includes('scald') || set.moves.includes('scorchingsands') || set.moves.includes('sacredfire') || set.moves.includes('beakblast'))) teamDetails['burn'] = 1;
 				
 				if (
 					(set.ability === 'Moxie' || set.item === 'Nidokinite') || set.ability === 'Soul-Heart' || set.ability === 'Beast Boost' || set.ability === 'Contrary' || set.item === 'Reunite' || set.moves.includes('swordsdance') || set.moves.includes('dragondance') || set.moves.includes('shiftgear') || set.moves.includes('bellydrum') || set.moves.includes('acupressure') || set.moves.includes('nastyplot') || set.moves.includes('calmmind') || set.moves.includes('quiverdance') || set.moves.includes('clangoroussoul') || set.moves.includes('shellsmash') || (set.moves.includes('growth') && teamDetails.sun) || set.item === 'Gigalite' || set.item === 'Lurantisite' || (set.item === 'Luxrite' && set.moves.includes('agility'))
@@ -1845,9 +1962,9 @@ export class RandomTeams {
 				}
 
 				if (
-					set.moves.includes('extremespeed') || set.moves.includes('grassyglide') || set.moves.includes('suckerpunch') || set.item === 'Choice Scarf' || set.item === 'Slowkinite' || set.ability === 'Swift Swim' || species.baseStats.spe >= 120 || set.ability === 'Chlorophyll' || set.ability === 'Sand Rush' || set.ability === 'Slush Rush' || set.ability === 'Surge Surfer' || set.ability === 'Gale Wings'
+					set.moves.includes('extremespeed') || set.moves.includes('grassyglide') || set.moves.includes('suckerpunch') || set.item === 'Choice Scarf' || set.item === 'Slowkinite' || (set.ability === 'Swift Swim' && teamDetails.rain) || species.baseStats.spe >= 120 || (set.ability === 'Chlorophyll' && teamDetails.sun) || (set.ability === 'Sand Rush' && teamDetails.sand) || (set.ability === 'Slush Rush' && teamDetails.hail) || (set.ability === 'Surge Surfer' && teamDetails.electricSurge) || set.ability === 'Unburden' || set.ability === 'Gale Wings'
 				) {
-					teamDetails['speedcontrol'] = 1;
+					teamDetails['speedControl'] = 1;
 				}
 				
 				if (this.dex.getItem(set.item).zMove) teamDetails['zMove'] = 1;
