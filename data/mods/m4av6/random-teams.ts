@@ -1725,12 +1725,37 @@ export class RandomTeams {
 						}
 						if (skip) continue;
 					}
+				
+					let typeValid = false;
+					// if it adds at least one new resistance to the team, it's valid
+					if (!teamDetails.fireResist && (this.dex.getEffectiveness('Fire', species) < 1 || set.ability === 'Flash Fire' || set.ability === 'Water Bubble')) {
+						typeValid = true;
+					} else if (!teamDetails.electricResist && (this.dex.getEffectiveness('Electric', species) < 1 || set.ability === 'Lightning Rod' || set.ability === 'Motor Drive' || set.ability === 'Volt Absorb')) {
+						typeValid = true;
+					} else if (!teamDetails.iceResist && (this.dex.getEffectiveness('Ice', species) < 1 || set.ability === 'Thick Fat')) {
+						typeValid = true;
+					} else if (!teamDetails.fightingResist && (this.dex.getEffectiveness('Fighting', species) < 1)) {
+						typeValid = true;
+					} else if (!teamDetails.groundResist && (this.dex.getEffectiveness('Ground', species) < 1 || set.ability === 'Levitate' || set.ability === 'Grassy Surge' || set.item === 'Rillaboomite')) {
+						typeValid = true;
+					} else if (!teamDetails.flyingResist && (this.dex.getEffectiveness('Flying', species) < 1)) {
+						typeValid = true;
+					} else if (!teamDetails.rockResist && (this.dex.getEffectiveness('Rock', species) < 1)) {
+						typeValid = true;
+					} else if (
+						teamDetails.fireResist && teamDetails.electricResist && teamDetails.iceResist && teamDetails.fightingResist && teamDetails.groundResist && teamDetails.flyingResist && teamDetails.rockResist
+					) {
+						// if every type is already resisted, it's also fine
+						typeValid = true;
+						// Megas are exempt, and the last Pokémon is exempt
+					} else if (isMega || pokemon.length === 5) typeValid = true;
 
 					// Limit one of any type combination, two in Monotype
 					if (typeComboCount[typeCombo] >= (isMonotype ? 2 : 1)) continue;
+					if (!typeValid) continue;
 					
 					// Actually limit the number of Megas to one, 
-					// but make sure we always have one by the last member if we don't already
+					// but guarantee one as soon as possible (except the lead) if we don't have one already
 					if (isMega) {
 						if (megaCount >= 1) continue;
 					} else {
@@ -1742,7 +1767,6 @@ export class RandomTeams {
 				
 				let leadValid = false;
 				let roleValid = false;
-				let typeValid = false;
 				
 				// if it's a hazard setter, a Pokémon that Mega Evolves to gain Magic Bounce, or some other special cases, it's valid as a lead specifically and should be considered early
 				if (['Sablenite', 'Diancite', 'Froslassite', 'Ariadosite', 'Magcargonite', 'Delibirdite'].includes(set.item)) {
@@ -1770,44 +1794,10 @@ export class RandomTeams {
 					// if all of the roles are already filled, everything is fine
 					roleValid = true;
 				}
-				// allowing the last slot to be a freebie
+				// once again allowing the last slot to be a freebie
 				if (pokemon.length === 5) roleValid = true;
 				
-				// if it adds at least one new resistance to the team, it's valid
-				if (!teamDetails.fireResist && (this.dex.getEffectiveness('Fire', species) < 1 || set.ability === 'Flash Fire' || set.ability === 'Water Bubble')) {
-					typeValid = true;
-				} else if (!teamDetails.electricResist && (this.dex.getEffectiveness('Electric', species) < 1 || set.ability === 'Lightning Rod' || set.ability === 'Motor Drive' || set.ability === 'Volt Absorb')) {
-					typeValid = true;
-				} else if (!teamDetails.iceResist && (this.dex.getEffectiveness('Ice', species) < 1 || set.ability === 'Thick Fat')) {
-					typeValid = true;
-				} else if (!teamDetails.fightingResist && (this.dex.getEffectiveness('Fighting', species) < 1)) {
-					typeValid = true;
-				} else if (!teamDetails.groundResist && (this.dex.getEffectiveness('Ground', species) < 1 || set.ability === 'Levitate' || set.ability === 'Grassy Surge' || set.item === 'Rillaboomite')) {
-					typeValid = true;
-				} else if (!teamDetails.flyingResist && (this.dex.getEffectiveness('Flying', species) < 1)) {
-					typeValid = true;
-				} else if (!teamDetails.rockResist && (this.dex.getEffectiveness('Rock', species) < 1)) {
-					typeValid = true;
-				} else if (!teamDetails.ghostResist && (this.dex.getEffectiveness('Ghost', species) < 1)) {
-					typeValid = true;
-				} else if (!teamDetails.dragonResist && (this.dex.getEffectiveness('Dragon', species) < 1)) {
-					typeValid = true;
-				} else if (!teamDetails.fairyResist && (this.dex.getEffectiveness('Fairy', species) < 1)) {
-					typeValid = true;
-				} else if (
-					teamDetails.fireResist && teamDetails.electricResist && teamDetails.iceResist && teamDetails.fightingResist && teamDetails.groundResist && teamDetails.flyingResist && teamDetails.rockResist && teamDetails.ghostResist && teamDetails.dragonResist && teamDetails.fairyResist
-				) {
-					// if every type is already resisted, it's also fine
-					typeValid = true;
-				}
-				
-				if (isMega) {
-					roleValid = true;
-					typeValid = true;
-				}
-				
-				if ((leadValid && roleValid && typeValid) || triesSoFar > 128) {
-					if (megaCount > 0 && isMega) continue;
+				if ((leadValid && (roleValid || isMega)) || triesSoFar > 32) {
 					triesSoFar = 0;
 					pokemon.push(set);
 				} else {
