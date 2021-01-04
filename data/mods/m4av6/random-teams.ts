@@ -1805,7 +1805,7 @@ export class RandomTeams {
 					typeValid = true;
 				}
 				
-				if (isMega || (leadValid && roleValid && typeValid)) {
+				if (leadValid && (isMega || (roleValid && typeValid))) {
 					pokemon.push(set);
 				} else {
 					continue;
