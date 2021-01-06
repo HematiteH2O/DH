@@ -635,7 +635,6 @@ export class RandomTeams {
 		}
 
 		let hasMove: {[k: string]: boolean} = {};
-		let canLearn: {[k: string]: boolean} = {};
 		let counter;
 
 		do {
@@ -661,23 +660,40 @@ export class RandomTeams {
 			// this part is for themed teams, like weather and terrain teams, and unusual moves that Mega Evolutions enable
 			let teamForcedPool = [];
 			// but only if the Pokémon can actually learn the move!
+			let canLearn = [];
 			let learnset = this.dex.data.Learnsets[species.id] && this.dex.data.Learnsets[species.id].learnset && !['gastrodoneast', 'pumpkaboosuper', 'zygarde10'].includes(species.id) ?
 				this.dex.data.Learnsets[species.id].learnset :
 				this.dex.data.Learnsets[this.dex.getSpecies(species.baseSpecies).id].learnset;
+			if (learnset) {
+				canLearn = Object.keys(learnset).filter(
+					moveid => learnset![moveid].find(learned => learned.startsWith(String(this.gen)))
+				);
+			}
 			if (species.changesFrom) {
 				learnset = this.dex.data.Learnsets[toID(species.changesFrom)].learnset;
 				const baseLearnset = Object.keys(learnset!).filter(
 					moveid => learnset![moveid].find(learned => learned.startsWith(String(this.gen)))
 				);
+				canLearn = [...new Set(canLearn.concat(baseLearnset))];
 			}
-			for (const [k, moveId] of learnset.entries()) {
-				const move = this.dex.getMove(moveId);
-				const moveid = move.id;
-				canLearn[moveid] = true;
+			// so here's where we decide the moves to include
+			if (teamDetails.megaEvolution === 'Flygon-Mega') {
+				if (canLearn.includes('extremespeed')) {
+					teamForcedPool.push('extremespeed');
+				} else if (canLearn.includes('quickattack')) {
+					teamForcedPool.push('extremespeed');
+				}
+				if (canLearn.includes('explosion')) {
+					teamForcedPool.push('explosion');
+				} else if (canLearn.includes('selfdestruct')) {
+					teamForcedPool.push('selfdestruct');
+				}
+				if (canLearn.includes('rapidspin')) {
+					teamForcedPool.push('rapidspin');
+				}
 			}
-			if (learnset) {
 			// testing if this does anything at all
-			if (canLearn['return']) {
+			if (canLearn.includes('return')) {
 				teamForcedPool.push('return');
 			}
 			// and here's where we guarantee that one of them appears
@@ -1580,7 +1596,7 @@ export class RandomTeams {
 		if (item.zMove){
 			z = true;
 		}
-/*
+
 		let canLearn = [];
 		let learnset = this.dex.data.Learnsets[species.id] && this.dex.data.Learnsets[species.id].learnset && !['gastrodoneast', 'pumpkaboosuper', 'zygarde10'].includes(species.id) ?
 			this.dex.data.Learnsets[species.id].learnset :
@@ -1680,7 +1696,7 @@ export class RandomTeams {
 				moves[moves.indexOf('psychic')] = 'expandingforce';
 			}
 		}
-*/
+
 		let level: number;
 
 		if (!isDoubles) {
@@ -2044,15 +2060,12 @@ export class RandomTeams {
 	}
 /*
 	randomCAP1v1Sets: AnyObject = require('./cap-1v1-sets.json');
-
 	randomCAP1v1Team() {
 		const pokemon = [];
 		const pokemonPool = Object.keys(this.randomCAP1v1Sets);
-
 		while (pokemonPool.length && pokemon.length < 3) {
 			const species = this.dex.getSpecies(this.sampleNoReplace(pokemonPool));
 			if (!species.exists) throw new Error(`Invalid Pokemon "${species}" in ${this.format}`);
-
 			const setData: AnyObject = this.sample(this.randomCAP1v1Sets[species.name]);
 			const set = {
 				name: species.baseSpecies,
