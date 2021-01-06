@@ -645,7 +645,7 @@ export class RandomTeams {
 			}
 
 			// this part is to guarantee randbatsForcedMoves as the first priority
-			let forcedPool = {};
+			let forcedPool = [];
 			if (!isDoubles && species.randbatsForcedMoves) {
 				forcedPool = species.randbatsForcedMoves;
 			} else if (isDoubles && species.randbatsDoublesForcedMoves) {
@@ -658,9 +658,9 @@ export class RandomTeams {
 			}
 
 			// this part is for themed teams, like weather and terrain teams, and unusual moves that Mega Evolutions enable
-			let teamForcedPool = {};
+			let teamForcedPool = [];
 			// but only if the Pokémon can actually learn the move!
-			let canLearn = {};
+			let canLearn = [];
 			let learnset = this.dex.data.Learnsets[species.id] && this.dex.data.Learnsets[species.id].learnset && !['gastrodoneast', 'pumpkaboosuper', 'zygarde10'].includes(species.id) ?
 				this.dex.data.Learnsets[species.id].learnset :
 				this.dex.data.Learnsets[this.dex.getSpecies(species.baseSpecies).id].learnset;
@@ -1589,7 +1589,7 @@ export class RandomTeams {
 			z = true;
 		}
 
-		let canLearn = {};
+		let canLearn = [];
 		let learnset = this.dex.data.Learnsets[species.id] && this.dex.data.Learnsets[species.id].learnset && !['gastrodoneast', 'pumpkaboosuper', 'zygarde10'].includes(species.id) ?
 			this.dex.data.Learnsets[species.id].learnset :
 			this.dex.data.Learnsets[this.dex.getSpecies(species.baseSpecies).id].learnset;
