@@ -636,12 +636,7 @@ export class RandomTeams {
 
 		let hasMove: {[k: string]: boolean} = {};
 		let counter;
-		let learnset = Object.keys(this.dex.data.Learnsets[species.id]!.learnset!).slice();
-		console.log(learnset);
-		if (species.changesFrom) {
-			learnset = Object.keys(this.dex.data.Learnsets[toID(species.changesFrom)]!.learnset!).slice();
-			console.log(learnset);
-		}
+		let learnset = (this.data.Learnsets[species]) ? this.data.Learnsets[species].learnset : false;
 		
 		do {
 			// Keep track of all moves we have:
@@ -667,27 +662,27 @@ export class RandomTeams {
 			let teamForcedPool = [];
 			// but only if the Pokémon can actually learn the move!
 			// so here's where we decide the moves to include
-			/*
-			if (teamDetails.megaEvolution === 'Flygon-Mega') {
-				if (learnset.includes('extremespeed')) {
-					teamForcedPool.push('extremespeed');
-				} else if (learnset.includes('quickattack')) {
-					teamForcedPool.push('extremespeed');
+			if (learnset) {
+				if (teamDetails.megaEvolution === 'Flygon-Mega') {
+					if (learnset.extremespeed) {
+						teamForcedPool.push('extremespeed');
+					} else if (learnset.quickattack) {
+						teamForcedPool.push('extremespeed');
+					}
+					if (learnset.explosion) {
+						teamForcedPool.push('explosion');
+					} else if (learnset.selfdestruct) {
+						teamForcedPool.push('selfdestruct');
+					}
+					if (learnset.rapidspin) {
+						teamForcedPool.push('rapidspin');
+					}
 				}
-				if (learnset.includes('explosion')) {
-					teamForcedPool.push('explosion');
-				} else if (learnset.includes('selfdestruct')) {
-					teamForcedPool.push('selfdestruct');
-				}
-				if (learnset.includes('rapidspin')) {
-					teamForcedPool.push('rapidspin');
+				// testing if this does anything at all
+				if (learnset.return) {
+					teamForcedPool.push('return');
 				}
 			}
-			// testing if this does anything at all
-			if (learnset.includes('return')) {
-				teamForcedPool.push('return');
-			}
-			*/
 			// and here's where we guarantee that one of them appears
 			if (moves.length < 4 && teamForcedPool.length) {
 				const moveid = this.sampleNoReplace(teamForcedPool);
