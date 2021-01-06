@@ -693,6 +693,7 @@ export class RandomTeams {
 				console.log(moveid);
 				hasMove[moveid] = true;
 				moves.push(moveid);
+				continue;
 			}
 			console.log("Finished adding from teamForcedPool");
 
