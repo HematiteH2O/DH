@@ -636,7 +636,9 @@ export class RandomTeams {
 
 		let hasMove: {[k: string]: boolean} = {};
 		let counter;
-		let learnset = (this.data.Learnsets[species]) ? this.data.Learnsets[species].learnset : false;
+		console.log(species.id);
+		let learnset = (this.data.Learnsets[species.id]) ? this.data.Learnsets[species.id].learnset : false;
+		console.log(learnset);
 		
 		do {
 			// Keep track of all moves we have:
