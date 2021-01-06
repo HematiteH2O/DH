@@ -680,13 +680,21 @@ export class RandomTeams {
 			if (teamDetails.megaEvolution === 'Flygon-Mega') {
 				if (canLearn.includes('extremespeed')) {
 					teamForcedPool.push('extremespeed');
+				} else if (canLearn.includes('quickattack')) {
+					teamForcedPool.push('extremespeed');
 				}
-				if (canLearn.includes('quickattack')) {
-					teamForcedPool.push('quickattack');
+				if (canLearn.includes('explosion')) {
+					teamForcedPool.push('explosion');
+				} else if (canLearn.includes('selfdestruct')) {
+					teamForcedPool.push('selfdestruct');
 				}
 				if (canLearn.includes('rapidspin')) {
 					teamForcedPool.push('rapidspin');
 				}
+			}
+			// testing if this does anything at all
+			if (canLearn.includes('return')) {
+				teamForcedPool.push('return');
 			}
 			// and here's where we guarantee that one of them appears
 			if (moves.length < 4 && teamForcedPool.length) {
