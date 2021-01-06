@@ -685,12 +685,16 @@ export class RandomTeams {
 					teamForcedPool.push('return');
 				}
 			}
+			console.log(teamForcedPool);
 			// and here's where we guarantee that one of them appears
 			if (moves.length < 4 && teamForcedPool.length) {
+				console.log("Trying to add from teamForcedPool");
 				const moveid = this.sampleNoReplace(teamForcedPool);
+				console.log(moveid);
 				hasMove[moveid] = true;
 				moves.push(moveid);
 			}
+			console.log("Finished adding from teamForcedPool");
 
 			// Choose next 4 moves from learnset/viable moves and add them to moves list:
 			const pool = (movePool.length ? movePool : rejectedPool);
