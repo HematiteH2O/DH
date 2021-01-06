@@ -637,7 +637,11 @@ export class RandomTeams {
 		let hasMove: {[k: string]: boolean} = {};
 		let counter;
 		let learnset = Object.keys(this.dex.data.Learnsets[species.id]!.learnset!).slice();
-		if (species.changesFrom) learnset = Object.keys(this.dex.data.Learnsets[toID(species.changesFrom)]!.learnset!).slice();
+		console.log(learnset);
+		if (species.changesFrom) {
+			learnset = Object.keys(this.dex.data.Learnsets[toID(species.changesFrom)]!.learnset!).slice();
+			console.log(learnset);
+		}
 		
 		do {
 			// Keep track of all moves we have:
@@ -663,6 +667,7 @@ export class RandomTeams {
 			let teamForcedPool = [];
 			// but only if the Pokémon can actually learn the move!
 			// so here's where we decide the moves to include
+			/*
 			if (teamDetails.megaEvolution === 'Flygon-Mega') {
 				if (learnset.includes('extremespeed')) {
 					teamForcedPool.push('extremespeed');
@@ -682,6 +687,7 @@ export class RandomTeams {
 			if (learnset.includes('return')) {
 				teamForcedPool.push('return');
 			}
+			*/
 			// and here's where we guarantee that one of them appears
 			if (moves.length < 4 && teamForcedPool.length) {
 				const moveid = this.sampleNoReplace(teamForcedPool);
@@ -1582,7 +1588,7 @@ export class RandomTeams {
 		if (item.zMove){
 			z = true;
 		}
-
+/*
 		if (teamDetails.megaEvolution === 'Orbeetle-Mega') {
 			if (!hasMove['zapcannon'] && learnset.includes('zapcannon')) {
 				moves[moves.indexOf('thunderbolt')] = 'zapcannon';
@@ -1666,6 +1672,7 @@ export class RandomTeams {
 				moves[moves.indexOf('psychic')] = 'expandingforce';
 			}
 		}
+*/
 
 		let level: number;
 
