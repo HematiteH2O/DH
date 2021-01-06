@@ -691,7 +691,6 @@ export class RandomTeams {
 				const moveid = this.sample(teamForcedPool);
 				hasMove[moveid] = true;
 				moves.push(moveid);
-				continue;
 			}
 			console.log(moves);
 
