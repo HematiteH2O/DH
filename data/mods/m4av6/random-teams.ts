@@ -636,8 +636,8 @@ export class RandomTeams {
 
 		let hasMove: {[k: string]: boolean} = {};
 		let counter;
-		let learnset = this.dex.data.Learnsets[species.id].learnset;
-		if (species.changesFrom) learnset = this.dex.data.Learnsets[toID(species.changesFrom)].learnset;
+		let learnset = Object.keys(this.dex.data.Learnsets[species.id]!.learnset!).slice();
+		if (species.changesFrom) learnset = Object.keys(this.dex.data.Learnsets[toID(species.changesFrom)]!.learnset!).slice();
 		
 		do {
 			// Keep track of all moves we have:
