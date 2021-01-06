@@ -659,6 +659,7 @@ export class RandomTeams {
 				hasMove[moveid] = true;
 				moves.push(moveid);
 			}
+			console.log(moves);
 
 			// this part is for themed teams, like weather and terrain teams, and unusual moves that Mega Evolutions enable
 			let teamForcedPool = [];
@@ -669,7 +670,7 @@ export class RandomTeams {
 					if (learnset.extremespeed) {
 						teamForcedPool.push('extremespeed');
 					} else if (learnset.quickattack) {
-						teamForcedPool.push('extremespeed');
+						teamForcedPool.push('quickattack');
 					}
 					if (learnset.explosion) {
 						teamForcedPool.push('explosion');
@@ -692,6 +693,7 @@ export class RandomTeams {
 				moves.push(moveid);
 				continue;
 			}
+			console.log(moves);
 
 			// Choose next 4 moves from learnset/viable moves and add them to moves list:
 			const pool = (movePool.length ? movePool : rejectedPool);
@@ -700,8 +702,10 @@ export class RandomTeams {
 				hasMove[moveid] = true;
 				moves.push(moveid);
 			}
+			console.log(moves);
 
 			counter = this.queryMoves(moves, hasType, hasAbility, movePool);
+			console.log(counter);
 
 			// Iterate through the moves again, this time to cull them:
 			for (const [k, moveId] of moves.entries()) {
