@@ -637,7 +637,7 @@ export class RandomTeams {
 		let hasMove: {[k: string]: boolean} = {};
 		let counter;
 		console.log(species.id);
-		let learnset = (this.data.Learnsets[species.id]) ? this.data.Learnsets[species.id].learnset : false;
+		let learnset = (this.dex.data.Learnsets[species.id]) ? this.dex.data.Learnsets[species.id].learnset : false;
 		console.log(learnset);
 		
 		do {
