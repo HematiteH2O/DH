@@ -636,7 +636,9 @@ export class RandomTeams {
 
 		let hasMove: {[k: string]: boolean} = {};
 		let counter;
-
+		let learnset = this.dex.data.Learnsets[species.id].learnset;
+		if (species.changesFrom) learnset = this.dex.data.Learnsets[toID(species.changesFrom)].learnset;
+		
 		do {
 			// Keep track of all moves we have:
 			hasMove = {};
@@ -660,40 +662,24 @@ export class RandomTeams {
 			// this part is for themed teams, like weather and terrain teams, and unusual moves that Mega Evolutions enable
 			let teamForcedPool = [];
 			// but only if the Pokémon can actually learn the move!
-			let canLearn = [];
-			let learnset = this.dex.data.Learnsets[species.id] && this.dex.data.Learnsets[species.id].learnset && !['gastrodoneast', 'pumpkaboosuper', 'zygarde10'].includes(species.id) ?
-				this.dex.data.Learnsets[species.id].learnset :
-				this.dex.data.Learnsets[this.dex.getSpecies(species.baseSpecies).id].learnset;
-			if (learnset) {
-				canLearn = Object.keys(learnset).filter(
-					moveid => learnset![moveid].find(learned => learned.startsWith(String(this.gen)))
-				);
-			}
-			if (species.changesFrom) {
-				learnset = this.dex.data.Learnsets[toID(species.changesFrom)].learnset;
-				const baseLearnset = Object.keys(learnset!).filter(
-					moveid => learnset![moveid].find(learned => learned.startsWith(String(this.gen)))
-				);
-				canLearn = [...new Set(canLearn.concat(baseLearnset))];
-			}
 			// so here's where we decide the moves to include
 			if (teamDetails.megaEvolution === 'Flygon-Mega') {
-				if (canLearn.includes('extremespeed')) {
+				if (learnset.includes('extremespeed')) {
 					teamForcedPool.push('extremespeed');
-				} else if (canLearn.includes('quickattack')) {
+				} else if (learnset.includes('quickattack')) {
 					teamForcedPool.push('extremespeed');
 				}
-				if (canLearn.includes('explosion')) {
+				if (learnset.includes('explosion')) {
 					teamForcedPool.push('explosion');
-				} else if (canLearn.includes('selfdestruct')) {
+				} else if (learnset.includes('selfdestruct')) {
 					teamForcedPool.push('selfdestruct');
 				}
-				if (canLearn.includes('rapidspin')) {
+				if (learnset.includes('rapidspin')) {
 					teamForcedPool.push('rapidspin');
 				}
 			}
 			// testing if this does anything at all
-			if (canLearn.includes('return')) {
+			if (learnset.includes('return')) {
 				teamForcedPool.push('return');
 			}
 			// and here's where we guarantee that one of them appears
@@ -1597,102 +1583,86 @@ export class RandomTeams {
 			z = true;
 		}
 
-		let canLearn = [];
-		let learnset = this.dex.data.Learnsets[species.id] && this.dex.data.Learnsets[species.id].learnset && !['gastrodoneast', 'pumpkaboosuper', 'zygarde10'].includes(species.id) ?
-			this.dex.data.Learnsets[species.id].learnset :
-			this.dex.data.Learnsets[this.dex.getSpecies(species.baseSpecies).id].learnset;
-		if (learnset) {
-			canLearn = Object.keys(learnset).filter(
-				moveid => learnset![moveid].find(learned => learned.startsWith(String(this.gen)))
-			);
-		}
-		if (species.changesFrom) {
-			learnset = this.dex.data.Learnsets[toID(species.changesFrom)].learnset;
-			const baseLearnset = Object.keys(learnset!).filter(
-				moveid => learnset![moveid].find(learned => learned.startsWith(String(this.gen)))
-			);
-			canLearn = [...new Set(canLearn.concat(baseLearnset))];
-		}
 		if (teamDetails.megaEvolution === 'Orbeetle-Mega') {
-			if (!hasMove['zapcannon'] && canLearn.includes('zapcannon')) {
+			if (!hasMove['zapcannon'] && learnset.includes('zapcannon')) {
 				moves[moves.indexOf('thunderbolt')] = 'zapcannon';
 			}
-			if (!hasMove['thunder'] && canLearn.includes('thunder')) {
+			if (!hasMove['thunder'] && learnset.includes('thunder')) {
 				moves[moves.indexOf('thunderbolt')] = 'thunder';
 			}
-			if (!hasMove['inferno'] && canLearn.includes('inferno')) {
+			if (!hasMove['inferno'] && learnset.includes('inferno')) {
 				moves[moves.indexOf('flamethrower')] = 'inferno';
 			}
-			if (!hasMove['fireblast'] && canLearn.includes('fireblast')) {
+			if (!hasMove['fireblast'] && learnset.includes('fireblast')) {
 				moves[moves.indexOf('flamethrower')] = 'fireblast';
 			}
-			if (!hasMove['blizzard'] && canLearn.includes('blizzard')) {
+			if (!hasMove['blizzard'] && learnset.includes('blizzard')) {
 				moves[moves.indexOf('icebeam')] = 'blizzard';
 			}
-			if (!hasMove['gunkshot'] && canLearn.includes('gunkshot')) {
+			if (!hasMove['gunkshot'] && learnset.includes('gunkshot')) {
 				moves[moves.indexOf('poisonjab')] = 'gunkshot';
 			}
-			if (!hasMove['gunkshot'] && canLearn.includes('gunkshot')) {
+			if (!hasMove['gunkshot'] && learnset.includes('gunkshot')) {
 				moves[moves.indexOf('crosspoison')] = 'gunkshot';
 			}
-			if (!hasMove['focusblast'] && canLearn.includes('focusblast')) {
+			if (!hasMove['focusblast'] && learnset.includes('focusblast')) {
 				moves[moves.indexOf('aurasphere')] = 'focusblast';
 			}
 		}
 		if (teamDetails.megaEvolution === 'Flygon-Mega') {
-			if (!hasMove['boomburst'] && canLearn.includes('boomburst')) {
+			if (!hasMove['boomburst'] && learnset.includes('boomburst')) {
 				moves[moves.indexOf('earthpower')] = 'boomburst';
 			}
-			if (!hasMove['retaliate'] && canLearn.includes('retaliate')) {
+			if (!hasMove['retaliate'] && learnset.includes('retaliate')) {
 				moves[moves.indexOf('earthquake')] = 'retaliate';
 			}
-			if (!hasMove['doubleedge'] && canLearn.includes('doubleedge')) {
+			if (!hasMove['doubleedge'] && learnset.includes('doubleedge')) {
 				moves[moves.indexOf('earthquake')] = 'doubleedge';
 			}
-			if (!hasMove['facade'] && canLearn.includes('facade')) {
+			if (!hasMove['facade'] && learnset.includes('facade')) {
 				moves[moves.indexOf('earthquake')] = 'facade';
 			}
 		}
 		if (teamDetails.hail) {
-			if (!hasMove['bizzard'] && canLearn.includes('blizzard')) {
+			if (!hasMove['bizzard'] && learnset.includes('blizzard')) {
 				moves[moves.indexOf('icebeam')] = 'blizzard';
 			}
-			if (!hasMove['auroraveil'] && canLearn.includes('auroraveil')) {
+			if (!hasMove['auroraveil'] && learnset.includes('auroraveil')) {
 				moves[moves.indexOf('reflect')] = 'auroraveil';
 			}
-			if (!hasMove['auroraveil'] && canLearn.includes('auroraveil')) {
+			if (!hasMove['auroraveil'] && learnset.includes('auroraveil')) {
 				moves[moves.indexOf('lightscreen')] = 'auroraveil';
 			}
 		}
 		if (teamDetails.sun) {
-			if (!hasMove['solarblade'] && canLearn.includes('solarblade')) {
+			if (!hasMove['solarblade'] && learnset.includes('solarblade')) {
 				moves[moves.indexOf('leafblade')] = 'solarblade';
 			}
-			if (!hasMove['solarblade'] && canLearn.includes('solarblade')) {
+			if (!hasMove['solarblade'] && learnset.includes('solarblade')) {
 				moves[moves.indexOf('seedbomb')] = 'solarblade';
 			}
 		}
 		if (teamDetails.electricSurge) {
-			if (!hasMove['risingvoltage'] && canLearn.includes('risingvoltage')) {
+			if (!hasMove['risingvoltage'] && learnset.includes('risingvoltage')) {
 				moves[moves.indexOf('thunder')] = 'risingvoltage';
 			}
-			if (!hasMove['risingvoltage'] && canLearn.includes('risingvoltage')) {
+			if (!hasMove['risingvoltage'] && learnset.includes('risingvoltage')) {
 				moves[moves.indexOf('thunderbolt')] = 'risingvoltage';
 			}
 		}
 		if (teamDetails.grassySurge) {
-			if (!hasMove['grassyglide'] && canLearn.includes('grassyglide')) {
+			if (!hasMove['grassyglide'] && learnset.includes('grassyglide')) {
 				moves[moves.indexOf('leafblade')] = 'grassyglide';
 			}
-			if (!hasMove['grassyglide'] && canLearn.includes('grassyglide')) {
+			if (!hasMove['grassyglide'] && learnset.includes('grassyglide')) {
 				moves[moves.indexOf('seedbomb')] = 'grassyglide';
 			}
 		}
 		if (teamDetails.psychicSurge) {
-			if (!hasMove['expandingforce'] && canLearn.includes('expandingforce')) {
+			if (!hasMove['expandingforce'] && learnset.includes('expandingforce')) {
 				moves[moves.indexOf('psyshock')] = 'expandingforce';
 			}
-			if (!hasMove['expandingforce'] && canLearn.includes('expandingforce')) {
+			if (!hasMove['expandingforce'] && learnset.includes('expandingforce')) {
 				moves[moves.indexOf('psychic')] = 'expandingforce';
 			}
 		}
