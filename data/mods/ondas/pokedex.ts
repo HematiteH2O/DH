@@ -7,7 +7,7 @@ export const Pokedex: {[speciesid: string]: SpeciesData} = {
     types: ["Rock"],
     baseStats: {hp: 75, atk: 115, def: 65, spa: 55, spd: 65, spe: 112},
     abilities: {0: "No Ability"},
-    tactics: ["Intimidate", "Regenerator", "Unnerve", "Drought", "Leech Seed"],
+    tactics: ['intimidate', 'regenerator', 'unnerve', 'drought', 'leechseed'],
     heightm: 0.8,
     weightkg: 25,
     color: "Brown",
