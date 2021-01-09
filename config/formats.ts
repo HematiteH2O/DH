@@ -1073,6 +1073,13 @@ export const Formats: FormatList = [
 
 	},
 	{
+		name: "[Gen 8] Ondas Test",
+		desc: ["&bullet; Megas for All v7",
+		      ],
+		ruleset: ['Standard NatDex', 'OHKO Clause', 'Evasion Moves Clause', 'Species Clause', 'Dynamax Clause', 'Sleep Clause Mod', 'Freeze Clause Mod'],
+		mod: 'ondas',
+	},
+	{
 		name: "[Gen 8] Megas for All",
 		desc: ["&bullet; Megas for All v7",
 		      ],
