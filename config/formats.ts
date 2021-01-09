@@ -1077,6 +1077,8 @@ export const Formats: FormatList = [
 		desc: ["&bullet; Megas for All v7",
 		      ],
 		ruleset: ['Standard NatDex', 'OHKO Clause', 'Evasion Moves Clause', 'Species Clause', 'Dynamax Clause', 'Sleep Clause Mod', 'Freeze Clause Mod'],
+		banlist: ['all abilities'],
+		unbanlist: ['No Ability'],
 		mod: 'ondas',
 	},
 	{
