@@ -71,6 +71,7 @@ export const Scripts: ModdedBattleScriptsData = {
 		newMoves("flygon", ["extremespeed", "flashcannon", "ironhead"]);
 		newMoves("drapion", ["shoreup"]);
 		newMoves("lurantis", ["moonblast", "moonlight", "playrough", "silverwind"]);
+		newMoves("porygonz", ["revelationdance", "partingshot"]);
 	},
 	canMegaEvo(pokemon) {
 		const altForme = pokemon.baseSpecies.otherFormes && this.dex.getSpecies(pokemon.baseSpecies.otherFormes[0]);
