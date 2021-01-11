@@ -1432,7 +1432,7 @@ export const Abilities: {[abilityid: string]: ModdedAbilityData} = {
 		num: -1043,
 	},
 	conversionz: {
-		shortDesc: "If the Pokémon changes its type, the result is permanent.",
+		shortDesc: "If the Pokémon changes its type, the result is permanent. Deletes STAB.",
 		onSwitchIn(pokemon) {
 			const type = this.dex.getSpecies(pokemon.species).types[0];
 			if (pokemon.hasType(type) || !pokemon.setType(type)) return;
@@ -1444,6 +1444,9 @@ export const Abilities: {[abilityid: string]: ModdedAbilityData} = {
 				const pokemon = this.dex.getSpecies(source.species);
 				pokemon.types[0] = source.types[0];
 			}
+		},
+		onModifyMove(move) {
+			delete move.stab;
 		},
 		name: "Conversion-Z",
 		rating: 1,
