@@ -1431,6 +1431,23 @@ export const Abilities: {[abilityid: string]: ModdedAbilityData} = {
 		rating: 3,
 		num: -1043,
 	},
+	conversionz: {
+		shortDesc: "If the Pokémon changes its type, the result is permanent.",
+		onSwitchIn(pokemon) {
+			const type = this.dex.getSpecies(pokemon.species).types[0];
+			if (pokemon.hasType(type) || !pokemon.setType(type)) return;
+			this.add('-start', pokemon, 'typechange', type);
+		},
+		onSourceHit(target, source, move) {
+			if (move.id === 'conversion' || move.id === 'conversion2') {
+				const pokemon = this.dex.getSpecies(source.species);
+				pokemon.types[0] = source.types[0];
+			},
+		},
+		name: "Conversion-Z",
+		rating: 1,
+		num: -5000,
+	},
 	stickyresidues: {
 		desc: "On switch-in, this Pokémon summons sticky residues that prevent hazards from being cleared or moved by Court Change for five turns. Lasts for 8 turns if the user is holding Light Clay. Fails if the effect is already active on the user's side.",
 		shortDesc: "On switch-in, this Pokémon summons sticky residues that prevent hazards from being cleared or moved by Court Change for five turns.",
