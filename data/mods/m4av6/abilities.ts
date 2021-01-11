@@ -1440,9 +1440,10 @@ export const Abilities: {[abilityid: string]: ModdedAbilityData} = {
 		},
 		onSourceHit(target, source, move) {
 			if (move.id === 'conversion' || move.id === 'conversion2') {
+				this.add('-ability', source, 'Conversion-Z');
 				const pokemon = this.dex.getSpecies(source.species);
 				pokemon.types[0] = source.types[0];
-			},
+			}
 		},
 		name: "Conversion-Z",
 		rating: 1,
