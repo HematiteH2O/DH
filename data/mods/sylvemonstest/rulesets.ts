@@ -8,31 +8,25 @@ export const Formats: {[k: string]: FormatData} = {
 				const species = this.dex.getSpecies(pokemon.species.name);
 				const baseSpecies = Dex.getSpecies(pokemon.species.name);
 				let modded = false;
-				if (!baseSpecies) {
-					modded = true;
-				} else {
-					for (const type in [0, 1]) {
-						if (species.types[type] !== baseSpecies.types[type]) {
-							console.log(species.types[type] + " is different from " + baseSpecies.types[type]);
-							modded = true;
-						}
-					}
-					if (species.baseStats.hp !== baseSpecies.baseStats.hp) modded = true;
-					if (species.baseStats.atk !== baseSpecies.baseStats.atk) modded = true;
-					if (species.baseStats.def !== baseSpecies.baseStats.def) modded = true;
-					if (species.baseStats.spa !== baseSpecies.baseStats.spa) modded = true;
-					if (species.baseStats.spd !== baseSpecies.baseStats.spd) modded = true;
-					if (species.baseStats.spe !== baseSpecies.baseStats.spe) modded = true;
-					for (const value in [0, 1, 'H', 'S']) {
-						if (species.abilities[value] != baseSpecies.abilities[value]) {
-							console.log(value + ": " + species.abilities[value] + " is different from " + baseSpecies.abilities[value]);
-							modded = true;
-						}
+				for (const type in [0, 1]) {
+					if (species.types[type] !== baseSpecies.types[type]) {
+						console.log(species.types[type] + " is different from " + baseSpecies.types[type]);
+						modded = true;
 					}
 				}
+				if (species.baseStats.hp !== baseSpecies.baseStats.hp) modded = true;
+				if (species.baseStats.atk !== baseSpecies.baseStats.atk) modded = true;
+				if (species.baseStats.def !== baseSpecies.baseStats.def) modded = true;
+				if (species.baseStats.spa !== baseSpecies.baseStats.spa) modded = true;
+				if (species.baseStats.spd !== baseSpecies.baseStats.spd) modded = true;
+				if (species.baseStats.spe !== baseSpecies.baseStats.spe) modded = true;
+				if (species.abilities[0] !== baseSpecies.abilities[0]) modded = true;
+				if (species.abilities[1] !== baseSpecies.abilities[1]) modded = true;
+				if (species.abilities['H'] !== baseSpecies.abilities['H']) modded = true;
+				if (species.abilities['S'] !== baseSpecies.abilities['S']) modded = true;
 				if (modded) {
-					console.log(species.name + " is different from base");
 					pokemon.isModded = true;
+					console.log(species.name + " is different from in canon");
 				} else {
 					console.log(species.name + " is the same as in canon");
 				}
@@ -50,8 +44,9 @@ export const Formats: {[k: string]: FormatData} = {
 			} else {
 			if (switchedIn) return;
 				console.log(pokemon.name + " is being reported");
+				if (!pokemon.isModded) return;
 				this.add('-start', pokemon, 'typechange', pokemon.getTypes(true).join('/'), '[silent]');
-				if (pokemon.switchedIn || !pokemon.isModded) return;
+				if (pokemon.switchedIn) return;
 				pokemon.switchedIn = true;
 			}
 			let abilities = species.abilities[0];
