@@ -8,8 +8,12 @@ export const Formats: {[k: string]: FormatData} = {
 				const species = this.dex.getSpecies(pokemon.species.name);
 				const baseSpecies = Dex.getSpecies(pokemon.species.name);
 				let modded = false;
-				if (species.types[0] !== baseSpecies.types[0]) modded = true;
-				if (species.types[1] !== baseSpecies.types[1]) modded = true;
+				for (const type in [0, 1]) {
+					if (species.types[type] !== baseSpecies.types[type]) {
+						console.log(species.types[type] + " is different from " + baseSpecies.types[type]);
+						modded = true;
+					}
+				}
 				if (species.baseStats.hp !== baseSpecies.baseStats.hp) modded = true;
 				if (species.baseStats.atk !== baseSpecies.baseStats.atk) modded = true;
 				if (species.baseStats.def !== baseSpecies.baseStats.def) modded = true;
@@ -17,7 +21,7 @@ export const Formats: {[k: string]: FormatData} = {
 				if (species.baseStats.spd !== baseSpecies.baseStats.spd) modded = true;
 				if (species.baseStats.spe !== baseSpecies.baseStats.spe) modded = true;
 				if (species.abilities[0] !== baseSpecies.abilities[0]) modded = true;
-				if (species.abilities[1] !== baseSpecies.abilities[0]) modded = true;
+				if (species.abilities[1] !== baseSpecies.abilities[1]) modded = true;
 				if (species.abilities['H'] !== baseSpecies.abilities['H']) modded = true;
 				if (species.abilities['S'] !== baseSpecies.abilities['S']) modded = true;
 				if (modded) {
