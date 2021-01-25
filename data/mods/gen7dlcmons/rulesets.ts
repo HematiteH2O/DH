@@ -11,9 +11,11 @@ export const Formats: {[k: string]: FormatData} = {
 				if (!baseSpecies) {
 					modded = true;
 				} else {
-					if (species.types !== baseSpecies.types) {
-						console.log(species.types + " is different from " + baseSpecies.types);
-						modded = true;
+					for (const type in [0, 1]) {
+						if (species.types[type] !== baseSpecies.types[type]) {
+							console.log(species.types[type] + " is different from " + baseSpecies.types[type]);
+							modded = true;
+						}
 					}
 					for (const stat in species.baseStats) {
 						if (species.baseStats.stat != baseSpecies.baseStats.stat) {
@@ -60,9 +62,11 @@ export const Formats: {[k: string]: FormatData} = {
 				if (!baseSpecies) {
 					modded = true;
 				} else {
-					if (species.types !== baseSpecies.types) {
-						console.log(species.types + " is different from " + baseSpecies.types);
-						modded = true;
+					for (const type in [0, 1]) {
+						if (species.types[type] !== baseSpecies.types[type]) {
+							console.log(species.types[type] + " is different from " + baseSpecies.types[type]);
+							modded = true;
+						}
 					}
 					for (const stat in species.baseStats) {
 						if (species.baseStats.stat != baseSpecies.baseStats.stat) {
