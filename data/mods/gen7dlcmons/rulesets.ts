@@ -17,15 +17,12 @@ export const Formats: {[k: string]: FormatData} = {
 							modded = true;
 						}
 					}
-					let diffStats = false;
-					if (species.baseStats.hp !== baseSpecies.baseStats.hp) diffStats = true;
-					if (species.baseStats.atk !== baseSpecies.baseStats.atk) diffStats = true;
-					if (species.baseStats.def !== baseSpecies.baseStats.def) diffStats = true;
-					if (species.baseStats.spa !== baseSpecies.baseStats.spa) diffStats = true;
-					if (species.baseStats.spd !== baseSpecies.baseStats.spd) diffStats = true;
-					if (species.baseStats.spe !== baseSpecies.baseStats.spe) diffStats = true;
-					console.log("Different stats: " + diffStats);
-					if (diffStats) modded = true;
+					if (species.baseStats.hp !== baseSpecies.baseStats.hp) modded = true;
+					if (species.baseStats.atk !== baseSpecies.baseStats.atk) modded = true;
+					if (species.baseStats.def !== baseSpecies.baseStats.def) modded = true;
+					if (species.baseStats.spa !== baseSpecies.baseStats.spa) modded = true;
+					if (species.baseStats.spd !== baseSpecies.baseStats.spd) modded = true;
+					if (species.baseStats.spe !== baseSpecies.baseStats.spe) modded = true;
 					for (const value in [0, 1, 'H', 'S']) {
 						if (species.abilities[value] != baseSpecies.abilities[value]) {
 							console.log(value + ": " + species.abilities[value] + " is different from " + baseSpecies.abilities[value]);
