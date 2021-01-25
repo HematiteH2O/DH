@@ -35,23 +35,23 @@ export const Formats: {[k: string]: FormatData} = {
 					pokemon.isModded = true;
 				} else {
 					console.log(species.name + " is the same as in canon");
-					return;
 				}
 			}
 		},
 		onSwitchIn(pokemon) {
 			let species = this.dex.getSpecies(pokemon.species.name);
 			let switchedIn = pokemon.switchedIn;
-			if (pokemon.illusion && pokemon.illusion.isModded) {
+			if (pokemon.illusion) {
+				species = this.dex.getSpecies(pokemon.illusion.species.name);
 				console.log(pokemon.illusion.name + " is being reported");
 				this.add('-start', pokemon, 'typechange', pokemon.illusion.getTypes(true).join('/'), '[silent]');
-				species = this.dex.getSpecies(pokemon.illusion.species.name);
-				switchedIn = pokemon.illusion.switchedIn;
-				if (switchedIn) return;
+				if (pokemon.illusion.switchedIn || !pokemon.illusion.isModded) return;
 				pokemon.illusion.switchedIn = true;
-			}
+			} else {
 			if (switchedIn) return;
-			if (!pokemon.illusion) {
+				console.log(pokemon.name + " is being reported");
+				this.add('-start', pokemon, 'typechange', pokemon.getTypes(true).join('/'), '[silent]');
+				if (pokemon.switchedIn || !pokemon.isModded) return;
 				pokemon.switchedIn = true;
 			}
 			let abilities = species.abilities[0];
