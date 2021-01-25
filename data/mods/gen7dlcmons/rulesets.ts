@@ -8,21 +8,24 @@ export const Formats: {[k: string]: FormatData} = {
 				const species = this.dex.getSpecies(pokemon.illusion.species.name);
 				const baseSpecies = Dex.getSpecies(pokemon.illusion.species.name);
 				let modded = false;
-				if (!baseSpecies) modded = true;
-				if (species.types !== baseSpecies.types) {
-					console.log(species.types + " is different from " + baseSpecies.types);
+				if (!baseSpecies) {
 					modded = true;
-				}
-				for (const stat in species.baseStats) {
-					if (species.baseStats.stat != baseSpecies.baseStats.stat) {
-						console.log(stat + ": " + species.baseStats.stat + " is different from " + baseSpecies.baseStats.stat);
+				} else {
+					if (species.types !== baseSpecies.types) {
+						console.log(species.types + " is different from " + baseSpecies.types);
 						modded = true;
 					}
-				}
-				for (const value in [0, 1, 'H', 'S']) {
-					if (species.abilities[value] != baseSpecies.abilities[value]) {
-						console.log(stat + ": " + species.abilities[value] + " is different from " + baseSpecies.abilities[value]);
-						modded = true;
+					for (const stat in species.baseStats) {
+						if (species.baseStats.stat != baseSpecies.baseStats.stat) {
+							console.log(stat + ": " + species.baseStats.stat + " is different from " + baseSpecies.baseStats.stat);
+							modded = true;
+						}
+					}
+					for (const value in [0, 1, 'H', 'S']) {
+						if (species.abilities[value] != baseSpecies.abilities[value]) {
+							console.log(stat + ": " + species.abilities[value] + " is different from " + baseSpecies.abilities[value]);
+							modded = true;
+						}
 					}
 				}
 				if (modded) {
