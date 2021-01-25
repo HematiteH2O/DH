@@ -9,14 +9,18 @@ export const Formats: {[k: string]: FormatData} = {
 				const baseSpecies = Dex.getSpecies(pokemon.illusion.species.name);
 				if (baseSpecies) {
 					if (
-						species.types === baseSpecies.types &&
-						species.abilities[0] === baseSpecies.abilities[0] && species.abilities[1] === baseSpecies.abilities[0] &&
-						species.abilities['H'] === baseSpecies.abilities['H'] && species.abilities['S'] === baseSpecies.abilities['S'] &&
-						species.baseStats.hp === baseSpecies.baseStats.hp && species.baseStats.atk === baseSpecies.baseStats.atk &&
-						species.baseStats.def === baseSpecies.baseStats.def && species.baseStats.spa === baseSpecies.baseStats.spa &&
-						species.baseStats.spd === baseSpecies.baseStats.spd && species.baseStats.spe === baseSpecies.baseStats.spe
+						species.types !== baseSpecies.types ||
+						(species.abilities['1'] && species.abilities['1'] !== baseSpecies.abilities['1']) ||
+						(species.abilities['2'] && species.abilities['2'] !== baseSpecies.abilities['2']) ||
+						(species.abilities['H'] && species.abilities['H'] !== baseSpecies.abilities['H']) ||
+						(species.abilities['S'] && species.abilities['S'] !== baseSpecies.abilities['S']) ||
+						species.baseStats.hp !== baseSpecies.baseStats.hp || species.baseStats.atk !== baseSpecies.baseStats.atk ||
+						species.baseStats.def !== baseSpecies.baseStats.def || species.baseStats.spa !== baseSpecies.baseStats.spa ||
+						species.baseStats.spd !== baseSpecies.baseStats.spd || species.baseStats.spe !== baseSpecies.baseStats.spe
 					) {
-						console.log(species.name + " already exists and is unmodified");
+						console.log(species.name + " is different from base");
+					} else {
+						console.log(species.name + " is the same as in canon");
 						return;
 					}
 				}
