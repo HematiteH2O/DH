@@ -7,17 +7,75 @@ export const Formats: {[k: string]: FormatData} = {
 			if (pokemon.illusion) { // making sure Illusion isn't given away by this
 				const species = this.dex.getSpecies(pokemon.illusion.species.name);
 				const baseSpecies = Dex.getSpecies(pokemon.illusion.species.name);
+				let modded = false;
 				if (baseSpecies) {
-					if (
-						species.types !== baseSpecies.types ||
-						(species.abilities['1'] && species.abilities['1'] !== baseSpecies.abilities['1']) ||
-						(species.abilities['2'] && species.abilities['2'] !== baseSpecies.abilities['2']) ||
-						(species.abilities['H'] && species.abilities['H'] !== baseSpecies.abilities['H']) ||
-						(species.abilities['S'] && species.abilities['S'] !== baseSpecies.abilities['S']) ||
-						species.baseStats.hp !== baseSpecies.baseStats.hp || species.baseStats.atk !== baseSpecies.baseStats.atk ||
-						species.baseStats.def !== baseSpecies.baseStats.def || species.baseStats.spa !== baseSpecies.baseStats.spa ||
-						species.baseStats.spd !== baseSpecies.baseStats.spd || species.baseStats.spe !== baseSpecies.baseStats.spe
-					) {
+					if (baseSpecies.types && species.types !== baseSpecies.types) {
+						modded = true;
+					} else {
+						console.log(species.types + " is the same as " + baseSpecies.types);
+					}
+					console.log(modded);
+					if (baseSpecies.abilities['1'] && species.abilities['1'] !== baseSpecies.abilities['1']) {
+						modded = true;
+					} else {
+						console.log(species.abilities['1'] + " is the same as " + baseSpecies.abilities['1']);
+					}
+					console.log(modded);
+					if (baseSpecies.abilities['2'] && species.abilities['2'] !== baseSpecies.abilities['2']) {
+						modded = true;
+					} else {
+						console.log(species.abilities['2'] + " is the same as " + baseSpecies.abilities['2']);
+					}
+					console.log(modded);
+					if (baseSpecies.abilities['H'] && species.abilities['H'] !== baseSpecies.abilities['H']) {
+						modded = true;
+					} else {
+						console.log(species.abilities['H'] + " is the same as " + baseSpecies.abilities['H']);
+					}
+					console.log(modded);
+					if (baseSpecies.abilities['S'] && species.abilities['S'] !== baseSpecies.abilities['S']) {
+						modded = true;
+					} else {
+						console.log(species.abilities['S'] + " is the same as " + baseSpecies.abilities['S']);
+					}
+					console.log(modded);
+					if (baseSpecies.baseStats.hp && species.baseStats.hp !== baseSpecies.baseStats.hp) {
+						modded = true;
+					} else {
+						console.log(species.baseStats.hp + " is the same as " + baseSpecies.baseStats.hp);
+					}
+					console.log(modded);
+					if (baseSpecies.baseStats.atk && species.baseStats.atk !== baseSpecies.baseStats.atk) {
+						modded = true;
+					} else {
+						console.log(species.baseStats.atk + " is the same as " + baseSpecies.baseStats.atk);
+					}
+					console.log(modded);
+					if (baseSpecies.baseStats.def && species.baseStats.def !== baseSpecies.baseStats.def) {
+						modded = true;
+					} else {
+						console.log(species.baseStats.def + " is the same as " + baseSpecies.baseStats.def);
+					}
+					console.log(modded);
+					if (baseSpecies.baseStats.spa && species.baseStats.spa !== baseSpecies.baseStats.spa) {
+						modded = true;
+					} else {
+						console.log(species.baseStats.spa + " is the same as " + baseSpecies.baseStats.spa);
+					}
+					console.log(modded);
+					if (baseSpecies.baseStats.spd && species.baseStats.spd !== baseSpecies.baseStats.spd) {
+						modded = true;
+					} else {
+						console.log(species.baseStats.spd + " is the same as " + baseSpecies.baseStats.spd);
+					}
+					console.log(modded);
+					if (baseSpecies.baseStats.spe && species.baseStats.spe !== baseSpecies.baseStats.spe) {
+						modded = true;
+					} else {
+						console.log(species.baseStats.spe + " is the same as " + baseSpecies.baseStats.spe);
+					}
+					console.log(modded);
+					if (modded) {
 						console.log(species.name + " is different from base");
 					} else {
 						console.log(species.name + " is the same as in canon");
@@ -47,16 +105,78 @@ export const Formats: {[k: string]: FormatData} = {
 			} else {
 				const species = this.dex.getSpecies(pokemon.species.name);
 				const baseSpecies = Dex.getSpecies(pokemon.species.name);
+				let modded = false;
 				if (baseSpecies) {
-					if (
-						species.types === baseSpecies.types &&
-						species.abilities[0] === baseSpecies.abilities[0] && species.abilities[1] === baseSpecies.abilities[0] &&
-						species.abilities['H'] === baseSpecies.abilities['H'] && species.abilities['S'] === baseSpecies.abilities['S'] &&
-						species.baseStats.hp === baseSpecies.baseStats.hp && species.baseStats.atk === baseSpecies.baseStats.atk &&
-						species.baseStats.def === baseSpecies.baseStats.def && species.baseStats.spa === baseSpecies.baseStats.spa &&
-						species.baseStats.spd === baseSpecies.baseStats.spd && species.baseStats.spe === baseSpecies.baseStats.spe
-					) {
-						console.log(species.name + " already exists and is unmodified");
+					if (baseSpecies.types && species.types !== baseSpecies.types) {
+						modded = true;
+					} else {
+						console.log(species.types + " is the same as " + baseSpecies.types);
+					}
+					console.log(modded);
+					if (baseSpecies.abilities['1'] && species.abilities['1'] !== baseSpecies.abilities['1']) {
+						modded = true;
+					} else {
+						console.log(species.abilities['1'] + " is the same as " + baseSpecies.abilities['1']);
+					}
+					console.log(modded);
+					if (baseSpecies.abilities['2'] && species.abilities['2'] !== baseSpecies.abilities['2']) {
+						modded = true;
+					} else {
+						console.log(species.abilities['2'] + " is the same as " + baseSpecies.abilities['2']);
+					}
+					console.log(modded);
+					if (baseSpecies.abilities['H'] && species.abilities['H'] !== baseSpecies.abilities['H']) {
+						modded = true;
+					} else {
+						console.log(species.abilities['H'] + " is the same as " + baseSpecies.abilities['H']);
+					}
+					console.log(modded);
+					if (baseSpecies.abilities['S'] && species.abilities['S'] !== baseSpecies.abilities['S']) {
+						modded = true;
+					} else {
+						console.log(species.abilities['S'] + " is the same as " + baseSpecies.abilities['S']);
+					}
+					console.log(modded);
+					if (baseSpecies.baseStats.hp && species.baseStats.hp !== baseSpecies.baseStats.hp) {
+						modded = true;
+					} else {
+						console.log(species.baseStats.hp + " is the same as " + baseSpecies.baseStats.hp);
+					}
+					console.log(modded);
+					if (baseSpecies.baseStats.atk && species.baseStats.atk !== baseSpecies.baseStats.atk) {
+						modded = true;
+					} else {
+						console.log(species.baseStats.atk + " is the same as " + baseSpecies.baseStats.atk);
+					}
+					console.log(modded);
+					if (baseSpecies.baseStats.def && species.baseStats.def !== baseSpecies.baseStats.def) {
+						modded = true;
+					} else {
+						console.log(species.baseStats.def + " is the same as " + baseSpecies.baseStats.def);
+					}
+					console.log(modded);
+					if (baseSpecies.baseStats.spa && species.baseStats.spa !== baseSpecies.baseStats.spa) {
+						modded = true;
+					} else {
+						console.log(species.baseStats.spa + " is the same as " + baseSpecies.baseStats.spa);
+					}
+					console.log(modded);
+					if (baseSpecies.baseStats.spd && species.baseStats.spd !== baseSpecies.baseStats.spd) {
+						modded = true;
+					} else {
+						console.log(species.baseStats.spd + " is the same as " + baseSpecies.baseStats.spd);
+					}
+					console.log(modded);
+					if (baseSpecies.baseStats.spe && species.baseStats.spe !== baseSpecies.baseStats.spe) {
+						modded = true;
+					} else {
+						console.log(species.baseStats.spe + " is the same as " + baseSpecies.baseStats.spe);
+					}
+					console.log(modded);
+					if (modded) {
+						console.log(species.name + " is different from base");
+					} else {
+						console.log(species.name + " is the same as in canon");
 						return;
 					}
 				}
@@ -84,22 +204,18 @@ export const Formats: {[k: string]: FormatData} = {
 		},
 		onDamagingHit(damage, target, source, move) {
 			if (target.hasAbility('illusion')) { // making sure the correct information is given when an Illusion breaks
-				const species = this.dex.getSpecies(pokemon.illusion.species.name);
-				const baseSpecies = Dex.getSpecies(pokemon.illusion.species.name);
+				const species = this.dex.getSpecies(target.illusion.species.name);
+				const baseSpecies = Dex.getSpecies(target.illusion.species.name);
 				if (baseSpecies) {
 					if (
-						species.types === baseSpecies.types &&
-						species.abilities[0] === baseSpecies.abilities[0] && species.abilities[1] === baseSpecies.abilities[0] &&
-						species.abilities['H'] === baseSpecies.abilities['H'] && species.abilities['S'] === baseSpecies.abilities['S'] &&
-						species.baseStats.hp === baseSpecies.baseStats.hp && species.baseStats.atk === baseSpecies.baseStats.atk &&
-						species.baseStats.def === baseSpecies.baseStats.def && species.baseStats.spa === baseSpecies.baseStats.spa &&
-						species.baseStats.spd === baseSpecies.baseStats.spd && species.baseStats.spe === baseSpecies.baseStats.spe
+						species.types === baseSpecies.types
 					) {
 						this.add('-end', target, 'typechange', '[silent]');
 						return;
 					}
 				}
 				this.add('-start', target, 'typechange', target.getTypes(true).join('/'), '[silent]');
+/*
 				if (!target.switchedIn) {
 					let abilities = species.abilities[0];
 					if (species.abilities[1]) {
@@ -118,6 +234,7 @@ export const Formats: {[k: string]: FormatData} = {
 					}
 					target.switchedIn = true; 
 				}
+*/
 			}
 		},
 	},
