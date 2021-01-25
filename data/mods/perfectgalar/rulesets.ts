@@ -7,7 +7,11 @@ export const Formats: {[k: string]: FormatData} = {
 			if (pokemon.illusion) { // making sure Illusion isn't given away by this
 				const species = this.dex.getSpecies(pokemon.illusion.species.name);
 				const baseSpecies = Dex.getSpecies(pokemon.illusion.species.name);
-				if (species.types === baseSpecies.types && species.abilities === baseSpecies.abilities && species.baseStats === baseSpecies.baseStats) return;
+				if (
+					species.types === baseSpecies.types && species.abilities === baseSpecies.abilities && species.baseStats === baseSpecies.baseStats
+				) {
+					return;
+				}
 				this.add('-start', pokemon, 'typechange', pokemon.illusion.getTypes(true).join('/'), '[silent]');
 				if (!pokemon.illusion.switchedIn) {
 					let abilities = species.abilities[0];
@@ -30,7 +34,14 @@ export const Formats: {[k: string]: FormatData} = {
 			} else {
 				const species = this.dex.getSpecies(pokemon.species.name);
 				const baseSpecies = Dex.getSpecies(pokemon.species.name);
-				if (species.types === baseSpecies.types && species.abilities === baseSpecies.abilities && species.baseStats === baseSpecies.baseStats) return;
+				console.log(species.types + " compared to " + baseSpecies.types);
+				console.log(species.abilities + " compared to " + baseSpecies.abilities);
+				console.log(species.baseStats + " compared to " + baseSpecies.baseStats);
+				if (
+					species.types === baseSpecies.types && species.abilities === baseSpecies.abilities && species.baseStats === baseSpecies.baseStats
+				) {
+					return;
+				}
 				this.add('-start', pokemon, 'typechange', pokemon.getTypes(true).join('/'), '[silent]');
 				if (!pokemon.switchedIn) {
 					let abilities = species.abilities[0];
@@ -56,6 +67,9 @@ export const Formats: {[k: string]: FormatData} = {
 			if (target.hasAbility('illusion')) { // making sure the correct information is given when an Illusion breaks
 				const species = this.dex.getSpecies(target.illusion.species.name);
 				const baseSpecies = Dex.getSpecies(target.illusion.species.name);
+				console.log(species.types + " compared to " + baseSpecies.types);
+				console.log(species.abilities + " compared to " + baseSpecies.abilities);
+				console.log(species.baseStats + " compared to " + baseSpecies.baseStats);
 				if (
 					species.types === baseSpecies.types && species.abilities === baseSpecies.abilities && species.baseStats === baseSpecies.baseStats
 				) {
