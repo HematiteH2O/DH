@@ -23,7 +23,7 @@ export const Formats: {[k: string]: FormatData} = {
 					}
 					for (const value in [0, 1, 'H', 'S']) {
 						if (species.abilities[value] != baseSpecies.abilities[value]) {
-							console.log(stat + ": " + species.abilities[value] + " is different from " + baseSpecies.abilities[value]);
+							console.log(value + ": " + species.abilities[value] + " is different from " + baseSpecies.abilities[value]);
 							modded = true;
 						}
 					}
@@ -72,7 +72,7 @@ export const Formats: {[k: string]: FormatData} = {
 					}
 					for (const value in [0, 1, 'H', 'S']) {
 						if (species.abilities[value] != baseSpecies.abilities[value]) {
-							console.log(stat + ": " + species.abilities[value] + " is different from " + baseSpecies.abilities[value]);
+							console.log(value + ": " + species.abilities[value] + " is different from " + baseSpecies.abilities[value]);
 							modded = true;
 						}
 					}
