@@ -17,12 +17,15 @@ export const Formats: {[k: string]: FormatData} = {
 							modded = true;
 						}
 					}
-					console.log(species.baseStats);
-					console.log(baseSpecies.baseStats);
-					if (species.baseStats != baseSpecies.baseStats) {
-						console.log(species.baseStats + " is different from " + baseSpecies.baseStats);
-						modded = true;
-					}
+					let diffStats = false;
+					if (species.baseStats.hp !== baseSpecies.baseStats.hp) diffStats = true;
+					if (species.baseStats.atk !== baseSpecies.baseStats.atk) diffStats = true;
+					if (species.baseStats.def !== baseSpecies.baseStats.def) diffStats = true;
+					if (species.baseStats.spa !== baseSpecies.baseStats.spa) diffStats = true;
+					if (species.baseStats.spd !== baseSpecies.baseStats.spd) diffStats = true;
+					if (species.baseStats.spe !== baseSpecies.baseStats.spe) diffStats = true;
+					console.log("Different stats: " + diffStats);
+					if (diffStats) modded = true;
 					for (const value in [0, 1, 'H', 'S']) {
 						if (species.abilities[value] != baseSpecies.abilities[value]) {
 							console.log(value + ": " + species.abilities[value] + " is different from " + baseSpecies.abilities[value]);
@@ -68,18 +71,9 @@ export const Formats: {[k: string]: FormatData} = {
 			const type = species.types[0];
 			if (species.types[1]) {
 				const type2 = species.types[1];
-				this.add(
-					`raw|<ul class="utilichart"><li class="result">
-					<span class="col pokemonnamecol" style="white-space: nowrap">` + species.name + `<img src="https://${Config.routes.client}/sprites/types/${type}.png" alt="${type}" height="14" width="32"><img src="https://${Config.routes.client}/sprites/types/${type2}.png" alt="${type2}" height="14" width="32"></span>
-					<span style="float: left ; min-height: 14px"><span class="col abilitycol">` + abilities + `</span><span class="col abilitycol"></span></span>
-					</li><li style="clear: both"></li></ul>`
-				);
+				this.add(`raw|<ul class="utilichart"><li class="result"><span class="col pokemonnamecol" style="white-space: nowrap">` + species.name + `<img src="https://${Config.routes.client}/sprites/types/${type}.png" alt="${type}" height="14" width="32"><img src="https://${Config.routes.client}/sprites/types/${type2}.png" alt="${type2}" height="14" width="32"></span><span style="float: left ; min-height: 14px"><span class="col abilitycol">` + abilities + `</span><span class="col abilitycol"></span></span></li><li style="clear: both"></li></ul>`);
 			} else {
-				this.add(
-					`raw|<ul class="utilichart"><li class="result">
-					<span class="col pokemonnamecol" style="white-space: nowrap">` + species.name + `<img src="https://${Config.routes.client}/sprites/types/${type}.png" alt="${type}" height="14" width="32"></span>
-					<span style="float: left ; min-height: 14px"><span class="col abilitycol">` + abilities + `</span><span class="col abilitycol"></span></span>
-					</li><li style="clear: both"></li></ul>`);
+				this.add(`raw|<ul class="utilichart"><li class="result"><span class="col pokemonnamecol" style="white-space: nowrap">` + species.name + `<img src="https://${Config.routes.client}/sprites/types/${type}.png" alt="${type}" height="14" width="32"></span><span style="float: left ; min-height: 14px"><span class="col abilitycol">` + abilities + `</span><span class="col abilitycol"></span></span></li><li style="clear: both"></li></ul>`);
 			}
 			this.add(`raw|<ul class="utilichart"><li class="result"><span style="float: left ; min-height: 26px"><span class="col statcol"><em>HP</em><br>` + baseStats.hp + `</span> <span class="col statcol"><em>Atk</em><br>` + baseStats.atk + `</span> <span class="col statcol"><em>Def</em><br>` + baseStats.def + `</span> <span class="col statcol"><em>SpA</em><br>` + baseStats.spa + `</span> <span class="col statcol"><em>SpD</em><br>` + baseStats.spd + `</span> <span class="col statcol"><em>Spe</em><br>` + baseStats.spe + `</span> </span></li><li style="clear: both"></li></ul>`);
 		},
