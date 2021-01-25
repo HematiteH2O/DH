@@ -103,7 +103,6 @@ export const Formats: {[k: string]: FormatData} = {
 					}
 				} else {
 					this.add('-end', target, 'typechange', '[silent]');
-					return;
 				}
 			}
 		},
