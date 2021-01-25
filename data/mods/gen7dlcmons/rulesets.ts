@@ -15,16 +15,16 @@ export const Formats: {[k: string]: FormatData} = {
 						console.log(species.types + " is the same as " + baseSpecies.types);
 					}
 					console.log(modded);
+					if (baseSpecies.abilities['0'] && species.abilities['0'] !== baseSpecies.abilities['0']) {
+						modded = true;
+					} else {
+						console.log(species.abilities['0'] + " is the same as " + baseSpecies.abilities['0']);
+					}
+					console.log(modded);
 					if (baseSpecies.abilities['1'] && species.abilities['1'] !== baseSpecies.abilities['1']) {
 						modded = true;
 					} else {
 						console.log(species.abilities['1'] + " is the same as " + baseSpecies.abilities['1']);
-					}
-					console.log(modded);
-					if (baseSpecies.abilities['2'] && species.abilities['2'] !== baseSpecies.abilities['2']) {
-						modded = true;
-					} else {
-						console.log(species.abilities['2'] + " is the same as " + baseSpecies.abilities['2']);
 					}
 					console.log(modded);
 					if (baseSpecies.abilities['H'] && species.abilities['H'] !== baseSpecies.abilities['H']) {
