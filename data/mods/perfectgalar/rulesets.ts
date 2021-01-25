@@ -6,7 +6,7 @@ export const Formats: {[k: string]: FormatData} = {
 		onSwitchIn(pokemon) {
 			if (pokemon.illusion) { // making sure Illusion isn't given away by this
 				const species = this.dex.getSpecies(pokemon.illusion.species.name);
-				const baseSpecies = dex.getSpecies(pokemon.illusion.species.name);
+				const baseSpecies = Dex.getSpecies(pokemon.illusion.species.name);
 				if (species.types === baseSpecies.types && species.abilities === baseSpecies.abilities && species.baseStats === baseSpecies.baseStats) return;
 				this.add('-start', pokemon, 'typechange', pokemon.illusion.getTypes(true).join('/'), '[silent]');
 				if (!pokemon.illusion.switchedIn) {
@@ -29,7 +29,7 @@ export const Formats: {[k: string]: FormatData} = {
 				}
 			} else {
 				const species = this.dex.getSpecies(pokemon.species.name);
-				const baseSpecies = dex.getSpecies(pokemon.species.name);
+				const baseSpecies = Dex.getSpecies(pokemon.species.name);
 				if (species.types === baseSpecies.types && species.abilities === baseSpecies.abilities && species.baseStats === baseSpecies.baseStats) return;
 				this.add('-start', pokemon, 'typechange', pokemon.getTypes(true).join('/'), '[silent]');
 				if (!pokemon.switchedIn) {
@@ -55,7 +55,7 @@ export const Formats: {[k: string]: FormatData} = {
 		onDamagingHit(damage, target, source, move) {
 			if (target.hasAbility('illusion')) { // making sure the correct information is given when an Illusion breaks
 				const species = this.dex.getSpecies(target.illusion.species.name);
-				const baseSpecies = dex.getSpecies(target.illusion.species.name);
+				const baseSpecies = Dex.getSpecies(target.illusion.species.name);
 				if (
 					species.types === baseSpecies.types && species.abilities === baseSpecies.abilities && species.baseStats === baseSpecies.baseStats
 				) {
@@ -63,7 +63,6 @@ export const Formats: {[k: string]: FormatData} = {
 				} else {
 					this.add('-start', target, 'typechange', target.getTypes(true).join('/'), '[silent]');
 					if (!target.switchedIn) {
-						const species = this.dex.getSpecies(target.species.name);
 						let abilities = species.abilities[0];
 						if (species.abilities[1]) {
 							abilities += ` / ${species.abilities[1]}`;
