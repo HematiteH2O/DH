@@ -289,8 +289,8 @@ export const Scripts: ModdedBattleScriptsData = {
 				}
 			}
 		}
-		if ((move as any).settleBoosted) {
-			attackStat = 'atk';
+		if (move.name === 'Sail Wave') {
+			attackStat = 'spe';
 		}
 
 		const statTable = {atk: 'Atk', def: 'Def', spa: 'SpA', spd: 'SpD', spe: 'Spe'};
@@ -298,13 +298,6 @@ export const Scripts: ModdedBattleScriptsData = {
 		let defense;
 
 		let atkBoosts = move.useTargetOffensive ? defender.boosts[attackStat] : attacker.boosts[attackStat];
-		if ((move as any).bodyofwaterBoosted) {
-			if (attackStat === 'def') {
-				atkBoosts = attacker.boosts['atk'];
-			} else if (attackStat === 'spd') {
-				atkBoosts = attacker.boosts['spa'];
-			}
-		}
 		let defBoosts = defender.boosts[defenseStat];
 
 		let ignoreNegativeOffensive = !!move.ignoreNegativeOffensive;
