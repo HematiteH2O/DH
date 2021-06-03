@@ -482,6 +482,7 @@ export const Items: {[itemid: string]: ModdedItemData} = {
 	},
 	tikilohiumz: {
 		name: "Tikilohium Z",
+		desc: "If held by Tikilohi with Helping Souls, it can use Wrathful Soulstrike.",
 		spritenum: 644,
 		onTakeItem: false,
 		zMove: "Wrathful Soulstrike",
@@ -492,6 +493,7 @@ export const Items: {[itemid: string]: ModdedItemData} = {
 	},
 	plubiumz: {
 		name: "Plubium Z",
+		desc: "If held by Plubia with Shadow Ball, it can use Eternal Nightmare.",
 		spritenum: 644,
 		onTakeItem: false,
 		zMove: "Eternal Nightmare",
@@ -502,6 +504,7 @@ export const Items: {[itemid: string]: ModdedItemData} = {
 	},
 	forsnakiumz: {
 		name: "Forsnakium Z",
+		desc: "If held by Forsnaken with Shed Strike, it can use Shed Impact.",
 		spritenum: 631,
 		onTakeItem: false,
 		zMove: "Shed Impact",
@@ -512,6 +515,7 @@ export const Items: {[itemid: string]: ModdedItemData} = {
 	},
 	angleviumz: {
 		name: "Anglevium Z",
+		desc: "If held by Anglevolt with Liquidation, it can use Deep Sea Strike.",
 		spritenum: 633,
 		onTakeItem: false,
 		zMove: "Deep Sea Strike",
@@ -522,9 +526,10 @@ export const Items: {[itemid: string]: ModdedItemData} = {
 	},
 	castforiumz: {
 		name: "Castforium Z",
+		desc: "If held by Castform with Weather Ball, it can use Precipitation Crash.",
 		spritenum: 631,
 		onTakeItem: false,
-		zMove: "Precipiation Crash",
+		zMove: "Precipitation Crash",
 		zMoveFrom: "Weather Ball",
 		itemUser: ["Castform"],
 		num: -1030,
@@ -532,6 +537,7 @@ export const Items: {[itemid: string]: ModdedItemData} = {
 	},
 	snoxiumz: {
 		name: "Snoxium Z",
+		desc: "If held by Snoxin with Infection, it can use Viral Freeze.",
 		spritenum: 636,
 		onTakeItem: false,
 		zMove: "Viral Freeze",
@@ -542,6 +548,7 @@ export const Items: {[itemid: string]: ModdedItemData} = {
 	},
 	komodondiumz: {
 		name: "Komodondium Z",
+		desc: "If held by Komodond with Clangorous Soul, it can use Clangorous Ascent.",
 		spritenum: 690,
 		onTakeItem: false,
 		zMove: "Clangorous Ascent",
