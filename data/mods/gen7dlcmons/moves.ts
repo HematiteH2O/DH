@@ -276,7 +276,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 					bestStat = pokemon.storedStats[s];
 				}
 			}
-			if (statName === 'spe') {
+			if (bestStat === 'spe') {
 				move.boosts = {spe: 2};
 			} else {
 				move.boosts = {statName: 1, spe: 1};
@@ -374,17 +374,13 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		flags: {protect: 1, mirror: 1},
 		volatileStatus: 'pointypine',
 		condition: {
-			duration: 3,
+			duration: 4,
 			onStart(target) {
 				this.add('-message', `Pointy pine needles stuck into ${target.name}!`);
 			},
 			onResidualOrder: 5,
 			onResidualSubOrder: 1.1,
 			onResidual(target) {
-				this.add('-message', `Pointy pine needles stuck into ${target.name}!`);
-				this.damage(target.baseMaxhp / 8, target);
-			},
-			onEnd(target) {
 				this.add('-message', `Pointy pine needles stuck into ${target.name}!`);
 				this.damage(target.baseMaxhp / 8, target);
 			},
