@@ -56,7 +56,7 @@ export const Items: {[itemid: string]: ModdedItemData} = {
 		num: -1002,
 	},
 	snowglobe: {
-		name: "Snowglobe",
+		name: "Snow Globe",
 		shortDesc: "When hail is active, increases the holder's Atk stat by 1 stage.",
 		onUpdate(pokemon) {
 			if (this.field.isWeather(['hail']) && pokemon.useItem()) {
