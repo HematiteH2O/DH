@@ -124,7 +124,9 @@ export const Items: {[itemid: string]: ModdedItemData} = {
 		onUpdate(pokemon) {
 			if (pokemon.ignoringItem) return;
 			if (this.field.isWeather(['sunnyday', 'desolateland', 'hail', 'raindance', 'primordialsea', 'sandstorm'])) {
-				if (!this.effectData.uses) let this.effectData.uses = 0;
+				if (!this.effectData.uses) {
+					this.effectData.uses = 0;
+				}
 				this.effectData.uses++;
 				this.add('-message', `${pokemon.illusion ? pokemon.illusion.name : pokemon.name} used its Weather Machine!`);
 				if (this.effectData.uses === 3) {
@@ -142,7 +144,9 @@ export const Items: {[itemid: string]: ModdedItemData} = {
 		onUpdate(pokemon) {
 			if (pokemon.ignoringItem) return;
 			if (this.field.terrain) {
-				if (!this.effectData.uses) let this.effectData.uses = 0;
+				if (!this.effectData.uses) {
+					this.effectData.uses = 0;
+				}
 				this.effectData.uses++;
 				this.add('-message', `${pokemon.illusion ? pokemon.illusion.name : pokemon.name} used its Terrain Shovel!`);
 				if (this.effectData.uses === 3) {
