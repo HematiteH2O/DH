@@ -370,13 +370,23 @@ export const Items: {[itemid: string]: ModdedItemData} = {
 		num: -1018,
 		gen: 7,
 	},
+	parachute: {
+		name: "Parachute",
+		shortDesc: "Hazard immunity, but only once.",
+		fling: {
+			basePower: 10,
+		},
+		num: -1019,
+		gen: 7,
+		// implemented in moves.ts
+	},
 	adventurerspickaxe: {
 		name: "Adventurer's Pickaxe",
 		shortDesc: "Hazard immunity when held by an Ice-type.",
 		fling: {
 			basePower: 80,
 		},
-		num: -1019,
+		num: -1020,
 		gen: 7,
 		// implemented in moves.ts
 	},
@@ -394,7 +404,7 @@ export const Items: {[itemid: string]: ModdedItemData} = {
 				pokemon.side.removeSideCondition('stealthrock');
 			}
 		},
-		num: -1020,
+		num: -1021,
 		gen: 7,
 		// implemented in moves.ts
 	},
@@ -412,7 +422,7 @@ export const Items: {[itemid: string]: ModdedItemData} = {
 				pokemon.side.removeSideCondition('spikes');
 			}
 		},
-		num: -1021,
+		num: -1022,
 		gen: 7,
 		// implemented in moves.ts
 	},
@@ -430,7 +440,7 @@ export const Items: {[itemid: string]: ModdedItemData} = {
 				pokemon.side.removeSideCondition('toxicspikes');
 			}
 		},
-		num: -1022,
+		num: -1023,
 		gen: 7,
 		// implemented in moves.ts
 	},
@@ -448,7 +458,7 @@ export const Items: {[itemid: string]: ModdedItemData} = {
 				pokemon.side.removeSideCondition('stickyweb');
 			}
 		},
-		num: -1023,
+		num: -1024,
 		gen: 7,
 		// implemented in moves.ts
 	},
@@ -466,7 +476,7 @@ export const Items: {[itemid: string]: ModdedItemData} = {
 				pokemon.side.removeSideCondition('cinders');
 			}
 		},
-		num: -1024,
+		num: -1025,
 		gen: 7,
 		// implemented in moves.ts
 	},
@@ -477,7 +487,7 @@ export const Items: {[itemid: string]: ModdedItemData} = {
 		zMove: "Wrathful Soulstrike",
 		zMoveFrom: "Helping Souls",
 		itemUser: ["Tikilohi"],
-		num: -1025,
+		num: -1026,
 		gen: 7,
 	},
 	plubiumz: {
@@ -487,7 +497,7 @@ export const Items: {[itemid: string]: ModdedItemData} = {
 		zMove: "Eternal Nightmare",
 		zMoveFrom: "Shadow Ball",
 		itemUser: ["Plubia"],
-		num: -1026,
+		num: -1027,
 		gen: 7,
 	},
 	forsnakiumz: {
@@ -497,7 +507,7 @@ export const Items: {[itemid: string]: ModdedItemData} = {
 		zMove: "Shed Impact",
 		zMoveFrom: "Shed Strike",
 		itemUser: ["Forsnaken"],
-		num: -1027,
+		num: -1028,
 		gen: 7,
 	},
 	angleviumz: {
@@ -507,7 +517,7 @@ export const Items: {[itemid: string]: ModdedItemData} = {
 		zMove: "Deep Sea Strike",
 		zMoveFrom: "Liquidation",
 		itemUser: ["Anglevolt"],
-		num: -1028,
+		num: -1029,
 		gen: 7,
 	},
 	castforiumz: {
@@ -517,7 +527,7 @@ export const Items: {[itemid: string]: ModdedItemData} = {
 		zMove: "Precipiation Crash",
 		zMoveFrom: "Weather Ball",
 		itemUser: ["Castform"],
-		num: -1029,
+		num: -1030,
 		gen: 7,
 	},
 	snoxiumz: {
@@ -527,7 +537,7 @@ export const Items: {[itemid: string]: ModdedItemData} = {
 		zMove: "Viral Freeze",
 		zMoveFrom: "Infection",
 		itemUser: ["Snoxin"],
-		num: -1030,
+		num: -1031,
 		gen: 7,
 	},
 	komodondiumz: {
@@ -537,7 +547,7 @@ export const Items: {[itemid: string]: ModdedItemData} = {
 		zMove: "Clangorous Ascent",
 		zMoveFrom: "Clangorous Soul",
 		itemUser: ["Komodond"],
-		num: -1031,
+		num: -1032,
 		gen: 7,
 	},
 };
