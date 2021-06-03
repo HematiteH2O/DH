@@ -11,7 +11,7 @@ export const Abilities: {[abilityid: string]: ModdedAbilityData} = {
 	duelist: {
 		shortDesc: "Raises Attack when a target switches out.",
 		onAnySwitchOut(pokemon) {
-			const action = this.queue.willMove(this.effectData.source);
+			const action = this.queue.willMove(this.effectData.target);
 			if (!action) return;
 			const target = this.getTarget(action.pokemon, action.move, action.targetLoc);
 			if (!target) return;
@@ -71,7 +71,7 @@ export const Abilities: {[abilityid: string]: ModdedAbilityData} = {
 			for (const target of pokemon.side.foe.active) {
 				if (!target || target.fainted || !this.isAdjacent(target, pokemon)) continue;
 				if (!target.getTypes()[1]) continue;
-				pokemon.setType(pokemon.getTypes(true).map(type => type === "Psychic" ? "???" : target.getTypes()[1]));
+				pokemon.setType(pokemon.getTypes(true).map(type => type === "Psychic" ? target.getTypes()[1] : type));
 				this.add('-start', pokemon, 'typechange', pokemon.types.join('/'), '[from] ability: Emotion');
 				return;
 			}
