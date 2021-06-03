@@ -256,4 +256,343 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		zMove: {basePower: 160},
 		contestType: "Clever",
 	},
+	pridedance: {
+		num: -1010,
+		accuracy: true,
+		basePower: 0,
+		category: "Status",
+		name: "Pride Dance",
+		pp: 5,
+		priority: 0,
+		flags: {snatch: 1, dance: 1},
+		onModifyMove(move, pokemon) {
+			let statName = 'atk';
+			let bestStat = 0;
+			let s: StatNameExceptHP;
+			for (s in pokemon.storedStats) {
+				if (pokemon.storedStats[s] > bestStat) {
+					statName = s;
+					bestStat = pokemon.storedStats[s];
+				}
+			}
+			if (statName === 'spe') {
+				move.boosts = {spe: 2};
+			} else {
+				move.boosts = {statName: 1, spe: 1};
+			}
+		},
+		boosts: {
+			spe: 1,
+		},
+		onPrepareHit: function(target, source) {	
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Dragon Dance", target);
+		},
+		secondary: null,
+		target: "self",
+		type: "Fairy",
+		zMove: {effect: 'clearnegativeboost'},
+		contestType: "Cool",
+	},
+	ragingspirit: {
+		num: -1011,
+		accuracy: 95,
+		basePower: 80,
+		category: "Physical",
+		name: "Raging Spirit",
+		pp: 15,
+		priority: 0,
+		flags: {contact: 1, protect: 1, mirror: 1},
+		onAfterMoveSecondarySelf(pokemon, target, move) {
+			if (pokemon.species.id === 'aegislashalola' && !pokemon.transformed) {
+				pokemon.formeChange('Aegislash-Alola-Blade', this.effect, true, '[msg]');
+			}
+		},
+		onPrepareHit: function(target, source) {	
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Fire Lash", target);
+		},
+		target: "normal",
+		type: "Fire",
+		contestType: "Tough",
+	},
+	cocofall: {
+		num: -1012,
+		accuracy: 100,
+		basePower: 80,
+		category: "Physical",
+		name: "Coco Fall",
+		pp: 15,
+		priority: 0,
+		flags: {protect: 1, mirror: 1},
+		ignoreImmunity: true,
+		isFutureMove: true,
+		onTry(source, target) {
+			if (!target.side.addSlotCondition(target, 'futuremove')) return false;
+			Object.assign(target.side.slotConditions[target.position]['futuremove'], {
+				duration: 3,
+				move: 'cocofall',
+				source: source,
+				moveData: {
+					id: 'cocofall',
+					name: "Coco Fall",
+					accuracy: 100,
+					basePower: 0,
+					damage: 50,
+					category: "Physical",
+					priority: 0,
+					flags: {},
+					ignoreImmunity: false,
+					effectType: 'Move',
+					isFutureMove: true,
+					type: 'Grass',
+				},
+			});
+			this.add('-message', `Another coconut will fall and do 50 damage in two turns!`);
+		},
+		onPrepareHit: function(target, source) {	
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Barrage", target);
+		},
+		secondary: null,
+		target: "normal",
+		type: "Grass",
+		contestType: "Clever",
+	},
+	pointypine: {
+		num: -1013,
+		accuracy: 100,
+		basePower: 80,
+		category: "Physical",
+		name: "Pointy Pine",
+		pp: 15,
+		priority: 0,
+		flags: {protect: 1, mirror: 1},
+		volatileStatus: 'pointypine',
+		condition: {
+			duration: 3,
+			onStart(target) {
+				this.add('-message', `Pointy pine needles stuck into ${target.name}!`);
+			},
+			onResidualOrder: 5,
+			onResidualSubOrder: 1.1,
+			onResidual(target) {
+				this.add('-message', `Pointy pine needles stuck into ${target.name}!`);
+				this.damage(target.baseMaxhp / 8, target);
+			},
+			onEnd(target) {
+				this.add('-message', `Pointy pine needles stuck into ${target.name}!`);
+				this.damage(target.baseMaxhp / 8, target);
+			},
+		},
+		onPrepareHit: function(target, source) {	
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "G-Max Vine Lash", target);
+		},
+		secondary: null,
+		target: "adjacentFoe",
+		type: "Grass",
+		contestType: "Cool",
+	},
+	heathaze: {
+		num: -1014,
+		accuracy: true,
+		basePower: 50,
+		category: "Physical",
+		name: "Heat Haze",
+		pp: 15,
+		priority: 0,
+		flags: {protect: 1, mirror: 1},
+		onHit(target) {
+			target.clearBoosts();
+			this.add('-clearboost', target);
+		},
+		onPrepareHit: function(target, source) {	
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Clear Smog", target);
+		},
+		secondary: null,
+		target: "normal",
+		type: "Fire",
+		contestType: "Beautiful",
+	},
+	thunderhead: {
+		num: -1015,
+		accuracy: 100,
+		basePower: 70,
+		category: "Special",
+		name: "Thunderhead",
+		pp: 15,
+		priority: 0,
+		flags: {protect: 1, mirror: 1},
+		pseudoWeather: 'thunderhead',
+		condition: {
+			duration: 2,
+			onEnd() {
+				this.field.setWeather('raindance');
+			},
+		},
+		onPrepareHit: function(target, source) {	
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Rising Voltage", target);
+		},
+		secondary: null,
+		target: "normal",
+		type: "Electric",
+		maxMove: {basePower: 140},
+	},
+	tidechange: {
+		num: -1016,
+		accuracy: true,
+		basePower: 0,
+		category: "Status",
+		name: "Tide Change",
+		pp: 15,
+		priority: 0,
+		flags: {snatch: 1, heal: 1, authentic: 1},
+		heal: [1, 4],
+		selfSwitch: true,
+		onModifyMove(move, pokemon) {
+			let refresh = true;
+			for (const target of this.getAllActive()) {
+				if (target === pokemon) continue;
+				if (this.queue.willMove(target)) {
+					refresh = false;
+					break;
+				}
+			}
+			if (refresh) {
+				delete move.selfSwitch;
+			}
+		},
+		onHit(pokemon) {
+			let refresh = true;
+			for (const target of this.getAllActive()) {
+				if (target === pokemon) continue;
+				if (this.queue.willMove(target)) {
+					refresh = false;
+					break;
+				}
+			}
+			if (refresh) {
+				if (['', 'slp', 'frz'].includes(pokemon.status)) return false;
+				pokemon.cureStatus();
+			}
+		},
+		onPrepareHit: function(target, source) {	
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Life Dew", target);
+		},
+		secondary: null,
+		target: "self",
+		type: "Water",
+	},
+	afterburn: {
+		num: -1017,
+		accuracy: 100,
+		basePower: 120,
+		category: "Special",
+		name: "Afterburn",
+		pp: 10,
+		priority: 0,
+		flags: {},
+		ignoreImmunity: true,
+		isFutureMove: true,
+		onTry(source, target) {
+			if (!target.side.addSlotCondition(target, 'futuremove')) return false;
+			Object.assign(target.side.slotConditions[target.position]['futuremove'], {
+				duration: 3,
+				move: 'afterburn',
+				source: source,
+				moveData: {
+					id: 'afterburn',
+					name: "Afterburn",
+					accuracy: 100,
+					basePower: 120,
+					category: "Special",
+					priority: 0,
+					flags: {},
+					ignoreImmunity: false,
+					effectType: 'Move',
+					isFutureMove: true,
+					type: 'Fire',
+				},
+			});
+			this.add('-message', `${source.name} prepared to use Afterburn!`);
+			return null;
+		},
+		onPrepareHit: function(target, source) {	
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Heat Wave", target);
+		},
+		secondary: null,
+		target: "normal",
+		type: "Fire",
+		contestType: "Clever",
+	},
+	polarize: {
+		num: -1018,
+		accuracy: true,
+		basePower: 0,
+		category: "Status",
+		name: "Polarize",
+		pp: 20,
+		priority: -6,
+		flags: {reflectable: 1, mirror: 1, authentic: 1, mystery: 1},
+		forceSwitch: true,
+		onPrepareHit: function(target, source) {	
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Gear Up", target);
+		},
+		secondary: null,
+		target: "all",
+		type: "Steel",
+		zMove: {effect: 'healreplacement'},
+		contestType: "Clever",
+	},
+	cinders: {
+		num: -1019,
+		accuracy: true,
+		basePower: 0,
+		category: "Status",
+		name: "Cinders",
+		pp: 20,
+		priority: 0,
+		flags: {reflectable: 1, nonsky: 1},
+		sideCondition: 'cinders',
+		condition: {
+			// this is a side condition
+			onStart(side) {
+				this.add('-sidestart', side, 'Cinders');
+				this.effectData.layers = 1;
+			},
+			onRestart(side) {
+				if (this.effectData.layers >= 3) return false;
+				this.add('-sidestart', side, 'Cinders');
+				this.effectData.layers++;
+			},
+			onSwitchIn(pokemon) {
+				if (!pokemon.isGrounded()) return;
+				if (pokemon.hasType('Fire')) {
+					this.add('-sideend', pokemon.side, 'move: Cinders', '[of] ' + pokemon);
+					pokemon.side.removeSideCondition('cinders');
+				}
+				if (pokemon.hasItem('heavydutyboots')) return;
+				const damageAmounts = [0, 1, 2, 2]; // 1/8, 1/6, 1/4
+				this.damage(damageAmounts[this.effectData.layers] * pokemon.maxhp / 8);
+				if (this.effectData.layers >= 3) {
+					pokemon.trySetStatus('brn', pokemon.side.foe.active[0]);
+				}
+			},
+		},
+		onPrepareHit: function(target, source) {	
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Spikes", target);
+		},
+		secondary: null,
+		target: "foeSide",
+		type: "Fire",
+		zMove: {boost: {def: 1}},
+		contestType: "Clever",
+	},
 };
