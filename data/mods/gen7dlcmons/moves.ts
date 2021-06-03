@@ -966,4 +966,25 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		type: "Dragon",
 		contestType: "cool",
 	},
+	stickysoil: {
+		num: -1027,
+		accuracy: 100,
+		basePower: 90,
+		category: "Special",
+		name: "Sticky Soil",
+		pp: 10,
+		priority: 0,
+		flags: {protect: 1, mirror: 1, nonsky: 1},
+		onHit(target, source, move) {
+			if (source.isActive) target.addVolatile('trapped', source, move, 'trapper');
+		},
+		onPrepareHit: function(target, source) {	
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Thousand Waves", target);
+		},
+		secondary: null,
+		target: "allAdjacentFoes",
+		type: "Ground",
+		contestType: "Tough",
+	},
 };
