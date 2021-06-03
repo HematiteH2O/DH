@@ -1,5 +1,5 @@
 export const Conditions: {[k: string]: ConditionData} = {
-	twoturnmove: {
+	twoturnmove: { // modified for Sifting
 		// Skull Bash, SolarBeam, Sky Drop...
 		name: 'twoturnmove',
 		duration: 2,
@@ -12,11 +12,11 @@ export const Conditions: {[k: string]: ConditionData} = {
 			target.removeVolatile(this.effectData.move);
 		},
 		onLockMove(pokemon) {
-			if (source.hasAbility('sifting')) return;
+			if (pokemon.hasAbility('sifting')) return; // onLockMove traps the user
 			return this.effectData.move;
 		},
 		onDisableMove(pokemon) {
-			if (!source.hasAbility('sifting')) return;
+			if (!pokemon.hasAbility('sifting')) return; // equivalent to onLockMove if the user should not be trapped
 			if (!this.effectData.move || !pokemon.hasMove(this.effectData.move)) {
 				return;
 			}
