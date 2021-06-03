@@ -388,6 +388,12 @@ export const Items: {[itemid: string]: ModdedItemData} = {
 			basePower: 80,
 			type: "Rock",
 		},
+		onEat(pokemon) {
+			if (pokemon.side.getSideCondition('stealthrock')) {
+				this.add('-sideend', pokemon.side, 'move: Stealth Rock', '[of] ' + pokemon);
+				pokemon.side.removeSideCondition('stealthrock');
+			}
+		},
 		num: -1020,
 		gen: 7,
 		// implemented in moves.ts
@@ -399,6 +405,12 @@ export const Items: {[itemid: string]: ModdedItemData} = {
 		naturalGift: {
 			basePower: 80,
 			type: "Ground",
+		},
+		onEat(pokemon) {
+			if (pokemon.side.getSideCondition('spikes')) {
+				this.add('-sideend', pokemon.side, 'move: Spikes', '[of] ' + pokemon);
+				pokemon.side.removeSideCondition('spikes');
+			}
 		},
 		num: -1021,
 		gen: 7,
@@ -412,6 +424,12 @@ export const Items: {[itemid: string]: ModdedItemData} = {
 			basePower: 80,
 			type: "Poison",
 		},
+		onEat(pokemon) {
+			if (pokemon.side.getSideCondition('toxicspikes')) {
+				this.add('-sideend', pokemon.side, 'move: Toxic Spikes', '[of] ' + pokemon);
+				pokemon.side.removeSideCondition('toxicspikes');
+			}
+		},
 		num: -1022,
 		gen: 7,
 		// implemented in moves.ts
@@ -424,6 +442,12 @@ export const Items: {[itemid: string]: ModdedItemData} = {
 			basePower: 80,
 			type: "Bug",
 		},
+		onEat(pokemon) {
+			if (pokemon.side.getSideCondition('stickyweb')) {
+				this.add('-sideend', pokemon.side, 'move: Sticky Web', '[of] ' + pokemon);
+				pokemon.side.removeSideCondition('stickyweb');
+			}
+		},
 		num: -1023,
 		gen: 7,
 		// implemented in moves.ts
@@ -435,6 +459,12 @@ export const Items: {[itemid: string]: ModdedItemData} = {
 		naturalGift: {
 			basePower: 80,
 			type: "Fire",
+		},
+		onEat(pokemon) {
+			if (pokemon.side.getSideCondition('cinders')) {
+				this.add('-sideend', pokemon.side, 'move: Cinders', '[of] ' + pokemon);
+				pokemon.side.removeSideCondition('cinders');
+			}
 		},
 		num: -1024,
 		gen: 7,
