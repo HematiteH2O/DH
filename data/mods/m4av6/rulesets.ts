@@ -1,4 +1,23 @@
 export const Formats: {[k: string]: FormatData} = {
+	
+	mfabanlist: {
+		effectType: 'ValidatorRule',
+		name: 'MfA Banlist',
+		desc: 'The universal banlist/whitelist for MfA formats. We have so many formats and updating this across all of them is such a pain!',
+		banlist: [
+			'Alakazite', 'Arceus', 'Blastoisinite', 'Blazikenite', 'Darkrai', 'Darmanitan-Galar', 'Deoxys-Attack', 'Deoxys-Base', 'Dialga', 'Dracovish',
+			'Dragapult', 'Eternatus', 'Genesect', 'Gengarite', 'Giratina', 'Groudon', 'Ho-Oh', 'Kangaskhanite', 'Kyogre', 'Kyurem-Black', 'Kyurem-White', 'Landorus-Base',
+			'Lucarionite', 'Lugia', 'Lunala', 'Magearna', 'Marshadow', 'Metagrossite', 'Mewtwo', 'Naganadel', 'Necrozma-Dawn-Wings', 'Necrozma-Dusk-Mane', 'Necrozma-Ultra',
+			'Palkia', 'Pheromosa', 'Rayquaza', 'Reshiram', 'Salamencite', 'Shaymin-Sky', 'Solgaleo', 'Spectrier', 'Tapu Lele', 'Urshifu-Base', 'Xerneas', 'Yveltal',
+			'Zacian', 'Zamazenta', 'Zekrom', 'Zygarde-Base', 'Zygarde-Complete',  'Calyrex-Ice', 'Calyrex-Shadow', 'Arena Trap', 'Moody', 'Power Construct', 'Shadow Tag',
+			'Baton Pass',
+			'Bright Powder', 'Lax Incense', 'King\'s Rock', 'Quick Claw',
+			'Dragonitite', 'Cinderite',// temporary
+			
+		],
+	},
+	
+	
 	megadatamod: {
 		effectType: 'Rule',
 		name: 'Mega Data Mod',
