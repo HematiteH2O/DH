@@ -1901,6 +1901,9 @@ export const Formats: FormatList = [
 		desc: ["Megas for All but you get to Mega Evolve two Pokemon in a battle"],
 		ruleset: ['Standard NatDex', 'OHKO Clause', 'Evasion Moves Clause', 'Species Clause', 'Dynamax Clause', 'Sleep Clause Mod', 'Freeze Clause Mod', 'Mega Data Mod', 'MfA Banlist'],
 		mod: 'm4many',
+		banlist: [
+			'Hawluchanite ++ Lurantisite',
+			],
 		//searchShow: false,
 		//challengeShow: false,
 		onBegin() {
@@ -3238,6 +3241,9 @@ export const Formats: FormatList = [
 		desc: ["Megas for All but you get to Mega Evolve three Pokemon in a battle"],
 		ruleset: ['Standard NatDex', 'OHKO Clause', 'Evasion Moves Clause', 'Species Clause', 'Dynamax Clause', 'Sleep Clause Mod', 'Freeze Clause Mod', 'Mega Data Mod', 'MfA Banlist'],
 		mod: 'm4many',
+		banlist: [
+			'Hawluchanite ++ Lurantisite',
+			],
 		searchShow: false,
 		challengeShow: false,
 		onBegin() {
@@ -3249,6 +3255,9 @@ export const Formats: FormatList = [
 		desc: ["Megas for All but you get to Mega Evolve four Pokemon in a battle"],
 		ruleset: ['Standard NatDex', 'OHKO Clause', 'Evasion Moves Clause', 'Species Clause', 'Dynamax Clause', 'Sleep Clause Mod', 'Freeze Clause Mod', 'Mega Data Mod', 'MfA Banlist'],
 		mod: 'm4many',
+		banlist: [
+			'Hawluchanite ++ Lurantisite',
+			],
 		searchShow: false,
 		challengeShow: false,
 		onBegin() {
@@ -3260,6 +3269,9 @@ export const Formats: FormatList = [
 		desc: ["Megas for All but you get to Mega Evolve 5 Pokemon in a battle"],
 		ruleset: ['Standard NatDex', 'OHKO Clause', 'Evasion Moves Clause', 'Species Clause', 'Dynamax Clause', 'Sleep Clause Mod', 'Freeze Clause Mod', 'Mega Data Mod', 'MfA Banlist'],
 		mod: 'm4many',
+		banlist: [
+			'Hawluchanite ++ Lurantisite',
+			],
 		searchShow: false,
 		challengeShow: false,
 		onBegin() {
@@ -3271,6 +3283,9 @@ export const Formats: FormatList = [
 		desc: ["Megas for All but you get to Mega Evolve all of your Pokemon in a battle"],
 		ruleset: ['Standard NatDex', 'OHKO Clause', 'Evasion Moves Clause', 'Species Clause', 'Dynamax Clause', 'Sleep Clause Mod', 'Freeze Clause Mod', 'Mega Data Mod', 'MfA Banlist'],
 		mod: 'm4many',
+		banlist: [
+			'Hawluchanite ++ Lurantisite',
+			],
 		searchShow: false,
 		challengeShow: false,
 		onBegin() {
