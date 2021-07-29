@@ -1890,7 +1890,7 @@ export const Formats: FormatList = [
 			
 			//Item Restrictions
 			'Blastoisinite', 'Damp Rock', 'Gengarite', 'Kangaskhanite', 'Lucarionite', 'Mawilite', 'Medichamite', 'Metagrossite', 'Salamencite', 'Smooth Rock', 'Terrain Extender', 
-			'Bright Powder', 'Lax Incense', 'King\'s Rock', 'Quick Claw',
+			'Bright Powder', 'Lax Incense', 'King\'s Rock', 'Quick Claw', 'Razor Fang',
 			//Banned MfA Stones
 			'Butterfrite', 'Cinderite', 'Dragalgite', 'Dragonitite',
 		],
