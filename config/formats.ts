@@ -990,6 +990,7 @@ export const Formats: FormatList = [
 			'Palkia', 'Pheromosa', 'Rayquaza', 'Reshiram', 'Salamencite', 'Shaymin-Sky', 'Solgaleo', 'Spectrier', 'Tapu Lele', 'Urshifu-Base', 'Xerneas', 'Yveltal',
 			'Zacian', 'Zamazenta', 'Zekrom', 'Zygarde-Base', 'Zygarde-Complete',  'Calyrex-Ice', 'Calyrex-Shadow', 'Arena Trap', 'Moody', 'Power Construct', 'Shadow Tag',
 			'Baton Pass',
+			'Bright Powder', 'Lax Incense', 'King\'s Rock', 'Quick Claw',
 			'Dragonitite', // temporary
 		],
 		mod: 'm4av6',
@@ -1680,6 +1681,9 @@ export const Formats: FormatList = [
 			validate: [4, 6],
 			battle: 4,
 		},
+		banlist: [
+			'Bright Powder', 'Lax Incense', 'King\'s Rock', 'Quick Claw',
+			],
 		ruleset: ['Standard GBU', '+Unobtainable', '+Past', 'VGC Timer', 'Dynamax Clause', 'Mega Data Mod'],
 		mod: 'm4av6',
 		teambuilderFormat: 'Doubles OU',
@@ -1801,6 +1805,8 @@ export const Formats: FormatList = [
 			'Zamazenta-Crowned', 
 		],
 		mod: 'm4av6',
+		searchShow: false,
+		challengeShow: false,
 	},
 	{
 		name: "[Gen 8] Mix and M4A",
@@ -1904,6 +1910,7 @@ export const Formats: FormatList = [
 			
 			//Item Restrictions
 			'Blastoisinite', 'Damp Rock', 'Gengarite', 'Kangaskhanite', 'Lucarionite', 'Mawilite', 'Medichamite', 'Metagrossite', 'Salamencite', 'Smooth Rock', 'Terrain Extender', 
+			'Bright Powder', 'Lax Incense', 'King\'s Rock', 'Quick Claw',
 			//Banned MfA Stones
 			'Butterfrite', 'Cinderite', 'Dragalgite', 'Dragonitite',
 		],
@@ -1914,13 +1921,14 @@ export const Formats: FormatList = [
 		desc: ["Megas for All but you get to Mega Evolve two Pokemon in a battle"],
 		ruleset: ['Standard NatDex', 'OHKO Clause', 'Evasion Moves Clause', 'Species Clause', 'Dynamax Clause', 'Sleep Clause Mod', 'Freeze Clause Mod', 'Mega Data Mod'],
 		banlist: [
-			'Alakazite', 'Arceus', 'Blastoisinite', 'Blaziken', 'Cinderace', 'Darkrai', 'Darmanitan-Galar', 'Deoxys-Attack', 'Deoxys-Base', 'Deoxys-Speed', 'Dialga', 'Dracovish',
+			'Alakazite', 'Arceus', 'Blastoisinite', 'Blaziken-Mega', 'Blazikenite', 'Darkrai', 'Darmanitan-Galar', 'Deoxys-Attack', 'Deoxys-Base', 'Dialga', 'Dracovish',
 			'Dragapult', 'Eternatus', 'Genesect', 'Gengarite', 'Giratina', 'Groudon', 'Ho-Oh', 'Kangaskhanite', 'Kyogre', 'Kyurem-Black', 'Kyurem-White', 'Landorus-Base',
 			'Lucarionite', 'Lugia', 'Lunala', 'Magearna', 'Marshadow', 'Metagrossite', 'Mewtwo', 'Naganadel', 'Necrozma-Dawn-Wings', 'Necrozma-Dusk-Mane', 'Necrozma-Ultra',
 			'Palkia', 'Pheromosa', 'Rayquaza', 'Reshiram', 'Salamencite', 'Shaymin-Sky', 'Solgaleo', 'Spectrier', 'Tapu Lele', 'Urshifu-Base', 'Xerneas', 'Yveltal',
 			'Zacian', 'Zamazenta', 'Zekrom', 'Zygarde-Base', 'Zygarde-Complete',  'Calyrex-Ice', 'Calyrex-Shadow', 'Arena Trap', 'Moody', 'Power Construct', 'Shadow Tag',
 			'Baton Pass',
 			'Dragonitite', // temporary
+			'Bright Powder', 'Lax Incense', 'King\'s Rock', 'Quick Claw',
 		],
 		mod: 'm4many',
 		//searchShow: false,
