@@ -88,6 +88,8 @@ export const Scripts: ModdedBattleScriptsData = {
 		newMoves("rapidash", ["airslash", "uturn"]);
 		newMoves("zebstrika", ["assurance", "jawlock", "snarl", "suckerpunch", "taunt"]);
 		newMoves("mudsdale", ["bulkup", "painsplit", "wideguard"]);
+		newMoves("electrode", ["mindblown"]);
+		newMoves("silvally", ["firepledge", "waterpledge", "taunt"]);
 	},
 	canMegaEvo(pokemon) {
 		const altForme = pokemon.baseSpecies.otherFormes && this.dex.getSpecies(pokemon.baseSpecies.otherFormes[0]);
@@ -350,6 +352,53 @@ export const Scripts: ModdedBattleScriptsData = {
 
 		// Calculate damage modifiers separately (order differs between generations)
 		return this.modifyDamage(baseDamage, pokemon, target, move, suppressMessages);
+	},
+	getSpreadDamage(damage, targets, pokemon, move, moveData, isSecondary, isSelf) { //Implode!
+		for (const [i, target] of targets.entries()) {
+			if (!target) continue;
+			this.activeTarget = target;
+			damage[i] = undefined;
+			const curDamage = this.getDamage(pokemon, target, moveData);
+			// getDamage has several possible return values:
+			//
+			//   a number:
+			//     means that much damage is dealt (0 damage still counts as dealing
+			//     damage for the purposes of things like Static)
+			//   false:
+			//     gives error message: "But it failed!" and move ends
+			//   null:
+			//     the move ends, with no message (usually, a custom fail message
+			//     was already output by an event handler)
+			//   undefined:
+			//     means no damage is dealt and the move continues
+			//
+			// basically, these values have the same meanings as they do for event
+			// handlers.
+
+			if (curDamage === false || curDamage === null) {
+				if (damage[i] === false && !isSecondary && !isSelf) {
+					this.add('-fail', pokemon);
+					this.attrLastMove('[still]');
+				}
+				this.debug('damage calculation interrupted');
+				damage[i] = false;
+				continue;
+			}
+			damage[i] = curDamage;
+			if (move.selfdestruct === 'ifHit') {
+				this.faint(pokemon, pokemon, move);
+			}
+			if ((damage[i] || damage[i] === 0) && !target.fainted) {
+				if (move.noFaint && damage[i]! >= target.hp) {
+					damage[i] = target.hp - 1;
+				}
+				//Implode
+				if (move.selfdestruct === 'implode' && damage[i] < target.hp) {
+					this.faint(pokemon, pokemon, move);
+				}
+			}
+		}
+		return damage;
 	},
 
 	pokemon: {

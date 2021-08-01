@@ -1470,4 +1470,32 @@ export const Items: {[itemid: string]: ModdedItemData} = {
 		gen: 8,
 		desc: "If held by a Mudsdale, this item allows it to Mega Evolve in battle.",
 	},
+	electrodite: {
+		name: "Electrodite",
+		spritenum: 578,
+		megaStone: "Electrode-Mega",
+		megaEvolves: "Electrode",
+		itemUser: ["Electrode"],
+		onTakeItem(item, source) {
+			if (item.megaEvolves === source.baseSpecies.baseSpecies) return false;
+			return true;
+		},
+		num: -1094,
+		gen: 8,
+		desc: "If held by an Electrode, this item allows it to Mega Evolve in battle.",
+	},
+	golurkite: {
+		name: "Golurkite",
+		spritenum: 578,
+		megaStone: "Golurk-Mega",
+		megaEvolves: "Golurk",
+		itemUser: ["Golurk"],
+		onTakeItem(item, source) {
+			if (item.megaEvolves === source.baseSpecies.baseSpecies) return false;
+			return true;
+		},
+		num: -1095,
+		gen: 8,
+		desc: "If held by a Golurk, this item allows it to Mega Evolve in battle.",
+	},
 };

@@ -2380,4 +2380,60 @@ export const Abilities: {[abilityid: string]: ModdedAbilityData} = {
 		rating: 5,
 		num: -1044,
 	},
+	buildup: {
+		desc: "If this Pokemon has used an attacking move, but has not been attacked, at the end of turn, it recovers 1/8th of its HP.",
+		shortDesc: "Recover 1/8 HP on each attacking turn if not attacked.",
+		onDamagingHitOrder: 1,
+		onDamagingHit(damage, target, source, move) {
+			target.addVolatile('buildup')
+		},
+		onPrepareHit(source, target, move) {
+			if (move.category === 'Status') {
+				source.addVolatile('buildup');
+			}
+		},
+		onResidualOrder: 26,
+		onResidualSubOrder: 1,
+		onResidual(pokemon) {
+			if (pokemon.activeTurns && !pokemon.volatiles['buildup']) {
+				this.heal(pokemon.baseMaxhp / 8);
+			}
+		},
+		condition: {
+			duration: 1,
+		},
+		name: "Buildup",
+		rating: 4.5,
+		num: -1063,
+	},
+	implode: {
+		desc: "If this Pokemon's self-damaging or self-destructing moves faint an opposing Pokemon, this Pokemon does not take damage or self-destruct.",
+		shortDesc: "User takes no self-damage or self-destruct if it kills the target.",
+/* 		onAfterMove(source, target, move) {
+			if (move.implodeCheck && !source.volatiles['implode'])
+			{
+				source.faint();
+			}
+		}, */
+		onModifyMove(move, target) {
+            if (move.selfdestruct) {
+				//Implemented in getSpreadDamage in scripts.ts
+				move.selfdestruct = 'implode';
+			}
+        },
+		onFoeDamage(damage, target, source, effect) {
+			if (!source.hasAbility('implode')) return;
+			if (damage >= target.hp && this.activeMove){
+				this.activeMove.recoil = [0,0];
+				this.activeMove.mindBlownRecoil = false;
+				source.addVolatile('implode');
+			}
+		},
+		condition: {
+			duration: 1,
+		},
+		name: "Implode",
+		rating: 4.5,
+		num: -1064,
+	},
 };
