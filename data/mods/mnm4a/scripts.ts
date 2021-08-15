@@ -23,7 +23,10 @@ export const Scripts: ModdedBattleScriptsData = {
 		if (pokemon.species.isMega) return false;
 
 		// @ts-ignore
-		const species: Species = this.getMixedSpecies(pokemon.m.originalSpecies, pokemon.canMegaEvo);
+		let species: Species = this.getMixedSpecies(pokemon.m.originalSpecies, pokemon.canMegaEvo);
+		if (pokemon.getItem() === 'RKS Megamemory') {
+			species.types[1] = pokemon.hpType || 'Dark';
+		}
 		const side = pokemon.side;
 
 		// Pokémon affected by Sky Drop cannot Mega Evolve. Enforce it here for now.
@@ -100,13 +103,16 @@ export const Scripts: ModdedBattleScriptsData = {
 			deltas.baseStats[statId] = megaSpecies.baseStats[statId] - baseSpecies.baseStats[statId];
 		}
 		if (megaSpecies.types.length > baseSpecies.types.length) {
-			deltas.type = megaSpecies.types[1];
+			deltas.type = 'type1';
+			deltas.type1 = megaSpecies.types[1];
 		} else if (megaSpecies.types.length < baseSpecies.types.length) {
 			deltas.type = 'mono';
 		} else if (megaSpecies.types[0] !== baseSpecies.types[0]) {
-			deltas.type = megaSpecies.types[0];
+			deltas.type = 'type0';
+			deltas.type0 = megaSpecies.types[0];
 		} else if (megaSpecies.types[1] !== baseSpecies.types[1]) {
-			deltas.type = megaSpecies.types[1];
+			deltas.type = 'type1';
+			deltas.type1 = megaSpecies.types[1];
 		}
 		if (megaSpecies.isMega) deltas.isMega = true;
 		return deltas;
@@ -115,12 +121,20 @@ export const Scripts: ModdedBattleScriptsData = {
 		if (!deltas) throw new TypeError("Must specify deltas!");
 		const species = this.dex.deepClone(this.dex.getSpecies(speciesOrForme));
 		species.abilities = {'0': deltas.ability};
-		if (species.types[0] === deltas.type) {
-			species.types = [deltas.type];
-		} else if (deltas.type === 'mono') {
+		if (deltas.type === 'mono') {
 			species.types = [species.types[0]];
-		} else if (deltas.type) {
-			species.types = [species.types[0], deltas.type];
+		} else if (deltas.type === 'type1') {
+			if (species.types[0] === deltas.type1) {
+				species.types = [deltas.type1];
+			} else {
+				species.types = [species.types[0], deltas.type1];
+			}
+		} else if (deltas.type === 'type0') {
+			if (species.types[1] === deltas.type0) {
+				species.types = [deltas.type0];
+			} else {
+				species.types = [deltas.type0, species.types[1]];
+			}
 		}
 		const baseStats = species.baseStats;
 		for (const statName in baseStats) {
