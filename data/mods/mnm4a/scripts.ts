@@ -24,7 +24,7 @@ export const Scripts: ModdedBattleScriptsData = {
 
 		// @ts-ignore
 		let species: Species = this.getMixedSpecies(pokemon.m.originalSpecies, pokemon.canMegaEvo);
-		if (pokemon.getItem() === 'RKS Megamemory') {
+		if (pokemon.getItem().name === 'RKS Megamemory') {
 			species.types[1] = pokemon.hpType || 'Dark';
 		}
 		const side = pokemon.side;
@@ -69,6 +69,7 @@ export const Scripts: ModdedBattleScriptsData = {
 				this.add(`raw|<ul class="utilichart"><li class="result"><span class="col pokemonnamecol" style="white-space: nowrap">` + species.name + `</span> <span class="col typecol"><img src="https://${Config.routes.client}/sprites/types/${type}.png" alt="${type}" height="14" width="32"></span> <span style="float: left ; min-height: 26px"><span class="col abilitycol">` + abilities[0] + `</span><span class="col abilitycol"></span></span><span style="float: left ; min-height: 26px"><span class="col statcol"><em>HP</em><br>` + baseStats.hp + `</span> <span class="col statcol"><em>Atk</em><br>` + baseStats.atk + `</span> <span class="col statcol"><em>Def</em><br>` + baseStats.def + `</span> <span class="col statcol"><em>SpA</em><br>` + baseStats.spa + `</span> <span class="col statcol"><em>SpD</em><br>` + baseStats.spd + `</span> <span class="col statcol"><em>Spe</em><br>` + baseStats.spe + `</span> </span></li><li style="clear: both"></li></ul>`);
 			}
 		}
+		pokemon.canMegaEvo = null;
 		return true;
 	},
 	getMixedSpecies(originalForme, megaForme) {
