@@ -104,6 +104,7 @@ export const Scripts: ModdedBattleScriptsData = {
 		species.teraBoost = pokemon.species.types;
 		species.teraType = pokemon.canMegaEvo; // remember that the species is Terastal
 		species.types = [species.teraType];
+		species.nonTeraForm = pokemon.species;
 		
 		// Pokémon affected by Sky Drop cannot Terastallize
 		const side = pokemon.side;
@@ -149,22 +150,8 @@ export const Scripts: ModdedBattleScriptsData = {
 	pokemon: {
 
 		transformInto(pokemon: Pokemon, effect?: Effect) { // modded for Terastal
-			let unTeraSpecies = null;
-			if (pokemon.species.teraType) {
-				unTeraSpecies = this.battle.dex.deepClone(pokemon.species);
-				unTeraSpecies.teraType = null;
-				unTeraSpecies.types = pokemon.species.teraBoost;
-				unTeraSpecies.teraBoost = null;
-			}
-			const baseForm = pokemon.species.teraType ? unTeraSpecies : pokemon.species;
-			let teraSpecies = null;
-			if (this.species.teraType) {
-				teraSpecies = this.battle.dex.deepClone(baseForm);
-				teraSpecies.teraType = this.species.teraType;
-				teraSpecies.types = [teraSpecies.teraType];
-				teraSpecies.teraBoost = this.battle.dex.getSpecies(speciesId).types;
-			}
-			const species = teraSpecies || baseForm;
+			const species = pokemon.species.nonTeraForm ? pokemon.species.nonTeraForm : pokemon.species;
+			const teraType = this.species.teraType;
 			if (pokemon.fainted || pokemon.illusion || (pokemon.volatiles['substitute'] && this.battle.gen >= 5) ||
 				 (pokemon.transformed && this.battle.gen >= 2) || (this.transformed && this.battle.gen >= 5) ||
 				 species.name === 'Eternatus-Eternamax') {
@@ -176,11 +163,21 @@ export const Scripts: ModdedBattleScriptsData = {
 			this.transformed = true;
 			this.weighthg = pokemon.weighthg;
 
-			const types = pokemon.getTypes(true);
-			this.setType(pokemon.volatiles['roost'] ? pokemon.volatiles['roost'].typeWas : types, true);
-			this.addedType = pokemon.addedType;
-			this.knownType = this.side === pokemon.side && pokemon.knownType;
-			this.apparentType = pokemon.apparentType;
+			if (teraType) {
+				this.setType(teraType, true);
+			} else {
+				if (pokemon.species.nonTeraForm) {
+					this.setType(pokemon.species.nonTeraForm.types, true);
+					this.addedType = pokemon.addedType;
+					this.knownType = pokemon.species.nonTeraForm.types;
+					this.apparentType = pokemon.species.nonTeraForm.types;
+				} else {
+					this.setType(pokemon.volatiles['roost'] ? pokemon.volatiles['roost'].typeWas : pokemon.getTypes(true), true);
+					this.addedType = pokemon.addedType;
+					this.knownType = this.side === pokemon.side && pokemon.knownType;
+					this.apparentType = pokemon.apparentType;
+				}
+			}
 
 			let statName: StatNameExceptHP;
 			for (statName in this.storedStats) {
@@ -282,6 +279,7 @@ export const Scripts: ModdedBattleScriptsData = {
 				teraSpecies.teraType = this.species.teraType;
 				teraSpecies.types = [teraSpecies.teraType];
 				teraSpecies.teraBoost = this.battle.dex.getSpecies(speciesId).types;
+				teraSpecies.nonTeraForm = baseForm;
 			}
 			const rawSpecies = teraSpecies || baseForm;
 			const species = this.setSpecies(rawSpecies, source);
