@@ -3261,7 +3261,7 @@ export const Formats: FormatList = [
 		challengeShow: false,
 	},
 	{
-		name: "[Gen 8] SV Speculative (Prototype)",
+		name: "[Gen 8] SV Speculative",
 		desc: [
 			"Currently just a custom game format with Terastal implemented instead of Mega Evolution; will make a more specific speculative format for SV when we have a bit more to work with!",
 		],
