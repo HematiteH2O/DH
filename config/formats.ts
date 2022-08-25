@@ -3289,41 +3289,6 @@ export const Formats: FormatList = [
 		},
 		mod: 'svspeculative',
 	},
-	{
-		name: "[Gen 8] SV Speculative VGC",
-		desc: [
-			"Currently just a custom game format with Terastal implemented instead of Mega Evolution; will make a more specific speculative format for SV when we have a bit more to work with!",
-		],
-
-		searchShow: false,
-		ruleset: ['Team Preview', 'Cancel Mod', 'Dynamax Clause', 'VGC Timer'],
-		gameType: 'doubles',
-		forcedLevel: 50,
-		teamLength: {
-			validate: [4, 6],
-			battle: 4,
-		},
-		onValidateSet(set) {
-			const item = this.dex.getItem(set.item);
-			if (item.megaStone) return [`${set.name || set.species} is not allowed to Mega Evolve. (We have Terastal instead!)`];
-			if (item.zMove) return [`${set.name || set.species} is not allowed to hold a Z-Crystal. (We have Terastal instead!)`];
-		},
-		validateSet(set, teamHas) {
-			const species = this.dex.getSpecies(set.species);
-			const ability = this.dex.getAbility(set.ability);
-			if (!set.hpType === 'Fairy' && !set.hpType === 'Normal') {
-				return this.validateSet(set, teamHas);
-			} else {
-				const terastal = set.hpType;
-				set.hpType = 'Fire';
-				const fakeValidation = this.validateSet(set, teamHas);
-				if (fakeValidation?.length) return fakeValidation;
-				set.hpType = terastal;
-				return null;
-			}
-		},
-		mod: 'svspeculative',
-	},
 	// Solo Mods
 	{
 		section: "Solomods",
