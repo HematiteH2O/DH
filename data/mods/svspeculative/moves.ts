@@ -761,7 +761,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 			this.add('-anim', source, "Charge", target);
 		},
 		onTry(pokemon) {
-			if (pokemon.side.mostRecentKO || !pokemon.side.mostRecentKO.fainted) return;
+			if (pokemon.side.mostRecentKO && pokemon.side.mostRecentKO.fainted) return;
 			this.add('-fail', pokemon, 'move: Defibrillator');
 			this.hint("There was nothing to revive!");
 			return null;
