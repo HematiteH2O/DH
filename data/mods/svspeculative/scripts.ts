@@ -151,20 +151,27 @@ export const Scripts: ModdedBattleScriptsData = {
 
 		transformInto(pokemon: Pokemon, effect?: Effect) { // modded for Terastal
 			const species = pokemon.species.nonTeraForm ? pokemon.species.nonTeraForm : pokemon.species;
-			const teraType = this.species.teraType;
+			let teraSpecies = null;
+			if (this.species.teraType) {
+				teraSpecies = this.battle.dex.deepClone(species);
+				teraSpecies.teraType = this.species.teraType;
+				teraSpecies.types = [teraSpecies.teraType];
+				teraSpecies.teraBoost = this.battle.dex.getSpecies(species).types;
+				teraSpecies.nonTeraForm = species;
+			}
 			if (pokemon.fainted || pokemon.illusion || (pokemon.volatiles['substitute'] && this.battle.gen >= 5) ||
 				 (pokemon.transformed && this.battle.gen >= 2) || (this.transformed && this.battle.gen >= 5) ||
 				 species.name === 'Eternatus-Eternamax') {
 				return false;
 			}
 
-			if (!this.setSpecies(species, effect, true)) return false;
+			if (!this.setSpecies(teraSpecies ? teraSpecies : species, effect, true)) return false;
 
 			this.transformed = true;
 			this.weighthg = pokemon.weighthg;
 
-			if (teraType) {
-				this.setType(teraType, true);
+			if (teraSpecies) {
+				this.setType(teraSpecies.types, true);
 			} else {
 				if (pokemon.species.nonTeraForm) {
 					this.setType(pokemon.species.nonTeraForm.types, true);
