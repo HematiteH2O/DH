@@ -164,7 +164,7 @@ export const Scripts: ModdedBattleScriptsData = {
 				teraSpecies.types = [teraSpecies.teraType];
 				teraSpecies.teraBoost = this.battle.dex.getSpecies(speciesId).types;
 			}
-			const rawSpecies = teraSpecies || baseForm;
+			const species = teraSpecies || baseForm;
 			if (pokemon.fainted || pokemon.illusion || (pokemon.volatiles['substitute'] && this.battle.gen >= 5) ||
 				 (pokemon.transformed && this.battle.gen >= 2) || (this.transformed && this.battle.gen >= 5) ||
 				 species.name === 'Eternatus-Eternamax') {
