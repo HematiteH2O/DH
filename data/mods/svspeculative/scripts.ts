@@ -31,7 +31,7 @@ export const Scripts: ModdedBattleScriptsData = {
 			} else if (!newMon.name.startsWith('Enamorus')) continue;
 
 			if (!this.dataCache.Learnsets[id]) continue; // just in case
-			const movepoolAdditions = ["attract", "endure", "facade", "protect", "rest", "round", "sleeptalk", "snore", "substitute"];
+			const movepoolAdditions = ["attract", "endure", "facade", "protect", "rest", "round", "sleeptalk", "snore", "substitute", "terablast"];
 			for (const move of movepoolAdditions) {
 				this.modData('Learnsets', this.toID(id)).learnset[this.toID(move)] = ["8M"];
 			}
