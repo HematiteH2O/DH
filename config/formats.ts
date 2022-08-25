@@ -3268,7 +3268,6 @@ export const Formats: FormatList = [
 
 		mod: 'gen8',
 		searchShow: false,
-		battle: {trunc: Math.trunc},
 		ruleset: ['Team Preview', 'HP Percentage Mod', 'Cancel Mod', 'Dynamax Clause', 'Sleep Clause Mod'],
 		onValidateSet(set) {
 			const item = this.dex.getItem(set.item);
