@@ -11,7 +11,7 @@ export const Scripts: ModdedBattleScriptsData = {
 
 	init() {
 		for (const id in this.dataCache.Pokedex) {
-			if (this.dataCache.Learnsets[id]) {
+			if (this.dataCache.Learnsets[id] && this.dataCache.Learnsets[id].learnset) {
 				this.modData('Learnsets', this.toID(id)).learnset.terablast = ["8M"];
 			}
 			const newMon = this.dataCache.Pokedex[id];
