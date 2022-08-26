@@ -847,7 +847,7 @@ export const Formats: FormatList = [
 			let tierSpecies = species;
 
 			if (item.megaEvolves === species.name) {
-				if (item.megaStone && this.dex.getSpecies(item.megaStone).tier !== 'Mega') return [item.name + ' is not a legal Mega Stone.');
+				if (item.megaStone && this.dex.getSpecies(item.megaStone).tier !== 'Mega') return [item.name + ' is not a legal Mega Stone.'];
 			}
 		},
 		mod: 'm4akalos',
