@@ -28,7 +28,7 @@ export const Scripts: ModdedBattleScriptsData = {
 					} else {
 						let moveSource = null;
 						for (const source of learnset[moveid]) {
-							if (parseInt(moveSource.charAt(0)) < 7) continue; // only recent level/Egg moves
+							if (parseInt(source.charAt(0)) < 7) continue; // only recent level/Egg moves
 							if (source.charAt(1) === 'L') {
 								moveSource = ['8L1'];
 								return; // prioritize level-up over Egg if something can be both
