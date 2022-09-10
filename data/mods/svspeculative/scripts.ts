@@ -29,8 +29,8 @@ export const Scripts: ModdedBattleScriptsData = {
 						let moveSource = null;
 						for (const source of learnset[moveid]) {
 							if (source.charAt(0) !== 8 && source.charAt(0) !== 7) continue;
-							if (source.charAt(1) === "L") moveSource = ['8L1'];
-							if (source.charAt(1) === "E" && moveSource !== ['8L1']) moveSource = ['8E'];
+							if (source.charAt(1) === 'L') moveSource = ['8L1'];
+							if (source.charAt(1) === 'E' && moveSource !== ['8L1']) moveSource = ['8E'];
 						}
 						if (moveSource) {
 							learnset[moveid] = moveSource;
