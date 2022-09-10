@@ -10,9 +10,31 @@ export const Scripts: ModdedBattleScriptsData = {
 	// Legends stuff + future speculative Fakemon
 
 	init() {
+		const cutMoves = [
+			'hiddenpower',
+		];
+		const galarMoves = [
+			'aerialace', 'airslash',
+		];
 		for (const id in this.dataCache.Pokedex) {
 			if (this.dataCache.Learnsets[id] && this.dataCache.Learnsets[id].learnset) {
 				this.modData('Learnsets', this.toID(id)).learnset.terablast = ["8M"];
+				const learnset = this.dataCache.Learnsets[id].learnset;
+				for (const moveid in learnset) {
+					if (cutMoves.includes(moveid)) {
+						delete learnset[moveid];
+					} else if (galarMoves.includes(moveid)) {
+						learnset[moveid] = ['8M'];
+					} else {
+						if (this.modData('Learnsets', id).learnset[moveid].includes("8L") || this.modData('Learnsets', id).learnset[moveid].includes("7L")) {
+							this.modData('Learnsets', id).learnset[moveid] = ['8L'];
+						} else if (this.modData('Learnsets', id).learnset[moveid].includes("8E") || this.modData('Learnsets', id).learnset[moveid].includes("7E")) {
+							this.modData('Learnsets', id).learnset[moveid] = ['8L'];
+						} else {
+							delete learnset[moveid];
+						}
+					}
+				}
 			}
 			const newMon = this.dataCache.Pokedex[id];
 			if (!newMon) continue; // weeding out Pokémon that aren't new
