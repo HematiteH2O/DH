@@ -31,7 +31,7 @@ export const Scripts: ModdedBattleScriptsData = {
 							if (parseInt(source.charAt(0)) < 7) continue; // only recent level/Egg moves
 							if (source.charAt(1) === 'L') {
 								moveSource = ['8L1'];
-								return; // prioritize level-up over Egg if something can be both
+								break; // prioritize level-up over Egg if something can be both
 							}
 							if (source.charAt(1) === 'E') moveSource = ['8E'];
 						}
