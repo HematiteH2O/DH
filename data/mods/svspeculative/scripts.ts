@@ -26,12 +26,15 @@ export const Scripts: ModdedBattleScriptsData = {
 					} else if (galarMoves.includes(moveid)) {
 						learnset[moveid] = ['8M'];
 					} else {
-						if (this.modData('Learnsets', id).learnset[moveid].includes("8L") || this.modData('Learnsets', id).learnset[moveid].includes("7L")) {
-							this.modData('Learnsets', id).learnset[moveid] = ['8L'];
-						} else if (this.modData('Learnsets', id).learnset[moveid].includes("8E") || this.modData('Learnsets', id).learnset[moveid].includes("7E")) {
-							this.modData('Learnsets', id).learnset[moveid] = ['8L'];
-						} else {
-							delete learnset[moveid];
+						for (const source in learnset[moveid]) {
+							let method = null;
+							if (source.includes("8L") || source.includes("7L")) method = ['8L'];
+							if (method === null && (source.includes("8E") || source.includes("7E"))) method = ['8E'];
+							if (method) {
+								source = method;
+							} else {
+								delete learnset[moveid];
+							}
 						}
 					}
 				}
