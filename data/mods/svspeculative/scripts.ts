@@ -26,16 +26,14 @@ export const Scripts: ModdedBattleScriptsData = {
 					} else if (galarMoves.includes(moveid)) {
 						learnset[moveid] = ['8M'];
 					} else {
-						let eggMove = null;
-						for (const source in learnset[moveid]) {
-							if (source.includes("8L") || source.includes("7L")) {
-								learnset[moveid] = ['8L'];
-								return;
-							}
-							if (source.includes("8E") || source.includes("7E")) eggMove = true;
+						let moveSource = null;
+						for (const source of learnset[moveid]) {
+							if (source.charAt(0) !== 8 && source.charAt(0) !== 7) continue;
+							if (source.charAt(1) === "L") moveSource = ['8L1'];
+							if (source.charAt(1) === "E" && moveSource !== ['8L1']) moveSource = ['8E'];
 						}
-						if (eggMove) {
-							learnset[moveid] = ['8E'];
+						if (moveSource) {
+							learnset[moveid] = moveSource;
 						} else {
 							delete learnset[moveid];
 						}
