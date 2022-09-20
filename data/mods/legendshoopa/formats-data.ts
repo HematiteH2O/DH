@@ -848,7 +848,7 @@ export const FormatsData: {[k: string]: ModdedSpeciesFormatsData} = {
 		isModded: true,
 	},
 
-	starme: {
+	starmie: {
 		tier: "ANL OU",
 		isModded: true,
 	},
