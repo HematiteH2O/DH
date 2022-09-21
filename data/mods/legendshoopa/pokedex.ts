@@ -192,7 +192,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		evos: ["Girafgiraf"],
 		types: ["Psychic", "Dark"],
 		baseStats: {hp: 70, atk: 80, def: 65, spa: 90, spd: 65, spe: 85},
-		abilities: {0: "Strong Jaw", 1: "Inner Focus", H: "Two Headded"},
+		abilities: {0: "Strong Jaw", 1: "Inner Focus", H: "Two-Headed"},
 		weightkg: 41.5,
 	},
 
@@ -201,7 +201,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		name: "Girafgiraf",
 		types: ["Psychic", "Ghost"],
 		baseStats: {hp: 80, atk: 95, def: 70, spa: 95, spd: 70, spe: 95},
-		abilities: {0: "Strong Jaw", 1: "Inner Focus", H: "Two Headded"},
+		abilities: {0: "Strong Jaw", 1: "Inner Focus", H: "Two-Headed"},
 		weightkg: 51.51,
 		prevo: "Girafarig-Hoenn",
 	},
