@@ -1540,6 +1540,7 @@ export const Learnsets: {[speciesid: string]: LearnsetData} = {
 		},
 	},
 	crustle: {
+		inherit: true,
 		learnset: {
 			inherit: true,
 			hyperbeam: null,
@@ -1547,18 +1548,21 @@ export const Learnsets: {[speciesid: string]: LearnsetData} = {
 		},
 	},
 	lanturn: {
+		inherit: true,
 		learnset: {
 			inherit: true,
 			thunderfang: ["8L1"],
 		},
 	},
 	kecleon: {
+		inherit: true,
 		learnset: {
 			inherit: true,
 			camoscope: ["8L1"],
 		},
 	},
 	tropius: {
+		inherit: true,
 		learnset: {
 			inherit: true,
 			berryblast: ["8L1"],
