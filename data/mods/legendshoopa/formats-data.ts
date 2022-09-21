@@ -1783,17 +1783,17 @@ export const FormatsData: {[k: string]: ModdedSpeciesFormatsData} = {
 		tier: "ANL OU",
 		isModded: true,
 	},
-*/
 
-	bunnelby: {
+	buneary: {
 		tier: "ANL LC",
 		isModded: true,
 	},
 
-	diggersby: {
+	lopunny: {
 		tier: "ANL OU",
 		isModded: true,
 	},
+*/
 
 	druddigon: {
 		tier: "ANL OU",
