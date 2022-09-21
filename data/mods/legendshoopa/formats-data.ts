@@ -151,6 +151,11 @@ export const FormatsData: {[k: string]: ModdedSpeciesFormatsData} = {
 		isModded: true,
 	},
 
+	abyssylarf: { // the only differences are height and weight, but...
+		tier: "ANL OU",
+		isModded: true,
+	},
+
 	/////////////canon mons////////////
 
 	treecko: {
