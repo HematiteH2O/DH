@@ -159,7 +159,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		name: "Berry Blast",
 		pp: 15,
 		priority: 0,
-		flags: {bullet: 1, protect: 1, mirror: 1},
+		flags: {protect: 1, mirror: 1},
 		secondary: null,
 		onPrepareHit: function(target, source, move) {
 			this.attrLastMove('[still]');
