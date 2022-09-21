@@ -144,6 +144,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 	},
 
 	berryblast: {
+		shortDesc: "Doubles in power if the user is itemless.",
 		num: -106,
 		accuracy: 100,
 		basePower: 55,
@@ -170,6 +171,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 	},
 
 	postdelivery: {
+		shortDesc: "Does damage 2 turns after use. Physical if the user is female.",
 		num: -107,
 		accuracy: 100,
 		basePower: 90,
@@ -235,6 +237,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 	},
 
 	camoscope: {
+		shortDesc: "Matches the user's primary type.",
 		num: -108,
 		accuracy: 100,
 		basePower: 100,
@@ -259,6 +262,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 	},
 
 	pixiedust: {
+		shortDesc: "-1 priority. Attempted Fire moves fail and explode; if they do, this move does half damage.",
 		num: -109,
 		accuracy: 100,
 		basePower: 90,
@@ -302,6 +306,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 	},
 
 	stormoflight: {
+		shortDesc: "The user sacrifices 80% of its current HP.",
 		num: -110,
 		accuracy: 100,
 		basePower: 200,
@@ -321,6 +326,35 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		target: "allAdjacent",
 		type: "Electric",
 		contestType: "Cool",
+	},
+
+	takeheart: { // for Dovinity
+		shortDesc: "Raises the user's Sp. Atk and Sp. Def by 1. User cures its burn, poison, or paralysis.",
+		num: -111,
+		accuracy: true,
+		basePower: 0,
+		category: "Status",
+		name: "Take Heart",
+		pp: 10,
+		priority: 0,
+		flags: {snatch: 1},
+		onPrepareHit(target, source, move) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Tail Glow", target);
+		},
+		onHit(pokemon) {
+			if (pokemon.status === '') return;
+			pokemon.cureStatus();
+		},
+		boosts: {
+			spa: 1,
+			spd: 1,
+		},
+		secondary: null,
+		target: "self",
+		type: "Water",
+		zMove: {effect: 'clearnegativeboost'},
+		contestType: "Cute",
 	},
 
 
