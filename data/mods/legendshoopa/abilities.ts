@@ -40,7 +40,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		},
 
 		name: "Two-Headed",
-		shortDesc: "Damaging moves hit twice. The second hit deals 0.25x damage."
+		shortDesc: "Damaging moves hit twice. The second hit deals 0.25x damage.",
 		num: -102,
 	},
 
