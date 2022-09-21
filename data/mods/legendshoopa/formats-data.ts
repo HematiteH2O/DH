@@ -4,8 +4,6 @@ export const FormatsData: {[k: string]: ModdedSpeciesFormatsData} = {
 		tier: "ANL OU",
 		isModded: true,
 	},
-
-
 	*/
 
 	larvitar: {
@@ -20,11 +18,6 @@ export const FormatsData: {[k: string]: ModdedSpeciesFormatsData} = {
 
 	tyranitarhoenn: {
 		tier: "ANL OU",
-		isModded: true,
-	},
-
-	slugma: {
-		tier: "ANL LC",
 		isModded: true,
 	},
 
@@ -114,6 +107,46 @@ export const FormatsData: {[k: string]: ModdedSpeciesFormatsData} = {
 	},
 
 	feraligatrhoenn: {
+		tier: "ANL OU",
+		isModded: true,
+	},
+
+	crusteroid: {
+		tier: "ANL OU",
+		isModded: true,
+	},
+
+	cornutropia: {
+		tier: "ANL OU",
+		isModded: true,
+	},
+
+	dovinity: {
+		tier: "ANL OU",
+		isModded: true,
+	},
+
+	dovinityf: {
+		tier: "ANL OU",
+		isModded: true,
+	},
+
+	kaleideon: {
+		tier: "ANL OU",
+		isModded: true,
+	},
+
+	saccoon: {
+		tier: "ANL NFE",
+		isModded: true,
+	},
+
+	floccoth: {
+		tier: "ANL OU",
+		isModded: true,
+	},
+
+	abyssylar: {
 		tier: "ANL OU",
 		isModded: true,
 	},
@@ -874,7 +907,7 @@ export const FormatsData: {[k: string]: ModdedSpeciesFormatsData} = {
 	},
 
 	kecleon: {
-		tier: "ANL OU",
+		tier: "ANL NFE", // Kaleideon
 		isModded: true,
 	},
 
@@ -904,7 +937,7 @@ export const FormatsData: {[k: string]: ModdedSpeciesFormatsData} = {
 	},
 
 	tropius: {
-		tier: "ANL OU",
+		tier: "ANL NFE", // Cornutropia
 		isModded: true,
 	},
 
@@ -1083,7 +1116,7 @@ export const FormatsData: {[k: string]: ModdedSpeciesFormatsData} = {
 	},
 
 	lanturn: {
-		tier: "ANL OU",
+		tier: "ANL NFE", // Abyssylar
 		isModded: true,
 	},
 
@@ -1371,7 +1404,7 @@ export const FormatsData: {[k: string]: ModdedSpeciesFormatsData} = {
 	},
 
 	crustle: {
-		tier: "ANL OU",
+		tier: "ANL NFE", // Crusteroid
 		isModded: true,
 	},
 
