@@ -272,9 +272,9 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		priority: -1,
 		flags: {bullet: 1, protect: 1},
 		beforeTurnCallback(pokemon) {
-			for (const side of this.sides) {
-				if (side === pokemon.side) continue;
-				side.addSideCondition('pixiedust', pokemon);
+			for (const target of this.getAllActive()) {
+				if (target === pokemon) continue;
+				target.addSideCondition('pixiedust', pokemon);
 			}
 		},
 		condition: {
