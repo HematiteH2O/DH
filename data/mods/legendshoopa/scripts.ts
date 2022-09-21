@@ -5,6 +5,11 @@ export const Scripts: {[k: string]: ModdedBattleScriptsData} = {
 	},
 
 	init() { // pasted in by Hematite because I am far too lazy to manage learnsets.ts
+		delete this.modData('Learnsets', 'crustle').learnset.gigaimpact;
+		delete this.modData('Learnsets', 'crustle').learnset.hyperbeam;
+		this.modData('Learnsets', 'lanturn').learnset.thunderfang = ["8M"];
+		this.modData('Learnsets', 'kecleon').learnset.camoscope = ["8M"];
+		this.modData('Learnsets', 'tropius').learnset.berryblast = ["8M"];
 		for (const id in this.dataCache.Pokedex) {
 			const newMon = this.dataCache.Pokedex[id];
 			if (!newMon || !newMon.copyData) continue; // weeding out Pokémon that aren't specifically using this feature
