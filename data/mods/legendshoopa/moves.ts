@@ -143,6 +143,145 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		type: "Water",
 	},
 
+	berryblast: {
+		num: -106,
+		accuracy: 100,
+		basePower: 55,
+		basePowerCallback(pokemon, target, move) {
+			if (!pokemon.item) {
+				this.debug("Power doubled for no item");
+				return move.basePower * 2;
+			}
+			return move.basePower;
+		},
+		category: "Physical",
+		name: "Berry Blast",
+		pp: 15,
+		priority: 0,
+		flags: {bullet: 1, protect: 1, mirror: 1},
+		secondary: null,
+		onPrepareHit: function(target, source, move) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Seed Bomb", target);
+		},
+		target: "any",
+		type: "Grass",
+		contestType: "Cute",
+	},
+
+	postdelivery: {
+		num: -107,
+		accuracy: 100,
+		basePower: 90,
+		category: "Special",
+		name: "Post Delivery",
+		pp: 15,
+		priority: 0,
+		flags: {},
+		ignoreImmunity: true,
+		isFutureMove: true,
+		onTry(source, target) {
+			if (!target.side.addSlotCondition(target, 'futuremove')) return false;
+			if (source.gender === 'F') {
+				Object.assign(target.side.slotConditions[target.position]['futuremove'], {
+					duration: 3,
+					move: 'postdelivery',
+					source: source,
+					moveData: {
+						id: 'postdelivery',
+						name: "Post Delivery",
+						accuracy: 100,
+						basePower: 90,
+						category: "Physical",
+						priority: 0,
+						flags: {},
+						ignoreImmunity: false,
+						effectType: 'Move',
+						isFutureMove: true,
+						type: 'Fairy',
+					},
+				});
+			} else {
+				Object.assign(target.side.slotConditions[target.position]['futuremove'], {
+					duration: 3,
+					move: 'postdelivery',
+					source: source,
+					moveData: {
+						id: 'postdelivery',
+						name: "Post Delivery",
+						accuracy: 100,
+						basePower: 90,
+						category: "Special",
+						priority: 0,
+						flags: {},
+						ignoreImmunity: false,
+						effectType: 'Move',
+						isFutureMove: true,
+						type: 'Fairy',
+					},
+				});
+			}
+			this.add('-message', `${source.illusion ? source.illusion.name : source.name} is making a special delivery!`);
+			return null;
+		},
+		secondary: null,
+		onPrepareHit: function(target, source, move) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Present", target);
+		},
+		target: "normal",
+		type: "Fairy",
+		contestType: "Clever",
+	},
+
+	camoscope: {
+		num: -108,
+		accuracy: 100,
+		basePower: 100,
+		category: "Physical",
+		name: "Camoscope",
+		pp: 15,
+		priority: 0,
+		flags: {protect: 1, mirror: 1},
+		onModifyType(move, pokemon) {
+			let type = pokemon.types[0];
+			if (type === "Bird") type = "???";
+			move.type = type;
+		},
+		secondary: null,
+		onPrepareHit: function(target, source, move) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Smart Strike", target);
+		},
+		target: "normal",
+		type: "Normal",
+		contestType: "Clever",
+	},
+
+// PIXIE DUST HERE when ready
+
+	stormoflight: {
+		num: -110,
+		accuracy: 100,
+		basePower: 200,
+		category: "Physical",
+		name: "Storm of Light",
+		pp: 5,
+		priority: 0,
+		flags: {protect: 1, mirror: 1},
+		onModifyMove(move, target, source) {
+			this.damage((source.maxhp * 4) / 5);
+		},
+		secondary: null,
+		onPrepareHit: function(target, source, move) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Light That Burns the Sky", target);
+		},
+		target: "allAdjacent",
+		type: "Electric",
+		contestType: "Cool",
+	},
+
 
 
 	/// canon moves ///
