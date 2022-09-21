@@ -1552,4 +1552,8 @@ export const Learnsets: {[speciesid: string]: LearnsetData} = {
 		inherit: true,
 		camoscope: ["8L1"],
 	},
+	tropius: {
+		inherit: true,
+		berryblast: ["8L1"],
+	},
 };
