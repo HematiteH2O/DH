@@ -274,7 +274,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		beforeTurnCallback(pokemon) {
 			for (const target of this.getAllActive()) {
 				if (target === pokemon) continue;
-				target.addSideCondition('pixiedust', pokemon);
+				target.addVolatile('pixiedust', pokemon);
 			}
 		},
 		condition: {
