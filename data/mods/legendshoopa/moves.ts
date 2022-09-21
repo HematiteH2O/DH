@@ -258,7 +258,48 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		contestType: "Clever",
 	},
 
-// PIXIE DUST HERE when ready
+	pixiedust: {
+		num: -109,
+		accuracy: 100,
+		basePower: 90,
+		category: "Special",
+		name: "Pixie Dust",
+		pp: 10,
+		priority: -1,
+		flags: {bullet: 1, protect: 1},
+		beforeTurnCallback(target) {
+			target.addVolatile('pixiedust');
+		},
+		condition: {
+			duration: 1,
+			onStart(target) {
+				this.add('-singleturn', target, 'Powder'); // display as Powder but it's technically different
+			},
+			onTryMovePriority: -1,
+			onTryMove(pokemon, target, move) {
+				if (move.type === 'Fire') {
+					this.add('-activate', pokemon, 'move: Powder');
+					this.damage(this.clampIntRange(Math.round(pokemon.maxhp / 4), 1));
+					pokemon.removeVolatile('pixiedust'); // because it needs to be removed now
+					return false;
+				}
+			},
+		},
+		basePowerCallback(pokemon, target, move) {
+			if (!target.volatiles['pixiedust']) {
+				this.debug("Power halved for no Pixie Dust");
+				return move.basePower * 0.5;
+			}
+			return move.basePower;
+		},
+		onAfterMove(pokemon, target) {
+			target.removeVolatile('pixiedust');
+		},
+		secondary: null,
+		target: "normal",
+		type: "Fairy",
+		contestType: "Cute",
+	},
 
 	stormoflight: {
 		num: -110,
