@@ -1,4 +1,28 @@
 export const Abilities: {[abilityid: string]: ModdedAbilityData} = {
+	almsgiver: {
+		shortDesc: "On switching out, shares a copy of its item with its replacement.",
+		onSwitchOut(pokemon) {
+			if (pokemon.item && pokemon.side.addSlotCondition(pokemon, 'almsgiver')) {
+				Object.assign(pokemon.side.slotConditions[pokemon.position]['almsgiver'], {
+					item: pokemon.item,
+				});
+			}
+		},
+		condition: {
+			onSwap(target) {
+				target.side.removeSlotCondition(target, 'almsgiver'); // always remove immediately even if it doesn't activate (you can remove this if you want it to be stored like Healing Wish)
+				if (!target.fainted) {
+					if (!target.item && this.effectData.item && target.setItem(this.effectData.item)) {
+						this.add('-ability', this.effectData.source, 'Alms Giver');
+						this.add('-item', target, this.dex.getItem(this.effectData.item), '[from] Ability: Alms Giver', '[of] ' + this.effectData.source);
+					}
+				}
+			},
+		},
+		name: "Alms Giver",
+		rating: 3,
+		num: -1,
+	},
 	illusion: {
 		inherit: true,
 		onEnd(pokemon) {
