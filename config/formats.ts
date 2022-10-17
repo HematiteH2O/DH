@@ -3382,6 +3382,14 @@ export const Formats: FormatList = [
 		},
 		mod: 'svspeculative',
 	},
+	{
+		name: "[Gen 8] Nihilego test",
+		desc: [
+			"A really stupid mechanic",
+		],
+		ruleset: ['Team Preview', 'HP Percentage Mod', 'Cancel Mod', 'Dynamax Clause', 'Sleep Clause Mod'],
+		mod: 'nihilegohno',
+	},
 	// Solo Mods
 	{
 		section: "Solomods",
