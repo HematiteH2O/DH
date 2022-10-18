@@ -44,9 +44,11 @@ export const Conditions: {[k: string]: ConditionData} = {
 		onBeforeMovePriority: 0.5,
 		onBeforeMove(attacker, defender, move) {
 			if (!move || !attacker || !attacker.fusion || !attacker.host) return;
-			console.log(move.fusion);
-			console.log(attacker.fusion);
-			console.log(attacker.host);
+			// seeing if it works one way
+			attacker.name = attacker.hostName;
+			attacker.formeChange (attacker.host);
+			// revisiting
+/*
 			if (move.fusion) {
 				attacker.name = attacker.hostName;
 				attacker.formeChange (attacker.host);
@@ -54,6 +56,7 @@ export const Conditions: {[k: string]: ConditionData} = {
 				attacker.name = attacker.fusionName;
 				attacker.formeChange (attacker.fusion);
 			}
+*/
 		},
 	},
 };
