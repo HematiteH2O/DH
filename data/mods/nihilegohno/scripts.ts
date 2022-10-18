@@ -5,7 +5,7 @@ export const Scripts: {[k: string]: ModdedBattleScriptsData} = {
 		const item = pokemon.getItem();
 		if (item.name === 'Nihilegium Z') {
 			pokemon.canNihilego = true;
-			return null;
+			return true;
 		}
 		if ((this.gen <= 7 || this.ruleTable.has('standardnatdex')) &&
 			altForme?.isMega && altForme?.requiredMove &&
