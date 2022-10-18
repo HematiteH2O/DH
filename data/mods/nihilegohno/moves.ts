@@ -26,7 +26,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 							bestStat = pokemon.storedStats[s];
 						}
 					}
-					this.boost({statName: 1}, pokemon);
+					this.boost({[statName]: 1}, pokemon);
 				}
 			},
 		},
