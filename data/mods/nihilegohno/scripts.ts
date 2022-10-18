@@ -46,9 +46,6 @@ export const Scripts: {[k: string]: ModdedBattleScriptsData} = {
 			baseStats.spa = this.clampIntRange(baseStats.spa + 31, 1, 255);
 			baseStats.spd = this.clampIntRange(baseStats.spd + 31, 1, 255);
 			baseStats.spe = this.clampIntRange(baseStats.spe + 29, 1, 255);
-			let fusedAbility = this.dex.deepClone(pokemon.baseAbility);
-			fusedAbility.isPermanent = true; // disable Trace
-			fusion.ability = fusedAbility;
 			
 			fusion.id = 'nihilegosymbiont';
 			fusion.name = 'Nihilego-Symbiont';
