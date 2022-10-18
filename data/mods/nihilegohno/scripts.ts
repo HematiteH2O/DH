@@ -71,9 +71,9 @@ export const Scripts: {[k: string]: ModdedBattleScriptsData} = {
 			nihilego.item = pokemon.item;
 			this.add('-item', nihilego, this.dex.getItem(nihilego.item));
 			
-			nihilego.originalMoves = {};
+			nihilego.originalMoves = [];
 			for (const moveSlot of nihilego.moveSlots) {
-				nihilego.originalMoves.push(this.dex.getMove(moveSlot.id));
+				nihilego.originalMoves.push(moveSlot.id);
 			};
 			for (const moveSlot of pokemon.moveSlots) {
 				if (!moveSlot.id || !this.dex.getMove(moveSlot.id) || nihilego.moves.includes(moveSlot.id)) continue;
