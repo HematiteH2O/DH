@@ -67,6 +67,7 @@ export const Scripts: {[k: string]: ModdedBattleScriptsData} = {
 				for (const slot of nihilego.moveSlots) emptynum++;
 				if (!moveSlot.id || nihilego.moves.includes(moveSlot.id)) continue;
 				let move = this.dex.getMove(moveSlot.id);
+				if (!move) continue;
 				const sketchedMove = {
 					move: move.name,
 					id: move.id,
@@ -81,6 +82,7 @@ export const Scripts: {[k: string]: ModdedBattleScriptsData} = {
 			}
 		
 			this.add('-message', `Huh?!`);
+			this.add('-anim', pokemon, "Nightmare", pokemon);
 			this.add('-message', `${pokemon.illusion ? pokemon.illusion.name : pokemon.name}'s ally, ${nihilego.name}, is latching onto ${pokemon.illusion ? pokemon.illusion.name : pokemon.name}'s Nihilegium Z...!`);
 			pokemon.faint();
 			nihilego.item = pokemon.item;
