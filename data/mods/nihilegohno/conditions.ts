@@ -6,9 +6,7 @@ export const Conditions: {[k: string]: ConditionData} = {
 		onStart(pokemon) {
 			if (!pokemon.transformed) pokemon.transformed = true;
 			this.add('-start', pokemon, 'typechange', pokemon.getTypes(true).join('/'), '[silent]');
-			if (pokemon.hasType('Poison')) return;
-			if (!pokemon.addType('Poison')) return;
-			this.add('-start', pokemon, 'typeadd', 'Poison', '[silent]'); // three types!
+			if (!pokemon.hasType('Poison') && pokemon.addType('Poison')) this.add('-start', pokemon, 'typeadd', 'Poison', '[silent]'); // three types!
 			if (!pokemon.switchedIn) {
 				const species = pokemon.species;
 				const abilities = species.abilities;
