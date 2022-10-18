@@ -47,6 +47,7 @@ export const Conditions: {[k: string]: ConditionData} = {
 			if (attacker.moves.indexOf(move) >= attacker.fusionIndex) {
 				console.log(attacker.name);
 				attacker.name = attacker.hostName;
+				attacker.fullname = attacker.side.id + ': ' + attacker.name;
 				console.log(attacker.name);
 				if (attacker.species.id !== attacker.host.id) {
 					attacker.formeChange(attacker.host);
@@ -54,9 +55,8 @@ export const Conditions: {[k: string]: ConditionData} = {
 					if (!attacker.hasType('Poison') && attacker.addType('Poison')) this.add('-start', attacker, 'typeadd', 'Poison', '[silent]'); // three types!
 				}
 			} else {
-				console.log(attacker.name);
 				attacker.name = attacker.fusionName;
-				console.log(attacker.name);
+				attacker.fullname = attacker.side.id + ': ' + attacker.name;
 				if (attacker.species.id !== attacker.fusion.id) {
 					attacker.formeChange(attacker.fusion);
 					this.add('-start', attacker, 'typechange', attacker.getTypes(true).join('/'), '[silent]');
