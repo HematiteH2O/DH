@@ -37,7 +37,7 @@ export const Conditions: {[k: string]: ConditionData} = {
 						bestStat = source.storedStats[s];
 					}
 				}
-				this.boost({statName: length}, source, source, this.dex.getAbility('beastboost'));
+				this.boost({[statName]: length}, source, source, this.dex.getAbility('beastboost'));
 			}
 		},
 		
@@ -45,11 +45,20 @@ export const Conditions: {[k: string]: ConditionData} = {
 		onBeforeMovePriority: 0.5,
 		onBeforeMove(attacker, defender, move) {
 			if (!move || !attacker || !attacker.fusion || !attacker.host) return;
-			let targetForme = (move.fusion ? attacker.host : attacker.fusion);
-			let targetName = (move.fusion ? attacker.hostName : attacker.fusionName);
-			if (attacker.species.id !== targetForme.id) {
-				attacker.name = targetName;
-				attacker.formeChange(targetForme);
+			if (move.fusion) {
+				if (attacker.dominant === 'host') return;
+				attacker.dominant === 'host';
+				attacker.name = attacker.hostName;
+				attacker.formeChange(attacker.host);
+				this.add('-start', attacker, 'typechange', attacker.getTypes(true).join('/'), '[silent]');
+				if (attacker.hasType('Poison')) return;
+				if (!attacker.addType('Poison')) return;
+				this.add('-start', attacker, 'typeadd', 'Poison', '[silent]'); // three types!
+			} else {
+				if (attacker.dominant === 'self') return;
+				attacker.dominant === 'self';
+				attacker.name = attacker.fusionName;
+				attacker.formeChange(attacker.fusion);
 				this.add('-start', attacker, 'typechange', attacker.getTypes(true).join('/'), '[silent]');
 				if (attacker.hasType('Poison')) return;
 				if (!attacker.addType('Poison')) return;
