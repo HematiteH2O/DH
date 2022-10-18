@@ -45,7 +45,7 @@ export const Conditions: {[k: string]: ConditionData} = {
 			if (!move || !attacker || !attacker.fusion || !attacker.host) return;
 			if (move.fusion) {
 				if (attacker.dominant === 'host') return;
-				attacker.dominant === 'host';
+				attacker.dominant = 'host';
 				attacker.name = attacker.hostName;
 				attacker.formeChange(attacker.host);
 				this.add('-start', attacker, 'typechange', attacker.getTypes(true).join('/'), '[silent]');
@@ -54,7 +54,7 @@ export const Conditions: {[k: string]: ConditionData} = {
 				this.add('-start', attacker, 'typeadd', 'Poison', '[silent]'); // three types!
 			} else {
 				if (attacker.dominant === 'self') return;
-				attacker.dominant === 'self';
+				attacker.dominant = 'self';
 				attacker.name = attacker.fusionName;
 				attacker.formeChange(attacker.fusion);
 				this.add('-start', attacker, 'typechange', attacker.getTypes(true).join('/'), '[silent]');
