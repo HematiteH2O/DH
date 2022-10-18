@@ -16,18 +16,18 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			this.add('-anim', source, "Acid Downpour", target);
 		},
 		self: {
-			onHit(source) {
-				for (const pokemon of source.side.active) {
+			onAfterMove(pokemon) {
+				for (const ally of pokemon.side.active) {
 					let statName = 'atk';
 					let bestStat = 0;
 					let s: StatNameExceptHP;
-					for (s in pokemon.storedStats) {
-						if (pokemon.storedStats[s] > bestStat) {
+					for (s in ally.storedStats) {
+						if (ally.storedStats[s] > bestStat) {
 							statName = s;
-							bestStat = pokemon.storedStats[s];
+							bestStat = ally.storedStats[s];
 						}
 					}
-					this.boost({[statName]: 1}, pokemon);
+					this.boost({[statName]: 1}, ally);
 				}
 			},
 		},
