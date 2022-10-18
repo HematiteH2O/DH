@@ -187,4 +187,63 @@ export const Scripts: {[k: string]: ModdedBattleScriptsData} = {
 			return true;
 		},
 	},
+
+	// last adjustment: make sure the Z-Move is still usable for Nihilego-Symbiont even when its host is "active!"
+
+	getZMove(move, pokemon, skipChecks) {
+		const item = pokemon.getItem();
+		if (!skipChecks) {
+			if (pokemon.side.zMoveUsed) return;
+			if (!item.zMove) return;
+			if (item.itemUser && !item.itemUser.includes(pokemon.species.name) && !pokemon.volatiles['symbiont']) return;
+			const moveData = pokemon.getMoveData(move);
+			// Draining the PP of the base move prevents the corresponding Z-move from being used.
+			if (!moveData || !moveData.pp) return;
+		}
+
+		if (item.zMoveFrom) {
+			if (move.name === item.zMoveFrom) return item.zMove as string;
+		} else if (item.zMove === true) {
+			if (move.type === item.zMoveType) {
+				if (move.category === "Status") {
+					return move.name;
+				} else if (move.zMove?.basePower) {
+					return this.zMoveTable[move.type];
+				}
+			}
+		}
+	},
+
+	canZMove(pokemon) {
+		if (pokemon.side.zMoveUsed ||
+			(pokemon.transformed &&
+				(pokemon.species.isMega || pokemon.species.isPrimal || pokemon.species.forme === "Ultra"))
+		) return;
+		const item = pokemon.getItem();
+		if (!item.zMove) return;
+		if (item.itemUser && !item.itemUser.includes(pokemon.species.name) && !pokemon.volatiles['symbiont']) return;
+		let atLeastOne = false;
+		let mustStruggle = true;
+		const zMoves: ZMoveOptions = [];
+		for (const moveSlot of pokemon.moveSlots) {
+			if (moveSlot.pp <= 0) {
+				zMoves.push(null);
+				continue;
+			}
+			if (!moveSlot.disabled) {
+				mustStruggle = false;
+			}
+			const move = this.dex.getMove(moveSlot.move);
+			let zMoveName = this.getZMove(move, pokemon, true) || '';
+			if (zMoveName) {
+				const zMove = this.dex.getMove(zMoveName);
+				if (!zMove.isZ && zMove.category === 'Status') zMoveName = "Z-" + zMoveName;
+				zMoves.push({move: zMoveName, target: zMove.target});
+			} else {
+				zMoves.push(null);
+			}
+			if (zMoveName) atLeastOne = true;
+		}
+		if (atLeastOne && !mustStruggle) return zMoves;
+	},
 };
