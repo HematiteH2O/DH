@@ -40,29 +40,36 @@ export const Conditions: {[k: string]: ConditionData} = {
 			}
 		},
 		
-		// purely aesthetic: show form change depending on the attacker
+		// purely aesthetic: show form change and name change depending on the attacker :D
 		onBeforeMovePriority: 0.5,
 		onBeforeMove(attacker, defender, move) {
 			if (!move || !attacker || !attacker.fusion || !attacker.host) return;
-			if (!attacker.originalMoves.includes(move.id)) {
+			if (attacker.originalMoves.includes(move.id) || move.isZ) {
 				console.log(attacker.name);
-				attacker.name = attacker.hostName;
-				attacker.fullname = attacker.side.id + ': ' + attacker.name;
-				console.log(attacker.name);
-				if (attacker.species.id !== attacker.host.id) {
-					attacker.formeChange(attacker.host);
-					this.add('-start', attacker, 'typechange', attacker.getTypes(true).join('/'), '[silent]');
-					if (!attacker.hasType('Poison') && attacker.addType('Poison')) this.add('-start', attacker, 'typeadd', 'Poison', '[silent]'); // three types!
-				}
-			} else {
 				attacker.name = attacker.fusionName;
 				attacker.fullname = attacker.side.id + ': ' + attacker.name;
+				console.log(attacker.name);
 				if (attacker.species.id !== attacker.fusion.id) {
 					attacker.formeChange(attacker.fusion);
 					this.add('-start', attacker, 'typechange', attacker.getTypes(true).join('/'), '[silent]');
 					if (!attacker.hasType('Poison') && attacker.addType('Poison')) this.add('-start', attacker, 'typeadd', 'Poison', '[silent]'); // three types!
 				}
+			} else {
+				attacker.name = attacker.hostName;
+				attacker.fullname = attacker.side.id + ': ' + attacker.name;
+				if (attacker.species.id !== attacker.host.id) {
+					attacker.formeChange(attacker.host);
+					this.add('-start', attacker, 'typechange', attacker.getTypes(true).join('/'), '[silent]');
+					if (!attacker.hasType('Poison') && attacker.addType('Poison')) this.add('-start', attacker, 'typeadd', 'Poison', '[silent]'); // three types!
+				}
 			}
+		},
+		onEnd(pokemon) {
+			pokemon.name = pokemon.fusionName;
+			pokemon.fullname = pokemon.side.id + ': ' + pokemon.name;
+			pokemon.formeChange(pokemon.fusion);
+			this.add('-start', pokemon, 'typechange', pokemon.getTypes(true).join('/'), '[silent]');
+			if (!pokemon.hasType('Poison') && pokemon.addType('Poison')) this.add('-start', pokemon, 'typeadd', 'Poison', '[silent]'); // three types!
 		},
 	},
 };
