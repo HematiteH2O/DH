@@ -32,7 +32,7 @@ export const Scripts: {[k: string]: ModdedBattleScriptsData} = {
 		
 		if (pokemon.canNihilego) {
 			const allies = pokemon.side.pokemon.filter(ally => ally !== pokemon && ally.species.baseSpecies === 'Nihilego' && !ally.fainted);
-			// const allies = pokemon.side.pokemon.filter(ally => ally !== pokemon && ally.species.baseSpecies === 'Nihilego' && ally.isactive && !ally.fainted);
+			// const allies = pokemon.side.pokemon.filter(ally => ally !== pokemon && ally.species.baseSpecies === 'Nihilego' && ally.isActive && !ally.fainted);
 			// trying to make it work in singles first
 			if (!allies || !allies[0]) {
 				this.hint("You can't use Nihilegium-Z without an ally Nihilego.");
@@ -51,10 +51,19 @@ export const Scripts: {[k: string]: ModdedBattleScriptsData} = {
 			fusedAbility.isPermanent = true; // disable Trace
 			fusion.ability = fusedAbility;
 			
-			// nihilego.transformed = true; // disable form changes?
+			fusion.id = 'nihilegosymbiont';
+			fusion.name = 'Nihilego-Symbiont';
+			fusion.baseSpecies = 'Nihilego';
+			fusion.forme = 'Symbiont';
+			
 			nihilego.formeChange(fusion, pokemon.getItem(), true);
 			nihilego.maxhp += pokemon.maxhp;
 			nihilego.hp += pokemon.hp;
+			if (nihilego.isActive) {
+				nihilego.addVolatile('symbiont');
+				nihilego.transformed = true;
+				this.add('-heal', nihilego, nihilego.getHealth, '[silent]');
+			}
 			
 			for (const moveSlot of pokemon.moveSlots) {
 				let emptynum = 1;
@@ -97,4 +106,29 @@ export const Scripts: {[k: string]: ModdedBattleScriptsData} = {
 		this.runEvent('AfterMega', pokemon);
 		return true;
 	},
+	runSwitch(pokemon: Pokemon) { // modified for Nihilego
+		if (pokemon.species.forme === 'Symbiont') {
+			pokemon.addVolatile('symbiont');
+			pokemon.transformed = true;
+		}
+		this.runEvent('Swap', pokemon);
+		this.runEvent('SwitchIn', pokemon);
+		if (this.gen <= 2 && !pokemon.side.faintedThisTurn && pokemon.draggedIn !== this.turn) {
+			this.runEvent('AfterSwitchInSelf', pokemon);
+		}
+		if (!pokemon.hp) return false;
+		pokemon.isStarted = true;
+		if (!pokemon.fainted) {
+			this.singleEvent('Start', pokemon.getAbility(), pokemon.abilityData, pokemon);
+			pokemon.abilityOrder = this.abilityOrder++;
+			this.singleEvent('Start', pokemon.getItem(), pokemon.itemData, pokemon);
+		}
+		if (this.gen === 4) {
+			for (const foeActive of pokemon.side.foe.active) {
+				foeActive.removeVolatile('substitutebroken');
+			}
+		}
+		pokemon.draggedIn = null;
+		return true;
+	}
 };
