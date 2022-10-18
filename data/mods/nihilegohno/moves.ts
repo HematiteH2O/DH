@@ -15,21 +15,19 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, "Acid Downpour", target);
 		},
-		self: {
-			onAfterMove(pokemon) {
-				for (const ally of pokemon.side.active) {
-					let statName = 'atk';
-					let bestStat = 0;
-					let s: StatNameExceptHP;
-					for (s in ally.storedStats) {
-						if (ally.storedStats[s] > bestStat) {
-							statName = s;
-							bestStat = ally.storedStats[s];
-						}
+		onAfterMove(pokemon) {
+			for (const ally of pokemon.side.active) {
+				let statName = 'atk';
+				let bestStat = 0;
+				let s: StatNameExceptHP;
+				for (s in ally.storedStats) {
+					if (ally.storedStats[s] > bestStat) {
+						statName = s;
+						bestStat = ally.storedStats[s];
 					}
-					this.boost({[statName]: 1}, ally);
 				}
-			},
+				this.boost({[statName]: 1}, ally);
+			}
 		},
 		target: "allAdjacentFoes",
 		type: "Poison",
