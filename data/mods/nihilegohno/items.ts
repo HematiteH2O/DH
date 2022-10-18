@@ -3,10 +3,9 @@ export const Items: {[itemid: string]: ModdedItemData} = {
 		name: "Nihilegium Z",
 		spritenum: 687,
 		onTakeItem: false,
-		// zMove: "Light That Burns the Sky",
-		// zMoveType: "Normal",
-		// (OR)
-		// zMoveFrom: "Photon Geyser",
+		zMove: "Acid Downpour",
+		zMoveFrom: "Acid Spray",
+		itemUser: ["Nihilego-Symbiont"],
 		num: -793,
 		gen: 7,
 	},
