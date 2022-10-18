@@ -74,7 +74,7 @@ export const Scripts: {[k: string]: ModdedBattleScriptsData} = {
 			for (const moveSlot of pokemon.moveSlots) {
 				if (!moveSlot.id || !this.dex.getMove(moveSlot.id) || nihilego.moves.includes(moveSlot.id)) continue;
 				let move = this.dex.getMove(moveSlot.id);
-				this.baseMoveSlots.push({
+				nihilego.baseMoveSlots.push({
 					move: move.name,
 					id: move.id,
 					pp: ((move.noPPBoosts || move.isZ) ? move.pp : move.pp * 8 / 5),
@@ -85,7 +85,7 @@ export const Scripts: {[k: string]: ModdedBattleScriptsData} = {
 					used: false,
 					fusion: true, // so I can track this later
 				});
-				this.moveSlots.push({
+				nihilego.moveSlots.push({
 					move: move.name,
 					id: move.id,
 					pp: ((move.noPPBoosts || move.isZ) ? move.pp : move.pp * 8 / 5),
