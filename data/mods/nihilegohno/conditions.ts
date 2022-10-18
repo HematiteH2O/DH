@@ -44,6 +44,8 @@ export const Conditions: {[k: string]: ConditionData} = {
 		onBeforeMovePriority: 0.5,
 		onBeforeMove(attacker, defender, move) {
 			if (!move || !attacker || !attacker.fusion || !attacker.host) return;
+			console.log(attacker.fusionIndex);
+			console.log(attacker.moves.indexOf(move));
 			if (attacker.moves.indexOf(move) >= attacker.fusionIndex) {
 				console.log(attacker.name);
 				attacker.name = attacker.hostName;
