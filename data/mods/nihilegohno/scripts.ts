@@ -79,12 +79,17 @@ export const Scripts: {[k: string]: ModdedBattleScriptsData} = {
 				};
 				nihilego.moveSlots[emptynum] = sketchedMove;
 			}
-			
+		
+			this.add('-message', `Huh?!`);
+			this.add('-message', `${pokemon.illusion ? pokemon.illusion.name : pokemon.name}'s ally, ${nihilego.name}, is latching onto ${pokemon.illusion ? pokemon.illusion.name : pokemon.name}'s Nihilegium Z...!`);
 			pokemon.faint();
 			nihilego.item = pokemon.item;
-			nihilego.altSpecies = pokemon.species;
-			nihilego.fusedSpecies = fusion;
 			this.add('-item', nihilego, this.dex.getItem(nihilego.item));
+			// for the volatile/aesthetic transformations
+			nihilego.fusedSpecies = fusion;
+			nihilego.fusedName = nihilego.name;
+			nihilego.altSpecies = pokemon.species;
+			nihilego.altName = pokemon.name;
 			
 			return;
 		}
