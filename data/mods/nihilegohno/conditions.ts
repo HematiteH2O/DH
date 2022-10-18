@@ -44,15 +44,7 @@ export const Conditions: {[k: string]: ConditionData} = {
 		onBeforeMovePriority: 0.5,
 		onBeforeMove(attacker, defender, move) {
 			if (!move || !attacker || !attacker.fusion || !attacker.host) return;
-			console.log(attacker.fusionIndex);
-			console.log(attacker.moves.indexOf(move));
-			// just brute-forcing right now
-			console.log(attacker.name);
-			attacker.name = attacker.hostName;
-			attacker.fullname = attacker.side.id + ': ' + attacker.name;
-			console.log(attacker.name);
-/*
-			if (attacker.moves.indexOf(move) >= attacker.fusionIndex) {
+			if (!attacker.originalMoves.includes(move.id)) {
 				console.log(attacker.name);
 				attacker.name = attacker.hostName;
 				attacker.fullname = attacker.side.id + ': ' + attacker.name;
@@ -71,7 +63,6 @@ export const Conditions: {[k: string]: ConditionData} = {
 					if (!attacker.hasType('Poison') && attacker.addType('Poison')) this.add('-start', attacker, 'typeadd', 'Poison', '[silent]'); // three types!
 				}
 			}
-*/
 		},
 	},
 };
