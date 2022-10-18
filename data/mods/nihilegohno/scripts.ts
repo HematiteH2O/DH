@@ -40,16 +40,17 @@ export const Scripts: {[k: string]: ModdedBattleScriptsData} = {
 			}
 			const nihilego = allies[0];
 			
-			let fusion = this.dex.deepClone(pokemon.species);
-			const baseStats = fusion.baseStats;
+			let symbiosis = this.dex.deepClone(pokemon.species);
+			const baseStats = symbiosis.baseStats;
 			baseStats.hp = 109;
 			baseStats.atk = this.clampIntRange(baseStats.atk + 13, 1, 255);
 			baseStats.def = this.clampIntRange(baseStats.def + 11, 1, 255);
 			baseStats.spa = this.clampIntRange(baseStats.spa + 31, 1, 255);
 			baseStats.spd = this.clampIntRange(baseStats.spd + 31, 1, 255);
 			baseStats.spe = this.clampIntRange(baseStats.spe + 29, 1, 255);
-			fusion.abilities = {0: pokemon.baseAbility};
-			let hostSpecies = this.dex.deepClone(fusion);
+			symbiosis.abilities = {0: pokemon.baseAbility};
+			let hostSpecies = this.dex.deepClone(symbiosis);
+			let fusion = this.dex.deepClone(symbiosis);
 			fusion.id = 'nihilegosymbiont';
 			fusion.name = 'Nihilego-Symbiont';
 			fusion.baseSpecies = 'Nihilego';
