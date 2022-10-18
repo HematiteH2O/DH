@@ -45,6 +45,9 @@ export const Conditions: {[k: string]: ConditionData} = {
 		onBeforeMovePriority: 0.5,
 		onBeforeMove(attacker, defender, move) {
 			if (!move || !attacker || !attacker.fusion || !attacker.host) return;
+			console.log(move.fusion);
+			console.log(attacker.fusion);
+			console.log(attacker.host);
 			if (move.fusion) {
 				if (attacker.dominant === 'host') return;
 				attacker.dominant = 'host';
