@@ -68,8 +68,7 @@ export const Scripts: {[k: string]: ModdedBattleScriptsData} = {
 				this.add('-heal', nihilego, nihilego.getHealth, '[silent]');
 			}
 			pokemon.faint();
-			nihilego.item = null;
-			nihilego.setItem(pokemon.item);
+			nihilego.item = pokemon.item;
 			this.add('-item', nihilego, this.dex.getItem(nihilego.item));
 			
 			nihilego.fusionIndex = nihilego.moveSlots.length;
@@ -146,45 +145,6 @@ export const Scripts: {[k: string]: ModdedBattleScriptsData} = {
 		}
 		pokemon.draggedIn = null;
 		return true;
-	},
-
-	pokemon: {
-		removeVolatile(status: string | Effect) {
-			if (!this.isActive) return null;
-			if (!this.hp) return false;
-			status = this.battle.dex.getEffect(status) as Effect;
-			if (!this.volatiles[status.id]) return false;
-			this.battle.singleEvent('End', status, this.volatiles[status.id], this);
-			const linkedPokemon = this.volatiles[status.id].linkedPokemon;
-			const linkedStatus = this.volatiles[status.id].linkedStatus;
-			delete this.volatiles[status.id];
-			if (linkedPokemon) {
-				this.removeLinkedVolatiles(linkedStatus, linkedPokemon);
-			}
-			return true;
-		},
-		setItem(item: string | Item, source?: Pokemon, effect?: Effect) {
-			if (!this.hp) return false;
-			if (typeof item === 'string') item = this.battle.dex.getItem(item);
-
-			const effectid = this.battle.effect ? this.battle.effect.id : '';
-			const RESTORATIVE_BERRIES = new Set([
-				'leppaberry', 'aguavberry', 'enigmaberry', 'figyberry', 'iapapaberry', 'magoberry', 'sitrusberry', 'wikiberry', 'oranberry',
-			] as ID[]);
-			if (RESTORATIVE_BERRIES.has('leppaberry' as ID)) {
-				const inflicted = ['trick', 'switcheroo'].includes(effectid);
-				const external = inflicted && source && source.side.id !== this.side.id;
-				this.pendingStaleness = external ? 'external' : 'internal';
-			} else {
-				this.pendingStaleness = undefined;
-			}
-			this.item = item.id;
-			this.itemData = {id: item.id, target: this};
-			if (item.id) {
-				this.battle.singleEvent('Start', item, this.itemData, this, source, effect);
-			}
-			return true;
-		},
 	},
 
 	// last adjustment: make sure the Z-Move is still usable for Nihilego-Symbiont even when its host is "active!"
