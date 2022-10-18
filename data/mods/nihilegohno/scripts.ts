@@ -55,7 +55,7 @@ export const Scripts: {[k: string]: ModdedBattleScriptsData} = {
 			fusion.abilities = {0: pokemon.baseAbility};
 	
 			this.add('-message', `Huh?!`);
-			this.add('-anim', pokemon, "Hex", pokemon);
+			this.add('-anim', pokemon, "Curse", pokemon);
 			this.add('-message', `${pokemon.illusion ? pokemon.illusion.name : pokemon.name}'s ally, ${nihilego.name}, is latching onto ${pokemon.illusion ? pokemon.illusion.name : pokemon.name}'s Nihilegium-Z...!`);
 
 			nihilego.formeChange(fusion, pokemon.getItem(), true);
@@ -66,30 +66,38 @@ export const Scripts: {[k: string]: ModdedBattleScriptsData} = {
 				nihilego.transformed = true;
 				this.add('-heal', nihilego, nihilego.getHealth, '[silent]');
 			}
-			
-			for (const moveSlot of pokemon.moveSlots) {
-				if (!moveSlot.id || !this.dex.getMove(moveSlot.id) || nihilego.moves.includes(moveSlot.id)) continue;
-				let move = this.dex.getMove(moveSlot.id);
-				const sketchedMove = {
-					move: move.name,
-					id: move.id,
-					pp: move.pp,
-					maxpp: move.pp,
-					target: move.target,
-					disabled: false,
-					used: false,
-					fusion: true, // so I can track this later
-				};
-				let emptynum = 1;
-				for (const slot of nihilego.moveSlots) emptynum++;
-				nihilego.moveSlots[emptynum] = sketchedMove;
-				nihilego.baseMoveSlots[emptynum] = sketchedMove;
-			}
-			
 			pokemon.faint();
 			nihilego.item = null;
 			nihilego.setItem(pokemon.item);
 			this.add('-item', nihilego, this.dex.getItem(nihilego.item));
+			
+			for (const moveSlot of pokemon.moveSlots) {
+				if (!moveSlot.id || !this.dex.getMove(moveSlot.id) || nihilego.moves.includes(moveSlot.id)) continue;
+				let move = this.dex.getMove(moveSlot.id);
+				this.baseMoveSlots.push({
+					move: move.name,
+					id: move.id,
+					pp: ((move.noPPBoosts || move.isZ) ? move.pp : move.pp * 8 / 5),
+					maxpp: ((move.noPPBoosts || move.isZ) ? move.pp : move.pp * 8 / 5),
+					target: move.target,
+					disabled: false,
+					disabledSource: '',
+					used: false,
+					fusion: true, // so I can track this later
+				});
+				this.moveSlots.push({
+					move: move.name,
+					id: move.id,
+					pp: ((move.noPPBoosts || move.isZ) ? move.pp : move.pp * 8 / 5),
+					maxpp: ((move.noPPBoosts || move.isZ) ? move.pp : move.pp * 8 / 5),
+					target: move.target,
+					disabled: false,
+					disabledSource: '',
+					used: false,
+					fusion: true, // so I can track this later
+				});
+			}
+			
 			// for the volatile/aesthetic transformations
 			nihilego.fusedSpecies = fusion;
 			nihilego.fusedName = nihilego.name;
@@ -141,6 +149,20 @@ export const Scripts: {[k: string]: ModdedBattleScriptsData} = {
 	},
 
 	pokemon: {
+		removeVolatile(status: string | Effect) {
+			if (!this.isActive) return null;
+			if (!this.hp) return false;
+			status = this.battle.dex.getEffect(status) as Effect;
+			if (!this.volatiles[status.id]) return false;
+			this.battle.singleEvent('End', status, this.volatiles[status.id], this);
+			const linkedPokemon = this.volatiles[status.id].linkedPokemon;
+			const linkedStatus = this.volatiles[status.id].linkedStatus;
+			delete this.volatiles[status.id];
+			if (linkedPokemon) {
+				this.removeLinkedVolatiles(linkedStatus, linkedPokemon);
+			}
+			return true;
+		},
 		setItem(item: string | Item, source?: Pokemon, effect?: Effect) {
 			if (!this.hp) return false;
 			if (typeof item === 'string') item = this.battle.dex.getItem(item);
