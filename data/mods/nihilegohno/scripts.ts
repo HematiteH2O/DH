@@ -41,6 +41,7 @@ export const Scripts: {[k: string]: ModdedBattleScriptsData} = {
 			const nihilego = allies[0];
 			let fusion = this.dex.deepClone(pokemon.species);
 			const baseStats = fusion.baseStats;
+			baseStats.hp = 109;
 			baseStats.atk = this.clampIntRange(baseStats.atk + 13, 1, 255);
 			baseStats.def = this.clampIntRange(baseStats.def + 11, 1, 255);
 			baseStats.spa = this.clampIntRange(baseStats.spa + 31, 1, 255);
