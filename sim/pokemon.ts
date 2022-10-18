@@ -38,8 +38,8 @@ export class Pokemon {
 	readonly battle: Battle;
 
 	readonly set: PokemonSet;
-	readonly name: string;
-	readonly fullname: string;
+	name: string;
+	fullname: string;
 	readonly level: number;
 	readonly gender: GenderName;
 	readonly happiness: number;
@@ -50,7 +50,7 @@ export class Pokemon {
 	readonly baseHpType: string;
 	readonly baseHpPower: number;
 
-	readonly baseMoveSlots: MoveSlot[];
+	baseMoveSlots: MoveSlot[];
 	moveSlots: MoveSlot[];
 
 	hpType: string;
