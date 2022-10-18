@@ -1,11 +1,11 @@
 export const Moves: {[k: string]: ModdedMoveData} = {
-	uncannysynchronicity: {
+	uncannysynergism: {
 		num: -793,
 		accuracy: true,
 		basePower: 160,
 		category: "Special",
 		isNonstandard: "Past",
-		name: "Uncanny Synchronicity",
+		name: "Uncanny Synergism",
 		pp: 1,
 		priority: 0,
 		flags: {},
