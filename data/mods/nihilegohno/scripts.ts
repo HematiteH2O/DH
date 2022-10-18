@@ -40,24 +40,23 @@ export const Scripts: {[k: string]: ModdedBattleScriptsData} = {
 			}
 			const nihilego = allies[0];
 			
-			let symbiosis = this.dex.deepClone(pokemon.species);
-			const baseStats = symbiosis.baseStats;
+			let hostSpecies = this.dex.deepClone(pokemon.species); // aesthetic
+			const baseStats = hostSpecies.baseStats;
 			baseStats.hp = 109;
 			baseStats.atk = this.clampIntRange(baseStats.atk + 13, 1, 255);
 			baseStats.def = this.clampIntRange(baseStats.def + 11, 1, 255);
 			baseStats.spa = this.clampIntRange(baseStats.spa + 31, 1, 255);
 			baseStats.spd = this.clampIntRange(baseStats.spd + 31, 1, 255);
 			baseStats.spe = this.clampIntRange(baseStats.spe + 29, 1, 255);
-			symbiosis.abilities = {0: pokemon.baseAbility};
-			let hostSpecies = this.dex.deepClone(symbiosis);
-			let fusion = this.dex.deepClone(symbiosis);
+			hostSpecies.abilities = {0: pokemon.baseAbility};
+			let fusion = this.dex.deepClone(hostSpecies);
 			fusion.id = 'nihilegosymbiont';
 			fusion.name = 'Nihilego-Symbiont';
 			fusion.baseSpecies = 'Nihilego';
 			fusion.forme = 'Symbiont';
 	
 			this.add('-message', `Huh?!`);
-			this.add('-anim', pokemon, "Curse", pokemon);
+			this.add('-anim', pokemon, "Spite", pokemon);
 			this.add('-message', `${pokemon.illusion ? pokemon.illusion.name : pokemon.name}'s ally, ${nihilego.name}, is latching onto ${pokemon.illusion ? pokemon.illusion.name : pokemon.name}'s Nihilegium-Z...!`);
 
 			nihilego.formeChange(fusion, pokemon.getItem(), true);
