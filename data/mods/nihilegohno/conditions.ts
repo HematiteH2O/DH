@@ -2,6 +2,7 @@ export const Conditions: {[k: string]: ConditionData} = {
 	symbiont: {
 		name: 'symbiont',
 		duration: 0,
+		noCopy: true,
 		
 		onStart(pokemon) {
 			if (!pokemon.transformed) pokemon.transformed = true;
@@ -20,6 +21,7 @@ export const Conditions: {[k: string]: ConditionData} = {
 				}
 				pokemon.switchedIn = true;
 			}
+			pokemon.dominant = 'self';
 			this.add('-ability', pokemon, 'As One');
 		},
 		
