@@ -21,7 +21,6 @@ export const Conditions: {[k: string]: ConditionData} = {
 				}
 				pokemon.switchedIn = true;
 			}
-			pokemon.dominant = 'self';
 			this.add('-ability', pokemon, 'As One');
 		},
 		
@@ -49,23 +48,13 @@ export const Conditions: {[k: string]: ConditionData} = {
 			console.log(attacker.fusion);
 			console.log(attacker.host);
 			if (move.fusion) {
-				if (attacker.dominant === 'host') return;
-				attacker.dominant = 'host';
 				attacker.name = attacker.hostName;
-				attacker.formeChange(attacker.host);
-				this.add('-start', attacker, 'typechange', attacker.getTypes(true).join('/'), '[silent]');
-				if (attacker.hasType('Poison')) return;
-				if (!attacker.addType('Poison')) return;
-				this.add('-start', attacker, 'typeadd', 'Poison', '[silent]'); // three types!
+				attacker.species.name = attacker.host.name;
+				attacker.species.id = attacker.host.id;
 			} else {
-				if (attacker.dominant === 'self') return;
-				attacker.dominant = 'self';
 				attacker.name = attacker.fusionName;
-				attacker.formeChange(attacker.fusion);
-				this.add('-start', attacker, 'typechange', attacker.getTypes(true).join('/'), '[silent]');
-				if (attacker.hasType('Poison')) return;
-				if (!attacker.addType('Poison')) return;
-				this.add('-start', attacker, 'typeadd', 'Poison', '[silent]'); // three types!
+				attacker.species.name = attacker.fusion.name;
+				attacker.species.id = attacker.fusion.id;
 			}
 		},
 	},
