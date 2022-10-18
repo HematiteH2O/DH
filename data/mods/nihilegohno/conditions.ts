@@ -34,7 +34,7 @@ export const Conditions: {[k: string]: ConditionData} = {
 						bestStat = source.storedStats[s];
 					}
 				}
-				this.boost({[statName]: length}, source);
+				this.boost({[statName]: length}, source, source, this.dex.getAbility('beastboost'));
 			}
 		},
 		
