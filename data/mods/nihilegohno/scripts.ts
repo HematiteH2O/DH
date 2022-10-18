@@ -51,6 +51,7 @@ export const Scripts: {[k: string]: ModdedBattleScriptsData} = {
 			fusion.name = 'Nihilego-Symbiont';
 			fusion.baseSpecies = 'Nihilego';
 			fusion.forme = 'Symbiont';
+			fusion.abilities = {0: pokemon.baseAbility};
 			
 			nihilego.formeChange(fusion, pokemon.getItem(), true);
 			nihilego.maxhp += pokemon.maxhp;
@@ -64,8 +65,8 @@ export const Scripts: {[k: string]: ModdedBattleScriptsData} = {
 			for (const moveSlot of pokemon.moveSlots) {
 				let emptynum = 1;
 				for (const slot of nihilego.moveSlots) emptynum++;
-				let move = moveSlot.id;
 				if (!moveSlot.id || nihilego.moves.includes(moveSlot.id)) continue;
+				let move = this.dex.getMove(moveSlot.id);
 				const sketchedMove = {
 					move: move.name,
 					id: move.id,
@@ -83,7 +84,7 @@ export const Scripts: {[k: string]: ModdedBattleScriptsData} = {
 			nihilego.item = pokemon.item;
 			nihilego.altSpecies = pokemon.species;
 			nihilego.fusedSpecies = fusion;
-			this.add('-item', nihilego, pokemon.item.name);
+			this.add('-item', nihilego, this.dex.getItem(nihilego.item));
 			
 			return;
 		}
@@ -127,5 +128,30 @@ export const Scripts: {[k: string]: ModdedBattleScriptsData} = {
 		}
 		pokemon.draggedIn = null;
 		return true;
-	}
+	},
+
+	pokemon: {
+		setItem(item: string | Item, source?: Pokemon, effect?: Effect) {
+			if (!this.hp) return false;
+			if (typeof item === 'string') item = this.battle.dex.getItem(item);
+
+			const effectid = this.battle.effect ? this.battle.effect.id : '';
+			const RESTORATIVE_BERRIES = new Set([
+				'leppaberry', 'aguavberry', 'enigmaberry', 'figyberry', 'iapapaberry', 'magoberry', 'sitrusberry', 'wikiberry', 'oranberry',
+			] as ID[]);
+			if (RESTORATIVE_BERRIES.has('leppaberry' as ID)) {
+				const inflicted = ['trick', 'switcheroo'].includes(effectid);
+				const external = inflicted && source && source.side.id !== this.side.id;
+				this.pendingStaleness = external ? 'external' : 'internal';
+			} else {
+				this.pendingStaleness = undefined;
+			}
+			this.item = item.id;
+			this.itemData = {id: item.id, target: this};
+			if (item.id) {
+				this.battle.singleEvent('Start', item, this.itemData, this, source, effect);
+			}
+			return true;
+		},
+	},
 };
