@@ -46,10 +46,14 @@ export const Conditions: {[k: string]: ConditionData} = {
 			if (!move || !attacker || !attacker.fusion || !attacker.host) return;
 			if (attacker.moves.indexOf(move) >= attacker.fusionIndex) {
 				attacker.name = attacker.hostName;
-				attacker.formeChange (attacker.host);
+				if (attacker.species !== attacker.host) attacker.formeChange(attacker.host);
+				this.add('-start', attacker, 'typechange', attacker.getTypes(true).join('/'), '[silent]');
+				if (!attacker.hasType('Poison') && attacker.addType('Poison')) this.add('-start', attacker, 'typeadd', 'Poison', '[silent]'); // three types!
 			} else {
 				attacker.name = attacker.fusionName;
-				attacker.formeChange (attacker.fusion);
+				if (attacker.species !== attacker.fusion) attacker.formeChange(attacker.fusion);
+				this.add('-start', attacker, 'typechange', attacker.getTypes(true).join('/'), '[silent]');
+				if (!attacker.hasType('Poison') && attacker.addType('Poison')) this.add('-start', attacker, 'typeadd', 'Poison', '[silent]'); // three types!
 			}
 		},
 	},
