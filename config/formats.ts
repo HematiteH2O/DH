@@ -3390,6 +3390,21 @@ export const Formats: FormatList = [
 		ruleset: ['Team Preview', 'HP Percentage Mod', 'Cancel Mod', 'Dynamax Clause', 'Sleep Clause Mod'],
 		mod: 'nihilegohno',
 	},
+	{
+		name: "[Gen 8] Nihilego test doubles",
+		desc: [
+			"A really stupid mechanic",
+		],
+		gameType: 'doubles',
+		forcedLevel: 50,
+		teamLength: {
+			validate: [4, 6],
+			battle: 4,
+		},
+		banlist: ['Scizor'],
+		ruleset: ['Standard GBU', '+Unobtainable', '+Past', 'VGC Timer', 'Dynamax Clause'],
+		mod: 'nihilegohno',
+	},
 	// Solo Mods
 	{
 		section: "Solomods",
