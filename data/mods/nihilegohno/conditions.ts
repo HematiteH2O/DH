@@ -47,7 +47,7 @@ export const Conditions: {[k: string]: ConditionData} = {
 			if (!move || !attacker || !attacker.fusion || !attacker.host) return;
 			let targetForme = (move.fusion ? attacker.host : attacker.fusion);
 			let targetName = (move.fusion ? attacker.hostName : attacker.fusionName);
-			if (attacker.species !== targetForme) {
+			if (attacker.species.id !== targetForme.id) {
 				attacker.name = targetName;
 				attacker.formeChange(targetForme);
 				this.add('-start', attacker, 'typechange', attacker.getTypes(true).join('/'), '[silent]');
