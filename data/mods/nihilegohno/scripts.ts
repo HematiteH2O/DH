@@ -52,7 +52,11 @@ export const Scripts: {[k: string]: ModdedBattleScriptsData} = {
 			fusion.baseSpecies = 'Nihilego';
 			fusion.forme = 'Symbiont';
 			fusion.abilities = {0: pokemon.baseAbility};
-			
+	
+			this.add('-message', `Huh?!`);
+			this.add('-anim', pokemon, "Hex", pokemon);
+			this.add('-message', `${pokemon.illusion ? pokemon.illusion.name : pokemon.name}'s ally, ${nihilego.name}, is latching onto ${pokemon.illusion ? pokemon.illusion.name : pokemon.name}'s Nihilegium-Z...!`);
+
 			nihilego.formeChange(fusion, pokemon.getItem(), true);
 			nihilego.maxhp += pokemon.maxhp;
 			nihilego.hp += pokemon.hp;
@@ -63,11 +67,8 @@ export const Scripts: {[k: string]: ModdedBattleScriptsData} = {
 			}
 			
 			for (const moveSlot of pokemon.moveSlots) {
-				let emptynum = 1;
-				for (const slot of nihilego.moveSlots) emptynum++;
-				if (!moveSlot.id || nihilego.moves.includes(moveSlot.id)) continue;
+				if (!moveSlot.id || !this.dex.getMove(moveSlot.id) || nihilego.moves.includes(moveSlot.id)) continue;
 				let move = this.dex.getMove(moveSlot.id);
-				if (!move) continue;
 				const sketchedMove = {
 					move: move.name,
 					id: move.id,
@@ -78,14 +79,15 @@ export const Scripts: {[k: string]: ModdedBattleScriptsData} = {
 					used: false,
 					fusion: true, // so I can track this later
 				};
+				let emptynum = 1;
+				for (const slot of nihilego.moveSlots) emptynum++;
 				nihilego.moveSlots[emptynum] = sketchedMove;
+				nihilego.baseMoveSlots[emptynum] = sketchedMove;
 			}
-		
-			this.add('-message', `Huh?!`);
-			this.add('-anim', pokemon, "Nightmare", pokemon);
-			this.add('-message', `${pokemon.illusion ? pokemon.illusion.name : pokemon.name}'s ally, ${nihilego.name}, is latching onto ${pokemon.illusion ? pokemon.illusion.name : pokemon.name}'s Nihilegium Z...!`);
+			
 			pokemon.faint();
-			nihilego.item = pokemon.item;
+			nihilego.item = null;
+			nihilego.setItem(pokemon.item);
 			this.add('-item', nihilego, this.dex.getItem(nihilego.item));
 			// for the volatile/aesthetic transformations
 			nihilego.fusedSpecies = fusion;
