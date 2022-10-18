@@ -6,6 +6,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		category: "Special",
 		isNonstandard: "Past",
 		name: "Uncanny Synergism",
+		shortDesc: "Boosts the user and its allies' highest stat by 1 stage. Hits adjacent foes.",
 		pp: 1,
 		priority: 0,
 		flags: {},
