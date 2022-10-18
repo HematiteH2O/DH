@@ -85,7 +85,8 @@ export const Scripts: {[k: string]: ModdedBattleScriptsData} = {
 			
 			pokemon.faint();
 			nihilego.item = pokemon.item;
-			nihilego.altSpecies.id = pokemon.species.id;
+			nihilego.altSpecies = pokemon.species;
+			nihilego.fusedSpecies = fusion;
 			this.add('-item', nihilego, pokemon.item.name);
 			
 			return;
