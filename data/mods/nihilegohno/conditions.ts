@@ -17,6 +17,9 @@ export const Conditions: {[k: string]: ConditionData} = {
 				) * pokemon.level / 100 + 10);
 				pokemon.switchedIn;
 			}
+			if (pokemon.hasType('Poison')) return;
+			if (!pokemon.addType('Poison')) return;
+			this.add('-start', pokemon, 'typeadd', 'Poison'); // three types!
 		},
 		
 		// As One (Nihilego)
@@ -42,7 +45,12 @@ export const Conditions: {[k: string]: ConditionData} = {
 		onBeforeMovePriority: 0.5,
 		onBeforeMove(attacker, defender, move) {
 			if (!move || !attacker || !attacker.altSpecies || !attacker.fusedSpecies) return;
-			const targetForme = (move.fusion ? attacker.altSpecies : attacker.fusedSpecies);
+			attacker.host = this.dex.deepClone(attacker.altSpecies);
+			if (attacker.fusedSpecies.id) attacker.host.id = attacker.fusedSpecies.id;
+			if (attacker.fusedSpecies.name) attacker.host.name = attacker.fusedSpecies.name;
+			if (attacker.fusedSpecies.baseSpecies) attacker.host.baseSpecies = attacker.fusedSpecies.baseSpecies;
+			if (attacker.fusedSpecies.forme) attacker.host.forme = attacker.fusedSpecies.forme;
+			let targetForme = (move.fusion ? attacker.altSpecies : attacker.host);
 			if (attacker.species.name !== targetForme) attacker.formeChange(targetForme);
 		},
 	},
