@@ -35,7 +35,7 @@ export const Scripts: {[k: string]: ModdedBattleScriptsData} = {
 			// const allies = pokemon.side.pokemon.filter(ally => ally !== pokemon && ally.species.baseSpecies === 'Nihilego' && ally.isActive && !ally.fainted);
 			// trying to make it work in singles first
 			if (!allies || !allies[0]) {
-				this.hint("You can't use Nihilegium-Z without an ally Nihilego.");
+				this.hint("You can't use Nihilegium Z without an ally Nihilego.");
 				return;
 			}
 			const nihilego = allies[0];
@@ -57,7 +57,7 @@ export const Scripts: {[k: string]: ModdedBattleScriptsData} = {
 	
 			this.add('-message', `Huh?!`);
 			this.add('-anim', pokemon, "Spite", pokemon);
-			this.add('-message', `${pokemon.illusion ? pokemon.illusion.name : pokemon.name}'s ally, ${nihilego.name}, is latching onto ${pokemon.illusion ? pokemon.illusion.name : pokemon.name}'s Nihilegium-Z...!`);
+			this.add('-message', `${pokemon.illusion ? pokemon.illusion.name : pokemon.name}'s ally, ${nihilego.name}, is latching onto ${pokemon.illusion ? pokemon.illusion.name : pokemon.name}'s Nihilegium Z...!`);
 
 			nihilego.formeChange(fusion, pokemon.getItem(), true);
 			nihilego.maxhp += Math.floor(pokemon.maxhp / 2);
