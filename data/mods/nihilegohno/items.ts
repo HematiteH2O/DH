@@ -3,7 +3,7 @@ export const Items: {[itemid: string]: ModdedItemData} = {
 		name: "Nihilegium Z",
 		spritenum: 687,
 		onTakeItem: false,
-		zMove: "Uncanny Synchronicity",
+		zMove: "Uncanny Synergism",
 		zMoveFrom: "Acid Spray",
 		itemUser: ["Nihilego-Symbiont"],
 		num: -793,
