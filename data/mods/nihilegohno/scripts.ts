@@ -42,12 +42,12 @@ export const Scripts: {[k: string]: ModdedBattleScriptsData} = {
 			
 			let hostSpecies = this.dex.deepClone(pokemon.species); // aesthetic
 			const baseStats = hostSpecies.baseStats;
-			baseStats.hp = 109;
+			baseStats.hp = 59;
 			baseStats.atk = this.clampIntRange(baseStats.atk + 13, 1, 255);
 			baseStats.def = this.clampIntRange(baseStats.def + 11, 1, 255);
 			baseStats.spa = this.clampIntRange(baseStats.spa + 31, 1, 255);
 			baseStats.spd = this.clampIntRange(baseStats.spd + 31, 1, 255);
-			baseStats.spe = this.clampIntRange(baseStats.spe + 29, 1, 255);
+			baseStats.spe = this.clampIntRange(baseStats.spe - 11, 1, 255);
 			hostSpecies.abilities = {0: pokemon.baseAbility};
 			let fusion = this.dex.deepClone(hostSpecies);
 			fusion.id = 'nihilegosymbiont';
@@ -60,16 +60,11 @@ export const Scripts: {[k: string]: ModdedBattleScriptsData} = {
 			this.add('-message', `${pokemon.illusion ? pokemon.illusion.name : pokemon.name}'s ally, ${nihilego.name}, is latching onto ${pokemon.illusion ? pokemon.illusion.name : pokemon.name}'s Nihilegium Z...!`);
 
 			nihilego.formeChange(fusion, pokemon.getItem(), true);
-			nihilego.maxhp += Math.floor(pokemon.maxhp / 2);
-			nihilego.hp += Math.floor(pokemon.hp / 2);
-			if (nihilego.isActive) {
-				nihilego.addVolatile('symbiont');
-				nihilego.transformed = true;
-				this.add('-heal', nihilego, nihilego.getHealth, '[silent]');
-			}
-			pokemon.faint();
-			nihilego.item = pokemon.item;
-			this.add('-item', nihilego, this.dex.getItem(nihilego.item));
+			nihilego.maxhp = Math.floor(Math.floor(
+				2 * nihilego.species.baseStats['hp'] + nihilego.set.ivs['hp'] + Math.floor(nihilego.set.evs['hp'] / 4) + 100
+			) * nihilego.level / 100 + 10);
+			if (nihilego.hp < nihilego.maxhp) nihilego.hp += Math.floor(pokemon.hp / 2); // drains HP from its partner
+			if (nihilego.hp > nihilego.maxhp) nihilego.hp = nihilego.maxhp; // can't have more than its max HP
 			
 			nihilego.originalMoves = [];
 			for (const moveSlot of nihilego.moveSlots) {
@@ -105,6 +100,16 @@ export const Scripts: {[k: string]: ModdedBattleScriptsData} = {
 			nihilego.fusionName = nihilego.name;
 			nihilego.host = hostSpecies;
 			nihilego.hostName = pokemon.name;
+
+			if (!nihilego.isActive) {
+				this.switchIn(nihilego, pokemon.position);
+			}
+			nihilego.addVolatile('symbiont');
+			nihilego.transformed = true;
+			this.add('-heal', nihilego, nihilego.getHealth, '[silent]');
+			pokemon.faint();
+			nihilego.item = pokemon.item;
+			this.add('-item', nihilego, this.dex.getItem(nihilego.item));
 			
 			return;
 		}
