@@ -58,13 +58,6 @@ export const Scripts: {[k: string]: ModdedBattleScriptsData} = {
 			this.add('-message', `Huh?!`);
 			this.add('-anim', pokemon, "Spite", pokemon);
 			this.add('-message', `${pokemon.illusion ? pokemon.illusion.name : pokemon.name}'s ally, ${nihilego.name}, is latching onto ${pokemon.illusion ? pokemon.illusion.name : pokemon.name}'s Nihilegium Z...!`);
-
-			nihilego.formeChange(fusion, pokemon.getItem(), true);
-			nihilego.maxhp = Math.floor(Math.floor(
-				2 * nihilego.species.baseStats['hp'] + nihilego.set.ivs['hp'] + Math.floor(nihilego.set.evs['hp'] / 4) + 100
-			) * nihilego.level / 100 + 10);
-			if (nihilego.hp < nihilego.maxhp) nihilego.hp += Math.floor(pokemon.hp / 2); // drains HP from its partner
-			if (nihilego.hp > nihilego.maxhp) nihilego.hp = nihilego.maxhp; // can't have more than its max HP
 			
 			nihilego.originalMoves = [];
 			for (const moveSlot of nihilego.moveSlots) {
@@ -104,12 +97,19 @@ export const Scripts: {[k: string]: ModdedBattleScriptsData} = {
 			if (!nihilego.isActive) {
 				this.switchIn(nihilego, pokemon.position);
 			}
+			nihilego.formeChange(fusion, pokemon.getItem(), true);
+			nihilego.maxhp = Math.floor(Math.floor(
+				2 * nihilego.species.baseStats['hp'] + nihilego.set.ivs['hp'] + Math.floor(nihilego.set.evs['hp'] / 4) + 100
+			) * nihilego.level / 100 + 10);
+			if (nihilego.hp < nihilego.maxhp) nihilego.hp += Math.floor(pokemon.hp / 2); // drains HP from its partner
+			if (nihilego.hp > nihilego.maxhp) nihilego.hp = nihilego.maxhp; // can't have more than its max HP
+
 			nihilego.addVolatile('symbiont');
 			nihilego.transformed = true;
 			this.add('-heal', nihilego, nihilego.getHealth, '[silent]');
 			pokemon.faint();
 			nihilego.item = pokemon.item;
-			this.add('-item', nihilego, this.dex.getItem(nihilego.item));
+			this.add('-item', nihilego, this.dex.getItem(nihilego.item), '[from] item: Nihilegium Z');
 			
 			return;
 		}
