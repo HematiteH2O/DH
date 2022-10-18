@@ -52,6 +52,11 @@ export const Conditions: {[k: string]: ConditionData} = {
 			if (attacker.fusedSpecies.forme) attacker.host.forme = attacker.fusedSpecies.forme;
 			let targetForme = (move.fusion ? attacker.altSpecies : attacker.host);
 			if (attacker.species.name !== targetForme) attacker.formeChange(targetForme);
+			if (targetForme === attacker.host) {
+				attacker.name = attacker.altName;
+			} else {
+				attacker.name = attacker.fusedName;
+			};
 		},
 	},
 };
