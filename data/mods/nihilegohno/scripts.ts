@@ -39,6 +39,7 @@ export const Scripts: {[k: string]: ModdedBattleScriptsData} = {
 				return;
 			}
 			const nihilego = allies[0];
+			
 			let fusion = this.dex.deepClone(pokemon.species);
 			const baseStats = fusion.baseStats;
 			baseStats.hp = 109;
@@ -47,12 +48,12 @@ export const Scripts: {[k: string]: ModdedBattleScriptsData} = {
 			baseStats.spa = this.clampIntRange(baseStats.spa + 31, 1, 255);
 			baseStats.spd = this.clampIntRange(baseStats.spd + 31, 1, 255);
 			baseStats.spe = this.clampIntRange(baseStats.spe + 29, 1, 255);
-			
+			fusion.abilities = {0: pokemon.baseAbility};
+			let hostSpecies = this.dex.deepClone(fusion);
 			fusion.id = 'nihilegosymbiont';
 			fusion.name = 'Nihilego-Symbiont';
 			fusion.baseSpecies = 'Nihilego';
 			fusion.forme = 'Symbiont';
-			fusion.abilities = {0: pokemon.baseAbility};
 	
 			this.add('-message', `Huh?!`);
 			this.add('-anim', pokemon, "Curse", pokemon);
@@ -99,10 +100,10 @@ export const Scripts: {[k: string]: ModdedBattleScriptsData} = {
 			}
 			
 			// for the volatile/aesthetic transformations
-			nihilego.fusedSpecies = fusion;
-			nihilego.fusedName = nihilego.name;
-			nihilego.altSpecies = pokemon.species;
-			nihilego.altName = pokemon.name;
+			nihilego.fusion = fusion;
+			nihilego.fusionName = nihilego.name;
+			nihilego.host = hostSpecies;
+			nihilego.hostName = pokemon.name;
 			
 			return;
 		}
