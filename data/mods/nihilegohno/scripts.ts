@@ -60,8 +60,8 @@ export const Scripts: {[k: string]: ModdedBattleScriptsData} = {
 			this.add('-message', `${pokemon.illusion ? pokemon.illusion.name : pokemon.name}'s ally, ${nihilego.name}, is latching onto ${pokemon.illusion ? pokemon.illusion.name : pokemon.name}'s Nihilegium-Z...!`);
 
 			nihilego.formeChange(fusion, pokemon.getItem(), true);
-			nihilego.maxhp += pokemon.maxhp;
-			nihilego.hp += pokemon.hp;
+			nihilego.maxhp += Math.floor(pokemon.maxhp / 2);
+			nihilego.hp += Math.floor(pokemon.hp / 2);
 			if (nihilego.isActive) {
 				nihilego.addVolatile('symbiont');
 				nihilego.transformed = true;
