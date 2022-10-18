@@ -72,6 +72,7 @@ export const Scripts: {[k: string]: ModdedBattleScriptsData} = {
 			nihilego.setItem(pokemon.item);
 			this.add('-item', nihilego, this.dex.getItem(nihilego.item));
 			
+			nihilego.fusionIndex = nihilego.moveSlots.length;
 			for (const moveSlot of pokemon.moveSlots) {
 				if (!moveSlot.id || !this.dex.getMove(moveSlot.id) || nihilego.moves.includes(moveSlot.id)) continue;
 				let move = this.dex.getMove(moveSlot.id);
@@ -84,7 +85,6 @@ export const Scripts: {[k: string]: ModdedBattleScriptsData} = {
 					disabled: false,
 					disabledSource: '',
 					used: false,
-					fusion: true, // so I can track this later
 				});
 				nihilego.moveSlots.push({
 					move: move.name,
@@ -95,7 +95,6 @@ export const Scripts: {[k: string]: ModdedBattleScriptsData} = {
 					disabled: false,
 					disabledSource: '',
 					used: false,
-					fusion: true, // so I can track this later
 				});
 			}
 			
