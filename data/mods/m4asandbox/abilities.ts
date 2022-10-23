@@ -4,6 +4,12 @@ const bladeMoves = [
 	'sacredsword', 'secretsword', 'slash', 'xscissor', 'solarblade', 'ceaselessedge',
 ];
 export const Abilities: {[abilityid: string]: ModdedAbilityData} = {
+	fullmoon: {
+		shortDesc: "The user's team has a werewolf. At night, its details are hidden!",
+		name: "Full Moon",
+		rating: 3,
+		num: 0,
+	},
 	gravitas: {
 		shortDesc: "On switch-in, this Pokémon summons Gravity.",
 		onStart(source) {
