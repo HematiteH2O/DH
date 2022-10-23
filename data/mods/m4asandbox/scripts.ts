@@ -41,28 +41,96 @@ export const Scripts: ModdedBattleScriptsData = {
 		customTiers: ['April Fools', 'Hisui', 'Tourbanned', 'Newest', 'Tier 1 Mega', 'Tier 1', 'Tier 2 Mega', 'Tier 2', 'Tier 3 Mega', 'Tier 3', 'Tier 4 Mega', 'Tier 4', 'Uncommon Mega', 'Uncommon', 'Undecided', 'Underrated'],
 	},
 	// FULL MOON
-	runSwitch(pokemon: Pokemon) { // modified for Full Moon
-		if (pokemon.side.werewolf && pokemon.side.werewolf === pokemon) {
+	switchIn(pokemon: Pokemon, pos: number, sourceEffect: Effect | null = null, isDrag?: boolean) {
+		if (!pokemon || pokemon.isActive) {
+			this.hint("A switch failed because the Pokémon trying to switch in is already in.");
+			return false;
+		}
+
+		const side = pokemon.side;
+		if (pos >= side.active.length) {
+			console.log(this.getDebugLog());
+			throw new Error(`Invalid switch position ${pos} / ${side.active.length}`);
+		}
+		const oldActive = side.active[pos];
+		const unfaintedActive = oldActive?.hp ? oldActive : null;
+		if (unfaintedActive) {
+			oldActive.beingCalledBack = true;
+			if (sourceEffect && (sourceEffect as Move).selfSwitch === 'copyvolatile') {
+				oldActive.switchCopyFlag = true;
+			}
+			if (!oldActive.switchCopyFlag && !isDrag) {
+				this.runEvent('BeforeSwitchOut', oldActive);
+				if (this.gen >= 5) {
+					this.eachEvent('Update');
+				}
+			}
+			if (!this.runEvent('SwitchOut', oldActive)) {
+				// Warning: DO NOT interrupt a switch-out if you just want to trap a pokemon.
+				// To trap a pokemon and prevent it from switching out, (e.g. Mean Look, Magnet Pull)
+				// use the 'trapped' flag instead.
+
+				// Note: Nothing in the real games can interrupt a switch-out (except Pursuit KOing,
+				// which is handled elsewhere); this is just for custom formats.
+				return false;
+			}
+			if (!oldActive.hp) {
+				// a pokemon fainted from Pursuit before it could switch
+				return 'pursuitfaint';
+			}
+
+			// will definitely switch out at this point
+
+			oldActive.illusion = null;
+			this.singleEvent('End', oldActive.getAbility(), oldActive.abilityData, oldActive);
+
+			// if a pokemon is forced out by Whirlwind/etc or Eject Button/Pack, it can't use its chosen move
+			this.queue.cancelAction(oldActive);
+
+			let newMove = null;
+			if (this.gen === 4 && sourceEffect) {
+				newMove = oldActive.lastMove;
+			}
+			if (oldActive.switchCopyFlag) {
+				oldActive.switchCopyFlag = false;
+				pokemon.copyVolatileFrom(oldActive);
+			}
+			if (newMove) pokemon.lastMove = newMove;
+			oldActive.clearVolatile();
+		}
+		if (oldActive) {
+			oldActive.isActive = false;
+			oldActive.isStarted = false;
+			oldActive.usedItemThisTurn = false;
+			oldActive.position = pokemon.position;
+			pokemon.position = pos;
+			side.pokemon[pokemon.position] = pokemon;
+			side.pokemon[oldActive.position] = oldActive;
+		}
+		pokemon.isActive = true;
+		side.active[pos] = pokemon;
+		pokemon.activeTurns = 0;
+		pokemon.activeMoveActions = 0;
+		for (const moveSlot of pokemon.moveSlots) {
+			moveSlot.used = false;
+		}
+		if (pokemon.side.werewolf && pokemon.side.werewolf === pokemon) { // EDITED FOR FULL MOON
 			pokemon.addVolatile('fullmoon');
 		}
-		this.runEvent('Swap', pokemon);
-		this.runEvent('SwitchIn', pokemon);
-		if (this.gen <= 2 && !pokemon.side.faintedThisTurn && pokemon.draggedIn !== this.turn) {
-			this.runEvent('AfterSwitchInSelf', pokemon);
+		this.runEvent('BeforeSwitchIn', pokemon);
+		this.add(isDrag ? 'drag' : 'switch', pokemon, pokemon.getDetails);
+		if (isDrag && this.gen === 2) pokemon.draggedIn = this.turn;
+		if (sourceEffect) this.log[this.log.length - 1] += `|[from]${sourceEffect.fullname}`;
+		pokemon.previouslySwitchedIn++;
+
+		this.queue.insertChoice({choice: 'runUnnerve', pokemon});
+		if (isDrag && this.gen >= 5) {
+			// runSwitch happens immediately so that Mold Breaker can make hazards bypass Clear Body and Levitate
+			this.runSwitch(pokemon);
+		} else {
+			this.queue.insertChoice({choice: 'runSwitch', pokemon});
 		}
-		if (!pokemon.hp) return false;
-		pokemon.isStarted = true;
-		if (!pokemon.fainted) {
-			this.singleEvent('Start', pokemon.getAbility(), pokemon.abilityData, pokemon);
-			pokemon.abilityOrder = this.abilityOrder++;
-			this.singleEvent('Start', pokemon.getItem(), pokemon.itemData, pokemon);
-		}
-		if (this.gen === 4) {
-			for (const foeActive of pokemon.side.foe.active) {
-				foeActive.removeVolatile('substitutebroken');
-			}
-		}
-		pokemon.draggedIn = null;
+
 		return true;
 	},
 	// SANDBOX CHANGE: removed init, canMegaEvo(pokemon) and runMegaEvo(pokemon) relative to m4av6
@@ -83,6 +151,7 @@ export const Scripts: ModdedBattleScriptsData = {
 			move.hit = 0;
 		}
 
+		if (move.werewolf) suppressMessages = true; // EDITED FOR FULL MOON
 		if (!move.ignoreImmunity || (move.ignoreImmunity !== true && !move.ignoreImmunity[move.type])) {
 			if (!target.runImmunity(move.type, !suppressMessages)) {
 				return false;
