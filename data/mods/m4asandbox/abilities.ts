@@ -43,14 +43,9 @@ export const Abilities: {[abilityid: string]: ModdedAbilityData} = {
 				}
 			},
 			onAnyBeforeMove(pokemon, target, move) {
-				if (target === this.effectData.target) {
-					this.battle.suppressMessages = true;
-				} else {
-					this.battle.suppressMessages = null;
+				if (target === this.effectData.target && target.illusion) {
+					move.werewolf = true;
 				}
-			},
-			onAnyAfterMove(pokemon, target, move) {
-				this.battle.suppressMessages = null;
 			},
 			onFaint(pokemon) {
 				if (pokemon.illusion) {
