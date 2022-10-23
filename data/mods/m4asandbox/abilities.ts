@@ -7,6 +7,63 @@ export const Abilities: {[abilityid: string]: ModdedAbilityData} = {
 	fullmoon: {
 		shortDesc: "The user's team has a werewolf. At night, its details are hidden!",
 		name: "Full Moon",
+		onStart(pokemon) {
+			if (!this.effectData.busted) {
+				this.add('-ability', pokemon, 'Full Moon');
+				this.add('-message', `The moon is full...`);
+				pokemon.side.werewolf = null;
+				let i;
+				for (i = pokemon.side.pokemon.length - 1; i > pokemon.position; i--) {
+					if (!pokemon.side.pokemon[i]) continue;
+					if (!pokemon.side.pokemon[i].fainted) break;
+				}
+				if (!pokemon.side.pokemon[i]) return;
+				if (pokemon === pokemon.side.pokemon[i]) return;
+				pokemon.side.werewolf = pokemon.side.pokemon[i];
+				this.hint(`Your werewolf is ${pokemon.side.pokemon[i].name}!`, true, pokemon.side);
+				this.effectData.busted = true;
+			}
+		},
+		condition: {
+			onBeforeSwitchIn(pokemon) {
+				pokemon.illusion = null;
+				pokemon.illusion.species = 'Monster';
+				pokemon.illusion.name = '???';
+				pokemon.illusion.fullname = pokemon.side.id + ': ???';
+			},
+			onModifyMove(move, source, target) {
+				if (source.illusion) {
+					move.name = 'an unknown move';
+				}
+			},
+			onPrepareHit(target, source) {
+				if (source.illusion) {
+					this.attrLastMove('[still]');
+					this.add('-anim', source, 'Shadow Claw', target);
+				}
+			},
+			onAnyBeforeMove(pokemon, target, move) {
+				if (target === this.effectData.target) {
+					this.battle.suppressMessages = true;
+				} else {
+					this.battle.suppressMessages = null;
+				}
+			},
+			onAnyAfterMove(pokemon, target, move) {
+				this.battle.suppressMessages = null;
+			},
+			onFaint(pokemon) {
+				if (pokemon.illusion) {
+					this.debug('illusion cleared');
+					pokemon.illusion = null;
+					const details = pokemon.species.name + (pokemon.level === 100 ? '' : ', L' + pokemon.level) +
+							(pokemon.gender === '' ? '' : ', ' + pokemon.gender) + (pokemon.set.shiny ? ', shiny' : '');
+					this.add('replace', pokemon, details);
+					this.add('-end', pokemon, 'Illusion');
+				}
+				this.add('-message', `${pokemon.name} was the werewolf!`);
+			},
+		},
 		rating: 3,
 		num: 0,
 	},
