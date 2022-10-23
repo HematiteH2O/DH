@@ -66,7 +66,7 @@ export const Scripts: ModdedBattleScriptsData = {
 					shared += 'g'; // force green HP bar
 				}
 			}
-			if (this.side.werewolf === this) shared = `100`; // EDITED FOR FULL MOON
+			if ('fullmoon' in this.volatiles && this.illusion) shared = `100`; // EDITED FOR FULL MOON
 			if (this.status) {
 				secret += ` ${this.status}`;
 				shared += ` ${this.status}`;
