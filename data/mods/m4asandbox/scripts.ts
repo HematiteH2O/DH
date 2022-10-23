@@ -42,7 +42,7 @@ export const Scripts: ModdedBattleScriptsData = {
 	},
 	// FULL MOON
 	pokemon: {
-		getHealth = () => {
+		getHealth() {
 			if (!this.hp) return {side: this.side.id, secret: '0 fnt', shared: '0 fnt'};
 			let secret = `${this.hp}/${this.maxhp}`;
 			let shared;
