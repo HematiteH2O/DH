@@ -26,7 +26,7 @@ export const Abilities: {[abilityid: string]: ModdedAbilityData} = {
 		},
 		condition: {
 			onBeforeSwitchIn(pokemon) {
-				pokemon.illusion = null;
+				pokemon.illusion = {};
 				pokemon.illusion.species = 'Monster';
 				pokemon.illusion.name = '???';
 				pokemon.illusion.fullname = pokemon.side.id + ': ???';
