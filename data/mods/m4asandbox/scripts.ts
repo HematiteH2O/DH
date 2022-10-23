@@ -40,6 +40,31 @@ export const Scripts: ModdedBattleScriptsData = {
 		excludeStandardTiers: true,
 		customTiers: ['April Fools', 'Hisui', 'Tourbanned', 'Newest', 'Tier 1 Mega', 'Tier 1', 'Tier 2 Mega', 'Tier 2', 'Tier 3 Mega', 'Tier 3', 'Tier 4 Mega', 'Tier 4', 'Uncommon Mega', 'Uncommon', 'Undecided', 'Underrated'],
 	},
+	// FULL MOON
+	runSwitch(pokemon: Pokemon) { // modified for Full Moon
+		if (pokemon.side.werewolf && pokemon.side.werewolf === pokemon) {
+			pokemon.addVolatile('fullmoon');
+		}
+		this.runEvent('Swap', pokemon);
+		this.runEvent('SwitchIn', pokemon);
+		if (this.gen <= 2 && !pokemon.side.faintedThisTurn && pokemon.draggedIn !== this.turn) {
+			this.runEvent('AfterSwitchInSelf', pokemon);
+		}
+		if (!pokemon.hp) return false;
+		pokemon.isStarted = true;
+		if (!pokemon.fainted) {
+			this.singleEvent('Start', pokemon.getAbility(), pokemon.abilityData, pokemon);
+			pokemon.abilityOrder = this.abilityOrder++;
+			this.singleEvent('Start', pokemon.getItem(), pokemon.itemData, pokemon);
+		}
+		if (this.gen === 4) {
+			for (const foeActive of pokemon.side.foe.active) {
+				foeActive.removeVolatile('substitutebroken');
+			}
+		}
+		pokemon.draggedIn = null;
+		return true;
+	},
 	// SANDBOX CHANGE: removed init, canMegaEvo(pokemon) and runMegaEvo(pokemon) relative to m4av6
 	getDamage(
 		pokemon: Pokemon, target: Pokemon, move: string | number | ActiveMove,
