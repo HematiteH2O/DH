@@ -26,7 +26,7 @@ export const Abilities: {[abilityid: string]: ModdedAbilityData} = {
 		},
 		condition: {
 			onBeforeSwitchIn(pokemon) {
-				pokemon.illusion = this.dex.deepClone(pokemon);
+				pokemon.illusion = this.battle.dex.deepClone(pokemon);
 				pokemon.illusion.set = {}; // shiny = null;
 				pokemon.illusion.level = 100;
 				pokemon.illusion.gender = '';
