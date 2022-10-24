@@ -296,39 +296,226 @@ export const Scripts: ModdedBattleScriptsData = {
 		return this.modifyDamage(baseDamage, pokemon, target, move, suppressMessages);
 	},
 
+	// EDITED FOR FULL MOON
+
+
+	spreadDamage(
+		damage: SpreadMoveDamage, targetArray: (false | Pokemon | null)[] | null = null,
+		source: Pokemon | null = null, effect: 'drain' | 'recoil' | Effect | null = null, instafaint = false
+	) {
+		if (!targetArray) return [0];
+		const retVals: (number | false | undefined)[] = [];
+		if (typeof effect === 'string' || !effect) effect = this.dex.getEffectByID((effect || '') as ID);
+		for (const [i, curDamage] of damage.entries()) {
+			const target = targetArray[i];
+			let targetDamage = curDamage;
+			if (!(targetDamage || targetDamage === 0)) {
+				retVals[i] = targetDamage;
+				continue;
+			}
+			if (!target || !target.hp) {
+				retVals[i] = 0;
+				continue;
+			}
+			if (!target.isActive) {
+				retVals[i] = false;
+				continue;
+			}
+			if (targetDamage !== 0) targetDamage = this.clampIntRange(targetDamage, 1);
+
+			if (effect.id !== 'struggle-recoil') { // Struggle recoil is not affected by effects
+				if (effect.effectType === 'Weather' && !target.runStatusImmunity(effect.id)) {
+					this.debug('weather immunity');
+					retVals[i] = 0;
+					continue;
+				}
+				targetDamage = this.runEvent('Damage', target, source, effect, targetDamage);
+				if (!(targetDamage || targetDamage === 0)) {
+					this.debug('damage event failed');
+					retVals[i] = curDamage === true ? undefined : targetDamage;
+					continue;
+				}
+			}
+			if (targetDamage !== 0) targetDamage = this.clampIntRange(targetDamage, 1);
+
+			if (this.gen <= 1) {
+				if (this.dex.currentMod === 'stadium' ||
+					!['recoil', 'drain'].includes(effect.id) && effect.effectType !== 'Status') {
+					this.lastDamage = targetDamage;
+				}
+			}
+
+			retVals[i] = targetDamage = target.damage(targetDamage, source, effect);
+			if (targetDamage !== 0) target.hurtThisTurn = target.hp;
+			if (source && effect.effectType === 'Move') source.lastDamage = targetDamage;
+
+			const name = effect.fullname === 'tox' ? 'psn' : effect.fullname;
+			switch (effect.id) {
+			case 'partiallytrapped':
+				if (target.illusion && 'fullmoon' in target.volatiles) break;
+				this.add('-damage', target, target.getHealth, '[from] ' + this.effectData.sourceEffect.fullname, '[partiallytrapped]');
+				break;
+			case 'powder':
+				if (target.illusion && 'fullmoon' in target.volatiles) break;
+				this.add('-damage', target, target.getHealth, '[silent]');
+				break;
+			case 'confused':
+				if (target.illusion && 'fullmoon' in target.volatiles) break;
+				this.add('-damage', target, target.getHealth, '[from] confusion');
+				break;
+			default:
+				if (effect.effectType === 'Move' || !name) {
+					if (target.illusion && 'fullmoon' in target.volatiles) break;
+					this.add('-damage', target, target.getHealth);
+				} else if (source && (source !== target || effect.effectType === 'Ability')) {
+					if (target.illusion && 'fullmoon' in target.volatiles) break;
+					this.add('-damage', target, target.getHealth, '[from] ' + name, '[of] ' + source);
+				} else {
+					if (target.illusion && 'fullmoon' in target.volatiles) break;
+					this.add('-damage', target, target.getHealth, '[from] ' + name);
+				}
+				break;
+			}
+
+			if (targetDamage && effect.effectType === 'Move') {
+				if (this.gen <= 1 && effect.recoil && source) {
+					if (this.dex.currentMod !== 'stadium' || target.hp > 0) {
+						const amount = this.clampIntRange(Math.floor(targetDamage * effect.recoil[0] / effect.recoil[1]), 1);
+						this.damage(amount, source, target, 'recoil');
+					}
+				}
+				if (this.gen <= 4 && effect.drain && source) {
+					const amount = this.clampIntRange(Math.floor(targetDamage * effect.drain[0] / effect.drain[1]), 1);
+					this.heal(amount, source, target, 'drain');
+				}
+				if (this.gen > 4 && effect.drain && source) {
+					const amount = Math.round(targetDamage * effect.drain[0] / effect.drain[1]);
+					this.heal(amount, source, target, 'drain');
+				}
+			}
+		}
+
+		if (instafaint) {
+			for (const [i, target] of targetArray.entries()) {
+				if (!retVals[i] || !target) continue;
+
+				if (target.hp <= 0) {
+					this.debug('instafaint: ' + this.faintQueue.map(entry => entry.target.name));
+					this.faintMessages(true);
+					if (this.gen <= 2) {
+						target.faint();
+						if (this.gen <= 1) this.queue.clear();
+					}
+				}
+			}
+		}
+
+		return retVals;
+	},
+
+	directDamage(damage: number, target?: Pokemon, source: Pokemon | null = null, effect: Effect | null = null) {
+		if (this.event) {
+			if (!target) target = this.event.target;
+			if (!source) source = this.event.source;
+			if (!effect) effect = this.effect;
+		}
+		if (!target || !target.hp) return 0;
+		if (!damage) return 0;
+		damage = this.clampIntRange(damage, 1);
+
+		if (typeof effect === 'string' || !effect) effect = this.dex.getEffectByID((effect || '') as ID);
+
+		// In Gen 1 BUT NOT STADIUM, Substitute also takes confusion and HJK recoil damage
+		if (this.gen <= 1 && this.dex.currentMod !== 'stadium' &&
+			['confusion', 'jumpkick', 'highjumpkick'].includes(effect.id) && target.volatiles['substitute']) {
+			const hint = "In Gen 1, if a Pokemon with a Substitute hurts itself due to confusion or Jump Kick/Hi Jump Kick recoil and the target";
+			if (source?.volatiles['substitute']) {
+				source.volatiles['substitute'].hp -= damage;
+				if (source.volatiles['substitute'].hp <= 0) {
+					source.removeVolatile('substitute');
+					source.subFainted = true;
+				} else {
+					this.add('-activate', source, 'Substitute', '[damage]');
+				}
+				this.hint(hint + " has a Substitute, the target's Substitute takes the damage.");
+				return damage;
+			} else {
+				this.hint(hint + " does not have a Substitute there is no damage dealt.");
+				return 0;
+			}
+		}
+
+		damage = target.damage(damage, source, effect);
+		switch (effect.id) {
+		case 'strugglerecoil':
+			if (target.illusion && 'fullmoon' in target.volatiles) break;
+			this.add('-damage', target, target.getHealth, '[from] recoil');
+			break;
+		case 'confusion':
+			if (target.illusion && 'fullmoon' in target.volatiles) break;
+			this.add('-damage', target, target.getHealth, '[from] confusion');
+			break;
+		default:
+			if (target.illusion && 'fullmoon' in target.volatiles) break;
+			this.add('-damage', target, target.getHealth);
+			break;
+		}
+		if (target.fainted) this.faint(target);
+		return damage;
+	},
+
+	heal(damage: number, target?: Pokemon, source: Pokemon | null = null, effect: 'drain' | Effect | null = null) {
+		if (this.event) {
+			if (!target) target = this.event.target;
+			if (!source) source = this.event.source;
+			if (!effect) effect = this.effect;
+		}
+		if (effect === 'drain') effect = this.dex.getEffectByID(effect as ID);
+		if (damage && damage <= 1) damage = 1;
+		damage = this.trunc(damage);
+		// for things like Liquid Ooze, the Heal event still happens when nothing is healed.
+		damage = this.runEvent('TryHeal', target, source, effect, damage);
+		if (!damage) return damage;
+		if (!target || !target.hp) return false;
+		if (!target.isActive) return false;
+		if (target.hp >= target.maxhp) return false;
+		const finalDamage = target.heal(damage, source, effect);
+		switch (effect?.id) {
+		case 'leechseed':
+		case 'rest':
+			if (target.illusion && 'fullmoon' in target.volatiles) break;
+			this.add('-heal', target, target.getHealth, '[silent]');
+			break;
+		case 'drain':
+			if (target.illusion && 'fullmoon' in target.volatiles) break;
+			this.add('-heal', target, target.getHealth, '[from] drain', '[of] ' + source);
+			break;
+		case 'wish':
+			break;
+		case 'zpower':
+			if (target.illusion && 'fullmoon' in target.volatiles) break;
+			this.add('-heal', target, target.getHealth, '[zeffect]');
+			break;
+		default:
+			if (!effect) break;
+			if (effect.effectType === 'Move') {
+				if (target.illusion && 'fullmoon' in target.volatiles) break;
+				this.add('-heal', target, target.getHealth);
+			} else if (source && source !== target) {
+				if (target.illusion && 'fullmoon' in target.volatiles) break;
+				this.add('-heal', target, target.getHealth, '[from] ' + effect.fullname, '[of] ' + source);
+			} else {
+				if (target.illusion && 'fullmoon' in target.volatiles) break;
+				this.add('-heal', target, target.getHealth, '[from] ' + effect.fullname);
+			}
+			break;
+		}
+		this.runEvent('Heal', target, source, effect, finalDamage);
+		return finalDamage;
+	},
+
 	pokemon: {
 		lostItemForDelibird: null,
-		getHealth = () => {
-			if (!this.hp) return {side: this.side.id, secret: '0 fnt', shared: '0 fnt'};
-			let secret = `${this.hp}/${this.maxhp}`;
-			let shared;
-			const ratio = this.hp / this.maxhp;
-			if (this.battle.reportExactHP) {
-				shared = secret;
-			} else if (this.battle.reportPercentages) {
-				// HP Percentage Mod mechanics
-				let percentage = Math.ceil(ratio * 100);
-				if ((percentage === 100) && (ratio < 1.0)) {
-					percentage = 99;
-				}
-				shared = `${percentage}/100`;
-			} else {
-				// In-game accurate pixel health mechanics
-				const pixels = Math.floor(ratio * 48) || 1;
-				shared = `${pixels}/48`;
-				if ((pixels === 9) && (ratio > 0.2)) {
-					shared += 'y'; // force yellow HP bar
-				} else if ((pixels === 24) && (ratio > 0.5)) {
-					shared += 'g'; // force green HP bar
-				}
-			}
-			if ('fullmoon' in this.volatiles && this.illusion) shared = `100`; // EDITED FOR FULL MOON
-			if (this.status) {
-				secret += ` ${this.status}`;
-				shared += ` ${this.status}`;
-			}
-			return {side: this.side.id, secret, shared};
-		},
 		setItem(item: string | Item, source?: Pokemon, effect?: Effect) {
 			if (!this.hp) return false;
 			if (typeof item === 'string') item = this.battle.dex.getItem(item);
