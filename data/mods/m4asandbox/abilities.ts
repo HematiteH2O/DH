@@ -32,7 +32,7 @@ export const Abilities: {[abilityid: string]: ModdedAbilityData} = {
 					id: 'monster',
 					name: 'Monster',
 					forme: '',
-					types: ['???'],
+					types: ["???"],
 					abilities: {0: 'No Ability'},
 				};
 				pokemon.illusion.name = '???';
