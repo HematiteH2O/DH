@@ -26,7 +26,7 @@ export const Abilities: {[abilityid: string]: ModdedAbilityData} = {
 		},
 		condition: {
 			onBeforeSwitchIn(pokemon) {
-				pokemon.illusion = {...pokemon};
+				pokemon.illusion = {};
 				const pokemonScripts = this.battle.format.pokemon || this.battle.dex.data.Scripts.pokemon;
 				if (pokemonScripts) Object.assign(pokemon.illusion, pokemonScripts);
 				pokemon.illusion.set = {}; // shiny = null;
