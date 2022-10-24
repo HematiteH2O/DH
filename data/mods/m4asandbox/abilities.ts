@@ -26,10 +26,10 @@ export const Abilities: {[abilityid: string]: ModdedAbilityData} = {
 		},
 		condition: {
 			onBeforeSwitchIn(pokemon) {
-				pokemon.illusion = {};
-				const pokemonScripts = pokemon.battle.format.pokemon || pokemon.battle.dex.data.Scripts.pokemon;
-				if (pokemonScripts) Object.assign(pokemon.illusion, pokemonScripts);
+				pokemon.illusion = this.deepClone(pokemon);
 				pokemon.illusion.set = {}; // shiny = null;
+				pokemon.illusion.level = 100;
+				pokemon.illusion.gender = '';
 				pokemon.illusion.types = ["???"];
 				pokemon.illusion.species = {
 					id: 'monster',
