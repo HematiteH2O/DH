@@ -31,6 +31,7 @@ export const Abilities: {[abilityid: string]: ModdedAbilityData} = {
 				pokemon.illusion.species = {
 					id: 'monster',
 					name: 'Monster',
+					forme: '',
 					types: ['???'],
 					abilities: {0: 'No Ability'},
 				};
