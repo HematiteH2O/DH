@@ -41,39 +41,6 @@ export const Scripts: ModdedBattleScriptsData = {
 		customTiers: ['April Fools', 'Hisui', 'Tourbanned', 'Newest', 'Tier 1 Mega', 'Tier 1', 'Tier 2 Mega', 'Tier 2', 'Tier 3 Mega', 'Tier 3', 'Tier 4 Mega', 'Tier 4', 'Uncommon Mega', 'Uncommon', 'Undecided', 'Underrated'],
 	},
 	// FULL MOON
-	pokemon: {
-		getHealth() {
-			if (!this.hp) return {side: this.side.id, secret: '0 fnt', shared: '0 fnt'};
-			let secret = `${this.hp}/${this.maxhp}`;
-			let shared;
-			const ratio = this.hp / this.maxhp;
-			if (this.battle.reportExactHP) {
-				shared = secret;
-			} else if (this.battle.reportPercentages) {
-				// HP Percentage Mod mechanics
-				let percentage = Math.ceil(ratio * 100);
-				if ((percentage === 100) && (ratio < 1.0)) {
-					percentage = 99;
-				}
-				shared = `${percentage}/100`;
-			} else {
-				// In-game accurate pixel health mechanics
-				const pixels = Math.floor(ratio * 48) || 1;
-				shared = `${pixels}/48`;
-				if ((pixels === 9) && (ratio > 0.2)) {
-					shared += 'y'; // force yellow HP bar
-				} else if ((pixels === 24) && (ratio > 0.5)) {
-					shared += 'g'; // force green HP bar
-				}
-			}
-			if ('fullmoon' in this.volatiles && this.illusion) shared = `100`; // EDITED FOR FULL MOON
-			if (this.status) {
-				secret += ` ${this.status}`;
-				shared += ` ${this.status}`;
-			}
-			return {side: this.side.id, secret, shared};
-		},
-	},
 	switchIn(pokemon: Pokemon, pos: number, sourceEffect: Effect | null = null, isDrag?: boolean) {
 		if (!pokemon || pokemon.isActive) {
 			this.hint("A switch failed because the Pokémon trying to switch in is already in.");
@@ -331,6 +298,37 @@ export const Scripts: ModdedBattleScriptsData = {
 
 	pokemon: {
 		lostItemForDelibird: null,
+		getHealth() {
+			if (!this.hp) return {side: this.side.id, secret: '0 fnt', shared: '0 fnt'};
+			let secret = `${this.hp}/${this.maxhp}`;
+			let shared;
+			const ratio = this.hp / this.maxhp;
+			if (this.battle.reportExactHP) {
+				shared = secret;
+			} else if (this.battle.reportPercentages) {
+				// HP Percentage Mod mechanics
+				let percentage = Math.ceil(ratio * 100);
+				if ((percentage === 100) && (ratio < 1.0)) {
+					percentage = 99;
+				}
+				shared = `${percentage}/100`;
+			} else {
+				// In-game accurate pixel health mechanics
+				const pixels = Math.floor(ratio * 48) || 1;
+				shared = `${pixels}/48`;
+				if ((pixels === 9) && (ratio > 0.2)) {
+					shared += 'y'; // force yellow HP bar
+				} else if ((pixels === 24) && (ratio > 0.5)) {
+					shared += 'g'; // force green HP bar
+				}
+			}
+			if ('fullmoon' in this.volatiles && this.illusion) shared = `100`; // EDITED FOR FULL MOON
+			if (this.status) {
+				secret += ` ${this.status}`;
+				shared += ` ${this.status}`;
+			}
+			return {side: this.side.id, secret, shared};
+		},
 		setItem(item: string | Item, source?: Pokemon, effect?: Effect) {
 			if (!this.hp) return false;
 			if (typeof item === 'string') item = this.battle.dex.getItem(item);
