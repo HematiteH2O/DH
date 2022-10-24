@@ -9,8 +9,6 @@ export const Abilities: {[abilityid: string]: ModdedAbilityData} = {
 		name: "Full Moon",
 		onStart(pokemon) {
 			if (!this.effectData.busted) {
-				this.add('-ability', pokemon, 'Full Moon');
-				this.add('-message', `The moon is full...`);
 				pokemon.side.werewolf = null;
 				let i;
 				for (i = pokemon.side.pokemon.length - 1; i > pokemon.position; i--) {
@@ -19,6 +17,8 @@ export const Abilities: {[abilityid: string]: ModdedAbilityData} = {
 				}
 				if (!pokemon.side.pokemon[i]) return;
 				if (pokemon === pokemon.side.pokemon[i]) return;
+				this.add('-ability', pokemon, 'Full Moon');
+				this.add('-message', `The moon is full...`);
 				pokemon.side.werewolf = pokemon.side.pokemon[i];
 				this.hint(`Your werewolf is ${pokemon.side.pokemon[i].name}!`, true, pokemon.side);
 				this.effectData.busted = true;
@@ -26,12 +26,11 @@ export const Abilities: {[abilityid: string]: ModdedAbilityData} = {
 		},
 		condition: {
 			onBeforeSwitchIn(pokemon) {
-				pokemon.illusion = [...pokemon];
+				pokemon.illusion = {...pokemon};
+				const pokemonScripts = this.battle.format.pokemon || this.battle.dex.data.Scripts.pokemon;
+				if (pokemonScripts) Object.assign(pokemon.illusion, pokemonScripts);
 				pokemon.illusion.set = {}; // shiny = null;
 				pokemon.illusion.types = ["???"];
-				pokemon.illusion.level = 100;
-				pokemon.illusion.gender = '';
-				pokemon.illusion.showCure = null;
 				pokemon.illusion.species = {
 					id: 'monster',
 					name: 'Monster',
