@@ -1,3 +1,4 @@
+import {Pokemon} from "../sim/pokemon";
 // TOP PART INHERITED FROM M4A
 const bladeMoves = [
 	'aerialace', 'airslash', 'behemothblade', 'crosspoison', 'cut', 'falseswipe', 'furycutter', 'leafblade', 'nightslash', 'psychocut', 'razorshell', 'razorwind',
@@ -26,11 +27,20 @@ export const Abilities: {[abilityid: string]: ModdedAbilityData} = {
 		},
 		condition: {
 			onBeforeSwitchIn(pokemon) {
-				pokemon.illusion = this.battle.dex.deepClone(pokemon);
-				pokemon.illusion.set = {}; // shiny = null;
-				pokemon.illusion.level = 100;
+				const illusion = new Pokemon(pokemon.set, pokemon.side);
+				const doNotCarryOver = [
+					'fullname', 'side', 'fainted', 'status', 'hp', 'illusion',
+					'transformed', 'position', 'isActive', 'faintQueued',
+					'subFainted', 'getHealth', 'getDetails', 'moveSlots', 'ability',
+				];
+				for (const [key, value] of Object.entries(target)) {
+					if (doNotCarryOver.includes(key)) continue;
+					// @ts-ignore
+					illusion[key] = value;
+				}
+				pokemon.illusion = illusion;
 				pokemon.illusion.gender = '';
-				pokemon.illusion.types = ["???"];
+				pokemon.illusion.name = '???';
 				pokemon.illusion.species = {
 					id: 'monster',
 					name: 'Monster',
@@ -38,8 +48,6 @@ export const Abilities: {[abilityid: string]: ModdedAbilityData} = {
 					types: ["???"],
 					abilities: {0: 'No Ability'},
 				};
-				pokemon.illusion.name = '???';
-				pokemon.illusion.fullname = pokemon.side.id + ': ???';
 			},
 			onModifyMove(move, source, target) {
 				if (source.illusion) {
