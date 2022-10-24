@@ -184,7 +184,7 @@ export const Scripts: ModdedBattleScriptsData = {
 			move.hit = 0;
 		}
 
-		if (move.werewolf) suppressMessages = true; // EDITED FOR FULL MOON
+		if ((move as any).werewolf) suppressMessages = true; // EDITED FOR FULL MOON
 		if (!move.ignoreImmunity || (move.ignoreImmunity !== true && !move.ignoreImmunity[move.type])) {
 			if (!target.runImmunity(move.type, !suppressMessages)) {
 				return false;
@@ -780,6 +780,7 @@ export const Scripts: ModdedBattleScriptsData = {
 		const tr = this.trunc;
 		if (!move.type) move.type = '???';
 		const type = move.type;
+		if ((move as any).werewolf) suppressMessages = true; // EDITED FOR FULL MOON
 
 		baseDamage += 2;
 
