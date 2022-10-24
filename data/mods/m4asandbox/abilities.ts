@@ -26,7 +26,7 @@ export const Abilities: {[abilityid: string]: ModdedAbilityData} = {
 		},
 		condition: {
 			onBeforeSwitchIn(pokemon) {
-				pokemon.illusion = {};
+				pokemon.illusion = pokemon;
 				pokemon.illusion.set = {}; // shiny = null;
 				pokemon.illusion.types = ["???"];
 				pokemon.illusion.species = {
@@ -38,6 +38,8 @@ export const Abilities: {[abilityid: string]: ModdedAbilityData} = {
 				};
 				pokemon.illusion.name = '???';
 				pokemon.illusion.fullname = pokemon.side.id + ': ???';
+				console.log('pokemon: ' + pokemon);
+				console.log('illusion: ' + pokemon.illusion);
 			},
 			onModifyMove(move, source, target) {
 				if (source.illusion) {
