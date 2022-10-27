@@ -297,8 +297,7 @@ export const Scripts: ModdedBattleScriptsData = {
 	},
 
 	// EDITED FOR FULL MOON
-
-
+/*
 	spreadDamage(
 		damage: SpreadMoveDamage, targetArray: (false | Pokemon | null)[] | null = null,
 		source: Pokemon | null = null, effect: 'drain' | 'recoil' | Effect | null = null, instafaint = false
@@ -513,6 +512,7 @@ export const Scripts: ModdedBattleScriptsData = {
 		this.runEvent('Heal', target, source, effect, finalDamage);
 		return finalDamage;
 	},
+*/
 
 	pokemon: {
 		lostItemForDelibird: null,
