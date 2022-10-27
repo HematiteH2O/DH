@@ -117,6 +117,29 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		type: "Ground",
 		contestType: "Tough",
 	},
+	marshwave: {
+		num: -5,
+		accuracy: 70,
+		basePower: 110,
+		category: "Special",
+		name: "Marsh Wave",
+		pp: 5,
+		priority: 0,
+		flags: {protect: 1, mirror: 1, nonsky: 1},
+		secondary: {
+			chance: 100,
+			boosts: {
+				spe: -1,
+			},
+		},
+		onPrepareHit: function(target, source, move) {
+			this.attrLastMove('[still]');
+			this.add('-anim', source, "Muddy Water", target);
+		},
+		target: "allAdjacentFoes",
+		type: "Water",
+		contestType: "Tough",
+	},
 	stealthrock: { // edited for Crocs
 		inherit: true,
 		condition: {
