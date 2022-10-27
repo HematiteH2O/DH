@@ -510,4 +510,49 @@ export const Abilities: {[abilityid: string]: ModdedAbilityData} = {
 		rating: 3,
 		num: -14,
 	},
+	// modified for Hat of Disguise and Bloonket Costume
+	illusion: {
+		onBeforeSwitchIn(pokemon) {
+			pokemon.illusion = null;
+			let i;
+			for (i = pokemon.side.pokemon.length - 1; i > pokemon.position; i--) {
+				if (!pokemon.side.pokemon[i]) continue;
+				if (!pokemon.side.pokemon[i].fainted) break;
+			}
+			if (!pokemon.side.pokemon[i]) return;
+			if (pokemon === pokemon.side.pokemon[i]) return;
+			pokemon.illusion = pokemon.side.pokemon[i];
+		},
+		onDamagingHit(damage, target, source, move) {
+			if (target.illusion) {
+				this.singleEvent('End', this.dex.getAbility('Illusion'), target.abilityData, target, source, move);
+			}
+		},
+		onEnd(pokemon) {
+			if (pokemon.illusion) {
+				this.debug('illusion cleared');
+				pokemon.illusion = null;
+				const details = pokemon.species.name + (pokemon.level === 100 ? '' : ', L' + pokemon.level) +
+					(pokemon.gender === '' ? '' : ', ' + pokemon.gender) + (pokemon.set.shiny ? ', shiny' : '');
+				this.add('replace', pokemon, details);
+				this.add('-end', pokemon, 'Illusion');
+			}
+			if (pokemon.item === 'hatofdisguise') {
+				pokemon.useItem();
+				pokemon.setAbility(pokemon.baseAbility);
+			}
+		},
+		onFaint(pokemon) {
+			pokemon.illusion = null;
+			if (pokemon.item === 'hatofdisguise') {
+				pokemon.useItem();
+				pokemon.setAbility(pokemon.baseAbility);
+			}
+			// not sure if Bloonket Costume needs special attention here but we can find out!
+		},
+		isUnbreakable: true,
+		name: "Illusion",
+		rating: 4.5,
+		num: 149,
+	},
 };
