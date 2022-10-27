@@ -1,4 +1,4 @@
-import {Pokemon} from "../sim/pokemon";
+import {Pokemon} from "..../sim/pokemon";
 // TOP PART INHERITED FROM M4A
 const bladeMoves = [
 	'aerialace', 'airslash', 'behemothblade', 'crosspoison', 'cut', 'falseswipe', 'furycutter', 'leafblade', 'nightslash', 'psychocut', 'razorshell', 'razorwind',
