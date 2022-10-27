@@ -7,9 +7,8 @@ export const Formats: {[k: string]: FormatData} = {
 			this.add('clearpoke');
 			for (const pokemon of this.getAllPokemon()) {
 				const details = pokemon.details.replace(', shiny', '')
-					.replace(/(Arceus|Gourgeist|Pumpkaboo|Silvally|Urshifu)(-[a-zA-Z?-]+)?/g, '$1-*');
-				const bloonketDetails = pokemon.details.replace(pokemon.species.name, 'Bloonket').replace(', shiny', '')
-					.replace(/(Arceus|Gourgeist|Pumpkaboo|Silvally|Urshifu)(-[a-zA-Z?-]+)?/g, '$1-*');
+					.replace(/(Arceus|Gourgeist|Pumpkaboo|Jackourd|Silvally|Urshifu)(-[a-zA-Z?-]+)?/g, '$1-*');
+				const bloonketDetails = pokemon.details.replace(pokemon.species.name, 'Bloonket').replace(', shiny', '');
 				this.add('poke', pokemon.side.id, pokemon.item === 'bloonketcostume' ? bloonketDetails : details, '');
 			}
 		},
