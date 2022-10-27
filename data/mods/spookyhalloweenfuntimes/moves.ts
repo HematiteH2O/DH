@@ -106,15 +106,15 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 			}
 		},
 		onAfterMoveSecondarySelf(pokemon, target, move) {
-			if (!target || target.fainted || target.hp <= 0) this.boost({atk: 1, spa: 1}, pokemon, pokemon, move); // not sure how to make this apply to each target
+			if (!target || target.fainted || target.hp <= 0) this.boost({atk: 1, spa: 1}, pokemon, pokemon, move);
 		},
 		onPrepareHit: function(target, source, move) {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, "Rock Tomb", target);
 		},
 		secondary: null,
-		target: "allAdjacent",
-		type: "Dark",
+		target: "normal",
+		type: "Ground",
 		contestType: "Tough",
 	},
 	stealthrock: { // edited for Crocs
@@ -127,7 +127,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 			onSwitchIn(pokemon) {
 				if (pokemon.hasItem('heavydutyboots')) return;
 				const typeMod = this.clampIntRange(pokemon.runEffectiveness(this.dex.getActiveMove('stealthrock')), -6, 6);
-				if (pokemon.hasItem('crocs') {
+				if (pokemon.hasItem('crocs')) {
 					this.damage(pokemon.maxhp * Math.pow(2, typeMod) / 4);
 				} else {
 					this.damage(pokemon.maxhp * Math.pow(2, typeMod) / 8);
