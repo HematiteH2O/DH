@@ -105,7 +105,7 @@ export const Learnsets: {[speciesid: string]: LearnsetData} = {
 			sludgebomb: ["8L1"],
 			strugglebug: ["8L1"],
 			thunder: ["8L1"],
-			thunderbolt["8L1"],
+			thunderbolt: ["8L1"],
 			
 			agility: ["8L1"],
 			allyswitch: ["8L1"],
