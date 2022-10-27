@@ -48,11 +48,9 @@ export const Abilities: {[abilityid: string]: ModdedAbilityData} = {
 				target.side.removeSlotCondition(target, 'afterimage');
 				if (!target.fainted) {
 					target.m.afterimage = true;
-					// return to this don't actually add a sub
-					if (target.addVolatile('substitute')) {
-						target.volatiles['substitute'].hp = this.effectData.hp;
-						this.add('-anim', target, "Substitute", target);
-					}
+					if (target.hasType('Ghost')) return;
+					if (!target.addType('Ghost')) return;
+					this.add('-start', target, 'typeadd', 'Ghost', '[from] Ability: Afterimage', '[of] ' + this.effectData.source);
 				}
 			},
 		},
