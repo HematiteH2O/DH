@@ -250,4 +250,77 @@ export const Items: {[itemid: string]: ModdedItemData} = {
 		num: -11,
 		gen: 8,
 	},
+	thickclub: {
+		name: "Thick Club",
+		spritenum: 491,
+		fling: {
+			basePower: 90,
+		},
+		onModifyAtkPriority: 1,
+		onModifyAtk(atk, pokemon) {
+			if (pokemon.baseSpecies.baseSpecies === 'Cubone' || pokemon.baseSpecies.baseSpecies === 'Marowak' || pokemon.baseSpecies.baseSpecies === 'Resurrectric') {
+				return this.chainModify(2);
+			}
+		},
+		desc: "If held by Cubone, Marowak or Resurrectric, its Attack is doubled.",
+		itemUser: ["Resurrectric", "Marowak", "Cubone"],
+		num: 258,
+		gen: 2,
+	},
+	chandelite: {
+		name: "Chandelite",
+		spritenum: 578,
+		megaStone: "Chandelure-Mega",
+		megaEvolves: "Chandelure",
+		itemUser: ["Chandelure"],
+		onTakeItem(item, source) {
+			if (item.megaEvolves === source.baseSpecies.baseSpecies) return false;
+			return true;
+		},
+		num: -12,
+		gen: 8,
+		desc: "If held by a Chandelure, this item allows it to Mega Evolve in battle.",
+	},
+	mismaginite: {
+		name: "Mismaginite",
+		spritenum: 578,
+		megaStone: "Mismagius-Mega",
+		megaEvolves: "Mismagius",
+		itemUser: ["Mismagius"],
+		onTakeItem(item, source) {
+			if (item.megaEvolves === source.baseSpecies.baseSpecies) return false;
+			return true;
+		},
+		num: -13,
+		gen: 8,
+		desc: "If held by a Mismagius, this item allows it to Mega Evolve in battle.",
+	},
+	noivernite: {
+		name: "Noivernite",
+		spritenum: 578,
+		megaStone: "Noivern-Mega",
+		megaEvolves: "Noivern",
+		itemUser: ["Noivern"],
+		onTakeItem(item, source) {
+			if (item.megaEvolves === source.baseSpecies.baseSpecies) return false;
+			return true;
+		},
+		num: -14,
+		gen: 8,
+		desc: "If held by a Noivern, this item allows it to Mega Evolve in battle.",
+	},
+	mightyenite: {
+		name: "Mightyenite",
+		spritenum: 578,
+		megaStone: "Mightyena-Mega",
+		megaEvolves: "Mightyena",
+		itemUser: ["Mightyena"],
+		onTakeItem(item, source) {
+			if (item.megaEvolves === source.baseSpecies.baseSpecies) return false;
+			return true;
+		},
+		num: -15,
+		gen: 8,
+		desc: "If held by a Mightyena, this item allows it to Mega Evolve in battle.",
+	},
 };
