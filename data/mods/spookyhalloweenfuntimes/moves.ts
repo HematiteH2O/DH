@@ -75,14 +75,13 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		sideCondition: 'spikes',
 		selfSwitch: true,
 		self: {
-            onHit(pokemon) {
-                if (pokemon.baseSpecies.baseSpecies === 'Roserade' && !pokemon.transformed) {
-                    const roseradeForme = pokemon.species.id === 'roseradestagehand' ? '' : '-Stagehand';
-                    pokemon.formeChange('Roserade' + roseradeForme, this.effect, true, '[silent]');
-                    pokemon.m.switchedIn = false;
-                }
-            },
-        },
+			onHit(pokemon) {
+				if (pokemon.baseSpecies.baseSpecies === 'Roserade' && !pokemon.transformed) {
+					const roseradeForme = pokemon.species.id === 'roseradestagehand' ? '' : '-Stagehand';
+					pokemon.formeChange('Roserade' + roseradeForme, this.effect, true, '[silent]');
+				}
+			},
+		},
 		onPrepareHit: function(target, source, move) {
 			this.attrLastMove('[still]');
 			this.add('-anim', source, "Encore", source);
