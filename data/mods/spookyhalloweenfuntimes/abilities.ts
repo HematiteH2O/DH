@@ -6,24 +6,10 @@ export const Abilities: {[abilityid: string]: ModdedAbilityData} = {
 			if (pokemon.hp > pokemon.maxhp / 4) {
 				if (pokemon.species.id === 'groabat') {
 					pokemon.formeChange('Groabat-Waking');
-					this.add('-start', pokemon, 'typechange', pokemon.getTypes(true).join('/'), '[silent]');
-					if (this.effectData.busted) return; // this is just to make a dt that only shows up once per Groabat
-					const species = this.dex.getSpecies(pokemon.species.name);
-					const abilities = species.abilities;
-					const baseStats = species.baseStats;
-					const type = species.types[0];
-					if (species.types[1]) {
-						const type2 = species.types[1];
-						this.add(`raw|<ul class="utilichart"><li class="result"><span class="col pokemonnamecol" style="white-space: nowrap">` + species.name + `</span> <span class="col typecol"><img src="http://play.pokemonshowdown.com/sprites/types/${type}.png" alt="${type}" height="14" width="32"><img src="http://play.pokemonshowdown.com/sprites/types/${type2}.png" alt="${type2}" height="14" width="32"></span> <span style="float: left ; min-height: 26px"><span class="col abilitycol">` + this.dex.getAbility(abilities[0]).name + `</span><span class="col abilitycol"></span></span><span style="float: left ; min-height: 26px"><span class="col statcol"><em>HP</em><br>` + baseStats.hp + `</span> <span class="col statcol"><em>Atk</em><br>` + baseStats.atk + `</span> <span class="col statcol"><em>Def</em><br>` + baseStats.def + `</span> <span class="col statcol"><em>SpA</em><br>` + baseStats.spa + `</span> <span class="col statcol"><em>SpD</em><br>` + baseStats.spd + `</span> <span class="col statcol"><em>Spe</em><br>` + baseStats.spe + `</span> </span></li><li style="clear: both"></li></ul>`);
-					} else {
-						this.add(`raw|<ul class="utilichart"><li class="result"><span class="col pokemonnamecol" style="white-space: nowrap">` + species.name + `</span> <span class="col typecol"><img src="http://play.pokemonshowdown.com/sprites/types/${type}.png" alt="${type}" height="14" width="32"></span> <span style="float: left ; min-height: 26px"><span class="col abilitycol">` + this.dex.getAbility(abilities[0]).name + `</span><span class="col abilitycol"></span></span><span style="float: left ; min-height: 26px"><span class="col statcol"><em>HP</em><br>` + baseStats.hp + `</span> <span class="col statcol"><em>Atk</em><br>` + baseStats.atk + `</span> <span class="col statcol"><em>Def</em><br>` + baseStats.def + `</span> <span class="col statcol"><em>SpA</em><br>` + baseStats.spa + `</span> <span class="col statcol"><em>SpD</em><br>` + baseStats.spd + `</span> <span class="col statcol"><em>Spe</em><br>` + baseStats.spe + `</span> </span></li><li style="clear: both"></li></ul>`);
-					}
-					this.effectData.busted = true;
 				}
 			} else {
 				if (pokemon.species.id === 'groabatwaking') {
 					pokemon.formeChange('Groabat');
-					this.add('-start', pokemon, 'typechange', pokemon.getTypes(true).join('/'), '[silent]');
 				}
 			}
 		},
@@ -36,23 +22,10 @@ export const Abilities: {[abilityid: string]: ModdedAbilityData} = {
 			if (pokemon.hp > pokemon.maxhp / 4) {
 				if (pokemon.species.id === 'groabat') {
 					pokemon.formeChange('Groabat-Waking');
-					if (this.effectData.busted) return; // this is just to make a dt that only shows up once per Groabat
-					const species = this.dex.getSpecies(pokemon.species.name);
-					const abilities = species.abilities;
-					const baseStats = species.baseStats;
-					const type = species.types[0];
-					if (species.types[1]) {
-						const type2 = species.types[1];
-						this.add(`raw|<ul class="utilichart"><li class="result"><span class="col pokemonnamecol" style="white-space: nowrap">` + species.name + `</span> <span class="col typecol"><img src="http://play.pokemonshowdown.com/sprites/types/${type}.png" alt="${type}" height="14" width="32"><img src="http://play.pokemonshowdown.com/sprites/types/${type2}.png" alt="${type2}" height="14" width="32"></span> <span style="float: left ; min-height: 26px"><span class="col abilitycol">` + this.dex.getAbility(abilities[0]).name + `</span><span class="col abilitycol"></span></span><span style="float: left ; min-height: 26px"><span class="col statcol"><em>HP</em><br>` + baseStats.hp + `</span> <span class="col statcol"><em>Atk</em><br>` + baseStats.atk + `</span> <span class="col statcol"><em>Def</em><br>` + baseStats.def + `</span> <span class="col statcol"><em>SpA</em><br>` + baseStats.spa + `</span> <span class="col statcol"><em>SpD</em><br>` + baseStats.spd + `</span> <span class="col statcol"><em>Spe</em><br>` + baseStats.spe + `</span> </span></li><li style="clear: both"></li></ul>`);
-					} else {
-						this.add(`raw|<ul class="utilichart"><li class="result"><span class="col pokemonnamecol" style="white-space: nowrap">` + species.name + `</span> <span class="col typecol"><img src="http://play.pokemonshowdown.com/sprites/types/${type}.png" alt="${type}" height="14" width="32"></span> <span style="float: left ; min-height: 26px"><span class="col abilitycol">` + this.dex.getAbility(abilities[0]).name + `</span><span class="col abilitycol"></span></span><span style="float: left ; min-height: 26px"><span class="col statcol"><em>HP</em><br>` + baseStats.hp + `</span> <span class="col statcol"><em>Atk</em><br>` + baseStats.atk + `</span> <span class="col statcol"><em>Def</em><br>` + baseStats.def + `</span> <span class="col statcol"><em>SpA</em><br>` + baseStats.spa + `</span> <span class="col statcol"><em>SpD</em><br>` + baseStats.spd + `</span> <span class="col statcol"><em>Spe</em><br>` + baseStats.spe + `</span> </span></li><li style="clear: both"></li></ul>`);
-					}
-					this.effectData.busted = true;
 				}
 			} else {
 				if (pokemon.species.id === 'groabatwaking') {
 					pokemon.formeChange('Groabat');
-					this.add('-start', pokemon, 'typechange', pokemon.getTypes(true).join('/'), '[silent]');
 				}
 			}
 		},
@@ -76,7 +49,7 @@ export const Abilities: {[abilityid: string]: ModdedAbilityData} = {
 			onSwap(target) {
 				target.side.removeSlotCondition(target, 'afterimage');
 				if (!target.fainted) {
-					target.m.afterimage = this.effectData.source;//not being null is truthy
+					target.m.afterimage = this.effectData.source; // not being null is truthy
 					if (target.hasType('Ghost')) return;
 					if (!target.addType('Ghost')) return;
 					this.add('-start', target, 'typeadd', 'Ghost', '[from] Ability: Afterimage', '[of] ' + target.m.afterimage);
@@ -207,19 +180,6 @@ export const Abilities: {[abilityid: string]: ModdedAbilityData} = {
 			if (move.type !== 'Poison' && move.type !== 'Dark') return;
 			const targetForme = (move.type === 'Poison' ? 'Cobroom' : 'Cobroom-Sorcerer');
 			if (attacker.species.name !== targetForme) attacker.formeChange(targetForme);
-			this.add('-start', attacker, 'typechange', attacker.getTypes(true).join('/'), '[silent]');
-			if (this.effectData.busted) return; // this is just to make a dt that only shows up once per Cobroom
-			const species = this.dex.getSpecies(attacker.species.name);
-			const abilities = species.abilities;
-			const baseStats = species.baseStats;
-			const type = species.types[0];
-			if (species.types[1]) {
-				const type2 = species.types[1];
-				this.add(`raw|<ul class="utilichart"><li class="result"><span class="col pokemonnamecol" style="white-space: nowrap">` + species.name + `</span> <span class="col typecol"><img src="http://play.pokemonshowdown.com/sprites/types/${type}.png" alt="${type}" height="14" width="32"><img src="http://play.pokemonshowdown.com/sprites/types/${type2}.png" alt="${type2}" height="14" width="32"></span> <span style="float: left ; min-height: 26px"><span class="col abilitycol">` + this.dex.getAbility(abilities[0]).name + `</span><span class="col abilitycol"></span></span><span style="float: left ; min-height: 26px"><span class="col statcol"><em>HP</em><br>` + baseStats.hp + `</span> <span class="col statcol"><em>Atk</em><br>` + baseStats.atk + `</span> <span class="col statcol"><em>Def</em><br>` + baseStats.def + `</span> <span class="col statcol"><em>SpA</em><br>` + baseStats.spa + `</span> <span class="col statcol"><em>SpD</em><br>` + baseStats.spd + `</span> <span class="col statcol"><em>Spe</em><br>` + baseStats.spe + `</span> </span></li><li style="clear: both"></li></ul>`);
-			} else {
-				this.add(`raw|<ul class="utilichart"><li class="result"><span class="col pokemonnamecol" style="white-space: nowrap">` + species.name + `</span> <span class="col typecol"><img src="http://play.pokemonshowdown.com/sprites/types/${type}.png" alt="${type}" height="14" width="32"></span> <span style="float: left ; min-height: 26px"><span class="col abilitycol">` + this.dex.getAbility(abilities[0]).name + `</span><span class="col abilitycol"></span></span><span style="float: left ; min-height: 26px"><span class="col statcol"><em>HP</em><br>` + baseStats.hp + `</span> <span class="col statcol"><em>Atk</em><br>` + baseStats.atk + `</span> <span class="col statcol"><em>Def</em><br>` + baseStats.def + `</span> <span class="col statcol"><em>SpA</em><br>` + baseStats.spa + `</span> <span class="col statcol"><em>SpD</em><br>` + baseStats.spd + `</span> <span class="col statcol"><em>Spe</em><br>` + baseStats.spe + `</span> </span></li><li style="clear: both"></li></ul>`);
-			}
-			this.effectData.busted = true;
 		},
 		isPermanent: true,
 		rating: 4,
@@ -532,16 +492,6 @@ export const Abilities: {[abilityid: string]: ModdedAbilityData} = {
 			if (source.species.name === 'Cozminea') source.formeChange('Cozminea-True', this.effect, true, '[silent]');
 			if (source.species.name === 'Cozminea-Hallowed') source.formeChange('Cozminevil', this.effect, true, '[silent]');
 			this.add('-message', `${source.name} revealed its true forme!`);
-			const species = this.dex.getSpecies(source.species.name);
-			const abilities = species.abilities;
-			const baseStats = species.baseStats;
-			const type = species.types[0];
-			if (species.types[1]) {
-				const type2 = species.types[1];
-				this.add(`raw|<ul class="utilichart"><li class="result"><span class="col pokemonnamecol" style="white-space: nowrap">` + species.name + `</span> <span class="col typecol"><img src="http://play.pokemonshowdown.com/sprites/types/${type}.png" alt="${type}" height="14" width="32"><img src="http://play.pokemonshowdown.com/sprites/types/${type2}.png" alt="${type2}" height="14" width="32"></span> <span style="float: left ; min-height: 26px"><span class="col abilitycol">` + this.dex.getAbility(abilities[0]).name + `</span><span class="col abilitycol"></span></span><span style="float: left ; min-height: 26px"><span class="col statcol"><em>HP</em><br>` + baseStats.hp + `</span> <span class="col statcol"><em>Atk</em><br>` + baseStats.atk + `</span> <span class="col statcol"><em>Def</em><br>` + baseStats.def + `</span> <span class="col statcol"><em>SpA</em><br>` + baseStats.spa + `</span> <span class="col statcol"><em>SpD</em><br>` + baseStats.spd + `</span> <span class="col statcol"><em>Spe</em><br>` + baseStats.spe + `</span> </span></li><li style="clear: both"></li></ul>`);
-			} else {
-				this.add(`raw|<ul class="utilichart"><li class="result"><span class="col pokemonnamecol" style="white-space: nowrap">` + species.name + `</span> <span class="col typecol"><img src="http://play.pokemonshowdown.com/sprites/types/${type}.png" alt="${type}" height="14" width="32"></span> <span style="float: left ; min-height: 26px"><span class="col abilitycol">` + this.dex.getAbility(abilities[0]).name + `</span><span class="col abilitycol"></span></span><span style="float: left ; min-height: 26px"><span class="col statcol"><em>HP</em><br>` + baseStats.hp + `</span> <span class="col statcol"><em>Atk</em><br>` + baseStats.atk + `</span> <span class="col statcol"><em>Def</em><br>` + baseStats.def + `</span> <span class="col statcol"><em>SpA</em><br>` + baseStats.spa + `</span> <span class="col statcol"><em>SpD</em><br>` + baseStats.spd + `</span> <span class="col statcol"><em>Spe</em><br>` + baseStats.spe + `</span> </span></li><li style="clear: both"></li></ul>`);
-			}
 		},
 		isPermanent: true,
 		rating: 3,
