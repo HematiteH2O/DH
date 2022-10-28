@@ -105,6 +105,12 @@ export const Items: {[itemid: string]: ModdedItemData} = {
 				this.add('-end', pokemon, 'typechange', '[silent]');
 			}
 		},
+		onTakeItem(item, pokemon, source) {
+			if (pokemon.getTypes().join() !== pokemon.baseSpecies.types.join && pokemon.setType(pokemon.baseSpecies.types.join)) {
+				this.add('-end', pokemon, 'typechange', '[silent]');
+			}
+			return true;
+		},
 		desc: "The holder's type is pure Ghost.",
 		num: -6,
 		gen: 8,
