@@ -1102,4 +1102,37 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 		creator: "Albatross",
 		modOrigin: "Evolution Project",
 	},
+
+	starly: {
+		inherit: true,
+		otherFormes: ["Starly-Crown", "Starly-Crown-Cloud"],
+		formeOrder: ["Starly", "Starly-Crown", "Starly-Crown-Cloud"],
+	},
+	starlycrown: {
+		name: "Starly-Crown",
+		baseSpecies: "Starly",
+		forme: "Crown",
+		copyData: "Starly",
+
+		abilities: {0: "Murmuration"},
+		movepoolAdditions: ["flurry", "rapidspin", "retaliate"],
+		movepoolDeletions: ["bravebird", "doubleedge", "frustration", "return", "takedown", "workup"],
+
+		creator: "KeroseneZanchu",
+	},
+	starlycrowncloud: {
+		name: "Starly-Crown-Cloud",
+		baseSpecies: "Starly",
+		forme: "Crown-Cloud",
+		copyData: "Starly",
+
+		baseStats: {hp: 40, atk: 120, def: 170, spa: 50, spd: 161, spe: 100},
+		abilities: {0: "Murmuration"},
+		movepoolAdditions: ["flurry", "rapidspin", "retaliate"],
+		movepoolDeletions: ["bravebird", "doubleedge", "frustration", "return", "takedown", "workup"],
+
+		requiredAbility: "Murmuration",
+		battleOnly: "Starly-Crown",
+		creator: "KeroseneZanchu",
+	},
 };
