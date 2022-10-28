@@ -75,6 +75,7 @@ export const Items: {[itemid: string]: ModdedItemData} = {
 		fling: {
 			basePower: 10,
 		},
+		/*
 		onStart(pokemon) {
 			if (!pokemon.illusion) {
 				const details = pokemon.species.name + (pokemon.level === 100 ? '' : ', L' + pokemon.level) +
@@ -82,6 +83,7 @@ export const Items: {[itemid: string]: ModdedItemData} = {
 				this.add('replace', pokemon, details);
 			}
 		},
+		*/
 		// some of effect hard-coded into Illusion and some into Team Preview rule
 		desc: "At team preview, the holder is disguised as Bloonket!",
 		num: -5,
@@ -94,12 +96,12 @@ export const Items: {[itemid: string]: ModdedItemData} = {
 			basePower: 10,
 		},
 		onStart(pokemon) {
-			if (!pokemon.getTypes().join() === 'Ghost' && pokemon.setType('Ghost')) {
+			if (pokemon.getTypes().join() !== 'Ghost' && pokemon.setType('Ghost')) {
 				this.add('-start', pokemon, 'typechange', 'Ghost');
 			}
 		},
 		onEnd(pokemon) {
-			if (!pokemon.getTypes().join() === pokemon.baseSpecies.types.join && pokemon.setType(pokemon.baseSpecies.types.join)) {
+			if (pokemon.getTypes().join() !== pokemon.baseSpecies.types.join && pokemon.setType(pokemon.baseSpecies.types.join)) {
 				this.add('-end', pokemon, 'typechange', '[silent]');
 			}
 		},

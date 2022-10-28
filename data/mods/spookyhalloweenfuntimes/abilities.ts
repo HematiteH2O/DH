@@ -6,10 +6,12 @@ export const Abilities: {[abilityid: string]: ModdedAbilityData} = {
 			if (pokemon.hp > pokemon.maxhp / 4) {
 				if (pokemon.species.id === 'groabat') {
 					pokemon.formeChange('Groabat-Waking');
+					this.add('-start', pokemon, 'typechange', pokemon.getTypes(true).join('/'), '[silent]');
 				}
 			} else {
 				if (pokemon.species.id === 'groabatwaking') {
 					pokemon.formeChange('Groabat');
+					this.add('-start', pokemon, 'typechange', pokemon.getTypes(true).join('/'), '[silent]');
 				}
 			}
 		},
@@ -22,10 +24,12 @@ export const Abilities: {[abilityid: string]: ModdedAbilityData} = {
 			if (pokemon.hp > pokemon.maxhp / 4) {
 				if (pokemon.species.id === 'groabat') {
 					pokemon.formeChange('Groabat-Waking');
+					this.add('-start', pokemon, 'typechange', pokemon.getTypes(true).join('/'), '[silent]');
 				}
 			} else {
 				if (pokemon.species.id === 'groabatwaking') {
 					pokemon.formeChange('Groabat');
+					this.add('-start', pokemon, 'typechange', pokemon.getTypes(true).join('/'), '[silent]');
 				}
 			}
 		},
@@ -49,8 +53,7 @@ export const Abilities: {[abilityid: string]: ModdedAbilityData} = {
 			onSwap(target) {
 				target.side.removeSlotCondition(target, 'afterimage');
 				if (!target.fainted) {
-					target.m.afterimage = this.effectData.source;//should be able to do this idk why it has a bool here
-					//target.m.afterimageSource = this.effectData.source;
+					target.m.afterimage = this.effectData.source;//not being null is truthy
 					if (target.hasType('Ghost')) return;
 					if (!target.addType('Ghost')) return;
 					this.add('-start', target, 'typeadd', 'Ghost', '[from] Ability: Afterimage', '[of] ' + target.m.afterimage);
