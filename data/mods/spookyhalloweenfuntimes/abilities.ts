@@ -570,10 +570,13 @@ export const Abilities: {[abilityid: string]: ModdedAbilityData} = {
 			}
 		},
 		onTakeItem(item, pokemon, source) {
-			if (pokemon.illusion && pokemon.item === 'hatofdisguise') {
-					this.singleEvent('End', this.dex.getAbility('Illusion'), target.abilityData, target, source, move);
-					pokemon.setAbility(pokemon.baseAbility);
-				}	
+			if (pokemon.item === 'hatofdisguise') {
+				if (pokemon.illusion) {
+						this.singleEvent('End', this.dex.getAbility('Illusion'), target.abilityData, target, source, move);
+						pokemon.setAbility(pokemon.baseAbility);
+					}	
+			}
+			return true;
 		},
 		onEnd(pokemon) {
 			if (pokemon.illusion) {
