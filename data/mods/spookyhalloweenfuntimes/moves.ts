@@ -395,4 +395,24 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 			return null;
 		},
 	},
+	curse: {
+		inherit: true,
+		condition: {
+			onStart(pokemon, source, effect) {
+				if (effect?.effectType === 'Ability') {
+					this.add('-message', `${pokemon.illusion ? pokemon.illusion.name : pokemon.name} was cursed!`);
+					this.add('-start', pokemon, 'Curse', '[silent]');
+				} else if (effect?.effectType === 'Item') {
+					this.add('-message', `${pokemon.illusion ? pokemon.illusion.name : pokemon.name} was cursed by the Cursed Portrait!`);
+					this.add('-start', pokemon, 'Curse', '[silent]');
+				} else {
+					this.add('-start', pokemon, 'Curse', '[of] ' + source);
+				}
+			},
+			onResidualOrder: 10,
+			onResidual(pokemon) {
+				this.damage(pokemon.baseMaxhp / 4);
+			},
+		},
+	},
 };
