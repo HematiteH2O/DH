@@ -420,6 +420,72 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 		creator: "Paulluxx",
 		modOrigin: "Halloween 2022",
 	},
+	sandile: {
+		inherit: true,
+		otherFormes: ["Sandile-Marsh"],
+		formeOrder: ["Sandile", "Sandile-Marsh"],
+	},
+	sandilemarsh: {
+		name: "Sandile-Marsh",
+		baseSpecies: "Sandile",
+		forme: "Marsh",
+		copyData: "Sandile",
+		
+		types: ["Grass", "Water"],
+		abilities: {0: "Intimidate", 1: "Moxie", H: "Water Bubble"},
+		movepoolAdditions: ["Marsh Wave"],
+		//movepoolDeletions: [],
+		
+		color: "Green",
+		evos: ["Krokorok-Marsh"],
+		creator: "abismal",
+		modOrigin: "Halloween 2022",
+	},
+	krokorok: {
+		inherit: true,
+		otherFormes: ["Krokorok-Marsh"],
+		formeOrder: ["Krokorok", "Krokorok-Marsh"],
+	},
+	krokorokmarsh: {
+		name: "Krokorok-Marsh",
+		baseSpecies: "Krokorok",
+		forme: "Marsh",
+		copyData: "Krokorok",
+		
+		types: ["Grass", "Water"],
+		abilities: {0: "Intimidate", 1: "Moxie", H: "Water Bubble"},
+		movepoolAdditions: ["Marsh Wave"],
+		//movepoolDeletions: [],
+		
+		color: "Green",
+		prevo: "Sandile-Marsh",
+		evos: ["Krookodile-Marsh"],
+		creator: "abismal",
+		modOrigin: "Halloween 2022",
+	},
+	krookodile: {
+		inherit: true,
+		otherFormes: ["Krookodile-Marsh"],
+		formeOrder: ["Krookodile", "Krookodile-Marsh"],
+	},
+	krookodilemarsh: {
+		name: "Krookodile-Marsh",
+		baseSpecies: "Krookodile",
+		forme: "Marsh",
+		copyData: "Krookodile",
+		
+		types: ["Grass", "Water"],
+		stats: {hp: 95, atk: 117, def: 80, spa: 65, spd: 70, spe: 92},
+		abilities: {0: "Intimidate", 1: "Moxie", H: "Water Bubble"},
+		movepoolAdditions: ["Marsh Wave"],
+		//movepoolDeletions: [],
+		
+		color: "Green",
+		prevo: "Krokorok-Marsh",
+		creator: "abismal",
+		modOrigin: "Halloween 2022",
+	},
+	
 	//Copy-pasting stuff from other places now(?)
 	poultergeist: {
 		num: -1004,
@@ -496,7 +562,7 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 		types: ["Fighting", "Ghost"],
 		baseStats: {hp: 65, atk: 125, def: 60, spa: 105, spd: 60, spe: 95},
 		abilities: {0: "Inner Focus", 1: "Prankster", H: "Berserk"},
-		movepoolAdditions: ["firespin", "hex", "shadowball", "spite"],
+		movepoolAdditions: ["firespin", "hex", "shadowball", "spite", "jumpscare"],
 
 		prevo: "Mienfoo",
 		evoLevel: 50,
@@ -547,6 +613,7 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 	ariados: {
 		inherit: true,
 		evos: ["Dolorak"],
+		movepoolAdditions: ["jumpscare"],
 	},
 	dolorak: {
 		name: "Dolorak",
@@ -554,7 +621,7 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 
 		baseStats: {hp: 85, atk: 110, def: 80, spa: 70, spd: 80, spe: 90},
 		abilities: {0: "Swarm", 1: "Insomnia", H: "Prankster"},
-		movepoolAdditions: ["memento", "poisongas"],
+		movepoolAdditions: ["memento", "poisongas", "jumpscare"],
 
 		prevo: "Ariados",
 		evoType: "other",
@@ -677,18 +744,22 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 	gourgeist: {
 		inherit: true,
 		evos: ["Jackourd"],
+		movepoolAdditions: ["jumpscare"],
 	},
 	gourgeistsmall: {
 		inherit: true,
 		evos: ["Jackourd-Small"],
+		movepoolAdditions: ["jumpscare"],
 	},
 	gourgeistlarge: {
 		inherit: true,
 		evos: ["Jackourd-Large"],
+		movepoolAdditions: ["jumpscare"],
 	},
 	gourgeistsuper: {
 		inherit: true,
 		evos: ["Jackourd-Super"],
+		movepoolAdditions: ["jumpscare"],
 	},
 	jackourd: {
 		name: "Jackourd",
@@ -696,7 +767,7 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 
 		baseStats: {hp: 75, atk: 102, def: 122, spa: 67, spd: 75, spe: 90},
 		abilities: {0: "Pickup", 1: "Harvest", H: "Hoard"},
-		movepoolAdditions: ["naturalgift", "weatherball"],
+		movepoolAdditions: ["naturalgift", "weatherball", "jumpscare"],
 
 		prevo: "Gourgeist",
 		evoType: "levelHold",
@@ -713,7 +784,7 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 		baseStats: {hp: 65, atk: 103, def: 122, spa: 58, spd: 75, spe: 108},
 		abilities: {0: "Pickup", 1: "Harvest", H: "Hoard"},
 		copyMoves: "Gourgeist", // it doesn't like copying from other Gourgeist forms
-		movepoolAdditions: ["naturalgift", "weatherball"],
+		movepoolAdditions: ["naturalgift", "weatherball", "jumpscare"],
 
 		prevo: "Gourgeist-Small",
 		evoType: "levelHold",
@@ -730,7 +801,7 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 		baseStats: {hp: 85, atk: 101, def: 122, spa: 76, spd: 75, spe: 72},
 		abilities: {0: "Pickup", 1: "Harvest", H: "Hoard"},
 		copyMoves: "Gourgeist", // it doesn't like copying from other Gourgeist forms
-		movepoolAdditions: ["naturalgift", "weatherball"],
+		movepoolAdditions: ["naturalgift", "weatherball", "jumpscare"],
 
 		prevo: "Gourgeist-Large",
 		evoType: "levelHold",
@@ -747,7 +818,7 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 		baseStats: {hp: 95, atk: 100, def: 122, spa: 85, spd: 75, spe: 54},
 		abilities: {0: "Pickup", 1: "Harvest", H: "Hoard"},
 		copyMoves: "Gourgeist", // it doesn't like copying from other Gourgeist forms
-		movepoolAdditions: ["naturalgift", "weatherball"],
+		movepoolAdditions: ["naturalgift", "weatherball", "jumpscare"],
 
 		prevo: "Gourgeist-Super",
 		evoType: "levelHold",
@@ -824,6 +895,7 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 	accelgor: {
 		inherit: true,
 		evos: ["Velocinobi"],
+		movepoolAdditions: ["jumpscare"],
 	},
 	velocinobi: {
 		name: "Velocinobi",
@@ -832,7 +904,7 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 		types: ["Bug", "Ghost"],
 		baseStats: {hp: 80, atk: 95, def: 20, spa: 105, spd: 90, spe: 145},
 		abilities: {0: "Shed Skin", 1: "Technician", H: "Unburden"},
-		movepoolAdditions: ["hex", "lunge", "shadowball", "strengthsap"],
+		movepoolAdditions: ["hex", "lunge", "shadowball", "strengthsap", "jumpscare"],
 
 		prevo: "Accelgor",
 		evoType: "other",
@@ -895,6 +967,7 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 		inherit: true,
 		prevo: "Michu",
 		evoType: "levelFriendship",
+		movepoolAdditions: ["jumpscare"],
 	},
 	marowak: {
 		inherit: true,

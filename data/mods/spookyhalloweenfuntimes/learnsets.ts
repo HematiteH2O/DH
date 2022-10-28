@@ -338,6 +338,8 @@ export const Learnsets: {[speciesid: string]: LearnsetData} = {
 	},
 	poultergeist: {
 		learnset: {
+			jumpscare: ["8L1"],
+			
 			peck: ["8L1"],
 			scratch: ["8L1"],
 			leer: ["8L1"],
