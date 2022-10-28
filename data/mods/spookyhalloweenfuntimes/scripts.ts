@@ -65,7 +65,7 @@ export const Scripts: {[k: string]: ModdedBattleScriptsData} = {
 		if (pokemon.m.afterimage) {
 			if (!pokemon.hasType('Ghost') && pokemon.addType('Ghost')) {
 				this.add('-start', pokemon, 'typeadd', 'Ghost', '[from] Ability: Afterimage', '[of] ' + pokemon.m.afterimage);
-			} //this crashed i hope i just needed to change target to pokemon?
+			}
 		}
 		pokemon.draggedIn = null;
 		return true;
@@ -228,7 +228,7 @@ pokemon: {
 		}
 		if (this.m.afterimage) {
 			if (!this.hasType('Ghost') && this.addType('Ghost')) {
-				this.add('-start', this, 'typeadd', 'Ghost', '[silent]');
+				this.battle.add('-start', this, 'typeadd', 'Ghost');
 			}
 		}
 		return true;

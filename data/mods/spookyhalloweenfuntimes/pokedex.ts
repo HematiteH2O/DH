@@ -264,7 +264,7 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 		forme: "Stagehand",
 		copyData: "Roserade",
 		
-		types: ["Dark", "Grass"],
+		types: ["Dark", "Poison"],
 		movepoolAdditions: ["exitsmiling", "knockoff", "pursuit", "darkpulse", "encore"], //IDK?
 		
 		battleOnly: "Roserade",
