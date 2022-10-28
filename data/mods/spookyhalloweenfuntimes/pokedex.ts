@@ -42,8 +42,8 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 		creator: "quagsi",
 		modOrigin: "Halloween 2022",
 	},
-	possesevoir: {
-		name: "Possesevoir",
+	possessevoir: {
+		name: "Possessevoir",
 		copyData: "Gardevoir",
 		
 		types: ["Ghost", "Fairy"],
