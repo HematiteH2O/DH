@@ -124,6 +124,7 @@ export const Items: {[itemid: string]: ModdedItemData} = {
 			basePower: 10,
 		},
 		onStart(pokemon) {
+			if (pokemon.hp === pokemon.maxhp) return;
 			let activated = 0;
 			this.add('-message', `${pokemon.illusion ? pokemon.illusion.name : pokemon.name}: Boo!`);
 			for (const target of pokemon.side.foe.active) {
