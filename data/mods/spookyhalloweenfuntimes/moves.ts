@@ -142,6 +142,54 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		type: "Water",
 		contestType: "Tough",
 	},
+	pumpkinbomb: {
+        num: -8,
+        accuracy: 100,
+        basePower: 90,
+        category: "Special",
+        shortDesc: "Summons Leech Seed.",
+        name: "Pumpkin Bomb",
+        pp: 15,
+        priority: 0,
+        flags: {protect: 1, reflectable: 1, bullet: 1},
+        onHit(target, source) {
+            if (target.hasType('Grass')) return null;
+            target.addVolatile('leechseed', source);
+        },
+        onPrepareHit(target, source, move) {
+            this.attrLastMove('[still]');
+            this.add('-anim', source, "Seed Bomb", target);
+        },
+        secondary: null,
+        target: "normal",
+        type: "Fire",
+        contestType: "Clever",
+    },
+    firepottwirl: {
+        num: -9,
+        accuracy: 100,
+        basePower: 20,
+        basePowerCallback(pokemon, target, move) {
+            return move.basePower + 20 * pokemon.positiveBoosts();
+        },
+        category: "Physical",
+        shortDesc: " + 20 power for each of the user's stat boosts.",
+        name: "Firepot Twirl",
+        pp: 10,
+        priority: 0,
+        flags: {contact: 1, protect: 1, mirror: 1, dance: 1},
+        secondary: null,
+        onPrepareHit(target, source, move) {
+            this.attrLastMove('[still]');
+            this.add('-anim', source, "Quiver Dance", source);
+            this.add('-anim', source, "Magma Storm", target);
+        },
+        target: "normal",
+        type: "Fire",
+        zMove: {basePower: 160},
+        maxMove: {basePower: 130},
+        contestType: "Clever",
+    },
 	plaquefang: {
 		num: -6,
 		accuracy: 100,

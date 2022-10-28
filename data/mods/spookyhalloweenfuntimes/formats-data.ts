@@ -47,6 +47,13 @@ export const FormatsData: {[k: string]: ModdedSpeciesFormatsData} = {
 	cozmineatrue: { tier: "Illegal" },
 	cozmineahallowed: { tier: "Spooky" },
 	cozminevil: { tier: "Illegal" },//battle-only
+	sandile: { tier: "Spooky (NFE)" },
+	krokorok: { tier: "Spooky (NFE)" },
+	krookodile: { tier: "Spooky" },
+	sandilemarsh: { tier: "Spooky (NFE)" },
+	krokorokmarsh: { tier: "Spooky (NFE)" },
+	krookodilemarsh: { tier: "Spooky" },
+	pumpking: { tier: "Spooky" },
 	
 	//Copy-pasting stuff from other places now(?)
 	poultergeist: { tier: "Spooky" },

@@ -133,6 +133,11 @@ export const Abilities: {[abilityid: string]: ModdedAbilityData} = {
 		rating: 2,
 		num: -6,
 	},
+	hallowseve: {
+		name: "Hallows' Eve",
+		rating: 3,
+		num: -18,
+	},
 	hoard: {
 		shortDesc: "When it leaves battle, the Pokémon restores its original held item.",
 		onSwitchOut(pokemon) {

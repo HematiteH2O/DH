@@ -485,6 +485,22 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 		creator: "abismal",
 		modOrigin: "Halloween 2022",
 	},
+	pumpking: {
+		name: "Pumpking",
+		types: ["Fire"],
+		stats: {hp: 55, atk: 70, def: 108, spa: 120, spd: 115, spe: 85},
+		abilities: {0: "Flame Body", 1: "Flash Fire", H: "Hallows' Eve"},
+		
+		weightkg: 2.5,
+		color: "Red",
+		/*
+		prevo: "Pumpkiln",
+		evoType: "other",
+		evoCondition: "In a haunted place, at nightfall",
+		*/
+		creator: "abismal",
+		modOrigin: "Halloween 2022",
+	},
 	
 	//Copy-pasting stuff from other places now(?)
 	poultergeist: {
