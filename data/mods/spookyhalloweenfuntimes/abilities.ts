@@ -537,6 +537,10 @@ export const Abilities: {[abilityid: string]: ModdedAbilityData} = {
 		onDamagingHit(damage, target, source, move) {
 			if (target.illusion) {
 				this.singleEvent('End', this.dex.getAbility('Illusion'), target.abilityData, target, source, move);
+				if (target.item === 'hatofdisguise') {
+					target.useItem();
+					target.setAbility(target.baseAbility);
+				}	
 			}
 		},
 		onEnd(pokemon) {
@@ -547,10 +551,6 @@ export const Abilities: {[abilityid: string]: ModdedAbilityData} = {
 					(pokemon.gender === '' ? '' : ', ' + pokemon.gender) + (pokemon.set.shiny ? ', shiny' : '');
 				this.add('replace', pokemon, details);
 				this.add('-end', pokemon, 'Illusion');
-			}
-			if (pokemon.item === 'hatofdisguise') {
-				pokemon.useItem();
-				pokemon.setAbility(pokemon.baseAbility);
 			}
 		},
 		onFaint(pokemon) {
