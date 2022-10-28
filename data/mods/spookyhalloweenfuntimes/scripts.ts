@@ -227,7 +227,7 @@ pokemon: {
 			this.baseAbility = this.ability;
 		}
 		this.battle.add('-start', this, 'typechange', this.getTypes(true).join('/'), '[silent]');
-		if (!this.m.busted) { // one-time /dt for form changes
+		if (!this.m.busted && this.species.name !== 'Poultergeist-Headless') { // one-time /dt for form changes
 			const species = this.battle.dex.getSpecies(this.species.name);
 			let abilities = this.battle.dex.getAbility(species.abilities[0]).name;
 			if (species.abilities[1]) {
