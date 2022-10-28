@@ -9,7 +9,7 @@ export const FormatsData: {[k: string]: ModdedSpeciesFormatsData} = {
 	kirlia: { tier: "Spooky (NFE)" },
 	gardevoir: { tier: "Spooky" },
 	gallade: { tier: "Spooky" },
-	possesevoir: { tier: "Spooky" },
+	possessevoir: { tier: "Spooky" },
 	
 	fealine: { tier: "Spooky" },
 	panpour: { tier: "Spooky (NFE)" },
