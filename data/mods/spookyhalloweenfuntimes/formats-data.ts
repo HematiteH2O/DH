@@ -123,6 +123,8 @@ export const FormatsData: {[k: string]: ModdedSpeciesFormatsData} = {
 	togeticunidentified: { tier: "Spooky (NFE)" },
 	togekiss: { tier: "Illegal" },
 	togekissunidentified: { tier: "Spooky" },
+	starlycrown: { tier: "Spooky" },
+	starlycrowncloud: { tier: "Illegal" }, //battle-only
 
 	klefki: { tier: "Spooky" },
 	klefkigalar: { tier: "Spooky" },
