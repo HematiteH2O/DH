@@ -171,8 +171,11 @@ export const Items: {[itemid: string]: ModdedItemData} = {
 		onModifyMove(move, pokemon) {
 			pokemon.addVolatile('choicelock');
 		},
-		onImmunity(type, pokemon) {
-			if (type === 'Ghost') return false;
+		onTryHit(target, source, move) {
+			if (target !== source && move.type === 'Ghost' && move.category !== 'Status') {
+				this.add('-immune', target, '[from] item: Night Goggles');
+				return null;
+			}
 		},
 		isChoice: true,
 		desc: "The holder is immune to Ghost but can only use the first move it selects.",
