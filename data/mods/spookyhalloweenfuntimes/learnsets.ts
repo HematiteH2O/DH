@@ -240,6 +240,13 @@ export const Learnsets: {[speciesid: string]: LearnsetData} = {
 			
 		},
 	},
+	pumpking: {
+		learnset: {
+			//WIP
+			firepottwirl: ["8L1"],
+			pumpkinbomb: ["8L1"],
+		},
+	},
 	
 	//copied these lads over while i had it open
 	cozminea: {

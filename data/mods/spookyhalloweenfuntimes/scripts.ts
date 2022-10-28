@@ -31,6 +31,7 @@ export const Scripts: {[k: string]: ModdedBattleScriptsData} = {
 					}
 				}
 			}
+			if (!this.dataCache.Learnsets[id]) this.dataCache.Learnsets[id] = { learnset: {}};
 			if (newMon.movepoolAdditions) {
 				for (const move of newMon.movepoolAdditions) {
 					this.modData('Learnsets', this.toID(id)).learnset[this.toID(move)] = ["8M"];

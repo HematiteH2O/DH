@@ -475,7 +475,7 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 		copyData: "Krookodile",
 		
 		types: ["Grass", "Water"],
-		stats: {hp: 95, atk: 117, def: 80, spa: 65, spd: 70, spe: 92},
+		baseStats: {hp: 95, atk: 117, def: 80, spa: 65, spd: 70, spe: 92},
 		abilities: {0: "Intimidate", 1: "Moxie", H: "Water Bubble"},
 		movepoolAdditions: ["Marsh Wave"],
 		//movepoolDeletions: [],
@@ -488,7 +488,7 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 	pumpking: {
 		name: "Pumpking",
 		types: ["Fire"],
-		stats: {hp: 55, atk: 70, def: 108, spa: 120, spd: 115, spe: 85},
+		baseStats: {hp: 55, atk: 70, def: 108, spa: 120, spd: 115, spe: 85},
 		abilities: {0: "Flame Body", 1: "Flash Fire", H: "Hallows' Eve"},
 		
 		weightkg: 2.5,
