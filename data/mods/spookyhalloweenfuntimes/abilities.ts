@@ -6,10 +6,12 @@ export const Abilities: {[abilityid: string]: ModdedAbilityData} = {
 			if (pokemon.hp > pokemon.maxhp / 4) {
 				if (pokemon.species.id === 'groabat') {
 					pokemon.formeChange('Groabat-Waking');
+					this.add('-message', `${pokemon.name} changed to Waking Form!`);
 				}
 			} else {
 				if (pokemon.species.id === 'groabatwaking') {
 					pokemon.formeChange('Groabat');
+					this.add('-message', `${pokemon.name} returned to normal!`);
 				}
 			}
 		},
@@ -22,10 +24,12 @@ export const Abilities: {[abilityid: string]: ModdedAbilityData} = {
 			if (pokemon.hp > pokemon.maxhp / 4) {
 				if (pokemon.species.id === 'groabat') {
 					pokemon.formeChange('Groabat-Waking');
+					this.add('-message', `${pokemon.name} changed to Waking Form!`);
 				}
 			} else {
 				if (pokemon.species.id === 'groabatwaking') {
 					pokemon.formeChange('Groabat');
+					this.add('-message', `${pokemon.name} returned to normal!`);
 				}
 			}
 		},
@@ -180,6 +184,7 @@ export const Abilities: {[abilityid: string]: ModdedAbilityData} = {
 			if (move.type !== 'Poison' && move.type !== 'Dark') return;
 			const targetForme = (move.type === 'Poison' ? 'Cobroom' : 'Cobroom-Sorcerer');
 			if (attacker.species.name !== targetForme) attacker.formeChange(targetForme);
+			this.add('-message', `${attacker.name} changed to ${targetForme}!`);
 		},
 		isPermanent: true,
 		rating: 4,
@@ -497,7 +502,71 @@ export const Abilities: {[abilityid: string]: ModdedAbilityData} = {
 		rating: 3,
 		num: -14,
 	},
-	// modified for Hat of Disguise and Bloonket Costume
+	murmuration: {
+		shortDesc: "If user is Crown Starly, changes to Cloud Form if it has > 1/4 max HP, else Solo Form.",
+		onStart(pokemon) {
+			if (!pokemon.species.id.startsWith('starlycrown') || pokemon.level < 34 || pokemon.transformed) return;
+			if (pokemon.hp > pokemon.maxhp / 4) {
+				if (pokemon.species.id === 'starlycrown') {
+					pokemon.formeChange('Starly-Crown-Cloud', this.effect, true);
+					this.add('-message', `${pokemon.name} changed to Cloud Form!`);
+				}
+			} else {
+				if (pokemon.species.id === 'starlycrowncloud') {
+					pokemon.formeChange('Starly-Crown', this.effect, true);
+					this.add('-message', `${pokemon.name} changed to Solo Form...`);
+				}
+			}
+		},
+		onResidualOrder: 27,
+		onResidual(pokemon) {
+			if (!pokemon.species.id.startsWith('starlycrown') || pokemon.level < 34 || pokemon.transformed || !pokemon.hp) return;
+			if (pokemon.hp > pokemon.maxhp / 4) {
+				if (pokemon.species.id === 'starlycrown') {
+					pokemon.formeChange('Starly-Crown-Cloud', this.effect, true);
+					this.add('-message', `${pokemon.name} changed to Cloud Form!`);
+				}
+			} else {
+				if (pokemon.species.id === 'starlycrowncloud') {
+					pokemon.formeChange('Starly-Crown', this.effect, true);
+					this.add('-message', `${pokemon.name} changed to Solo Form...`);
+				}
+			}
+		},
+		onFaint(pokemon) {
+			if (pokemon.species.id !== 'starlycrowncloud' || pokemon.transformed) return;
+			pokemon.formeChange('Starly-Crown', this.effect, true);
+			this.add('-message', `${pokemon.name} changed to Solo Form...`);
+		},
+		isPermanent: true,
+		name: "Murmuration",
+		rating: 3,
+		num: -15,
+	},
+	hungerswitch: {
+		shortDesc: "If Morpeko or Klefki-Galar, it changes between modes at the end of each turn.",
+		onResidual(pokemon) {
+			if (pokemon.transformed) return;
+			let targetForme = null;
+			if (pokemon.species.baseSpecies === 'Morpeko') targetForme = pokemon.species.name === 'Morpeko' ? 'Morpeko-Hangry' : 'Morpeko';
+			if (pokemon.species.name.startsWith('Klefki-Galar')) targetForme = pokemon.species.name === 'Klefki-Galar' ? 'Klefki-Galar-Revealed' : 'Klefki-Galar';
+			if (targetForme) {
+				pokemon.formeChange(targetForme);
+				if (targetForme === 'Klefki-Galar') {
+					this.add('-message', `${pokemon.name} changed to Lure Mode!`);
+				} else if (targetForme === 'Klefki-Galar-Revealed') {
+					this.add('-message', `${pokemon.name} changed to Revealed Mode!`);
+				}
+			} else {
+				return;
+			}
+		},
+		// isPermanent: true, // it actually isn't in canon despite how weird that is
+		name: "Hunger Switch",
+		rating: 1,
+		num: 258,
+	},
+	// modified for Hat of Disguise
 	illusion: {
 		onBeforeSwitchIn(pokemon) {
 			pokemon.illusion = null;
