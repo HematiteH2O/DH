@@ -101,13 +101,15 @@ export const Items: {[itemid: string]: ModdedItemData} = {
 			}
 		},
 		onEnd(pokemon) {
-			if (pokemon.getTypes().join() !== pokemon.baseSpecies.types.join && pokemon.setType(pokemon.baseSpecies.types.join)) {
-				this.add('-end', pokemon, 'typechange', '[silent]');
+			if (pokemon.getTypes().join() !== pokemon.baseSpecies.types.join() && pokemon.setType(pokemon.baseSpecies.types.join())) {
+				//this.add('-end', pokemon, 'typechange', '[silent]');
+				this.add('-start', pokemon, 'typechange', pokemon.getTypes(true).join('/'), '[silent]');
 			}
 		},
 		onTakeItem(item, pokemon, source) {
-			if (pokemon.getTypes().join() !== pokemon.baseSpecies.types.join && pokemon.setType(pokemon.baseSpecies.types.join)) {
-				this.add('-end', pokemon, 'typechange', '[silent]');
+			if (pokemon.getTypes().join() !== pokemon.baseSpecies.types.join() && pokemon.setType(pokemon.baseSpecies.types.join())) {
+				//this.add('-end', pokemon, 'typechange', '[silent]');
+				this.add('-start', pokemon, 'typechange', pokemon.getTypes(true).join('/'), '[silent]');
 			}
 			return true;
 		},

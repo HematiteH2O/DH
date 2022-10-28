@@ -546,6 +546,12 @@ export const Abilities: {[abilityid: string]: ModdedAbilityData} = {
 				}	
 			}
 		},
+		onTakeItem(item, pokemon, source) {
+			if (pokemon.illusion && pokemon.item === 'hatofdisguise') {
+					this.singleEvent('End', this.dex.getAbility('Illusion'), target.abilityData, target, source, move);
+					pokemon.setAbility(pokemon.baseAbility);
+				}	
+		},
 		onEnd(pokemon) {
 			if (pokemon.illusion) {
 				this.debug('illusion cleared');
