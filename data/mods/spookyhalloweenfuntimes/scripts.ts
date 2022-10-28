@@ -64,8 +64,8 @@ export const Scripts: {[k: string]: ModdedBattleScriptsData} = {
 		if (!pokemon.m.originalItem) pokemon.m.originalItem = pokemon.item;
 		if (pokemon.m.afterimage) {
 			if (!pokemon.hasType('Ghost') && pokemon.addType('Ghost')) {
-				this.add('-start', target, 'typeadd', 'Ghost', '[from] Ability: Afterimage', '[of] ' + pokemon.m.afterimage.source);
-			}
+				this.add('-start', pokemon, 'typeadd', 'Ghost', '[from] Ability: Afterimage', '[of] ' + pokemon.m.afterimage);
+			}//this crashed i hope i just needed to change target to pokemon?
 		}
 		pokemon.draggedIn = null;
 		return true;

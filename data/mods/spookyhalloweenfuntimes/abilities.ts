@@ -49,11 +49,11 @@ export const Abilities: {[abilityid: string]: ModdedAbilityData} = {
 			onSwap(target) {
 				target.side.removeSlotCondition(target, 'afterimage');
 				if (!target.fainted) {
-					target.m.afterimage = true;
-					target.m.afterimage.source = this.effectData.source;
+					target.m.afterimage = this.effectData.source;//should be able to do this idk why it has a bool here
+					//target.m.afterimageSource = this.effectData.source;
 					if (target.hasType('Ghost')) return;
 					if (!target.addType('Ghost')) return;
-					this.add('-start', target, 'typeadd', 'Ghost', '[from] Ability: Afterimage', '[of] ' + target.m.afterimage.source);
+					this.add('-start', target, 'typeadd', 'Ghost', '[from] Ability: Afterimage', '[of] ' + target.m.afterimage);
 				}
 			},
 		},
