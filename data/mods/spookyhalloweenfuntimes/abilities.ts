@@ -97,6 +97,7 @@ export const Abilities: {[abilityid: string]: ModdedAbilityData} = {
 						this.add('-message', `${pokemon.name} called for help beyond the grave...!!`);
 					}
 					pokemon.battle.lastKOhealth = null;
+					console.log(pokemon.volatiles['substitute'].hp);
 					this.add('-message', `I t ' s   a l i v e !`);
 					if (pokemon.battle.lastKOname) {
 						this.add('-message', `${pokemon.name} created a Substitute from ${pokemon.battle.lastKOname}'s remains...`);
@@ -122,6 +123,7 @@ export const Abilities: {[abilityid: string]: ModdedAbilityData} = {
 						this.add('-message', `${pokemon.name} called for help beyond the grave...!!`);
 					}
 					pokemon.battle.lastKOhealth = null;
+					console.log(pokemon.volatiles['substitute'].hp);
 					this.add('-message', `I t ' s   a l i v e !`);
 					if (pokemon.battle.lastKOname) {
 						this.add('-message', `${pokemon.name} created a Substitute from ${pokemon.battle.lastKOname}'s remains...`);
