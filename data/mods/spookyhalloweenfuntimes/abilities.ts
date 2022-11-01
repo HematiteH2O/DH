@@ -88,6 +88,7 @@ export const Abilities: {[abilityid: string]: ModdedAbilityData} = {
 				if (pokemon.addVolatile('substitute')) {
 					pokemon.volatiles['substitute'].hp = 0;
 					pokemon.volatiles['substitute'].hp += Math.floor(pokemon.battle.lastKOhealth / 2);
+					console.log(pokemon.volatiles['substitute'].hp);
 					this.add('-ability', pokemon, 'Necromancy');
 					this.add('-anim', pokemon, "Thunder", pokemon);
 					if (pokemon.battle.lastKOname) {
@@ -112,6 +113,7 @@ export const Abilities: {[abilityid: string]: ModdedAbilityData} = {
 				if (pokemon.addVolatile('substitute')) {
 					pokemon.volatiles['substitute'].hp = 0;
 					pokemon.volatiles['substitute'].hp += Math.floor(pokemon.battle.lastKOhealth / 2);
+					console.log(pokemon.volatiles['substitute'].hp);
 					this.add('-ability', pokemon, 'Necromancy');
 					this.add('-anim', pokemon, "Thunder", pokemon);
 					if (pokemon.battle.lastKOname) {
