@@ -111,7 +111,11 @@ export const Scripts: {[k: string]: ModdedBattleScriptsData} = {
 				pokemon.isActive = false;
 				pokemon.isStarted = false;
 				pokemon.side.faintedThisTurn = pokemon;
-				console.log(faintData);
+				if (
+					faintData.effect && faintData.effect.effectType && faintData.effect.effectType === 'move' && faintData.effect.totalDamage
+				) {
+					this.lastKOhealth = faintData.effect.totalDamage;
+				}
 			}
 		}
 
