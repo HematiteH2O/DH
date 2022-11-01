@@ -228,7 +228,12 @@ export const Items: {[itemid: string]: ModdedItemData} = {
 			basePower: 80,
 		},
 		onSwitchIn(pokemon) {
+			if (this.effectData.usedThisTurn) return;
 			this.useMove('trick', pokemon);
+			this.effectData.usedThisTurn = true;
+		},
+		onResidual(pokemon) {
+			this.effectData.usedThisTurn = null;
 		},
 		desc: "Swaps with the target's item on entry!",
 		num: -11,
