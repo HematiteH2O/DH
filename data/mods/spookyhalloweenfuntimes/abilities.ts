@@ -635,6 +635,22 @@ export const Abilities: {[abilityid: string]: ModdedAbilityData} = {
 		rating: 2.5,
 		num: -17,
 	},
+	hallowseve: {
+		shortDesc: "This Pokémon's SpA and SpD rise when targeted by a Ghost move.",
+		onAnyTryMove(source, target, move) {
+			if (move && move.type === 'Ghost' && target === this.effectData.target) target.addVolatile('hallowseve');
+		},
+		condition: {
+			duration: 1,
+			onUpdate(pokemon) {
+				pokemon.boost({spa: 1, spd: 1});
+				pokemon.removeVolatile('hallowseve');
+			},
+		},
+		name: "Hallows' Eve",
+		rating: 3,
+		num: -18,
+	},
 	hungerswitch: { // modified for Klefki-Galar
 		shortDesc: "If Morpeko or Klefki-Galar, it changes between modes at the end of each turn.",
 		onResidual(pokemon) {
