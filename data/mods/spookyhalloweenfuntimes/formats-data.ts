@@ -53,20 +53,29 @@ export const FormatsData: {[k: string]: ModdedSpeciesFormatsData} = {
 	sandilemarsh: { tier: "Spooky (NFE)" },
 	krokorokmarsh: { tier: "Spooky (NFE)" },
 	krookodilemarsh: { tier: "Spooky" },
+	pumpkiln: { tier: "Spooky (NFE)" },
 	pumpking: { tier: "Spooky" },
+	vulpix: { tier: "Spooky (NFE)" },
+	vulpixalola: { tier: "Spooky (NFE)" },
+	vulpixhoenn: { tier: "Spooky (NFE)" },
+	ninetales: { tier: "Spooky" },
+	ninetalesalola: { tier: "Spooky" },
+	ninetaleshoenn: { tier: "Spooky" },
 	
-	//Copy-pasting stuff from other places now(?)
+	// CCD STUFF
 	poultergeist: { tier: "Spooky" },
 	poultergeistheadless: { tier: "Illegal" },//battle-only
+
 	cobroom: { tier: "Spooky" },
 	cobroomsorcerer: { tier: "Illegal" },//battle-only
+
+	// EVO STUFF
 	mienfoo: { tier: "Illegal" },
 	mienshao: { tier: "Illegal" },
 	mienshaoyaoguai: { tier: "Spooky" },
 	rattata: { tier: "Spooky (NFE)" },
 	raticate: { tier: "Spooky (NFE)" },
 	plaguicate: { tier: "Spooky" },
-
 	hoothoot: { tier: "Spooky (NFE)" },
 	noctowl: { tier: "Spooky (NFE)" },
 	hoobarn: { tier: "Spooky" },
@@ -76,11 +85,11 @@ export const FormatsData: {[k: string]: ModdedSpeciesFormatsData} = {
 	misdreavus: { tier: "Spooky (NFE)" },
 	mismagius: { tier: "Spooky (NFE)" },
 	alchemissus: { tier: "Spooky" },
+
 	swirlix: { tier: "Spooky (NFE)" },
 	swirlixvariant: { tier: "Spooky (NFE)" },
 	slurpuff: { tier: "Spooky" },
 	slurpuffvariant: { tier: "Spooky" },
-
 	morelull: { tier: "Spooky (NFE)" },
 	shiinotic: { tier: "Spooky" },
 	shiinotickalos: { tier: "Spooky" },
@@ -107,8 +116,8 @@ export const FormatsData: {[k: string]: ModdedSpeciesFormatsData} = {
 	karrablast: { tier: "Spooky (NFE)" },
 	escavalier: { tier: "Spooky" },
 	escavaliervariant: { tier: "Spooky" },
-
 	curski: { tier: "Spooky" },
+
 	michu: { tier: "Spooky" },
 	mimikyu: { tier: "Spooky" },
 	cubone: { tier: "Spooky (NFE)" },
@@ -132,8 +141,44 @@ export const FormatsData: {[k: string]: ModdedSpeciesFormatsData} = {
 	togekissunidentified: { tier: "Spooky" },
 	starlycrown: { tier: "Spooky" },
 	starlycrowncloud: { tier: "Illegal" }, //battle-only
-
 	klefki: { tier: "Spooky" },
 	klefkigalar: { tier: "Spooky" },
-	klefkigalarrevealed: { tier: "Illegal" },//battle-only
+	klefkigalarrevealed: { tier: "Illegal" }, //battle-only
+
+	// M4A STUFF
+
+	poochyena: { tier: "Spooky (NFE)" },
+	mightyena: { tier: "Spooky" },
+	mightyenamega: { tier: "Spooky" },
+
+	zigzagoon: { tier: "Spooky (NFE)" },
+	zigzagoongalar: { tier: "Spooky (NFE)" },
+	linoone: { tier: "Spooky (NFE)" },
+	linoonegalar: { tier: "Spooky (NFE)" },
+	obstagoon: { tier: "Spooky" },
+	obstagoonmega: { tier: "Spooky" },
+
+	litwick: { tier: "Spooky (NFE)" },
+	lampent: { tier: "Spooky (NFE)" },
+	chandelure: { tier: "Spooky" },
+	chandeluremega: { tier: "Spooky" },
+
+	fennekin: { tier: "Spooky (NFE)" },
+	braixen: { tier: "Spooky (NFE)" },
+	delphox: { tier: "Spooky" },
+	delphoxmega: { tier: "Spooky" },
+
+	misdreavus: { tier: "Spooky (NFE)" },
+	mismagius: { tier: "Spooky" },
+	mismagiusmega: { tier: "Spooky" },
+
+	noibat: { tier: "Spooky (NFE)" },
+	noivern: { tier: "Spooky" },
+	noivernmega: { tier: "Spooky" },
+
+	// CANON
+	croagunk: { tier: "Spooky (NFE)" },
+	toxicroak: { tier: "Spooky" },
+	zorua: { tier: "Spooky (NFE)" },
+	zoroark: { tier: "Spooky" },
 };
