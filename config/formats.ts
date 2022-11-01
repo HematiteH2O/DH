@@ -3411,7 +3411,7 @@ export const Formats: FormatList = [
 			"Testing currently",
 		],
 		mod: "spookyhalloweenfuntimes",
-		ruleset: ['Team Preview', 'HP Percentage Mod', 'Cancel Mod', 'Dynamax Clause', 'Sleep Clause Mod', 'Data Mod', 'Mega Data Mod', 'Species Clause', 'Item Clause'],
+		ruleset: ['Standard NatDex', 'OHKO Clause', 'Evasion Moves Clause', 'Species Clause', 'Item Clause', 'Dynamax Clause', 'Sleep Clause Mod', 'Z-Move Clause', 'Data Mod', 'Mega Data Mod'],
 		searchShow: false,
 	},
 	{
@@ -3420,7 +3420,7 @@ export const Formats: FormatList = [
 			"Testing currently",
 		],
 		mod: "spookyhalloweenfuntimes",
-		ruleset: ['Team Preview', 'HP Percentage Mod', 'Cancel Mod', 'Dynamax Clause', 'Sleep Clause Mod', 'Data Mod', 'Mega Data Mod', 'Species Clause', 'Item Clause'],
+		ruleset: ['Standard GBU', '+Unobtainable', '+Past', 'VGC Timer', 'Dynamax Clause', 'Z-Move Clause', 'Data Mod', 'Mega Data Mod'],
 		searchShow: false,
 		gameType: 'doubles',
 		forcedLevel: 50,
