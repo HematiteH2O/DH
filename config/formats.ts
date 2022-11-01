@@ -3411,7 +3411,7 @@ export const Formats: FormatList = [
 			"Testing currently",
 		],
 		mod: "spookyhalloweenfuntimes",
-		ruleset: ['Team Preview', 'HP Percentage Mod', 'Cancel Mod', 'Dynamax Clause', 'Sleep Clause Mod', 'Data Mod', 'Mega Data Mod'],
+		ruleset: ['Team Preview', 'HP Percentage Mod', 'Cancel Mod', 'Dynamax Clause', 'Sleep Clause Mod', 'Data Mod', 'Mega Data Mod', 'Species Clause', 'Item Clause'],
 		searchShow: false,
 	},
 	{
@@ -3420,7 +3420,7 @@ export const Formats: FormatList = [
 			"Testing currently",
 		],
 		mod: "spookyhalloweenfuntimes",
-		ruleset: ['Team Preview', 'HP Percentage Mod', 'Cancel Mod', 'Dynamax Clause', 'Sleep Clause Mod', 'Data Mod', 'Mega Data Mod'],
+		ruleset: ['Team Preview', 'HP Percentage Mod', 'Cancel Mod', 'Dynamax Clause', 'Sleep Clause Mod', 'Data Mod', 'Mega Data Mod', 'Species Clause', 'Item Clause'],
 		searchShow: false,
 		gameType: 'doubles',
 		forcedLevel: 50,
