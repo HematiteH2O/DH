@@ -643,7 +643,8 @@ export const Abilities: {[abilityid: string]: ModdedAbilityData} = {
 		condition: {
 			duration: 1,
 			onUpdate(pokemon) {
-				pokemon.boost({spa: 1, spd: 1});
+				this.add('-ability', pokemon, "Hallows' Eve");
+				this.boost({spa: 1, spd: 1});
 				pokemon.removeVolatile('hallowseve');
 			},
 		},
