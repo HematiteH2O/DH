@@ -87,8 +87,22 @@ export const Abilities: {[abilityid: string]: ModdedAbilityData} = {
 			if (!pokemon.fainted && pokemon.battle.lastKOhealth) {
 				if (pokemon.addVolatile('substitute')) {
 					pokemon.volatiles['substitute'].hp = Math.floor(pokemon.battle.lastKOhealth / 2);
+					this.add('-ability', pokemon, 'Necromancy');
+					this.add('-anim', pokemon, "Thunder", pokemon);
+					if (pokemon.battle.lastKOname) {
+						this.add('-message', `${pokemon.name} called for ${pokemon.battle.lastKOname}'s help beyond the grave...!!`);
+					} else {
+						this.add('-message', `${pokemon.name} called for help beyond the grave...!!`);
+					}
 					pokemon.battle.lastKOhealth = null;
 					this.add('-anim', pokemon, "Substitute", pokemon);
+					this.add('-message', `I t ' s   a l i v e !`);
+					if (pokemon.battle.lastKOname) {
+						this.add('-message', `${pokemon.name} created a Substitute from ${pokemon.battle.lastKOname}'s remains...`);
+					} else {
+						this.add('-message', `${pokemon.name} created a Substitute...`);
+					}
+					pokemon.battle.lastKOname = null;
 				}
 			}
 		},
@@ -96,8 +110,22 @@ export const Abilities: {[abilityid: string]: ModdedAbilityData} = {
 			if (pokemon.battle.lastKOhealth) {
 				if (pokemon.addVolatile('substitute')) {
 					pokemon.volatiles['substitute'].hp = Math.floor(pokemon.battle.lastKOhealth / 2);
+					this.add('-ability', pokemon, 'Necromancy');
+					this.add('-anim', pokemon, "Thunder", pokemon);
+					if (pokemon.battle.lastKOname) {
+						this.add('-message', `${pokemon.name} called for ${pokemon.battle.lastKOname}'s help beyond the grave...!!`);
+					} else {
+						this.add('-message', `${pokemon.name} called for help beyond the grave...!!`);
+					}
 					pokemon.battle.lastKOhealth = null;
 					this.add('-anim', pokemon, "Substitute", pokemon);
+					this.add('-message', `I t ' s   a l i v e !`);
+					if (pokemon.battle.lastKOname) {
+						this.add('-message', `${pokemon.name} created a Substitute from ${pokemon.battle.lastKOname}'s remains...`);
+					} else {
+						this.add('-message', `${pokemon.name} created a Substitute...`);
+					}
+					pokemon.battle.lastKOname = null;
 				}
 			}
 		},
