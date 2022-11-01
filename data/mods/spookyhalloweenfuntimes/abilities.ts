@@ -110,7 +110,8 @@ export const Abilities: {[abilityid: string]: ModdedAbilityData} = {
 		onResidual(pokemon) {
 			if (pokemon.battle.lastKOhealth) {
 				if (pokemon.addVolatile('substitute')) {
-					pokemon.volatiles['substitute'].hp = Math.floor(pokemon.battle.lastKOhealth / 2);
+					pokemon.volatiles['substitute'].hp = 0;
+					pokemon.volatiles['substitute'].hp += Math.floor(pokemon.battle.lastKOhealth / 2);
 					this.add('-ability', pokemon, 'Necromancy');
 					this.add('-anim', pokemon, "Thunder", pokemon);
 					if (pokemon.battle.lastKOname) {
