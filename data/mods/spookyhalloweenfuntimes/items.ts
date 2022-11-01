@@ -227,16 +227,8 @@ export const Items: {[itemid: string]: ModdedItemData} = {
 		fling: {
 			basePower: 80,
 		},
-		onStart(pokemon) {
-			const possibleTargets = pokemon.side.foe.active.filter(foeActive => foeActive && this.isAdjacent(pokemon, foeActive));
-			let target = null;
-			if (possibleTargets.length) {
-				let rand = 0;
-				if (possibleTargets.length > 1) rand = this.random(possibleTargets.length);
-				const target = possibleTargets[rand];
-			}
-			if (!target) return;
-			this.useMove('trick', target, pokemon);
+		onSwitchIn(pokemon) {
+			this.useMove('trick', pokemon);
 		},
 		desc: "Swaps with the target's item on entry!",
 		num: -11,
