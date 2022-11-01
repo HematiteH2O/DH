@@ -228,12 +228,11 @@ export const Items: {[itemid: string]: ModdedItemData} = {
 			basePower: 80,
 		},
 		onSwitchIn(pokemon) {
-			if (this.effectData.usedThisTurn) return;
+			if (!this.field.addPseudoWeather('swapcauldron')) return; // awkwardly limiting to one activation per turn (sorry)
 			this.useMove('trick', pokemon);
-			this.effectData.usedThisTurn = true;
 		},
-		onResidual(pokemon) {
-			this.effectData.usedThisTurn = null;
+		condition: {
+			duration: 1,
 		},
 		desc: "Swaps with the target's item on entry!",
 		num: -11,
