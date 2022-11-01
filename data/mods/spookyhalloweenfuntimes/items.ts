@@ -236,34 +236,7 @@ export const Items: {[itemid: string]: ModdedItemData} = {
 				const target = possibleTargets[rand];
 			}
 			if (!target) return;
-			const yourItem = target.takeItem(pokemon);
-			const myItem = pokemon.takeItem();
-			if (target.item || pokemon.item || (!yourItem && !myItem)) {
-				if (yourItem) target.item = yourItem.id;
-				if (myItem) pokemon.item = myItem.id;
-				return false;
-			}
-			if (
-				(myItem && !this.singleEvent('TakeItem', myItem, pokemon.itemData, target, pokemon, this.effectData, myItem)) ||
-				(yourItem && !this.singleEvent('TakeItem', yourItem, target.itemData, pokemon, target, this.effectData, yourItem))
-			) {
-				if (yourItem) target.item = yourItem.id;
-				if (myItem) pokemon.item = myItem.id;
-				return false;
-			}
-			this.add('-item', pokemon, 'Swap Cauldron');
-			if (myItem) {
-				target.setItem(myItem);
-				this.add('-item', target, myItem, '[from] move: Trick');
-			} else {
-				this.add('-enditem', target, yourItem, '[silent]', '[from] move: Trick');
-			}
-			if (yourItem) {
-				pokemon.setItem(yourItem);
-				this.add('-item', pokemon, yourItem, '[from] move: Trick');
-			} else {
-				this.add('-enditem', pokemon, myItem, '[silent]', '[from] move: Trick');
-			}
+			this.useMove('trick', target, pokemon);
 		},
 		desc: "Swaps with the target's item on entry!",
 		num: -11,
