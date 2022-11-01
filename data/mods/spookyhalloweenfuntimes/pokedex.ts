@@ -433,8 +433,14 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 		
 		types: ["Grass", "Water"],
 		abilities: {0: "Intimidate", 1: "Moxie", H: "Water Bubble"},
-		movepoolAdditions: ["Marsh Wave"],
-		//movepoolDeletions: [],
+		movepoolAdditions: [
+			"absorb", "aquaring", "branchpoke", "brine", "energyball", "gigadrain", "grassknot", "icebeam", "ingrain", "leechseed", "lifedew", "marshwave", "mudbomb",
+			"muddywater", "raindance", "scald", "snaptrap", "surf", "synthesis", "waterpulse", "whirlpool", "woodhammer"
+		],
+		movepoolDeletions: [
+			"aquatail", "beatup", "brutalswing", "darkpulse", "darkestlariat", "embargo", "foulplay", "highhorsepower", "lashout", "powertrip", "pursuit",
+			"sandattack", "sandtomb", "scorchingsands", "snarl", "snatch", "thief", "torment"
+		],
 		
 		color: "Green",
 		evos: ["Krokorok-Marsh"],
@@ -454,8 +460,14 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 		
 		types: ["Grass", "Water"],
 		abilities: {0: "Intimidate", 1: "Moxie", H: "Water Bubble"},
-		movepoolAdditions: ["Marsh Wave"],
-		//movepoolDeletions: [],
+		movepoolAdditions: [
+			"absorb", "aquaring", "branchpoke", "brine", "energyball", "gigadrain", "grassknot", "icebeam", "ingrain", "leechseed", "lifedew", "marshwave", "mudbomb",
+			"muddywater", "raindance", "scald", "snaptrap", "surf", "synthesis", "waterpulse", "whirlpool", "woodhammer"
+		],
+		movepoolDeletions: [
+			"aquatail", "beatup", "brutalswing", "darkpulse", "darkestlariat", "embargo", "foulplay", "highhorsepower", "lashout", "powertrip", "pursuit",
+			"sandattack", "sandtomb", "scorchingsands", "snarl", "snatch", "thief", "torment"
+		],
 		
 		color: "Green",
 		prevo: "Sandile-Marsh",
@@ -477,11 +489,30 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 		types: ["Grass", "Water"],
 		baseStats: {hp: 95, atk: 117, def: 80, spa: 65, spd: 70, spe: 92},
 		abilities: {0: "Intimidate", 1: "Moxie", H: "Water Bubble"},
-		movepoolAdditions: ["Marsh Wave"],
-		//movepoolDeletions: [],
+		movepoolAdditions: [
+			"absorb", "aquaring", "branchpoke", "brine", "energyball", "gigadrain", "grassknot", "icebeam", "ingrain", "leechseed", "lifedew", "marshwave", "mudbomb",
+			"muddywater", "raindance", "scald", "snaptrap", "surf", "synthesis", "waterpulse", "whirlpool", "woodhammer"
+		],
+		movepoolDeletions: [
+			"aquatail", "beatup", "brutalswing", "darkpulse", "darkestlariat", "embargo", "foulplay", "highhorsepower", "lashout", "powertrip", "pursuit",
+			"sandattack", "sandtomb", "scorchingsands", "snarl", "snatch", "thief", "torment"
+		],
 		
 		color: "Green",
 		prevo: "Krokorok-Marsh",
+		creator: "abismal",
+		modOrigin: "Halloween 2022",
+	},
+	pumpkiln: {
+		name: "Pumpkiln",
+		types: ["Fire"],
+		baseStats: {hp: 55, atk: 50, def: 95, spa: 50, spd: 95, spe: 40},
+		abilities: {0: "Flame Body", 1: "Filter", H: "Hallows' Eve"},
+		
+		weightkg: 2.5,
+		color: "Red",
+		
+		evo: "Pumpking",
 		creator: "abismal",
 		modOrigin: "Halloween 2022",
 	},
@@ -493,11 +524,10 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 		
 		weightkg: 2.5,
 		color: "Red",
-		/*
+		
 		prevo: "Pumpkiln",
 		evoType: "other",
-		evoCondition: "In a haunted place, at nightfall",
-		*/
+		evoCondition: "In a haunted place at night... at 10:31 PM or on 10/31!",
 		creator: "abismal",
 		modOrigin: "Halloween 2022",
 	},
@@ -1223,5 +1253,180 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 		requiredAbility: "Murmuration",
 		battleOnly: "Starly-Crown",
 		creator: "KeroseneZanchu",
+	},
+
+	vulpix: {
+		inherit: true,
+		otherFormes: ["Vulpix-Alola", "Vulpix-Hoenn"],
+		formeOrder: ["Vulpix", "Vulpix-Alola", "Vulpix-Hoenn"],
+	},
+	vulpixhoenn: {
+		name: "Vulpix-Hoenn",
+		baseSpecies: "Vulpix",
+		forme: "Hoenn",
+		copyData: "Vulpix",
+
+		types: ["Rock"],
+		baseStats: {hp: 38, atk: 41, def: 40, spa: 50, spd: 65, spe: 65},
+		abilities: {0: "Bulletproof", H: "Sand Stream"},
+		movepoolAdditions: ["dazzlinggleam", "drainingkiss", "meteorbeam", "mistyterrain", "moonblast", "powergem", "rockpolish", "sandstorm", "stealthrock"],
+		movepoolDeletions: [
+			"ember", "fireblast", "firespin", "flameburst", "flamecharge", "flamethrower", "flareblitz", "heatwave", "incinerate", "inferno", "overheat"
+		],
+
+		evos: ["Ninetales-Hoenn"],
+		creator: "BlueRay",
+	},
+	ninetales: {
+		inherit: true,
+		otherFormes: ["Ninetales-Alola", "Ninetales-Hoenn"],
+		formeOrder: ["Ninetales", "Ninetales-Alola", "Ninetales-Hoenn"],
+	},
+	ninetaleshoenn: {
+		name: "Ninetales-Hoenn",
+		baseSpecies: "Ninetales",
+		forme: "Hoenn",
+		copyData: "Ninetales",
+
+		types: ["Rock", "Fairy"],
+		baseStats: {hp: 73, atk: 67, def: 75, spa: 81, spd: 100, spe: 109},
+		abilities: {0: "Bulletproof", H: "Sand Stream"},
+		movepoolAdditions: ["dazzlinggleam", "drainingkiss", "meteorbeam", "mistyterrain", "moonblast", "powergem", "rockpolish", "sandstorm", "stealthrock"],
+		movepoolDeletions: [
+			"ember", "fireblast", "firespin", "flameburst", "flamecharge", "flamethrower", "flareblitz", "heatwave", "incinerate", "inferno", "overheat"
+		],
+
+		prevo: "Vulpix-Hoenn",
+		evoType: "useItem",
+		evoItem: "Dusk Stone",
+		creator: "BlueRay",
+	},
+
+	chandelure: {
+		inherit: true,
+		otherFormes: ["Chandelure-Mega"],
+		formeOrder: ["Chandelure", "Chandelure-Mega"],
+		movepoolAdditions: ["mindblown"],
+	},
+	chandeluremega: {
+		num: 609,
+		name: "Chandelure-Mega",
+		baseSpecies: "Chandelure",
+		forme: "Mega",
+		types: ["Ghost", "Fire"],
+		baseStats: {hp: 60, atk: 57, def: 108, spa: 185, spd: 108, spe: 102},
+		abilities: {0: "Nightmare Heart"},
+		heightm: 1,
+		weightkg: 34.3,
+		color: "Black",
+		eggGroups: ["Amorphous"],
+		requiredItem: "Chandelite",
+		creator: "inkbug and BotwNerd745",
+	},
+	delphox: {
+		inherit: true,
+		otherFormes: ["Delphox-Mega"],
+		formeOrder: ["Delphox", "Delphox-Mega"],
+		movepoolAdditions: ["recover", "speedswap", "teleport"],
+	},
+	delphoxmega: {
+		num: 655,
+		name: "Delphox-Mega",
+		baseSpecies: "Delphox",
+		forme: "Mega",
+		types: ["Fire", "Psychic"],
+		genderRatio: {M: 0.875, F: 0.125},
+		baseStats: {hp: 75, atk: 69, def: 115, spa: 135, spd: 130, spe: 110},
+		abilities: {0: "Clairvoyance"},
+		heightm: 1.5,
+		weightkg: 39,
+		color: "Red",
+		eggGroups: ["Field"],
+		requiredItem: "Delphite",
+		creator: "Magmajudis",
+	},
+	obstagoon: {
+		inherit: true,
+		otherFormes: ["Obstagoon-Mega"],
+		formeOrder: ["Obstagoon", "Obstagoon-Mega"],
+		movepoolAdditions: ["foulplay", "frustration", "return", "stealthrock", "toxic", "wish"],
+	},
+	obstagoonmega: {
+		num: 862,
+		name: "Obstagoon-Mega",
+		baseSpecies: "Obstagoon",
+		forme: "Mega",
+		types: ["Dark", "Normal"],
+		baseStats: {hp: 93, atk: 131, def: 111, spa: 63, spd: 111, spe: 111},
+		abilities: {0: "Rebel"},
+		heightm: 1.6,
+		weightkg: 46,
+		color: "Gray",
+		eggGroups: ["Field"],
+		requiredItem: "Obstagoonite",
+		creator: "Paulluxx",
+	},
+	mightyena: {
+		inherit: true,
+		otherFormes: ["Mightyena-Mega"],
+		formeOrder: ["Mightyena", "Mightyena-Mega"],
+		movepoolAdditions: ["moonlight", "pursuit", "stompingtantrum"],
+	},
+	mightyenamega: {
+		num: 262,
+		name: "Mightyena-Mega",
+		baseSpecies: "Mightyena",
+		forme: "Mega",
+		types: ["Dark", "Fairy"],
+		baseStats: {hp: 70, atk: 140, def: 85, spa: 60, spd: 60, spe: 105},
+		abilities: {0: "Comedian"},
+		heightm: 1,
+		weightkg: 37,
+		color: "Gray",
+		eggGroups: ["Field"],
+		requiredItem: "Mightyenite",
+		creator: "jazzmat",
+	},
+	noivern: {
+		inherit: true,
+		otherFormes: ["Noivern-Mega"],
+		formeOrder: ["Noivern", "Noivern-Mega"],
+		movepoolAdditions: ["psyshock"],
+	},
+	noivernmega: {
+		num: 715,
+		name: "Noivern-Mega",
+		baseSpecies: "Noivern",
+		forme: "Mega",
+		types: ["Psychic", "Dragon"],
+		baseStats: {hp: 85, atk: 70, def: 95, spa: 120, spd: 95, spe: 170},
+		abilities: {0: "Trace"},
+		heightm: 1.5,
+		weightkg: 85,
+		color: "Purple",
+		eggGroups: ["Flying", "Dragon"],
+		requiredItem: "Noivernite",
+		creator: "BitBitio",
+	},
+	mismagius: {
+		inherit: true,
+		otherFormes: ["Mismagius-Mega"],
+		formeOrder: ["Mismagius", "Mismagius-Mega"],
+		movepoolAdditions: ["partingshot", "poisongas", "sludgebomb", "sludgewave", "toxicspikes"],
+	},
+	mismagiusmega: {
+		num: 429,
+		name: "Mismagius-Mega",
+		baseSpecies: "Mismagius",
+		forme: "Mega",
+		types: ["Ghost", "Poison"],
+		baseStats: {hp: 60, atk: 70, def: 100, spa: 145, spd: 115, spe: 105},
+		abilities: {0: "Alchemist"},
+		heightm: 0.9,
+		weightkg: 4.4,
+		color: "Purple",
+		eggGroups: ["Amorphous"],
+		requiredItem: "Mismaginite",
+		creator: "ausma",
 	},
 };
