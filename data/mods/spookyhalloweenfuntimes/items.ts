@@ -342,4 +342,32 @@ export const Items: {[itemid: string]: ModdedItemData} = {
 		gen: 8,
 		desc: "If held by a Mightyena, this item allows it to Mega Evolve in battle.",
 	},
+	delphite: {
+		name: "Delphite",
+		spritenum: 578,
+		megaStone: "Delphox-Mega",
+		megaEvolves: "Delphox",
+		itemUser: ["Delphox"],
+		onTakeItem(item, source) {
+			if (item.megaEvolves === source.baseSpecies.baseSpecies) return false;
+			return true;
+		},
+		num: -16,
+		gen: 8,
+		desc: "If held by a Delphox, this item allows it to Mega Evolve in battle.",
+	},
+	obstagoonite: {
+		name: "Obstagoonite",
+		spritenum: 578,
+		megaStone: "Obstagoon-Mega",
+		megaEvolves: "Obstagoon",
+		itemUser: ["Obstagoon"],
+		onTakeItem(item, source) {
+			if (item.megaEvolves === source.baseSpecies.baseSpecies) return false;
+			return true;
+		},
+		num: -17,
+		gen: 8,
+		desc: "If held by an Obstagoon, this item allows it to Mega Evolve in battle.",
+	},
 };
