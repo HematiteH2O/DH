@@ -1,3 +1,5 @@
+import type {Dex} from '..../sim/dex';
+
 export const Scripts: ModdedBattleScriptsData = {
 	init() {
 		const pulseTms = [
