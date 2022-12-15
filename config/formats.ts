@@ -3428,24 +3428,11 @@ export const Formats: FormatList = [
 		searchShow: false,
 		
 		ruleset: ['Team Preview', 'HP Percentage Mod', 'Cancel Mod', 'Dynamax Clause', 'Sleep Clause Mod'],
-		onValidateSet(set) {
-			const item = this.dex.getItem(set.item);
-			if (item.megaStone) return [`${set.name || set.species} is not allowed to Mega Evolve. (We have Terastal instead!)`];
-			if (item.zMove) return [`${set.name || set.species} is not allowed to hold a Z-Crystal. (We have Terastal instead!)`];
-		},
-		validateSet(set, teamHas) {
-			const species = this.dex.getSpecies(set.species);
-			const ability = this.dex.getAbility(set.ability);
-			if (!set.hpType === 'Fairy' && !set.hpType === 'Normal') {
-				return this.validateSet(set, teamHas);
-			} else {
-				const terastal = set.hpType;
-				set.hpType = 'Fire';
-				const fakeValidation = this.validateSet(set, teamHas);
-				if (fakeValidation?.length) return fakeValidation;
-				set.hpType = terastal;
-				return null;
-			}
+		onBegin() {
+			for (const id in this.dataCache.Pokedex) {
+				const poke = this.dataCache.Pokedex[id];
+				if (poke && poke.totalMoves) this.add('-message', `${poke.totalMoves}`);
+			},
 		},
 		mod: 'svspeculative',
 	},
