@@ -3432,7 +3432,7 @@ export const Formats: FormatList = [
 			for (const id in this.dataCache.Pokedex) {
 				const poke = this.dataCache.Pokedex[id];
 				if (poke && poke.totalMoves) this.add('-message', `${poke.totalMoves}`);
-			},
+			}
 		},
 		mod: 'svspeculative',
 	},
