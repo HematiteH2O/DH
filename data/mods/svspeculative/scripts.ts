@@ -31,7 +31,7 @@ export const Scripts: ModdedBattleScriptsData = {
 				const oldMoves: string[] = []; // moves that were in the Pokémon's learnset as soon as possible but aren't TMs in Pulse
 				const buffMoves: string[] = []; // moves that the Pokémon knows but not by any of the above means
 				const learnset = this.modData('Learnsets', this.toID(id)).learnset;
-				const poke = this.dataCache.Pokedex[id]
+				const poke = this.dataCache.Pokedex[id];
 				for (const moveid in learnset) {
 					let moveSource = null;
 					const pokeGen = this.dex.getSpecies(id).gen;
@@ -64,7 +64,7 @@ export const Scripts: ModdedBattleScriptsData = {
 					}
 				}
 				const totalMoves: string[] = [];
-				totalMoves.push.push(originMoves + "~" + tmMoves + "~" + tutorMoves + "~" + oldMoves + "~" + buffMoves);
+				totalMoves.push.push(poke.name + ": " + originMoves + "~" + tmMoves + "~" + tutorMoves + "~" + oldMoves + "~" + buffMoves);
 				poke.totalMoves = totalMoves;
 			}
 		}
