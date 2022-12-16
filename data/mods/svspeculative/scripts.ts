@@ -104,7 +104,7 @@ export const Scripts: ModdedBattleScriptsData = {
 								parseInt(source.charAt(0)) === 4
 							) authentic = true;
 							if (source.charAt(1) === 'L' || source.charAt(1) === 'E') natural = true;
-							if (source.charAt(1) === 'V') transfer = true;
+							if (source.charAt(0) === '7' && source.charAt(1) === 'V') transfer = true; // 8V is LGPE
 						}
 					}
 					if (learnset2 && learnset2[moveid]) { // if it has a pre-evolution and its pre-evolution learns the move
@@ -117,7 +117,7 @@ export const Scripts: ModdedBattleScriptsData = {
 								parseInt(source.charAt(0)) === 4
 							) authentic = true;
 							if (source.charAt(1) === 'L' || source.charAt(1) === 'E') natural = true;
-							if (source.charAt(1) === 'V') transfer = true;
+							if (source.charAt(0) === '7' && source.charAt(1) === 'V') transfer = true; // 8V is LGPE
 						}
 					}
 					if (learnset3 && learnset3[moveid]) { // if it's the third stage and its basic stage learns the move
@@ -130,7 +130,7 @@ export const Scripts: ModdedBattleScriptsData = {
 								parseInt(source.charAt(0)) === 4
 							) authentic = true;
 							if (source.charAt(1) === 'L' || source.charAt(1) === 'E') natural = true;
-							if (source.charAt(1) === 'V') transfer = true;
+							if (source.charAt(0) === '7' && source.charAt(1) === 'V') transfer = true; // 8V is LGPE
 						}
 					}
 					if (!learned) continue;
