@@ -81,7 +81,7 @@ export const Scripts: ModdedBattleScriptsData = {
 					}
 				}
 				const totalMoves: string[] = [];
-				totalMoves.push.push(poke.name + ": " + originMoves + "~" + tmMoves + "~" + tutorMoves + "~" + oldMoves + "~" + buffMoves);
+				totalMoves.push(poke.name + ": " + originMoves + "~" + tmMoves + "~" + tutorMoves + "~" + oldMoves + "~" + buffMoves);
 				poke.totalMoves = totalMoves;
 			}
 		}
