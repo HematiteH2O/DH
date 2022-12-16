@@ -131,11 +131,10 @@ export const Scripts: ModdedBattleScriptsData = {
 		]; // moves that bypass the other checks
 
 		// the rest is, uh, incomplete
-		const brnMoves = ['willowisp', 'scald', 'scorchingsands', 'lavaplume'];
+		const brnMoves = ['willowisp', 'scald', 'scorchingsands', 'lavaplume']; // will also count Bitter Malice here (as cold burn)
 		const przMoves = ['willowisp', 'scald', 'scorchingsands', 'lavaplume'];
 		const slpMoves = ['willowisp', 'scald', 'scorchingsands', 'lavaplume'];
 		const psnMoves = ['willowisp', 'scald', 'scorchingsands', 'lavaplume'];
-		const frzMoves = ['bittermalice'];
 		const statusMoves = ['willowisp', 'scald', 'scorchingsands', 'lavaplume'];
 
 		const clericMoves = ['aromatherapy', 'healbell', 'revivalblessing'];
@@ -192,6 +191,17 @@ export const Scripts: ModdedBattleScriptsData = {
 					}
 				}
 
+				// now we're going to decide what moves are competitive on the Pokémon, so we need to know its type matchups
+				let wallTypes = {}; // what types are hit worse than neutrally by both of the Pokémon's STABs?
+				let weaknessTypes = {}; // what types hit the Pokémon super effectively?
+				let typeAdvantages = {}; // what types are hit super effectively by either one of the Pokémon's STABs?
+
+				// and we're going to use those type matchups to decide how the Pokémon values different coverage types (other than its STABs)
+				let offenseCoverage = {}; // what types hit at least one entry in wallTypes super effectively?
+				let weaknessCoverage = {}; // of the remaining, what types hit at least one entry in weaknessTypes super effectively?
+				let otherCoverage = {}; // of the remaining, what types hit at least one entry NOT in typeAdvantages super effectively?
+				// any type not in one of these categories will be ignored as coverage!
+
 				for (const moveid in this.dataCache.Moves) {
 					// identify the Gen of the move
 					const move = this.dataCache.Moves[moveid];
@@ -208,20 +218,6 @@ export const Scripts: ModdedBattleScriptsData = {
 					else if (move.num > 354) moveGen = 4;
 					else if (move.num > 251) moveGen = 3;
 					else if (move.num > 165) moveGen = 2;
-
-					// now decide if it's a competitive attacking move
-					let attack = false;
-					if (move.basePower && (move.basePower > 70 || move.priority !== 0 || (move.multihit && move.basePower >= 20)))) {
-						attack = true;
-					}
-					if (move.category !== 'Status' && move.basePower === 0) attack = true; // moves with variable base power always count (for my sanity)
-					if (strongMoves.includes(moveid)) attack = true;
-
-					// if it is a competitive attacking move, it gets put into a category based on its type - but it depends on the user's type, too
-					// STAB
-					// offensive coverage (force Hidden Power)
-					// defensive coverage
-					// other coverage (push to flavor if the move hits nothing SE that STABs don't)
 
 					// a simplified version of the Pulse learnset sheet:
 					// only decide a) if the Pokémon learns the move at all and b) if it's a safe bet it still gets it in Pulse or not
@@ -265,6 +261,37 @@ export const Scripts: ModdedBattleScriptsData = {
 						}
 					}
 					if (!learned) continue;
+
+					// okay, so we know the move! now we need to figure out where it goes
+					// first, let's decide if it's a competitive attacking move
+					let attack = false;
+					if (move.basePower && (move.basePower > 70 || move.priority !== 0 || (move.multihit && move.basePower >= 20)))) {
+						attack = true;
+					}
+					if (move.category !== 'Status' && move.basePower === 0) attack = true; // moves with variable base power always count (for my sanity)
+					if (strongMoves.includes(moveid)) attack = true;
+					
+					let competitive = false; // set this to true any time you decide to use a move for something!
+
+					// if it is a competitive attacking move, it gets put into a category based on its type - but it depends on the user's type, too
+					if (attack) {
+						if (move.type === poke.types[0] && moveid !== 'hiddenpower') {
+							// push as primary STAB
+							competitive = true;
+						} else if (poke.types[1] && move.type === poke.types[1] && moveid !== 'hiddenpower') {
+							// push as secondary STAB
+							competitive = true;
+						} else if (offenseCoverage.includes(move.type) || moveid === 'hiddenpower') {
+							// push as offensive coverage
+							competitive = true;
+						} else if (weaknessCoverage.includes(move.type)) {
+							// push as defensive coverage
+							competitive = true;
+						} else if (otherCoverage.includes(move.type)) { // push to flavor if the move hits nothing SE that STABs don't
+							// push as other coverage
+							competitive = true;
+						}
+					},
 
 					// generate the appropriate movelists twice over: first for the most likely moves, then for this widened category of "fringe moves"
 					if (burnMoves.includes(moveid) && authentic) burnAuth.push(move.name);
