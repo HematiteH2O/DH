@@ -28,13 +28,15 @@ export const Scripts: ModdedBattleScriptsData = {
 				const originMoves: string[] = []; // moves that were in the Pokémon's level-up or Egg learnset either in Gen IV or when the move was added
 				const tmMoves: string[] = []; // moves that the Pokémon could learn at all either in Gen IV or when the move was added and are TMs in Pulse
 				const tutorMoves: string[] = []; // moves that the Pokémon could learn at all either in Gen IV or when the move was added and are tutors in Pulse
-				const oldMoves: string[] = []; // moves that were in the Pokémon's learnset as soon as possible but aren't TMs in Pulse
-				const buffMoves: string[] = []; // moves that the Pokémon knows but not by any of the above means
+				const oldMoves: string[] = []; // moves that were in the Pokémon's learnset as soon as possible but aren't part of the established methods
+				const transferMoves: string[] = []; // moves that were already transfer-only by the time of Gen IV
+				const buffMoves: string[] = []; // moves that were added to the Pokémon's movepool later as buffs
 				const learnset = this.modData('Learnsets', this.toID(id)).learnset;
 				const poke = this.dataCache.Pokedex[id];
 				for (const moveid in learnset) {
 					const move = this.dataCache.Moves[moveid];
 					let counted = false;
+					let transfer = false;
 					let pokeGen = 1;
 					if (poke.num > 898) pokeGen = 9;
 					else if (poke.num > 809) pokeGen = 8;
@@ -80,11 +82,18 @@ export const Scripts: ModdedBattleScriptsData = {
 								}
 							}
 						}
+						if (parseInt(source.charAt(0)) < 4) transfer = true;
 					}
-					if (!counted) buffMoves.push(move.name);
+					if (!counted) {
+						if (transfer) {
+							transferMoves.push(move.name);
+						} else {
+							buffMoves.push(move.name);
+						}
+					}
 				}
 				const totalMoves: string[] = [];
-				totalMoves.push(poke.name + ": " + buffMoves);
+				totalMoves.push(poke.name + ": " + transferMoves + "~" + buffMoves);
 				poke.totalMoves = totalMoves;
 			}
 		}
