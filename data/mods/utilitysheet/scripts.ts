@@ -123,7 +123,39 @@ export const Scripts: ModdedBattleScriptsData = {
 		newMoves("larvitar", ["rage"]);
 
 		// these are the categories we're checking for
-		const burnMoves = ['willowisp', 'scald', 'scorchingsands', 'lavaplume'];
+
+		const strongMoves = [
+			'acidspray', 'acrobatics', 'assurance', 'ceaselessedge', 'drainingkiss', 'facade', 'freezedry', 'frostbreath', 'hex', 'hiddenpower', 'infernalparade',
+			'lastrespects', 'naturepower', 'paraboliccharge', 'powertrip', 'ragefist', 'risingvoltage', 'shadowclaw', 'smartstrike', 'stoneaxe', 'storedpower', 'stormthrow',
+			'terrainpulse', 'triplearrows', 'tropkick', 'weatherball',
+		]; // moves that bypass the other checks
+
+		// the rest is, uh, incomplete
+		const brnMoves = ['willowisp', 'scald', 'scorchingsands', 'lavaplume'];
+		const przMoves = ['willowisp', 'scald', 'scorchingsands', 'lavaplume'];
+		const slpMoves = ['willowisp', 'scald', 'scorchingsands', 'lavaplume'];
+		const psnMoves = ['willowisp', 'scald', 'scorchingsands', 'lavaplume'];
+		const frzMoves = ['bittermalice'];
+		const statusMoves = ['willowisp', 'scald', 'scorchingsands', 'lavaplume'];
+
+		const clericMoves = ['aromatherapy', 'healbell', 'revivalblessing'];
+		const refreshMoves = ['aromatherapy', 'healbell'];
+		const manipulation = ['aromatherapy', 'healbell']; // Trick, Switcheroo, Taunt, Encore, Magic Coat - all similar purposes here
+		const trapping = ['aromatherapy', 'healbell'];
+
+		const screens = ['aromatherapy', 'healbell'];
+		const hazards = ['aromatherapy', 'healbell'];
+		const hazardControl = ['aromatherapy', 'healbell'];
+
+		const setup = ['aromatherapy', 'healbell'];
+		const setupControl = ['aromatherapy', 'healbell'];
+		const strongPrio = ['aromatherapy', 'healbell']; // only moves above 60 BP and Fake Out/Feint, but *STAB* priority moves of less BP will be added later
+		const pursuit = ['pursuit']; // kind of its own category... will figure out how to deal with this later
+
+		const pivot = ['aromatherapy', 'healbell'];
+		const selfKo = ['aromatherapy', 'healbell'];
+
+		const doublesMoves = ['aromatherapy', 'healbell']; // hmm
 
 		for (const id in this.dataCache.Pokedex) {
 			const poke = this.dataCache.Pokedex[id];
@@ -176,6 +208,20 @@ export const Scripts: ModdedBattleScriptsData = {
 					else if (move.num > 354) moveGen = 4;
 					else if (move.num > 251) moveGen = 3;
 					else if (move.num > 165) moveGen = 2;
+
+					// now decide if it's a competitive attacking move
+					let attack = false;
+					if (move.basePower && (move.basePower > 70 || move.priority !== 0 || (move.multihit && move.basePower >= 20)))) {
+						attack = true;
+					}
+					if (move.category !== 'Status' && move.basePower === 0) attack = true; // moves with variable base power always count (for my sanity)
+					if (strongMoves.includes(moveid)) attack = true;
+
+					// if it is a competitive attacking move, it gets put into a category based on its type - but it depends on the user's type, too
+					// STAB
+					// offensive coverage (force Hidden Power)
+					// defensive coverage
+					// other coverage (push to flavor if the move hits nothing SE that STABs don't)
 
 					// a simplified version of the Pulse learnset sheet:
 					// only decide a) if the Pokémon learns the move at all and b) if it's a safe bet it still gets it in Pulse or not
