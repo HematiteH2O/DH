@@ -253,7 +253,9 @@ export const Scripts: ModdedBattleScriptsData = {
 					if (!authentic && !natural && !tm && !tutor && transfer) transferFringeMoves.push(move.name);
 				}
 				const sheetOutput: string[] = [];
-				sheetOutput.push(`=IMAGE("https://www.smogon.com/forums//media/minisprites/` + poke.name.toLowerCase() + `.png",3)~` + poke.name + "~" + poke.types[0] + "~" + (poke.types[1] ? poke.types[1] : "") + "~" + naturalMoves + "~" + buffMoves + "~" + transferMoves + "~" + tmMoves + "~" + buffTmMoves + "~" + transferTmMoves + "~" + tutorMoves + "~" + buffTutorMoves + "~" + transferTutorMoves + "~" + fringeMoves + "~" + buffFringeMoves + "~" + transferFringeMoves);
+				var iconname = poke.name.toLowerCase();
+				var iconid = iconname.replace(" ", `-`).replace(`.`, ``); // should get rid of spaces and periods?
+				sheetOutput.push(`=IMAGE("https://www.smogon.com/forums//media/minisprites/` + iconid + `.png",3)~` + poke.name + "~" + poke.types[0] + "~" + (poke.types[1] ? poke.types[1] : "") + "~" + naturalMoves + "~" + buffMoves + "~" + transferMoves + "~" + tmMoves + "~" + buffTmMoves + "~" + transferTmMoves + "~" + tutorMoves + "~" + buffTutorMoves + "~" + transferTutorMoves + "~" + fringeMoves + "~" + buffFringeMoves + "~" + transferFringeMoves);
 				poke.sheetOutput = sheetOutput;
 			}
 		}
