@@ -29,20 +29,20 @@ export const Scripts: ModdedBattleScriptsData = {
 			if (this.dataCache.Learnsets[id] && this.dataCache.Learnsets[id].learnset) {
 
 				// setup for the categories that moves can be logged into
-				const originMoves: string[] = []; // moves that were in the Pokémon's level-up or Egg learnset either in Gen IV or when the move was added
+				const naturalMoves: string[] = []; // moves that were in the Pokémon's level-up or Egg learnset either in Gen IV or when the move was added
 				const tmMoves: string[] = []; // moves that the Pokémon could learn at all either in Gen IV or when the move was added and are TMs in Pulse
 				const tutorMoves: string[] = []; // moves that the Pokémon could learn at all either in Gen IV or when the move was added and are tutors in Pulse
-				const oldMoves: string[] = []; // moves that were in the Pokémon's learnset as soon as possible but aren't part of the established methods
+				const fringeMoves: string[] = []; // moves that were in the Pokémon's learnset as soon as possible but aren't part of the established methods
 				// TRANSFER MOVES
 				const transferMoves: string[] = []; // moves that were in the Pokémon's level-up or Egg learnset either in Gen IV or when the move was added
 				const transferTmMoves: string[] = []; // moves that the Pokémon could learn at all either in Gen IV or when the move was added and are TMs in Pulse
 				const transferTutorMoves: string[] = []; // moves that the Pokémon could learn at all either in Gen IV or when the move was added and are tutors in Pulse
-				const transferOldMoves: string[] = []; // moves that were in the Pokémon's learnset as soon as possible but aren't part of the established methods
+				const transferFringeMoves: string[] = []; // moves that were in the Pokémon's learnset as soon as possible but aren't part of the established methods
 				// LATER MOVES
 				const buffMoves: string[] = []; // moves that were in the Pokémon's level-up or Egg learnset either in Gen IV or when the move was added
 				const buffTmMoves: string[] = []; // moves that the Pokémon could learn at all either in Gen IV or when the move was added and are TMs in Pulse
 				const buffTutorMoves: string[] = []; // moves that the Pokémon could learn at all either in Gen IV or when the move was added and are tutors in Pulse
-				const buffOldMoves: string[] = []; // moves that were in the Pokémon's learnset as soon as possible but aren't part of the established methods
+				const buffFringeMoves: string[] = []; // moves that were in the Pokémon's learnset as soon as possible but aren't part of the established methods
 
 				// identify the Pokémon's Gen of origin before going any further - it's useful!
 				let pokeGen = 1;
@@ -58,24 +58,19 @@ export const Scripts: ModdedBattleScriptsData = {
 
 				// start with the vanilla learnset
 				const learnset = this.modData('Learnsets', this.toID(id)).learnset;
+				const learnset2 = null;
+				const learnset3 = null;
 
 				// if the Pokémon has pre-evolutions, add their learnsets, too!
 				if (poke.prevo) {
 					const poke2 = this.dataCache.Pokedex[this.toID(poke.prevo)];
-					const learnset2 = this.modData('Learnsets', this.toID(poke.prevo)).learnset;
-					for (const moveid in learnset2) {
-						if (!learnset[moveid]) learnset[moveid] = learnset2[moveid];
-					}
+					learnset2 = this.modData('Learnsets', this.toID(poke.prevo)).learnset;
 					if (poke2.prevo) {
-						const poke3 = this.dataCache.Pokedex[this.toID(poke2.prevo)];
 						const learnset3 = this.modData('Learnsets', this.toID(poke2.prevo)).learnset;
-						for (const moveid in learnset3) {
-							if (!learnset.moveid) learnset[moveid] = learnset3[moveid];
-						}
 					}
 				}
 
-				for (const moveid in learnset) {
+				for (const moveid in this.dataCache.Moves) {
 					// identify the Gen of the move
 					const move = this.dataCache.Moves[moveid];
 					if (!move) {
@@ -91,41 +86,67 @@ export const Scripts: ModdedBattleScriptsData = {
 					else if (move.num > 354) moveGen = 4;
 					else if (move.num > 251) moveGen = 3;
 					else if (move.num > 165) moveGen = 2;
+
 					// narrow down how the Pokémon learns the move as simply as possible
 					let tm = pulseTms.includes(moveid) ? true : false;
 					let tutor = pulseTutors.includes(moveid) ? true : false;
 					let natural = false;
-					let native = false;
+					let authentic = false;
 					let transfer = false;
-
-					for (const source of learnset[moveid]) {
-						if (parseInt(source.charAt(0)) < 4) transfer = true;
-						if (
-							(parseInt(source.charAt(0)) === pokeGen && pokeGen > 3) ||
-							(parseInt(source.charAt(0)) === moveGen && moveGen > 3) ||
-							parseInt(source.charAt(0)) === 4
-						) native = true;
-						if (source.charAt(1) === 'L' || source.charAt(1) === 'E') natural = true;
+					if (learnset[moveid]) { // if it learns the move itself
+						for (const source of learnset[moveid]) {
+							if (parseInt(source.charAt(0)) < 4) transfer = true;
+							if (
+								(parseInt(source.charAt(0)) === pokeGen && pokeGen > 3) ||
+								(parseInt(source.charAt(0)) === moveGen && moveGen > 3) ||
+								parseInt(source.charAt(0)) === 4
+							) authentic = true;
+							if (source.charAt(1) === 'L' || source.charAt(1) === 'E') natural = true;
+						}
 					}
-					// no more than one category for a move!
-					if (native && natural) originMoves.push(move.name);
-					else if (native && tm) tmMoves.push(move.name);
-					else if (native && tutor) tutorMoves.push(move.name);
-					else if (native) oldMoves.push(move.name);
-					// if it's not learned natively in Gen IV but it was in an earlier Gen, it must be a transfer move
-					else if (transfer && natural) transferMoves.push(move.name);
-					else if (transfer && tm) transferTmMoves.push(move.name);
-					else if (transfer && tutor) transferTutorMoves.push(move.name);
-					else if (transfer) transferOldMoves.push(move.name);
-					// if it's not learned natively in Gen IV *or* an earlier Gen, it must be a buff move
-					else if (natural) buffMoves.push(move.name);
-					else if (tm) buffTmMoves.push(move.name);
-					else if (tutor) buffTutorMoves.push(move.name);
-					else buffOldMoves.push(move.name);
-					// oldMoves should probably be called something like "fringeMoves," since some of them are from the future, but I don't mind this!
+					if (learnset2 && learnset2[moveid]) { // if it has a pre-evolution and its pre-evolution learns the move
+						for (const source of learnset[moveid]) {
+							if (parseInt(source.charAt(0)) < 4) transfer = true;
+							if (
+								(parseInt(source.charAt(0)) === pokeGen && pokeGen > 3) ||
+								(parseInt(source.charAt(0)) === moveGen && moveGen > 3) ||
+								parseInt(source.charAt(0)) === 4
+							) authentic = true;
+							if (source.charAt(1) === 'L' || source.charAt(1) === 'E') natural = true;
+						}
+					}
+					if (learnset3 && learnset3[moveid]) { // if it's the third stage and its basic stage learns the move
+						for (const source of learnset[moveid]) {
+							if (parseInt(source.charAt(0)) < 4) transfer = true;
+							if (
+								(parseInt(source.charAt(0)) === pokeGen && pokeGen > 3) ||
+								(parseInt(source.charAt(0)) === moveGen && moveGen > 3) ||
+								parseInt(source.charAt(0)) === 4
+							) authentic = true;
+							if (source.charAt(1) === 'L' || source.charAt(1) === 'E') natural = true;
+						}
+					}
+
+					// generate the appropriate movelists
+					// naturalMoves
+					if (authentic && natural) naturalMoves.push(move.name);
+					if (!authentic && natural && transfer) transferMoves.push(move.name);
+					if (!authentic && natural && !transfer) buffMoves.push(move.name);
+					// tmMoves
+					if (authentic && tm) tmMoves.push(move.name);
+					if (!authentic && tm && transfer) transferTmMoves.push(move.name);
+					if (!authentic && tm && !transfer) buffTmMoves.push(move.name);
+					// tutorMoves
+					if (authentic && tutor) tutorMoves.push(move.name);
+					if (!authentic && tutor && transfer) transferTutorMoves.push(move.name);
+					if (!authentic && tutor && !transfer) buffTutorMoves.push(move.name);
+					// fringeMoves
+					if (authentic && !natural && !tm && !tutor) fringeMoves.push(move.name);
+					if (!authentic && !natural && !tm && !tutor && transfer) transferFringeMoves.push(move.name);
+					if (!authentic && !natural && !tm && !tutor && !transfer) buffFringeMoves.push(move.name);
 				}
 				const totalMoves: string[] = [];
-				totalMoves.push(poke.name + ": " + originMoves + "~" + tmMoves + "~" + tutorMoves + "~" + oldMoves + "~" + transferMoves + "~" + transferTmMoves + "~" + transferTutorMoves + "~" + transferOldMoves + "~" + buffMoves + "~" + buffTmMoves + "~" + buffTutorMoves + "~" + buffOldMoves);
+				totalMoves.push(poke.name + "~" + naturalMoves + "~" + transferMoves + "~" + buffMoves + "~" + tmMoves + "~" + transferTmMoves + "~" + buffTmMoves + "~" + tutorMoves + "~" + transferTutorMoves + "~" + buffTutorMoves + "~" + fringeMoves + "~" + transferFringeMoves + "~" + buffFringeMoves);
 				poke.totalMoves = totalMoves;
 			}
 		}
