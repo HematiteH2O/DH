@@ -61,22 +61,22 @@ export const Scripts: ModdedBattleScriptsData = {
 						) {
 							if (source.charAt(1) === 'L' || source.charAt(1) === 'E') {
 								// this is an originMove
-								originMoves.push("'" + this.dex.getMove(moveid).name + "', ");
+								originMoves.push("'" + move.name + "', ");
 							} else {
 								if (pulseTms.includes(moveid)) {
 									// this is a TM move
-									tmMoves.push("'" + this.dex.getMove(moveid).name + "', ");
+									tmMoves.push("'" + move.name + "', ");
 								} else if (pulseTutors.includes(moveid)) {
 									// this is a tutor move
-									tutorMoves.push("'" + this.dex.getMove(moveid).name + "', ");
+									tutorMoves.push("'" + move.name + "', ");
 								} else {
 									// this is an oldMove
-									oldMoves.push("'" + this.dex.getMove(moveid).name + "', ");
+									oldMoves.push("'" + move.name + "', ");
 								}
 							}
 						} else {
 							// this is a buffMove
-							buffMoves.push("'" + this.dex.getMove(moveid).name + "', ");
+							buffMoves.push("'" + move.name + "', ");
 						}
 					}
 				}
