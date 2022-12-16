@@ -19,7 +19,6 @@ export const Scripts: ModdedBattleScriptsData = {
 			const sheetOutput: string[] = [];
 			var iconname = poke.name.toLowerCase();
 			var iconid = iconname.replace(/(\w+)\s(\w+)/, ``).replace(/./, ``); // should get rid of spaces and periods?
-			console.log(newstr)
 			sheetOutput.push((poke.evos ? "nfe" : "fe") + poke.num + `~=IMAGE("https://www.smogon.com/forums//media/minisprites/` + iconid + `.png",3)~` + poke.name + "~" + poke.types[0] + "~" + (poke.types[1] ? poke.types[1] : "") + "~" + poke.baseStats.hp + "~" + poke.baseStats.atk + "~" + poke.baseStats.def + "~" + poke.baseStats.spa + "~" + poke.baseStats.spd + "~" + poke.baseStats.spe + "~~~~~~~~" + abilities);
 			poke.sheetOutput = sheetOutput;
 		}
