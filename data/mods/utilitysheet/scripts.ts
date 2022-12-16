@@ -162,8 +162,10 @@ export const Scripts: ModdedBattleScriptsData = {
 			if (this.dataCache.Learnsets[id] && this.dataCache.Learnsets[id].learnset) {
 
 				// setup for the categories that moves can be logged into
-				const burnAuth: string[] = []; // moves that were in the Pokémon's level-up or Egg learnset either in Gen IV or when the move was added
-				const burnFringe: string[] = []; // moves that were in the Pokémon's level-up or Egg learnset either in Gen IV or when the move was added
+				const burnAuth: string[] = [];
+				const burnFringe: string[] = [];
+				const flavorAuth: string[] = [];
+				const flavorFringe: string[] = [];
 
 				// identify the Pokémon's Gen of origin before going any further - it's useful!
 				let pokeGen = 1;
@@ -296,6 +298,8 @@ export const Scripts: ModdedBattleScriptsData = {
 					// generate the appropriate movelists twice over: first for the most likely moves, then for this widened category of "fringe moves"
 					if (burnMoves.includes(moveid) && authentic) burnAuth.push(move.name);
 					if (burnMoves.includes(moveid) && !authentic) burnFringe.push(move.name);
+					if (!competitive && authentic) flavorAuth.push(move.name);
+					if (!competitive && !authentic) flavorFringe.ush(move.name);
 				}
 				const sheetOutput: string[] = [];
 				var iconname = poke.name.toLowerCase();
