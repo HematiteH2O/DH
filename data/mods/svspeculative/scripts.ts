@@ -104,6 +104,7 @@ export const Scripts: ModdedBattleScriptsData = {
 								parseInt(source.charAt(0)) === 4
 							) authentic = true;
 							if (source.charAt(1) === 'L' || source.charAt(1) === 'E') natural = true;
+							if (source.charAt(1) === 'V') transfer = true;
 						}
 					}
 					if (learnset2 && learnset2[moveid]) { // if it has a pre-evolution and its pre-evolution learns the move
@@ -129,6 +130,7 @@ export const Scripts: ModdedBattleScriptsData = {
 								parseInt(source.charAt(0)) === 4
 							) authentic = true;
 							if (source.charAt(1) === 'L' || source.charAt(1) === 'E') natural = true;
+							if (source.charAt(1) === 'V') transfer = true;
 						}
 					}
 					if (!learned) continue;
