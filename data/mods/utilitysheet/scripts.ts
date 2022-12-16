@@ -122,26 +122,17 @@ export const Scripts: ModdedBattleScriptsData = {
 		newMoves("stantler", ["safeguard"]);
 		newMoves("larvitar", ["rage"]);
 
+		// these are the categories we're checking for
+		const burnMoves = ['willowisp', 'scald', 'scorchingsands', 'lavaplume'];
+
 		for (const id in this.dataCache.Pokedex) {
 			const poke = this.dataCache.Pokedex[id];
 			if (!poke) continue; // skip anything that can't be read correctly, just in case
 			if (this.dataCache.Learnsets[id] && this.dataCache.Learnsets[id].learnset) {
 
 				// setup for the categories that moves can be logged into
-				const naturalMoves: string[] = []; // moves that were in the Pokémon's level-up or Egg learnset either in Gen IV or when the move was added
-				const tmMoves: string[] = []; // moves that the Pokémon could learn at all either in Gen IV or when the move was added and are TMs in Pulse
-				const tutorMoves: string[] = []; // moves that the Pokémon could learn at all either in Gen IV or when the move was added and are tutors in Pulse
-				const fringeMoves: string[] = []; // moves that were in the Pokémon's learnset as soon as possible but aren't part of the established methods
-				// TRANSFER MOVES
-				const transferMoves: string[] = []; // moves that were in the Pokémon's level-up or Egg learnset either in Gen IV or when the move was added
-				const transferTmMoves: string[] = []; // moves that the Pokémon could learn at all either in Gen IV or when the move was added and are TMs in Pulse
-				const transferTutorMoves: string[] = []; // moves that the Pokémon could learn at all either in Gen IV or when the move was added and are tutors in Pulse
-				const transferFringeMoves: string[] = []; // moves that were in the Pokémon's learnset as soon as possible but aren't part of the established methods
-				// LATER MOVES
-				const buffMoves: string[] = []; // moves that were in the Pokémon's level-up or Egg learnset either in Gen IV or when the move was added
-				const buffTmMoves: string[] = []; // moves that the Pokémon could learn at all either in Gen IV or when the move was added and are TMs in Pulse
-				const buffTutorMoves: string[] = []; // moves that the Pokémon could learn at all either in Gen IV or when the move was added and are tutors in Pulse
-				const buffFringeMoves: string[] = []; // moves that were in the Pokémon's learnset as soon as possible but aren't part of the established methods
+				const burnAuth: string[] = []; // moves that were in the Pokémon's level-up or Egg learnset either in Gen IV or when the move was added
+				const burnFringe: string[] = []; // moves that were in the Pokémon's level-up or Egg learnset either in Gen IV or when the move was added
 
 				// identify the Pokémon's Gen of origin before going any further - it's useful!
 				let pokeGen = 1;
@@ -186,76 +177,59 @@ export const Scripts: ModdedBattleScriptsData = {
 					else if (move.num > 251) moveGen = 3;
 					else if (move.num > 165) moveGen = 2;
 
-					// narrow down how the Pokémon learns the move as simply as possible
+					// a simplified version of the Pulse learnset sheet:
+					// only decide a) if the Pokémon learns the move at all and b) if it's a safe bet it still gets it in Pulse or not
+					// "fringe moves" and transfer-only moves and future buffs are all lumped into one category unless they're TMs or tutors in Pulse
 					let learned = false;
-					let tm = pulseTms.includes(moveid) ? true : false;
-					let tutor = pulseTutors.includes(moveid) ? true : false;
-					let natural = false;
-					let authentic = false;
-					let transfer = false;
+					let authentic = pulseTms.includes(moveid) || pulseTutors.includes(moveid) ? true : false; // assuming all TMs and tutors are safe bets
 					if (learnset[moveid]) { // if it learns the move itself
-						learned = true;
 						for (const source of learnset[moveid]) {
-							if (parseInt(source.charAt(0)) < 4) transfer = true;
+							learned = true;
 							if (
 								(parseInt(source.charAt(0)) === pokeGen && pokeGen > 3) ||
 								(parseInt(source.charAt(0)) === moveGen && moveGen > 3) ||
 								parseInt(source.charAt(0)) === 4
-							) authentic = true;
-							if (source.charAt(1) === 'L' || source.charAt(1) === 'E') natural = true;
-							if (source.charAt(0) === '7' && source.charAt(1) === 'V') transfer = true; // 8V is LGPE
+							) {
+								if (source.charAt(1) === 'L' || source.charAt(1) === 'E') authentic = true;
+							}
 						}
 					}
 					if (learnset2 && learnset2[moveid]) { // if it has a pre-evolution and its pre-evolution learns the move
-						learned = true;
 						for (const source of learnset2[moveid]) {
-							if (parseInt(source.charAt(0)) < 4) transfer = true;
+							learned = true;
 							if (
 								(parseInt(source.charAt(0)) === pokeGen && pokeGen > 3) ||
 								(parseInt(source.charAt(0)) === moveGen && moveGen > 3) ||
 								parseInt(source.charAt(0)) === 4
-							) authentic = true;
-							if (source.charAt(1) === 'L' || source.charAt(1) === 'E') natural = true;
-							if (source.charAt(0) === '7' && source.charAt(1) === 'V') transfer = true; // 8V is LGPE
+							) {
+								if (source.charAt(1) === 'L' || source.charAt(1) === 'E') authentic = true;
+							}
 						}
 					}
 					if (learnset3 && learnset3[moveid]) { // if it's the third stage and its basic stage learns the move
-						learned = true;
 						for (const source of learnset3[moveid]) {
-							if (parseInt(source.charAt(0)) < 4) transfer = true;
+							learned = true;
 							if (
 								(parseInt(source.charAt(0)) === pokeGen && pokeGen > 3) ||
 								(parseInt(source.charAt(0)) === moveGen && moveGen > 3) ||
 								parseInt(source.charAt(0)) === 4
-							) authentic = true;
-							if (source.charAt(1) === 'L' || source.charAt(1) === 'E') natural = true;
-							if (source.charAt(0) === '7' && source.charAt(1) === 'V') transfer = true; // 8V is LGPE
+							) {
+								if (source.charAt(1) === 'L' || source.charAt(1) === 'E') authentic = true;
+							}
 						}
 					}
 					if (!learned) continue;
 
-					// generate the appropriate movelists
-					// naturalMoves
-					if (authentic && natural) naturalMoves.push(move.name);
-					if (!authentic && natural && !transfer) buffMoves.push(move.name);
-					if (!authentic && natural && transfer) transferMoves.push(move.name);
-					// tmMoves
-					if (authentic && tm) tmMoves.push(move.name);
-					if (!authentic && tm && !transfer) buffTmMoves.push(move.name);
-					if (!authentic && tm && transfer) transferTmMoves.push(move.name);
-					// tutorMoves
-					if (authentic && tutor) tutorMoves.push(move.name);
-					if (!authentic && tutor && !transfer) buffTutorMoves.push(move.name);
-					if (!authentic && tutor && transfer) transferTutorMoves.push(move.name);
-					// fringeMoves
-					if (authentic && !natural && !tm && !tutor) fringeMoves.push(move.name);
-					if (!authentic && !natural && !tm && !tutor && !transfer) buffFringeMoves.push(move.name);
-					if (!authentic && !natural && !tm && !tutor && transfer) transferFringeMoves.push(move.name);
+					// generate the appropriate movelists twice over: first for the most likely moves, then for this widened category of "fringe moves"
+					if (burnMoves.includes(moveid) && authentic) burnAuth.push(move.name);
+					if (burnMoves.includes(moveid) && !authentic) burnFringe.push(move.name);
 				}
 				const sheetOutput: string[] = [];
 				var iconname = poke.name.toLowerCase();
-				var iconid = iconname.replace(" ", `-`).replace(`.`, ``); // should get rid of spaces and periods?
-				sheetOutput.push(`=IMAGE("https://www.smogon.com/forums//media/minisprites/` + iconid + `.png",3)~` + poke.name + "~" + poke.types[0] + "~" + (poke.types[1] ? poke.types[1] : "") + "~" + naturalMoves + "~" + buffMoves + "~" + transferMoves + "~" + tmMoves + "~" + buffTmMoves + "~" + transferTmMoves + "~" + tutorMoves + "~" + buffTutorMoves + "~" + transferTutorMoves + "~" + fringeMoves + "~" + buffFringeMoves + "~" + transferFringeMoves);
+				var iconid = iconname.replace(" ", `-`).replace(`.`, ``); // to get rid of spaces and periods
+				// finalize sheetOutput after figuring out all of the appropriate categories!
+				sheetOutput.push(`=IMAGE("https://www.smogon.com/forums//media/minisprites/` + iconid + `.png",3)~` + poke.name + "~" + poke.types[0] + "~" + (poke.types[1] ? poke.types[1] : ""));
+				
 				poke.sheetOutput = sheetOutput;
 			}
 		}
