@@ -138,21 +138,21 @@ export const Scripts: ModdedBattleScriptsData = {
 		const statusMoves = ['willowisp', 'scald', 'scorchingsands', 'lavaplume'];
 
 		const clericMoves = ['aromatherapy', 'healbell', 'revivalblessing'];
-		const refreshMoves = ['aromatherapy', 'healbell'];
-		const manipulation = ['aromatherapy', 'healbell']; // Trick, Switcheroo, Taunt, Encore, Magic Coat - all similar purposes here
-		const trapping = ['aromatherapy', 'healbell'];
+		const refreshMoves = ['refresh', 'junglehealing', 'lunarblessing'];
+		const manipulation = ['disable', 'encore', 'magiccoat', 'switcheroo', 'taunt', 'trick'];
+		const trapping = ['pursuit'];
+		// could check for trapping moves using move.volatileStatus: 'partiallytrapped', but there are a lot more - should also include Pursuit
 
-		const screens = ['aromatherapy', 'healbell'];
-		const hazards = ['aromatherapy', 'healbell'];
-		const hazardControl = ['aromatherapy', 'healbell'];
+		const screens = ['reflect', 'lightscreen', 'auroraveil'];
+		const hazards = ['spikes', 'stealthrock', 'stickyweb', 'toxicspikes'];
+		const hazardControl = ['courtchange', 'defog', 'mortalspin', 'rapidspin', 'tidyup'];
 
 		const setup = ['aromatherapy', 'healbell'];
-		const setupControl = ['aromatherapy', 'healbell'];
-		const strongPrio = ['aromatherapy', 'healbell']; // only moves above 60 BP and Fake Out/Feint, but *STAB* priority moves of less BP will be added later
-		const pursuit = ['pursuit']; // kind of its own category... will figure out how to deal with this later
+		const setupControl = ['circlethrow', 'dragontail', 'haze', 'perishsong', 'roar', 'whirlwind'];
+		// will check for "strong priority" using priority moves above 60 BP, Fake Out, Wave Crash/Glide, and *STAB* priority moves of less BP
 
-		const pivot = ['aromatherapy', 'healbell'];
-		const selfKo = ['aromatherapy', 'healbell'];
+		// will check for pivot moves using move.selfSwitch
+		// will check for self-KO moves using move.selfdestruct (yes this is lowercase)
 
 		const doublesMoves = ['aromatherapy', 'healbell']; // hmm
 
