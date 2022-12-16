@@ -1,5 +1,3 @@
-import type {Dex} from '..../sim/dex';
-
 export const Scripts: ModdedBattleScriptsData = {
 	init() {
 		const pulseTms = [
@@ -35,9 +33,26 @@ export const Scripts: ModdedBattleScriptsData = {
 				const learnset = this.modData('Learnsets', this.toID(id)).learnset;
 				const poke = this.dataCache.Pokedex[id];
 				for (const moveid in learnset) {
-					let moveSource = null;
-					const pokeGen = this.dex.getSpecies(id).gen;
-					const moveGen = this.dex.getMove(moveid).gen;
+					const move = this.dataCache.Moves[id];
+					let pokeGen = 1;
+					if (poke.num > 898) pokeGen = 9;
+					else if (poke.num > 809) pokeGen = 8;
+					else if (poke.num > 721) pokeGen = 7;
+					else if (poke.num > 649) pokeGen = 6;
+					else if (poke.num > 493) pokeGen = 5;
+					else if (poke.num > 386) pokeGen = 4;
+					else if (poke.num > 251) pokeGen = 3;
+					else if (poke.num > 151) pokeGen = 2;
+					if (poke.gen) pokeGen = poke.gen; // for forms from later Gens
+					let moveGen = 1;
+					if (poke.num > 826) moveGen = 9;
+					else if (poke.num > 742) moveGen = 8;
+					else if (poke.num > 621) moveGen = 7;
+					else if (poke.num > 559) moveGen = 6;
+					else if (poke.num > 467) moveGen = 5;
+					else if (poke.num > 354) moveGen = 4;
+					else if (poke.num > 251) moveGen = 3;
+					else if (poke.num > 165) moveGen = 2;
 					for (const source of learnset[moveid]) {
 						if (
 							(parseInt(source.charAt(0)) === pokeGen && pokeGen > 3) ||
