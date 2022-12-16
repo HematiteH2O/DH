@@ -135,23 +135,23 @@ export const Scripts: ModdedBattleScriptsData = {
 					// generate the appropriate movelists
 					// naturalMoves
 					if (authentic && natural) naturalMoves.push(move.name);
-					if (!authentic && natural && transfer) transferMoves.push(move.name);
 					if (!authentic && natural && !transfer) buffMoves.push(move.name);
+					if (!authentic && natural && transfer) transferMoves.push(move.name);
 					// tmMoves
 					if (authentic && tm) tmMoves.push(move.name);
-					if (!authentic && tm && transfer) transferTmMoves.push(move.name);
 					if (!authentic && tm && !transfer) buffTmMoves.push(move.name);
+					if (!authentic && tm && transfer) transferTmMoves.push(move.name);
 					// tutorMoves
 					if (authentic && tutor) tutorMoves.push(move.name);
-					if (!authentic && tutor && transfer) transferTutorMoves.push(move.name);
 					if (!authentic && tutor && !transfer) buffTutorMoves.push(move.name);
+					if (!authentic && tutor && transfer) transferTutorMoves.push(move.name);
 					// fringeMoves
 					if (authentic && !natural && !tm && !tutor) fringeMoves.push(move.name);
-					if (!authentic && !natural && !tm && !tutor && transfer) transferFringeMoves.push(move.name);
 					if (!authentic && !natural && !tm && !tutor && !transfer) buffFringeMoves.push(move.name);
+					if (!authentic && !natural && !tm && !tutor && transfer) transferFringeMoves.push(move.name);
 				}
 				const totalMoves: string[] = [];
-				totalMoves.push(poke.name + "~" + naturalMoves + "~" + transferMoves + "~" + buffMoves + "~" + tmMoves + "~" + transferTmMoves + "~" + buffTmMoves + "~" + tutorMoves + "~" + transferTutorMoves + "~" + buffTutorMoves + "~" + fringeMoves + "~" + transferFringeMoves + "~" + buffFringeMoves);
+				totalMoves.push(poke.name + "~" + naturalMoves + "~" + buffMoves + "~" + transferMoves + "~" + tmMoves + "~" + buffTmMoves + "~" + transferTmMoves + "~" + tutorMoves + "~" + buffTutorMoves + "~" + transferTutorMoves + "~" + fringeMoves + "~" + buffFringeMoves + "~" + transferFringeMoves);
 				poke.totalMoves = totalMoves;
 			}
 		}
