@@ -3429,8 +3429,8 @@ export const Formats: FormatList = [
 		
 		ruleset: ['Team Preview', 'HP Percentage Mod', 'Cancel Mod', 'Dynamax Clause', 'Sleep Clause Mod'],
 		onBegin() {
-			for (const id in this.dataCache.Pokedex) {
-				const poke = this.dataCache.Pokedex[id];
+			for (const id in this.dex.data.Pokedex) {
+				const poke = this.dex.data.Pokedex[id];
 				if (poke && poke.totalMoves) this.add('-message', `${poke.totalMoves}`);
 			}
 		},
