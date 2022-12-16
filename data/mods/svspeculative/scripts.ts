@@ -24,6 +24,8 @@ export const Scripts: ModdedBattleScriptsData = {
 			'waterpulse', 'waterfall', 'worryseed', 'zenheadbutt',
 		];
 		for (const id in this.dataCache.Pokedex) {
+			const poke = this.dataCache.Pokedex[id];
+			if (!poke || (poke && poke.evos)) continue; // skip NFEs for now... and anything that can't be read correctly, just in case
 			if (this.dataCache.Learnsets[id] && this.dataCache.Learnsets[id].learnset) {
 
 				// ORIGINAL MOVES
@@ -42,8 +44,32 @@ export const Scripts: ModdedBattleScriptsData = {
 				const buffTutorMoves: string[] = []; // moves that the Pokémon could learn at all either in Gen IV or when the move was added and are tutors in Pulse
 				const buffOldMoves: string[] = []; // moves that were in the Pokémon's learnset as soon as possible but aren't part of the established methods
 
+				// start with the vanilla learnset
 				const learnset = this.modData('Learnsets', this.toID(id)).learnset;
-				const poke = this.dataCache.Pokedex[id];
+				// if the Pokémon has pre-evolutions, add their learnsets, too!
+				if (poke.prevo) {
+					const poke2 = this.dataCache.Pokedex[this.toID(poke.prevo)];
+					const learnset2 = this.modData('Learnsets', this.toID(poke.prevo)).learnset;
+					for (const moveid in learnset2) {
+						if (learnset.moveid) {
+							learnset.moveid.push(learnset2.moveid);
+						} else {
+							learnset.moveid = learnset2.moveid;
+						}
+					}
+					if (poke2.prevo) {
+						const poke3 = this.dataCache.Pokedex[this.toID(poke.prevo)];
+						const learnset3 = this.modData('Learnsets', this.toID(poke.prevo)).learnset;
+						for (const moveid in learnset3) {
+							if (learnset.moveid) {
+								learnset.moveid.push(learnset3.moveid);
+							} else {
+								learnset.moveid = learnset3.moveid;
+							}
+						}
+					}
+				}
+				
 				let pokeGen = 1;
 				if (poke.num > 898 || id.endsWith('hisui') || id.endsWith('paldea') || id.endsWith('paldeafire') || id.endsWith('paldeawater')) pokeGen = 9;
 				else if (poke.num > 809 || id.endsWith('galar')) pokeGen = 8;
