@@ -2,7 +2,7 @@ export const Scripts: ModdedBattleScriptsData = {
 	init() {
 		for (const id in this.dataCache.Pokedex) {
 			const poke = this.dataCache.Pokedex[id];
-			if (!poke || !poke.abilities || !poke.baseStats || !poke.types) return;
+			if (!poke || !poke.num || !poke.abilities || !poke.types || !poke.baseStats) return;
 			let abilities = ``;
 			if (poke.abilities[0]) {
 				abilities += `${this.dataCache.Abilities[this.toID(poke.abilities[0])].name}`;
@@ -17,7 +17,10 @@ export const Scripts: ModdedBattleScriptsData = {
 				abilities += ` // (${this.dataCache.Abilities[this.toID(poke.abilities['S'])].name})`;
 			}
 			const sheetOutput: string[] = [];
-			sheetOutput.push((poke.evos ? "nfe" : "fe") + `~=IMAGE(https://www.smogon.com/forums//media/minisprites/` + poke.name.toLowerCase() + `.png",3)~` + poke.name + "~" + poke.types[0] + "~" + (poke.types[1] ? poke.types[1] : "") + "~" + poke.baseStats.hp + "~" + poke.baseStats.atk + "~" + poke.baseStats.def + "~" + poke.baseStats.spa + "~" + poke.baseStats.spd + "~" + poke.baseStats.spe + "~~~~~~~~" + abilities);
+			var iconname = poke.name.toLowerCase();
+			var iconid = iconname.replace(/(\w+)\s(\w+)/, ``).replace(/./, ``); // should get rid of spaces and periods?
+			console.log(newstr)
+			sheetOutput.push((poke.evos ? "nfe" : "fe") + poke.num + `~=IMAGE("https://www.smogon.com/forums//media/minisprites/` + iconid + `.png",3)~` + poke.name + "~" + poke.types[0] + "~" + (poke.types[1] ? poke.types[1] : "") + "~" + poke.baseStats.hp + "~" + poke.baseStats.atk + "~" + poke.baseStats.def + "~" + poke.baseStats.spa + "~" + poke.baseStats.spd + "~" + poke.baseStats.spe + "~~~~~~~~" + abilities);
 			poke.sheetOutput = sheetOutput;
 		}
 	},
