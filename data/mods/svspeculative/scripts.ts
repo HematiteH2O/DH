@@ -64,21 +64,13 @@ export const Scripts: ModdedBattleScriptsData = {
 					const poke2 = this.dataCache.Pokedex[this.toID(poke.prevo)];
 					const learnset2 = this.modData('Learnsets', this.toID(poke.prevo)).learnset;
 					for (const moveid in learnset2) {
-						if (learnset[moveid]) {
-							learnset[moveid].push(learnset2[moveid]);
-						} else {
-							learnset[moveid] = learnset2[moveid];
-						}
+						if (!learnset[moveid]) learnset[moveid] = learnset2[moveid];
 					}
 					if (poke2.prevo) {
 						const poke3 = this.dataCache.Pokedex[this.toID(poke2.prevo)];
 						const learnset3 = this.modData('Learnsets', this.toID(poke2.prevo)).learnset;
 						for (const moveid in learnset3) {
-							if (learnset.moveid) {
-								learnset[moveid].push(learnset3[moveid]);
-							} else {
-								learnset[moveid] = learnset3[moveid];
-							}
+							if (!learnset.moveid) learnset[moveid] = learnset3[moveid];
 						}
 					}
 				}
