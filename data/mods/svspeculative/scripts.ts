@@ -34,6 +34,7 @@ export const Scripts: ModdedBattleScriptsData = {
 				const poke = this.dataCache.Pokedex[id];
 				for (const moveid in learnset) {
 					const move = this.dataCache.Moves[moveid];
+					let counted = false;
 					let pokeGen = 1;
 					if (poke.num > 898) pokeGen = 9;
 					else if (poke.num > 809) pokeGen = 8;
@@ -62,31 +63,28 @@ export const Scripts: ModdedBattleScriptsData = {
 							if (source.charAt(1) === 'L' || source.charAt(1) === 'E') {
 								// this is an originMove
 								originMoves.push(move.name);
-								break;
+								counted = true;
 							} else {
 								if (pulseTms.includes(moveid)) {
 									// this is a TM move
 									tmMoves.push(move.name);
-									break;
+									counted = true;
 								} else if (pulseTutors.includes(moveid)) {
 									// this is a tutor move
 									tutorMoves.push(move.name);
-									break;
+									counted = true;
 								} else {
 									// this is an oldMove
 									oldMoves.push(move.name);
-									break;
+									counted = true;
 								}
 							}
-						} else {
-							// this is a buffMove
-							buffMoves.push(move.name);
-							break;
 						}
 					}
+					if (!counted) buffMoves.push(move.name);
 				}
 				const totalMoves: string[] = [];
-				totalMoves.push(poke.name + ": " + originMoves + "~" + tmMoves + "~" + tutorMoves + "~" + oldMoves + "~" + buffMoves);
+				totalMoves.push(poke.name + ": " + buffMoves);
 				poke.totalMoves = totalMoves;
 			}
 		}
