@@ -152,7 +152,7 @@ export const Scripts: ModdedBattleScriptsData = {
 					if (!authentic && !natural && !tm && !tutor && transfer) transferFringeMoves.push(move.name);
 				}
 				const totalMoves: string[] = [];
-				totalMoves.push(`=IMAGE("https://www.smogon.com/forums//media/minisprites/` + poke.name.toLowerCase() + `".png",3)~` + poke.name + "~" + poke.types[0] + "~" + (poke.types[1] ? poke.types[1] : "") + "~" + naturalMoves + "~" + buffMoves + "~" + transferMoves + "~" + tmMoves + "~" + buffTmMoves + "~" + transferTmMoves + "~" + tutorMoves + "~" + buffTutorMoves + "~" + transferTutorMoves + "~" + fringeMoves + "~" + buffFringeMoves + "~" + transferFringeMoves);
+				totalMoves.push(`=IMAGE("https://www.smogon.com/forums//media/minisprites/` + poke.name.toLowerCase() + `.png",3)~` + poke.name + "~" + poke.types[0] + "~" + (poke.types[1] ? poke.types[1] : "") + "~" + naturalMoves + "~" + buffMoves + "~" + transferMoves + "~" + tmMoves + "~" + buffTmMoves + "~" + transferTmMoves + "~" + tutorMoves + "~" + buffTutorMoves + "~" + transferTutorMoves + "~" + fringeMoves + "~" + buffFringeMoves + "~" + transferFringeMoves);
 				poke.totalMoves = totalMoves;
 			}
 		}
