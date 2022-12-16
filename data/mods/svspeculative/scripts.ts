@@ -88,12 +88,14 @@ export const Scripts: ModdedBattleScriptsData = {
 					else if (move.num > 165) moveGen = 2;
 
 					// narrow down how the Pokémon learns the move as simply as possible
+					let learned = false;
 					let tm = pulseTms.includes(moveid) ? true : false;
 					let tutor = pulseTutors.includes(moveid) ? true : false;
 					let natural = false;
 					let authentic = false;
 					let transfer = false;
 					if (learnset[moveid]) { // if it learns the move itself
+						learned = true;
 						for (const source of learnset[moveid]) {
 							if (parseInt(source.charAt(0)) < 4) transfer = true;
 							if (
@@ -105,6 +107,7 @@ export const Scripts: ModdedBattleScriptsData = {
 						}
 					}
 					if (learnset2 && learnset2[moveid]) { // if it has a pre-evolution and its pre-evolution learns the move
+						learned = true;
 						for (const source of learnset[moveid]) {
 							if (parseInt(source.charAt(0)) < 4) transfer = true;
 							if (
@@ -116,6 +119,7 @@ export const Scripts: ModdedBattleScriptsData = {
 						}
 					}
 					if (learnset3 && learnset3[moveid]) { // if it's the third stage and its basic stage learns the move
+						learned = true;
 						for (const source of learnset[moveid]) {
 							if (parseInt(source.charAt(0)) < 4) transfer = true;
 							if (
@@ -126,6 +130,7 @@ export const Scripts: ModdedBattleScriptsData = {
 							if (source.charAt(1) === 'L' || source.charAt(1) === 'E') natural = true;
 						}
 					}
+					if (!learned) continue;
 
 					// generate the appropriate movelists
 					// naturalMoves
