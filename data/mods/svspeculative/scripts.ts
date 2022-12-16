@@ -33,7 +33,7 @@ export const Scripts: ModdedBattleScriptsData = {
 				const learnset = this.modData('Learnsets', this.toID(id)).learnset;
 				const poke = this.dataCache.Pokedex[id];
 				for (const moveid in learnset) {
-					const move = this.dataCache.Moves[id];
+					const move = this.dataCache.Moves[moveid];
 					let pokeGen = 1;
 					if (poke.num > 898) pokeGen = 9;
 					else if (poke.num > 809) pokeGen = 8;
@@ -45,14 +45,14 @@ export const Scripts: ModdedBattleScriptsData = {
 					else if (poke.num > 151) pokeGen = 2;
 					if (poke.gen) pokeGen = poke.gen; // for forms from later Gens
 					let moveGen = 1;
-					if (poke.num > 826) moveGen = 9;
-					else if (poke.num > 742) moveGen = 8;
-					else if (poke.num > 621) moveGen = 7;
-					else if (poke.num > 559) moveGen = 6;
-					else if (poke.num > 467) moveGen = 5;
-					else if (poke.num > 354) moveGen = 4;
-					else if (poke.num > 251) moveGen = 3;
-					else if (poke.num > 165) moveGen = 2;
+					if (move.num > 826) moveGen = 9;
+					else if (move.num > 742) moveGen = 8;
+					else if (move.num > 621) moveGen = 7;
+					else if (move.num > 559) moveGen = 6;
+					else if (move.num > 467) moveGen = 5;
+					else if (move.num > 354) moveGen = 4;
+					else if (move.num > 251) moveGen = 3;
+					else if (move.num > 165) moveGen = 2;
 					for (const source of learnset[moveid]) {
 						if (
 							(parseInt(source.charAt(0)) === pokeGen && pokeGen > 3) ||
