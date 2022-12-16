@@ -17,7 +17,7 @@ export const Scripts: ModdedBattleScriptsData = {
 				abilities += ` // (${this.dataCache.Abilities[this.toID(poke.abilities['S'])].name})`;
 			}
 			const sheetOutput: string[] = [];
-			sheetOutput.push(`=IMAGE((poke.evos ? "nfe" : "fe") + "~https://www.smogon.com/forums//media/minisprites/` + poke.name.toLowerCase() + `.png",3)~` + poke.name + "~" + poke.types[0] + "~" + (poke.types[1] ? poke.types[1] : "") + "~" + poke.baseStats.hp + "~" + poke.baseStats.atk + "~" + poke.baseStats.def + "~" + poke.baseStats.spa + "~" + poke.baseStats.spd + "~" + poke.baseStats.spe + "~~~~~~~~" + abilities);
+			sheetOutput.push((poke.evos ? "nfe" : "fe") + `~=IMAGE(https://www.smogon.com/forums//media/minisprites/` + poke.name.toLowerCase() + `.png",3)~` + poke.name + "~" + poke.types[0] + "~" + (poke.types[1] ? poke.types[1] : "") + "~" + poke.baseStats.hp + "~" + poke.baseStats.atk + "~" + poke.baseStats.def + "~" + poke.baseStats.spa + "~" + poke.baseStats.spd + "~" + poke.baseStats.spe + "~~~~~~~~" + abilities);
 			poke.sheetOutput = sheetOutput;
 		}
 	},
