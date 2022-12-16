@@ -108,7 +108,7 @@ export const Scripts: ModdedBattleScriptsData = {
 					}
 					if (learnset2 && learnset2[moveid]) { // if it has a pre-evolution and its pre-evolution learns the move
 						learned = true;
-						for (const source of learnset[moveid]) {
+						for (const source of learnset2[moveid]) {
 							if (parseInt(source.charAt(0)) < 4) transfer = true;
 							if (
 								(parseInt(source.charAt(0)) === pokeGen && pokeGen > 3) ||
@@ -120,7 +120,7 @@ export const Scripts: ModdedBattleScriptsData = {
 					}
 					if (learnset3 && learnset3[moveid]) { // if it's the third stage and its basic stage learns the move
 						learned = true;
-						for (const source of learnset[moveid]) {
+						for (const source of learnset3[moveid]) {
 							if (parseInt(source.charAt(0)) < 4) transfer = true;
 							if (
 								(parseInt(source.charAt(0)) === pokeGen && pokeGen > 3) ||
