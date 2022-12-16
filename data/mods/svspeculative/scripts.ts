@@ -25,10 +25,10 @@ export const Scripts: ModdedBattleScriptsData = {
 		];
 		for (const id in this.dataCache.Pokedex) {
 			const poke = this.dataCache.Pokedex[id];
-			if (!poke || (poke && poke.evos)) continue; // skip NFEs for now... and anything that can't be read correctly, just in case
+			if (!poke) continue; // skip anything that can't be read correctly, just in case
 			if (this.dataCache.Learnsets[id] && this.dataCache.Learnsets[id].learnset) {
 
-				// ORIGINAL MOVES
+				// setup for the categories that moves can be logged into
 				const originMoves: string[] = []; // moves that were in the Pokémon's level-up or Egg learnset either in Gen IV or when the move was added
 				const tmMoves: string[] = []; // moves that the Pokémon could learn at all either in Gen IV or when the move was added and are TMs in Pulse
 				const tutorMoves: string[] = []; // moves that the Pokémon could learn at all either in Gen IV or when the move was added and are tutors in Pulse
@@ -44,8 +44,21 @@ export const Scripts: ModdedBattleScriptsData = {
 				const buffTutorMoves: string[] = []; // moves that the Pokémon could learn at all either in Gen IV or when the move was added and are tutors in Pulse
 				const buffOldMoves: string[] = []; // moves that were in the Pokémon's learnset as soon as possible but aren't part of the established methods
 
+				// identify the Pokémon's Gen of origin before going any further - it's useful!
+				let pokeGen = 1;
+				if (poke.num > 898 || id.endsWith('hisui') || id.endsWith('paldea') || id.endsWith('paldeafire') || id.endsWith('paldeawater')) pokeGen = 9;
+				else if (poke.num > 809 || id.endsWith('galar')) pokeGen = 8;
+				else if (poke.num > 721 || id.endsWith('alola')) pokeGen = 7;
+				else if (poke.num > 649 || id.endsWith('mega') || id.endsWith('megax') || id.endsWith('megay') || id.endsWith('primal')) pokeGen = 6;
+				else if (poke.num > 493) pokeGen = 5;
+				else if (poke.num > 386) pokeGen = 4;
+				else if (poke.num > 251) pokeGen = 3;
+				else if (poke.num > 151) pokeGen = 2;
+				if (poke.gen) pokeGen = poke.gen; // other forms from later Gens
+
 				// start with the vanilla learnset
 				const learnset = this.modData('Learnsets', this.toID(id)).learnset;
+
 				// if the Pokémon has pre-evolutions, add their learnsets, too!
 				if (poke.prevo) {
 					const poke2 = this.dataCache.Pokedex[this.toID(poke.prevo)];
@@ -58,8 +71,8 @@ export const Scripts: ModdedBattleScriptsData = {
 						}
 					}
 					if (poke2.prevo) {
-						const poke3 = this.dataCache.Pokedex[this.toID(poke.prevo)];
-						const learnset3 = this.modData('Learnsets', this.toID(poke.prevo)).learnset;
+						const poke3 = this.dataCache.Pokedex[this.toID(poke2.prevo)];
+						const learnset3 = this.modData('Learnsets', this.toID(poke2.prevo)).learnset;
 						for (const moveid in learnset3) {
 							if (learnset.moveid) {
 								learnset.moveid.push(learnset3.moveid);
@@ -69,20 +82,14 @@ export const Scripts: ModdedBattleScriptsData = {
 						}
 					}
 				}
-				
-				let pokeGen = 1;
-				if (poke.num > 898 || id.endsWith('hisui') || id.endsWith('paldea') || id.endsWith('paldeafire') || id.endsWith('paldeawater')) pokeGen = 9;
-				else if (poke.num > 809 || id.endsWith('galar')) pokeGen = 8;
-				else if (poke.num > 721 || id.endsWith('alola')) pokeGen = 7;
-				else if (poke.num > 649 || id.endsWith('mega') || id.endsWith('megax') || id.endsWith('megay') || id.endsWith('primal')) pokeGen = 6;
-				else if (poke.num > 493) pokeGen = 5;
-				else if (poke.num > 386) pokeGen = 4;
-				else if (poke.num > 251) pokeGen = 3;
-				else if (poke.num > 151) pokeGen = 2;
-				if (poke.gen) pokeGen = poke.gen; // other forms from later Gens
+
 				for (const moveid in learnset) {
 					// identify the Gen of the move
 					const move = this.dataCache.Moves[moveid];
+					if (!move) {
+						console.log(moveid);
+						continue;
+					}
 					let moveGen = 1;
 					if (move.num > 826) moveGen = 9;
 					else if (move.num > 742) moveGen = 8;
