@@ -23,6 +23,105 @@ export const Scripts: ModdedBattleScriptsData = {
 			'superpower', 'swift', 'synthesis', 'tailwind', 'thunderpunch', 'trick', 'twister', 'uproar', 'vcreate', 'vacuumwave', 'volttackle', 'waterpledge',
 			'waterpulse', 'waterfall', 'worryseed', 'zenheadbutt',
 		];
+
+		// event moves from Gen I and Gen II
+		const newMoves = (mon: string, moves: string[]) => {
+			for (const move of moves) {
+				this.modData('Learnsets', this.toID(mon)).learnset[this.toID(move)] = ["3S0"];
+			}
+		};
+		newMoves("bulbasaur", ["ancientpower"]);
+		newMoves("squirtle", ["zapcannon"]);
+		newMoves("spearow", ["sonicboom"]);
+		newMoves("fearow", ["payday"]);
+		newMoves("pichu", ["dizzypunch"]);
+		newMoves("pichu", ["petaldance"]);
+		newMoves("pichu", ["scaryface"]);
+		newMoves("pichu", ["sing"]);
+		newMoves("nidoranf", ["lovelykiss"]);
+		newMoves("nidoranf", ["moonlight"]);
+		newMoves("nidoranf", ["sweetkiss"]);
+		newMoves("nidoranm", ["lovelykiss"]);
+		newMoves("nidoranm", ["morningsun"]);
+		newMoves("nidoranm", ["sweetkiss"]);
+		newMoves("cleffa", ["dizzypunch"]);
+		newMoves("cleffa", ["petaldance"]);
+		newMoves("cleffa", ["scaryface"]);
+		newMoves("cleffa", ["swift"]);
+		newMoves("igglybuff", ["dizzypunch"]);
+		newMoves("igglybuff", ["petaldance"]);
+		newMoves("igglybuff", ["scaryface"]);
+		newMoves("zubat", ["flail"]);
+		newMoves("psyduck", ["petaldance"]);
+		newMoves("psyduck", ["triattack"]);
+		newMoves("poliwag", ["growth"]);
+		newMoves("poliwag", ["lovelykiss"]);
+		newMoves("abra", ["foresight"]);
+		newMoves("machop", ["falseswipe"]);
+		newMoves("machop", ["thrash"]);
+		newMoves("bellsprout", ["lovelykiss"]);
+		newMoves("bellsprout", ["sweetkiss"]);
+		newMoves("geodude", ["rapidspin"]);
+		newMoves("magnemite", ["agility"]);
+		newMoves("doduo", ["lowkick"]);
+		newMoves("seel", ["flail"]);
+		newMoves("onix", ["sharpen"]);
+		newMoves("drowzee", ["amnesia"]);
+		newMoves("voltorb", ["agility"]);
+		newMoves("cubone", ["furyattack"]);
+		newMoves("tyrogue", ["dizzypunch"]);
+		newMoves("tyrogue", ["rage"]);
+		newMoves("lickitung", ["doubleslap"]);
+		newMoves("kangaskhan", ["feintattack"]);
+		newMoves("horsea", ["haze"]);
+		newMoves("mrmime", ["mindreader"]);
+		newMoves("scyther", ["sonicboom"]);
+		newMoves("smoochum", ["dizzypunch"]);
+		newMoves("smoochum", ["petaldance"]);
+		newMoves("elekid", ["dizzypunch"]);
+		newMoves("elekid", ["pursuit"]);
+		newMoves("magby", ["dizzypunch"]);
+		newMoves("pinsir", ["rockthrow"]);
+		newMoves("tauros", ["quickattack"]);
+		newMoves("magikarp", ["bubble"]);
+		newMoves("magikarp", ["dragonrage"]);
+		newMoves("magikarp", ["reversal"]);
+		newMoves("lapras", ["bite"]);
+		newMoves("eevee", ["growth"]);
+		newMoves("snorlax", ["lovelykiss"]);
+		newMoves("snorlax", ["splash"]);
+		newMoves("snorlax", ["sweetkiss"]);
+		newMoves("chikorita", ["petaldance"]);
+		newMoves("totodile", ["submission"]);
+		newMoves("sentret", ["dizzypunch"]);
+		newMoves("ledyba", ["barrier"]);
+		newMoves("spinarak", ["growth"]);
+		newMoves("chinchou", ["lightscreen"]);
+		newMoves("natu", ["safeguard"]);
+		newMoves("marill", ["dizzypunch"]);
+		newMoves("marill", ["scaryface"]);
+		newMoves("hoppip", ["agility"]);
+		newMoves("sunkern", ["splash"]);
+		newMoves("yanma", ["sweetkiss"]);
+		newMoves("wooper", ["bellydrum"]);
+		newMoves("wooper", ["scaryface"]);
+		newMoves("murkrow", ["beatup"]);
+		newMoves("misdreavus", ["hypnosis"]);
+		newMoves("wobbuffet", ["mimic"]);
+		newMoves("dunsparce", ["furyattack"]);
+		newMoves("dunsparce", ["horndrill"]);
+		newMoves("snubbull", ["lovelykiss"]);
+		newMoves("sneasel", ["moonlight"]);
+		newMoves("swinub", ["whirlwind"]);
+		newMoves("remoraid", ["amnesia"]);
+		newMoves("remoraid", ["mist"]);
+		newMoves("delibird", ["payday"]);
+		newMoves("mantine", ["gust"]);
+		newMoves("phanpy", ["absorb"]);
+		newMoves("phanpy", ["encore"]);
+		newMoves("stantler", ["safeguard"]);
+		newMoves("larvitar", ["rage"]);
+
 		for (const id in this.dataCache.Pokedex) {
 			const poke = this.dataCache.Pokedex[id];
 			if (!poke) continue; // skip anything that can't be read correctly, just in case
