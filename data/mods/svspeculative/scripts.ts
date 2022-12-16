@@ -58,8 +58,8 @@ export const Scripts: ModdedBattleScriptsData = {
 
 				// start with the vanilla learnset
 				const learnset = this.modData('Learnsets', this.toID(id)).learnset;
-				const learnset2 = null;
-				const learnset3 = null;
+				let learnset2 = null;
+				let learnset3 = null;
 
 				// if the Pokémon has pre-evolutions, add their learnsets, too!
 				if (poke.prevo) {
