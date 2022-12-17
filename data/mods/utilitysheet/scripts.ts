@@ -488,14 +488,14 @@ export const Scripts: ModdedBattleScriptsData = {
 
 				// finalize sheetOutput now.........
 				const sheetOutput: string[] = [
-					(poke3 ? (printno + 0.01) + `~=IMAGE("https://www.smogon.com/forums//media/minisprites/` + poke3id + `.png",3)~` + poke3.name + "~" + poke3.types[0] + "~" + (poke3.types[1] ? poke3.types[1] : "") + poke3abilities + "~~~~~~" + poke3.baseStats.hp + "~" + poke3.baseStats.atk + "~" + poke3.baseStats.def + "~" + poke3.baseStats.spa + "~" + poke3.baseStats.spd + "~" + poke3.baseStats.spe + "~" + `\n` : "")
-					+ (poke2 ? (printno + 0.02) + `~=IMAGE("https://www.smogon.com/forums//media/minisprites/` + poke2id + `.png",3)~` + poke2.name + "~" + poke2.types[0] + "~" + (poke2.types[1] ? poke2.types[1] : "") + poke2abilities + "~~~~~~" + poke2.baseStats.hp + "~" + poke2.baseStats.atk + "~" + poke2.baseStats.def + "~" + poke2.baseStats.spa + "~" + poke2.baseStats.spd + "~" + poke2.baseStats.spe + "~" + `\n` : "")
-					+ (printno + 0.1) + `~=IMAGE("https://www.smogon.com/forums//media/minisprites/` + iconid + `.png",3)~` + poke.name + "~" + poke.types[0] + "~" + (poke.types[1] ? poke.types[1] : "") + abilities + "~~~~~~" + poke.baseStats.hp + "~" + poke.baseStats.atk + "~" + poke.baseStats.def + "~" + poke.baseStats.spa + "~" + poke.baseStats.spd + "~" + poke.baseStats.spe + "~" + `\n`
-					+ (printno + 0.2) + "~Physical~~~Special~~~~~~Status~~~~~~~" + `\n`
-					+ (printno + 0.3) + "~" + physLine1 + "~~~" + specLine1 + "~~~~~~" + utilLine1 + "~~~~~~~" + `\n`
-					+ (printno + 0.4) + "~(" + fringePhys + ")~~~(" + fringeSpec + ")~~~~~~(" + fringeStatus + ")~~~~~~~" + `\n`
-					+ (printno + 0.5) + "~" + flavorPhys + "~~~" + flavorSpec + "~~~~~~" + flavorStatus + "~~~~~~~" + `\n`
-					+ (printno + 0.6) + "~(" + flavorFringePhys + ")~~~(" + flavorFringeSpec + ")~~~~~~(" + flavorFringeStatus + ")~~~~~~~" + `\n\n`
+					(poke3 ? (printno) + `~1~=IMAGE("https://www.smogon.com/forums//media/minisprites/` + poke3id + `.png",3)~` + poke3.name + "~" + poke3.types[0] + "~" + (poke3.types[1] ? poke3.types[1] : "") + "~" + poke3abilities + "~~~~~~" + poke3.baseStats.hp + "~" + poke3.baseStats.atk + "~" + poke3.baseStats.def + "~" + poke3.baseStats.spa + "~" + poke3.baseStats.spd + "~" + poke3.baseStats.spe + "~" + `\n` : "")
+					+ (poke2 ? (printno) + `~2~=IMAGE("https://www.smogon.com/forums//media/minisprites/` + poke2id + `.png",3)~` + poke2.name + "~" + poke2.types[0] + "~" + (poke2.types[1] ? poke2.types[1] : "") + "~" + poke2abilities + "~~~~~~" + poke2.baseStats.hp + "~" + poke2.baseStats.atk + "~" + poke2.baseStats.def + "~" + poke2.baseStats.spa + "~" + poke2.baseStats.spd + "~" + poke2.baseStats.spe + "~" + `\n` : "")
+					+ (printno) + `~3~=IMAGE("https://www.smogon.com/forums//media/minisprites/` + iconid + `.png",3)~` + poke.name + "~" + poke.types[0] + "~" + (poke.types[1] ? poke.types[1] : "") + "~" + abilities + "~~~~~~" + poke.baseStats.hp + "~" + poke.baseStats.atk + "~" + poke.baseStats.def + "~" + poke.baseStats.spa + "~" + poke.baseStats.spd + "~" + poke.baseStats.spe + "~" + `\n`
+					+ (printno) + "~4~Physical~~~Special~~~~~~Status~~~~~~~" + `\n`
+					+ (printno) + "~5~" + physLine1 + "~~~" + specLine1 + "~~~~~~" + utilLine1 + "~~~~~~~" + `\n`
+					+ (printno) + "~6~(" + fringePhys + ")~~~(" + fringeSpec + ")~~~~~~(" + fringeStatus + ")~~~~~~~" + `\n`
+					+ (printno) + "~7~" + flavorPhys + "~~~" + flavorSpec + "~~~~~~" + flavorStatus + "~~~~~~~" + `\n`
+					+ (printno) + "~8~(" + flavorFringePhys + ")~~~(" + flavorFringeSpec + ")~~~~~~(" + flavorFringeStatus + ")~~~~~~~" + `\n\n`
 				];
 				
 				poke.sheetOutput = sheetOutput;
