@@ -142,7 +142,8 @@ export const Scripts: ModdedBattleScriptsData = {
 
 		const clericMoves = ['aromatherapy', 'healbell', 'revivalblessing', 'wish'];
 		const refreshMoves = ['junglehealing', 'lunarblessing', 'refresh'];
-		const manipulation = ['disable', 'encore', 'magiccoat', 'switcheroo', 'taunt', 'trick'];
+		const manipulation = ['disable', 'encore', 'knockoff', 'magiccoat', 'switcheroo', 'taunt', 'trick'];
+		// Knock is not "manipulation" but it had to go somewhere; here is fine for now
 		const trapping = ['anchorshot', 'block', 'fairylock', 'jawlock', 'meanlook', 'octolock', 'pursuit', 'spiderweb', 'spiritshackle', 'thousandwaves'];
 		// will additionally check for trapping moves using move.volatileStatus: 'partiallytrapped'
 
@@ -415,7 +416,8 @@ export const Scripts: ModdedBattleScriptsData = {
 							brnMoves.includes(moveid) || przMoves.includes(moveid) || slpMoves.includes(moveid) || psnMoves.includes(moveid) || statusMoves.includes(moveid) ||
 							clericMoves.includes(moveid) || refreshMoves.includes(moveid) || manipulation.includes(moveid) || trapping.includes(moveid) ||
 							screens.includes(moveid) || hazards.includes(moveid) || hazardControl.includes(moveid) || defensiveSetup.includes(moveid) ||
-							speedSetup.includes(moveid) || setupControl.includes(moveid) || (move.volatileStatus && move.volatileStatus === 'partiallytrapped')
+							speedSetup.includes(moveid) || setupControl.includes(moveid) || (move.volatileStatus && move.volatileStatus === 'partiallytrapped') ||
+							move.selfSwitch || move.selfdestruct
 						) {
 							if (authentic) utility.push(move.name);
 							else fringeStatus.push(move.name);
@@ -486,14 +488,14 @@ export const Scripts: ModdedBattleScriptsData = {
 
 				// finalize sheetOutput now.........
 				const sheetOutput: string[] = [
-					(poke3 ? (printno + 0.01) + `~=IMAGE("https://www.smogon.com/forums//media/minisprites/` + iconid + `.png",3)~` + poke.name + "~" + poke.types[0] + "~" + (poke.types[1] ? poke.types[1] : "") + abilities + "~~~~~~" + poke.baseStats.hp + "~" + poke.baseStats.atk + "~" + poke.baseStats.def + "~" + poke.baseStats.spa + "~" + poke.baseStats.spd + "~" + poke.baseStats.spe + "~" + `<br>` : "")
-					+ (poke2 ? (printno + 0.02) + `~=IMAGE("https://www.smogon.com/forums//media/minisprites/` + iconid + `.png",3)~` + poke.name + "~" + poke.types[0] + "~" + (poke.types[1] ? poke.types[1] : "") + abilities + "~~~~~~" + poke.baseStats.hp + "~" + poke.baseStats.atk + "~" + poke.baseStats.def + "~" + poke.baseStats.spa + "~" + poke.baseStats.spd + "~" + poke.baseStats.spe + "~" + `<br>` : "")
-					+ (printno + 0.1) + `~=IMAGE("https://www.smogon.com/forums//media/minisprites/` + iconid + `.png",3)~` + poke.name + "~" + poke.types[0] + "~" + (poke.types[1] ? poke.types[1] : "") + abilities + "~~~~~~" + poke.baseStats.hp + "~" + poke.baseStats.atk + "~" + poke.baseStats.def + "~" + poke.baseStats.spa + "~" + poke.baseStats.spd + "~" + poke.baseStats.spe + "~" + `<br>`
-					+ (printno + 0.2) + "Physical~~~Special~~~~~~Status~~~~~~~" + `<br>`
-					+ (printno + 0.3) + physLine1 + "~~~" + specLine1 + "~~~~~~" + utilLine1 + "~~~~~~~" + `<br>`
-					+ (printno + 0.4) + "(" + fringePhys + ")~~~(" + fringeSpec + ")~~~~~~(" + fringeStatus + ")~~~~~~~" + `<br>`
-					+ (printno + 0.5) + flavorPhys + "~~~" + flavorSpec + "~~~~~~" + flavorStatus + "~~~~~~~" + `<br>`
-					+ (printno + 0.6) + "(" + flavorFringePhys + ")~~~(" + flavorFringeSpec + ")~~~~~~(" + flavorFringeStatus + ")~~~~~~~" + `<br><br>`
+					(poke3 ? (printno + 0.01) + `~=IMAGE("https://www.smogon.com/forums//media/minisprites/` + poke3id + `.png",3)~` + poke3.name + "~" + poke3.types[0] + "~" + (poke3.types[1] ? poke3.types[1] : "") + poke3abilities + "~~~~~~" + poke3.baseStats.hp + "~" + poke3.baseStats.atk + "~" + poke3.baseStats.def + "~" + poke3.baseStats.spa + "~" + poke3.baseStats.spd + "~" + poke3.baseStats.spe + "~" + `\n` : "")
+					+ (poke2 ? (printno + 0.02) + `~=IMAGE("https://www.smogon.com/forums//media/minisprites/` + poke2id + `.png",3)~` + poke2.name + "~" + poke2.types[0] + "~" + (poke2.types[1] ? poke2.types[1] : "") + poke2abilities + "~~~~~~" + poke2.baseStats.hp + "~" + poke2.baseStats.atk + "~" + poke2.baseStats.def + "~" + poke2.baseStats.spa + "~" + poke2.baseStats.spd + "~" + poke2.baseStats.spe + "~" + `\n` : "")
+					+ (printno + 0.1) + `~=IMAGE("https://www.smogon.com/forums//media/minisprites/` + iconid + `.png",3)~` + poke.name + "~" + poke.types[0] + "~" + (poke.types[1] ? poke.types[1] : "") + abilities + "~~~~~~" + poke.baseStats.hp + "~" + poke.baseStats.atk + "~" + poke.baseStats.def + "~" + poke.baseStats.spa + "~" + poke.baseStats.spd + "~" + poke.baseStats.spe + "~" + `\n`
+					+ (printno + 0.2) + "Physical~~~Special~~~~~~Status~~~~~~~" + `\n`
+					+ (printno + 0.3) + physLine1 + "~~~" + specLine1 + "~~~~~~" + utilLine1 + "~~~~~~~" + `\n`
+					+ (printno + 0.4) + "(" + fringePhys + ")~~~(" + fringeSpec + ")~~~~~~(" + fringeStatus + ")~~~~~~~" + `\n`
+					+ (printno + 0.5) + flavorPhys + "~~~" + flavorSpec + "~~~~~~" + flavorStatus + "~~~~~~~" + `\n`
+					+ (printno + 0.6) + "(" + flavorFringePhys + ")~~~(" + flavorFringeSpec + ")~~~~~~(" + flavorFringeStatus + ")~~~~~~~" + `\n\n`
 				];
 				
 				poke.sheetOutput = sheetOutput;
