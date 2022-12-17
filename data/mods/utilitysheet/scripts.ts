@@ -131,30 +131,50 @@ export const Scripts: ModdedBattleScriptsData = {
 		]; // moves that bypass the other checks
 
 		// the rest is, uh, incomplete
-		const brnMoves = ['willowisp', 'scald', 'scorchingsands', 'lavaplume']; // will also count Bitter Malice here (as cold burn)
-		const przMoves = ['willowisp', 'scald', 'scorchingsands', 'lavaplume'];
-		const slpMoves = ['willowisp', 'scald', 'scorchingsands', 'lavaplume'];
-		const psnMoves = ['willowisp', 'scald', 'scorchingsands', 'lavaplume'];
-		const statusMoves = ['willowisp', 'scald', 'scorchingsands', 'lavaplume'];
+		const brnMoves = [
+			'beakblast', 'bittermalice', 'burningjealousy', 'iceburn', 'infernalparade', 'lavaplume', 'sacredfire', 'scald', 'scorchingsands', 'searingshot',
+			'steameruption', 'willowisp'
+		]; // will also count Bitter Malice here (as cold burn)
+		const przMoves = ['bodyslam', 'bounce', 'discharge', 'freezeshock', 'glare', 'nuzzle', 'stunspore', 'thunderwave'];
+		const slpMoves = ['darkvoid', 'hypnosis', 'lovelykiss', 'sleeppowder', 'spore'];
+		const psnMoves = ['banefulbunker', 'barbbarrage', 'gunkshot', 'poisonfang', 'poisongas', 'poisonjab', 'sludgebomb', 'toxic', 'toxicthread'];
+		const statusMoves = ['direclaw']; // ??? this category is kind of an edge case, but the only Dire Claw user will have it marked as a main STAB anyway
 
-		const clericMoves = ['aromatherapy', 'healbell', 'revivalblessing'];
-		const refreshMoves = ['refresh', 'junglehealing', 'lunarblessing'];
+		const clericMoves = ['aromatherapy', 'healbell', 'revivalblessing', 'wish'];
+		const refreshMoves = ['junglehealing', 'lunarblessing', 'refresh'];
 		const manipulation = ['disable', 'encore', 'magiccoat', 'switcheroo', 'taunt', 'trick'];
-		const trapping = ['pursuit'];
-		// could check for trapping moves using move.volatileStatus: 'partiallytrapped', but there are a lot more - should also include Pursuit
+		const trapping = ['anchorshot', 'block', 'fairylock', 'jawlock', 'meanlook', 'octolock', 'pursuit', 'spiderweb', 'spiritshackle', 'thousandwaves'];
+		// will additionally check for trapping moves using move.volatileStatus: 'partiallytrapped'
 
 		const screens = ['reflect', 'lightscreen', 'auroraveil'];
-		const hazards = ['spikes', 'stealthrock', 'stickyweb', 'toxicspikes'];
+		const hazards = ['ceaselessedge', 'spikes', 'stealthrock', 'stickyweb', 'stoneaxe', 'toxicspikes'];
 		const hazardControl = ['courtchange', 'defog', 'mortalspin', 'rapidspin', 'tidyup'];
 
-		const setup = ['aromatherapy', 'healbell'];
+		const physicalSetup = [
+			'bellydrum', 'bulkup', 'coil', 'curse', 'dragondance', 'fellstinger', 'filletaway', 'honeclaws', 'noretreat', 'poweruppunch', 'shellsmash', 'shiftgear',
+			'swordsdance', 'tidyup', 'victorydance', 'workup',
+		]; // put under physical moves
+		const specialSetup = [
+			'calmmind', 'chargebeam', 'clangoroussoul', 'fierydance', 'geomancy', 'growth', 'meteorbeam', 'nastyplot', 'quiverdance', 'tailglow', 'takeheart',
+			'torchsong',
+		]; // put under special moves
+		const defensiveSetup = [
+			'acidarmor', 'amnesia', 'barrier', 'cosmicpower', 'cottonguard', 'defendorder', 'irondefense', 'psyshieldbash', 'shelter', 'steelwing', 'stockpile',
+			'stuffcheeks',
+		]; // put under utility moves? these are very rarely seen without Body Press, though...
+		const speedSetup = ['agility', 'aquastep', 'aurawheel', 'autotomize', 'rockpolish', 'scaleshot']; // put under utility moves; excluding Esper Wing for now
 		const setupControl = ['circlethrow', 'dragontail', 'haze', 'perishsong', 'roar', 'whirlwind'];
-		// will check for "strong priority" using priority moves above 60 BP, Fake Out, Wave Crash/Glide, and *STAB* priority moves of less BP
+		const strongPrio = ['esperwing', 'extremespeed', 'fakeout', 'firstimpression', 'grassyglide', 'suckerpunch', 'wavecrash'];
+		// will check for "priority" using the above list but also *STAB* priority moves of less BP
 
-		// will check for pivot moves using move.selfSwitch
+		// will check for pivot moves using move.selfSwitch, but exclude Revival Blessing!
 		// will check for self-KO moves using move.selfdestruct (yes this is lowercase)
 
-		const doublesMoves = ['aromatherapy', 'healbell']; // hmm
+		const doublesMoves = [
+			'beatup', 'breakingswipe', 'bulldoze', 'coaching', 'cottonspore', 'decorate', 'electroweb', 'fakeout', 'feint', 'followme', 'gravity', 'healpulse',
+			'helpinghand', 'icywind', 'junglehealing', 'lifedew', 'lunarblessing', 'quickguard', 'ragepowder', 'snarl', 'stringshot', 'strugglebug', 'tailwind',
+			'trickroom', 'wideguard'
+		]; // ???
 
 		for (const id in this.dataCache.Pokedex) {
 			const poke = this.dataCache.Pokedex[id];
