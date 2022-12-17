@@ -368,32 +368,80 @@ export const Scripts: ModdedBattleScriptsData = {
 					// if it is a competitive attacking move, it gets put into a category based on its type - but it depends on the user's type, too
 					if (attack) {
 						if (move.type === poke.types[0] && moveid !== 'hiddenpower') {
-							// push as primary STAB
+							if (move.category === 'Physical' && authentic) physStab1.push(move.name);
+							else if (move.category === 'Physical' && !authentic) fringePhys.push(move.name);
+							else if (move.category === 'Special' && authentic) specStab1.push(move.name);
+							else if (move.category === 'Special' && !authentic) fringeSpec.push(move.name);
 							competitive = true;
 						} else if (poke.types[1] && move.type === poke.types[1] && moveid !== 'hiddenpower') {
-							// push as secondary STAB
+							if (move.category === 'Physical' && authentic) physStab2.push(move.name);
+							else if (move.category === 'Physical' && !authentic) fringePhys.push(move.name);
+							else if (move.category === 'Special' && authentic) specStab2.push(move.name);
+							else if (move.category === 'Special' && !authentic) fringeSpec.push(move.name);
 							competitive = true;
 						} else if (offenseCoverage.includes(move.type) || moveid === 'hiddenpower') {
-							// push as offensive coverage
+							if (move.category === 'Physical' && authentic) physCovOff.push(move.name);
+							else if (move.category === 'Physical' && !authentic) fringePhys.push(move.name);
+							else if (move.category === 'Special' && authentic) specCovOff.push(move.name);
+							else if (move.category === 'Special' && !authentic) fringeSpec.push(move.name);
 							competitive = true;
 						} else if (weaknessCoverage.includes(move.type)) {
-							// push as defensive coverage
+							if (move.category === 'Physical' && authentic) physCovWeak.push(move.name);
+							else if (move.category === 'Physical' && !authentic) fringePhys.push(move.name);
+							else if (move.category === 'Special' && authentic) specCovWeak.push(move.name);
+							else if (move.category === 'Special' && !authentic) fringeSpec.push(move.name);
 							competitive = true;
-						} else if (otherCoverage.includes(move.type)) { // push to flavor if the move hits nothing SE that STABs don't
-							// push as other coverage
+						} else if (otherCoverage.includes(move.type) || strongPrio.includes(moveid)) {
+							if (move.category === 'Physical' && authentic) physCovOther.push(move.name);
+							else if (move.category === 'Physical' && !authentic) fringePhys.push(move.name);
+							else if (move.category === 'Special' && authentic) specCovOther.push(move.name);
+							else if (move.category === 'Special' && !authentic) fringeSpec.push(move.name);
 							competitive = true;
 						}
-					},
+					} else {
+						if (physicalSetup.includes(moveid)) {
+							if (authentic) physSetup.push(move.name);
+							else fringePhys.push(move.name);
+							competitive = true;
+						}
+						else if (specialSetup.includes(moveid)) {
+							if (authentic) specSetup.push(move.name);
+							else fringeSpec.push(move.name);
+							competitive = true;
+						}
+						else if (
+							brnMoves.includes(moveid) || przMoves.includes(moveid) || slpMoves.includes(moveid) || psnMoves.includes(moveid) || statusMoves.includes(moveid) ||
+							clericMoves.includes(moveid) || refreshMoves.includes(moveid) || manipulation.includes(moveid) || trapping.includes(moveid) ||
+							screens.includes(moveid) || hazards.includes(moveid) || hazardControl.includes(moveid) || defensiveSetup.includes(moveid) ||
+							speedSetup.includes(moveid) || setupControl.includes(moveid) || (move.volatileStatus && move.volatileStatus === 'partiallytrapped')
+						) {
+							if (authentic) utility.push(move.name);
+							else fringeStatus.push(move.name);
+							competitive = true;
+						}
+						else if () {
+							if (authentic) doubles.push(move.name);
+							else {
+								if (move.category === 'Physical') fringePhys.push(move.name);
+								if (move.category === 'Special') fringeSpec.push(move.name);
+								if (move.category === 'Status') fringeStatus.push(move.name);
+							}
+							competitive = true;
+						}
+					}
 
-					// generate the appropriate movelists twice over: first for the most likely moves, then for this widened category of "fringe moves"
-					if (burnMoves.includes(moveid) && authentic) burnAuth.push(move.name);
-					if (burnMoves.includes(moveid) && !authentic) burnFringe.push(move.name);
-					if (!competitive && authentic) flavorAuth.push(move.name);
-					if (!competitive && !authentic) flavorFringe.ush(move.name);
+					if (!competitive) {
+						if (move.category === 'Physical' && authentic) flavorPhys.push(move.name);
+						else if (move.category === 'Physical' && !authentic) flavorFringePhys.push(move.name);
+						else if (move.category === 'Special' && authentic) flavorSpec.push(move.name);
+						else if (move.category === 'Special' && !authentic) flavorFringeSpec.push(move.name);
+						else if (move.category === 'Status' && authentic) flavorStatus.push(move.name);
+						else if (move.category === 'Status' && !authentic) flavorFringeStatus.push(move.name);
+					}
 				}
 				const sheetOutput: string[] = [];
 				var iconname = poke.name.toLowerCase();
-				var iconid = iconname.replace(" ", `-`).replace(`.`, ``); // to get rid of spaces and periods
+				var iconid = iconname.replace(" ", `-`).replace(`.`, ``).replace(`:`, ``).replace(`\u2019`, ``); // to get rid of spaces and periods
 				// finalize sheetOutput after figuring out all of the appropriate categories!
 				sheetOutput.push(`=IMAGE("https://www.smogon.com/forums//media/minisprites/` + iconid + `.png",3)~` + poke.name + "~" + poke.types[0] + "~" + (poke.types[1] ? poke.types[1] : ""));
 				
