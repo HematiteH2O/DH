@@ -445,31 +445,38 @@ export const Scripts: ModdedBattleScriptsData = {
 				// abilities
 				if (!poke || !poke.num || !poke.abilities || !poke.types || !poke.baseStats) return;
 				let abilities = ``;
-				if (poke.abilities[0]) {
-					abilities += `${this.dataCache.Abilities[this.toID(poke.abilities[0])].name}`;
-				}
-				if (poke.abilities[1]) {
-					abilities += ` / ${this.dataCache.Abilities[this.toID(poke.abilities[1])].name}`;
-				}
-				if (poke.abilities['H']) {
-					abilities += ` // ${this.dataCache.Abilities[this.toID(poke.abilities['H'])].name}`;
-				}
-				if (poke.abilities['S']) {
-					abilities += ` // (${this.dataCache.Abilities[this.toID(poke.abilities['S'])].name})`;
-				}
-
+				if (poke.abilities[0]) abilities += `${this.dataCache.Abilities[this.toID(poke.abilities[0])].name}`;
+				if (poke.abilities[1]) abilities += ` / ${this.dataCache.Abilities[this.toID(poke.abilities[1])].name}`;
+				if (poke.abilities['H']) abilities += ` // ${this.dataCache.Abilities[this.toID(poke.abilities['H'])].name}`;
+				if (poke.abilities['S']) abilities += ` // (${this.dataCache.Abilities[this.toID(poke.abilities['S'])].name})`;
 				// icon name
 				var iconname = poke.name.toLowerCase();
 				var iconid = iconname.replace(" ", `-`).replace(`.`, ``).replace(`:`, ``).replace(`\u2019`, ``); // to get rid of spaces and periods
 
 				// same for pre-evolutions (briefly)
 				let poke2 = null;
+				let poke2abilities = ``;
+				var poke2id = null;
 				if (poke.prevo) {
 					poke2 = this.dataCache.Pokedex[this.toID(poke.prevo)];
+					if (poke2.abilities[0]) abilities += `${this.dataCache.Abilities[this.toID(poke2.abilities[0])].name}`;
+					if (poke2.abilities[1]) abilities += ` / ${this.dataCache.Abilities[this.toID(poke2.abilities[1])].name}`;
+					if (poke2.abilities['H']) abilities += ` // ${this.dataCache.Abilities[this.toID(poke2.abilities['H'])].name}`;
+					if (poke2.abilities['S']) abilities += ` // (${this.dataCache.Abilities[this.toID(poke2.abilities['S'])].name})`;
+					var poke2name = poke2.name.toLowerCase();
+					poke2id = poke2name.replace(" ", `-`).replace(`.`, ``).replace(`:`, ``).replace(`\u2019`, ``); // to get rid of spaces and periods
 				}
 				let poke3 = null;
+				let poke3abilities = ``;
+				var poke3id = null;
 				if (poke2 && poke2.prevo) {
 					poke3 = this.dataCache.Pokedex[this.toID(poke2.prevo)];
+					if (poke3.abilities[0]) abilities += `${this.dataCache.Abilities[this.toID(poke3.abilities[0])].name}`;
+					if (poke3.abilities[1]) abilities += ` / ${this.dataCache.Abilities[this.toID(poke3.abilities[1])].name}`;
+					if (poke3.abilities['H']) abilities += ` // ${this.dataCache.Abilities[this.toID(poke3.abilities['H'])].name}`;
+					if (poke3.abilities['S']) abilities += ` // (${this.dataCache.Abilities[this.toID(poke3.abilities['S'])].name})`;
+					var poke3name = poke3.name.toLowerCase();
+					poke3id = poke3name.replace(" ", `-`).replace(`.`, ``).replace(`:`, ``).replace(`\u2019`, ``); // to get rid of spaces and periods
 				}
 
 				// competitive movepools now
@@ -479,7 +486,9 @@ export const Scripts: ModdedBattleScriptsData = {
 
 				// finalize sheetOutput now.........
 				const sheetOutput: string[] = [
-					(printno + 0.1) + `~=IMAGE("https://www.smogon.com/forums//media/minisprites/` + iconid + `.png",3)~` + poke.name + "~" + poke.types[0] + "~" + (poke.types[1] ? poke.types[1] : "") + abilities + "~~~~~~" + poke.baseStats.hp + "~" + poke.baseStats.atk + "~" + poke.baseStats.def + "~" + poke.baseStats.spa + "~" + poke.baseStats.spd + "~" + poke.baseStats.spe + "~" + `<br>`
+					(poke3 ? (printno + 0.01) + `~=IMAGE("https://www.smogon.com/forums//media/minisprites/` + iconid + `.png",3)~` + poke.name + "~" + poke.types[0] + "~" + (poke.types[1] ? poke.types[1] : "") + abilities + "~~~~~~" + poke.baseStats.hp + "~" + poke.baseStats.atk + "~" + poke.baseStats.def + "~" + poke.baseStats.spa + "~" + poke.baseStats.spd + "~" + poke.baseStats.spe + "~" + `<br>` : "")
+					+ (poke2 ? (printno + 0.02) + `~=IMAGE("https://www.smogon.com/forums//media/minisprites/` + iconid + `.png",3)~` + poke.name + "~" + poke.types[0] + "~" + (poke.types[1] ? poke.types[1] : "") + abilities + "~~~~~~" + poke.baseStats.hp + "~" + poke.baseStats.atk + "~" + poke.baseStats.def + "~" + poke.baseStats.spa + "~" + poke.baseStats.spd + "~" + poke.baseStats.spe + "~" + `<br>` : "")
+					+ (printno + 0.1) + `~=IMAGE("https://www.smogon.com/forums//media/minisprites/` + iconid + `.png",3)~` + poke.name + "~" + poke.types[0] + "~" + (poke.types[1] ? poke.types[1] : "") + abilities + "~~~~~~" + poke.baseStats.hp + "~" + poke.baseStats.atk + "~" + poke.baseStats.def + "~" + poke.baseStats.spa + "~" + poke.baseStats.spd + "~" + poke.baseStats.spe + "~" + `<br>`
 					+ (printno + 0.2) + "Physical~~~Special~~~~~~Status~~~~~~~" + `<br>`
 					+ (printno + 0.3) + physLine1 + "~~~" + specLine1 + "~~~~~~" + utilLine1 + "~~~~~~~" + `<br>`
 					+ (printno + 0.4) + "(" + fringePhys + ")~~~(" + fringeSpec + ")~~~~~~(" + fringeStatus + ")~~~~~~~" + `<br>`
