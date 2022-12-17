@@ -122,60 +122,31 @@ export const Scripts: ModdedBattleScriptsData = {
 		newMoves("stantler", ["safeguard"]);
 		newMoves("larvitar", ["rage"]);
 
-		// these are the categories we're checking for
-
-		const strongMoves = [
-			'acidspray', 'acrobatics', 'assurance', 'ceaselessedge', 'drainingkiss', 'facade', 'freezedry', 'frostbreath', 'hex', 'hiddenpower', 'infernalparade',
-			'lastrespects', 'naturepower', 'paraboliccharge', 'powertrip', 'ragefist', 'risingvoltage', 'shadowclaw', 'smartstrike', 'stoneaxe', 'storedpower', 'stormthrow',
-			'terrainpulse', 'triplearrows', 'tropkick', 'weatherball',
-		]; // moves that bypass the other checks
-
-		// the rest is, uh, incomplete
-		const brnMoves = [
-			'beakblast', 'bittermalice', 'burningjealousy', 'iceburn', 'infernalparade', 'lavaplume', 'sacredfire', 'scald', 'scorchingsands', 'searingshot',
-			'steameruption', 'willowisp'
-		]; // will also count Bitter Malice here (as cold burn)
-		const przMoves = ['bodyslam', 'bounce', 'discharge', 'freezeshock', 'glare', 'nuzzle', 'stunspore', 'thunderwave'];
-		const slpMoves = ['darkvoid', 'hypnosis', 'lovelykiss', 'sleeppowder', 'spore'];
-		const psnMoves = ['banefulbunker', 'barbbarrage', 'gunkshot', 'poisonfang', 'poisongas', 'poisonjab', 'sludgebomb', 'toxic', 'toxicthread'];
-		const statusMoves = ['direclaw']; // ??? this category is kind of an edge case, but the only Dire Claw user will have it marked as a main STAB anyway
-
-		const clericMoves = ['aromatherapy', 'healbell', 'revivalblessing', 'wish'];
-		const refreshMoves = ['junglehealing', 'lunarblessing', 'refresh'];
-		const manipulation = ['disable', 'encore', 'knockoff', 'magiccoat', 'switcheroo', 'taunt', 'trick'];
-		// Knock is not "manipulation" but it had to go somewhere; here is fine for now
-		const trapping = ['anchorshot', 'block', 'fairylock', 'jawlock', 'meanlook', 'octolock', 'pursuit', 'spiderweb', 'spiritshackle', 'thousandwaves'];
-		// will additionally check for trapping moves using move.volatileStatus: 'partiallytrapped'
-
-		const screens = ['reflect', 'lightscreen', 'auroraveil'];
-		const hazards = ['ceaselessedge', 'spikes', 'stealthrock', 'stickyweb', 'stoneaxe', 'toxicspikes'];
-		const hazardControl = ['courtchange', 'defog', 'mortalspin', 'rapidspin', 'tidyup'];
-
-		const physicalSetup = [
-			'bellydrum', 'bulkup', 'coil', 'curse', 'dragondance', 'fellstinger', 'filletaway', 'honeclaws', 'noretreat', 'poweruppunch', 'shellsmash', 'shiftgear',
-			'swordsdance', 'tidyup', 'victorydance', 'workup',
-		]; // put under physical moves
-		const specialSetup = [
-			'calmmind', 'chargebeam', 'clangoroussoul', 'fierydance', 'geomancy', 'growth', 'meteorbeam', 'nastyplot', 'quiverdance', 'tailglow', 'takeheart',
-			'torchsong',
-		]; // put under special moves
-		const defensiveSetup = [
-			'acidarmor', 'amnesia', 'barrier', 'cosmicpower', 'cottonguard', 'defendorder', 'irondefense', 'psyshieldbash', 'shelter', 'steelwing', 'stockpile',
-			'stuffcheeks',
-		]; // put under utility moves? these are very rarely seen without Body Press, though...
-		const speedSetup = ['agility', 'aquastep', 'aurawheel', 'autotomize', 'rockpolish', 'scaleshot']; // put under utility moves; excluding Esper Wing for now
-		const setupControl = ['circlethrow', 'dragontail', 'haze', 'perishsong', 'roar', 'whirlwind'];
-		const strongPrio = ['esperwing', 'extremespeed', 'fakeout', 'firstimpression', 'grassyglide', 'suckerpunch', 'wavecrash'];
-		// will check for "priority" using the above list but also *STAB* priority moves of less BP
-
-		// will check for pivot moves using move.selfSwitch, but exclude Revival Blessing!
-		// will check for self-KO moves using move.selfdestruct (yes this is lowercase)
-
-		const doublesMoves = [
-			'beatup', 'breakingswipe', 'bulldoze', 'coaching', 'cottonspore', 'decorate', 'electroweb', 'fakeout', 'feint', 'followme', 'gravity', 'healpulse',
-			'helpinghand', 'icywind', 'junglehealing', 'lifedew', 'lunarblessing', 'quickguard', 'ragepowder', 'snarl', 'stringshot', 'strugglebug', 'tailwind',
-			'trickroom', 'wideguard'
-		]; // ???
+		// declaring which moves are "competitive" in general
+		const physicalRMs = [
+			'text',
+		];
+		const specialRMs = [
+			'text',
+		];
+		const utilitySelfRMs = [
+			'text',
+		];
+		const doublesSelfRMs = [
+			'text',
+		];
+		const utilityDisruptRMs = [
+			'text',
+		];
+		const doublesDisruptRMs = [
+			'text',
+		];
+		const utilitySupportRMs = [
+			'text',
+		];
+		const doublesSupportRMs = [
+			'text',
+		];
 
 		let printno = 0;
 		for (const id in this.dataCache.Pokedex) {
@@ -187,21 +158,21 @@ export const Scripts: ModdedBattleScriptsData = {
 				// setup for the categories that I am currently using
 				// entire competitive physical movepool
 				const physStab1: string[] = [];
-				const physStab2: string[] = [];
-				const physCovOff: string[] = [];
-				const physCovWeak: string[] = [];
-				const physCovOther: string[] = []; // not immediately in use though
-				const physSetup: string[] = [];
+				const physStab2: string[] = []; // will display in the same cell separated by a semicolon
+				const physCoverage: string[] = []; // moves that hit either the Pokémon's walls or its weaknesses super effectively
+				const physTech: string[] = []; // moves that hit unique types super effectively in neutral matchups
 				// entire competitive special movepool
 				const specStab1: string[] = [];
-				const specStab2: string[] = [];
-				const specCovOff: string[] = [];
-				const specCovWeak: string[] = [];
-				const specCovOther: string[] = []; // not immediately in use though
-				const specSetup: string[] = [];
-				// entire competitive utility movepool (will refine later)
-				const utility: string[] = [];
-				const doubles: string[] = [];
+				const specStab2: string[] = []; // will display in the same cell separated by a semicolon
+				const specCoverage: string[] = [];
+				const specTech: string[] = [];
+				// entire competitive utility movepool
+				const utilitySelf: string[] = [];
+				const doublesSelf: string[] = []; // will display in the same cell separated by a semicolon
+				const utilityDisrupt: string[] = [];
+				const doublesDisrupt: string[] = []; // will display in the same cell separated by a semicolon
+				const utilitySupport: string[] = [];
+				const doublesSupport: string[] = []; // will display in the same cell separated by a semicolon
 				// competitive fringe movepool
 				const fringePhys: string[] = [];
 				const fringeSpec: string[] = [];
@@ -268,9 +239,8 @@ export const Scripts: ModdedBattleScriptsData = {
 				const offenseCoverage: string[] = []; // what types hit at least one entry in wallTypes super effectively?
 				for (const type in this.dataCache.TypeChart) { // for every attacking type...
 					for (const wall in wallTypes) { // check each of the types that wall the Pokémon's STABs,
-						if (this.dataCache.TypeChart[wall]?.damageTaken[type] === 1) { // and see if the attacking type is effective against that type!
+						if (this.dataCache.TypeChart[wall]?.damageTaken[type] === 1 && !offenseCoverage.includes(type)) { // and see if the attacking type is effective against that type!
 							offenseCoverage.push(type); // if even one of them works, it's "offensive coverage"
-							break; // and you don't need to check it any more once you confirm that
 						}
 					}
 				}
@@ -278,9 +248,8 @@ export const Scripts: ModdedBattleScriptsData = {
 				for (const type in this.dataCache.TypeChart) { // for every attacking type...
 					for (const weak in weaknessTypes) { // check each of the types the Pokémon is weak to,
 						if (typeAdvantages.includes(weak)) continue; // except the ones the Pokémon already beats by STAB,
-						if (this.dataCache.TypeChart[weak]?.damageTaken[type] === 1) { // and see if the attacking type is effective against that type!
-							offenseCoverage.push(type); // if even one of them works, it's "weakness coverage"
-							break; // and you don't need to check it any more once you confirm that
+						if (this.dataCache.TypeChart[weak]?.damageTaken[type] === 1 && !weaknessCoverage.includes(type)) { // and see if the attacking type is effective against that type!
+							weaknessCoverage.push(type); // if even one of them works, it's "weakness coverage"
 						}
 					}
 				}
@@ -289,9 +258,8 @@ export const Scripts: ModdedBattleScriptsData = {
 					if (poke.types.includes(type) || offenseCoverage.includes(type) || weaknessCoverage.includes(type)) continue; // as long as it's not on another list
 					for (const check in this.dataCache.TypeChart) { // check every other type...
 						if (typeAdvantages.includes(check)) continue; // unless, of course, the Pokémon already beats it!
-						if (this.dataCache.TypeChart[check]?.damageTaken[type] === 1) { // and see if the attacking type is effective against that type
+						if (this.dataCache.TypeChart[check]?.damageTaken[type] === 1 && !otherCoverage.includes(type)) { // and see if the attacking type is effective against that type
 							otherCoverage.push(type); // if it is, it's at least kind of usable coverage, I guess?
-							break; // and you don't need to check it any more once you confirm that
 						}
 					}
 				}
@@ -358,79 +326,64 @@ export const Scripts: ModdedBattleScriptsData = {
 					if (!learned) continue;
 
 					// okay, so we know the move! now we need to figure out where it goes
-					// first, let's decide if it's a competitive attacking move
-					let attack = false;
-					if (move.basePower && (move.basePower > 70 || move.priority !== 0 || (move.multihit && move.basePower >= 20))) {
-						attack = true;
-					}
-					if (move.category !== 'Status' && move.basePower === 0) attack = true; // moves with variable base power always count (for my sanity)
-					if (strongMoves.includes(moveid)) attack = true;
+					// the rules are a lot simpler now :)
+					/*
+					physicalRMs
+					specialRMs
+					utilitySelfRMs
+					doublesSelfRMs
+					utilityDisruptRMs
+					doublesDisruptRMs
+					utilitySupportRMs
+					doublesSupportRMs
+					*/
 					
-					let competitive = false; // set this to true any time you decide to use a move for something!
+					let competitive = false;
+					let stab1 = false;
+					let stab2 = false;
+					let coverage = false;
+					let tech = false;
+					let uSelf = false;
+					let dSelf = false;
+					let uDisrupt = false;
+					let dDisrupt = false;
+					let uSupport = false;
+					let dSupport = false;
+					if (physicalRMs.contains(moveid) || specialRMs.contains(moveid)) {
+						if (move.type === poke.types[0]) stab1 = competitive = true;
+						if (poke.types[1] && move.type === poke.types[1]) stab2 = competitive = true;
+						if (offenseCoverage.includes(move.type) || weaknessCoverage.includes(move.type)) coverage = competitive = true;
+						if (otherCoverage.includes(move.type)) tech = competitive = true;
+					}
+					if (utilitySelfRMs.contains(moveid)) uSelf = competitive = true;
+					if (doublesSelfRMs.contains(moveid)) dSelf = competitive = true;
+					if (utilityDisruptRMs.contains(moveid)) uDisrupt = competitive = true;
+					if (doublesDisruptRMs.contains(moveid)) dDisrupt = competitive = true;
+					if (utilitySupportRMs.contains(moveid)) uSupport = competitive = true;
+					if (doublesSupportRMs.contains(moveid)) dSupport = competitive = true;
 
-					// if it is a competitive attacking move, it gets put into a category based on its type - but it depends on the user's type, too
-					if (attack) {
-						if (move.type === poke.types[0] && moveid !== 'hiddenpower') {
-							if (move.category === 'Physical' && authentic) physStab1.push(move.name);
-							else if (move.category === 'Physical' && !authentic) fringePhys.push(move.name);
-							else if (move.category === 'Special' && authentic) specStab1.push(move.name);
-							else if (move.category === 'Special' && !authentic) fringeSpec.push(move.name);
-							competitive = true;
-						} else if (poke.types[1] && move.type === poke.types[1] && moveid !== 'hiddenpower') {
-							if (move.category === 'Physical' && authentic) physStab2.push(move.name);
-							else if (move.category === 'Physical' && !authentic) fringePhys.push(move.name);
-							else if (move.category === 'Special' && authentic) specStab2.push(move.name);
-							else if (move.category === 'Special' && !authentic) fringeSpec.push(move.name);
-							competitive = true;
-						} else if (offenseCoverage.includes(move.type) || moveid === 'hiddenpower') {
-							if (move.category === 'Physical' && authentic) physCovOff.push(move.name);
-							else if (move.category === 'Physical' && !authentic) fringePhys.push(move.name);
-							else if (move.category === 'Special' && authentic) specCovOff.push(move.name);
-							else if (move.category === 'Special' && !authentic) fringeSpec.push(move.name);
-							competitive = true;
-						} else if (weaknessCoverage.includes(move.type)) {
-							if (move.category === 'Physical' && authentic) physCovWeak.push(move.name);
-							else if (move.category === 'Physical' && !authentic) fringePhys.push(move.name);
-							else if (move.category === 'Special' && authentic) specCovWeak.push(move.name);
-							else if (move.category === 'Special' && !authentic) fringeSpec.push(move.name);
-							competitive = true;
-						} else if (otherCoverage.includes(move.type) || strongPrio.includes(moveid)) {
-							if (move.category === 'Physical' && authentic) physCovOther.push(move.name);
-							else if (move.category === 'Physical' && !authentic) fringePhys.push(move.name);
-							else if (move.category === 'Special' && authentic) specCovOther.push(move.name);
-							else if (move.category === 'Special' && !authentic) fringeSpec.push(move.name);
-							competitive = true;
-						}
-					} else {
-						if (physicalSetup.includes(moveid)) {
-							if (authentic) physSetup.push(move.name);
-							else fringePhys.push(move.name);
-							competitive = true;
-						}
-						else if (specialSetup.includes(moveid)) {
-							if (authentic) specSetup.push(move.name);
-							else fringeSpec.push(move.name);
-							competitive = true;
-						}
-						else if (
-							brnMoves.includes(moveid) || przMoves.includes(moveid) || slpMoves.includes(moveid) || psnMoves.includes(moveid) || statusMoves.includes(moveid) ||
-							clericMoves.includes(moveid) || refreshMoves.includes(moveid) || manipulation.includes(moveid) || trapping.includes(moveid) ||
-							screens.includes(moveid) || hazards.includes(moveid) || hazardControl.includes(moveid) || defensiveSetup.includes(moveid) ||
-							speedSetup.includes(moveid) || setupControl.includes(moveid) || (move.volatileStatus && move.volatileStatus === 'partiallytrapped') ||
-							move.selfSwitch || move.selfdestruct
-						) {
-							if (authentic) utility.push(move.name);
-							else fringeStatus.push(move.name);
-							competitive = true;
-						}
-						else if (doublesMoves.includes(move.name)) {
-							if (authentic) doubles.push(move.name);
-							else {
-								if (move.category === 'Physical') fringePhys.push(move.name);
-								if (move.category === 'Special') fringeSpec.push(move.name);
-								if (move.category === 'Status') fringeStatus.push(move.name);
-							}
-							competitive = true;
+					if (competitive) {
+						if (authentic) {
+							// offensive movepool
+							if (stab1 && move.category === 'Physical') physStab1.push(move.name);
+							else if (stab1 && move.category === 'Special') specStab1.push(move.name);
+							else if (stab2 && move.category === 'Physical') physStab2.push(move.name);
+							else if (stab2 && move.category === 'Special') specStab2.push(move.name);
+							else if (coverage && move.category === 'Physical') physCoverage.push(move.name);
+							else if (coverage && move.category === 'Special') specCoverage.push(move.name);
+							else if (tech && move.category === 'Physical') physTech.push(move.name);
+							else if (tech && move.category === 'Special') specTech.push(move.name);
+							// utility movepool (the same move CAN be listed twice)
+							if (uSelf) utilitySelf.push(move.name);
+							else if (dSelf) doublesSelf.push(move.name);
+							if (uDisrupt) utilityDisrupt.push(move.name);
+							else if (dDisrupt) doublesDisrupt.push(move.name);
+							if (uSupport) utilitySupport.push(move.name);
+							else if (dSupport) doublesSupport.push(move.name);
+						} else {
+							if (move.category === 'Physical') fringePhys.push(move.name);
+							if (move.category === 'Special') fringeSpec.push(move.name);
+							if (move.category === 'Status') fringeStatus.push(move.name);
 						}
 					}
 
@@ -482,9 +435,11 @@ export const Scripts: ModdedBattleScriptsData = {
 				}
 
 				// competitive movepools now
-				const physLine1: string[] = [physStab1 + ";" + physStab2 + ";" + physCovOff + ";" + physCovWeak + ";" + physCovOther + ";" + physSetup];
-				const specLine1: string[] = [specStab1 + ";" + specStab2 + ";" + specCovOff + ";" + specCovWeak + ";" + specCovOther + ";" + specSetup];
-				const utilLine1: string[] = [utility + ";" + doubles];
+				const physLine1: string[] = [physStab1 + (physStab1 && physStab2 ? ";" : "") + physStab2];
+				const specLine1: string[] = [specStab1 + (specStab1 && specStab2 ? ";" : "") + specStab2];
+				const utilLine1: string[] = [utilitySelf + (utilitySelf && doublesSelf ? ";" : "") + doublesSelf];
+				const utilLine2: string[] = [utilityDisrupt + (utilityDisrupt && doublesDisrupt ? ";" : "") + doublesDisrupt];
+				const utilLine3: string[] = [utilitySupport + (utilitySupport && doublesSupport ? ";" : "") + doublesSupport];
 
 				// finalize sheetOutput now.........
 				const sheetOutput: string[] = [
@@ -494,10 +449,12 @@ export const Scripts: ModdedBattleScriptsData = {
 					+ (printno) + `~4~\n`
 					+ (printno) + "~5~Physical~~~Special~~~~~~Utility~~~~~~~" + `\n`
 					+ (printno) + "~6~" + physLine1 + "~~~" + specLine1 + "~~~~~~" + utilLine1 + "~~~~~~~" + `\n`
-					+ (printno) + "~7~(" + fringePhys + ")~~~(" + fringeSpec + ")~~~~~~(" + fringeStatus + ")~~~~~~~" + `\n`
-					+ (printno) + "~8~" + flavorPhys + "~~~" + flavorSpec + "~~~~~~" + flavorStatus + "~~~~~~~" + `\n`
-					+ (printno) + "~9~(" + flavorFringePhys + ")~~~(" + flavorFringeSpec + ")~~~~~~(" + flavorFringeStatus + ")~~~~~~~" + `\n`
-					+ (printno) + "~10~"
+					+ (printno) + "~7~" + physCoverage + "~~~" + specCoverage + "~~~~~~" + utilLine2 + "~~~~~~~" + `\n`
+					+ (printno) + "~8~" + physTech + "~~~" + specTech + "~~~~~~" + utilLine3 + "~~~~~~~" + `\n`
+					+ (printno) + "~9~(" + fringePhys + ")~~~(" + fringeSpec + ")~~~~~~(" + fringeStatus + ")~~~~~~~" + `\n`
+					+ (printno) + "~10~" + flavorPhys + "~~~" + flavorSpec + "~~~~~~" + flavorStatus + "~~~~~~~" + `\n`
+					+ (printno) + "~11~(" + flavorFringePhys + ")~~~(" + flavorFringeSpec + ")~~~~~~(" + flavorFringeStatus + ")~~~~~~~" + `\n`
+					+ (printno) + "~12~"
 				];
 				
 				poke.sheetOutput = sheetOutput;
