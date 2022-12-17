@@ -181,11 +181,19 @@ export const Scripts: ModdedBattleScriptsData = {
 			if (!poke) continue; // skip anything that can't be read correctly, just in case
 			if (this.dataCache.Learnsets[id] && this.dataCache.Learnsets[id].learnset) {
 
-				// setup for the categories that moves can be logged into
-				const burnAuth: string[] = [];
-				const burnFringe: string[] = [];
-				const flavorAuth: string[] = [];
-				const flavorFringe: string[] = [];
+				// setup for the categories that I am currently using
+				const physCompAuth: string[] = [];
+				const physCompFringe: string[] = [];
+				const specCompAuth: string[] = [];
+				const specCompFringe: string[] = [];
+				const statusCompAuth: string[] = [];
+				const statusCompFringe: string[] = [];
+				const physFlavAuth: string[] = [];
+				const physFlavFringe: string[] = [];
+				const specFlavAuth: string[] = [];
+				const specFlavFringe: string[] = [];
+				const statusFlavAuth: string[] = [];
+				const statusFlavFringe: string[] = [];
 
 				// identify the Pokémon's Gen of origin before going any further - it's useful!
 				let pokeGen = 1;
@@ -215,13 +223,58 @@ export const Scripts: ModdedBattleScriptsData = {
 
 				// now we're going to decide what moves are competitive on the Pokémon, so we need to know its type matchups
 				let wallTypes = {}; // what types are hit worse than neutrally by both of the Pokémon's STABs?
+				for (const type in this.dataCache.TypeChart) {
+					if (
+						this.dataCache.TypeChart[type].damageTaken[poke.types[0]] > 1 && (!poke.types[1] || this.dataCache.TypeChart[type].damageTaken[poke.types[0]] > 1)
+					) wallTypes.push(type);
+				}
 				let weaknessTypes = {}; // what types hit the Pokémon super effectively?
+				for (const type in this.dataCache.TypeChart) {
+					if (
+						this.dataCache.TypeChart[poke.types[0]].damageTaken[type] > 1 || (poke.types[1] && this.dataCache.TypeChart[poke.types[0]].damageTaken[type] > 1))
+					) continue;
+					if (this.dataCache.TypeChart[poke.types[0]].damageTaken[type] === 1) weaknessTypes.push(type);
+					else if (poke.types[1] && this.dataCache.TypeChart[poke.types[1]].damageTaken[type] === 1) weaknessTypes.push(type);
+				}
 				let typeAdvantages = {}; // what types are hit super effectively by either one of the Pokémon's STABs?
+				for (const type in this.dataCache.TypeChart) {
+					if (
+						this.dataCache.TypeChart[type].damageTaken[poke.types[0]] === 1 ||
+						(poke.types[1] && this.dataCache.TypeChart[type].damageTaken[poke.types[1]] === 1))
+					) typeAdvantages.push(type);
+				}
 
 				// and we're going to use those type matchups to decide how the Pokémon values different coverage types (other than its STABs)
 				let offenseCoverage = {}; // what types hit at least one entry in wallTypes super effectively?
+				for (const type in this.dataCache.TypeChart) { // for every attacking type...
+					for (const wall in wallTypes) { // check each of the types that wall the Pokémon's STABs,
+						if (this.dataCache.TypeChart[wall].damageTaken[type] === 1) { // and see if the attacking type is effective against that type!
+							offenseCoverage.push(type); // if even one of them works, it's "offensive coverage"
+							break; // and you don't need to check it any more once you confirm that
+						}
+					}
+				}
 				let weaknessCoverage = {}; // of the remaining, what types hit at least one entry in weaknessTypes super effectively?
+				for (const type in this.dataCache.TypeChart) { // for every attacking type...
+					for (const weak in weaknessTypes) { // check each of the types the Pokémon is weak to,
+						if (typeAdvantages.includes(weak)) continue; // except the ones the Pokémon already beats by STAB,
+						if (this.dataCache.TypeChart[weak].damageTaken[type] === 1) { // and see if the attacking type is effective against that type!
+							offenseCoverage.push(type); // if even one of them works, it's "weakness coverage"
+							break; // and you don't need to check it any more once you confirm that
+						}
+					}
+				}
 				let otherCoverage = {}; // of the remaining, what types hit at least one entry NOT in typeAdvantages super effectively?
+				for (const type in this.dataCache.TypeChart) { // for every attacking type...
+					if (poke.types.includes(type) || offenseCoverage.includes(type) || weaknessCoverage.includes(type)) continue; // as long as it's not on another list
+					for (const check in this.dataCache.TypeChart) { // check every other type...
+						if (typeAdvantages.includes(check)) continue; // unless, of course, the Pokémon already beats it!
+						if (this.dataCache.TypeChart[check].damageTaken[type] === 1) { // and see if the attacking type is effective against that type
+							otherCoverage.push(type); // if it is, it's at least kind of usable coverage, I guess??
+							break; // and you don't need to check it any more once you confirm that
+						}
+					}
+				}
 				// any type not in one of these categories will be ignored as coverage!
 
 				for (const moveid in this.dataCache.Moves) {
