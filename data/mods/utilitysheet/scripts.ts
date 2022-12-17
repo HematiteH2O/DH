@@ -182,18 +182,35 @@ export const Scripts: ModdedBattleScriptsData = {
 			if (this.dataCache.Learnsets[id] && this.dataCache.Learnsets[id].learnset) {
 
 				// setup for the categories that I am currently using
-				const physCompAuth: string[] = [];
-				const physCompFringe: string[] = [];
-				const specCompAuth: string[] = [];
-				const specCompFringe: string[] = [];
-				const statusCompAuth: string[] = [];
-				const statusCompFringe: string[] = [];
-				const physFlavAuth: string[] = [];
-				const physFlavFringe: string[] = [];
-				const specFlavAuth: string[] = [];
-				const specFlavFringe: string[] = [];
-				const statusFlavAuth: string[] = [];
-				const statusFlavFringe: string[] = [];
+				// entire competitive physical movepool
+				const physStab1: string[] = [];
+				const physStab2: string[] = [];
+				const physCovOff: string[] = [];
+				const physCovWeak: string[] = [];
+				const physCovOther: string[] = []; // not immediately in use though
+				const physSetup: string[] = [];
+				// entire competitive special movepool
+				const specStab1: string[] = [];
+				const specStab2: string[] = [];
+				const specCovOff: string[] = [];
+				const specCovWeak: string[] = [];
+				const specCovOther: string[] = []; // not immediately in use though
+				const specSetup: string[] = [];
+				// entire competitive utility movepool (will refine later)
+				const utility: string[] = [];
+				const doubles: string[] = [];
+				// competitive fringe movepool
+				const fringePhys: string[] = [];
+				const fringeSpec: string[] = [];
+				const fringeStatus: string[] = [];
+				// flavor movepool
+				const flavorPhys: string[] = [];
+				const flavorSpec: string[] = [];
+				const flavorStatus: string[] = [];
+				// flavor fringe movepool
+				const flavorFringePhys: string[] = [];
+				const flavorFringeSpec: string[] = [];
+				const flavorFringeStatus: string[] = [];
 
 				// identify the Pokémon's Gen of origin before going any further - it's useful!
 				let pokeGen = 1;
