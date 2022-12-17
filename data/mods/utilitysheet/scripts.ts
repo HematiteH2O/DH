@@ -176,10 +176,12 @@ export const Scripts: ModdedBattleScriptsData = {
 			'trickroom', 'wideguard'
 		]; // ???
 
+		let printno = 0;
 		for (const id in this.dataCache.Pokedex) {
 			const poke = this.dataCache.Pokedex[id];
 			if (!poke || poke.evos) continue; // skip NFEs... and anything that can't be read correctly, just in case
 			if (this.dataCache.Learnsets[id] && this.dataCache.Learnsets[id].learnset) {
+				printno++;
 
 				// setup for the categories that I am currently using
 				// entire competitive physical movepool
@@ -357,7 +359,7 @@ export const Scripts: ModdedBattleScriptsData = {
 					// okay, so we know the move! now we need to figure out where it goes
 					// first, let's decide if it's a competitive attacking move
 					let attack = false;
-					if (move.basePower && (move.basePower > 70 || move.priority !== 0 || (move.multihit && move.basePower >= 20)))) {
+					if (move.basePower && (move.basePower > 70 || move.priority !== 0 || (move.multihit && move.basePower >= 20))) {
 						attack = true;
 					}
 					if (move.category !== 'Status' && move.basePower === 0) attack = true; // moves with variable base power always count (for my sanity)
@@ -468,12 +470,12 @@ export const Scripts: ModdedBattleScriptsData = {
 				// finalize sheetOutput now.........
 				const sheetOutput: string[] = [];
 				sheetOutput.push(
-					(poke.num + 0.1) + `~=IMAGE("https://www.smogon.com/forums//media/minisprites/` + iconid + `.png",3)~` + poke.name + "~" + poke.types[0] + "~" + (poke.types[1] ? poke.types[1] : "") + abilities + "~~~~~~" + poke.baseStats.hp + "~" + poke.baseStats.atk + "~" + poke.baseStats.def + "~" + poke.baseStats.spa + "~" + poke.baseStats.spd + "~" + poke.baseStats.spe + "~" + `<br>`
-					+ (poke.num + 0.2) + "Physical~~~Special~~~~~~Status~~~~~~~" + `<br>`
-					+ (poke.num + 0.3) + physLine1 + "~~~" + specLine1 + "~~~~~~" + utilLine1 + "~~~~~~~" + `<br>`
-					+ (poke.num + 0.4) + "(" + fringePhys + ")~~~(" + fringeSpec + ")~~~~~~(" + fringeStatus + ")~~~~~~~" + `<br>`
-					+ (poke.num + 0.5) + flavorPhys + "~~~" + flavorSpec + "~~~~~~" + flavorStatus + "~~~~~~~" + `<br>`
-					+ (poke.num + 0.6) + "(" + flavorFringePhys + ")~~~(" + flavorFringeSpec + ")~~~~~~(" + flavorFringeStatus + ")~~~~~~~" + `<br><br>`
+					(printno + 0.1) + `~=IMAGE("https://www.smogon.com/forums//media/minisprites/` + iconid + `.png",3)~` + poke.name + "~" + poke.types[0] + "~" + (poke.types[1] ? poke.types[1] : "") + abilities + "~~~~~~" + poke.baseStats.hp + "~" + poke.baseStats.atk + "~" + poke.baseStats.def + "~" + poke.baseStats.spa + "~" + poke.baseStats.spd + "~" + poke.baseStats.spe + "~" + `<br>`
+					+ (printno + 0.2) + "Physical~~~Special~~~~~~Status~~~~~~~" + `<br>`
+					+ (printno + 0.3) + physLine1 + "~~~" + specLine1 + "~~~~~~" + utilLine1 + "~~~~~~~" + `<br>`
+					+ (printno + 0.4) + "(" + fringePhys + ")~~~(" + fringeSpec + ")~~~~~~(" + fringeStatus + ")~~~~~~~" + `<br>`
+					+ (printno + 0.5) + flavorPhys + "~~~" + flavorSpec + "~~~~~~" + flavorStatus + "~~~~~~~" + `<br>`
+					+ (printno + 0.6) + "(" + flavorFringePhys + ")~~~(" + flavorFringeSpec + ")~~~~~~(" + flavorFringeStatus + ")~~~~~~~" + `<br><br>`
 				);
 				
 				poke.sheetOutput = sheetOutput;
