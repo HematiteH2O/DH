@@ -439,11 +439,42 @@ export const Scripts: ModdedBattleScriptsData = {
 						else if (move.category === 'Status' && !authentic) flavorFringeStatus.push(move.name);
 					}
 				}
-				const sheetOutput: string[] = [];
+
+				// abilities
+				if (!poke || !poke.num || !poke.abilities || !poke.types || !poke.baseStats) return;
+				let abilities = ``;
+				if (poke.abilities[0]) {
+					abilities += `${this.dataCache.Abilities[this.toID(poke.abilities[0])].name}`;
+				}
+				if (poke.abilities[1]) {
+					abilities += ` / ${this.dataCache.Abilities[this.toID(poke.abilities[1])].name}`;
+				}
+				if (poke.abilities['H']) {
+					abilities += ` // ${this.dataCache.Abilities[this.toID(poke.abilities['H'])].name}`;
+				}
+				if (poke.abilities['S']) {
+					abilities += ` // (${this.dataCache.Abilities[this.toID(poke.abilities['S'])].name})`;
+				}
+
+				// icon name
 				var iconname = poke.name.toLowerCase();
 				var iconid = iconname.replace(" ", `-`).replace(`.`, ``).replace(`:`, ``).replace(`\u2019`, ``); // to get rid of spaces and periods
-				// finalize sheetOutput after figuring out all of the appropriate categories!
-				sheetOutput.push(`=IMAGE("https://www.smogon.com/forums//media/minisprites/` + iconid + `.png",3)~` + poke.name + "~" + poke.types[0] + "~" + (poke.types[1] ? poke.types[1] : ""));
+
+				// competitive movepools now
+				const physLine1: string[] = [physStab1 + ";" + physStab2 + ";" + physCovOff + ";" + physCovWeak + ";" + physCovOther + ";" + physSetup];
+				const specLine1: string[] = [specStab1 + ";" + specStab2 + ";" + specCovOff + ";" + specCovWeak + ";" + specCovOther + ";" + specSetup];
+				const utilLine1: string[] = [utility + ";" + doubles];
+
+				// finalize sheetOutput now.........
+				const sheetOutput: string[] = [];
+				sheetOutput.push(
+					`=IMAGE("https://www.smogon.com/forums//media/minisprites/` + iconid + `.png",3)~` + poke.name + "~" + poke.types[0] + "~" + (poke.types[1] ? poke.types[1] : "") + abilities + "~~~~~~" + poke.baseStats.hp + "~" + poke.baseStats.atk + "~" + poke.baseStats.def + "~" + poke.baseStats.spa + "~" + poke.baseStats.spd + "~" + poke.baseStats.spe + "~" + `<br>`
+					+ "Physical~~~Special~~~~~~Status~~~~~~~" + `<br>`
+					+ physLine1 + "~~~" + specLine1 + "~~~~~~" + utilLine1 + "~~~~~~~" + `<br>`
+					+ fringePhys + "~~~" + fringeSpec + "~~~~~~" + fringeStatus + "~~~~~~~" + `<br>`
+					+ flavorPhys + "~~~" + flavorSpec + "~~~~~~" + flavorStatus + "~~~~~~~" + `<br>`
+					+ flavorFringePhys + "~~~" + flavorFringeSpec + "~~~~~~" + flavorFringeStatus + "~~~~~~~" + `<br><br>`
+				);
 				
 				poke.sheetOutput = sheetOutput;
 			}
