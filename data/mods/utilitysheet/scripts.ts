@@ -244,22 +244,22 @@ export const Scripts: ModdedBattleScriptsData = {
 				const wallTypes: string[] = []; // what types are hit worse than neutrally by both of the Pokémon's STABs?
 				for (const type in this.dataCache.TypeChart) {
 					if (
-						this.dataCache.TypeChart[type].damageTaken[poke.types[0]] > 1 && (!poke.types[1] || this.dataCache.TypeChart[type].damageTaken[poke.types[1]] > 1)
+						this.dataCache.TypeChart[type]?.damageTaken[poke.types[0]] > 1 && (!poke.types[1] || this.dataCache.TypeChart[type]?.damageTaken[poke.types[1]] > 1)
 					) wallTypes.push(type);
 				}
 				const weaknessTypes: string[] = []; // what types hit the Pokémon super effectively?
 				for (const type in this.dataCache.TypeChart) {
 					if (
-						this.dataCache.TypeChart[poke.types[0]].damageTaken[type] > 1 || (poke.types[1] && this.dataCache.TypeChart[poke.types[1]].damageTaken[type] > 1)
+						this.dataCache.TypeChart[poke.types[0]]?.damageTaken[type] > 1 || (poke.types[1] && this.dataCache.TypeChart[poke.types[1]]?.damageTaken[type] > 1)
 					) continue;
-					if (this.dataCache.TypeChart[poke.types[0]].damageTaken[type] === 1) weaknessTypes.push(type);
-					else if (poke.types[1] && this.dataCache.TypeChart[poke.types[1]].damageTaken[type] === 1) weaknessTypes.push(type);
+					if (this.dataCache.TypeChart[poke.types[0]]?.damageTaken[type] === 1) weaknessTypes.push(type);
+					else if (poke.types[1] && this.dataCache.TypeChart[poke.types[1]].?damageTaken[type] === 1) weaknessTypes.push(type);
 				}
 				const typeAdvantages: string[] = []; // what types are hit super effectively by either one of the Pokémon's STABs?
 				for (const type in this.dataCache.TypeChart) {
 					if (
-						this.dataCache.TypeChart[type].damageTaken[poke.types[0]] === 1 ||
-						(poke.types[1] && this.dataCache.TypeChart[type].damageTaken[poke.types[1]] === 1)
+						this.dataCache.TypeChart[type]?.damageTaken[poke.types[0]] === 1 ||
+						(poke.types[1] && this.dataCache.TypeChart[type]?.damageTaken[poke.types[1]] === 1)
 					) typeAdvantages.push(type);
 				}
 
@@ -289,7 +289,7 @@ export const Scripts: ModdedBattleScriptsData = {
 					for (const check in this.dataCache.TypeChart) { // check every other type...
 						if (typeAdvantages.includes(check)) continue; // unless, of course, the Pokémon already beats it!
 						if (this.dataCache.TypeChart[check]?.damageTaken[type] === 1) { // and see if the attacking type is effective against that type
-							otherCoverage.push(type); // if it is, it's at least kind of usable coverage, I guess??
+							otherCoverage.push(type); // if it is, it's at least kind of usable coverage, I guess?
 							break; // and you don't need to check it any more once you confirm that
 						}
 					}
