@@ -253,7 +253,7 @@ export const Scripts: ModdedBattleScriptsData = {
 						this.dataCache.TypeChart[poke.types[0]]?.damageTaken[type] > 1 || (poke.types[1] && this.dataCache.TypeChart[poke.types[1]]?.damageTaken[type] > 1)
 					) continue;
 					if (this.dataCache.TypeChart[poke.types[0]]?.damageTaken[type] === 1) weaknessTypes.push(type);
-					else if (poke.types[1] && this.dataCache.TypeChart[poke.types[1]].?damageTaken[type] === 1) weaknessTypes.push(type);
+					else if (poke.types[1] && this.dataCache.TypeChart[poke.types[1]]?.damageTaken[type] === 1) weaknessTypes.push(type);
 				}
 				const typeAdvantages: string[] = []; // what types are hit super effectively by either one of the Pokémon's STABs?
 				for (const type in this.dataCache.TypeChart) {
