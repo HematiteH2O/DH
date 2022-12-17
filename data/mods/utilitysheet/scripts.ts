@@ -178,7 +178,7 @@ export const Scripts: ModdedBattleScriptsData = {
 
 		for (const id in this.dataCache.Pokedex) {
 			const poke = this.dataCache.Pokedex[id];
-			if (!poke) continue; // skip anything that can't be read correctly, just in case
+			if (!poke || poke.evos) continue; // skip NFEs... and anything that can't be read correctly, just in case
 			if (this.dataCache.Learnsets[id] && this.dataCache.Learnsets[id].learnset) {
 
 				// setup for the categories that I am currently using
@@ -248,7 +248,7 @@ export const Scripts: ModdedBattleScriptsData = {
 				let weaknessTypes = {}; // what types hit the Pokémon super effectively?
 				for (const type in this.dataCache.TypeChart) {
 					if (
-						this.dataCache.TypeChart[poke.types[0]].damageTaken[type] > 1 || (poke.types[1] && this.dataCache.TypeChart[poke.types[0]].damageTaken[type] > 1))
+						this.dataCache.TypeChart[poke.types[0]].damageTaken[type] > 1 || (poke.types[1] && this.dataCache.TypeChart[poke.types[0]].damageTaken[type] > 1)
 					) continue;
 					if (this.dataCache.TypeChart[poke.types[0]].damageTaken[type] === 1) weaknessTypes.push(type);
 					else if (poke.types[1] && this.dataCache.TypeChart[poke.types[1]].damageTaken[type] === 1) weaknessTypes.push(type);
@@ -257,7 +257,7 @@ export const Scripts: ModdedBattleScriptsData = {
 				for (const type in this.dataCache.TypeChart) {
 					if (
 						this.dataCache.TypeChart[type].damageTaken[poke.types[0]] === 1 ||
-						(poke.types[1] && this.dataCache.TypeChart[type].damageTaken[poke.types[1]] === 1))
+						(poke.types[1] && this.dataCache.TypeChart[type].damageTaken[poke.types[1]] === 1)
 					) typeAdvantages.push(type);
 				}
 
@@ -468,12 +468,12 @@ export const Scripts: ModdedBattleScriptsData = {
 				// finalize sheetOutput now.........
 				const sheetOutput: string[] = [];
 				sheetOutput.push(
-					`=IMAGE("https://www.smogon.com/forums//media/minisprites/` + iconid + `.png",3)~` + poke.name + "~" + poke.types[0] + "~" + (poke.types[1] ? poke.types[1] : "") + abilities + "~~~~~~" + poke.baseStats.hp + "~" + poke.baseStats.atk + "~" + poke.baseStats.def + "~" + poke.baseStats.spa + "~" + poke.baseStats.spd + "~" + poke.baseStats.spe + "~" + `<br>`
-					+ "Physical~~~Special~~~~~~Status~~~~~~~" + `<br>`
-					+ physLine1 + "~~~" + specLine1 + "~~~~~~" + utilLine1 + "~~~~~~~" + `<br>`
-					+ fringePhys + "~~~" + fringeSpec + "~~~~~~" + fringeStatus + "~~~~~~~" + `<br>`
-					+ flavorPhys + "~~~" + flavorSpec + "~~~~~~" + flavorStatus + "~~~~~~~" + `<br>`
-					+ flavorFringePhys + "~~~" + flavorFringeSpec + "~~~~~~" + flavorFringeStatus + "~~~~~~~" + `<br><br>`
+					(poke.num + 0.1) + `~=IMAGE("https://www.smogon.com/forums//media/minisprites/` + iconid + `.png",3)~` + poke.name + "~" + poke.types[0] + "~" + (poke.types[1] ? poke.types[1] : "") + abilities + "~~~~~~" + poke.baseStats.hp + "~" + poke.baseStats.atk + "~" + poke.baseStats.def + "~" + poke.baseStats.spa + "~" + poke.baseStats.spd + "~" + poke.baseStats.spe + "~" + `<br>`
+					+ (poke.num + 0.2) + "Physical~~~Special~~~~~~Status~~~~~~~" + `<br>`
+					+ (poke.num + 0.3) + physLine1 + "~~~" + specLine1 + "~~~~~~" + utilLine1 + "~~~~~~~" + `<br>`
+					+ (poke.num + 0.4) + "(" + fringePhys + ")~~~(" + fringeSpec + ")~~~~~~(" + fringeStatus + ")~~~~~~~" + `<br>`
+					+ (poke.num + 0.5) + flavorPhys + "~~~" + flavorSpec + "~~~~~~" + flavorStatus + "~~~~~~~" + `<br>`
+					+ (poke.num + 0.6) + "(" + flavorFringePhys + ")~~~(" + flavorFringeSpec + ")~~~~~~(" + flavorFringeStatus + ")~~~~~~~" + `<br><br>`
 				);
 				
 				poke.sheetOutput = sheetOutput;
