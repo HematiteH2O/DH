@@ -241,13 +241,13 @@ export const Scripts: ModdedBattleScriptsData = {
 				}
 
 				// now we're going to decide what moves are competitive on the Pokémon, so we need to know its type matchups
-				const wallTypes = {}; // what types are hit worse than neutrally by both of the Pokémon's STABs?
+				const wallTypes: string[] = []; // what types are hit worse than neutrally by both of the Pokémon's STABs?
 				for (const type in this.dataCache.TypeChart) {
 					if (
 						this.dataCache.TypeChart[type].damageTaken[poke.types[0]] > 1 && (!poke.types[1] || this.dataCache.TypeChart[type].damageTaken[poke.types[0]] > 1)
 					) wallTypes.push(type);
 				}
-				const weaknessTypes = {}; // what types hit the Pokémon super effectively?
+				const weaknessTypes: string[] = []; // what types hit the Pokémon super effectively?
 				for (const type in this.dataCache.TypeChart) {
 					if (
 						this.dataCache.TypeChart[poke.types[0]].damageTaken[type] > 1 || (poke.types[1] && this.dataCache.TypeChart[poke.types[0]].damageTaken[type] > 1)
@@ -255,7 +255,7 @@ export const Scripts: ModdedBattleScriptsData = {
 					if (this.dataCache.TypeChart[poke.types[0]].damageTaken[type] === 1) weaknessTypes.push(type);
 					else if (poke.types[1] && this.dataCache.TypeChart[poke.types[1]].damageTaken[type] === 1) weaknessTypes.push(type);
 				}
-				const typeAdvantages = {}; // what types are hit super effectively by either one of the Pokémon's STABs?
+				const typeAdvantages: string[] = []; // what types are hit super effectively by either one of the Pokémon's STABs?
 				for (const type in this.dataCache.TypeChart) {
 					if (
 						this.dataCache.TypeChart[type].damageTaken[poke.types[0]] === 1 ||
@@ -264,7 +264,7 @@ export const Scripts: ModdedBattleScriptsData = {
 				}
 
 				// and we're going to use those type matchups to decide how the Pokémon values different coverage types (other than its STABs)
-				const offenseCoverage = {}; // what types hit at least one entry in wallTypes super effectively?
+				const offenseCoverage: string[] = []; // what types hit at least one entry in wallTypes super effectively?
 				for (const type in this.dataCache.TypeChart) { // for every attacking type...
 					for (const wall in wallTypes) { // check each of the types that wall the Pokémon's STABs,
 						if (this.dataCache.TypeChart[wall].damageTaken[type] === 1) { // and see if the attacking type is effective against that type!
@@ -273,7 +273,7 @@ export const Scripts: ModdedBattleScriptsData = {
 						}
 					}
 				}
-				const weaknessCoverage = {}; // of the remaining, what types hit at least one entry in weaknessTypes super effectively?
+				const weaknessCoverage: string[] = []; // of the remaining, what types hit at least one entry in weaknessTypes super effectively?
 				for (const type in this.dataCache.TypeChart) { // for every attacking type...
 					for (const weak in weaknessTypes) { // check each of the types the Pokémon is weak to,
 						if (typeAdvantages.includes(weak)) continue; // except the ones the Pokémon already beats by STAB,
@@ -283,7 +283,7 @@ export const Scripts: ModdedBattleScriptsData = {
 						}
 					}
 				}
-				const otherCoverage = {}; // of the remaining, what types hit at least one entry NOT in typeAdvantages super effectively?
+				const otherCoverage: string[] = []; // of the remaining, what types hit at least one entry NOT in typeAdvantages super effectively?
 				for (const type in this.dataCache.TypeChart) { // for every attacking type...
 					if (poke.types.includes(type) || offenseCoverage.includes(type) || weaknessCoverage.includes(type)) continue; // as long as it's not on another list
 					for (const check in this.dataCache.TypeChart) { // check every other type...
