@@ -265,6 +265,9 @@ export const Scripts: ModdedBattleScriptsData = {
 
 				// and we're going to use those type matchups to decide how the Pokémon values different coverage types (other than its STABs)
 				const offenseCoverage: string[] = []; // what types hit at least one entry in wallTypes super effectively?
+				console.log(wallTypes);
+				return;
+				/*
 				for (const type in this.dataCache.TypeChart) { // for every attacking type...
 					for (const wall in wallTypes) { // check each of the types that wall the Pokémon's STABs,
 						if (this.dataCache.TypeChart[wall].damageTaken[type] === 1) { // and see if the attacking type is effective against that type!
@@ -273,6 +276,7 @@ export const Scripts: ModdedBattleScriptsData = {
 						}
 					}
 				}
+				*/
 				const weaknessCoverage: string[] = []; // of the remaining, what types hit at least one entry in weaknessTypes super effectively?
 				for (const type in this.dataCache.TypeChart) { // for every attacking type...
 					for (const weak in weaknessTypes) { // check each of the types the Pokémon is weak to,
