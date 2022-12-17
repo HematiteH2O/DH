@@ -461,10 +461,10 @@ export const Scripts: ModdedBattleScriptsData = {
 				var poke2id = null;
 				if (poke.prevo) {
 					poke2 = this.dataCache.Pokedex[this.toID(poke.prevo)];
-					if (poke2.abilities[0]) abilities += `${this.dataCache.Abilities[this.toID(poke2.abilities[0])].name}`;
-					if (poke2.abilities[1]) abilities += ` / ${this.dataCache.Abilities[this.toID(poke2.abilities[1])].name}`;
-					if (poke2.abilities['H']) abilities += ` // ${this.dataCache.Abilities[this.toID(poke2.abilities['H'])].name}`;
-					if (poke2.abilities['S']) abilities += ` // (${this.dataCache.Abilities[this.toID(poke2.abilities['S'])].name})`;
+					if (poke2.abilities[0]) poke2abilities += `${this.dataCache.Abilities[this.toID(poke2.abilities[0])].name}`;
+					if (poke2.abilities[1]) poke2abilities += ` / ${this.dataCache.Abilities[this.toID(poke2.abilities[1])].name}`;
+					if (poke2.abilities['H']) poke2abilities += ` // ${this.dataCache.Abilities[this.toID(poke2.abilities['H'])].name}`;
+					if (poke2.abilities['S']) poke2abilities += ` // (${this.dataCache.Abilities[this.toID(poke2.abilities['S'])].name})`;
 					var poke2name = poke2.name.toLowerCase();
 					poke2id = poke2name.replace(" ", `-`).replace(`.`, ``).replace(`:`, ``).replace(`\u2019`, ``); // to get rid of spaces and periods
 				}
@@ -473,10 +473,10 @@ export const Scripts: ModdedBattleScriptsData = {
 				var poke3id = null;
 				if (poke2 && poke2.prevo) {
 					poke3 = this.dataCache.Pokedex[this.toID(poke2.prevo)];
-					if (poke3.abilities[0]) abilities += `${this.dataCache.Abilities[this.toID(poke3.abilities[0])].name}`;
-					if (poke3.abilities[1]) abilities += ` / ${this.dataCache.Abilities[this.toID(poke3.abilities[1])].name}`;
-					if (poke3.abilities['H']) abilities += ` // ${this.dataCache.Abilities[this.toID(poke3.abilities['H'])].name}`;
-					if (poke3.abilities['S']) abilities += ` // (${this.dataCache.Abilities[this.toID(poke3.abilities['S'])].name})`;
+					if (poke3.abilities[0]) poke3abilities += `${this.dataCache.Abilities[this.toID(poke3.abilities[0])].name}`;
+					if (poke3.abilities[1]) poke3abilities += ` / ${this.dataCache.Abilities[this.toID(poke3.abilities[1])].name}`;
+					if (poke3.abilities['H']) poke3abilities += ` // ${this.dataCache.Abilities[this.toID(poke3.abilities['H'])].name}`;
+					if (poke3.abilities['S']) poke3abilities += ` // (${this.dataCache.Abilities[this.toID(poke3.abilities['S'])].name})`;
 					var poke3name = poke3.name.toLowerCase();
 					poke3id = poke3name.replace(" ", `-`).replace(`.`, ``).replace(`:`, ``).replace(`\u2019`, ``); // to get rid of spaces and periods
 				}
