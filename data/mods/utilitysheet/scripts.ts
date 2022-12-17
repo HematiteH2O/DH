@@ -421,7 +421,7 @@ export const Scripts: ModdedBattleScriptsData = {
 							else fringeStatus.push(move.name);
 							competitive = true;
 						}
-						else if () {
+						else if (doublesMoves.includes(move.name)) {
 							if (authentic) doubles.push(move.name);
 							else {
 								if (move.category === 'Physical') fringePhys.push(move.name);
@@ -462,21 +462,30 @@ export const Scripts: ModdedBattleScriptsData = {
 				var iconname = poke.name.toLowerCase();
 				var iconid = iconname.replace(" ", `-`).replace(`.`, ``).replace(`:`, ``).replace(`\u2019`, ``); // to get rid of spaces and periods
 
+				// same for pre-evolutions (briefly)
+				let poke2 = null;
+				if (poke.prevo) {
+					poke2 = this.dataCache.Pokedex[this.toID(poke.prevo)];
+				}
+				let poke3 = null;
+				if (poke2 && poke2.prevo) {
+					poke3 = this.dataCache.Pokedex[this.toID(poke2.prevo)];
+				}
+
 				// competitive movepools now
 				const physLine1: string[] = [physStab1 + ";" + physStab2 + ";" + physCovOff + ";" + physCovWeak + ";" + physCovOther + ";" + physSetup];
 				const specLine1: string[] = [specStab1 + ";" + specStab2 + ";" + specCovOff + ";" + specCovWeak + ";" + specCovOther + ";" + specSetup];
 				const utilLine1: string[] = [utility + ";" + doubles];
 
 				// finalize sheetOutput now.........
-				const sheetOutput: string[] = [];
-				sheetOutput.push(
+				const sheetOutput: string[] = [
 					(printno + 0.1) + `~=IMAGE("https://www.smogon.com/forums//media/minisprites/` + iconid + `.png",3)~` + poke.name + "~" + poke.types[0] + "~" + (poke.types[1] ? poke.types[1] : "") + abilities + "~~~~~~" + poke.baseStats.hp + "~" + poke.baseStats.atk + "~" + poke.baseStats.def + "~" + poke.baseStats.spa + "~" + poke.baseStats.spd + "~" + poke.baseStats.spe + "~" + `<br>`
 					+ (printno + 0.2) + "Physical~~~Special~~~~~~Status~~~~~~~" + `<br>`
 					+ (printno + 0.3) + physLine1 + "~~~" + specLine1 + "~~~~~~" + utilLine1 + "~~~~~~~" + `<br>`
 					+ (printno + 0.4) + "(" + fringePhys + ")~~~(" + fringeSpec + ")~~~~~~(" + fringeStatus + ")~~~~~~~" + `<br>`
 					+ (printno + 0.5) + flavorPhys + "~~~" + flavorSpec + "~~~~~~" + flavorStatus + "~~~~~~~" + `<br>`
 					+ (printno + 0.6) + "(" + flavorFringePhys + ")~~~(" + flavorFringeSpec + ")~~~~~~(" + flavorFringeStatus + ")~~~~~~~" + `<br><br>`
-				);
+				];
 				
 				poke.sheetOutput = sheetOutput;
 			}
