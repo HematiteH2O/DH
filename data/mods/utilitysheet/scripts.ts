@@ -286,6 +286,13 @@ export const Scripts: ModdedBattleScriptsData = {
 					}
 				}
 				// any type not in one of these categories will be ignored as coverage!
+				console.log("Wall types: " + wallTypes);
+				console.log("Weakness types: " + weaknessTypes);
+				console.log("Type advantages: " + typeAdvantages);
+				console.log("Offensive coverage: " + offenseCoverage);
+				console.log("Weakness coverage: " + weaknessCoverage);
+				console.log("Other coverage: " + otherCoverage);
+				return;
 
 				for (const moveid in this.dataCache.Moves) {
 					// identify the Gen of the move
