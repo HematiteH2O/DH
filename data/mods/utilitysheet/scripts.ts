@@ -360,18 +360,18 @@ export const Scripts: ModdedBattleScriptsData = {
 					let dDisrupt = false;
 					let uSupport = false;
 					let dSupport = false;
-					if (attackRMs.contains(moveid)) {
+					if (attackRMs.includes(moveid)) {
 						if (move.type === poke.types[0]) stab1 = competitive = true;
 						if (poke.types[1] && move.type === poke.types[1]) stab2 = competitive = true;
 						if (offenseCoverage.includes(move.type) || weaknessCoverage.includes(move.type)) coverage = competitive = true;
 						if (otherCoverage.includes(move.type)) tech = competitive = true;
 					}
-					if (utilitySelfRMs.contains(moveid)) uSelf = competitive = true;
-					if (doublesSelfRMs.contains(moveid)) dSelf = competitive = true;
-					if (utilityDisruptRMs.contains(moveid)) uDisrupt = competitive = true;
-					if (doublesDisruptRMs.contains(moveid)) dDisrupt = competitive = true;
-					if (utilitySupportRMs.contains(moveid)) uSupport = competitive = true;
-					if (doublesSupportRMs.contains(moveid)) dSupport = competitive = true;
+					if (utilitySelfRMs.includes(moveid)) uSelf = competitive = true;
+					if (doublesSelfRMs.includes(moveid)) dSelf = competitive = true;
+					if (utilityDisruptRMs.includes(moveid)) uDisrupt = competitive = true;
+					if (doublesDisruptRMs.includes(moveid)) dDisrupt = competitive = true;
+					if (utilitySupportRMs.includes(moveid)) uSupport = competitive = true;
+					if (doublesSupportRMs.includes(moveid)) dSupport = competitive = true;
 
 					if (competitive) {
 						if (authentic) {
