@@ -13,7 +13,7 @@ export const Scripts: ModdedBattleScriptsData = {
 		];
 		const pulseTutors = [
 			'aircutter', 'ancientpower', 'aquatail', 'avalanche', 'blastburn', 'block', 'bodypress', 'bounce', 'brine', 'bugbite', 'bulletseed', 'burningjealousy',
-			'captivate', 'chargebeam', 'cut', 'defog', 'dig', 'dive', 'doubleteam', 'dracometeor', 'dracometeor', 'dragonascent', 'dragonpulse', 'dragontail',
+			'chargebeam', 'cut', 'defog', 'dig', 'dive', 'doubleteam', 'dracometeor', 'dracometeor', 'dragonascent', 'dragonpulse', 'dragontail',
 			'drainingkiss', 'dreameater', 'earthpower', 'endeavor', 'endure', 'firepledge', 'firepunch', 'flash', 'fly', 'foulplay', 'frenzyplant', 'furycutter',
 			'gastroacid', 'grassknot', 'grasspledge', 'gravity', 'gunkshot', 'healbell', 'heatwave', 'helpinghand', 'hydrocannon', 'hypervoice', 'icepunch', 'icywind',
 			'incinerate', 'irondefense', 'ironhead', 'irontail', 'knockoff', 'lastresort', 'lowkick', 'magnetrise', 'meteorbeam', 'mudslap', 'naturalgift', 'nosedive',
@@ -22,7 +22,7 @@ export const Scripts: ModdedBattleScriptsData = {
 			'sleightofhand', 'snore', 'spite', 'stealthrock', 'steelbeam', 'steelbeam', 'stompingtantrum', 'strength', 'stringshot', 'suckerpunch', 'superfang',
 			'superpower', 'swift', 'synthesis', 'tailwind', 'thunderpunch', 'trick', 'twister', 'uproar', 'vcreate', 'vacuumwave', 'volttackle', 'waterpledge',
 			'waterpulse', 'waterfall', 'worryseed', 'zenheadbutt',
-		];
+		]; // excludes Captivate
 
 		// event moves from Gen I and Gen II
 		const newMoves = (mon: string, moves: string[]) => {
@@ -100,47 +100,49 @@ export const Scripts: ModdedBattleScriptsData = {
 			'appleacid', 'aquacutter', 'aquajet', 'aquastep', 'aquatail', 'arenatrap', 'armorcannon', 'assurance', 'astralbarrage', 'attackorder', 'aurasphere',
 			'aurawheel', 'axekick', 'barbbarrage', 'beakblast', 'behemothbash', 'behemothblade', 'belch', 'bitterblade', 'bittermalice', 'blazekick', 'bleakwindstorm',
 			'blizzard', 'bloodsuck', 'blueflare', 'bodypress', 'bodyslam', 'boltbeak', 'boltstrike', 'bonemerang', 'boomburst', 'bounce', 'bravebird', 'brickbreak',
-			'brine', 'bugbuzz', 'bulletpunch', 'bulletseed', 'burnup', 'burningjealousy', 'catharsis', 'ceaselessedge', 'chargebeam', 'chloroblast', 'circlethrow',
+			'brine', 'bugbuzz', 'bulletpunch', 'bulletseed', 'burnup', 'burningjealousy', 'catharsis', 'ceaselessedge', 'chargebeam', 'chloroblast',
 			'circuitbreak', 'clangingscales', 'clearsmog', 'clockworkcannon', 'closecombat', 'collisioncourse', 'constrict', 'cooldown', 'coreenforcer', 'crabhammer',
 			'crosschop', 'crosspoison', 'crunch', 'crushgrip', 'darkpulse', 'darkestlariat', 'dazzlinggleam', 'demolition', 'diamondstorm', 'direclaw', 'discharge',
 			'doomdesire', 'doubleedge', 'doubleironbash', 'doubleshock', 'dracometeor', 'dragonascent', 'dragonclaw', 'dragondarts', 'dragonenergy', 'dragonhammer',
-			'dragonpulse', 'dragontail', 'drainpunch', 'drainingkiss', 'dreameater', 'drillpeck', 'drillrun', 'drumbeating', 'dualchop', 'dualwingbeat', 'dynamaxcannon',
+			'dragonpulse', 'drainpunch', 'drainingkiss', 'dreameater', 'drillpeck', 'drillrun', 'drumbeating', 'dualchop', 'dualwingbeat', 'dynamaxcannon',
 			'earthpower', 'earthquake', 'eeriespell', 'electrodrift', 'energyball', 'eruption', 'esperwing', 'eternabeam', 'expandingforce', 'explosion', 'extrasensory',
 			'extremespeed', 'facade', 'fakeout', 'falsesurrender', 'faustianbargain', 'fierydance', 'fierywrath', 'finalbreath', 'fireblast', 'firefang', 'firelash',
 			'firepunch', 'firstimpression', 'fishiousrend', 'flameburst', 'flamethrower', 'flareblitz', 'flashcannon', 'fleurcannon', 'flipturn', 'flowertrick', 'fly',
 			'flyingpress', 'focusblast', 'focuspunch', 'foulplay', 'freezedry', 'freezeshock', 'freezingglare', 'frostbreath', 'frustration', 'fusionbolt', 'fusionflare',
 			'futuresight', 'gatheringswarm', 'geargrind', 'gigadrain', 'gigatonhammer', 'glaciallance', 'glaciate', 'glaiverush', 'grassknot', 'grassyglide', 'gravapple',
-			'groundbreak', 'gunkshot', 'gyroball', 'hammerarm', 'headcharge', 'headsmash', 'headlongrush', 'heatwave', 'hex', 'hiddenpower', 'highhorsepower',
+			'groundbreak', 'gunkshot', 'gyroball', 'hammerarm', 'headcharge', 'headsmash', 'headlongrush', 'heatwave', 'hex', 'highhorsepower',
 			'highjumpkick', 'hivecall', 'hornleech', 'hurricane', 'hydropump', 'hyperdrill', 'hypervoice', 'hyperspacefury', 'hyperspacehole', 'icebeam', 'iceburn',
 			'icefang', 'icehammer', 'icepunch', 'iceshard', 'icespinner', 'iciclecrash', 'iciclespear', 'incinerate', 'infernalparade', 'ironhead', 'irontail', 'jawlock',
 			'jetpunch', 'judgment', 'jumpkick', 'knockoff', 'kowtowcleave', 'landswrath', 'lashout', 'lastrespects', 'lavaplume', 'leafblade', 'leafstorm', 'leechlife',
 			'lightofruin', 'liquefy', 'liquidation', 'lowkick', 'luminacrash', 'lunge', 'lusterpurge', 'machpunch', 'magmastorm', 'makeitrain', 'megahorn',
-			'meteorassault', 'meteorbeam', 'meteormash', 'miasma', 'mindblown', 'mistball', 'mistyexplosion', 'moonblast', 'moongeistbeam', 'mortalspin', 'mountaingale',
-			'muddywater', 'multiattack', 'mysticalfire', 'mysticalpower', 'naturalgift', 'naturepower', 'nightdaze', 'nightslash', 'nosedive', 'oblivionwing', 'oilfire',
+			'meteorassault', 'meteorbeam', 'meteormash', 'miasma', 'mindblown', 'mistball', 'mistyexplosion', 'moonblast', 'moongeistbeam', 'mountaingale',
+			'muddywater', 'multiattack', 'mysticalfire', 'mysticalpower', 'naturepower', 'nightdaze', 'nightslash', 'nosedive', 'oblivionwing', 'oilfire',
 			'orderup', 'originpulse', 'outrage', 'overdrive', 'overheat', 'overload', 'parasite', 'petalblizzard', 'petaldance', 'phantomforce', 'photongeyser',
 			'piledriver', 'pinmissile', 'plasmafists', 'playrough', 'poisonjab', 'pollenpuff', 'poltergeist', 'populationbomb', 'powergem', 'powertrip', 'poweruppunch',
 			'powerwhip', 'precipiceblades', 'prismaticlaser', 'provoke', 'psychout', 'psychic', 'psychicfangs', 'psychoboost', 'psychocut', 'psyshieldbash', 'psyshock',
 			'psystrike', 'pursuit', 'pyroball', 'quickattack', 'ragefist', 'ragingbull', 'rampageinstinct', 'rapidspin', 'razorshell', 'razorwind', 'relicsong',
 			'reputation', 'return', 'revelationdance', 'reversal', 'revolvingdoorslam', 'riposte', 'risingvoltage', 'roaroftime', 'rockblast', 'rockslide', 'rockthrow',
-			'rockwrecker', 'roilingwaves', 'rollout', 'runningbolt', 'sacredfire', 'saltcure', 'sandsearstorm', 'scald', 'scaleshot', 'scorchingsands', 'searingshot',
-			'secretsword', 'seedbomb', 'seedflare', 'selfdestruct', 'shadowball', 'shadowbone', 'shadowclaw', 'shadowforce', 'shadowsneak', 'shadydeal', 'shellsidearm',
-			'shelltrap', 'signalbeam', 'silverwind', 'skittersmack', 'skyattack', 'skyuppercut', 'sleightofhand', 'sludgebomb', 'sludgewave', 'smartstrike',
-			'smellingsalts', 'snipeshot', 'snowshovel', 'solarbeam', 'solarblade', 'spacialrend', 'spark', 'sparklingaria', 'spectralthief', 'spiderweb', 'spikyshield',
-			'spinout', 'spiritbreak', 'spiritshackle', 'spitup', 'splashzone', 'springtidestorm', 'steameruption', 'steelbeam', 'steelroller', 'stompingtantrum',
-			'stoneaxe', 'stoneedge', 'storedpower', 'stormthrow', 'strangesteam', 'suckerpunch', 'sunsteelstrike', 'superpower', 'surf', 'surgingstrikes',
-			'surpriseattack', 'switchflip', 'synchronoise', 'teardown', 'technoblast', 'terrainpulse', 'testingstrike', 'thousandarrows', 'thousandwaves', 'throatchop',
-			'thunder', 'thundercage', 'thunderfang', 'thunderpunch', 'thunderbolt', 'thunderouskick', 'torchsong', 'triattack', 'triplearrows', 'tripleaxel', 'triplekick',
-			'tropkick', 'trumpcard', 'undermine', 'uturn', 'vacuumwave', 'vcreate', 'voltswitch', 'volttackle', 'watershuriken', 'waterspout', 'waterfall', 'wavecrash',
-			'weatherball', 'wickedblow', 'wildcharge', 'wildboltstorm', 'windshear', 'woodhammer', 'xscissor', 'zenheadbutt', 'zingzap'
+			'rockwrecker', 'roilingwaves', 'rollout', 'runningbolt', 'sacredfire', 'sacredsword', 'saltcure', 'sandsearstorm', 'scald', 'scaleshot', 'scorchingsands',
+			'searingshot', 'secretsword', 'seedbomb', 'seedflare', 'selfdestruct', 'shadowball', 'shadowbone', 'shadowclaw', 'shadowforce', 'shadowsneak', 'shadydeal',
+			'shellsidearm', 'shelltrap', 'signalbeam', 'silverwind', 'skittersmack', 'skyattack', 'skyuppercut', 'sleightofhand', 'sludgebomb', 'sludgewave',
+			'smartstrike', 'smellingsalts', 'snipeshot', 'snowshovel', 'solarbeam', 'solarblade', 'spacialrend', 'spark', 'sparklingaria', 'spectralthief', 'spiderweb',
+			'spikyshield', 'spinout', 'spiritbreak', 'spiritshackle', 'spitup', 'splashzone', 'springtidestorm', 'steameruption', 'steelbeam', 'steelroller',
+			'stompingtantrum', 'stoneaxe', 'stoneedge', 'storedpower', 'stormthrow', 'strangesteam', 'suckerpunch', 'sunsteelstrike', 'superpower', 'surf',
+			'surgingstrikes', 'surpriseattack', 'switchflip', 'synchronoise', 'teardown', 'technoblast', 'terrainpulse', 'testingstrike', 'thousandarrows',
+			'thousandwaves', 'throatchop', 'thunder', 'thundercage', 'thunderfang', 'thunderpunch', 'thunderbolt', 'thunderouskick', 'torchsong', 'triattack',
+			'triplearrows', 'tripleaxel', 'triplekick', 'tropkick', 'trumpcard', 'undermine', 'uturn', 'vacuumwave', 'vcreate', 'voltswitch', 'volttackle',
+			'watershuriken', 'waterspout', 'waterfall', 'wavecrash', 'weatherball', 'wickedblow', 'wildcharge', 'wildboltstorm', 'windshear', 'woodhammer', 'xscissor',
+			'zenheadbutt', 'zingzap'
 		]; // this category doesn't need to distinguish physical from special! that's handled later
+		// excludes Hidden Power and Natural Gift
 		const utilitySelfRMs = [
 			'acidarmor', 'acupressure', 'agility', 'amnesia', 'aquastep', 'aurawheel', 'autotomize', 'barrier', 'bellydrum', 'bloodboil', 'bulkup', 'calmmind',
-			'catharsis', 'clangoroussoul', 'coil', 'cosmicpower', 'cottonguard', 'curse', 'defendorder', 'diamondstorm', 'dragondance', 'fellstinger', 'filletaway',
+			'catharsis', 'clangoroussoul', 'coil', 'cosmicpower', 'cottonguard', 'curse', 'defendorder', 'diamondstorm', 'dragondance', 'filletaway',
 			'flamecharge', 'geomancy', 'growth', 'healorder', 'honeclaws', 'irondefense', 'junglehealing', 'liquefy', 'lunarblessing', 'magnetrise', 'metamorphosis',
-			'milkdrink', 'moonlight', 'morningsun', 'nastyplot', 'noretreat', 'ominouswind', 'painsplit', 'quiverdance', 'recover', 'refresh', 'rest', 'rockpolish',
-			'roost', 'runningstart', 'shellsmash', 'shelter', 'shiftgear', 'shoreup', 'skyattack', 'slackoff', 'softboiled', 'stockpile', 'strengthsap', 'stuffcheeks',
-			'substitute', 'surgingstrikes', 'swordsdance', 'synthesis', 'tailglow', 'takeheart', 'trailblaze', 'triplearrows', 'victorydance',
-		];
+			'milkdrink', 'moonlight', 'morningsun', 'nastyplot', 'noretreat', 'painsplit', 'quiverdance', 'recover', 'refresh', 'rockpolish',
+			'roost', 'runningstart', 'shellsmash', 'shelter', 'shiftgear', 'shoreup', 'slackoff', 'softboiled', 'stockpile', 'strengthsap', 'stuffcheeks',
+			'surgingstrikes', 'swordsdance', 'synthesis', 'tailglow', 'takeheart', 'trailblaze', 'triplearrows', 'victorydance',
+		]; // excludes Rest and Substitute
 		const doublesSelfRMs = null; // nothing yet
 		const utilityDisruptRMs = [
 			'aftershock', 'anchorshot', 'backstab', 'banefulbunker', 'beakblast', 'bittermalice', 'block', 'bodyslam', 'circlethrow', 'clearsmog', 'constrict',
@@ -150,14 +152,14 @@ export const Scripts: ModdedBattleScriptsData = {
 			'nuzzle', 'obstruct', 'octolock', 'perishsong', 'powder', 'provoke', 'psychout', 'rashpowder', 'reverb', 'revolvingdoorslam', 'roar', 'ruination',
 			'sacredfire', 'saltcure', 'sandtomb', 'scald', 'scorchingsands', 'seismictoss', 'shadydeal', 'sheercold', 'shelltrap', 'silktrap', 'sleeppowder', 'soak',
 			'sonicboom', 'spiderweb', 'spikyshield', 'spiritshackle', 'spore', 'stickyfloor', 'stunspore', 'superfang', 'switcheroo', 'taunt', 'thief', 'thousandwaves',
-			'thundercage', 'thunderwave', 'topsyturvy', 'toxic', 'toxicthread', 'trick', 'whirlwind', 'willowisp', 'windshear', 'yawn',
-		];
+			'thundercage', 'thunderwave', 'topsyturvy', 'toxicthread', 'trick', 'whirlwind', 'willowisp', 'windshear', 'yawn',
+		]; // excludes Toxic
 		const doublesDisruptRMs = [
 			'acidspray', 'blackmail', 'breakingswipe', 'bulldoze', 'captivate', 'charm', 'cottonspore', 'demolition', 'detect', 'drumbeating', 'eerieimpulse',
 			'electroweb', 'faketears', 'featherdance', 'feint', 'fissurevent', 'fog', 'hyperspacefury', 'hyperspacehole', 'icywind', 'imprison', 'incinerate',
-			'luminacrash', 'matblock', 'phantomforce', 'poisongas', 'protect', 'quickguard', 'sabotage', 'screech', 'skydrop', 'snarl', 'snatch', 'splashzone',
+			'luminacrash', 'matblock', 'phantomforce', 'poisongas', 'quickguard', 'sabotage', 'screech', 'skydrop', 'snarl', 'snatch', 'splashzone',
 			'stringshot', 'strugglebug', 'wideguard',
-		];
+		]; // excludes Protect
 		const utilitySupportRMs = [
 			'aromatherapy', 'auroraveil', 'batonpass', 'burningcoals', 'ceaselessedge', 'chillyreception', 'contaminate', 'courtchange', 'creepingivy', 'defog',
 			'explosion', 'flipturn', 'healbell', 'healingwish', 'lastwill', 'lightscreen', 'lushmoss', 'mortalspin', 'partingshot', 'psyshieldbash', 'pyrotechnics',
@@ -224,6 +226,7 @@ export const Scripts: ModdedBattleScriptsData = {
 				const learnset = this.modData('Learnsets', this.toID(id)).learnset;
 				let learnset2 = null;
 				let learnset3 = null;
+				let learnset4 = null; // for Rotom and stuff
 
 				// if the Pokémon has pre-evolutions, add their learnsets, too!
 				if (poke.prevo) {
@@ -232,6 +235,10 @@ export const Scripts: ModdedBattleScriptsData = {
 					if (poke2.prevo) {
 						learnset3 = this.modData('Learnsets', this.toID(poke2.prevo)).learnset;
 					}
+				}
+				if (poke.changesFrom) {
+					const poke4 = this.dataCache.Pokedex[this.toID(poke.changesFrom)];
+					learnset4 = this.modData('Learnsets', this.toID(poke.changesFrom)).learnset;
 				}
 
 				// now we're going to decide what moves are competitive on the Pokémon, so we need to know its type matchups
@@ -346,6 +353,18 @@ export const Scripts: ModdedBattleScriptsData = {
 							}
 						}
 					}
+					if (learnset4 && learnset4[moveid]) { // for stuff like Rotom
+						for (const source of learnset4[moveid]) {
+							learned = true;
+							if (
+								(parseInt(source.charAt(0)) === pokeGen && pokeGen > 3) ||
+								(parseInt(source.charAt(0)) === moveGen && moveGen > 3) ||
+								parseInt(source.charAt(0)) === 4
+							) {
+								if (source.charAt(1) === 'L' || source.charAt(1) === 'E') authentic = true;
+							}
+						}
+					}
 					if (!learned) continue;
 
 					// okay, so we know the move! now we need to figure out where it goes
@@ -362,9 +381,14 @@ export const Scripts: ModdedBattleScriptsData = {
 					let uSupport = false;
 					let dSupport = false;
 					if (attackRMs.includes(moveid)) {
-						if (move.type === poke.types[0]) stab1 = competitive = true;
+						if (
+							move.type === poke.types[0] || moveid === 'judgment' || moveid === 'multiattack' || moveid === 'ragingbull' || moveid === 'revelationdance'
+						) stab1 = competitive = true;
 						if (poke.types[1] && move.type === poke.types[1]) stab2 = competitive = true;
-						if (offenseCoverage.includes(move.type) || weaknessCoverage.includes(move.type)) coverage = competitive = true;
+						if (
+							offenseCoverage.includes(move.type) || weaknessCoverage.includes(move.type) || moveid === 'naturepower' || moveid === 'technoblast' ||
+							moveid === 'terrainpulse' || moveid === 'weatherball'
+						) coverage = competitive = true;
 						if (otherCoverage.includes(move.type)) tech = competitive = true;
 					}
 					if (utilitySelfRMs.includes(moveid)) uSelf = competitive = true;
@@ -377,14 +401,7 @@ export const Scripts: ModdedBattleScriptsData = {
 					if (competitive) {
 						if (authentic) {
 							// offensive movepool
-							if (moveid === 'multiattack') physStab1.push(move.name);
-							else if (moveid === 'naturalgift') physCoverage.push(move.name);
-							else if (moveid === 'judgment' || moveid === 'revelationdance') specStab1.push(move.name);
-							else if (moveid === 'naturalgift') physCoverage.push(move.name);
-							else if (
-								moveid === 'hiddenpower' || moveid === 'naturepower' || moveid === 'technoblast' || moveid === 'terrainpulse' || moveid === 'weatherball'
-							) specCoverage.push(move.name);
-							else if (stab1 && move.category === 'Physical') physStab1.push(move.name);
+							if (stab1 && move.category === 'Physical') physStab1.push(move.name);
 							else if (stab1 && move.category === 'Special') specStab1.push(move.name);
 							else if (stab2 && move.category === 'Physical') physStab2.push(move.name);
 							else if (stab2 && move.category === 'Special') specStab2.push(move.name);
