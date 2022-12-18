@@ -367,7 +367,7 @@ export const Scripts: ModdedBattleScriptsData = {
 						if (otherCoverage.includes(move.type)) tech = competitive = true;
 					}
 					if (utilitySelfRMs.includes(moveid)) uSelf = competitive = true;
-					if (doublesSelfRMs.includes(moveid)) dSelf = competitive = true;
+					// if (doublesSelfRMs.includes(moveid)) dSelf = competitive = true;
 					if (utilityDisruptRMs.includes(moveid)) uDisrupt = competitive = true;
 					if (doublesDisruptRMs.includes(moveid)) dDisrupt = competitive = true;
 					if (utilitySupportRMs.includes(moveid)) uSupport = competitive = true;
