@@ -114,7 +114,7 @@ export const Scripts: ModdedBattleScriptsData = {
 			'highjumpkick', 'hivecall', 'hornleech', 'hurricane', 'hydropump', 'hyperdrill', 'hypervoice', 'hyperspacefury', 'hyperspacehole', 'icebeam', 'iceburn',
 			'icefang', 'icehammer', 'icepunch', 'iceshard', 'icespinner', 'iciclecrash', 'iciclespear', 'incinerate', 'infernalparade', 'ironhead', 'irontail', 'jawlock',
 			'jetpunch', 'judgment', 'jumpkick', 'knockoff', 'kowtowcleave', 'landswrath', 'lashout', 'lastrespects', 'lavaplume', 'leafblade', 'leafstorm', 'leechlife',
-			'lightofruin', 'liquefy', 'liquidation', 'lowkick', 'luminacrash', 'lunge', 'lusterpurge', 'machpunch', 'magmastorm', 'makeitrain', 'megadrain', 'megahorn',
+			'lightofruin', 'liquefy', 'liquidation', 'lowkick', 'luminacrash', 'lunge', 'lusterpurge', 'machpunch', 'magmastorm', 'makeitrain', 'megahorn',
 			'meteorassault', 'meteorbeam', 'meteormash', 'miasma', 'mindblown', 'mistball', 'mistyexplosion', 'moonblast', 'moongeistbeam', 'mortalspin', 'mountaingale',
 			'muddywater', 'multiattack', 'mysticalfire', 'mysticalpower', 'naturalgift', 'naturepower', 'nightdaze', 'nightslash', 'nosedive', 'oblivionwing', 'oilfire',
 			'orderup', 'originpulse', 'outrage', 'overdrive', 'overheat', 'overload', 'parasite', 'petalblizzard', 'petaldance', 'phantomforce', 'photongeyser',
@@ -287,13 +287,6 @@ export const Scripts: ModdedBattleScriptsData = {
 					}
 				}
 				// any type not in one of these categories will be ignored as coverage!
-				console.log("Wall types: " + wallTypes);
-				console.log("Weakness types: " + weaknessTypes);
-				console.log("Type advantages: " + typeAdvantages);
-				console.log("Offensive coverage: " + offenseCoverage);
-				console.log("Weakness coverage: " + weaknessCoverage);
-				console.log("Other coverage: " + otherCoverage);
-				return;
 
 				for (const moveid in this.dataCache.Moves) {
 					// identify the Gen of the move
