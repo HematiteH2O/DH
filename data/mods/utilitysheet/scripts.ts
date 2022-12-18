@@ -134,22 +134,40 @@ export const Scripts: ModdedBattleScriptsData = {
 			'weatherball', 'wickedblow', 'wildcharge', 'wildboltstorm', 'windshear', 'woodhammer', 'xscissor', 'zenheadbutt', 'zingzap'
 		]; // this category doesn't need to distinguish physical from special! that's handled later
 		const utilitySelfRMs = [
-			'text',
+			'acidarmor', 'acupressure', 'agility', 'amnesia', 'aquastep', 'aurawheel', 'autotomize', 'barrier', 'bellydrum', 'bloodboil', 'bulkup', 'calmmind',
+			'catharsis', 'clangoroussoul', 'coil', 'cosmicpower', 'cottonguard', 'curse', 'defendorder', 'diamondstorm', 'dragondance', 'fellstinger', 'filletaway',
+			'flamecharge', 'geomancy', 'growth', 'healorder', 'honeclaws', 'irondefense', 'junglehealing', 'liquefy', 'lunarblessing', 'magnetrise', 'metamorphosis',
+			'milkdrink', 'moonlight', 'morningsun', 'nastyplot', 'noretreat', 'ominouswind', 'painsplit', 'quiverdance', 'recover', 'refresh', 'rest', 'rockpolish',
+			'roost', 'runningstart', 'shellsmash', 'shelter', 'shiftgear', 'shoreup', 'skyattack', 'slackoff', 'softboiled', 'stockpile', 'strengthsap', 'stuffcheeks',
+			'substitute', 'surgingstrikes', 'swordsdance', 'synthesis', 'tailglow', 'takeheart', 'trailblaze', 'triplearrows', 'victorydance',
 		];
-		const doublesSelfRMs = [
-			'text',
-		];
+		const doublesSelfRMs = null; // nothing yet
 		const utilityDisruptRMs = [
-			'text',
+			'aftershock', 'anchorshot', 'backstab', 'banefulbunker', 'beakblast', 'bittermalice', 'block', 'bodyslam', 'circlethrow', 'clearsmog', 'constrict',
+			'corrosivegas', 'counter', 'covet', 'darkvoid', 'destinybond', 'direclaw', 'disable', 'dragonrage', 'dragontail', 'encore', 'esperwing', 'fairylock',
+			'fakeout', 'finalgambit', 'firespin', 'fissure', 'glare', 'guillotine', 'haze', 'heartswap', 'horndrill', 'hyperdrill', 'hypnosis', 'infernalparade',
+			'infestation', 'jawlock', 'kingsshield', 'knockoff', 'leechseed', 'lovelykiss', 'meanlook', 'memento', 'mirrorcoat', 'naturesmadness', 'nightshade',
+			'nuzzle', 'obstruct', 'octolock', 'perishsong', 'powder', 'provoke', 'psychout', 'rashpowder', 'reverb', 'revolvingdoorslam', 'roar', 'ruination',
+			'sacredfire', 'saltcure', 'sandtomb', 'scald', 'scorchingsands', 'seismictoss', 'shadydeal', 'sheercold', 'shelltrap', 'silktrap', 'sleeppowder', 'soak',
+			'sonicboom', 'spiderweb', 'spikyshield', 'spiritshackle', 'spore', 'stickyfloor', 'stunspore', 'superfang', 'switcheroo', 'taunt', 'thief', 'thousandwaves',
+			'thundercage', 'thunderwave', 'topsyturvy', 'toxic', 'toxicthread', 'trick', 'whirlwind', 'willowisp', 'windshear', 'yawn',
 		];
 		const doublesDisruptRMs = [
-			'text',
+			'acidspray', 'blackmail', 'breakingswipe', 'bulldoze', 'captivate', 'charm', 'cottonspore', 'demolition', 'detect', 'drumbeating', 'eerieimpulse',
+			'electroweb', 'faketears', 'featherdance', 'feint', 'fissurevent', 'fog', 'hyperspacefury', 'hyperspacehole', 'icywind', 'imprison', 'incinerate',
+			'luminacrash', 'matblock', 'phantomforce', 'poisongas', 'protect', 'quickguard', 'sabotage', 'screech', 'skydrop', 'snarl', 'snatch', 'splashzone',
+			'stringshot', 'strugglebug', 'wideguard',
 		];
 		const utilitySupportRMs = [
-			'text',
+			'aromatherapy', 'auroraveil', 'batonpass', 'burningcoals', 'ceaselessedge', 'chillyreception', 'contaminate', 'courtchange', 'creepingivy', 'defog',
+			'explosion', 'flipturn', 'healbell', 'healingwish', 'lastwill', 'lightscreen', 'lushmoss', 'mortalspin', 'partingshot', 'psyshieldbash', 'pyrotechnics',
+			'rapidspin', 'reflect', 'revivalblessing', 'selfdestruct', 'shedtail', 'snowshovel', 'spikes', 'stealthrock', 'stickyweb', 'stoneaxe', 'teleport', 'tidyup',
+			'toxicspikes', 'tripwire', 'uturn', 'voltswitch', 'wish',
 		];
 		const doublesSupportRMs = [
-			'text',
+			'allyswitch', 'beatup', 'cleansingwave', 'coaching', 'decorate', 'doodle', 'entrainment', 'extendinghand', 'followme', 'gravity', 'healpulse', 'helpinghand',
+			'instruct', 'lifedew', 'pollenpuff', 'ragepowder', 'reversalroom', 'simplebeam', 'skillswap', 'soothingwave', 'spicyextract', 'tailwind', 'tideturn',
+			'trickroom',
 		];
 
 		let printno = 0;
