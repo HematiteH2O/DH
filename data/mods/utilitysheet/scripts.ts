@@ -95,12 +95,44 @@ export const Scripts: ModdedBattleScriptsData = {
 		newMoves("larvitar", ["rage"]);
 
 		// declaring which moves are "competitive" in general
-		const physicalRMs = [
-			'text',
-		];
-		const specialRMs = [
-			'text',
-		];
+		const attackRMs = [
+			'accelerock', 'aciddrench', 'acidspray', 'acrobatics', 'adrenalinerush', 'aerialace', 'aeroblast', 'aftershock', 'airslash', 'anchorshot', 'ancientpower',
+			'appleacid', 'aquacutter', 'aquajet', 'aquastep', 'aquatail', 'arenatrap', 'armorcannon', 'assurance', 'astralbarrage', 'attackorder', 'aurasphere',
+			'aurawheel', 'axekick', 'barbbarrage', 'beakblast', 'behemothbash', 'behemothblade', 'belch', 'bitterblade', 'bittermalice', 'blazekick', 'bleakwindstorm',
+			'blizzard', 'bloodsuck', 'blueflare', 'bodypress', 'bodyslam', 'boltbeak', 'boltstrike', 'bonemerang', 'boomburst', 'bounce', 'bravebird', 'brickbreak',
+			'brine', 'bugbuzz', 'bulletpunch', 'bulletseed', 'burnup', 'burningjealousy', 'catharsis', 'ceaselessedge', 'chargebeam', 'chloroblast', 'circlethrow',
+			'circuitbreak', 'clangingscales', 'clearsmog', 'clockworkcannon', 'closecombat', 'collisioncourse', 'constrict', 'cooldown', 'coreenforcer', 'crabhammer',
+			'crosschop', 'crosspoison', 'crunch', 'crushgrip', 'darkpulse', 'darkestlariat', 'dazzlinggleam', 'demolition', 'diamondstorm', 'direclaw', 'discharge',
+			'doomdesire', 'doubleedge', 'doubleironbash', 'doubleshock', 'dracometeor', 'dragonascent', 'dragonclaw', 'dragondarts', 'dragonenergy', 'dragonhammer',
+			'dragonpulse', 'dragontail', 'drainpunch', 'drainingkiss', 'dreameater', 'drillpeck', 'drillrun', 'drumbeating', 'dualchop', 'dualwingbeat', 'dynamaxcannon',
+			'earthpower', 'earthquake', 'eeriespell', 'electrodrift', 'energyball', 'eruption', 'esperwing', 'eternabeam', 'expandingforce', 'explosion', 'extrasensory',
+			'extremespeed', 'facade', 'fakeout', 'falsesurrender', 'faustianbargain', 'fierydance', 'fierywrath', 'finalbreath', 'fireblast', 'firefang', 'firelash',
+			'firepunch', 'firstimpression', 'fishiousrend', 'flameburst', 'flamethrower', 'flareblitz', 'flashcannon', 'fleurcannon', 'flipturn', 'flowertrick', 'fly',
+			'flyingpress', 'focusblast', 'focuspunch', 'foulplay', 'freezedry', 'freezeshock', 'freezingglare', 'frostbreath', 'frustration', 'fusionbolt', 'fusionflare',
+			'futuresight', 'gatheringswarm', 'geargrind', 'gigadrain', 'gigatonhammer', 'glaciallance', 'glaciate', 'glaiverush', 'grassknot', 'grassyglide', 'gravapple',
+			'groundbreak', 'gunkshot', 'gyroball', 'hammerarm', 'headcharge', 'headsmash', 'headlongrush', 'heatwave', 'hex', 'hiddenpower', 'highhorsepower',
+			'highjumpkick', 'hivecall', 'hornleech', 'hurricane', 'hydropump', 'hyperdrill', 'hypervoice', 'hyperspacefury', 'hyperspacehole', 'icebeam', 'iceburn',
+			'icefang', 'icehammer', 'icepunch', 'iceshard', 'icespinner', 'iciclecrash', 'iciclespear', 'incinerate', 'infernalparade', 'ironhead', 'irontail', 'jawlock',
+			'jetpunch', 'judgment', 'jumpkick', 'knockoff', 'kowtowcleave', 'landswrath', 'lashout', 'lastrespects', 'lavaplume', 'leafblade', 'leafstorm', 'leechlife',
+			'lightofruin', 'liquefy', 'liquidation', 'lowkick', 'luminacrash', 'lunge', 'lusterpurge', 'machpunch', 'magmastorm', 'makeitrain', 'megadrain', 'megahorn',
+			'meteorassault', 'meteorbeam', 'meteormash', 'miasma', 'mindblown', 'mistball', 'mistyexplosion', 'moonblast', 'moongeistbeam', 'mortalspin', 'mountaingale',
+			'muddywater', 'multiattack', 'mysticalfire', 'mysticalpower', 'naturalgift', 'naturepower', 'nightdaze', 'nightslash', 'nosedive', 'oblivionwing', 'oilfire',
+			'orderup', 'originpulse', 'outrage', 'overdrive', 'overheat', 'overload', 'parasite', 'petalblizzard', 'petaldance', 'phantomforce', 'photongeyser',
+			'piledriver', 'pinmissile', 'plasmafists', 'playrough', 'poisonjab', 'pollenpuff', 'poltergeist', 'populationbomb', 'powergem', 'powertrip', 'poweruppunch',
+			'powerwhip', 'precipiceblades', 'prismaticlaser', 'provoke', 'psychout', 'psychic', 'psychicfangs', 'psychoboost', 'psychocut', 'psyshieldbash', 'psyshock',
+			'psystrike', 'pursuit', 'pyroball', 'quickattack', 'ragefist', 'ragingbull', 'rampageinstinct', 'rapidspin', 'razorshell', 'razorwind', 'relicsong',
+			'reputation', 'return', 'revelationdance', 'reversal', 'revolvingdoorslam', 'riposte', 'risingvoltage', 'roaroftime', 'rockblast', 'rockslide', 'rockthrow',
+			'rockwrecker', 'roilingwaves', 'rollout', 'runningbolt', 'sacredfire', 'saltcure', 'sandsearstorm', 'scald', 'scaleshot', 'scorchingsands', 'searingshot',
+			'secretsword', 'seedbomb', 'seedflare', 'selfdestruct', 'shadowball', 'shadowbone', 'shadowclaw', 'shadowforce', 'shadowsneak', 'shadydeal', 'shellsidearm',
+			'shelltrap', 'signalbeam', 'silverwind', 'skittersmack', 'skyattack', 'skyuppercut', 'sleightofhand', 'sludgebomb', 'sludgewave', 'smartstrike',
+			'smellingsalts', 'snipeshot', 'snowshovel', 'solarbeam', 'solarblade', 'spacialrend', 'spark', 'sparklingaria', 'spectralthief', 'spiderweb', 'spikyshield',
+			'spinout', 'spiritbreak', 'spiritshackle', 'spitup', 'splashzone', 'springtidestorm', 'steameruption', 'steelbeam', 'steelroller', 'stompingtantrum',
+			'stoneaxe', 'stoneedge', 'storedpower', 'stormthrow', 'strangesteam', 'suckerpunch', 'sunsteelstrike', 'superpower', 'surf', 'surgingstrikes',
+			'surpriseattack', 'switchflip', 'synchronoise', 'teardown', 'technoblast', 'terrainpulse', 'testingstrike', 'thousandarrows', 'thousandwaves', 'throatchop',
+			'thunder', 'thundercage', 'thunderfang', 'thunderpunch', 'thunderbolt', 'thunderouskick', 'torchsong', 'triattack', 'triplearrows', 'tripleaxel', 'triplekick',
+			'tropkick', 'trumpcard', 'undermine', 'uturn', 'vacuumwave', 'vcreate', 'voltswitch', 'volttackle', 'watershuriken', 'waterspout', 'waterfall', 'wavecrash',
+			'weatherball', 'wickedblow', 'wildcharge', 'wildboltstorm', 'windshear', 'woodhammer', 'xscissor', 'zenheadbutt', 'zingzap'
+		]; // this category doesn't need to distinguish physical from special! that's handled later
 		const utilitySelfRMs = [
 			'text',
 		];
@@ -298,17 +330,6 @@ export const Scripts: ModdedBattleScriptsData = {
 					if (!learned) continue;
 
 					// okay, so we know the move! now we need to figure out where it goes
-					// the rules are a lot simpler now :)
-					/*
-					physicalRMs
-					specialRMs
-					utilitySelfRMs
-					doublesSelfRMs
-					utilityDisruptRMs
-					doublesDisruptRMs
-					utilitySupportRMs
-					doublesSupportRMs
-					*/
 					
 					let competitive = false;
 					let stab1 = false;
@@ -321,7 +342,7 @@ export const Scripts: ModdedBattleScriptsData = {
 					let dDisrupt = false;
 					let uSupport = false;
 					let dSupport = false;
-					if (physicalRMs.contains(moveid) || specialRMs.contains(moveid)) {
+					if (attackRMs.contains(moveid)) {
 						if (move.type === poke.types[0]) stab1 = competitive = true;
 						if (poke.types[1] && move.type === poke.types[1]) stab2 = competitive = true;
 						if (offenseCoverage.includes(move.type) || weaknessCoverage.includes(move.type)) coverage = competitive = true;
@@ -337,7 +358,14 @@ export const Scripts: ModdedBattleScriptsData = {
 					if (competitive) {
 						if (authentic) {
 							// offensive movepool
-							if (stab1 && move.category === 'Physical') physStab1.push(move.name);
+							if (moveid === 'multiattack') physStab1.push(move.name);
+							else if (moveid === 'naturalgift') physCoverage.push(move.name);
+							else if (moveid === 'judgment' || moveid === 'revelationdance') specStab1.push(move.name);
+							else if (moveid === 'naturalgift') physCoverage.push(move.name);
+							else if (
+								moveid === 'hiddenpower' || moveid === 'naturepower' || moveid === 'technoblast' || moveid === 'terrainpulse' || moveid === 'weatherball'
+							) specCoverage.push(move.name);
+							else if (stab1 && move.category === 'Physical') physStab1.push(move.name);
 							else if (stab1 && move.category === 'Special') specStab1.push(move.name);
 							else if (stab2 && move.category === 'Physical') physStab2.push(move.name);
 							else if (stab2 && move.category === 'Special') specStab2.push(move.name);
