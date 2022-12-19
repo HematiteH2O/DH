@@ -14,13 +14,16 @@ export const Scripts: ModdedBattleScriptsData = {
 				// start with the vanilla learnset
 				const learnset = this.modData('Learnsets', this.toID(id)).learnset;
 				let learnset2 = null;
+				let poke2 = null;
 
 				// if the Pokémon has pre-evolutions, add their learnsets, too!
 				if (poke.baseSpecies) {
-					const poke2 = this.dataCache.Pokedex[this.toID(poke.baseSpecies)];
+					poke2 = this.dataCache.Pokedex[this.toID(poke.baseSpecies)];
 					learnset2 = this.modData('Learnsets', this.toID(poke.baseSpecies)).learnset;
 				}
+				const stabAdditions: string[] = [];
 				const additions: string[] = [];
+				const stabDeletions: string[] = [];
 				const deletions: string[] = [];
 
 				for (const moveid in this.dataCache.Moves) {
@@ -30,21 +33,23 @@ export const Scripts: ModdedBattleScriptsData = {
 					let oriLearned = false;
 					if (learnset[moveid]) { // if it learns the move itself
 						for (const source of learnset[moveid]) {
-							if (parseInt(source.charAt(0)) >= pokeGen && parseInt(source.charAt(1) !== 'V') varLearned = true;
+							if (parseInt(source.charAt(0)) >= pokeGen && parseInt(source.charAt(1) !== 'V')) varLearned = true;
 						}
 					}
 					if (learnset2[moveid]) { // if it learns the move itself
 						for (const source of learnset2[moveid]) {
-							if (parseInt(source.charAt(0)) >= pokeGen && parseInt(source.charAt(1) !== 'V') oriLearned = true;
+							if (parseInt(source.charAt(0)) >= pokeGen && parseInt(source.charAt(1) !== 'V')) oriLearned = true;
 						}
 					}
-					if (varLearned && !oriLearned) additions.push(move.name);
-					if (!varLearned && oriLearned) deletions.push(move.name);
+					if (varLearned && !oriLearned && poke.types.includes[move.type]) stabAdditions.push(move.name);
+					if (varLearned && !oriLearned && !poke.types.includes[move.type]) additions.push(move.name);
+					if (!varLearned && oriLearned && poke2.types.includes[move.type]) stabDeletions.push(move.name);
+					if (!varLearned && oriLearned && !poke2.types.includes[move.type]) deletions.push(move.name);
 				}
 				const sheetOutput: string[] = [];
 				var iconname = poke.name.toLowerCase();
 				var iconid = iconname.replace(" ", `-`).replace(`.`, ``).replace(`:`, ``).replace(`\u2019`, ``).replace(`%`, ``); // to get rid of spaces and periods
-				sheetOutput.push(`=IMAGE("https://www.smogon.com/forums//media/minisprites/` + iconid + `.png",3)~` + poke.name + "~" + poke.types[0] + "~" + (poke.types[1] ? poke.types[1] : "") + "~" + additions + "~" + deletions);
+				sheetOutput.push(`=IMAGE("https://www.smogon.com/forums//media/minisprites/` + iconid + `.png",3)~` + poke.name + "~" + poke.types[0] + "~" + (poke.types[1] ? poke.types[1] : "") + "~" + stabAdditions + "~" + additions + "~" + stabDeletions + "~" + deletions);
 				poke.sheetOutput = sheetOutput;
 			}
 		}
