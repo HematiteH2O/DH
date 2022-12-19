@@ -34,7 +34,7 @@ export const Scripts: ModdedBattleScriptsData = {
 						}
 					}
 					if (learnset2[moveid]) { // if it learns the move itself
-						for (const source of learnset[moveid]) {
+						for (const source of learnset2[moveid]) {
 							if (parseInt(source.charAt(0)) >= pokeGen && parseInt(source.charAt(1)) !== 'V') oriLearned = true;
 						}
 					}
