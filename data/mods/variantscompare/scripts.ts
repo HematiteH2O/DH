@@ -35,20 +35,22 @@ export const Scripts: ModdedBattleScriptsData = {
 					let oriLearned = false;
 					if (learnset[moveid]) { // if it learns the move itself
 						for (const source of learnset[moveid]) {
-							if (parseInt(source.charAt(0)) >= pokeGen && parseInt(source.charAt(1) !== 'V')) varLearned = true;
+							if (parseInt(source.charAt(1) === 'V')) continue;
+							if (parseInt(source.charAt(0)) >= pokeGen) varLearned = true;
 						}
 					}
 					if (learnset2[moveid]) { // if it learns the move itself
 						for (const source of learnset2[moveid]) {
-							if (parseInt(source.charAt(0)) >= pokeGen && parseInt(source.charAt(1) !== 'V')) oriLearned = true;
+							if (parseInt(source.charAt(1) === 'V')) continue;
+							if (parseInt(source.charAt(0)) >= pokeGen) oriLearned = true;
 						}
 					}
 					if (varLearned && !oriLearned) {
-						if (poke.types[0] === move.type || (poke.types[1] && poke.types[1] === move.type)) stabAdditions.push(move.name);
+						if (poke.types.includes(move.type)) stabAdditions.push(move.name);
 						else additions.push(move.name);
 					}
 					if (!varLearned && oriLearned) {
-						if (poke2.types[0] === move.type || (poke2.types[1] && poke2.types[1] === move.type)) stabDeletions.push(move.name);
+						if (poke2.types.includes(move.type)) stabDeletions.push(move.name);
 						else deletions.push(move.name);
 					}
 				}
