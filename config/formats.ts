@@ -65,7 +65,7 @@ export const Formats: FormatList = [
 				if (poke && poke.sheetOutput) this.add('-message', `${poke.sheetOutput}`);
 			}
 		},
-		mod: 'utilitysheet',
+		mod: 'variantscompare',
 	},
 
 ];
