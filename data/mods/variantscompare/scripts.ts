@@ -2,7 +2,7 @@ export const Scripts: ModdedBattleScriptsData = {
 	init() {
 		for (const id in this.dataCache.Pokedex) {
 			const poke = this.dataCache.Pokedex[id];
-			if (!poke || (!id.contains('alola') && !id.contains('galar') && !id.contains('hisui') && !id.contains('paldea'))) continue;
+			if (!poke || (!id.endsWith('alola') && !id.endsWith('galar') && !id.endsWith('hisui') && !id.endsWith('paldea'))) continue;
 			if (this.dataCache.Learnsets[id] && this.dataCache.Learnsets[id].learnset) {
 
 				// identify the Pokémon's Gen of origin before going any further - it's useful!
