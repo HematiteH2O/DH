@@ -21,6 +21,8 @@ export const Scripts: ModdedBattleScriptsData = {
 					poke2 = this.dataCache.Pokedex[this.toID(poke.baseSpecies)];
 					learnset2 = this.modData('Learnsets', this.toID(poke.baseSpecies)).learnset;
 				}
+				let test = null;
+				if (test) console.log("test!");
 				const stabAdditions: string[] = [];
 				const additions: string[] = [];
 				const stabDeletions: string[] = [];
