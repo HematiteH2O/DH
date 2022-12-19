@@ -41,10 +41,12 @@ export const Scripts: ModdedBattleScriptsData = {
 							if (parseInt(source.charAt(0)) >= pokeGen && parseInt(source.charAt(1) !== 'V')) oriLearned = true;
 						}
 					}
-					if (varLearned && !oriLearned && poke.types.includes[move.type]) stabAdditions.push(move.name);
-					if (varLearned && !oriLearned && !poke.types.includes[move.type]) additions.push(move.name);
-					if (!varLearned && oriLearned && poke2.types.includes[move.type]) stabDeletions.push(move.name);
-					if (!varLearned && oriLearned && !poke2.types.includes[move.type]) deletions.push(move.name);
+					if (varLearned && !oriLearned) {
+						if (poke.types[0] === move.type || (poke.types[1] && poke.types[1] === move.type)) stabAdditions.push(move.name);
+						else additions.push(move.name);
+					if (!varLearned && oriLearned) {
+						if (poke2.types[0] === move.type || (poke2.types[1] && poke2.types[1] === move.type)) stabDeletions.push(move.name);
+						else deletions.push(move.name);
 				}
 				const sheetOutput: string[] = [];
 				var iconname = poke.name.toLowerCase();
