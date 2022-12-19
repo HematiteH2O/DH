@@ -30,7 +30,7 @@ export const Scripts: ModdedBattleScriptsData = {
 					let oriLearned = false;
 					if (learnset[moveid]) { // if it learns the move itself
 						for (const source of learnset[moveid]) {
-							if (parseInt(source.charAt(0)) >= pokeGen) varLearned = true;
+							if (parseInt(source.charAt(0)) >= pokeGen && parseInt(source.charAt(1)) !== 'V') varLearned = true;
 						}
 					}
 					if (learnset2[moveid]) { // if it learns the move itself
