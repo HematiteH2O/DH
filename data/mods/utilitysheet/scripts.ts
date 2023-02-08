@@ -24,8 +24,8 @@ export const Scripts: ModdedBattleScriptsData = {
 			'waterpulse', 'waterfall', 'worryseed', 'zenheadbutt',
 		]; // excludes Captivate
 		const movepoolSections = {
-			0: "Burn",
-			1: "Flavor"
+			Burn: 0,
+			Flavor: 0,
 		}; // provisional
 
 		// event moves from Gen I and Gen II
