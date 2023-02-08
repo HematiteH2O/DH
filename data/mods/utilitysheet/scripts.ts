@@ -405,13 +405,6 @@ export const Scripts: ModdedBattleScriptsData = {
 						}
 					}
 
-					if (status.includes(moveid)) {
-						// push the move's name to the appropriate categories
-						if (learnedNatural) poke.learnsetCumulative.Flavor.Moves.natural.push(move.name);
-						if (learnedTmTutor) poke.learnsetCumulative.Flavor.Moves.tmTutor.push(move.name);
-						if (!learnedNatural && !learnedTmTutor) poke.learnsetCumulative.Flavor.Moves.fringe.push(move.name);
-					}
-
 					if (!competitive) {
 						// push the move's name to the appropriate categories
 						if (learnedNatural) poke.learnsetCumulative.Flavor.Moves.natural.push(move.name);
