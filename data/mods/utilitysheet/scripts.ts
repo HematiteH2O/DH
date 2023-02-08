@@ -461,47 +461,32 @@ export const Scripts: ModdedBattleScriptsData = {
 				];
 				if (poke.types[0]) {
 					const moveType = poke.types[0];
-					if (
-						poke.learnsetCumulative[moveType].Physical.natural || poke.learnsetCumulative[moveType].Physical.tmTutor || poke.learnsetCumulative[moveType].Physical.fringe
-					) {
-						sheetOutput += (printno) + "~6~" + moveType + "~Physical~" + (poke.learnsetCumulative[moveType].Physical.natural || "") + "~~~" + (poke.learnsetCumulative[moveType].Physical.tmTutor || "") + "~~" + (poke.learnsetCumulative[moveType].Physical.fringe || "") + "" + `\n`;
-					}
-					if (
-						poke.learnsetCumulative[moveType].Special.natural || poke.learnsetCumulative[moveType].Special.tmTutor || poke.learnsetCumulative[moveType].Special.fringe
-					) {
-						sheetOutput += (printno) + "~6~" + moveType + "~Special~" + (poke.learnsetCumulative[moveType].Special.natural || "") + "~~~" + (poke.learnsetCumulative[moveType].Special.tmTutor || "") + "~~" + (poke.learnsetCumulative[moveType].Special.fringe || "") + "" + `\n`;
-					}
+					const testString = [];
+					if (poke.learnsetCumulative[moveType].Physical.natural + poke.learnsetCumulative[moveType].Physical.tmTutor + poke.learnsetCumulative[moveType].Physical.fringe) === testString) continue;
+					sheetOutput += (printno) + "~6~" + moveType + "~Physical~" + (poke.learnsetCumulative[moveType].Physical.natural || "") + "~~~" + (poke.learnsetCumulative[moveType].Physical.tmTutor || "") + "~~" + (poke.learnsetCumulative[moveType].Physical.fringe || "") + "" + `\n`;
+					if (poke.learnsetCumulative[moveType].Special.natural + poke.learnsetCumulative[moveType].Special.tmTutor + poke.learnsetCumulative[moveType].Special.fringe) === testString) continue;
+					sheetOutput += (printno) + "~6~" + moveType + "~Special~" + (poke.learnsetCumulative[moveType].Special.natural || "") + "~~~" + (poke.learnsetCumulative[moveType].Special.tmTutor || "") + "~~" + (poke.learnsetCumulative[moveType].Special.fringe || "") + "" + `\n`;
 				}
 				if (poke.types[1]) {
 					const moveType = poke.types[1];
-					if (
-						poke.learnsetCumulative[moveType].Physical.natural !== [] || poke.learnsetCumulative[moveType].Physical.tmTutor !== [] || poke.learnsetCumulative[moveType].Physical.fringe !== []
-					) {
-						sheetOutput += (printno) + "~6~" + moveType + "~Physical~" + (poke.learnsetCumulative[moveType].Physical.natural || "") + "~~~" + (poke.learnsetCumulative[moveType].Physical.tmTutor || "") + "~~" + (poke.learnsetCumulative[moveType].Physical.fringe || "") + "" + `\n`;
-					}
-					if (
-						poke.learnsetCumulative[moveType].Special.natural !== [] || poke.learnsetCumulative[moveType].Special.tmTutor !== [] || poke.learnsetCumulative[moveType].Special.fringe !== []
-					) {
-						sheetOutput += (printno) + "~6~" + moveType + "~Special~" + (poke.learnsetCumulative[moveType].Special.natural || "") + "~~~" + (poke.learnsetCumulative[moveType].Special.tmTutor || "") + "~~" + (poke.learnsetCumulative[moveType].Special.fringe || "") + "" + `\n`;
-					}
+					const testString = [];
+					if (poke.learnsetCumulative[moveType].Physical.natural + poke.learnsetCumulative[moveType].Physical.tmTutor + poke.learnsetCumulative[moveType].Physical.fringe) === testString) continue;
+					sheetOutput += (printno) + "~6~" + moveType + "~Physical~" + (poke.learnsetCumulative[moveType].Physical.natural || "") + "~~~" + (poke.learnsetCumulative[moveType].Physical.tmTutor || "") + "~~" + (poke.learnsetCumulative[moveType].Physical.fringe || "") + "" + `\n`;
+					if (poke.learnsetCumulative[moveType].Special.natural + poke.learnsetCumulative[moveType].Special.tmTutor + poke.learnsetCumulative[moveType].Special.fringe) === testString) continue;
+					sheetOutput += (printno) + "~6~" + moveType + "~Special~" + (poke.learnsetCumulative[moveType].Special.natural || "") + "~~~" + (poke.learnsetCumulative[moveType].Special.tmTutor || "") + "~~" + (poke.learnsetCumulative[moveType].Special.fringe || "") + "" + `\n`;
 				}
 				for (const moveType in this.dataCache.TypeChart) {
 					if (poke.types[0] === moveType || (poke.types[1] && poke.types[1] === moveType)) continue;
-					if (
-						poke.learnsetCumulative[moveType].Physical.natural !== [] || poke.learnsetCumulative[moveType].Physical.tmTutor !== [] || poke.learnsetCumulative[moveType].Physical.fringe !== []
-					) {
-						sheetOutput += (printno) + "~6~" + moveType + "~Physical~" + (poke.learnsetCumulative[moveType].Physical.natural || "") + "~~~" + (poke.learnsetCumulative[moveType].Physical.tmTutor || "") + "~~" + (poke.learnsetCumulative[moveType].Physical.fringe || "") + "" + `\n`;
-					}
-					if (
-						poke.learnsetCumulative[moveType].Special.natural !== [] || poke.learnsetCumulative[moveType].Special.tmTutor !== [] || poke.learnsetCumulative[moveType].Special.fringe !== []
-					) {
-						sheetOutput += (printno) + "~6~" + moveType + "~Special~" + (poke.learnsetCumulative[moveType].Special.natural || "") + "~~~" + (poke.learnsetCumulative[moveType].Special.tmTutor || "") + "~~" + (poke.learnsetCumulative[moveType].Special.fringe || "") + "" + `\n`;
-					}
+					const testString = [];
+					if (poke.learnsetCumulative[moveType].Physical.natural + poke.learnsetCumulative[moveType].Physical.tmTutor + poke.learnsetCumulative[moveType].Physical.fringe) === testString) continue;
+					sheetOutput += (printno) + "~6~" + moveType + "~Physical~" + (poke.learnsetCumulative[moveType].Physical.natural || "") + "~~~" + (poke.learnsetCumulative[moveType].Physical.tmTutor || "") + "~~" + (poke.learnsetCumulative[moveType].Physical.fringe || "") + "" + `\n`;
+					if (poke.learnsetCumulative[moveType].Special.natural + poke.learnsetCumulative[moveType].Special.tmTutor + poke.learnsetCumulative[moveType].Special.fringe) === testString) continue;
+					sheetOutput += (printno) + "~6~" + moveType + "~Special~" + (poke.learnsetCumulative[moveType].Special.natural || "") + "~~~" + (poke.learnsetCumulative[moveType].Special.tmTutor || "") + "~~" + (poke.learnsetCumulative[moveType].Special.fringe || "") + "" + `\n`;
 				}
 				for (const section in movepoolSections) {
-					if (poke.learnsetCumulative[section].Moves.natural !== [] || poke.learnsetCumulative[section].Moves.tmTutor !== [] || poke.learnsetCumulative[section].Moves.fringe !== []) {
-						sheetOutput += (printno) + "~7~" + section + "~~" + (poke.learnsetCumulative[section].Moves.natural || "") + "~~~" + (poke.learnsetCumulative[section].Moves.tmTutor || "") + "~~" + (poke.learnsetCumulative[section].Moves.fringe || "") + "" + `\n`;
-					}
+					const testString = [];
+					if (poke.learnsetCumulative[section].Moves.natural + poke.learnsetCumulative[section].Moves.tmTutor + poke.learnsetCumulative[section].Moves.fringe) === testString) continue;
+					sheetOutput += (printno) + "~7~" + section + "~~" + (poke.learnsetCumulative[section].Moves.natural || "") + "~~~" + (poke.learnsetCumulative[section].Moves.tmTutor || "") + "~~" + (poke.learnsetCumulative[section].Moves.fringe || "") + "" + `\n`;
 				}
 				sheetOutput += (printno) + "~8~";
 				
