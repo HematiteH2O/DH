@@ -23,8 +23,10 @@ export const Scripts: ModdedBattleScriptsData = {
 			'superpower', 'swift', 'synthesis', 'tailwind', 'thunderpunch', 'trick', 'twister', 'uproar', 'vcreate', 'vacuumwave', 'volttackle', 'waterpledge',
 			'waterpulse', 'waterfall', 'worryseed', 'zenheadbutt',
 		]; // excludes Captivate
-		const categories = ['Physical', 'Special', 'Status'];
-		const movepoolSections = ['natural', 'tmTutor', 'fringe'];
+		const movepoolSections = {
+			0: "Burn",
+			1: "Flavor"
+		}; // provisional
 
 		// event moves from Gen I and Gen II
 		const newMoves = (mon: string, moves: string[]) => {
@@ -189,6 +191,15 @@ export const Scripts: ModdedBattleScriptsData = {
 							fringe: [],
 						},
 						Special: {
+							natural: [],
+							tmTutor: [],
+							fringe: [],
+						},
+					};
+				}
+				for (const section in movepoolSections) {
+					poke.learnsetCumulative[section] = {
+						Moves: {
 							natural: [],
 							tmTutor: [],
 							fringe: [],
@@ -379,18 +390,13 @@ export const Scripts: ModdedBattleScriptsData = {
 					if (doublesDisruptRMs.includes(moveid)) dDisrupt = competitive = true;
 					if (utilitySupportRMs.includes(moveid)) uSupport = competitive = true;
 					if (doublesSupportRMs.includes(moveid)) dSupport = competitive = true;
-					if (!competitive) {
-						// have the appropriate categories been initialized?
-						if (!poke.learnsetCumulative.flavor) poke.learnsetCumulative.flavor = {};
-						if (learnedNatural && !poke.learnsetCumulative.flavor.natural) poke.learnsetCumulative.flavor.natural: string[] = [];
-						if (learnedTmTutor && !poke.learnsetCumulative.flavor.tmTutor) poke.learnsetCumulative.flavor.tmTutor: string[] = [];
-						if (!learnedNatural && !learnedTmTutor && !poke.learnsetCumulative.flavor.fringe) poke.learnsetCumulative.flavor.fringe: string[] = [];
-						// push the move's name to the appropriate categories
-						if (learnedNatural) poke.learnsetCumulative.flavor.natural.push(move.name);
-						if (learnedTmTutor) poke.learnsetCumulative.flavor.tmTutor.push(move.name);
-						if (!learnedNatural && !learnedTmTutor) poke.learnsetCumulative.flavor.fringe.push(move.name);
-					}
 					*/
+					if (!competitive) {
+						// push the move's name to the appropriate categories
+						if (learnedNatural) poke.learnsetCumulative.Flavor.Moves.natural.push(move.name);
+						if (learnedTmTutor) poke.learnsetCumulative.Flavor.Moves.tmTutor.push(move.name);
+						if (!learnedNatural && !learnedTmTutor) poke.learnsetCumulative.Flavor.Moves.fringe.push(move.name);
+					}
 				}
 
 				// abilities
@@ -451,6 +457,7 @@ export const Scripts: ModdedBattleScriptsData = {
 				*/
 				console.log(poke.learnsetCumulative);
 				console.log(poke.learnsetCumulative.Grass.Physical.tmTutor);
+				console.log(poke.learnsetCumulative.Flavor.Moves.fringe);
 				return; // just print Venusaur for now
 			}
 		}
