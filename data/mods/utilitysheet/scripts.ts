@@ -24,19 +24,57 @@ export const Scripts: ModdedBattleScriptsData = {
 			'waterpulse', 'waterfall', 'worryseed', 'zenheadbutt',
 		]; // excludes Captivate
 		const movepoolSections = {
-			Status: 0,
-			Cleric: 0,
-			Recovery: 0,
-			FieldControl: 0,
-			Setup: 0,
-			SetupControl: 0,
-			ItemControl: 0,
-			MoveBinding: 0,
-			FixedDamage: 0,
-			Momentum: 0,
-			DoublesDisrupt: 0,
-			DoublesSupport: 0,
-			Flavor: 0,
+			Status: [
+				'aftershock', 'banefulbunker', 'beakblast', 'bittermalice', 'bodyslam', 'darkvoid', 'direclaw', 'glare', 'hypnosis', 'infernalparade', 'lovelykiss', 'nuzzle',
+				'rashpowder', 'sacredfire', 'saltcure', 'scald', 'scorchingsands', 'sleeppowder', 'spore', 'stunspore', 'thunderwave', 'toxicthread', 'willowisp'
+			],
+			Cleric: [
+				'aromatherapy', 'catharsis', 'healbell', 'junglehealing', 'lunarblessing', 'refresh', 'takeheart',
+			],
+			Recovery: [
+				'healorder', 'leechseed', 'milkdrink', 'moonlight', 'morningsun', 'painsplit', 'recover', 'revivalblessing', 'roost', 'shoreup', 'slackoff', 'softboiled',
+				'strengthsap', 'synthesis', 'wish',
+			],
+			FieldControl: [
+				'auroraveil', 'backstab', 'ceaselessedge', 'contaminate', 'courtchange', 'creepingivy', 'defog', 'lightscreen', 'lushmoss', 'mortalspin', 'psyshieldbash',
+				'rapidspin', 'reflect', 'snowshovel', 'spikes', 'stealthrock', 'stickyweb', 'stoneaxe', 'tidyup', 'toxicspikes', 'tripwire',
+			],
+			Setup: [
+				'acidarmor', 'acupressure', 'agility', 'amnesia', 'aquastep', 'aurawheel', 'autotomize', 'barrier', 'bellydrum', 'bloodboil', 'bulkup', 'calmmind',
+				'clangoroussoul', 'coil', 'cosmicpower', 'cottonguard', 'curse', 'defendorder', 'diamondstorm', 'dragondance', 'filletaway', 'flamecharge', 'geomancy',
+				'growth', 'honeclaws', 'irondefense', 'metamorphosis', 'nastyplot', 'noretreat', 'quiverdance', 'rockpolish', 'runningstart', 'shellsmash', 'shelter',
+				'shiftgear', 'stockpile', 'stuffcheeks', 'surgingstrikes', 'swordsdance', 'tailglow', 'takeheart', 'trailblaze', 'triplearrows', 'victorydance',
+			],
+			SetupControl: [
+				'circlethrow', 'clearsmog', 'dragontail', 'haze', 'heartswap', 'perishsong', 'revolvingdoorslam', 'roar', 'topsyturvy', 'whirlwind', 'yawn',
+			],
+			ItemControl: [
+				'corrosivegas', 'covet', 'knockoff', 'shadydeal', 'switcheroo', 'thief', 'trick',
+			],
+			MoveBinding: [
+				'anchorshot', 'block', 'destinybond', 'disable', 'encore', 'fairylock', 'firespin', 'infestation', 'jawlock', 'magnetrise', 'meanlook', 'octolock', 'powder',
+				'provoke', 'reverb', 'sandtomb', 'spiderweb', 'spiritshackle', 'stickyfloor', 'taunt', 'thousandwaves', 'thundercage',
+			],
+			FixedDamage: [
+				'counter', 'dragonrage', 'finalgambit', 'fissure', 'guillotine', 'horndrill', 'mirrorcoat', 'naturesmadness', 'nightshade', 'ruination', 'seismictoss',
+				'sheercold', 'sonicboom', 'superfang',
+			],
+			Momentum: [
+				'batonpass', 'chillyreception', 'explosion', 'flipturn', 'healingwish', 'memento', 'partingshot', 'pyrotechnics', 'selfdestruct', 'shedtail', 'teleport',
+				'uturn', 'voltswitch',
+			],
+			DoublesDisrupt: [
+				'acidspray', 'blackmail', 'breakingswipe', 'bulldoze', 'captivate', 'charm', 'constrict', 'cottonspore', 'demolition', 'detect', 'drumbeating', 'eerieimpulse',
+				'electroweb', 'esperwing', 'fakeout', 'faketears', 'featherdance', 'feint', 'fissurevent', 'fog', 'hyperdrill', 'hyperspacefury', 'hyperspacehole', 'icywind',
+				'imprison', 'incinerate', 'kingsshield', 'luminacrash', 'matblock', 'obstruct', 'phantomforce', 'poisongas', 'psychout', 'quickguard', 'sabotage', 'screech',
+				'shelltrap', 'silktrap', 'skydrop', 'snarl', 'snatch', 'spikyshield', 'splashzone', 'stringshot', 'strugglebug', 'wideguard',
+			],
+			DoublesSupport: [
+				'allyswitch', 'beatup', 'cleansingwave', 'coaching', 'decorate', 'doodle', 'entrainment', 'extendinghand', 'followme', 'gravity', 'healpulse', 'helpinghand',
+				'instruct', 'lifedew', 'pollenpuff', 'ragepowder', 'reversalroom', 'simplebeam', 'skillswap', 'soak', 'soothingwave', 'spicyextract', 'tailwind', 'tideturn',
+				'trickroom', 'windshear',
+			],
+			Flavor: [],
 		}; // provisional
 
 		// event moves from Gen I and Gen II
@@ -150,62 +188,6 @@ export const Scripts: ModdedBattleScriptsData = {
 			'zenheadbutt', 'zingzap'
 		]; // this category doesn't need to distinguish physical from special! that's handled later
 		// excludes Hidden Power and Natural Gift
-
-		const utilitySupportRMs = [
-			'aromatherapy', 'auroraveil', 'batonpass', 'burningcoals', 'ceaselessedge', 'chillyreception', 'contaminate', 'courtchange', 'creepingivy', 'defog',
-			'explosion', 'flipturn', 'healbell', 'healingwish', 'lastwill', 'lightscreen', 'lushmoss', 'mortalspin', 'partingshot', 'psyshieldbash', 'pyrotechnics',
-			'rapidspin', 'reflect', 'revivalblessing', 'selfdestruct', 'shedtail', 'snowshovel', 'spikes', 'stealthrock', 'stickyweb', 'stoneaxe', 'teleport', 'tidyup',
-			'toxicspikes', 'tripwire', 'uturn', 'voltswitch', 'wish',
-		];
-
-		const status = [
-			'aftershock', 'banefulbunker', 'beakblast', 'bittermalice', 'bodyslam', 'darkvoid', 'direclaw', 'glare', 'hypnosis', 'infernalparade', 'lovelykiss', 'nuzzle',
-			'rashpowder', 'sacredfire', 'saltcure', 'scald', 'scorchingsands', 'sleeppowder', 'spore', 'stunspore', 'thunderwave', 'toxicthread', 'willowisp',
-		];
-		const cleric = [
-			'catharsis', 'junglehealing', 'lunarblessing', 'refresh', 'takeheart',
-		];
-		const recovery = [
-			'healorder', 'leechseed', 'milkdrink', 'moonlight', 'morningsun', 'painsplit', 'recover', 'roost', 'shoreup', 'slackoff', 'softboiled', 'strengthsap',
-			'synthesis',
-		];
-		const fieldControl = [
-			'backstab',
-		];
-		const setup = [
-			'acidarmor', 'acupressure', 'agility', 'amnesia', 'aquastep', 'aurawheel', 'autotomize', 'barrier', 'bellydrum', 'bloodboil', 'bulkup', 'calmmind',
-			'clangoroussoul', 'coil', 'cosmicpower', 'cottonguard', 'curse', 'defendorder', 'diamondstorm', 'dragondance', 'filletaway', 'flamecharge', 'geomancy',
-			'growth', 'honeclaws', 'irondefense', 'metamorphosis', 'nastyplot', 'noretreat', 'quiverdance', 'rockpolish', 'runningstart', 'shellsmash', 'shelter',
-			'shiftgear', 'stockpile', 'stuffcheeks', 'surgingstrikes', 'swordsdance', 'tailglow', 'takeheart', 'trailblaze', 'triplearrows', 'victorydance',
-		];
-		const setupControl = [
-			'circlethrow', 'clearsmog', 'dragontail', 'haze', 'heartswap', 'perishsong', 'revolvingdoorslam', 'roar', 'topsyturvy', 'whirlwind', 'yawn',
-		];
-		const itemControl = [
-			'corrosivegas', 'covet', 'knockoff', 'shadydeal', 'switcheroo', 'thief', 'trick',
-		];
-		const moveBinding = [
-			'anchorshot', 'block', 'destinybond', 'disable', 'encore', 'fairylock', 'firespin', 'infestation', 'jawlock', 'magnetrise', 'meanlook', 'octolock', 'powder',
-			'provoke', 'reverb', 'sandtomb', 'spiderweb', 'spiritshackle', 'stickyfloor', 'taunt', 'thousandwaves', 'thundercage',
-		];
-		const fixedDamage = [
-			'counter', 'dragonrage', 'finalgambit', 'fissure', 'guillotine', 'horndrill', 'mirrorcoat', 'naturesmadness', 'nightshade', 'ruination', 'seismictoss',
-			'sheercold', 'sonicboom', 'superfang',
-		];
-		const momentum = [
-			'memento',
-		];
-		const doublesDisrupt = [
-			'acidspray', 'blackmail', 'breakingswipe', 'bulldoze', 'captivate', 'charm', 'constrict', 'cottonspore', 'demolition', 'detect', 'drumbeating', 'eerieimpulse',
-			'electroweb', 'esperwing', 'fakeout', 'faketears', 'featherdance', 'feint', 'fissurevent', 'fog', 'hyperdrill', 'hyperspacefury', 'hyperspacehole', 'icywind',
-			'imprison', 'incinerate', 'kingsshield', 'luminacrash', 'matblock', 'obstruct', 'phantomforce', 'poisongas', 'psychout', 'quickguard', 'sabotage', 'screech',
-			'shelltrap', 'silktrap', 'skydrop', 'snarl', 'snatch', 'spikyshield', 'splashzone', 'stringshot', 'strugglebug', 'wideguard',
-		];
-		const doublesSupport = [
-			'allyswitch', 'beatup', 'cleansingwave', 'coaching', 'decorate', 'doodle', 'entrainment', 'extendinghand', 'followme', 'gravity', 'healpulse', 'helpinghand',
-			'instruct', 'lifedew', 'pollenpuff', 'ragepowder', 'reversalroom', 'simplebeam', 'skillswap', 'soak', 'soothingwave', 'spicyextract', 'tailwind', 'tideturn',
-			'trickroom', 'windshear',
-		];
 
 		let printno = 0;
 		for (const id in this.dataCache.Pokedex) {
@@ -414,15 +396,22 @@ export const Scripts: ModdedBattleScriptsData = {
 							if (!learnedNatural && !learnedTmTutor) poke.learnsetCumulative[type][move.category].fringe.push(move.name);
 						}
 					}
-					// will have subcategories for utility... later
-					/*
-					if (utilitySelfRMs.includes(moveid)) uSelf = competitive = true;
-					// if (doublesSelfRMs.includes(moveid)) dSelf = competitive = true;
-					if (utilityDisruptRMs.includes(moveid)) uDisrupt = competitive = true;
-					if (doublesDisruptRMs.includes(moveid)) dDisrupt = competitive = true;
-					if (utilitySupportRMs.includes(moveid)) uSupport = competitive = true;
-					if (doublesSupportRMs.includes(moveid)) dSupport = competitive = true;
-					*/
+					for (const section in movepoolSections) {
+						if ([section].includes(moveid)) {
+							competitive = true;
+							if (learnedNatural) poke.learnsetCumulative[section].Moves.natural.push(move.name);
+							if (learnedTmTutor) poke.learnsetCumulative[section].Moves.tmTutor.push(move.name);
+							if (!learnedNatural && !learnedTmTutor) poke.learnsetCumulative[section].Moves.fringe.push(move.name);
+						}
+					}
+
+					if (status.includes(moveid)) {
+						// push the move's name to the appropriate categories
+						if (learnedNatural) poke.learnsetCumulative.Flavor.Moves.natural.push(move.name);
+						if (learnedTmTutor) poke.learnsetCumulative.Flavor.Moves.tmTutor.push(move.name);
+						if (!learnedNatural && !learnedTmTutor) poke.learnsetCumulative.Flavor.Moves.fringe.push(move.name);
+					}
+
 					if (!competitive) {
 						// push the move's name to the appropriate categories
 						if (learnedNatural) poke.learnsetCumulative.Flavor.Moves.natural.push(move.name);
@@ -490,6 +479,7 @@ export const Scripts: ModdedBattleScriptsData = {
 				console.log(poke.learnsetCumulative);
 				console.log(poke.learnsetCumulative.Grass.Physical.tmTutor);
 				console.log(poke.learnsetCumulative.Flavor.Moves.fringe);
+				console.log(poke.learnsetCumulative.Recovery.Moves.fringe);
 				return; // just print Venusaur for now
 			}
 		}
