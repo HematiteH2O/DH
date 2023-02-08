@@ -23,7 +23,7 @@ export const Scripts: ModdedBattleScriptsData = {
 			'superpower', 'swift', 'synthesis', 'tailwind', 'thunderpunch', 'trick', 'twister', 'uproar', 'vcreate', 'vacuumwave', 'volttackle', 'waterpledge',
 			'waterpulse', 'waterfall', 'worryseed', 'zenheadbutt',
 		]; // excludes Captivate
-		const categories = ['physical', 'special', 'status'];
+		const categories = ['Physical', 'Special', 'Status'];
 		const movepoolSections = ['natural', 'tmTutor', 'fringe'];
 
 		// event moves from Gen I and Gen II
@@ -342,21 +342,28 @@ export const Scripts: ModdedBattleScriptsData = {
 					// okay, so we know the move! now we need to figure out where it goes
 					let competitive = false;
 					poke.learnsetCumulative = {};
+					for (const moveType in this.dataCache.TypeChart) {
+						poke.learnsetCumulative[moveType] = {};
+						for (const moveCategory in categories) {
+							poke.learnsetCumulative[moveType][moveCategory] = {};
+							for (const learnStyle in movepoolSections) {
+								poke.learnsetCumulative[moveType][moveCategory][learnStyle]: string[] = [];
+							}
+						}
+					}
 					
 					if (attackRMs.includes(moveid)) {
-						competitive = true;
 						// what type is it?
 						const type = (moveid === 'judgment' || moveid === 'multiattack' || moveid === 'ragingbull' || moveid === 'revelationdance') ? poke.types[0] : move.type;
-						// have the appropriate categories been initialized?
-						if (!poke.learnsetCumulative[move.type]) poke.learnsetCumulative[move.type] = {};
-						if (!poke.learnsetCumulative[move.type][move.category]) poke.learnsetCumulative[move.type][move.category] = {};
-						if (learnedNatural && !poke.learnsetCumulative[move.type][move.category].natural) poke.learnsetCumulative[move.type][move.category].natural: string[] = [];
-						if (learnedTmTutor && !poke.learnsetCumulative[move.type][move.category].tmTutor) poke.learnsetCumulative[move.type][move.category].tmTutor: string[] = [];
-						if (!learnedNatural && !learnedTmTutor && !poke.learnsetCumulative[move.type][move.category].fringe) poke.learnsetCumulative[move.type][move.category].fringe: string[] = [];
-						// push the move's name to the appropriate categories
-						if (learnedNatural) poke.learnsetCumulative[move.type][move.category].natural.push(move.name);
-						if (learnedTmTutor) poke.learnsetCumulative[move.type][move.category].natural.push(move.name);
-						if (!learnedNatural && !learnedTmTutor) poke.learnsetCumulative[move.type][move.category].fringe.push(move.name);
+						if (
+							poke.types[0] === type || (poke.types[1] && poke.types[1] === type) || offenseCoverage.includes(type) || weaknessCoverage.includes(type)
+							|| otherCoverage.includes(type)
+						) { // for attacking moves, proceed only if the move's type has any potential to be relevant
+							competitive = true;
+							if (learnedNatural) poke.learnsetCumulative[move.type][move.category].natural.push(move.name);
+							if (learnedTmTutor) poke.learnsetCumulative[move.type][move.category].natural.push(move.name);
+							if (!learnedNatural && !learnedTmTutor) poke.learnsetCumulative[move.type][move.category].fringe.push(move.name);
+						}
 					}
 					// will have subcategories for utility... later
 					/*
@@ -366,7 +373,6 @@ export const Scripts: ModdedBattleScriptsData = {
 					if (doublesDisruptRMs.includes(moveid)) dDisrupt = competitive = true;
 					if (utilitySupportRMs.includes(moveid)) uSupport = competitive = true;
 					if (doublesSupportRMs.includes(moveid)) dSupport = competitive = true;
-					*/
 					if (!competitive) {
 						// have the appropriate categories been initialized?
 						if (!poke.learnsetCumulative.flavor) poke.learnsetCumulative.flavor = {};
@@ -378,6 +384,7 @@ export const Scripts: ModdedBattleScriptsData = {
 						if (learnedTmTutor) poke.learnsetCumulative.flavor.tmTutor.push(move.name);
 						if (!learnedNatural && !learnedTmTutor) poke.learnsetCumulative.flavor.fringe.push(move.name);
 					}
+					*/
 				}
 
 				// abilities
