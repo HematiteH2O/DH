@@ -180,6 +180,21 @@ export const Scripts: ModdedBattleScriptsData = {
 			if (!poke || poke.evos) continue; // skip NFEs... and anything that can't be read correctly, just in case
 			if (this.dataCache.Learnsets[id] && this.dataCache.Learnsets[id].learnset) {
 				printno++;
+				poke.learnsetCumulative = {};
+				for (const moveType in this.dataCache.TypeChart) {
+					poke.learnsetCumulative[moveType] = {};
+					for (const moveCategory in categories) {
+						poke.learnsetCumulative[moveType][moveCategory] = {};
+						for (const learnStyle in movepoolSections) {
+							const stringfiller: string[] = [];
+							poke.learnsetCumulative[moveType][moveCategory][learnStyle] = stringfiller;
+						}
+					}
+				}
+				console.log(poke.learnsetCumulative);
+				console.log(poke.learnsetCumulative.Grass);
+				console.log(poke.learnsetCumulative.Grass.Physical);
+				console.log(poke.learnsetCumulative.Grass.Physical.natural);
 
 				// identify the Pokémon's Gen of origin before going any further - it's useful!
 				let pokeGen = 1;
@@ -341,17 +356,6 @@ export const Scripts: ModdedBattleScriptsData = {
 
 					// okay, so we know the move! now we need to figure out where it goes
 					let competitive = false;
-					poke.learnsetCumulative = {};
-					for (const moveType in this.dataCache.TypeChart) {
-						poke.learnsetCumulative[moveType] = {};
-						for (const moveCategory in categories) {
-							poke.learnsetCumulative[moveType][moveCategory] = {};
-							for (const learnStyle in movepoolSections) {
-								const stringfiller: string[] = [];
-								poke.learnsetCumulative[moveType][moveCategory][learnStyle] = stringfiller;
-							}
-						}
-					}
 					
 					if (attackRMs.includes(moveid)) {
 						// what type is it?
