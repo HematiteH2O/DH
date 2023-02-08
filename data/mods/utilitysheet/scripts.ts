@@ -181,7 +181,7 @@ export const Scripts: ModdedBattleScriptsData = {
 			if (this.dataCache.Learnsets[id] && this.dataCache.Learnsets[id].learnset) {
 				printno++;
 				poke.learnsetCumulative = {};
-				const fillerString: string[] = ;
+				const fillerString: string[] = [];
 				for (const moveType in this.dataCache.TypeChart) {
 					poke.learnsetCumulative[moveType] = {
 						Physical: {
