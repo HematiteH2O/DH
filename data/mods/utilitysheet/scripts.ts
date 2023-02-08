@@ -385,15 +385,16 @@ export const Scripts: ModdedBattleScriptsData = {
 					if (attackRMs.includes(moveid)) {
 						// what type is it?
 						const type = (moveid === 'judgment' || moveid === 'multiattack' || moveid === 'ragingbull' || moveid === 'revelationdance') ? poke.types[0] : move.type;
+						const category = moveid === 'naturepower' ? "Special" : move.category;
 						if (
 							poke.types[0] === type || (poke.types[1] && poke.types[1] === type) || offenseCoverage.includes(type) || weaknessCoverage.includes(type)
 							|| otherCoverage.includes(type) || moveid === 'naturepower' || moveid === 'technoblast' || moveid === 'terrainpulse' || moveid === 'weatherball'
 							|| moveid === 'fakeout' || moveid === 'feint'
 						) { // for attacking moves, proceed only if the move's type has any potential to be relevant (but including the Normal moves that defy type)
 							competitive = true;
-							if (learnedNatural) poke.learnsetCumulative[type][move.category].natural.push(move.name);
-							if (learnedTmTutor) poke.learnsetCumulative[type][move.category].tmTutor.push(move.name);
-							if (!learnedNatural && !learnedTmTutor) poke.learnsetCumulative[type][move.category].fringe.push(move.name);
+							if (learnedNatural) poke.learnsetCumulative[type][category].natural.push(move.name);
+							if (learnedTmTutor) poke.learnsetCumulative[type][category].tmTutor.push(move.name);
+							if (!learnedNatural && !learnedTmTutor) poke.learnsetCumulative[type][category].fringe.push(move.name);
 						}
 					}
 					for (const section in movepoolSections) {
