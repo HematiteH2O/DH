@@ -24,7 +24,18 @@ export const Scripts: ModdedBattleScriptsData = {
 			'waterpulse', 'waterfall', 'worryseed', 'zenheadbutt',
 		]; // excludes Captivate
 		const movepoolSections = {
-			Burn: 0,
+			Status: 0,
+			Cleric: 0,
+			Recovery: 0,
+			FieldControl: 0,
+			Setup: 0,
+			SetupControl: 0,
+			ItemControl: 0,
+			MoveBinding: 0,
+			FixedDamage: 0,
+			Momentum: 0,
+			DoublesDisrupt: 0,
+			DoublesSupport: 0,
 			Flavor: 0,
 		}; // provisional
 
@@ -139,41 +150,61 @@ export const Scripts: ModdedBattleScriptsData = {
 			'zenheadbutt', 'zingzap'
 		]; // this category doesn't need to distinguish physical from special! that's handled later
 		// excludes Hidden Power and Natural Gift
-		const utilitySelfRMs = [
-			'acidarmor', 'acupressure', 'agility', 'amnesia', 'aquastep', 'aurawheel', 'autotomize', 'barrier', 'bellydrum', 'bloodboil', 'bulkup', 'calmmind',
-			'catharsis', 'clangoroussoul', 'coil', 'cosmicpower', 'cottonguard', 'curse', 'defendorder', 'diamondstorm', 'dragondance', 'filletaway',
-			'flamecharge', 'geomancy', 'growth', 'healorder', 'honeclaws', 'irondefense', 'junglehealing', 'liquefy', 'lunarblessing', 'magnetrise', 'metamorphosis',
-			'milkdrink', 'moonlight', 'morningsun', 'nastyplot', 'noretreat', 'painsplit', 'quiverdance', 'recover', 'refresh', 'rockpolish',
-			'roost', 'runningstart', 'shellsmash', 'shelter', 'shiftgear', 'shoreup', 'slackoff', 'softboiled', 'stockpile', 'strengthsap', 'stuffcheeks',
-			'surgingstrikes', 'swordsdance', 'synthesis', 'tailglow', 'takeheart', 'trailblaze', 'triplearrows', 'victorydance',
-		]; // excludes Rest and Substitute
-		const doublesSelfRMs = null; // nothing yet
-		const utilityDisruptRMs = [
-			'aftershock', 'anchorshot', 'backstab', 'banefulbunker', 'beakblast', 'bittermalice', 'block', 'bodyslam', 'circlethrow', 'clearsmog', 'constrict',
-			'corrosivegas', 'counter', 'covet', 'darkvoid', 'destinybond', 'direclaw', 'disable', 'dragonrage', 'dragontail', 'encore', 'esperwing', 'fairylock',
-			'fakeout', 'finalgambit', 'firespin', 'fissure', 'glare', 'guillotine', 'haze', 'heartswap', 'horndrill', 'hyperdrill', 'hypnosis', 'infernalparade',
-			'infestation', 'jawlock', 'kingsshield', 'knockoff', 'leechseed', 'lovelykiss', 'meanlook', 'memento', 'mirrorcoat', 'naturesmadness', 'nightshade',
-			'nuzzle', 'obstruct', 'octolock', 'perishsong', 'powder', 'provoke', 'psychout', 'rashpowder', 'reverb', 'revolvingdoorslam', 'roar', 'ruination',
-			'sacredfire', 'saltcure', 'sandtomb', 'scald', 'scorchingsands', 'seismictoss', 'shadydeal', 'sheercold', 'shelltrap', 'silktrap', 'sleeppowder', 'soak',
-			'sonicboom', 'spiderweb', 'spikyshield', 'spiritshackle', 'spore', 'stickyfloor', 'stunspore', 'superfang', 'switcheroo', 'taunt', 'thief', 'thousandwaves',
-			'thundercage', 'thunderwave', 'topsyturvy', 'toxicthread', 'trick', 'whirlwind', 'willowisp', 'windshear', 'yawn',
-		]; // excludes Toxic
-		const doublesDisruptRMs = [
-			'acidspray', 'blackmail', 'breakingswipe', 'bulldoze', 'captivate', 'charm', 'cottonspore', 'demolition', 'detect', 'drumbeating', 'eerieimpulse',
-			'electroweb', 'faketears', 'featherdance', 'feint', 'fissurevent', 'fog', 'hyperspacefury', 'hyperspacehole', 'icywind', 'imprison', 'incinerate',
-			'luminacrash', 'matblock', 'phantomforce', 'poisongas', 'quickguard', 'sabotage', 'screech', 'skydrop', 'snarl', 'snatch', 'splashzone',
-			'stringshot', 'strugglebug', 'wideguard',
-		]; // excludes Protect
+
 		const utilitySupportRMs = [
 			'aromatherapy', 'auroraveil', 'batonpass', 'burningcoals', 'ceaselessedge', 'chillyreception', 'contaminate', 'courtchange', 'creepingivy', 'defog',
 			'explosion', 'flipturn', 'healbell', 'healingwish', 'lastwill', 'lightscreen', 'lushmoss', 'mortalspin', 'partingshot', 'psyshieldbash', 'pyrotechnics',
 			'rapidspin', 'reflect', 'revivalblessing', 'selfdestruct', 'shedtail', 'snowshovel', 'spikes', 'stealthrock', 'stickyweb', 'stoneaxe', 'teleport', 'tidyup',
 			'toxicspikes', 'tripwire', 'uturn', 'voltswitch', 'wish',
 		];
-		const doublesSupportRMs = [
+
+		const status = [
+			'aftershock', 'banefulbunker', 'beakblast', 'bittermalice', 'bodyslam', 'darkvoid', 'direclaw', 'glare', 'hypnosis', 'infernalparade', 'lovelykiss', 'nuzzle',
+			'rashpowder', 'sacredfire', 'saltcure', 'scald', 'scorchingsands', 'sleeppowder', 'spore', 'stunspore', 'thunderwave', 'toxicthread', 'willowisp',
+		];
+		const cleric = [
+			'catharsis', 'junglehealing', 'lunarblessing', 'refresh', 'takeheart',
+		];
+		const recovery = [
+			'healorder', 'leechseed', 'milkdrink', 'moonlight', 'morningsun', 'painsplit', 'recover', 'roost', 'shoreup', 'slackoff', 'softboiled', 'strengthsap',
+			'synthesis',
+		];
+		const fieldControl = [
+			'backstab',
+		];
+		const setup = [
+			'acidarmor', 'acupressure', 'agility', 'amnesia', 'aquastep', 'aurawheel', 'autotomize', 'barrier', 'bellydrum', 'bloodboil', 'bulkup', 'calmmind',
+			'clangoroussoul', 'coil', 'cosmicpower', 'cottonguard', 'curse', 'defendorder', 'diamondstorm', 'dragondance', 'filletaway', 'flamecharge', 'geomancy',
+			'growth', 'honeclaws', 'irondefense', 'metamorphosis', 'nastyplot', 'noretreat', 'quiverdance', 'rockpolish', 'runningstart', 'shellsmash', 'shelter',
+			'shiftgear', 'stockpile', 'stuffcheeks', 'surgingstrikes', 'swordsdance', 'tailglow', 'takeheart', 'trailblaze', 'triplearrows', 'victorydance',
+		];
+		const setupControl = [
+			'circlethrow', 'clearsmog', 'dragontail', 'haze', 'heartswap', 'perishsong', 'revolvingdoorslam', 'roar', 'topsyturvy', 'whirlwind', 'yawn',
+		];
+		const itemControl = [
+			'corrosivegas', 'covet', 'knockoff', 'shadydeal', 'switcheroo', 'thief', 'trick',
+		];
+		const moveBinding = [
+			'anchorshot', 'block', 'destinybond', 'disable', 'encore', 'fairylock', 'firespin', 'infestation', 'jawlock', 'magnetrise', 'meanlook', 'octolock', 'powder',
+			'provoke', 'reverb', 'sandtomb', 'spiderweb', 'spiritshackle', 'stickyfloor', 'taunt', 'thousandwaves', 'thundercage',
+		];
+		const fixedDamage = [
+			'counter', 'dragonrage', 'finalgambit', 'fissure', 'guillotine', 'horndrill', 'mirrorcoat', 'naturesmadness', 'nightshade', 'ruination', 'seismictoss',
+			'sheercold', 'sonicboom', 'superfang',
+		];
+		const momentum = [
+			'memento',
+		];
+		const doublesDisrupt = [
+			'acidspray', 'blackmail', 'breakingswipe', 'bulldoze', 'captivate', 'charm', 'constrict', 'cottonspore', 'demolition', 'detect', 'drumbeating', 'eerieimpulse',
+			'electroweb', 'esperwing', 'fakeout', 'faketears', 'featherdance', 'feint', 'fissurevent', 'fog', 'hyperdrill', 'hyperspacefury', 'hyperspacehole', 'icywind',
+			'imprison', 'incinerate', 'kingsshield', 'luminacrash', 'matblock', 'obstruct', 'phantomforce', 'poisongas', 'psychout', 'quickguard', 'sabotage', 'screech',
+			'shelltrap', 'silktrap', 'skydrop', 'snarl', 'snatch', 'spikyshield', 'splashzone', 'stringshot', 'strugglebug', 'wideguard',
+		];
+		const doublesSupport = [
 			'allyswitch', 'beatup', 'cleansingwave', 'coaching', 'decorate', 'doodle', 'entrainment', 'extendinghand', 'followme', 'gravity', 'healpulse', 'helpinghand',
-			'instruct', 'lifedew', 'pollenpuff', 'ragepowder', 'reversalroom', 'simplebeam', 'skillswap', 'soothingwave', 'spicyextract', 'tailwind', 'tideturn',
-			'trickroom',
+			'instruct', 'lifedew', 'pollenpuff', 'ragepowder', 'reversalroom', 'simplebeam', 'skillswap', 'soak', 'soothingwave', 'spicyextract', 'tailwind', 'tideturn',
+			'trickroom', 'windshear',
 		];
 
 		let printno = 0;
@@ -375,7 +406,8 @@ export const Scripts: ModdedBattleScriptsData = {
 						if (
 							poke.types[0] === type || (poke.types[1] && poke.types[1] === type) || offenseCoverage.includes(type) || weaknessCoverage.includes(type)
 							|| otherCoverage.includes(type) || moveid === 'naturepower' || moveid === 'technoblast' || moveid === 'terrainpulse' || moveid === 'weatherball'
-						) { // for attacking moves, proceed only if the move's type has any potential to be relevant
+							|| moveid === 'fakeout' || moveid === 'feint'
+						) { // for attacking moves, proceed only if the move's type has any potential to be relevant (but including the Normal moves that defy type)
 							competitive = true;
 							if (learnedNatural) poke.learnsetCumulative[type][move.category].natural.push(move.name);
 							if (learnedTmTutor) poke.learnsetCumulative[type][move.category].tmTutor.push(move.name);
