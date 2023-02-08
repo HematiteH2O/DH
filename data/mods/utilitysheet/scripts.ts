@@ -451,14 +451,41 @@ export const Scripts: ModdedBattleScriptsData = {
 				}
 
 				// finalize sheetOutput now.........
-				const sheetOutput: string[] = [
+				let sheetOutput: string[] = [
 					(poke3 ? (printno) + `~1~=IMAGE("https://www.smogon.com/forums//media/minisprites/` + poke3id + `.png",3)~~` + poke3.name + "~" + poke3.types[0] + "~" + (poke3.types[1] ? poke3.types[1] : "") + "~" + poke3abilities + "~~~~~~" + poke3.baseStats.hp + "~" + poke3.baseStats.atk + "~" + poke3.baseStats.def + "~" + poke3.baseStats.spa + "~" + poke3.baseStats.spd + "~" + poke3.baseStats.spe + "~" + `\n` : "")
 					+ (poke2 ? (printno) + `~2~=IMAGE("https://www.smogon.com/forums//media/minisprites/` + poke2id + `.png",3)~~` + poke2.name + "~" + poke2.types[0] + "~" + (poke2.types[1] ? poke2.types[1] : "") + "~" + poke2abilities + "~~~~~~" + poke2.baseStats.hp + "~" + poke2.baseStats.atk + "~" + poke2.baseStats.def + "~" + poke2.baseStats.spa + "~" + poke2.baseStats.spd + "~" + poke2.baseStats.spe + "~" + `\n` : "")
 					+ (printno) + `~3~=IMAGE("https://www.smogon.com/forums//media/minisprites/` + iconid + `.png",3)~~` + poke.name + "~" + poke.types[0] + "~" + (poke.types[1] ? poke.types[1] : "") + "~" + abilities + "~~~~~~" + poke.baseStats.hp + "~" + poke.baseStats.atk + "~" + poke.baseStats.def + "~" + poke.baseStats.spa + "~" + poke.baseStats.spd + "~" + poke.baseStats.spe + "~" + `\n`
 					+ (printno) + `~4~\n`
 					+ (printno) + "~5~~~Natural~~~TM and Tutor~~Fringe" + `\n`
 				];
+				if (poke.types[0]) {
+					const moveType = poke.types[0];
+					if (
+						poke.learnsetCumulative[moveType].Physical.natural || poke.learnsetCumulative[moveType].Physical.tmTutor || poke.learnsetCumulative[moveType].Physical.fringe
+					) {
+						sheetOutput += (printno) + "~6~" + moveType + "~Physical~" + (poke.learnsetCumulative[moveType].Physical.natural || "") + "~~~" + (poke.learnsetCumulative[moveType].Physical.tmTutor || "") + "~~" + (poke.learnsetCumulative[moveType].Physical.fringe || "") + "" + `\n`;
+					}
+					if (
+						poke.learnsetCumulative[moveType].Special.natural || poke.learnsetCumulative[moveType].Special.tmTutor || poke.learnsetCumulative[moveType].Special.fringe
+					) {
+						sheetOutput += (printno) + "~6~" + moveType + "~Special~" + (poke.learnsetCumulative[moveType].Special.natural || "") + "~~~" + (poke.learnsetCumulative[moveType].Special.tmTutor || "") + "~~" + (poke.learnsetCumulative[moveType].Special.fringe || "") + "" + `\n`;
+					}
+				}
+				if (poke.types[1]) {
+					const moveType = poke.types[1];
+					if (
+						poke.learnsetCumulative[moveType].Physical.natural || poke.learnsetCumulative[moveType].Physical.tmTutor || poke.learnsetCumulative[moveType].Physical.fringe
+					) {
+						sheetOutput += (printno) + "~6~" + moveType + "~Physical~" + (poke.learnsetCumulative[moveType].Physical.natural || "") + "~~~" + (poke.learnsetCumulative[moveType].Physical.tmTutor || "") + "~~" + (poke.learnsetCumulative[moveType].Physical.fringe || "") + "" + `\n`;
+					}
+					if (
+						poke.learnsetCumulative[moveType].Special.natural || poke.learnsetCumulative[moveType].Special.tmTutor || poke.learnsetCumulative[moveType].Special.fringe
+					) {
+						sheetOutput += (printno) + "~6~" + moveType + "~Special~" + (poke.learnsetCumulative[moveType].Special.natural || "") + "~~~" + (poke.learnsetCumulative[moveType].Special.tmTutor || "") + "~~" + (poke.learnsetCumulative[moveType].Special.fringe || "") + "" + `\n`;
+					}
+				}
 				for (const moveType in this.dataCache.TypeChart) {
+					if (poke.types[0] === moveType || (poke.types[1] && poke.types[1] === moveType)) continue;
 					if (
 						poke.learnsetCumulative[moveType].Physical.natural || poke.learnsetCumulative[moveType].Physical.tmTutor || poke.learnsetCumulative[moveType].Physical.fringe
 					) {
