@@ -374,7 +374,7 @@ export const Scripts: ModdedBattleScriptsData = {
 						const type = (moveid === 'judgment' || moveid === 'multiattack' || moveid === 'ragingbull' || moveid === 'revelationdance') ? poke.types[0] : move.type;
 						if (
 							poke.types[0] === type || (poke.types[1] && poke.types[1] === type) || offenseCoverage.includes(type) || weaknessCoverage.includes(type)
-							|| otherCoverage.includes(type)
+							|| otherCoverage.includes(type) || moveid === 'naturepower' || moveid === 'technoblast' || moveid === 'terrainpulse' || moveid === 'weatherball'
 						) { // for attacking moves, proceed only if the move's type has any potential to be relevant
 							competitive = true;
 							if (learnedNatural) poke.learnsetCumulative[type][move.category].natural.push(move.name);
