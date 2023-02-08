@@ -181,22 +181,18 @@ export const Scripts: ModdedBattleScriptsData = {
 			if (this.dataCache.Learnsets[id] && this.dataCache.Learnsets[id].learnset) {
 				printno++;
 				poke.learnsetCumulative = {};
+				const fillerString: string[] = ;
 				for (const moveType in this.dataCache.TypeChart) {
 					poke.learnsetCumulative[moveType] = {
 						Physical: {
-							natural: string[] = [],
-							tmTutor: string[] = [],
-							fringe: string[] = [],
+							natural: fillerString,
+							tmTutor: fillerString,
+							fringe: fillerString,
 						},
 						Special: {
-							natural: string[] = [],
-							tmTutor: string[] = [],
-							fringe: string[] = [],
-						},
-						Status: {
-							natural: string[] = [],
-							tmTutor: string[] = [],
-							fringe: string[] = [],
+							natural: fillerString,
+							tmTutor: fillerString,
+							fringe: fillerString,
 						},
 					};
 				}
