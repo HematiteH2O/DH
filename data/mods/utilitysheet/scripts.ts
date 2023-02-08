@@ -398,7 +398,7 @@ export const Scripts: ModdedBattleScriptsData = {
 						}
 					}
 					for (const section in movepoolSections) {
-						if ([section].includes(moveid)) {
+						if (movepoolSections[section].includes(moveid)) {
 							competitive = true;
 							if (learnedNatural) poke.learnsetCumulative[section].Moves.natural.push(move.name);
 							if (learnedTmTutor) poke.learnsetCumulative[section].Moves.tmTutor.push(move.name);
