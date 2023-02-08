@@ -347,7 +347,8 @@ export const Scripts: ModdedBattleScriptsData = {
 						for (const moveCategory in categories) {
 							poke.learnsetCumulative[moveType][moveCategory] = {};
 							for (const learnStyle in movepoolSections) {
-								poke.learnsetCumulative[moveType][moveCategory][learnStyle]: string[] = [];
+								// poke.learnsetCumulative[moveType][moveCategory][learnStyle]: string[] = [];
+								poke.learnsetCumulative[moveType][moveCategory][learnStyle] = [];
 							}
 						}
 					}
