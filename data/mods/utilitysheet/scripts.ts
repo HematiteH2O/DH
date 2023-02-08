@@ -347,8 +347,8 @@ export const Scripts: ModdedBattleScriptsData = {
 						for (const moveCategory in categories) {
 							poke.learnsetCumulative[moveType][moveCategory] = {};
 							for (const learnStyle in movepoolSections) {
-								// poke.learnsetCumulative[moveType][moveCategory][learnStyle]: string[] = [];
-								poke.learnsetCumulative[moveType][moveCategory][learnStyle] = [];
+								const stringfiller: string[] = [];
+								poke.learnsetCumulative[moveType][moveCategory][learnStyle] = stringfiller;
 							}
 						}
 					}
@@ -361,9 +361,9 @@ export const Scripts: ModdedBattleScriptsData = {
 							|| otherCoverage.includes(type)
 						) { // for attacking moves, proceed only if the move's type has any potential to be relevant
 							competitive = true;
-							if (learnedNatural) poke.learnsetCumulative[move.type][move.category].natural.push(move.name);
-							if (learnedTmTutor) poke.learnsetCumulative[move.type][move.category].natural.push(move.name);
-							if (!learnedNatural && !learnedTmTutor) poke.learnsetCumulative[move.type][move.category].fringe.push(move.name);
+							if (learnedNatural) poke.learnsetCumulative[type][move.category].natural.push(move.name);
+							if (learnedTmTutor) poke.learnsetCumulative[type][move.category].tmTutor.push(move.name);
+							if (!learnedNatural && !learnedTmTutor) poke.learnsetCumulative[type][move.category].fringe.push(move.name);
 						}
 					}
 					// will have subcategories for utility... later
