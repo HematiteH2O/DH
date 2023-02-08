@@ -182,19 +182,25 @@ export const Scripts: ModdedBattleScriptsData = {
 				printno++;
 				poke.learnsetCumulative = {};
 				for (const moveType in this.dataCache.TypeChart) {
-					poke.learnsetCumulative[moveType] = {};
-					for (const moveCategory in categories) {
-						poke.learnsetCumulative[moveType][moveCategory] = {};
-						for (const learnStyle in movepoolSections) {
-							const stringfiller: string[] = [];
-							poke.learnsetCumulative[moveType][moveCategory][learnStyle] = stringfiller;
-						}
-					}
+					poke.learnsetCumulative[moveType] = {
+						Physical: {
+							natural: string[] = [],
+							tmTutor: string[] = [],
+							fringe: string[] = [],
+						},
+						Special: {
+							natural: string[] = [],
+							tmTutor: string[] = [],
+							fringe: string[] = [],
+						},
+						Status: {
+							natural: string[] = [],
+							tmTutor: string[] = [],
+							fringe: string[] = [],
+						},
+					};
 				}
 				console.log(poke.learnsetCumulative);
-				console.log(poke.learnsetCumulative.Grass);
-				console.log(poke.learnsetCumulative.Grass.Physical);
-				console.log(poke.learnsetCumulative.Grass.Physical.natural);
 
 				// identify the Pokémon's Gen of origin before going any further - it's useful!
 				let pokeGen = 1;
