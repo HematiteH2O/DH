@@ -384,7 +384,8 @@ export const Scripts: ModdedBattleScriptsData = {
 					if (attackRMs.includes(moveid)) {
 						// what type is it?
 						const type = (moveid === 'judgment' || moveid === 'multiattack' || moveid === 'ragingbull' || moveid === 'revelationdance') ? poke.types[0] : move.type;
-						const category = moveid === 'naturepower' ? "Special" : move.category;
+						const category = (move.category === 'Special' || moveid === 'naturepower') ? "Special" : "Physical";
+						// assume a status move ended up physical if its category changed
 						if (
 							poke.types[0] === type || (poke.types[1] && poke.types[1] === type) || offenseCoverage.includes(type) || weaknessCoverage.includes(type)
 							|| otherCoverage.includes(type) || moveid === 'naturepower' || moveid === 'technoblast' || moveid === 'terrainpulse' || moveid === 'weatherball'
