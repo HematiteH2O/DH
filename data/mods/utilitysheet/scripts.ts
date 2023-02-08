@@ -23,6 +23,8 @@ export const Scripts: ModdedBattleScriptsData = {
 			'superpower', 'swift', 'synthesis', 'tailwind', 'thunderpunch', 'trick', 'twister', 'uproar', 'vcreate', 'vacuumwave', 'volttackle', 'waterpledge',
 			'waterpulse', 'waterfall', 'worryseed', 'zenheadbutt',
 		]; // excludes Captivate
+		const categories = ['physical', 'special', 'status'];
+		const movepoolSections = ['natural', 'tmTutor', 'fringe'];
 
 		// event moves from Gen I and Gen II
 		const newMoves = (mon: string, moves: string[]) => {
@@ -179,37 +181,6 @@ export const Scripts: ModdedBattleScriptsData = {
 			if (this.dataCache.Learnsets[id] && this.dataCache.Learnsets[id].learnset) {
 				printno++;
 
-				// setup for the categories that I am currently using
-				// entire competitive physical movepool
-				const physStab1: string[] = [];
-				const physStab2: string[] = []; // will display in the same cell separated by a semicolon
-				const physCoverage: string[] = []; // moves that hit either the Pokémon's walls or its weaknesses super effectively
-				const physTech: string[] = []; // moves that hit unique types super effectively in neutral matchups
-				// entire competitive special movepool
-				const specStab1: string[] = [];
-				const specStab2: string[] = []; // will display in the same cell separated by a semicolon
-				const specCoverage: string[] = [];
-				const specTech: string[] = [];
-				// entire competitive utility movepool
-				const utilitySelf: string[] = [];
-				const doublesSelf: string[] = []; // will display in the same cell separated by a semicolon
-				const utilityDisrupt: string[] = [];
-				const doublesDisrupt: string[] = []; // will display in the same cell separated by a semicolon
-				const utilitySupport: string[] = [];
-				const doublesSupport: string[] = []; // will display in the same cell separated by a semicolon
-				// competitive fringe movepool
-				const fringePhys: string[] = [];
-				const fringeSpec: string[] = [];
-				const fringeStatus: string[] = [];
-				// flavor movepool
-				const flavorPhys: string[] = [];
-				const flavorSpec: string[] = [];
-				const flavorStatus: string[] = [];
-				// flavor fringe movepool
-				const flavorFringePhys: string[] = [];
-				const flavorFringeSpec: string[] = [];
-				const flavorFringeStatus: string[] = [];
-
 				// identify the Pokémon's Gen of origin before going any further - it's useful!
 				let pokeGen = 1;
 				if (poke.num > 898 || id.endsWith('hisui') || id.endsWith('paldea') || id.endsWith('paldeafire') || id.endsWith('paldeawater')) pokeGen = 9;
@@ -316,7 +287,8 @@ export const Scripts: ModdedBattleScriptsData = {
 					// only decide a) if the Pokémon learns the move at all and b) if it's a safe bet it still gets it in Pulse or not
 					// "fringe moves" and transfer-only moves and future buffs are all lumped into one category unless they're TMs or tutors in Pulse
 					let learned = false;
-					let authentic = pulseTms.includes(moveid) || pulseTutors.includes(moveid) ? true : false; // assuming all TMs and tutors are safe bets
+					let learnedNatural = false;
+					let learnedTmTutor = pulseTms.includes(moveid) || pulseTutors.includes(moveid);
 					if (learnset[moveid]) { // if it learns the move itself
 						for (const source of learnset[moveid]) {
 							learned = true;
@@ -325,7 +297,7 @@ export const Scripts: ModdedBattleScriptsData = {
 								(parseInt(source.charAt(0)) === moveGen && moveGen > 3) ||
 								parseInt(source.charAt(0)) === 4
 							) {
-								if (source.charAt(1) === 'L' || source.charAt(1) === 'E') authentic = true;
+								if (source.charAt(1) === 'L' || source.charAt(1) === 'E') learnedNatural = true;
 							}
 						}
 					}
@@ -337,7 +309,7 @@ export const Scripts: ModdedBattleScriptsData = {
 								(parseInt(source.charAt(0)) === moveGen && moveGen > 3) ||
 								parseInt(source.charAt(0)) === 4
 							) {
-								if (source.charAt(1) === 'L' || source.charAt(1) === 'E') authentic = true;
+								if (source.charAt(1) === 'L' || source.charAt(1) === 'E') learnedNatural = true;
 							}
 						}
 					}
@@ -349,7 +321,7 @@ export const Scripts: ModdedBattleScriptsData = {
 								(parseInt(source.charAt(0)) === moveGen && moveGen > 3) ||
 								parseInt(source.charAt(0)) === 4
 							) {
-								if (source.charAt(1) === 'L' || source.charAt(1) === 'E') authentic = true;
+								if (source.charAt(1) === 'L' || source.charAt(1) === 'E') learnedNatural = true;
 							}
 						}
 					}
@@ -361,75 +333,50 @@ export const Scripts: ModdedBattleScriptsData = {
 								(parseInt(source.charAt(0)) === moveGen && moveGen > 3) ||
 								parseInt(source.charAt(0)) === 4
 							) {
-								if (source.charAt(1) === 'L' || source.charAt(1) === 'E') authentic = true;
+								if (source.charAt(1) === 'L' || source.charAt(1) === 'E') learnedNatural = true;
 							}
 						}
 					}
 					if (!learned) continue;
 
 					// okay, so we know the move! now we need to figure out where it goes
-					
 					let competitive = false;
-					let stab1 = false;
-					let stab2 = false;
-					let coverage = false;
-					let tech = false;
-					let uSelf = false;
-					let dSelf = false;
-					let uDisrupt = false;
-					let dDisrupt = false;
-					let uSupport = false;
-					let dSupport = false;
+					poke.learnsetCumulative = {};
+					
 					if (attackRMs.includes(moveid)) {
-						if (
-							move.type === poke.types[0] || moveid === 'judgment' || moveid === 'multiattack' || moveid === 'ragingbull' || moveid === 'revelationdance'
-						) stab1 = competitive = true;
-						if (poke.types[1] && move.type === poke.types[1]) stab2 = competitive = true;
-						if (
-							offenseCoverage.includes(move.type) || weaknessCoverage.includes(move.type) || moveid === 'naturepower' || moveid === 'technoblast' ||
-							moveid === 'terrainpulse' || moveid === 'weatherball'
-						) coverage = competitive = true;
-						if (otherCoverage.includes(move.type)) tech = competitive = true;
+						competitive = true;
+						// what type is it?
+						const type = (moveid === 'judgment' || moveid === 'multiattack' || moveid === 'ragingbull' || moveid === 'revelationdance') ? poke.types[0] : move.type;
+						// have the appropriate categories been initialized?
+						if (!poke.learnsetCumulative[move.type]) poke.learnsetCumulative[move.type] = {};
+						if (!poke.learnsetCumulative[move.type][move.category]) poke.learnsetCumulative[move.type][move.category] = {};
+						if (learnedNatural && !poke.learnsetCumulative[move.type][move.category].natural) poke.learnsetCumulative[move.type][move.category].natural: string[] = [];
+						if (learnedTmTutor && !poke.learnsetCumulative[move.type][move.category].tmTutor) poke.learnsetCumulative[move.type][move.category].tmTutor: string[] = [];
+						if (!learnedNatural && !learnedTmTutor && !poke.learnsetCumulative[move.type][move.category].fringe) poke.learnsetCumulative[move.type][move.category].fringe: string[] = [];
+						// push the move's name to the appropriate categories
+						if (learnedNatural) poke.learnsetCumulative[move.type][move.category].natural.push(move.name);
+						if (learnedTmTutor) poke.learnsetCumulative[move.type][move.category].natural.push(move.name);
+						if (!learnedNatural && !learnedTmTutor) poke.learnsetCumulative[move.type][move.category].fringe.push(move.name);
 					}
+					// will have subcategories for utility... later
+					/*
 					if (utilitySelfRMs.includes(moveid)) uSelf = competitive = true;
 					// if (doublesSelfRMs.includes(moveid)) dSelf = competitive = true;
 					if (utilityDisruptRMs.includes(moveid)) uDisrupt = competitive = true;
 					if (doublesDisruptRMs.includes(moveid)) dDisrupt = competitive = true;
 					if (utilitySupportRMs.includes(moveid)) uSupport = competitive = true;
 					if (doublesSupportRMs.includes(moveid)) dSupport = competitive = true;
-
-					if (competitive) {
-						if (authentic) {
-							// offensive movepool
-							if (stab1 && move.category === 'Physical') physStab1.push(move.name);
-							else if (stab1 && move.category === 'Special') specStab1.push(move.name);
-							else if (stab2 && move.category === 'Physical') physStab2.push(move.name);
-							else if (stab2 && move.category === 'Special') specStab2.push(move.name);
-							else if (coverage && move.category === 'Physical') physCoverage.push(move.name);
-							else if (coverage && move.category === 'Special') specCoverage.push(move.name);
-							else if (tech && move.category === 'Physical') physTech.push(move.name);
-							else if (tech && move.category === 'Special') specTech.push(move.name);
-							// utility movepool (the same move CAN be listed twice)
-							if (uSelf) utilitySelf.push(move.name);
-							else if (dSelf) doublesSelf.push(move.name);
-							if (uDisrupt) utilityDisrupt.push(move.name);
-							else if (dDisrupt) doublesDisrupt.push(move.name);
-							if (uSupport) utilitySupport.push(move.name);
-							else if (dSupport) doublesSupport.push(move.name);
-						} else {
-							if (move.category === 'Physical') fringePhys.push(move.name);
-							if (move.category === 'Special') fringeSpec.push(move.name);
-							if (move.category === 'Status') fringeStatus.push(move.name);
-						}
-					}
-
+					*/
 					if (!competitive) {
-						if (move.category === 'Physical' && authentic) flavorPhys.push(move.name);
-						else if (move.category === 'Physical' && !authentic) flavorFringePhys.push(move.name);
-						else if (move.category === 'Special' && authentic) flavorSpec.push(move.name);
-						else if (move.category === 'Special' && !authentic) flavorFringeSpec.push(move.name);
-						else if (move.category === 'Status' && authentic) flavorStatus.push(move.name);
-						else if (move.category === 'Status' && !authentic) flavorFringeStatus.push(move.name);
+						// have the appropriate categories been initialized?
+						if (!poke.learnsetCumulative.flavor) poke.learnsetCumulative.flavor = {};
+						if (learnedNatural && !poke.learnsetCumulative.flavor.natural) poke.learnsetCumulative.flavor.natural: string[] = [];
+						if (learnedTmTutor && !poke.learnsetCumulative.flavor.tmTutor) poke.learnsetCumulative.flavor.tmTutor: string[] = [];
+						if (!learnedNatural && !learnedTmTutor && !poke.learnsetCumulative.flavor.fringe) poke.learnsetCumulative.flavor.fringe: string[] = [];
+						// push the move's name to the appropriate categories
+						if (learnedNatural) poke.learnsetCumulative.flavor.natural.push(move.name);
+						if (learnedTmTutor) poke.learnsetCumulative.flavor.tmTutor.push(move.name);
+						if (!learnedNatural && !learnedTmTutor) poke.learnsetCumulative.flavor.fringe.push(move.name);
 					}
 				}
 
@@ -469,13 +416,7 @@ export const Scripts: ModdedBattleScriptsData = {
 					var poke3name = poke3.name.toLowerCase();
 					poke3id = poke3name.replace(" ", `-`).replace(`.`, ``).replace(`:`, ``).replace(`\u2019`, ``); // to get rid of spaces and periods
 				}
-
-				// competitive movepools now
-				const physLine1: string[] = [physStab1 + (physStab1 && physStab2 ? ";" : "") + physStab2];
-				const specLine1: string[] = [specStab1 + (specStab1 && specStab2 ? ";" : "") + specStab2];
-				const utilLine1: string[] = [utilitySelf + (utilitySelf && doublesSelf ? ";" : "") + doublesSelf];
-				const utilLine2: string[] = [utilityDisrupt + (utilityDisrupt && doublesDisrupt ? ";" : "") + doublesDisrupt];
-				const utilLine3: string[] = [utilitySupport + (utilitySupport && doublesSupport ? ";" : "") + doublesSupport];
+				/*
 
 				// finalize sheetOutput now.........
 				const sheetOutput: string[] = [
@@ -494,6 +435,10 @@ export const Scripts: ModdedBattleScriptsData = {
 				];
 				
 				poke.sheetOutput = sheetOutput;
+				*/
+				console.log(poke.learnsetCumulative);
+				console.log(poke.learnsetCumulative.Grass.Physical.tmTutor);
+				return; // just print Venusaur for now
 			}
 		}
 	},
