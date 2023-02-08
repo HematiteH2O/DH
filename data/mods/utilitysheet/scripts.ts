@@ -465,7 +465,7 @@ export const Scripts: ModdedBattleScriptsData = {
 						poke.learnsetCumulative[moveType].Physical.natural.length || poke.learnsetCumulative[moveType].Physical.tmTutor.length ||
 						poke.learnsetCumulative[moveType].Physical.fringe.length
 					) {
-						sheetOutput += (printno) + "~6~" + moveType + "~Physical~" + poke.learnsetCumulative[moveType].Physical.natural + "~~~" + poke.learnsetCumulative[moveType].Physical.tmTutor + "~~" + (poke.learnsetCumulative[moveType].Physical.fringe !== testString ? "(" + poke.learnsetCumulative[moveType].Physical.fringe + ")" : "") + "" + `\n`;
+						sheetOutput += (printno) + "~6~" + moveType + "~Physical~" + poke.learnsetCumulative[moveType].Physical.natural + "~~~" + poke.learnsetCumulative[moveType].Physical.tmTutor + "~~" + (poke.learnsetCumulative[moveType].Physical.fringe.length ? "(" + poke.learnsetCumulative[moveType].Physical.fringe + ")" : "") + "" + `\n`;
 					}
 					if (
 						poke.learnsetCumulative[moveType].Physical.natural.length || poke.learnsetCumulative[moveType].Physical.tmTutor.length ||
