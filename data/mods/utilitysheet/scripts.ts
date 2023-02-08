@@ -481,7 +481,8 @@ export const Scripts: ModdedBattleScriptsData = {
 				console.log(poke.learnsetCumulative);
 				console.log(poke.learnsetCumulative.Grass.Physical.tmTutor);
 				console.log(poke.learnsetCumulative.Flavor.Moves.fringe);
-				console.log(poke.learnsetCumulative.Recovery.Moves.fringe);
+				console.log(poke.learnsetCumulative.Recovery.Moves.natural);
+				console.log(poke.learnsetCumulative.Recovery.Moves.tmTutor);
 				return; // just print Venusaur for now
 			}
 		}
