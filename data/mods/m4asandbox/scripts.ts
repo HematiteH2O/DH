@@ -808,7 +808,7 @@ export const Scripts: ModdedBattleScriptsData = {
 		// Do we have a proper sprite for it?
 		if (this.dex.getSpecies(pokemon.canMegaEvo!).baseSpecies === pokemon.m.originalSpecies) {
 			species.id = this.dex.getSpecies(pokemon.canMegaEvo!).id ? this.dex.getSpecies(pokemon.canMegaEvo!).id : species.id;
-			species.name = this.dex.getSpecies(pokemon.canMegaEvo!).name ? this.dex.getSpecies(pokemon.canMegaEvo!).id : species.name;
+			species.name = this.dex.getSpecies(pokemon.canMegaEvo!).name ? this.dex.getSpecies(pokemon.canMegaEvo!).name : species.name;
 			pokemon.formeChange(species, pokemon.getItem(), true);
 			this.add('-start', pokemon, pokemon.getItem(), '[silent]');
 			this.add('-start', pokemon, 'typechange', pokemon.species.types.join('/'), '[silent]');
