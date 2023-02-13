@@ -8,7 +8,7 @@ export const Formats: {[k: string]: FormatData} = {
 			if (this.format.name === '[Gen 8] M4A Sandbox' || this.format.name === '[Gen 8] M4A VGC Sandbox') {
 				this.add('-message', `Welcome to the Megas for All Sandbox!`);
 				this.add('-message', `This is a custom game format where you can experiment outside of the normal rules.`);
-				this.add('-message', `Thanks to the incredible KeroseneZanchu, you can even alter a Pokémon's type, stats and Mega form with its nickname!`);
+				this.add('-message', `Thanks to the work of KeroseneZanchu, you can even alter a Pokémon's type, stats and Mega form with its nickname!`);
 				this.add('-message', `You can find the details on how this works here:`);
 				this.add('-message', `https://docs.google.com/document/d/1hhF49OIQKot72C30mCzSwxYgb3Ephhm9KCL_nMPrCW0/`);
 			} else {
