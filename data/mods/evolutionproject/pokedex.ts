@@ -52,7 +52,7 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 		copyData: "Heatmor",
 
 		types: ["Fire", "Dark"],
-		baseStats: {hp: 85, atk: 137, def: 66, spa: 105, spd: 66, spe: 55},
+		baseStats: {hp: 90, atk: 137, def: 71, spa: 110, spd: 71, spe: 55},
 		abilities: {0: "Gluttony", 1: "Flash Fire", H: "White Smoke"},
 		movepoolAdditions: ["darkpulse", "lashout"],
 
@@ -71,7 +71,7 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 		copyData: "Carnivine",
 
 		types: ["Grass", "Poison"],
-		baseStats: {hp: 94, atk: 105, def: 82, spa: 100, spd: 102, spe: 51},
+		baseStats: {hp: 94, atk: 105, def: 82, spa: 100, spd: 82, spe: 51},
 		movepoolAdditions: ["coil", "poisonjab", "raindance", "venoshock"],
 
 		prevo: "Carnivine",
@@ -468,8 +468,8 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 
 		types: ["Poison"],
 		abilities: {0: "Sticky Hold", H: "Unburden"},
-		movepoolAdditions: ["belch", "sludgebomb", "stuffcheeks"],
-		movepoolDeletions: ["aromatherapy", "bellydrum", "cottonguard", "dazzlinggleam", "drainingkiss", "fairywind", "mistyexplosion", "playrough"],
+		movepoolAdditions: ["appleacid", "belch", "sludgebomb", "stuffcheeks"],
+		movepoolDeletions: ["aromatherapy", "bellydrum", "calmmind", "cottonguard", "dazzlinggleam", "drainingkiss", "fairywind", "mistyexplosion", "playrough"],
 
 		evos: ["Slurpuff-Variant"],
 		creator: "abismal",
@@ -487,8 +487,8 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 
 		types: ["Poison"],
 		abilities: {0: "Sticky Hold", H: "Unburden"},
-		movepoolAdditions: ["belch", "sludgebomb", "stuffcheeks"],
-		movepoolDeletions: ["aromatherapy", "bellydrum", "cottonguard", "dazzlinggleam", "drainingkiss", "fairywind", "mistyexplosion", "playrough"],
+		movepoolAdditions: ["appleacid", "belch", "sludgebomb", "stuffcheeks"],
+		movepoolDeletions: ["aromatherapy", "bellydrum", "calmmind", "cottonguard", "dazzlinggleam", "drainingkiss", "fairywind", "mistyexplosion", "playrough"],
 
 		prevo: "Swirlix-Variant",
 		evoType: "trade",
@@ -1053,19 +1053,20 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 		creator: "inkbug",
 	},
 
-	golduck: {
+	psyduck: {
 		inherit: true,
-		evos: ["Bafflack"],
+		evos: ["Golduck", "Bafflack"],
 	},
 	bafflack: {
 		name: "Bafflack",
 		copyData: "Golduck",
 
-		baseStats: {hp: 80, atk: 69, def: 18, spa: 135, spd: 110, spe: 105},
+		baseStats: {hp: 80, atk: 62, def: 18, spa: 125, spd: 110, spe: 105},
 		abilities: {0: "Psychic Surge", 1: "Cloud Nine", H: "Pure Power"},
 		movepoolAdditions: ["aurasphere", "expandingforce"],
+		movepoolDeletions: ["flipturn"],
 
-		prevo: "Golduck",
+		prevo: "Psyduck",
 		evoType: "levelFriendship",
 		evoCondition: "in Psychic Terrain",
 		creator: "KeroseneZanchu",
@@ -2085,9 +2086,30 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 		creator: "Violet",
 	},
 
+	blipbug: {
+		inherit: true,
+		evos: ["Dottler", "Dottler-Variant"],
+	},
 	dottler: {
 		inherit: true,
-		evos: ["Orbeetle", "Orbeetle-Variant"],
+		otherFormes: ["Dottler-Variant"],
+		formeOrder: ["Dottler", "Dottler-Variant"],
+	},
+	dottlervariant: {
+		name: "Dottler-Variant",
+		baseSpecies: "Dottler",
+		forme: "Variant",
+		copyData: "Dottler",
+
+		types: ["Bug", "Electric"],
+		baseStats: {hp: 50, atk: 35, def: 80, spa: 90, spd: 50, spe: 30},
+		abilities: {0: "Swarm", 1: "Frisk", H: "Cotton Down"},
+		movepoolAdditions: ["charge", "electroball", "electroweb", "flash"],
+		movepoolDeletions: ["calmmind", "hypnosis"],
+
+		prevo: "Dottler-Variant",
+		evoLevel: 10,
+		creator: "Magmajudis",
 	},
 	orbeetle: {
 		inherit: true,
@@ -2103,10 +2125,10 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 		types: ["Bug", "Electric"],
 		baseStats: {hp: 60, atk: 45, def: 110, spa: 120, spd: 80, spe: 90},
 		abilities: {0: "Swarm", 1: "Frisk", H: "Cotton Down"},
-		movepoolAdditions: ["electroball", "electroweb", "flash"],
-		movepoolDeletions: ["hypnosis"],
+		movepoolAdditions: ["charge", "electroball", "electroweb", "flash"],
+		movepoolDeletions: ["calmmind", "hypnosis"],
 
-		prevo: "Dottler",
+		prevo: "Dottler-Variant",
 		evoLevel: 30,
 		creator: "Magmajudis",
 	},
@@ -2319,15 +2341,8 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 		creator: "Violet",
 	},
 
-	togepi: {
-		inherit: true,
-		otherFormes: ["Togepi-Unidentified"],
-		formeOrder: ["Togepi", "Togepi-Unidentified"],
-	},
-	togepiunidentified: {
-		name: "Togepi-Unidentified",
-		baseSpecies: "Togepi",
-		forme: "Unidentified",
+	ufogepi: {
+		name: "UFOgepi",
 		copyData: "Togepi",
 
 		types: ["Steel"],
@@ -2336,18 +2351,11 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 		movepoolAdditions: ["flashcannon", "honeclaws", "irondefense", "steelbeam"],
 		movepoolDeletions: ["followme", "morningsun", "roost", "softboiled"],
 
-		evos: ["Togetic-Unidentified"],
+		evos: ["UFOgetic"],
 		creator: "quagsi",
 	},
-	togetic: {
-		inherit: true,
-		otherFormes: ["Togetic-Unidentified"],
-		formeOrder: ["Togetic", "Togetic-Unidentified"],
-	},
-	togeticunidentified: {
-		name: "Togetic-Unidentified",
-		baseSpecies: "Togetic",
-		forme: "Unidentified",
+	ufogetic: {
+		name: "UFOgetic",
 		copyData: "Togetic",
 
 		types: ["Steel"],
@@ -2356,29 +2364,22 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 		movepoolAdditions: ["flashcannon", "honeclaws", "irondefense", "steelbeam"],
 		movepoolDeletions: ["followme", "morningsun", "roost", "softboiled"],
 
-		evos: ["Togekiss-Unidentified"],
-		prevo: "Togepi-Unidentified",
+		evos: ["UFOgekiss"],
+		prevo: "UFOgepi",
 		evoType: "levelFriendship",
 		creator: "quagsi",
 	},
-	togekiss: {
-		inherit: true,
-		otherFormes: ["Togekiss-Unidentified"],
-		formeOrder: ["Togekiss", "Togekiss-Unidentified"],
-	},
-	togekissunidentified: {
-		name: "Togekiss-Unidentified",
-		baseSpecies: "Togekiss",
-		forme: "Unidentified",
+	ufogekiss: {
+		name: "UFOgekiss",
 		copyData: "Togekiss",
 
-		types: ["Steel", "Flying"],
+		types: ["Steel"],
 		baseStats: {hp: 85, atk: 120, def: 95, spa: 60, spd: 95, spe: 90},
-		abilities: {0: "Hustle", 1: "Light Metal", H: "Super Luck"},
+		abilities: {0: "Hustle", 1: "Hover Drive", H: "Super Luck"},
 		movepoolAdditions: ["flashcannon", "honeclaws", "irondefense", "steelbeam"],
 		movepoolDeletions: ["followme", "morningsun", "roost", "softboiled"],
 
-		prevo: "Togetic-Unidentified",
+		prevo: "UFOgetic",
 		evoType: "useItem",
 		evoItem: "Shiny Stone",
 		creator: "quagsi",
