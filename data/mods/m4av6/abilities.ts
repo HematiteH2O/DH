@@ -435,8 +435,8 @@ export const Abilities: {[abilityid: string]: ModdedAbilityData} = {
 				this.field.pseudoWeather.trickroom.duration = 0;
 			}
 		},
-		onAnyTryMove(target, source, effect) {
-			if (['trickroom'].includes(effect.id)) {
+		onAnyTryMove(target, source, move) {
+			if (['trickroom'].includes(move.id)) {
 				this.attrLastMove('[still]');
 				this.add('cant', this.effectData.target, 'ability: Counter-Clockwise Spiral', move, '[of] ' + target);
 				return false;
