@@ -236,7 +236,7 @@ export const Abilities: {[abilityid: string]: ModdedAbilityData} = {
 		num: -7,
 	},
 	disengage: {
-		shortDesc: "This Pokemon switches out when it reaches 1/2 or less of its maximum HP.",
+		shortDesc: "This Pokémon switches out when it reaches 1/2 or less of its maximum HP.",
 		onEmergencyExit(target) {
 			if (!this.canSwitch(target.side) || target.forceSwitchFlag || target.switchFlag) return;
 			for (const side of this.sides) {
@@ -250,6 +250,13 @@ export const Abilities: {[abilityid: string]: ModdedAbilityData} = {
 		name: "Disengage",
 		rating: 1,
 		num: -8,
+	},
+	hoverdrive: {
+		shortDesc: "This Pokémon is immune to Ground during Electric Terrain.",
+		// airborneness implemented in scripts.ts
+		name: "Hover Drive",
+		rating: 3,
+		num: -9,
 	},
 
 // modded form-changing Abilities
