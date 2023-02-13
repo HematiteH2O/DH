@@ -26,18 +26,18 @@ export const Formats: {[k: string]: FormatData} = {
 		},
 		onSwitchIn(pokemon) {
 			if (pokemon.illusion) {
-				if (pokemon.illusion.species.forme.startsWith('Mega') || pokemon.illusion.species.forme.startsWith('Ultra')) {
+				if (pokemon.illusion.species.forme.startsWith('Mega') || pokemon.illusion.species.forme.startsWith('Ultra') || pokemon.illusion.species.isMega) {
 					this.add('-start', pokemon, 'typechange', pokemon.illusion.getTypes(true).join('/'), '[silent]');
 				}
 			} else {
-				if (pokemon.species.forme.startsWith('Mega') || pokemon.species.forme.startsWith('Ultra')) {
+				if (pokemon.species.forme.startsWith('Mega') || pokemon.species.forme.startsWith('Ultra') || pokemon.species.isMega) {
 					this.add('-start', pokemon, 'typechange', pokemon.getTypes(true).join('/'), '[silent]');
 				}
 			}
 		},
 		onDamagingHit(damage, target, source, move) {
 			if (target.hasAbility('illusion')) {
-				if (target.species.forme.startsWith('Mega') || target.species.forme.startsWith('Ultra')) {
+				if (target.species.forme.startsWith('Mega') || target.species.forme.startsWith('Ultra') || target.species.isMega) {
 					this.add('-start', target, 'typechange', target.getTypes(true).join('/'), '[silent]');
 				} else {
 					const types = target.baseSpecies.types;
