@@ -52,7 +52,7 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 		megaName: "Heliolisk-Mega",
 		megaType: ["Electric", "Dragon"],
 		megaAbility: {0: "Solar Power"},
-		megaStats: {hp: 62, atk: 85, def: 62, spa: 129, spd: 124, spe: 129},
+		megaStats: {hp: 62, atk: 85, def: 62, spa: 129, spd: 114, spe: 129},
 		megaStone: "Heliolite",
 		movepoolAdditions: ["dragontail", "morningsun"],
 		megaCreator: "lydian",
