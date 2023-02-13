@@ -15,6 +15,8 @@ export const FormatsData: {[k: string]: ModdedSpeciesFormatsData} = {
 	watchog: { tier: "Evo (NFE)" },
 	chukaurd: { tier: "Evo!" }, // evolves into Chukaurd
 
+	kecleon: { tier: "Evo!" },
+
 	glameow: { tier: "Evo (NFE)" },
 	purugly: { tier: "Evo!" },
 
@@ -97,6 +99,11 @@ export const FormatsData: {[k: string]: ModdedSpeciesFormatsData} = {
 	drifblim: { tier: "Evo!" },
 	drifblimvariant: { tier: "Evo!" },
 
+	oricorio: { tier: "Evo!" },
+	oricoriopompom: { tier: "Evo!" },
+	oricoriopau: { tier: "Evo!" },
+	oricoriosensu: { tier: "Evo!" },
+
 	heatmor: { tier: "Evo (NFE)" }, // evolves into Gourmant
 	gourmant: { tier: "Evo!" },
 
@@ -104,7 +111,7 @@ export const FormatsData: {[k: string]: ModdedSpeciesFormatsData} = {
 	milotic: { tier: "Evo!" },
 
 	psyduck: { tier: "Evo (NFE)" },
-	golduck: { tier: "Evo (NFE)" }, // evolves into Bafflack
+	golduck: { tier: "Evo!" },
 	bafflack: { tier: "Evo!" },
 
 	goomy: { tier: "Evo (NFE)" },
@@ -442,11 +449,11 @@ export const FormatsData: {[k: string]: ModdedSpeciesFormatsData} = {
 	magcargogalar: { tier: "Evo!" },
 
 	togepi: { tier: "Evo (NFE)" },
-	togepiunidentified: { tier: "Evo (NFE)" },
+	ufogepi: { tier: "Evo (NFE)" },
 	togetic: { tier: "Evo (NFE)" },
-	togeticunidentified: { tier: "Evo (NFE)" },
+	ufogetic: { tier: "Evo (NFE)" },
 	togekiss: { tier: "Evo!" },
-	togekissunidentified: { tier: "Evo!" },
+	ufogekiss: { tier: "Evo!" },
 
 	bronzor: { tier: "Evo (NFE)" },
 	bronzong: { tier: "Evo!" },
