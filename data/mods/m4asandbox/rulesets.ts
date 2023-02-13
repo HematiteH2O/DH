@@ -1055,6 +1055,7 @@ export const Formats: {[k: string]: FormatData} = {
 						newSpecies.abilities[0] = pokemon.ability;
 						newSpecies.forme = 'Mega';
 						newSpecies.name = pokemon.species.name + '-Mega';
+						newSpecies.isMega = true;
 						pokemon.canMegaEvo = newSpecies;
 						const abilities = pokemon.species.abilities;
 						let ability = abilities[0];
