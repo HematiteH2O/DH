@@ -2347,7 +2347,7 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 
 		types: ["Steel"],
 		baseStats: {hp: 35, atk: 40, def: 65, spa: 20, spd: 65, spe: 20},
-		abilities: {0: "Hustle", 1: "Light Metal", H: "Super Luck"},
+		abilities: {0: "Hustle", 1: "Hover Drive", H: "Super Luck"},
 		movepoolAdditions: ["flashcannon", "honeclaws", "irondefense", "steelbeam"],
 		movepoolDeletions: ["followme", "morningsun", "roost", "softboiled"],
 
@@ -2360,7 +2360,7 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 
 		types: ["Steel"],
 		baseStats: {hp: 55, atk: 80, def: 85, spa: 50, spd: 85, spe: 50},
-		abilities: {0: "Hustle", 1: "Light Metal", H: "Super Luck"},
+		abilities: {0: "Hustle", 1: "Hover Drive", H: "Super Luck"},
 		movepoolAdditions: ["flashcannon", "honeclaws", "irondefense", "steelbeam"],
 		movepoolDeletions: ["followme", "morningsun", "roost", "softboiled"],
 
