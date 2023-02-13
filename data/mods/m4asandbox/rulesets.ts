@@ -887,7 +887,6 @@ export const Formats: {[k: string]: FormatData} = {
 		desc: "Allows customization of a Pokémon's types and stats based on its nickname.",
 		onBegin() {
 			for (const pokemon of this.getAllPokemon()) {
-				pokemon.m.originalSpecies = this.dex.getSpecies(pokemon.species.name); // MnM4A
 				if (!pokemon.set.name) return;
 				if (pokemon.set.name.substr(0, 1) === "*") {
 					if (['Mega Stone 1', 'Mega Stone 2', 'Mega Stone H'].includes(pokemon.getItem().name)) {
@@ -943,7 +942,7 @@ export const Formats: {[k: string]: FormatData} = {
 								break;
 							case "p":
 							case "P":
-   							newSpecies.types[0] = "Poison";
+								newSpecies.types[0] = "Poison";
 								break;
 							case "r":
 							case "R":
@@ -1021,7 +1020,7 @@ export const Formats: {[k: string]: FormatData} = {
 								break;
 							case "p":
 							case "P":
-	   						newSpecies.types[1] = "Poison";
+								newSpecies.types[1] = "Poison";
 								break;
 							case "r":
 							case "R":
@@ -1048,11 +1047,11 @@ export const Formats: {[k: string]: FormatData} = {
 								newSpecies.types[1] = "";
 								break;
 						}
-						newSpecies.baseStats.atk = pokemon.set.name.substr(3, 3);
-						newSpecies.baseStats.def = pokemon.set.name.substr(6, 3);
-						newSpecies.baseStats.spa = pokemon.set.name.substr(9, 3);
-						newSpecies.baseStats.spd = pokemon.set.name.substr(12, 3);
-						newSpecies.baseStats.spe = pokemon.set.name.substr(15, 3);
+						if (!isNaN(pokemon.set.name.substr(3, 3))) newSpecies.baseStats.atk = pokemon.set.name.substr(3, 3);
+						if (!isNaN(pokemon.set.name.substr(6, 3))) newSpecies.baseStats.def = pokemon.set.name.substr(6, 3);
+						if (!isNaN(pokemon.set.name.substr(9, 3))) newSpecies.baseStats.spa = pokemon.set.name.substr(9, 3);
+						if (!isNaN(pokemon.set.name.substr(12, 3))) newSpecies.baseStats.spd = pokemon.set.name.substr(12, 3);
+						if (!isNaN(pokemon.set.name.substr(15, 3))) newSpecies.baseStats.spe = pokemon.set.name.substr(15, 3);
 						newSpecies.baseSpecies = pokemon.baseSpecies;
 						newSpecies.abilities[0] = pokemon.ability;
 						newSpecies.forme = 'Mega';
@@ -1071,10 +1070,12 @@ export const Formats: {[k: string]: FormatData} = {
 			}
 		},
 		onModifySpecies(species, target, source) {
+			if (!target.set.name) return;
 			if (source || !target?.side || ['Mega Stone 1', 'Mega Stone 2', 'Mega Stone H'].includes(target.getItem().name)) return;
-			if (target.set.name.substr(0, 1) === "*") {
+			if (target.set.name.substr(0, 1) === "*") {//Add "or (var)"
 				let newSpecies = this.dex.deepClone(species);
-				switch (target.set.name.substr(1, 1)) {
+				//If (var), use preset instead and then return newSpecies
+				switch (target.set.name.substr(1, 1)) {//Primary type
 					case "a":
 					case "A":
 						newSpecies.types[0] = "Dragon";
@@ -1125,7 +1126,7 @@ export const Formats: {[k: string]: FormatData} = {
 						break;
 					case "p":
 					case "P":
-	   				newSpecies.types[0] = "Poison";
+						newSpecies.types[0] = "Poison";
 						break;
 					case "r":
 					case "R":
@@ -1152,7 +1153,7 @@ export const Formats: {[k: string]: FormatData} = {
 						newSpecies.types[0] = "";
 						break;
 				}
-				switch (target.set.name.substr(2, 1)) {
+				switch (target.set.name.substr(2, 1)) {//Secondary type
 					case "a":
 					case "A":
 						newSpecies.types[1] = "Dragon";
@@ -1203,7 +1204,7 @@ export const Formats: {[k: string]: FormatData} = {
 						break;
 					case "p":
 					case "P":
-	   				newSpecies.types[1] = "Poison";
+						newSpecies.types[1] = "Poison";
 						break;
 					case "r":
 					case "R":
@@ -1230,11 +1231,11 @@ export const Formats: {[k: string]: FormatData} = {
 						newSpecies.types[1] = "";
 						break;
 				}
-				newSpecies.baseStats.atk = target.set.name.substr(3, 3);
-				newSpecies.baseStats.def = target.set.name.substr(6, 3);
-				newSpecies.baseStats.spa = target.set.name.substr(9, 3);
-				newSpecies.baseStats.spd = target.set.name.substr(12, 3);
-				newSpecies.baseStats.spe = target.set.name.substr(15, 3);
+				if (!isNaN(target.set.name.substr(3, 3))) newSpecies.baseStats.atk = target.set.name.substr(3, 3);
+				if (!isNaN(target.set.name.substr(6, 3))) newSpecies.baseStats.def = target.set.name.substr(6, 3);
+				if (!isNaN(target.set.name.substr(9, 3))) newSpecies.baseStats.spa = target.set.name.substr(9, 3);
+				if (!isNaN(target.set.name.substr(12, 3))) newSpecies.baseStats.spd = target.set.name.substr(12, 3);
+				if (!isNaN(target.set.name.substr(15, 3))) newSpecies.baseStats.spe = target.set.name.substr(15, 3);
 				target.isModded = true;
 				target.canMegaEvo = null;
 				if (target.species.isMega) {
@@ -1243,33 +1244,12 @@ export const Formats: {[k: string]: FormatData} = {
 				}
 				target.m.originalSpecies = newSpecies;
 				target.m.moddedSpecies = newSpecies;
+				target.isModded = true;
 				return newSpecies;
 			}
 		},
+		onSwitchInPriority: 1,
 		onSwitchIn(pokemon) {
-			// MnM4A
-			if (pokemon.illusion) {
-				const oMegaSpecies = this.dex.getSpecies(pokemon.illusion.species.originalMega);
-				if (oMegaSpecies.exists) {
-					// Place volatiles on the Pokémon to show its mega-evolved condition and details
-					if (oMegaSpecies.requiredItem || oMegaSpecies.requiredMove) this.add('-start', pokemon, oMegaSpecies.requiredItem || oMegaSpecies.requiredMove, '[silent]');
-					const oSpecies = this.dex.getSpecies(pokemon.illusion.m.originalSpecies);
-					if (oSpecies.types.length !== pokemon.illusion.species.types.length || oSpecies.types[1] !== pokemon.species.types[1]) {
-						this.add('-start', pokemon, 'typechange', pokemon.illusion.species.types.join('/'), '[silent]');
-					}
-				}
-			} else {
-				const oMegaSpecies = this.dex.getSpecies(pokemon.species.originalMega);
-				if (oMegaSpecies.exists) {
-					// Place volatiles on the Pokémon to show its mega-evolved condition and details
-					if (oMegaSpecies.requiredItem || oMegaSpecies.requiredMove) this.add('-start', pokemon, oMegaSpecies.requiredItem || oMegaSpecies.requiredMove, '[silent]');
-					const oSpecies = this.dex.getSpecies(pokemon.m.originalSpecies);
-					if (oSpecies.types.length !== pokemon.species.types.length || oSpecies.types[1] !== pokemon.species.types[1]) {
-						this.add('-start', pokemon, 'typechange', pokemon.species.types.join('/'), '[silent]');
-					}
-				}
-			}
-			// Sandbox
 			let species = pokemon.species;
 			let switchedIn = pokemon.switchedIn;
 			if (pokemon.illusion) {
@@ -1294,13 +1274,8 @@ export const Formats: {[k: string]: FormatData} = {
 			}
 			this.add(`raw|<ul class="utilichart"><li class="result"><span style="float: left ; min-height: 26px"><span class="col statcol"><em>HP</em><br>` + baseStats.hp + `</span> <span class="col statcol"><em>Atk</em><br>` + baseStats.atk + `</span> <span class="col statcol"><em>Def</em><br>` + baseStats.def + `</span> <span class="col statcol"><em>SpA</em><br>` + baseStats.spa + `</span> <span class="col statcol"><em>SpD</em><br>` + baseStats.spd + `</span> <span class="col statcol"><em>Spe</em><br>` + baseStats.spe + `</span> </span></li><li style="clear: both"></li></ul>`);
 		},
-		onSwitchOut(pokemon) {
-			// @ts-ignore
-			const oMegaSpecies = this.dex.getSpecies(pokemon.species.originalMega);
-			if (oMegaSpecies.exists) {
-				this.add('-end', pokemon, oMegaSpecies.requiredItem || oMegaSpecies.requiredMove, '[silent]');
-			}
-		},
+		//onDamagingHitOrder, so we go before Data Mod (and after Illusion wearing off, which I modded to have a priority of 1) 100% of the time
+		onDamagingHitOrder: 2,
 		onDamagingHit(damage, target, source, move) {
 			if (target.hasAbility('illusion')) { // making sure the correct information is given when an Illusion breaks
 				if (target.isModded) {
