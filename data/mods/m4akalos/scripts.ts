@@ -18,7 +18,7 @@ export const Scripts: {[k: string]: ModdedBattleScriptsData} = {
 			const newMega = this.dataCache.Pokedex[pokemon.mega] = { name: pokemon.megaName };
 
 			pokemon.otherFormes = pokemon.otherFormes ? pokemon.otherFormes.concat([newMega.name]) : [pokemon.megaName];
-			pokemon.formeOrder = pokemon.formeOrder ? pokemon.formeOrder.concat([newMega.name]) : [pokemon.name, pokemon.megaName];;
+			pokemon.formeOrder = pokemon.formeOrder ? pokemon.formeOrder.concat([newMega.name]) : [pokemon.name, pokemon.megaName];
 
 			newMega.num = pokemon.num;
 			newMega.baseSpecies = pokemon.name;
