@@ -40,12 +40,40 @@ export const Scripts: ModdedBattleScriptsData = {
 	},
 	init() {
 		for (const id in this.dataCache.Pokedex) {
-			const pokemon = this.dataCache.Pokedex[id];
+			let pokemon = this.dataCache.Pokedex[id];
+
+			// modding
 			if (pokemon.movepoolAdditions) {
 				for (const move of pokemon.movepoolAdditions) {
 					this.modData('Learnsets', this.toID(id)).learnset[this.toID(move)] = ["8M"];
 				}
 			}
+
+			// generating Megas
+			if (pokemon && pokemon.mega) {
+				const newMega = this.dataCache.Pokedex[pokemon.mega] = { name: pokemon.megaName };
+
+				pokemon.otherFormes = pokemon.otherFormes ? pokemon.otherFormes.concat([newMega.name]) : [pokemon.megaName];
+				pokemon.formeOrder = pokemon.formeOrder ? pokemon.formeOrder.concat([newMega.name]) : [pokemon.name, pokemon.megaName];;
+
+				newMega.num = pokemon.num;
+				newMega.baseSpecies = pokemon.name;
+				newMega.forme = "Mega";
+
+				newMega.types = pokemon.megaType || pokemon.types;
+				newMega.abilities = pokemon.megaAbility || pokemon.abilities;
+				newMega.baseStats = pokemon.megaStats || pokemon.baseStats;
+				newMega.heightm = pokemon.megaHeightm || pokemon.heightm;
+				newMega.weightkg = pokemon.megaWeightkg || pokemon.weightkg;
+				newMega.eggGroups = pokemon.eggGroups;
+				newMega.color = pokemon.megaColor || pokemon.color;
+
+				newMega.creator = pokemon.megaCreator || null;
+				newMega.requiredItem = pokemon.megaStone || null;
+				if (!this.modData('FormatsData', pokemon.mega)) this.data.FormatsData[pokemon.mega] = { };
+			}
+
+			// tiering
 			if (this.modData('FormatsData', id)) {
 				if (this.modData('FormatsData', id).isNonstandard === 'Past') this.modData('FormatsData', id).isNonstandard = null;
 				// singles tiers
@@ -84,6 +112,7 @@ export const Scripts: ModdedBattleScriptsData = {
 			}
 		};
 	},
+
 	canMegaEvo(pokemon) {
 		const altForme = pokemon.baseSpecies.otherFormes && this.dex.getSpecies(pokemon.baseSpecies.otherFormes[0]);
 		const item = pokemon.getItem();
@@ -145,15 +174,6 @@ export const Scripts: ModdedBattleScriptsData = {
 			return null;
 		}
 		if (item.name === "Rapidashinite" && pokemon.baseSpecies.name === "Rapidash-Galar") {
-			return null;
-		}
-		if (item.name === "RKS Megamemory" && pokemon.species.name.startsWith('Silvally')) {
-			let newSpecies = this.dex.deepClone(this.dex.getSpecies('Silvally-Mega'));
-			newSpecies.types[0] = pokemon.hpType || "Dark";
-			newSpecies.name = newSpecies.name + '-' + newSpecies.types[0];
-			return newSpecies;
-		}
-		if (item.name === "Articunite" && pokemon.baseSpecies.name === "Articuno-Galar") {
 			return null;
 		}
 		if (pokemon.baseSpecies.name === "Pichu") {
