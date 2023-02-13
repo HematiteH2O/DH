@@ -254,6 +254,18 @@ export const Abilities: {[abilityid: string]: ModdedAbilityData} = {
 	hoverdrive: {
 		shortDesc: "This Pokémon is immune to Ground during Electric Terrain.",
 		// airborneness implemented in scripts.ts
+		onStart(pokemon) {
+			if (this.field.isTerrain('electricterrain')) {
+				this.add('-ability', pokemon, 'Hover Drive');
+				this.add('-message', `${pokemon.name} levitates above the Electric Terrain!`);
+			}
+		},
+		onAnyTerrainStart() {
+			if (this.field.isTerrain('electricterrain')) {
+				this.add('-ability', this.effectData.target, 'Hover Drive');
+				this.add('-message', `${this.effectData.target.name} levitates above the Electric Terrain!`);
+			}
+		},
 		name: "Hover Drive",
 		rating: 3,
 		num: -9,
