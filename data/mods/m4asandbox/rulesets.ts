@@ -21,6 +21,7 @@ export const Formats: {[k: string]: FormatData} = {
 				this.add('-message', `https://www.smogon.com/forums/threads/3671140/`);
 			}
 			for (const pokemon of this.getAllPokemon()) {
+				pokemon.m.originalSpecies = pokemon.species.name;
 				(pokemon as any).lostItemForDelibird = pokemon.item;
 			}
 		},
