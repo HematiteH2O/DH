@@ -10,7 +10,7 @@ export const Formats: {[k: string]: FormatData} = {
 			if (this.format.name === '[Gen 8] M4A Sandbox' || this.format.name === '[Gen 8] M4A VGC Sandbox') {
 				this.add('-message', `Welcome to the Megas for All Sandbox!`);
 				this.add('-message', `This is a custom game format where you can experiment outside of the normal rules.`);
-				this.add('-message', `Thanks to the incredible KeroseneZanchu, you can even alter a Pokémon's type, stats and Mega form with its nickname!`);
+				this.add('-message', `Thanks to the work of KeroseneZanchu, you can even alter a Pokémon's type, stats and Mega form with its nickname!`);
 				this.add('-message', `You can find the details on how this works here:`);
 				this.add('-message', `https://docs.google.com/document/d/1hhF49OIQKot72C30mCzSwxYgb3Ephhm9KCL_nMPrCW0/`);
 			} else {
@@ -22,22 +22,6 @@ export const Formats: {[k: string]: FormatData} = {
 			}
 			for (const pokemon of this.getAllPokemon()) {
 				(pokemon as any).lostItemForDelibird = pokemon.item;
-			}
-		},
-		onChangeSet(set) {
-			const item = this.toID(set.item);
-			const silvally = [
-				'Silvally', 'Silvally-Fighting', 'Silvally-Flying', 'Silvally-Poison', 'Silvally-Ground', 'Silvally-Rock', 'Silvally-Bug', 'Silvally-Ghost', 'Silvally-Steel',
-				'Silvally-Fire', 'Silvally-Water', 'Silvally-Grass', 'Silvally-Electric', 'Silvally-Psychic', 'Silvally-Ice', 'Silvally-Dragon', 'Silvally-Dark', 'Silvally-Fairy',
-			];
-			if (silvally.includes(set.species)) {
-				if (item === 'rksmegamemory') {
-					if (set.hpType) {
-						set.species = 'Silvally-' + set.hpType;
-					} else {
-						set.species = 'Silvally-' + this.dex.getHiddenPower(set.ivs).type;
-					}
-				}
 			}
 		},
 		onSwitchIn(pokemon) {
@@ -71,10 +55,11 @@ export const Formats: {[k: string]: FormatData} = {
 			const type = species.types[0];
 			if (species.types[1]) {
 				const type2 = species.types[1];
-				this.add(`raw|<ul class="utilichart"><li class="result"><span class="col pokemonnamecol" style="white-space: nowrap">` + species.name + `</span> <span class="col typecol"><img src="https://${Config.routes.client}/sprites/types/${type}.png" alt="${type}" height="14" width="32"><img src="https://${Config.routes.client}/sprites/types/${type2}.png" alt="${type2}" height="14" width="32"></span> <span style="float: left ; min-height: 26px"><span class="col abilitycol">` + abilities[0] + `</span><span class="col abilitycol"></span></span><span style="float: left ; min-height: 26px"><span class="col statcol"><em>HP</em><br>` + baseStats.hp + `</span> <span class="col statcol"><em>Atk</em><br>` + baseStats.atk + `</span> <span class="col statcol"><em>Def</em><br>` + baseStats.def + `</span> <span class="col statcol"><em>SpA</em><br>` + baseStats.spa + `</span> <span class="col statcol"><em>SpD</em><br>` + baseStats.spd + `</span> <span class="col statcol"><em>Spe</em><br>` + baseStats.spe + `</span> </span></li><li style="clear: both"></li></ul>`);
+				this.battle.add(`raw|<ul class="utilichart"><li class="result"><span class="col pokemonnamecol" style="white-space: nowrap">` + species.name + `</span> <span class="col typecol"><img src="http://play.pokemonshowdown.com/sprites/types/${type}.png" alt="${type}" height="14" width="32"><img src="http://play.pokemonshowdown.com/sprites/types/${type2}.png" alt="${type2}" height="14" width="32"></span> <span style="float: left ; min-height: 26px"><span class="col abilitycol">` + abilities + `</span><span class="col abilitycol"></span></span></li><li style="clear: both"></li></ul>`);
 			} else {
-				this.add(`raw|<ul class="utilichart"><li class="result"><span class="col pokemonnamecol" style="white-space: nowrap">` + species.name + `</span> <span class="col typecol"><img src="https://${Config.routes.client}/sprites/types/${type}.png" alt="${type}" height="14" width="32"></span> <span style="float: left ; min-height: 26px"><span class="col abilitycol">` + abilities[0] + `</span><span class="col abilitycol"></span></span><span style="float: left ; min-height: 26px"><span class="col statcol"><em>HP</em><br>` + baseStats.hp + `</span> <span class="col statcol"><em>Atk</em><br>` + baseStats.atk + `</span> <span class="col statcol"><em>Def</em><br>` + baseStats.def + `</span> <span class="col statcol"><em>SpA</em><br>` + baseStats.spa + `</span> <span class="col statcol"><em>SpD</em><br>` + baseStats.spd + `</span> <span class="col statcol"><em>Spe</em><br>` + baseStats.spe + `</span> </span></li><li style="clear: both"></li></ul>`);
+				this.battle.add(`raw|<ul class="utilichart"><li class="result"><span class="col pokemonnamecol" style="white-space: nowrap">` + species.name + `</span> <span class="col typecol"><img src="http://play.pokemonshowdown.com/sprites/types/${type}.png" alt="${type}" height="14" width="32"></span> <span style="float: left ; min-height: 26px"><span class="col abilitycol">` + abilities + `</span><span class="col abilitycol"></span></span></li><li style="clear: both"></li></ul>`);
 			}
+			this.battle.add(`raw|<ul class="utilichart"><li class="result"><span style="float: left ; min-height: 26px"><span class="col statcol"><em>HP</em><br>` + baseStats.hp + `</span> <span class="col statcol"><em>Atk</em><br>` + baseStats.atk + `</span> <span class="col statcol"><em>Def</em><br>` + baseStats.def + `</span> <span class="col statcol"><em>SpA</em><br>` + baseStats.spa + `</span> <span class="col statcol"><em>SpD</em><br>` + baseStats.spd + `</span> <span class="col statcol"><em>Spe</em><br>` + baseStats.spe + `</span> </span></li><li style="clear: both"></li></ul>`);
 			if (species.creator) this.hint(`${species.name} was submitted by ${species.creator}!`);
 		},
 	},
@@ -218,17 +203,6 @@ export const Formats: {[k: string]: FormatData} = {
 					// Mega Mimikyu is banned from Fairy Mono and this enforces that
 					species = this.dex.getSpecies("Mimikyu-Busted-Mega");
 					typeTable = typeTable.filter(type => species.types.includes(type));
-				}
-				if (item.id === "rksmegamemory" && species.baseSpecies === "Silvally") {
-					let silvally = 'Silvally';
-					if (set.hpType) {
-						silvally = 'Silvally-' + set.hpType;
-					} else {
-						silvally = 'Silvally-' + this.dex.getHiddenPower(set.ivs).type;
-					}
-					species = this.dex.getSpecies(silvally);
-					typeTable = typeTable.filter(type => species.types.includes(type));
-					if (!typeTable.length) return [`Your team must share a type.`];
 				}
 			}
 		},
