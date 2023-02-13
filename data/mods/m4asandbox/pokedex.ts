@@ -1575,11 +1575,6 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 
 // SANDBOX CONTENT STARTS HERE
 
-	pichu: {
-		inherit: true,
-		otherFormes: ["Pichu-Spiky-eared", "Pichu-Spiky-eared-Mega"],
-		formeOrder: ["Pichu", "Pichu-Spiky-eared", "Pichu-Spiky-eared-Mega"],
-	},
 	pichuspikyeared: {
 		inherit: true,
 		gender: "F",
@@ -1600,11 +1595,6 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 		requiredItem: "Pichunite",
 		battleOnly: "Pichu-Spiky-eared",
 	},
-	porygonz: {
-		inherit: true,
-		otherFormes: ["Porygon-Z-Mega", "Porygod-Z-Mega"],
-		formeOrder: ["Porygon-Z", "Porygon-Z-Mega", "Porygod-Z-Mega"],
-	},
 	porygodzmega: {
 		num: 474,
 		name: "Porygod-Z-Mega",
@@ -1620,11 +1610,6 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 		eggGroups: ["Mineral"],
 		requiredItem: "Porygonite-Z",
 	},
-	stoutland: {
-		inherit: true,
-		otherFormes: ["Stoutland-Mega", "Stoutland-Mega-U"],
-		formeOrder: ["Stoutland", "Stoutland-Mega", "Stoutland-Mega-U"],
-	},
 	stoutlandmegau: {
 		num: 508,
 		name: "Stoutland-Mega-U",
@@ -1638,12 +1623,6 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 		color: "Gray",
 		eggGroups: ["Field"],
 		requiredItem: "Stoutlandite-U",
-	},
-	floette: {
-		inherit: true,
-		otherFormes: ["Floette-Eternal", "Floette-Eternal-Mega"],
-		cosmeticFormes: ["Floette-Blue", "Floette-Orange", "Floette-White", "Floette-Yellow"],
-		formeOrder: ["Floette", "Floette-Blue", "Floette-Orange", "Floette-White", "Floette-Yellow", "Floette-Eternal", "Floette-Eternal-Mega"],
 	},
 	floetteeternalmega: {
 		num: 670,
@@ -1661,11 +1640,6 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 		requiredItem: "Floettite",
 		battleOnly: "Floette-Eternal",
 	},
-	meltan: {
-		inherit: true,
-		otherFormes: ["Meltan-Mega"],
-		formeOrder: ["Meltan", "Meltan-Mega"],
-	},
 	meltanmega: {
 		num: 808,
 		name: "Meltan-Mega",
@@ -1682,11 +1656,6 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 		requiredItem: "Meltanite",
 	},
 	// Legends presets
-	growlithe: {
-		inherit: true,
-		otherFormes: ["Growlithe-Hisui"],
-		formeOrder: ["Growlithe", "Growlithe-Hisui"],
-	},
 	growlithehisui: {
 		name: "Growlithe-Hisui",
 		baseSpecies: "Growlithe",
@@ -1697,11 +1666,6 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 		heightm: 0.8,
 		weightkg: 22.7,
 		evos: ["Arcanine-Hisui"],
-	},
-	arcanine: {
-		inherit: true,
-		otherFormes: ["Arcanine-Hisui"],
-		formeOrder: ["Arcanine", "Arcanine-Hisui"],
 	},
 	arcaninehisui: {
 		name: "Arcanine-Hisui",
@@ -1716,11 +1680,6 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 		evoType: "useItem",
 		evoItem: "Fire Stone",
 	},
-	voltorb: {
-		inherit: true,
-		otherFormes: ["Voltorb-Hisui"],
-		formeOrder: ["Voltorb", "Voltorb-Hisui"],
-	},
 	voltorbhisui: {
 		name: "Voltorb-Hisui",
 		baseSpecies: "Voltorb",
@@ -1730,11 +1689,6 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 		heightm: 0.5,
 		weightkg: 13,
 		evos: ["Electrode-Hisui"],
-	},
-	electrode: {
-		inherit: true,
-		otherFormes: ["Electrode-Hisui"],
-		formeOrder: ["Electrode", "Electrode-Hisui"],
 	},
 	electrodehisui: {
 		name: "Electrode-Hisui",
@@ -1753,11 +1707,6 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 		inherit: true,
 		evos: ["Typhlosion", "Typhlosion-Hisui"],
 	},
-	typhlosion: {
-		inherit: true,
-		otherFormes: ["Typhlosion-Hisui"],
-		formeOrder: ["Typhlosion", "Typhlosion-Hisui"],
-	},
 	typhlosionhisui: {
 		name: "Typhlosion-Hisui",
 		baseSpecies: "Typhlosion",
@@ -1769,11 +1718,6 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 		weightkg: 69.8,
 		prevo: "Quilava",
 		evoLevel: 36,
-	},
-	qwilfish: {
-		inherit: true,
-		otherFormes: ["Qwilfish-Hisui"],
-		formeOrder: ["Qwilfish", "Qwilfish-Hisui"],
 	},
 	qwilfishhisui: {
 		name: "Qwilfish-Hisui",
@@ -1796,11 +1740,6 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 		prevo: "Qwilfish-Hisui",
 		evoType: "levelMove",
 		evoMove: "Barb Barrage",
-	},
-	sneasel: {
-		inherit: true,
-		otherFormes: ["Sneasel-Hisui"],
-		formeOrder: ["Sneasel", "Sneasel-Hisui"],
 	},
 	sneaselhisui: {
 		num: 903,
@@ -1828,7 +1767,6 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 	},
 	dialga: {
 		inherit: true,
-		baseForme: "Altered",
 		otherFormes: ["Dialga-Origin"],
 		formeOrder: ["Dialga", "Dialga-Origin"],
 	},
@@ -1850,7 +1788,6 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 	},
 	palkia: {
 		inherit: true,
-		baseForme: "Altered",
 		otherFormes: ["Palkia-Origin"],
 		formeOrder: ["Palkia", "Palkia-Origin"],
 	},
@@ -1874,11 +1811,6 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 		inherit: true,
 		evos: ["Samurott", "Samurott-Hisui"],
 	},
-	samurott: {
-		inherit: true,
-		otherFormes: ["Samurott-Hisui"],
-		formeOrder: ["Samurott", "Samurott-Hisui"],
-	},
 	samurotthisui: {
 		name: "Samurott-Hisui",
 		baseSpecies: "Samurott",
@@ -1895,11 +1827,6 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 		inherit: true,
 		evos: ["Lilligant", "Lilligant-Hisui"],
 	},
-	lilligant: {
-		inherit: true,
-		otherFormes: ["Lilligant-Hisui"],
-		formeOrder: ["Lilligant", "Lilligant-Hisui"],
-	},
 	lilliganthisui: {
 		name: "Lilligant-Hisui",
 		baseSpecies: "Lilligant",
@@ -1913,11 +1840,6 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 		prevo: "Petilil",
 		evoType: "useItem",
 		evoItem: "Leaf Stone",
-	},
-	basculin: {
-		inherit: true,
-		otherFormes: ["Basculin-Blue-Striped", "Basculin-White-Striped"],
-		formeOrder: ["Basculin", "Basculin-Blue-Striped", "Basculin-White-Striped"],
 	},
 	basculinwhitestriped: {
 		name: "Basculin-White-Striped",
@@ -1962,11 +1884,6 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 		evoType: "levelMove",
 		evoMove: "Wave Crash",
 	},
-	zorua: {
-		inherit: true,
-		otherFormes: ["Zorua-Hisui"],
-		formeOrder: ["Zorua", "Zorua-Hisui"],
-	},
 	zoruahisui: {
 		name: "Zorua-Hisui",
 		baseSpecies: "Zorua",
@@ -1977,11 +1894,6 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 		heightm: 0.7,
 		weightkg: 12.5,
 		evos: ["Zoroark-Hisui"],
-	},
-	zoroark: {
-		inherit: true,
-		otherFormes: ["Zoroark-Hisui"],
-		formeOrder: ["Zoroark", "Zoroark-Hisui"],
 	},
 	zoroarkhisui: {
 		name: "Zoroark-Hisui",
@@ -1999,11 +1911,6 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 		inherit: true,
 		evos: ["Braviary", "Braviary-Hisui"],
 	},
-	braviary: {
-		inherit: true,
-		otherFormes: ["Braviary-Hisui"],
-		formeOrder: ["Braviary", "Braviary-Hisui"],
-	},
 	braviaryhisui: {
 		name: "Braviary-Hisui",
 		baseSpecies: "Braviary",
@@ -2020,11 +1927,6 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 		inherit: true,
 		evos: ["Sliggoo", "Sliggoo-Hisui"],
 	},
-	sliggoo: {
-		inherit: true,
-		otherFormes: ["Sliggoo-Hisui"],
-		formeOrder: ["Sliggoo", "Sliggoo-Hisui"],
-	},
 	sliggoohisui: {
 		name: "Sliggoo-Hisui",
 		baseSpecies: "Sliggoo",
@@ -2038,11 +1940,6 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 		prevo: "Goomy",
 		evoLevel: 40,
 		evos: ["Goodra-Hisui"],
-	},
-	goodra: {
-		inherit: true,
-		otherFormes: ["Goodra-Hisui"],
-		formeOrder: ["Goodra", "Goodra-Hisui"],
 	},
 	goodrahisui: {
 		name: "Goodra-Hisui",
@@ -2061,11 +1958,6 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 		inherit: true,
 		evos: ["Avalugg", "Avalugg-Hisui"],
 	},
-	avalugg: {
-		inherit: true,
-		otherFormes: ["Avalugg-Hisui"],
-		formeOrder: ["Avalugg", "Avalugg-Hisui"],
-	},
 	avalugghisui: {
 		name: "Avalugg-Hisui",
 		baseSpecies: "Avalugg",
@@ -2082,11 +1974,6 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 	dartrix: {
 		inherit: true,
 		evos: ["Decidueye", "Decidueye-Hisui"],
-	},
-	decidueye: {
-		inherit: true,
-		otherFormes: ["Decidueye-Hisui"],
-		formeOrder: ["Decidueye", "Decidueye-Hisui"],
 	},
 	decidueyehisui: {
 		name: "Decidueye-Hisui",
