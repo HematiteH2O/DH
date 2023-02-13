@@ -22,22 +22,6 @@ export const Formats: {[k: string]: FormatData} = {
 				(pokemon as any).lostItemForDelibird = pokemon.item;
 			}
 		},
-		onChangeSet(set) {
-			const item = this.toID(set.item);
-			const silvally = [
-				'Silvally', 'Silvally-Fighting', 'Silvally-Flying', 'Silvally-Poison', 'Silvally-Ground', 'Silvally-Rock', 'Silvally-Bug', 'Silvally-Ghost', 'Silvally-Steel',
-				'Silvally-Fire', 'Silvally-Water', 'Silvally-Grass', 'Silvally-Electric', 'Silvally-Psychic', 'Silvally-Ice', 'Silvally-Dragon', 'Silvally-Dark', 'Silvally-Fairy',
-			];
-			if (silvally.includes(set.species)) {
-				if (item === 'rksmegamemory') {
-					if (set.hpType) {
-						set.species = 'Silvally-' + set.hpType;
-					} else {
-						set.species = 'Silvally-' + this.dex.getHiddenPower(set.ivs).type;
-					}
-				}
-			}
-		},
 		onSwitchIn(pokemon) {
 			if (pokemon.illusion) {
 				if (pokemon.illusion.species.forme.startsWith('Mega') || pokemon.illusion.species.forme.startsWith('Ultra')) {
@@ -216,17 +200,6 @@ export const Formats: {[k: string]: FormatData} = {
 					// Mega Mimikyu is banned from Fairy Mono and this enforces that
 					species = this.dex.getSpecies("Mimikyu-Busted-Mega");
 					typeTable = typeTable.filter(type => species.types.includes(type));
-				}
-				if (item.id === "rksmegamemory" && species.baseSpecies === "Silvally") {
-					let silvally = 'Silvally';
-					if (set.hpType) {
-						silvally = 'Silvally-' + set.hpType;
-					} else {
-						silvally = 'Silvally-' + this.dex.getHiddenPower(set.ivs).type;
-					}
-					species = this.dex.getSpecies(silvally);
-					typeTable = typeTable.filter(type => species.types.includes(type));
-					if (!typeTable.length) return [`Your team must share a type.`];
 				}
 			}
 		},
