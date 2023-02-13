@@ -3007,6 +3007,7 @@ export const Abilities: {[abilityid: string]: ModdedAbilityData} = {
 			if (pokemon === pokemon.side.pokemon[i]) return;
 			pokemon.illusion = pokemon.side.pokemon[i];
 		},
+		onDamagingHitOrder: 1,
 		onDamagingHit(damage, target, source, move) {
 			if (target.illusion) {
 				this.singleEvent('End', this.dex.getAbility('Illusion'), target.abilityData, target, source, move);
