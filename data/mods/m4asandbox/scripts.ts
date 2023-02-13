@@ -769,7 +769,20 @@ export const Scripts: ModdedBattleScriptsData = {
 		const item = pokemon.getItem();
 		if (item.megaStone) {
 			if (item.megaStone === pokemon.baseSpecies.name) return null;
-			return item.megaStone;
+			else if (item.name === "Lycanite" && pokemon.baseSpecies.name === "Lycanroc-Midnight") return "Lycanroc-Midnight-Mega";
+			else if (item.name === "Lycanite" && pokemon.baseSpecies.name === "Lycanroc-Dusk") return "Lycanroc-Dusk-Mega";
+			else if (item.name === "Slowkinite" && pokemon.baseSpecies.name === "Slowking-Galar") return "Slowking-Galar-Mega";
+			else if (item.name === "Gourgeite" && pokemon.baseSpecies.name === "Gourgeist-Small") return "Gourgeist-Small-Mega";
+			else if (item.name === "Gourgeite" && pokemon.baseSpecies.name === "Gourgeist-Large") return "Gourgeist-Large-Mega";
+			else if (item.name === "Gourgeite" && pokemon.baseSpecies.name === "Gourgeist-Super") return "Gourgeist-Super-Mega";
+			else if (item.name === "Reginite" && pokemon.baseSpecies.name === "Regice") return "Regice-Mega";
+			else if (item.name === "Reginite" && pokemon.baseSpecies.name === "Registeel") return "Registeel-Mega";
+			else if (item.name === "Meowsticite" && pokemon.baseSpecies.name === "Meowstic-F") return "Meowstic-F-Mega";
+			else if (item.name === "Sawsbuckite" && pokemon.baseSpecies.id === "sawsbucksummer") return "Sawsbuck-Summer-Mega";
+			else if (item.name === "Sawsbuckite" && pokemon.baseSpecies.id === "sawsbuckautumn") return "Sawsbuck-Autumn-Mega";
+			else if (item.name === "Sawsbuckite" && pokemon.baseSpecies.id === "sawsbuckwinter") return "Sawsbuck-Winter-Mega";
+			else if (item.name === "Toxtricitite" && pokemon.baseSpecies.name === "Toxtricity-Low-Key") return "Toxtricity-Low-Key-Mega";
+			else return item.megaStone;
 		} else {
 			return null;
 		}
