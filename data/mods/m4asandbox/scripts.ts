@@ -373,12 +373,41 @@ export const Scripts: ModdedBattleScriptsData = {
 		// from main M4A
 		
 		for (const id in this.dataCache.Pokedex) {
-			const pokemon = this.dataCache.Pokedex[id];
+			let pokemon = this.dataCache.Pokedex[id];
+
+			// modding
 			if (pokemon.movepoolAdditions) {
 				for (const move of pokemon.movepoolAdditions) {
 					this.modData('Learnsets', this.toID(id)).learnset[this.toID(move)] = ["8M"];
 				}
 			}
+
+			// generating Megas
+			if (pokemon && pokemon.mega) {
+				const newMega = this.dataCache.Pokedex[pokemon.mega] = { name: pokemon.megaName };
+
+				pokemon.otherFormes = pokemon.otherFormes ? pokemon.otherFormes.concat([newMega.name]) : [pokemon.megaName];
+				pokemon.formeOrder = pokemon.formeOrder ? pokemon.formeOrder.concat([newMega.name]) : [pokemon.name, pokemon.megaName];
+
+				newMega.num = pokemon.num;
+				newMega.baseSpecies = pokemon.name;
+				newMega.forme = "Mega";
+
+				newMega.types = pokemon.megaType || pokemon.types;
+				newMega.abilities = pokemon.megaAbility || pokemon.abilities;
+				newMega.baseStats = pokemon.megaStats || pokemon.baseStats;
+				newMega.heightm = pokemon.megaHeightm || pokemon.heightm;
+				newMega.weightkg = pokemon.megaWeightkg || pokemon.weightkg;
+				newMega.eggGroups = pokemon.eggGroups;
+				newMega.color = pokemon.megaColor || pokemon.color;
+				newMega.battleOnly = pokemon.name; // just in case
+
+				newMega.creator = pokemon.megaCreator || null;
+				newMega.requiredItem = pokemon.megaStone || null;
+				if (!this.modData('FormatsData', pokemon.mega)) this.data.FormatsData[pokemon.mega] = { };
+			}
+
+			// tiering
 			if (this.modData('FormatsData', id)) {
 				if (this.modData('FormatsData', id).isNonstandard === 'Past') this.modData('FormatsData', id).isNonstandard = null;
 				// singles tiers
@@ -754,17 +783,6 @@ export const Scripts: ModdedBattleScriptsData = {
 		// @ts-ignore
 		let species: Species = this.getMixedSpecies(pokemon.species, pokemon.canMegaEvo);
 		if (pokemon.m.moddedSpecies) species = this.getMixedSpecies(pokemon.m.moddedSpecies, pokemon.canMegaEvo);
-		if (pokemon.getItem().name === 'RKS Megamemory') {
-			let silvallyType = pokemon.hpType || 'Dark';
-			if (species.types[1] === silvallyType) {
-				species.types = [silvallyType];
-			} else if (!species.types[1] && species.types[0] !== silvallyType) {
-				// single-typed Pokémon can still have a primary type as their secondary type
-				species.types = [species.types[0], silvallyType];
-			} else {
-				species.types = [silvallyType, species.types[1]];
-			}
-		}
 		const side = pokemon.side;
 
 		// Pokémon affected by Sky Drop cannot Mega Evolve. Enforce it here for now.
