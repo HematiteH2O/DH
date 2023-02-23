@@ -1937,42 +1937,48 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 			}
 		},
 	},
-	svspoilers: {
+	refurbish: {
 		num: -1024,
 		accuracy: true,
 		basePower: 0,
 		category: "Status",
-		name: "SV SPOILERS",
+		name: "Refurbish",
 		shortDesc: "a move that I really wanted to try out",
-		pp: 1,
-		noPPBoosts: true,
+		pp: 5,
 		priority: 0,
 		flags: {snatch: 1},
-		onPrepareHit(target, source, move) {
-			this.attrLastMove('[still]');
-			this.add('-anim', source, "Charge", target);
-		},
-		onTry(pokemon) {
-			if (pokemon.side.faintedLastTurn) {
-				return;
+		onHitField(target, source) {
+			let success = false;
+			for (const id of this.field.pseudoWeather) {
+				if (this.field.pseudoWeather[id].duration !== 0) this.field.pseudoWeather[id].duration = 5;
+				this.add('-fieldstart', this.dex.getEffect(id).name); // I have no idea if this would actually show it being reset
+				success = true;
 			}
-			this.add('-fail', pokemon, 'move: SV Spoilers');
-			this.hint("There was nothing to revive!");
-			return null;
-		},
-		onHit(pokemon) {
-			let revived = pokemon.side.faintedLastTurn;
-			if (!revived) return false;
-			revived.fainted = null;
-			revived.faintQueued = null;
-			revived.hp = Math.floor(revived.maxhp / 2) || 1;
-			revived.status = '';
-			this.add('-message', `${revived.name} was revived!`);
-			revived.side.pokemonLeft++;
+			for (const id of source.side.sideConditions) {
+				if (source.side.sideConditions[id].duration !== 0) source.side.sideConditions[id].duration = 5;
+				this.add('-sidestart', source.side, this.dex.getEffect(id).name, '[silent]'); // same
+				success = true;
+			}
+			for (const id of source.side.foe.sideConditions) {
+				if (source.side.foe.sideConditions[id].duration !== 0) source.side.foe.sideConditions[id].duration = 5;
+				this.add('-sidestart', source.side.foe, this.dex.getEffect(id).name, '[silent]'); // same
+				success = true;
+			}
+			if (this.field.weatherData.duration) {
+				this.field.weatherData.duration = 5;
+				this.add('-weather', this.field.weatherData.name);
+				success = true;
+			}
+			if (this.field.terrainData.duration) {
+				this.field.terrainData.duration = 5;
+				this.add('-terrain', this.field.terrainData.name);
+				success = true;
+			}
+			return success;
 		},
 		secondary: null,
 		target: "self",
-		type: "Electric",
+		type: "Normal",
 		contestType: "Clever",
 	},
 };
