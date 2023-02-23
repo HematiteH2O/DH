@@ -23,7 +23,7 @@ export const Scripts: ModdedBattleScriptsData = {
 				}
 				if (!newLearners.length) continue;
 				const sheetOutput: string[] = [];
-				sheetOutput.push(move.name + `: ` newLearners);
+				sheetOutput.push(move.name + `: ` + newLearners);
 				move.sheetOutput = sheetOutput;
 			}
 		}
