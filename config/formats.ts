@@ -68,4 +68,20 @@ export const Formats: FormatList = [
 		mod: 'variantscompare',
 	},
 
+	{
+		name: "Moves from Paldea",
+		desc: [
+			"Outputs a sheet that lists movepool additions from Gen IX (by move)!",
+		],
+		
+		ruleset: ['Team Preview', 'HP Percentage Mod', 'Cancel Mod', 'Dynamax Clause', 'Sleep Clause Mod'],
+		onBegin() {
+			for (const moveid in this.dex.data.Moves) {
+				const move = this.dex.data.Moves[moveid];
+				if (move && move.sheetOutput) this.add('-message', `${move.sheetOutput}`);
+			}
+		},
+		mod: 'paldeamoves',
+	},
+
 ];
