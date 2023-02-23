@@ -1985,7 +1985,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 			return success;
 		},
 		secondary: null,
-		target: "self",
+		target: "all",
 		type: "Normal",
 		contestType: "Clever",
 	},
