@@ -1949,6 +1949,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		flags: {snatch: 1},
 		onHitField(target, source) {
 			let success = false;
+			console.log(this.field.terrainData);
 			for (const id in this.field.pseudoWeather) {
 				if (this.field.pseudoWeather[id].duration && this.field.pseudoWeather[id].duration !== 0) {
 					this.field.pseudoWeather[id].duration = 5;
@@ -1975,8 +1976,8 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 			}
 			if (this.field.weatherData.duration) {
 				this.field.weatherData.duration = 5;
-				this.add('-weather', this.field.weatherData.name, '[silent]');
-				this.add('-weather', this.field.weatherData.name, '[silent]');
+				this.add('-weather', 'none', '[silent]');
+				this.add('-weather', this.field.weatherData, '[silent]');
 				success = true;
 			}
 			if (this.field.terrainData.duration) {
