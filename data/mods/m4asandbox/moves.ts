@@ -1948,18 +1948,26 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		priority: 0,
 		flags: {snatch: 1},
 		onHitField(target, source) {
+			console.log(this.field.pseudoWeather);
+			console.log(source.side.sideConditions);
+			console.log(source.side.foe.sideConditions);
+			console.log(this.field.weatherData);
+			console.log(this.field.terrainData);
 			let success = false;
 			for (const id of this.field.pseudoWeather) {
+				console.log(id);
 				if (this.field.pseudoWeather[id].duration !== 0) this.field.pseudoWeather[id].duration = 5;
 				this.add('-fieldstart', this.dex.getEffect(id).name); // I have no idea if this would actually show it being reset
 				success = true;
 			}
 			for (const id of source.side.sideConditions) {
+				console.log(id);
 				if (source.side.sideConditions[id].duration !== 0) source.side.sideConditions[id].duration = 5;
 				this.add('-sidestart', source.side, this.dex.getEffect(id).name, '[silent]'); // same
 				success = true;
 			}
 			for (const id of source.side.foe.sideConditions) {
+				console.log(id);
 				if (source.side.foe.sideConditions[id].duration !== 0) source.side.foe.sideConditions[id].duration = 5;
 				this.add('-sidestart', source.side.foe, this.dex.getEffect(id).name, '[silent]'); // same
 				success = true;
