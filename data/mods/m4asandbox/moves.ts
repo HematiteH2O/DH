@@ -1950,8 +1950,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		onHitField(target, source) {
 			let success = false;
 			for (const id in this.field.pseudoWeather) {
-				if (this.field.pseudoWeather[id].effectType && this.field.pseudoWeather[id].effectType === 'Rule') continue;
-				if (this.field.pseudoWeather[id].duration !== 0) {
+				if (this.field.pseudoWeather[id].duration && this.field.pseudoWeather[id].duration !== 0) {
 					this.field.pseudoWeather[id].duration = 5;
 					this.add('-fieldend', this.dex.getEffect(id).name, '[silent]');
 					this.add('-fieldstart', this.dex.getEffect(id).name, '[silent]');
@@ -1982,8 +1981,8 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 			}
 			if (this.field.terrainData.duration) {
 				this.field.terrainData.duration = 5;
-				this.add('-fieldend', this.field.terrainData.name, '[silent]');
-				this.add('-fieldstart', this.field.terrainData.name, '[silent]');
+				this.add('-fieldend', this.field.terrainData, '[silent]');
+				this.add('-fieldstart', this.field.terrainData, '[silent]');
 				success = true;
 			}
 			if (success) this.add('-message', `All ongoing field effects were set to last 5 turns!`);
