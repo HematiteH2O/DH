@@ -1948,40 +1948,44 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		priority: 0,
 		flags: {snatch: 1},
 		onHitField(target, source) {
-			console.log(this.field.pseudoWeather);
-			console.log(source.side.sideConditions);
-			console.log(source.side.foe.sideConditions);
-			console.log(this.field.weatherData);
-			console.log(this.field.terrainData);
 			let success = false;
 			for (const id in this.field.pseudoWeather) {
-				console.log(id);
-				if (this.field.pseudoWeather[id].duration !== 0) this.field.pseudoWeather[id].duration = 5;
-				this.add('-fieldstart', this.dex.getEffect(id).name); // I have no idea if this would actually show it being reset
-				success = true;
+				if (this.field.pseudoWeather[id].duration !== 0) {
+					this.field.pseudoWeather[id].duration = 5;
+					this.add('-fieldend', this.dex.getEffect(id).name, '[silent]');
+					this.add('-fieldstart', this.dex.getEffect(id).name, '[silent]');
+					success = true;
+				}
 			}
 			for (const id in source.side.sideConditions) {
-				console.log(id);
-				if (source.side.sideConditions[id].duration !== 0) source.side.sideConditions[id].duration = 5;
-				this.add('-sidestart', source.side, this.dex.getEffect(id).name, '[silent]'); // same
-				success = true;
+				if (source.side.sideConditions[id].duration !== 0) {
+					source.side.sideConditions[id].duration = 5;
+					this.add('-sideend', source.side, this.dex.getEffect(id).name, '[silent]');
+					this.add('-sidestart', source.side, this.dex.getEffect(id).name, '[silent]');
+					success = true;
+				}
 			}
 			for (const id in source.side.foe.sideConditions) {
-				console.log(id);
-				if (source.side.foe.sideConditions[id].duration !== 0) source.side.foe.sideConditions[id].duration = 5;
-				this.add('-sidestart', source.side.foe, this.dex.getEffect(id).name, '[silent]'); // same
-				success = true;
+				if (source.side.foe.sideConditions[id].duration !== 0) {
+					source.side.foe.sideConditions[id].duration = 5;
+					this.add('-sideend', source.side.foe, this.dex.getEffect(id).name, '[silent]');
+					this.add('-sidestart', source.side.foe, this.dex.getEffect(id).name, '[silent]');
+					success = true;
+				}
 			}
 			if (this.field.weatherData.duration) {
 				this.field.weatherData.duration = 5;
-				this.add('-weather', this.field.weatherData.name);
+				this.add('-weather', this.field.weatherData.name, '[silent]');
+				this.add('-weather', this.field.weatherData.name, '[silent]');
 				success = true;
 			}
 			if (this.field.terrainData.duration) {
 				this.field.terrainData.duration = 5;
-				this.add('-terrain', this.field.terrainData.name);
+				this.add('-terrain', this.field.terrainData.name, '[silent]');
+				this.add('-terrain', this.field.terrainData.name, '[silent]');
 				success = true;
 			}
+			if (success) this.add('-message', `All ongoing field effects were set to last 5 turns!`);
 			return success;
 		},
 		secondary: null,
