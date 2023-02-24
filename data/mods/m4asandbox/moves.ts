@@ -1975,7 +1975,8 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 			}
 			if (this.field.weatherData.duration) {
 				this.field.weatherData.duration = 5;
-				if (this.dex.getEffect(this.field.weather).name) {
+				if (this.dex.getEffect(this.field.weather)) {
+					// the weather conditions all have specific names for "this.add", but they're only found in conditions.ts
 					this.add('-weather', 'none', '[silent]');
 					this.add('-weather', this.dex.getEffect(this.field.weather).name, '[silent]');
 				}
@@ -1984,6 +1985,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 			if (this.field.terrainData.duration) {
 				this.field.terrainData.duration = 5;
 				if (this.dex.getMove(this.field.terrain)) {
+					// the terrains all have specific names for "this.add", but they're only found in moves.ts
 					this.add('-fieldend', 'move: ' + this.dex.getMove(this.field.terrain).name, '[silent]');
 					this.add('-fieldstart', 'move: ' + this.dex.getMove(this.field.terrain).name, '[silent]');
 				}
