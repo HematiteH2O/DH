@@ -1958,7 +1958,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 				}
 			}
 			for (const id in source.side.sideConditions) {
-				if (source.side.sideConditions[id].duration !== 0) {
+				if (source.side.sideConditions[id].duration && source.side.sideConditions[id].duration !== 0) {
 					source.side.sideConditions[id].duration = 5;
 					this.add('-sideend', source.side, this.dex.getEffect(id).name, '[silent]');
 					this.add('-sidestart', source.side, this.dex.getEffect(id).name, '[silent]');
@@ -1966,7 +1966,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 				}
 			}
 			for (const id in source.side.foe.sideConditions) {
-				if (source.side.foe.sideConditions[id].duration !== 0) {
+				if (source.side.foe.sideConditions[id].duration && source.side.foe.sideConditions[id].duration !== 0) {
 					source.side.foe.sideConditions[id].duration = 5;
 					this.add('-sideend', source.side.foe, this.dex.getEffect(id).name, '[silent]');
 					this.add('-sidestart', source.side.foe, this.dex.getEffect(id).name, '[silent]');
