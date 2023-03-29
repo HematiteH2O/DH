@@ -264,8 +264,22 @@ export const Scripts: ModdedBattleScriptsData = {
 
 		let printno = 0;
 		for (const type in this.dataCache.TypeChart) { // doing types first; can come back for Egg groups later
-			type.entireMovepool = {};
-			for (const moveid in this.dataCache.Moves) type.entireMovepool[moveid] = 0;
+			type.entireMovepool = {
+				gen1or2: {},
+				gen3: {},
+				gen4: {},
+				gen5: {},
+				gen6: {},
+				gen7: {},
+				lgpe: {},
+				gen8: {},
+				gen9: {},
+			};
+			for (const moveid in this.dataCache.Moves) {
+				for (const gen in type.entireMovepool) {
+					type.entireMovepool[gen][moveid] = 0;
+				}
+			}
 			for (const id in this.dataCache.Pokedex) {
 				const poke = this.dataCache.Pokedex[id];
 				if (!poke || poke.evos) continue;
@@ -340,18 +354,26 @@ export const Scripts: ModdedBattleScriptsData = {
 								if (parseInt(source.charAt(0)) === 9) gen9 = true;
 							}
 							for (const source of learnset4[moveid]) {
+								if (parseInt(source.charAt(0)) === 7 && source.charAt(1) === 'V') gen1or2 = true;
 								if (parseInt(source.charAt(0)) === 3) gen3 = true;
 								if (parseInt(source.charAt(0)) === 4) gen4 = true;
 								if (parseInt(source.charAt(0)) === 5) gen5 = true;
 								if (parseInt(source.charAt(0)) === 6) gen6 = true;
 								if (parseInt(source.charAt(0)) === 7 && source.charAt(1) !== 'V') gen7 = true;
-								if (parseInt(source.charAt(0)) === 7 && source.charAt(1) === 'V') gen1or2 = true;
-								if (parseInt(source.charAt(0)) === 8 && source.charAt(1) !== 'V') gen8 = true;
 								if (parseInt(source.charAt(0)) === 8 && source.charAt(1) === 'V') lgpe = true;
+								if (parseInt(source.charAt(0)) === 8 && source.charAt(1) !== 'V') gen8 = true;
 								if (parseInt(source.charAt(0)) === 9) gen9 = true;
 							}
 						}
-						if (gen7) type.entireMovepool[moveid]++;
+						if (gen1or2) type.entireMovepool.gen1or2[moveid]++;
+						if (gen3) type.entireMovepool.gen3[moveid]++;
+						if (gen4) type.entireMovepool.gen4[moveid]++;
+						if (gen5) type.entireMovepool.gen5[moveid]++;
+						if (gen6) type.entireMovepool.gen6[moveid]++;
+						if (gen7) type.entireMovepool.gen7[moveid]++;
+						if (lgpe) type.entireMovepool.lgpe[moveid]++;
+						if (gen8) type.entireMovepool.gen8[moveid]++;
+						if (gen9) type.entireMovepool.gen9[moveid]++;
 					}
 				}
 			}
