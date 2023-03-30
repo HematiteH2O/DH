@@ -84,4 +84,20 @@ export const Formats: FormatList = [
 		mod: 'paldeamoves',
 	},
 
+	{
+		name: "Type-Move Correlations",
+		desc: [
+			"Outputs a sheet that lists type-move correlations in each Generation.",
+		],
+		
+		ruleset: ['Team Preview', 'HP Percentage Mod', 'Cancel Mod', 'Dynamax Clause', 'Sleep Clause Mod'],
+		onBegin() {
+			for (const typeid in this.dex.data.TypeChart) {
+				const type = this.dex.data.TypeChart[typeid];
+				if (type && type.sheetOutput) this.add('-message', `${type.sheetOutput}`);
+			}
+		},
+		mod: 'typedata',
+	},
+
 ];
