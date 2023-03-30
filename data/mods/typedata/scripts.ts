@@ -264,7 +264,7 @@ export const Scripts: ModdedBattleScriptsData = {
 
 		let printno = 0;
 		for (const typeid in this.dataCache.TypeChart) { // doing types first; can come back for Egg groups later
-			const type = this.dex.data.TypeChart[typeid];
+			const type = this.dataCache.TypeChart[typeid];
 			type.entireMovepool = {
 				gen1or2: {},
 				gen3: {},
