@@ -288,7 +288,7 @@ export const Scripts: ModdedBattleScriptsData = {
 				gen9: [],
 			};
 			for (const moveid in this.dataCache.Moves) {
-				for (const gen of type.entireMovepool) {
+				for (const gen in type.entireMovepool) {
 					type.entireMovepool[gen][moveid] = 0;
 				}
 			}
@@ -392,7 +392,7 @@ export const Scripts: ModdedBattleScriptsData = {
 			// now here I'm going to divide how many Pokémon learn each move by how many learn Protect and see if it's at least ~85%?
 			for (const moveid in this.dataCache.Moves) {
 				const move = this.dataCache.Moves[moveid];
-				for (const gen of type.entireMovepool) {
+				for (const gen in type.entireMovepool) {
 					const minimum = 17 * (type.entireMovepool[gen].protect / 20) - 1;
 					if (!minimum || minimum < 3) continue; // don't bother with the types with very few Pokémon in certain Gens
 					if (type.entireMovepool[gen][moveid] > minimum) type.universal[gen].push(move.name);
