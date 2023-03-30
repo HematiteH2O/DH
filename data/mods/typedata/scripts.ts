@@ -277,15 +277,15 @@ export const Scripts: ModdedBattleScriptsData = {
 				gen9: {},
 			};
 			type.universal = {
-				gen1or2: {},
-				gen3: {},
-				gen4: {},
-				gen5: {},
-				gen6: {},
-				gen7: {},
-				lgpe: {},
-				gen8: {},
-				gen9: {},
+				gen1or2: [],
+				gen3: [],
+				gen4: [],
+				gen5: [],
+				gen6: [],
+				gen7: [],
+				lgpe: [],
+				gen8: [],
+				gen9: [],
 			};
 			for (const moveid in this.dataCache.Moves) {
 				for (const gen in type.entireMovepool) {
