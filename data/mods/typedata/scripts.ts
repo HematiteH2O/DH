@@ -263,7 +263,8 @@ export const Scripts: ModdedBattleScriptsData = {
 		legendsMoves("zubat", ["crosspoison"]);
 
 		let printno = 0;
-		for (const type in this.dataCache.TypeChart) { // doing types first; can come back for Egg groups later
+		for (const typeid in this.dataCache.TypeChart) { // doing types first; can come back for Egg groups later
+			const type = this.dex.data.TypeChart[typeid];
 			type.entireMovepool = {
 				gen1or2: {},
 				gen3: {},
