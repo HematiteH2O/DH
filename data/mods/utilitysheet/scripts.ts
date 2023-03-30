@@ -21,8 +21,11 @@ export const Scripts: ModdedBattleScriptsData = {
 			'rocksmash', 'roleplay', 'rollout', 'secretpower', 'secretsword', 'seedbomb', 'shadowclaw', 'signalbeam', 'silverwind', 'skillswap', 'skyattack',
 			'sleightofhand', 'snore', 'spite', 'stealthrock', 'steelbeam', 'steelbeam', 'stompingtantrum', 'strength', 'stringshot', 'suckerpunch', 'superfang',
 			'superpower', 'swift', 'synthesis', 'tailwind', 'thunderpunch', 'trick', 'twister', 'uproar', 'vcreate', 'vacuumwave', 'volttackle', 'waterpledge',
-			'waterpulse', 'waterfall', 'worryseed', 'zenheadbutt',
+			'waterpulse', 'waterfall', 'worryseed', 'zenheadbutt', 'powershift',
 		]; // excludes Captivate
+		const dexitedMoves = [
+			'doubleteam', 'flash', 'kinesis', 'minimize', 'sandattack', 'smokescreen', 'storedpower', 'terablast',
+		];
 		const movepoolSections = {
 			Status: [
 				'aftershock', 'banefulbunker', 'beakblast', 'bittermalice', 'bodyslam', 'darkvoid', 'direclaw', 'glare', 'hypnosis', 'infernalparade', 'lovelykiss', 'nuzzle',
@@ -146,6 +149,197 @@ export const Scripts: ModdedBattleScriptsData = {
 		newMoves("phanpy", ["absorb", "encore"]);
 		newMoves("stantler", ["safeguard"]);
 		newMoves("larvitar", ["rage"]);
+		
+		// these are from Legends: Arceus
+		const legendsMoves = (mon: string, moves: string[]) => {
+			for (const move of moves) {
+				this.modData('Learnsets', this.toID(mon)).learnset[this.toID(move)] = ["8S0"];
+			}
+		};
+		legendsMoves("abomasnow", ["iciclecrash"]);
+		legendsMoves("aipom", ["doubleedge", "mudbomb", "quickattack"]);
+		legendsMoves("ambipom", ["doubleedge", "mudbomb", "quickattack"]);
+		legendsMoves("arceus", ["ancientpower", "confusion", "quickattack", "extrasensory", "dazzlinggleam", "dracometeor", "mysticalfire", "steelbeam"]);
+		legendsMoves("azelf", ["doublehit", "mysticalpower", "powershift"]);
+		legendsMoves("barboach", ["zenheadbutt"]);
+		legendsMoves("bastiodon", ["powershift", "steelbeam"]);
+		legendsMoves("beautifly", ["airslash"]);
+		legendsMoves("bergmite", ["iceshard"]);
+		legendsMoves("bibarel", ["bite"]);
+		legendsMoves("bidoof", ["bite"]);
+		legendsMoves("blissey", ["babydolleyes", "drainingkiss", "fairywind", "powershift", "tackle"]);
+		legendsMoves("bonsly", ["headsmash", "irondefense", "tackle"]);
+		legendsMoves("budew", ["petaldance", "poisonjab", "poisonpowder", "poisonsting"]);
+		legendsMoves("buneary", ["doubleedge", "drainingkiss"]);
+		legendsMoves("burmy", ["strugglebug"]);
+		legendsMoves("carnivine", ["absorb", "leechlife"]);
+		legendsMoves("chansey", ["babydolleyes", "drainingkiss", "fairywind", "tackle"]);
+		legendsMoves("chatot", ["airslash", "gust", "hurricane", "powershift", "playrough", "snarl"]);
+		legendsMoves("cherrim", ["absorb", "doubleedge", "sleeppowder", "stunspore"]);
+		legendsMoves("cherubi", ["absorb", "doubleedge", "petaldance", "sleeppowder", "stunspore"]);
+		legendsMoves("chimchar", ["doubleedge", "tackle"]);
+		legendsMoves("chimecho", ["doubleedge", "extrasensory", "ominouswind"]);
+		legendsMoves("chingling", ["doubleedge", "extrasensory", "ominouswind", "energyball"]);
+		legendsMoves("clefable", ["babydolleyes", "doubleedge", "fairywind", "tackle"]);
+		legendsMoves("clefairy", ["babydolleyes", "doubleedge", "fairywind", "tackle"]);
+		legendsMoves("cleffa", ["babydolleyes", "calmmind", "doubleedge", "fairywind", "moonblast", "tackle"]);
+		legendsMoves("cranidos", ["bite", "tackle"]);
+		legendsMoves("cresselia", ["lunarblessing", "powershift", "recover", "tackle"]);
+		legendsMoves("croagunk", ["closecombat", "earthpower"]);
+		legendsMoves("cyndaquil", ["irontail"]);
+		legendsMoves("darkrai", ["hex", "shadowsneak"]);
+		legendsMoves("dartrix", ["aerialace", "airslash", "gust", "magicalleaf", "leafstorm", "psychocut"]);
+		legendsMoves("dewott", ["slash"]);
+		legendsMoves("drifblim", ["confusion", "extrasensory", "mysticalfire", "powershift"]);
+		legendsMoves("drifloon", ["confusion", "extrasensory", "mysticalfire"]);
+		legendsMoves("dusclops", ["absorb", "leechlife", "powershift"]);
+		legendsMoves("dusknoir", ["absorb", "leechlife", "powershift"]);
+		legendsMoves("duskull", ["absorb", "leechlife"]);
+		legendsMoves("dustox", ["extrasensory"]);
+		legendsMoves("eevee", ["calmmind", "mimic"]);
+		legendsMoves("electabuzz", ["spark"]);
+		legendsMoves("electivire", ["spark"]);
+		legendsMoves("elekid", ["spark"]);
+		legendsMoves("empoleon", ["doubleedge", "roost", "steelbeam", "wavecrash"]);
+		legendsMoves("espeon", ["mimic", "rocksmash"]);
+		legendsMoves("finneon", ["babydolleyes", "bubble", "airslash", "roost", "hydropump"]);
+		legendsMoves("flareon", ["calmmind", "powershift", "mimic"]);
+		legendsMoves("gallade", ["focusenergy", "icebeam"]);
+		legendsMoves("gardevoir", ["aurasphere", "recover", "icebeam"]);
+		legendsMoves("gastly", ["poisongas"]);
+		legendsMoves("gastrodon", ["tackle"]);
+		legendsMoves("gastrodoneast", ["tackle"]);
+		legendsMoves("gengar", ["poisongas", "powershift"]);
+		legendsMoves("glaceon", ["calmmind", "mimic", "powdersnow"]);
+		legendsMoves("glalie", ["iceball"]);
+		legendsMoves("glameow", ["doubleedge", "nastyplot", "nightslash", "tackle"]);
+		legendsMoves("gligar", ["mudbomb"]);
+		legendsMoves("gliscor", ["pinmissile", "spikes", "powershift"]);
+		legendsMoves("golbat", ["crosspoison"]);
+		legendsMoves("golduck", ["bubble", "triattack"]);
+		legendsMoves("goomy", ["acidspray", "hydropump", "shelter"]);
+		legendsMoves("grotle", ["bulldoze", "leafblade", "sleeppowder"]);
+		legendsMoves("gyarados", ["focusenergy"]);
+		legendsMoves("happiny", ["babydolleyes", "calmmind", "doubleedge", "drainingkiss", "fairywind", "softboiled", "tackle"]);
+		legendsMoves("haunter", ["poisongas"]);
+		legendsMoves("heatran", ["ember"]);
+		legendsMoves("heracross", ["slash", "calmmind", "outrage"]);
+		legendsMoves("hippopotas", ["mudbomb"]);
+		legendsMoves("hippowdon", ["mudbomb"]);
+		legendsMoves("honchkrow", ["airslash"]);
+		legendsMoves("infernape", ["doubleedge", "drainpunch", "ragingfury"]);
+		legendsMoves("jolteon", ["calmmind", "mimic"]);
+		legendsMoves("kadabra", ["hypnosis"]);
+		legendsMoves("kirlia", ["icebeam"]);
+		legendsMoves("kricketot", ["absorb", "tackle"]);
+		legendsMoves("kricketune", ["tackle"]);
+		legendsMoves("landorus", ["bite", "crunch", "sandsearstorm", "tackle", "twister"]);
+		legendsMoves("leafeon", ["calmmind", "leafage", "mimic"]);
+		legendsMoves("lickilicky", ["doubleedge", "tackle", "iceball"]);
+		legendsMoves("lickitung", ["doubleedge", "tackle", "iceball"]);
+		legendsMoves("lopunny", ["doubleedge", "drainingkiss", "machpunch"]);
+		legendsMoves("lucario", ["machpunch"]);
+		legendsMoves("lumineon", ["aerialace", "bubble", "airslash", "roost", "hydropump"]);
+		legendsMoves("machamp", ["doublehit", "drainpunch", "machpunch", "tackle"]);
+		legendsMoves("machoke", ["doublehit", "machpunch", "tackle"]);
+		legendsMoves("machop", ["doublehit", "machpunch", "tackle"]);
+		legendsMoves("magby", ["poisongas", "tackle"]);
+		legendsMoves("magmar", ["poisongas", "tackle"]);
+		legendsMoves("magmortar", ["poisongas", "tackle"]);
+		legendsMoves("mamoswine", ["babydolleyes"]);
+		legendsMoves("manaphy", ["bubble", "confusion", "hydropump", "moonblast", "takeheart", "zenheadbutt", "calmmind"]);
+		legendsMoves("mantine", ["doubleedge", "powershift"]);
+		legendsMoves("mantyke", ["doubleedge", "roost"]);
+		legendsMoves("mesprit", ["doublehit", "mysticalpower", "recover"]);
+		legendsMoves("mimejr", ["irondefense", "zenheadbutt"]);
+		legendsMoves("misdreavus", ["extrasensory", "hypnosis"]);
+		legendsMoves("mismagius", ["extrasensory", "hypnosis"]);
+		legendsMoves("monferno", ["doubleedge"]);
+		legendsMoves("mrmime", ["powershift"]);
+		legendsMoves("munchlax", ["gigaimpact", "highhorsepower", "iceball"]);
+		legendsMoves("murkrow", ["airslash", "nightslash"]);
+		legendsMoves("ninetales", ["flamewheel", "nastyplot"]);
+		legendsMoves("ninetalesalola", ["icefang"]);
+		legendsMoves("nosepass", ["flashcannon", "powershift"]);
+		legendsMoves("onix", ["powershift"]);
+		legendsMoves("oshawott", ["slash"]);
+		legendsMoves("pachirisu", ["crunch", "thundershock", "playrough"]);
+		legendsMoves("paras", ["energyball"]);
+		legendsMoves("petilil", ["leafage", "poisonpowder", "recover", "babydolleyes"]);
+		legendsMoves("phione", ["bubble", "confusion", "hydropump", "moonblast", "takeheart", "zenheadbutt", "calmmind"]);
+		legendsMoves("pichu", ["babydolleyes", "quickattack", "spark"]);
+		legendsMoves("pikachu", ["babydolleyes", "calmmind"]);
+		legendsMoves("piloswine", ["babydolleyes"]);
+		legendsMoves("piplup", ["doubleedge", "liquidation", "roost", "tackle"]);
+		legendsMoves("ponyta", ["doublehit"]);
+		legendsMoves("porygon", ["spark"]);
+		legendsMoves("porygon2", ["spark"]);
+		legendsMoves("porygonz", ["powershift", "spark"]);
+		legendsMoves("prinplup", ["doubleedge", "liquidation", "roost"]);
+		legendsMoves("probopass", ["steelbeam", "powershift"]);
+		legendsMoves("psyduck", ["bubble", "triattack"]);
+		legendsMoves("purugly", ["doubleedge", "nastyplot", "nightslash", "tackle"]);
+		legendsMoves("quilava", ["irontail"]);
+		legendsMoves("raichu", ["babydolleyes", "calmmind"]);
+		legendsMoves("ralts", ["icebeam"]);
+		legendsMoves("rampardos", ["powershift", "bite"]);
+		legendsMoves("rapidash", ["doublehit"]);
+		legendsMoves("regigigas", ["ancientpower", "powershift", "tackle"]);
+		legendsMoves("remoraid", ["bubble"]);
+		legendsMoves("rhydon", ["doubleedge"]);
+		legendsMoves("rhyhorn", ["doubleedge", "gigaimpact"]);
+		legendsMoves("rhyperior", ["doubleedge"]);
+		legendsMoves("riolu", ["aurasphere", "closecombat", "focusenergy"]);
+		legendsMoves("roselia", ["poisonpowder"]);
+		legendsMoves("roserade", ["poisonpowder"]);
+		legendsMoves("rowlet", ["aerialace", "airslash", "gust", "magicalleaf", "leafstorm", "psychocut"]);
+		legendsMoves("rufflet", ["doubleedge", "quickattack", "twister", "ominouswind"]);
+		legendsMoves("scizor", ["closecombat", "calmmind"]);
+		legendsMoves("scyther", ["closecombat", "calmmind"]);
+		legendsMoves("sealeo", ["liquidation", "babydolleyes"]);
+		legendsMoves("shaymin", ["leafage", "recover", "sleeppowder", "aerialace", "babydolleyes", "playrough"]);
+		legendsMoves("shellos", ["tackle"]);
+		legendsMoves("shieldon", ["steelbeam", "tackle"]);
+		legendsMoves("snorlax", ["iceball"]);
+		legendsMoves("snover", ["iciclecrash"]);
+		legendsMoves("spheal", ["liquidation", "babydolleyes"]);
+		legendsMoves("spiritomb", ["extrasensory"]);
+		legendsMoves("stantler", ["confusion", "psyshieldbash"]);
+		legendsMoves("staraptor", ["airslash", "gust", "focusenergy"]);
+		legendsMoves("staravia", ["airslash", "gigaimpact", "gust"]);
+		legendsMoves("starly", ["airslash", "gigaimpact", "gust"]);
+		legendsMoves("steelix", ["iceball", "powershift"]);
+		legendsMoves("stunky", ["doubleedge", "poisonjab", "tackle"]);
+		legendsMoves("sudowoodo", ["tackle"]);
+		legendsMoves("swinub", ["highhorsepower", "babydolleyes"]);
+		legendsMoves("sylveon", ["magicalleaf", "mimic", "rocksmash"]);
+		legendsMoves("tangela", ["acidspray", "doublehit"]);
+		legendsMoves("tangrowth", ["acidspray", "doublehit"]);
+		legendsMoves("teddiursa", ["highhorsepower", "focusenergy", "tackle"]);
+		legendsMoves("tentacool", ["acidarmor"]);
+		legendsMoves("thundurus", ["powershift", "spark", "tackle", "twister", "wildboltstorm"]);
+		legendsMoves("togekiss", ["babydolleyes", "calmmind", "moonblast", "tackle"]);
+		legendsMoves("togepi", ["babydolleyes", "calmmind", "fairywind", "moonblast", "tackle"]);
+		legendsMoves("togetic", ["airslash", "babydolleyes", "calmmind", "moonblast", "tackle"]);
+		legendsMoves("tornadus", ["bleakwindstorm", "tackle", "twister"]);
+		legendsMoves("torterra", ["leafblade", "headlongrush", "sleeppowder"]);
+		legendsMoves("toxicroak", ["closecombat", "earthpower"]);
+		legendsMoves("turtwig", ["bulldoze", "leafblade", "sleeppowder"]);
+		legendsMoves("umbreon", ["calmmind", "mimic", "powershift", "rocksmash"]);
+		legendsMoves("ursaring", ["highhorsepower", "focusenergy"]);
+		legendsMoves("uxie", ["doublehit", "hypnosis", "mysticalpower", "powershift"]);
+		legendsMoves("vaporeon", ["bubble", "calmmind", "mimic"]);
+		legendsMoves("vespiquen", ["powershift", "recover"]);
+		legendsMoves("vulpix", ["flamewheel", "nastyplot"]);
+		legendsMoves("vulpixalola", ["dazzlinggleam", "energyball", "icefang", "nastyplot", "quickattack"]);
+		legendsMoves("walrein", ["babydolleyes"]);
+		legendsMoves("whiscash", ["aerialace"]);
+		legendsMoves("wormadam", ["gust", "silverwind", "magicalleaf"]);
+		legendsMoves("wormadamsandy", ["gust", "silverwind"]);
+		legendsMoves("wormadamtrash", ["gust", "silverwind", "steelbeam"]);
+		legendsMoves("yanma", ["gust"]);
+		legendsMoves("yanmega", ["crunch"]);
+		legendsMoves("zubat", ["crosspoison"]);
 
 		// declaring which moves are "competitive" in general
 		const attackRMs = [
@@ -185,7 +379,8 @@ export const Scripts: ModdedBattleScriptsData = {
 			'thousandwaves', 'throatchop', 'thunder', 'thundercage', 'thunderfang', 'thunderpunch', 'thunderbolt', 'thunderouskick', 'torchsong', 'triattack',
 			'triplearrows', 'tripleaxel', 'triplekick', 'tropkick', 'trumpcard', 'undermine', 'uturn', 'vacuumwave', 'vcreate', 'voltswitch', 'volttackle',
 			'watershuriken', 'waterspout', 'waterfall', 'wavecrash', 'weatherball', 'wickedblow', 'wildcharge', 'wildboltstorm', 'windshear', 'woodhammer', 'xscissor',
-			'zenheadbutt', 'zingzap'
+			'zenheadbutt', 'zingzap',
+			'heatcrash', 'heavyslam',
 		]; // this category doesn't need to distinguish physical from special! that's handled later
 		// excludes Hidden Power and Natural Gift
 
@@ -312,6 +507,8 @@ export const Scripts: ModdedBattleScriptsData = {
 						console.log(moveid);
 						continue;
 					}
+					if (dexitedMoves.includes(moveid)) continue;
+
 					let moveGen = 1;
 					if (move.num > 826) moveGen = 9;
 					else if (move.num > 742) moveGen = 8;
@@ -376,6 +573,33 @@ export const Scripts: ModdedBattleScriptsData = {
 							}
 						}
 					}
+					if (moveid === 'helpinghand') { // hard-coding to skip the Gen IX TM's distribution
+						learned = false;
+						if (learnset[moveid]) {
+							for (const source of learnset[moveid]) {
+								if (parseInt(source.charAt(0)) === 9 && source.charAt(1) === 'M') continue;
+								learned = true;
+							}
+						}
+						if (learnset2 && learnset2[moveid]) {
+							for (const source of learnset2[moveid]) {
+								if (parseInt(source.charAt(0)) === 9 && source.charAt(1) === 'M') continue;
+								learned = true;
+							}
+						}
+						if (learnset3 && learnset3[moveid]) {
+							for (const source of learnset3[moveid]) {
+								if (parseInt(source.charAt(0)) === 9 && source.charAt(1) === 'M') continue;
+								learned = true;
+							}
+						}
+						if (learnset4 && learnset4[moveid]) {
+							for (const source of learnset4[moveid]) {
+								if (parseInt(source.charAt(0)) === 9 && source.charAt(1) === 'M') continue;
+								learned = true;
+							}
+						}
+					}
 					if (!learned) continue;
 
 					// okay, so we know the move! now we need to figure out where it goes
@@ -389,7 +613,8 @@ export const Scripts: ModdedBattleScriptsData = {
 						if (
 							poke.types[0] === type || (poke.types[1] && poke.types[1] === type) || offenseCoverage.includes(type) || weaknessCoverage.includes(type)
 							|| otherCoverage.includes(type) || moveid === 'naturepower' || moveid === 'technoblast' || moveid === 'terrainpulse' || moveid === 'weatherball'
-							|| moveid === 'fakeout' || moveid === 'feint'
+							|| moveid === 'fakeout' || moveid === 'feint' || moveid === 'extremespeed' || moveid === 'suckerpunch' || moveid === 'firstimpression'
+							|| moveid === 'wavecrash'
 						) { // for attacking moves, proceed only if the move's type has any potential to be relevant (but including the Normal moves that defy type)
 							competitive = true;
 							if (learnedNatural) poke.learnsetCumulative[type][category].natural.push(move.name);
