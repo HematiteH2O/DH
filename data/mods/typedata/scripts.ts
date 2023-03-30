@@ -384,19 +384,19 @@ export const Scripts: ModdedBattleScriptsData = {
 								if (parseInt(source.charAt(0)) === 9) gen9 = true;
 							}
 						}
-						if (gen1or2) type.entireMovepool.gen1or2[moveid]++;
-						if (gen3) type.entireMovepool.gen3[moveid]++;
-						if (gen4) type.entireMovepool.gen4[moveid]++;
-						if (gen5) type.entireMovepool.gen5[moveid]++;
-						if (gen6) type.entireMovepool.gen6[moveid]++;
-						if (gen7) console.log(moveid);
-						if (gen7) type.entireMovepool.gen7[moveid]++;
-						if (lgpe) type.entireMovepool.lgpe[moveid]++;
-						if (gen8) type.entireMovepool.gen8[moveid]++;
-						if (gen9) type.entireMovepool.gen9[moveid]++;
+						if (gen1or2) type.entireMovepool.gen1or2[moveid] += 1;
+						if (gen3) type.entireMovepool.gen3[moveid] += 1;
+						if (gen4) type.entireMovepool.gen4[moveid] += 1;
+						if (gen5) type.entireMovepool.gen5[moveid] += 1;
+						if (gen6) type.entireMovepool.gen6[moveid] += 1;
+						if (gen7) type.entireMovepool.gen7[moveid] += 1;
+						if (lgpe) type.entireMovepool.lgpe[moveid] += 1;
+						if (gen8) type.entireMovepool.gen8[moveid] += 1;
+						if (gen9) type.entireMovepool.gen9[moveid] += 1;
 					}
 				}
 			}
+			console.log(type.entireMovepool.gen7);
 			// now here I'm going to divide how many Pokémon learn each move by how many learn Protect and see if it's at least ~85%?
 			for (const moveid in this.dataCache.Moves) {
 				const move = this.dataCache.Moves[moveid];
@@ -406,6 +406,7 @@ export const Scripts: ModdedBattleScriptsData = {
 					if (type.entireMovepool[gen][moveid] > minimum) type.universal[gen].push(move.name);
 				}
 			}
+			console.log(type.universal.gen7);
 			let sheetOutput: string[] = [
 				type + `~` + type.universal.gen1or2 + `~` + type.universal.gen3 + `~` + type.universal.gen4 + `~` + type.universal.gen5 + `~` + type.universal.gen6 + `~` + type.universal.gen7 + `~` + type.universal.lgpe + `~` + type.universal.gen8 + `~` + type.universal.gen9
 			];
