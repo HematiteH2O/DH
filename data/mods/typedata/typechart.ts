@@ -1,4 +1,5 @@
 export const TypeChart: {[k: string]: ModdedTypeData} = {
+	Universal: {},
 	Monster: {},
 	HumanLike: {},
 	Water1: {},
