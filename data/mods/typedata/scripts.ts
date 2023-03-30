@@ -344,44 +344,44 @@ export const Scripts: ModdedBattleScriptsData = {
 								if (parseInt(source.charAt(0)) === 8 && source.charAt(1) === 'V') lgpe = true;
 								if (parseInt(source.charAt(0)) === 9) gen9 = true;
 							}
-							if (learnset2) {
-								for (const source of learnset2[moveid]) {
-									if (parseInt(source.charAt(0)) === 3) gen3 = true;
-									if (parseInt(source.charAt(0)) === 4) gen4 = true;
-									if (parseInt(source.charAt(0)) === 5) gen5 = true;
-									if (parseInt(source.charAt(0)) === 6) gen6 = true;
-									if (parseInt(source.charAt(0)) === 7 && source.charAt(1) !== 'V') gen7 = true;
-									if (parseInt(source.charAt(0)) === 7 && source.charAt(1) === 'V') gen1or2 = true;
-									if (parseInt(source.charAt(0)) === 8 && source.charAt(1) !== 'V') gen8 = true;
-									if (parseInt(source.charAt(0)) === 8 && source.charAt(1) === 'V') lgpe = true;
-									if (parseInt(source.charAt(0)) === 9) gen9 = true;
-								}
+						}
+						if (learnset2 && learnset2[moveid]) {
+							for (const source of learnset2[moveid]) {
+								if (parseInt(source.charAt(0)) === 3) gen3 = true;
+								if (parseInt(source.charAt(0)) === 4) gen4 = true;
+								if (parseInt(source.charAt(0)) === 5) gen5 = true;
+								if (parseInt(source.charAt(0)) === 6) gen6 = true;
+								if (parseInt(source.charAt(0)) === 7 && source.charAt(1) !== 'V') gen7 = true;
+								if (parseInt(source.charAt(0)) === 7 && source.charAt(1) === 'V') gen1or2 = true;
+								if (parseInt(source.charAt(0)) === 8 && source.charAt(1) !== 'V') gen8 = true;
+								if (parseInt(source.charAt(0)) === 8 && source.charAt(1) === 'V') lgpe = true;
+								if (parseInt(source.charAt(0)) === 9) gen9 = true;
 							}
-							if (learnset3) {
-								for (const source of learnset3[moveid]) {
-									if (parseInt(source.charAt(0)) === 3) gen3 = true;
-									if (parseInt(source.charAt(0)) === 4) gen4 = true;
-									if (parseInt(source.charAt(0)) === 5) gen5 = true;
-									if (parseInt(source.charAt(0)) === 6) gen6 = true;
-									if (parseInt(source.charAt(0)) === 7 && source.charAt(1) !== 'V') gen7 = true;
-									if (parseInt(source.charAt(0)) === 7 && source.charAt(1) === 'V') gen1or2 = true;
-									if (parseInt(source.charAt(0)) === 8 && source.charAt(1) !== 'V') gen8 = true;
-									if (parseInt(source.charAt(0)) === 8 && source.charAt(1) === 'V') lgpe = true;
-									if (parseInt(source.charAt(0)) === 9) gen9 = true;
-								}
+						}
+						if (learnset3 && learnset3[moveid]) {
+							for (const source of learnset3[moveid]) {
+								if (parseInt(source.charAt(0)) === 3) gen3 = true;
+								if (parseInt(source.charAt(0)) === 4) gen4 = true;
+								if (parseInt(source.charAt(0)) === 5) gen5 = true;
+								if (parseInt(source.charAt(0)) === 6) gen6 = true;
+								if (parseInt(source.charAt(0)) === 7 && source.charAt(1) !== 'V') gen7 = true;
+								if (parseInt(source.charAt(0)) === 7 && source.charAt(1) === 'V') gen1or2 = true;
+								if (parseInt(source.charAt(0)) === 8 && source.charAt(1) !== 'V') gen8 = true;
+								if (parseInt(source.charAt(0)) === 8 && source.charAt(1) === 'V') lgpe = true;
+								if (parseInt(source.charAt(0)) === 9) gen9 = true;
 							}
-							if (learnset4) {
-								for (const source of learnset4[moveid]) {
-									if (parseInt(source.charAt(0)) === 3) gen3 = true;
-									if (parseInt(source.charAt(0)) === 4) gen4 = true;
-									if (parseInt(source.charAt(0)) === 5) gen5 = true;
-									if (parseInt(source.charAt(0)) === 6) gen6 = true;
-									if (parseInt(source.charAt(0)) === 7 && source.charAt(1) !== 'V') gen7 = true;
-									if (parseInt(source.charAt(0)) === 7 && source.charAt(1) === 'V') gen1or2 = true;
-									if (parseInt(source.charAt(0)) === 8 && source.charAt(1) !== 'V') gen8 = true;
-									if (parseInt(source.charAt(0)) === 8 && source.charAt(1) === 'V') lgpe = true;
-									if (parseInt(source.charAt(0)) === 9) gen9 = true;
-								}
+						}
+						if (learnset4 && learnset4[moveid]) {
+							for (const source of learnset4[moveid]) {
+								if (parseInt(source.charAt(0)) === 3) gen3 = true;
+								if (parseInt(source.charAt(0)) === 4) gen4 = true;
+								if (parseInt(source.charAt(0)) === 5) gen5 = true;
+								if (parseInt(source.charAt(0)) === 6) gen6 = true;
+								if (parseInt(source.charAt(0)) === 7 && source.charAt(1) !== 'V') gen7 = true;
+								if (parseInt(source.charAt(0)) === 7 && source.charAt(1) === 'V') gen1or2 = true;
+								if (parseInt(source.charAt(0)) === 8 && source.charAt(1) !== 'V') gen8 = true;
+								if (parseInt(source.charAt(0)) === 8 && source.charAt(1) === 'V') lgpe = true;
+								if (parseInt(source.charAt(0)) === 9) gen9 = true;
 							}
 						}
 						if (gen1or2) type.entireMovepool.gen1or2[moveid]++;
