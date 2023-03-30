@@ -332,7 +332,7 @@ export const Scripts: ModdedBattleScriptsData = {
 						let lgpe = false;
 						let gen9 = false;
 						if (learnset[moveLearned]) {
-							for (const source of learnset[moveid]) {
+							for (const source of learnset[moveLearned]) {
 								if (parseInt(source.charAt(0)) === 3) gen3 = true;
 								if (parseInt(source.charAt(0)) === 4) gen4 = true;
 								if (parseInt(source.charAt(0)) === 5) gen5 = true;
@@ -343,7 +343,7 @@ export const Scripts: ModdedBattleScriptsData = {
 								if (parseInt(source.charAt(0)) === 8 && source.charAt(1) === 'V') lgpe = true;
 								if (parseInt(source.charAt(0)) === 9) gen9 = true;
 							}
-							for (const source of learnset2[moveid]) {
+							for (const source of learnset2[moveLearned]) {
 								if (parseInt(source.charAt(0)) === 3) gen3 = true;
 								if (parseInt(source.charAt(0)) === 4) gen4 = true;
 								if (parseInt(source.charAt(0)) === 5) gen5 = true;
@@ -354,7 +354,7 @@ export const Scripts: ModdedBattleScriptsData = {
 								if (parseInt(source.charAt(0)) === 8 && source.charAt(1) === 'V') lgpe = true;
 								if (parseInt(source.charAt(0)) === 9) gen9 = true;
 							}
-							for (const source of learnset3[moveid]) {
+							for (const source of learnset3[moveLearned]) {
 								if (parseInt(source.charAt(0)) === 3) gen3 = true;
 								if (parseInt(source.charAt(0)) === 4) gen4 = true;
 								if (parseInt(source.charAt(0)) === 5) gen5 = true;
@@ -365,7 +365,7 @@ export const Scripts: ModdedBattleScriptsData = {
 								if (parseInt(source.charAt(0)) === 8 && source.charAt(1) === 'V') lgpe = true;
 								if (parseInt(source.charAt(0)) === 9) gen9 = true;
 							}
-							for (const source of learnset4[moveid]) {
+							for (const source of learnset4[moveLearned]) {
 								if (parseInt(source.charAt(0)) === 7 && source.charAt(1) === 'V') gen1or2 = true;
 								if (parseInt(source.charAt(0)) === 3) gen3 = true;
 								if (parseInt(source.charAt(0)) === 4) gen4 = true;
@@ -377,15 +377,15 @@ export const Scripts: ModdedBattleScriptsData = {
 								if (parseInt(source.charAt(0)) === 9) gen9 = true;
 							}
 						}
-						if (gen1or2) type.entireMovepool.gen1or2[moveid]++;
-						if (gen3) type.entireMovepool.gen3[moveid]++;
-						if (gen4) type.entireMovepool.gen4[moveid]++;
-						if (gen5) type.entireMovepool.gen5[moveid]++;
-						if (gen6) type.entireMovepool.gen6[moveid]++;
-						if (gen7) type.entireMovepool.gen7[moveid]++;
-						if (lgpe) type.entireMovepool.lgpe[moveid]++;
-						if (gen8) type.entireMovepool.gen8[moveid]++;
-						if (gen9) type.entireMovepool.gen9[moveid]++;
+						if (gen1or2) type.entireMovepool.gen1or2[moveLearned]++;
+						if (gen3) type.entireMovepool.gen3[moveLearned]++;
+						if (gen4) type.entireMovepool.gen4[moveLearned]++;
+						if (gen5) type.entireMovepool.gen5[moveLearned]++;
+						if (gen6) type.entireMovepool.gen6[moveLearned]++;
+						if (gen7) type.entireMovepool.gen7[moveLearned]++;
+						if (lgpe) type.entireMovepool.lgpe[moveLearned]++;
+						if (gen8) type.entireMovepool.gen8[moveLearned]++;
+						if (gen9) type.entireMovepool.gen9[moveLearned]++;
 					}
 				}
 			}
