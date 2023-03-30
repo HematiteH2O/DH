@@ -71,7 +71,7 @@ export const Scripts: ModdedBattleScriptsData = {
 		newMoves("stantler", ["safeguard"]);
 		newMoves("larvitar", ["rage"]);
 
-		// these are from Legends: Arceus
+		/* // these are from Legends: Arceus
 		const legendsMoves = (mon: string, moves: string[]) => {
 			for (const move of moves) {
 				this.modData('Learnsets', this.toID(mon)).learnset[this.toID(move)] = ["8S0"];
@@ -260,9 +260,8 @@ export const Scripts: ModdedBattleScriptsData = {
 		legendsMoves("wormadamtrash", ["gust", "silverwind", "steelbeam"]);
 		legendsMoves("yanma", ["gust"]);
 		legendsMoves("yanmega", ["crunch"]);
-		legendsMoves("zubat", ["crosspoison"]);
+		legendsMoves("zubat", ["crosspoison"]); */
 
-		let printno = 0;
 		for (const typeid in this.dataCache.TypeChart) { // doing types first; can come back for Egg groups later
 			const type = this.dataCache.TypeChart[typeid];
 			type.entireMovepool = {
@@ -300,7 +299,7 @@ export const Scripts: ModdedBattleScriptsData = {
 				if (!poke.types) continue;
 				if (poke.types[0] && poke.types[0] === typeid) hasType = true;
 				if (poke.types[1] && poke.types[1] === typeid) hasType = true;
-				if (!hasType) continue;
+				if (type !== 'Universal' || !hasType) continue;
 				if (this.dataCache.Learnsets[id] && this.dataCache.Learnsets[id].learnset) {
 
 					// start with the vanilla learnset
@@ -402,6 +401,7 @@ export const Scripts: ModdedBattleScriptsData = {
 				for (const gen in type.entireMovepool) {
 					let minimum = 17 * (type.entireMovepool[gen].protect / 20) - 1;
 					if (!minimum || minimum < 3) continue; // don't bother with the types with very few Pokémon in certain Gens
+					if (this.dataCache.TypeChart["Universal"]?.universal[gen].includes(moveid)) continue;
 					if (type.entireMovepool[gen][moveid] > minimum) type.universal[gen].push(move.name);
 				}
 			}
