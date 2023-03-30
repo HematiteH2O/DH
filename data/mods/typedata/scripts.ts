@@ -299,7 +299,7 @@ export const Scripts: ModdedBattleScriptsData = {
 				if (!poke.types) continue;
 				if (poke.types[0] && poke.types[0] === typeid) hasType = true;
 				if (poke.types[1] && poke.types[1] === typeid) hasType = true;
-				if (type !== 'Universal' || !hasType) continue;
+				if (type !== 'Universal' && !hasType) continue;
 				if (this.dataCache.Learnsets[id] && this.dataCache.Learnsets[id].learnset) {
 
 					// start with the vanilla learnset
