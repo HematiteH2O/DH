@@ -396,7 +396,6 @@ export const Scripts: ModdedBattleScriptsData = {
 					}
 				}
 			}
-			console.log(type.entireMovepool.gen7);
 			// now here I'm going to divide how many Pokémon learn each move by how many learn Protect and see if it's at least ~85%?
 			for (const moveid in this.dataCache.Moves) {
 				const move = this.dataCache.Moves[moveid];
@@ -406,9 +405,8 @@ export const Scripts: ModdedBattleScriptsData = {
 					if (type.entireMovepool[gen][moveid] > minimum) type.universal[gen].push(move.name);
 				}
 			}
-			console.log(type.universal.gen7);
 			let sheetOutput: string[] = [
-				type + `~` + type.universal.gen1or2 + `~` + type.universal.gen3 + `~` + type.universal.gen4 + `~` + type.universal.gen5 + `~` + type.universal.gen6 + `~` + type.universal.gen7 + `~` + type.universal.lgpe + `~` + type.universal.gen8 + `~` + type.universal.gen9
+				typeid + `~` + type.universal.gen1or2 + `~` + type.universal.gen3 + `~` + type.universal.gen4 + `~` + type.universal.gen5 + `~` + type.universal.gen6 + `~` + type.universal.gen7 + `~` + type.universal.lgpe + `~` + type.universal.gen8 + `~` + type.universal.gen9
 			];
 			type.sheetOutput = sheetOutput;
 		}
