@@ -393,11 +393,13 @@ export const Scripts: ModdedBattleScriptsData = {
 			for (const moveid in this.dataCache.Moves) {
 				const move = this.dataCache.Moves[moveid];
 				for (const gen in type.entireMovepool) {
-					const minimum = 17 * (type.entireMovepool[gen].protect / 20) - 1;
+					let minimum = 17 * (type.entireMovepool[gen].protect / 20) - 1;
 					if (!minimum || minimum < 3) continue; // don't bother with the types with very few Pokémon in certain Gens
 					if (type.entireMovepool[gen][moveid] > minimum) type.universal[gen].push(move.name);
 				}
 			}
+			console.log(type.entireMovepool.gen3);
+			console.log(type.entireMovepool.gen3.protect);
 			console.log(type.universal);
 			console.log(type.universal.gen7);
 			let sheetOutput: string[] = [
