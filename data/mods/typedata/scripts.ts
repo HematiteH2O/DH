@@ -389,6 +389,7 @@ export const Scripts: ModdedBattleScriptsData = {
 						if (gen4) type.entireMovepool.gen4[moveid]++;
 						if (gen5) type.entireMovepool.gen5[moveid]++;
 						if (gen6) type.entireMovepool.gen6[moveid]++;
+						if (gen7) console.log(moveid);
 						if (gen7) type.entireMovepool.gen7[moveid]++;
 						if (lgpe) type.entireMovepool.lgpe[moveid]++;
 						if (gen8) type.entireMovepool.gen8[moveid]++;
