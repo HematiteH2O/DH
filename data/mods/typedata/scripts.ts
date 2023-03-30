@@ -401,7 +401,7 @@ export const Scripts: ModdedBattleScriptsData = {
 				for (const gen in type.entireMovepool) {
 					let minimum = 17 * (type.entireMovepool[gen].protect / 20) - 1;
 					if (!minimum || minimum < 3) continue; // don't bother with the types with very few Pokémon in certain Gens
-					if (this.dataCache.TypeChart["Universal"]?.universal[gen].includes(moveid)) continue;
+					if (this.dataCache.TypeChart["Universal"]?.universal[gen].includes(move.name)) continue;
 					if (type.entireMovepool[gen][moveid] > minimum) type.universal[gen].push(move.name);
 				}
 			}
