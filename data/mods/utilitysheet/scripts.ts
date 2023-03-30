@@ -507,7 +507,6 @@ export const Scripts: ModdedBattleScriptsData = {
 						console.log(moveid);
 						continue;
 					}
-					if (dexitedMoves.includes(moveid)) continue;
 
 					let moveGen = 1;
 					if (move.num > 826) moveGen = 9;
@@ -604,6 +603,7 @@ export const Scripts: ModdedBattleScriptsData = {
 
 					// okay, so we know the move! now we need to figure out where it goes
 					let competitive = false;
+					if (dexitedMoves.includes(moveid)) learnedNatural = learnedTmTutor = false; // list these, but force them to be fringe moves
 					
 					if (attackRMs.includes(moveid)) {
 						// what type is it?
@@ -617,25 +617,25 @@ export const Scripts: ModdedBattleScriptsData = {
 							|| moveid === 'wavecrash'
 						) { // for attacking moves, proceed only if the move's type has any potential to be relevant (but including the Normal moves that defy type)
 							competitive = true;
-							if (learnedNatural) poke.learnsetCumulative[type][category].natural.push(move.name);
 							if (learnedTmTutor) poke.learnsetCumulative[type][category].tmTutor.push(move.name);
-							if (!learnedNatural && !learnedTmTutor) poke.learnsetCumulative[type][category].fringe.push(move.name);
+							else if (learnedNatural) poke.learnsetCumulative[type][category].natural.push(move.name);
+							else poke.learnsetCumulative[type][category].fringe.push(move.name);
 						}
 					}
 					for (const section in movepoolSections) {
 						if (movepoolSections[section].includes(moveid)) {
 							competitive = true;
-							if (learnedNatural) poke.learnsetCumulative[section].Moves.natural.push(move.name);
 							if (learnedTmTutor) poke.learnsetCumulative[section].Moves.tmTutor.push(move.name);
-							if (!learnedNatural && !learnedTmTutor) poke.learnsetCumulative[section].Moves.fringe.push(move.name);
+							else if (learnedNatural) poke.learnsetCumulative[section].Moves.natural.push(move.name);
+							else poke.learnsetCumulative[section].Moves.fringe.push(move.name);
 						}
 					}
 
 					if (!competitive) {
 						// push the move's name to the appropriate categories
-						if (learnedNatural) poke.learnsetCumulative.Flavor.Moves.natural.push(move.name);
 						if (learnedTmTutor) poke.learnsetCumulative.Flavor.Moves.tmTutor.push(move.name);
-						if (!learnedNatural && !learnedTmTutor) poke.learnsetCumulative.Flavor.Moves.fringe.push(move.name);
+						else if (learnedNatural) poke.learnsetCumulative.Flavor.Moves.natural.push(move.name);
+						else poke.learnsetCumulative.Flavor.Moves.fringe.push(move.name);
 					}
 				}
 
