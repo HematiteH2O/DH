@@ -275,6 +275,17 @@ export const Scripts: ModdedBattleScriptsData = {
 				gen8: {},
 				gen9: {},
 			};
+			type.universal = {
+				gen1or2: {},
+				gen3: {},
+				gen4: {},
+				gen5: {},
+				gen6: {},
+				gen7: {},
+				lgpe: {},
+				gen8: {},
+				gen9: {},
+			};
 			for (const moveid in this.dataCache.Moves) {
 				for (const gen in type.entireMovepool) {
 					type.entireMovepool[gen][moveid] = 0;
@@ -377,7 +388,18 @@ export const Scripts: ModdedBattleScriptsData = {
 					}
 				}
 			}
-			// now here I'm going to divide how many Pokémon learn each move by how many learn Protect and see if it's at least 80%?
+			// now here I'm going to divide how many Pokémon learn each move by how many learn Protect and see if it's at least ~85%?
+			for (const moveid in this.dataCache.Moves) {
+				const move = this.dataCache.Moves[moveid];
+				for (const gen in type.entireMovepool) {
+					const minimum = 17 * (type.entireMovepool[gen].protect / 20) - 1;
+					if (type.entireMovepool[gen][moveid] > minimum) type.universal[gen].push(move.name);
+				}
+			}
+			let sheetOutput: string[] = [
+				type + `~` + type.universal.gen1or2 + `~` + type.universal.gen3 + `~` + type.universal.gen4 + `~` + type.universal.gen5 + `~` + type.universal.gen6 + `~` + type.universal.gen7 + `~` + type.universal.lgpe + `~` + type.universal.gen8 + `~` + type.universal.gen9
+			];
+			type.sheetOutput = sheetOutput;
 		}
 	},
 };
