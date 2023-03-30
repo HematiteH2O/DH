@@ -297,7 +297,8 @@ export const Scripts: ModdedBattleScriptsData = {
 				// skip NFEs... and anything that can't be read correctly, just in case
 				let hasType = false;
 				if (!poke.eggGroups) continue;
-				if (poke.eggGroups.includes(typeid)) hasType = true;
+				if (poke.eggGroups[0] && poke.eggGroups[0] === typeid) hasType = true;
+				if (poke.eggGroups[1] && poke.eggGroups[1] === typeid) hasType = true;
 				if (typeid !== 'Universal' && !hasType) continue;
 				if (this.dataCache.Learnsets[id] && this.dataCache.Learnsets[id].learnset) {
 
