@@ -297,8 +297,9 @@ export const Scripts: ModdedBattleScriptsData = {
 				if (!poke || poke.evos) continue;
 				// skip NFEs... and anything that can't be read correctly, just in case
 				let hasType = false;
-				if (poke.types[0] && poke.types[0] === id) hasType = true;
-				if (poke.types[1] && poke.types[1] === id) hasType = true;
+				if (!poke.types) continue;
+				if (poke.types[0] && poke.types[0] === typeid) hasType = true;
+				if (poke.types[1] && poke.types[1] === typeid) hasType = true;
 				if (!hasType) continue;
 				if (this.dataCache.Learnsets[id] && this.dataCache.Learnsets[id].learnset) {
 
@@ -383,7 +384,6 @@ export const Scripts: ModdedBattleScriptsData = {
 								}
 							}
 						}
-						if (gen1or2 || gen3 || gen4 || gen5 || gen6 || gen7 || lgpe || gen8 || gen9) console.log("the move is learned");
 						if (gen1or2) type.entireMovepool.gen1or2[moveid]++;
 						if (gen3) type.entireMovepool.gen3[moveid]++;
 						if (gen4) type.entireMovepool.gen4[moveid]++;
@@ -393,7 +393,6 @@ export const Scripts: ModdedBattleScriptsData = {
 						if (lgpe) type.entireMovepool.lgpe[moveid]++;
 						if (gen8) type.entireMovepool.gen8[moveid]++;
 						if (gen9) type.entireMovepool.gen9[moveid]++;
-						type.entireMovepool.gen3[moveid]++; // just a test?
 					}
 				}
 			}
@@ -406,10 +405,6 @@ export const Scripts: ModdedBattleScriptsData = {
 					if (type.entireMovepool[gen][moveid] > minimum) type.universal[gen].push(move.name);
 				}
 			}
-			console.log(type.entireMovepool.gen3);
-			console.log(type.entireMovepool.gen3.protect);
-			console.log(type.universal);
-			console.log(type.universal.gen7);
 			let sheetOutput: string[] = [
 				type + `~` + type.universal.gen1or2 + `~` + type.universal.gen3 + `~` + type.universal.gen4 + `~` + type.universal.gen5 + `~` + type.universal.gen6 + `~` + type.universal.gen7 + `~` + type.universal.lgpe + `~` + type.universal.gen8 + `~` + type.universal.gen9
 			];
