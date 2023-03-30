@@ -1,5 +1,29 @@
 export const TypeChart: {[k: string]: ModdedTypeData} = {
-	Universal: { },
+	Universal: {
+		damageTaken: {
+			brn: 3,
+			Bug: 2,
+			Dark: 0,
+			Dragon: 0,
+			Electric: 0,
+			Fairy: 2,
+			Fighting: 0,
+			Fire: 2,
+			Flying: 0,
+			Ghost: 0,
+			Grass: 2,
+			Ground: 1,
+			Ice: 2,
+			Normal: 0,
+			Poison: 0,
+			Psychic: 0,
+			Rock: 1,
+			Steel: 2,
+			Water: 1,
+		},
+		HPivs: {atk: 30, spa: 30, spe: 30},
+		HPdvs: {atk: 14, def: 12},
+	},
 	Fire: {
 		damageTaken: {
 			brn: 3,
