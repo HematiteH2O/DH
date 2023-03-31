@@ -516,6 +516,10 @@ export const Scripts: ModdedBattleScriptsData = {
 				for (const type in this.dataCache.TypeChart) {
 					if (!typeOrder.includes(type)) typeOrder.push(type);
 				}
+				console.log(offenseCoverage);
+				console.log(weaknessCoverage);
+				console.log(otherCoverage);
+				console.log(typeOrder);
 
 				for (const moveid in this.dataCache.Moves) {
 					// identify the Gen of the move
