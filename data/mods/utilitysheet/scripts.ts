@@ -502,6 +502,21 @@ export const Scripts: ModdedBattleScriptsData = {
 					}
 				}
 				// any type not in one of these categories will be ignored as coverage!
+				const typeOrder: string [] = []; // this will help categorize the types of moves that the Pokémon has
+				if (poke.types[0] && !typeOrder.includes(poke.types[0])) typeOrder.push(poke.types[0]);
+				if (poke.types[1] && !typeOrder.includes(poke.types[1])) typeOrder.push(poke.types[1]);
+				for (const type in offenseCoverage) {
+					if (!typeOrder.includes(type)) typeOrder.push(type);
+				}
+				for (const type in weaknessCoverage) {
+					if (!typeOrder.includes(type)) typeOrder.push(type);
+				}
+				for (const type in otherCoverage) {
+					if (!typeOrder.includes(type)) typeOrder.push(type);
+				}
+				for (const type in this.dataCache.TypeChart) {
+					if (!typeOrder.includes(type)) typeOrder.push(type);
+				}
 
 				for (const moveid in this.dataCache.Moves) {
 					// identify the Gen of the move
@@ -723,46 +738,9 @@ export const Scripts: ModdedBattleScriptsData = {
 					+ (poke2 ? (printno) + `~2~=IMAGE("https://www.smogon.com/forums//media/minisprites/` + poke2id + `.png",3)~~` + poke2.name + "~" + poke2.types[0] + "~" + (poke2.types[1] ? poke2.types[1] : "") + "~" + poke2abilities + "~" + poke2.baseStats.hp + "~" + poke2.baseStats.atk + "~" + poke2.baseStats.def + "~" + poke2.baseStats.spa + "~" + poke2.baseStats.spd + "~" + poke2.baseStats.spe + "~" + `\n` : "")
 					+ (printno) + `~3~=IMAGE("https://www.smogon.com/forums//media/minisprites/` + iconid + `.png",3)~~` + poke.name + "~" + poke.types[0] + "~" + (poke.types[1] ? poke.types[1] : "") + "~" + abilities + "~" + poke.baseStats.hp + "~" + poke.baseStats.atk + "~" + poke.baseStats.def + "~" + poke.baseStats.spa + "~" + poke.baseStats.spd + "~" + poke.baseStats.spe + "~" + `\n`
 					+ (printno) + `~4~\n`
-					+ (printno) + "~5~~~Natural~~~TM and Tutor~~Fringe" + `\n`
+					+ (printno) + "~5~TM and Tutor~Additional Trends~Natural~Fringe~Substitutions" + `\n`
 				];
-				if (poke.types[0]) {
-					const moveType = poke.types[0];
-					if (
-						poke.learnsetCumulative[moveType].Physical.natural.length || poke.learnsetCumulative[moveType].Physical.tmTutor.length ||
-						poke.learnsetCumulative[moveType].Physical.fringe.length
-					) {
-						sheetOutput += (printno) + "~6~" + moveType + "~Physical~" + poke.learnsetCumulative[moveType].Physical.natural + "~~~" + poke.learnsetCumulative[moveType].Physical.tmTutor + "~~" + (poke.learnsetCumulative[moveType].Physical.fringe.length ? "(" + poke.learnsetCumulative[moveType].Physical.fringe + ")" : "") + "" + `\n`;
-					}
-					if (
-						poke.learnsetCumulative[moveType].Physical.natural.length || poke.learnsetCumulative[moveType].Physical.tmTutor.length ||
-						poke.learnsetCumulative[moveType].Physical.fringe.length
-					) {
-						sheetOutput += (printno) + "~6~" + moveType + "~Physical~" + poke.learnsetCumulative[moveType].Physical.natural + "~~~" + poke.learnsetCumulative[moveType].Physical.tmTutor + "~~" + (poke.learnsetCumulative[moveType].Physical.fringe.length ? "(" + poke.learnsetCumulative[moveType].Physical.fringe + ")" : "") + "" + `\n`;
-					}
-					if (
-						poke.learnsetCumulative[moveType].Special.natural.length || poke.learnsetCumulative[moveType].Special.tmTutor.length ||
-						poke.learnsetCumulative[moveType].Special.fringe.length
-					) {
-						sheetOutput += (printno) + "~6~" + moveType + "~Special~" + poke.learnsetCumulative[moveType].Special.natural + "~~~" + poke.learnsetCumulative[moveType].Special.tmTutor + "~~" + (poke.learnsetCumulative[moveType].Special.fringe.length ? "(" + poke.learnsetCumulative[moveType].Special.fringe + ")" : "") + "" + `\n`;
-					}
-				}
-				if (poke.types[1]) {
-					const moveType = poke.types[1];
-					if (
-						poke.learnsetCumulative[moveType].Physical.natural.length || poke.learnsetCumulative[moveType].Physical.tmTutor.length ||
-						poke.learnsetCumulative[moveType].Physical.fringe.length
-					) {
-						sheetOutput += (printno) + "~6~" + moveType + "~Physical~" + poke.learnsetCumulative[moveType].Physical.natural + "~~~" + poke.learnsetCumulative[moveType].Physical.tmTutor + "~~" + (poke.learnsetCumulative[moveType].Physical.fringe.length ? "(" + poke.learnsetCumulative[moveType].Physical.fringe + ")" : "") + "" + `\n`;
-					}
-					if (
-						poke.learnsetCumulative[moveType].Special.natural.length || poke.learnsetCumulative[moveType].Special.tmTutor.length ||
-						poke.learnsetCumulative[moveType].Special.fringe.length
-					) {
-						sheetOutput += (printno) + "~6~" + moveType + "~Special~" + poke.learnsetCumulative[moveType].Special.natural + "~~~" + poke.learnsetCumulative[moveType].Special.tmTutor + "~~" + (poke.learnsetCumulative[moveType].Special.fringe.length ? "(" + poke.learnsetCumulative[moveType].Special.fringe + ")" : "") + "" + `\n`;
-					}
-				}
-				for (const moveType in this.dataCache.TypeChart) {
-					if (poke.types[0] === moveType || (poke.types[1] && poke.types[1] === moveType)) continue;
+				for (const moveType in typeOrder) {
 					if (
 						poke.learnsetCumulative[moveType].Physical.natural.length || poke.learnsetCumulative[moveType].Physical.tmTutor.length ||
 						poke.learnsetCumulative[moveType].Physical.fringe.length || poke.learnsetCumulative[moveType].Physical.addTrend.length
