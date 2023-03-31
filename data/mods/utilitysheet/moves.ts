@@ -170,6 +170,12 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		zMove: {effect: 'crit2'},
 		contestType: "Tough",
 	},
+	adrenalinerush: {
+		num: -1,
+		name: "Adrenaline Rush",
+		category: "Physical",
+		type: "Electric",
+	},
 	aerialace: {
 		num: 332,
 		accuracy: true,
@@ -1517,6 +1523,12 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		type: "Normal",
 		zMove: {boost: {def: 1}},
 		contestType: "Cute",
+	},
+	bloodboil: {
+		num: -6,
+		name: "Blood Boil",
+		category: "Status",
+		type: "Fire",
 	},
 	bloomdoom: {
 		num: 644,
@@ -4951,6 +4963,12 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		secondary: null,
 		target: "normal",
 		type: "Psychic",
+	},
+	expiration: {
+		num: -10,
+		name: "Expiration",
+		category: "Special",
+		type: "Poison",
 	},
 	explosion: {
 		num: 153,
@@ -10200,6 +10218,12 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		target: "normal",
 		type: "Ghost",
 	},
+	lastwill: {
+		num: -11,
+		name: "Last Will",
+		category: "Status",
+		type: "Ghost",
+	},
 	lavaplume: {
 		num: 436,
 		accuracy: 100,
@@ -13129,6 +13153,12 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		zMove: {boost: {atk: 1}},
 		contestType: "Clever",
 	},
+	oilfire: {
+		num: -3,
+		name: "Oil Fire",
+		category: "Special",
+		type: "Fire",
+	},
 	ominouswind: {
 		num: 466,
 		accuracy: 100,
@@ -13533,6 +13563,12 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		target: "normal",
 		type: "Electric",
 		contestType: "Cute",
+	},
+	piledriver: {
+		num: -2,
+		name: "Piledriver",
+		category: "Physical",
+		type: "Fighting",
 	},
 	pinmissile: {
 		num: 42,
@@ -15141,6 +15177,12 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		type: "Normal",
 		contestType: "Beautiful",
 	},
+	reputation: {
+		num: -6,
+		name: "Reputation",
+		category: "Physical",
+		type: "Normal",
+	},
 	rest: {
 		num: 156,
 		accuracy: true,
@@ -15320,6 +15362,30 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		secondary: null,
 		target: "self",
 		type: "Normal",
+	},
+	revolvingdoorslam: {
+		num: -8,
+		name: "Revolving Door Slam",
+		category: "Physical",
+		type: "Steel",
+	},
+	risingheat: {
+		num: -12,
+		name: "Rising Heat",
+		category: "Special",
+		type: "Fire",
+	},
+	risingstalk: {
+		num: -13,
+		name: "Rising Stalk",
+		category: "Special",
+		type: "Grass",
+	},
+	risingtide: {
+		num: -14,
+		name: "Rising Tide",
+		category: "Special",
+		type: "Water",
 	},
 	risingvoltage: {
 		num: 804,
@@ -17211,6 +17277,12 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		zMove: {effect: 'crit2'},
 		contestType: "Cute",
 	},
+	sleightofhand: {
+		num: -15,
+		name: "Sleight of Hand",
+		category: "Psychic",
+		type: "Physical",
+	},
 	sludge: {
 		num: 124,
 		accuracy: 100,
@@ -18043,6 +18115,12 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		zMove: {boost: {atk: 3}},
 		contestType: "Cute",
 	},
+	splashzone: {
+		num: -7,
+		name: "Splash Zone",
+		category: "Special",
+		type: "Water",
+	},
 	splinteredstormshards: {
 		num: 727,
 		accuracy: true,
@@ -18306,6 +18384,12 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		type: "Bug",
 		zMove: {boost: {spe: 1}},
 		contestType: "Tough",
+	},
+	stingingthorns: {
+		num: -9,
+		name: "Stinging Thorns",
+		category: "Physical",
+		type: "Grass",
 	},
 	stockpile: {
 		num: 254,
@@ -21182,6 +21266,12 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		type: "Fire",
 		zMove: {boost: {atk: 1}},
 		contestType: "Beautiful",
+	},
+	windshear: {
+		num: -4,
+		name: "Windshear",
+		category: "Special",
+		type: "Flying",
 	},
 	wingattack: {
 		num: 17,
