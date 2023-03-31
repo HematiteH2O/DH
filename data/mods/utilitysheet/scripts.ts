@@ -662,6 +662,13 @@ export const Scripts: ModdedBattleScriptsData = {
 						let addRule = "addOther";
 
 						// below should be a list of movepool trends that sort a move into either addOther or addTrend
+						if (
+							['facade', 'frustration', 'gigaimpact', 'return', 'hiddenpower', 'hyperbeam', 'snore', 'attract', 'protect', 'sleeptalk', 'substitute', 'swagger', 'toxic', 'rest'].includes(moveid)
+						) addRule = "addTrend";
+						if (
+							(poke.types[0] && poke.types[0] === 'Fire') || (poke.types[1] && poke.types[1] === 'Fire')) &&
+							['willowisp'].includes(moveid)
+						) addRule = "addTrend"; // sample test
 
 						// now sort it into that section
 						let competitive = false;
