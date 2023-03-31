@@ -667,7 +667,7 @@ export const Scripts: ModdedBattleScriptsData = {
 						) addRule = "addTrend"; // fully universal moves
 						if (!(poke.gender && poke.gender === 'N') && moveid === 'attract') addRule = "addTrend";
 						if (
-							(poke.types[0] && poke.types[0] === 'Fire') || (poke.types[1] && poke.types[1] === 'Fire')) &&
+							((poke.types[0] && poke.types[0] === 'Fire') || (poke.types[1] && poke.types[1] === 'Fire')) &&
 							['willowisp'].includes(moveid)
 						) addRule = "addTrend"; // Fire-type move trends
 
