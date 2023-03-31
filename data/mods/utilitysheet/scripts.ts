@@ -663,8 +663,9 @@ export const Scripts: ModdedBattleScriptsData = {
 
 						// below should be a list of movepool trends that sort a move into either addOther or addTrend
 						if (
-							['facade', 'frustration', 'gigaimpact', 'return', 'hiddenpower', 'hyperbeam', 'snore', 'attract', 'protect', 'sleeptalk', 'substitute', 'swagger', 'toxic', 'rest'].includes(moveid)
+							['facade', 'frustration', 'gigaimpact', 'return', 'hiddenpower', 'hyperbeam', 'snore', 'protect', 'sleeptalk', 'substitute', 'swagger', 'toxic', 'rest'].includes(moveid)
 						) addRule = "addTrend"; // fully universal moves
+						if (!(poke.gender && poke.gender === 'N') && moveid === 'attract') addRule = "addTrend";
 						if (
 							(poke.types[0] && poke.types[0] === 'Fire') || (poke.types[1] && poke.types[1] === 'Fire')) &&
 							['willowisp'].includes(moveid)
