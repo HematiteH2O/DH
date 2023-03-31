@@ -27,40 +27,37 @@ export const Scripts: ModdedBattleScriptsData = {
 			'doubleteam', 'flash', 'kinesis', 'minimize', 'sandattack', 'smokescreen', 'storedpower', 'terablast',
 		];
 		const movepoolSections = {
-			Status: [
-				'aftershock', 'banefulbunker', 'beakblast', 'bittermalice', 'bodyslam', 'darkvoid', 'direclaw', 'glare', 'hypnosis', 'infernalparade', 'lovelykiss', 'nuzzle',
-				'rashpowder', 'sacredfire', 'saltcure', 'scald', 'scorchingsands', 'sleeppowder', 'spore', 'stunspore', 'thunderwave', 'toxicthread', 'willowisp'
-			],
-			Cleric: [
-				'aromatherapy', 'catharsis', 'healbell', 'junglehealing', 'lunarblessing', 'refresh', 'takeheart',
-			],
-			Recovery: [
+			Self: [
+				// Recovery
 				'healorder', 'leechseed', 'milkdrink', 'moonlight', 'morningsun', 'painsplit', 'recover', 'revivalblessing', 'roost', 'shoreup', 'slackoff', 'softboiled',
-				'strengthsap', 'synthesis', 'wish',
-			],
-			FieldControl: [
-				'auroraveil', 'backstab', 'ceaselessedge', 'contaminate', 'courtchange', 'creepingivy', 'defog', 'lightscreen', 'lushmoss', 'mortalspin', 'psyshieldbash',
-				'rapidspin', 'reflect', 'snowshovel', 'spikes', 'stealthrock', 'stickyweb', 'stoneaxe', 'tidyup', 'toxicspikes', 'tripwire',
-			],
-			Setup: [
+				'strengthsap', 'synthesis',
+				// Setup
 				'acidarmor', 'acupressure', 'agility', 'amnesia', 'aquastep', 'aurawheel', 'autotomize', 'barrier', 'bellydrum', 'bloodboil', 'bulkup', 'calmmind',
 				'clangoroussoul', 'coil', 'cosmicpower', 'cottonguard', 'curse', 'defendorder', 'diamondstorm', 'dragondance', 'filletaway', 'flamecharge', 'geomancy',
 				'growth', 'honeclaws', 'irondefense', 'metamorphosis', 'nastyplot', 'noretreat', 'quiverdance', 'rockpolish', 'runningstart', 'shellsmash', 'shelter',
 				'shiftgear', 'stockpile', 'stuffcheeks', 'surgingstrikes', 'swordsdance', 'tailglow', 'takeheart', 'trailblaze', 'triplearrows', 'victorydance',
 			],
-			SetupControl: [
+			Disrupt: [
+				// Status
+				'aftershock', 'banefulbunker', 'beakblast', 'bittermalice', 'bodyslam', 'darkvoid', 'direclaw', 'glare', 'hypnosis', 'infernalparade', 'lovelykiss', 'nuzzle',
+				'rashpowder', 'sacredfire', 'saltcure', 'scald', 'scorchingsands', 'sleeppowder', 'spore', 'stunspore', 'thunderwave', 'toxicthread', 'willowisp'
+				// Setup Control
 				'circlethrow', 'clearsmog', 'dragontail', 'haze', 'heartswap', 'perishsong', 'revolvingdoorslam', 'roar', 'topsyturvy', 'whirlwind', 'yawn',
-			],
-			ItemControl: [
+				// Item Control
 				'corrosivegas', 'covet', 'knockoff', 'shadydeal', 'switcheroo', 'thief', 'trick',
-			],
-			MoveBinding: [
+				// Move-Binding
 				'anchorshot', 'block', 'destinybond', 'disable', 'encore', 'fairylock', 'firespin', 'infestation', 'jawlock', 'magnetrise', 'meanlook', 'octolock', 'powder',
 				'provoke', 'reverb', 'sandtomb', 'spiderweb', 'spiritshackle', 'stickyfloor', 'taunt', 'thousandwaves', 'thundercage',
-			],
-			FixedDamage: [
+				// Fixed Damage
 				'counter', 'dragonrage', 'finalgambit', 'fissure', 'guillotine', 'horndrill', 'mirrorcoat', 'naturesmadness', 'nightshade', 'ruination', 'seismictoss',
 				'sheercold', 'sonicboom', 'superfang',
+			],
+			Support: [
+				// Cleric
+				'aromatherapy', 'catharsis', 'healbell', 'junglehealing', 'lunarblessing', 'refresh', 'takeheart', 'wish',
+				// Field Control
+				'auroraveil', 'backstab', 'ceaselessedge', 'contaminate', 'courtchange', 'creepingivy', 'defog', 'lightscreen', 'lushmoss', 'mortalspin', 'psyshieldbash',
+				'rapidspin', 'reflect', 'snowshovel', 'spikes', 'stealthrock', 'stickyweb', 'stoneaxe', 'tidyup', 'toxicspikes', 'tripwire',
 			],
 			Momentum: [
 				'batonpass', 'chillyreception', 'explosion', 'flipturn', 'healingwish', 'memento', 'partingshot', 'pyrotechnics', 'selfdestruct', 'shedtail', 'teleport',
@@ -394,23 +391,29 @@ export const Scripts: ModdedBattleScriptsData = {
 				for (const moveType in this.dataCache.TypeChart) {
 					poke.learnsetCumulative[moveType] = {
 						Physical: {
-							natural: [],
 							tmTutor: [],
+							addTrend: [],
+							natural: [],
 							fringe: [],
+							addOther: [],
 						},
 						Special: {
-							natural: [],
 							tmTutor: [],
+							addTrend: [],
+							natural: [],
 							fringe: [],
+							addOther: [],
 						},
 					};
 				}
 				for (const section in movepoolSections) {
 					poke.learnsetCumulative[section] = {
 						Moves: {
-							natural: [],
 							tmTutor: [],
+							addTrend: [],
+							natural: [],
 							fringe: [],
+							addOther: [],
 						},
 					};
 				}
@@ -599,43 +602,81 @@ export const Scripts: ModdedBattleScriptsData = {
 							}
 						}
 					}
-					if (!learned) continue;
+					if (learned) {
 
-					// okay, so we know the move! now we need to figure out where it goes
-					let competitive = false;
-					if (dexitedMoves.includes(moveid)) learnedNatural = learnedTmTutor = false; // list these, but force them to be fringe moves
-					
-					if (attackRMs.includes(moveid)) {
-						// what type is it?
-						const type = (moveid === 'judgment' || moveid === 'multiattack' || moveid === 'ragingbull' || moveid === 'revelationdance') ? poke.types[0] : move.type;
-						const category = (move.category === 'Special' || moveid === 'naturepower') ? "Special" : "Physical";
-						// assume a status move ended up physical if its category changed
-						if (
-							poke.types[0] === type || (poke.types[1] && poke.types[1] === type) || offenseCoverage.includes(type) || weaknessCoverage.includes(type)
-							|| otherCoverage.includes(type) || moveid === 'naturepower' || moveid === 'technoblast' || moveid === 'terrainpulse' || moveid === 'weatherball'
-							|| moveid === 'fakeout' || moveid === 'feint' || moveid === 'extremespeed' || moveid === 'suckerpunch' || moveid === 'firstimpression'
-							|| moveid === 'wavecrash'
-						) { // for attacking moves, proceed only if the move's type has any potential to be relevant (but including the Normal moves that defy type)
-							competitive = true;
-							if (learnedTmTutor) poke.learnsetCumulative[type][category].tmTutor.push(move.name);
-							else if (learnedNatural) poke.learnsetCumulative[type][category].natural.push(move.name);
-							else poke.learnsetCumulative[type][category].fringe.push(move.name);
-						}
-					}
-					for (const section in movepoolSections) {
-						if (movepoolSections[section].includes(moveid)) {
-							competitive = true;
-							if (learnedTmTutor) poke.learnsetCumulative[section].Moves.tmTutor.push(move.name);
-							else if (learnedNatural) poke.learnsetCumulative[section].Moves.natural.push(move.name);
-							else poke.learnsetCumulative[section].Moves.fringe.push(move.name);
-						}
-					}
+						// okay, so we know the move! now we need to figure out where it goes
+						let competitive = false;
+						if (dexitedMoves.includes(moveid)) learnedNatural = learnedTmTutor = false; // list these, but force them to be fringe moves
 
-					if (!competitive) {
-						// push the move's name to the appropriate categories
-						if (learnedTmTutor) poke.learnsetCumulative.Flavor.Moves.tmTutor.push(move.name);
-						else if (learnedNatural) poke.learnsetCumulative.Flavor.Moves.natural.push(move.name);
-						else poke.learnsetCumulative.Flavor.Moves.fringe.push(move.name);
+						if (attackRMs.includes(moveid)) {
+							// what type is it?
+							const type = (moveid === 'judgment' || moveid === 'multiattack' || moveid === 'ragingbull' || moveid === 'revelationdance') ? poke.types[0] : move.type;
+							const category = (move.category === 'Special' || moveid === 'naturepower') ? "Special" : "Physical";
+							// assume a status move ended up physical if its category changed
+							if (
+								poke.types[0] === type || (poke.types[1] && poke.types[1] === type) || offenseCoverage.includes(type) || weaknessCoverage.includes(type)
+								|| otherCoverage.includes(type) || moveid === 'naturepower' || moveid === 'technoblast' || moveid === 'terrainpulse' || moveid === 'weatherball'
+								|| moveid === 'fakeout' || moveid === 'feint' || moveid === 'extremespeed' || moveid === 'suckerpunch' || moveid === 'firstimpression'
+								|| moveid === 'wavecrash'
+							) { // for attacking moves, proceed only if the move's type has any potential to be relevant (but including the Normal moves that defy type)
+								competitive = true;
+								if (learnedTmTutor) poke.learnsetCumulative[type][category].tmTutor.push(move.name);
+								else if (learnedNatural) poke.learnsetCumulative[type][category].natural.push(move.name);
+								else poke.learnsetCumulative[type][category].fringe.push(move.name);
+							}
+						}
+						for (const section in movepoolSections) {
+							if (movepoolSections[section].includes(moveid)) {
+								competitive = true;
+								if (learnedTmTutor) poke.learnsetCumulative[section].Moves.tmTutor.push(move.name);
+								else if (learnedNatural) poke.learnsetCumulative[section].Moves.natural.push(move.name);
+								else poke.learnsetCumulative[section].Moves.fringe.push(move.name);
+							}
+						}
+
+						if (!competitive) {
+							// push the move's name to the appropriate categories
+							if (learnedTmTutor) poke.learnsetCumulative.Flavor.Moves.tmTutor.push(move.name);
+							else if (learnedNatural) poke.learnsetCumulative.Flavor.Moves.natural.push(move.name);
+							else poke.learnsetCumulative.Flavor.Moves.fringe.push(move.name);
+						}
+
+					} else if (pulseTms.includes(moveid) || pulseTutors.includes(moveid)) {
+
+						// if a TM or tutor is not learned, decide if it belongs in addTrend or addOther
+						// should still distinguish between competitive and flavor like above!
+						let addRule = "addOther";
+
+						// below should be a list of movepool trends that sort a move into either addOther or addTrend
+
+						// now sort it into that section
+						let competitive = false;
+						if (attackRMs.includes(moveid)) {
+							// what type is it?
+							const type = (moveid === 'judgment' || moveid === 'multiattack' || moveid === 'ragingbull' || moveid === 'revelationdance') ? poke.types[0] : move.type;
+							const category = (move.category === 'Special' || moveid === 'naturepower') ? "Special" : "Physical";
+							// assume a status move ended up physical if its category changed
+							if (
+								poke.types[0] === type || (poke.types[1] && poke.types[1] === type) || offenseCoverage.includes(type) || weaknessCoverage.includes(type)
+								|| otherCoverage.includes(type) || moveid === 'naturepower' || moveid === 'technoblast' || moveid === 'terrainpulse' || moveid === 'weatherball'
+								|| moveid === 'fakeout' || moveid === 'feint' || moveid === 'extremespeed' || moveid === 'suckerpunch' || moveid === 'firstimpression'
+								|| moveid === 'wavecrash'
+							) { // for attacking moves, proceed only if the move's type has any potential to be relevant (but including the Normal moves that defy type)
+								competitive = true;
+								poke.learnsetCumulative[type][category][addRule].push(move.name);
+							}
+						}
+						if (addRule === "addOther") continue; // addOther is only for types and categories
+						for (const section in movepoolSections) {
+							if (movepoolSections[section].includes(moveid)) {
+								competitive = true;
+								poke.learnsetCumulative[section].Moves[addRule].push(move.name);
+							}
+						}
+						if (!competitive) {
+							poke.learnsetCumulative.Flavor.Moves[addRule].push(move.name);
+						}
+
 					}
 				}
 
@@ -724,23 +765,23 @@ export const Scripts: ModdedBattleScriptsData = {
 					if (poke.types[0] === moveType || (poke.types[1] && poke.types[1] === moveType)) continue;
 					if (
 						poke.learnsetCumulative[moveType].Physical.natural.length || poke.learnsetCumulative[moveType].Physical.tmTutor.length ||
-						poke.learnsetCumulative[moveType].Physical.fringe.length
+						poke.learnsetCumulative[moveType].Physical.fringe.length || poke.learnsetCumulative[moveType].Physical.addTrend.length
 					) {
-						sheetOutput += (printno) + "~6~" + moveType + "~Physical~" + poke.learnsetCumulative[moveType].Physical.natural + "~~~" + poke.learnsetCumulative[moveType].Physical.tmTutor + "~~" + (poke.learnsetCumulative[moveType].Physical.fringe.length ? "(" + poke.learnsetCumulative[moveType].Physical.fringe + ")" : "") + "" + `\n`;
+						sheetOutput += (printno) + "~6~" + moveType + "~Physical~" + poke.learnsetCumulative[moveType].Physical.tmTutor + "~" + poke.learnsetCumulative[moveType].Physical.addTrend + "~" + poke.learnsetCumulative[moveType].Physical.natural + "~" + (poke.learnsetCumulative[moveType].Physical.fringe.length ? "(" + poke.learnsetCumulative[moveType].Physical.fringe + ")" : "") + "~" + (poke.learnsetCumulative[moveType].Physical.addOther.length ? "(" + poke.learnsetCumulative[moveType].Physical.addOther + ")" : "") + "" + `\n`;
 					}
 					if (
 						poke.learnsetCumulative[moveType].Special.natural.length || poke.learnsetCumulative[moveType].Special.tmTutor.length ||
-						poke.learnsetCumulative[moveType].Special.fringe.length
+						poke.learnsetCumulative[moveType].Special.fringe.length || poke.learnsetCumulative[moveType].Special.addTrend.length
 					) {
-						sheetOutput += (printno) + "~6~" + moveType + "~Special~" + poke.learnsetCumulative[moveType].Special.natural + "~~~" + poke.learnsetCumulative[moveType].Special.tmTutor + "~~" + (poke.learnsetCumulative[moveType].Special.fringe.length ? "(" + poke.learnsetCumulative[moveType].Special.fringe + ")" : "") + "" + `\n`;
+						sheetOutput += (printno) + "~6~" + moveType + "~Special~" + poke.learnsetCumulative[moveType].Special.tmTutor + "~" + poke.learnsetCumulative[moveType].Special.addTrend + "~" + poke.learnsetCumulative[moveType].Special.natural + "~" + (poke.learnsetCumulative[moveType].Special.fringe.length ? "(" + poke.learnsetCumulative[moveType].Special.fringe + ")" : "") + "~" + (poke.learnsetCumulative[moveType].Special.addOther.length ? "(" + poke.learnsetCumulative[moveType].Special.addOther + ")" : "") + "" + `\n`;
 					}
 				}
 				for (const section in movepoolSections) {
 					if (
 						poke.learnsetCumulative[section].Moves.natural.length || poke.learnsetCumulative[section].Moves.tmTutor.length ||
-						poke.learnsetCumulative[section].Moves.fringe.length
+						poke.learnsetCumulative[section].Moves.fringe.length || poke.learnsetCumulative[section].Moves.addTrend.length
 					) {
-						sheetOutput += (printno) + "~7~" + section + "~~" + poke.learnsetCumulative[section].Moves.natural + "~~~" + poke.learnsetCumulative[section].Moves.tmTutor + "~~" + (poke.learnsetCumulative[section].Moves.fringe.length ? "(" + poke.learnsetCumulative[section].Moves.fringe + ")" : "") + "" + `\n`;
+						sheetOutput += (printno) + "~7~" + moveType + "~Special~" + poke.learnsetCumulative[moveType][section].tmTutor + "~" + poke.learnsetCumulative[moveType][section].addTrend + "~" + poke.learnsetCumulative[moveType][section].natural + "~" + (poke.learnsetCumulative[moveType][section].fringe.length ? "(" + poke.learnsetCumulative[moveType][section].fringe + ")" : "") + "~" + (poke.learnsetCumulative[moveType][section].addOther.length ? "(" + poke.learnsetCumulative[moveType][section].addOther + ")" : "") + "" + `\n`;
 					}
 				}
 				sheetOutput += (printno) + "~8~";
