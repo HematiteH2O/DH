@@ -504,22 +504,18 @@ export const Scripts: ModdedBattleScriptsData = {
 				const typeOrder: string [] = []; // this will help categorize the types of moves that the Pokémon has
 				if (poke.types[0] && !typeOrder.includes(poke.types[0])) typeOrder.push(poke.types[0]);
 				if (poke.types[1] && !typeOrder.includes(poke.types[1])) typeOrder.push(poke.types[1]);
-				for (const type in offenseCoverage) {
-					if (!typeOrder.includes(offenseCoverage[type])) typeOrder.push(type);
+				for (const type in this.dataCache.TypeChart) {
+					if (offenseCoverage.includes(type)) typeOrder.push(type);
 				}
-				for (const type in weaknessCoverage) {
-					if (!typeOrder.includes(weaknessCoverage[type])) typeOrder.push(type);
+				for (const type in this.dataCache.TypeChart) {
+					if (weaknessCoverage.includes(type)) typeOrder.push(type);
 				}
-				for (const type in otherCoverage) {
-					if (!typeOrder.includes(otherCoverage[type])) typeOrder.push(type);
+				for (const otherCoverage in this.dataCache.TypeChart) {
+					if (weaknessCoverage.includes(type)) typeOrder.push(type);
 				}
 				for (const type in this.dataCache.TypeChart) {
 					if (!typeOrder.includes(type)) typeOrder.push(type);
 				}
-				console.log(offenseCoverage);
-				console.log(weaknessCoverage);
-				console.log(otherCoverage);
-				console.log(typeOrder);
 
 				for (const moveid in this.dataCache.Moves) {
 					// identify the Gen of the move
@@ -752,6 +748,7 @@ export const Scripts: ModdedBattleScriptsData = {
 					+ (printno) + "~5~TM and Tutor~Additional Trends~Natural~Fringe~Substitutions" + `\n`
 				];
 				for (const moveType in typeOrder) {
+					if (!poke.learnsetCumulative[moveType]) continue; // (stop breaking)
 					if (
 						poke.learnsetCumulative[moveType].Physical.natural.length || poke.learnsetCumulative[moveType].Physical.tmTutor.length ||
 						poke.learnsetCumulative[moveType].Physical.fringe.length || poke.learnsetCumulative[moveType].Physical.addTrend.length
