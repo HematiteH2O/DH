@@ -40,7 +40,7 @@ export const Scripts: ModdedBattleScriptsData = {
 			Disrupt: [
 				// Status
 				'aftershock', 'banefulbunker', 'beakblast', 'bittermalice', 'bodyslam', 'darkvoid', 'direclaw', 'glare', 'hypnosis', 'infernalparade', 'lovelykiss', 'nuzzle',
-				'rashpowder', 'sacredfire', 'saltcure', 'scald', 'scorchingsands', 'sleeppowder', 'spore', 'stunspore', 'thunderwave', 'toxicthread', 'willowisp'
+				'rashpowder', 'sacredfire', 'saltcure', 'scald', 'scorchingsands', 'sleeppowder', 'spore', 'stunspore', 'thunderwave', 'toxicthread', 'willowisp',
 				// Setup Control
 				'circlethrow', 'clearsmog', 'dragontail', 'haze', 'heartswap', 'perishsong', 'revolvingdoorslam', 'roar', 'topsyturvy', 'whirlwind', 'yawn',
 				// Item Control
@@ -664,11 +664,11 @@ export const Scripts: ModdedBattleScriptsData = {
 						// below should be a list of movepool trends that sort a move into either addOther or addTrend
 						if (
 							['facade', 'frustration', 'gigaimpact', 'return', 'hiddenpower', 'hyperbeam', 'snore', 'attract', 'protect', 'sleeptalk', 'substitute', 'swagger', 'toxic', 'rest'].includes(moveid)
-						) addRule = "addTrend";
+						) addRule = "addTrend"; // fully universal moves
 						if (
 							(poke.types[0] && poke.types[0] === 'Fire') || (poke.types[1] && poke.types[1] === 'Fire')) &&
 							['willowisp'].includes(moveid)
-						) addRule = "addTrend"; // sample test
+						) addRule = "addTrend"; // Fire-type move trends
 
 						// now sort it into that section
 						let competitive = false;
