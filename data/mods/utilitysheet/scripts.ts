@@ -510,8 +510,8 @@ export const Scripts: ModdedBattleScriptsData = {
 				for (const type in this.dataCache.TypeChart) {
 					if (weaknessCoverage.includes(type)) typeOrder.push(type);
 				}
-				for (const otherCoverage in this.dataCache.TypeChart) {
-					if (weaknessCoverage.includes(type)) typeOrder.push(type);
+				for (const type in this.dataCache.TypeChart) {
+					if (otherCoverage.includes(type)) typeOrder.push(type);
 				}
 				for (const type in this.dataCache.TypeChart) {
 					if (!typeOrder.includes(type)) typeOrder.push(type);
