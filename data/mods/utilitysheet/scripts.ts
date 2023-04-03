@@ -209,6 +209,13 @@ export const Scripts: ModdedBattleScriptsData = {
 		bdspRockClimb("rockclimb", ["venusaur", "blastoise", "nidoqueen", "nidoking", "golduck", "mankey", "primeape", "arcanine", "poliwrath", "machop", "machoke", "machamp", "cubone", "marowak", "hitmonlee", "hitmonchan", "chansey", "kangaskhan", "electabuzz", "magmar", "pinsir", "omastar", "kabutops", "snorlax", "mewtwo", "mew", "meganium", "typhlosion", "feraligatr", "ampharos", "granbull", "ursaring", "blissey", "raikou", "entei", "suicune", "tyranitar", "sceptile", "blaziken", "swampert", "ludicolo", "vigoroth", "slaking", "exploud", "makuhita", "hariyama", "aggron", "zangoose", "regirock", "regice", "registeel", "groudon", "turtwig", "grotle", "torterra", "chimchar", "monferno", "infernape", "empoleon", "cranidos", "rampardos", "munchlax", "lucario", "drapion", "croagunk", "toxicroak", "abomasnow", "electivire", "magmortar", "mamoswine", "heatran", "regigigas", "giratina", "giratinaorigin", "darkrai", "arceus"]);
 
 		// these are from Legends: Arceus
+		for (const id in this.dataCache.Pokedex) {
+			if (this.dataCache.Learnsets[id].learnset2) {
+				for (const moveid in this.dataCache.Learnsets[id].learnset2) {
+					this.modData('Learnsets', id).learnset[moveid] = this.modData('Learnsets', id).learnset2[moveid];
+				}
+			}
+		}
 		const legendsMoves = (mon: string, moves: string[]) => {
 			for (const move of moves) {
 				this.modData('Learnsets', this.toID(mon)).learnset[this.toID(move)] = ["8S0"];
