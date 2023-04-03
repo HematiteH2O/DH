@@ -48,23 +48,23 @@ export const Formats: FormatList = [
 				this.add('-message', `=== ${typeid} ===\n`);
 				for (const id in this.dex.data.Pokedex) {
 					const poke = this.dex.data.Pokedex[id];
-					if (poke.types.includes(typeid) && poke.kind && poke.kind === "Platinum") this.add('-message', `${poke.sheetOutput}`);
+					if (poke.types.includes(typeid) && poke.kind && poke.kind === "Platinum" && poke.sheetOutput) this.add('-message', `${poke.sheetOutput}`);
 				}
 				for (const id in this.dex.data.Pokedex) {
 					const poke = this.dex.data.Pokedex[id];
-					if (poke.types.includes(typeid) && poke.kind && poke.kind === "Remake") this.add('-message', `${poke.sheetOutput}`);
+					if (poke.types.includes(typeid) && poke.kind && poke.kind === "Remake" && poke.sheetOutput) this.add('-message', `${poke.sheetOutput}`);
 				}
 				for (const id in this.dex.data.Pokedex) {
 					const poke = this.dex.data.Pokedex[id];
-					if (poke.types.includes(typeid) && poke.kind && poke.kind === "Variant") this.add('-message', `${poke.sheetOutput}`);
+					if (poke.types.includes(typeid) && poke.kind && poke.kind === "Variant" && poke.sheetOutput) this.add('-message', `${poke.sheetOutput}`);
 				}
 				for (const id in this.dex.data.Pokedex) {
 					const poke = this.dex.data.Pokedex[id];
-					if (poke.types.includes(typeid) && poke.kind && poke.kind === "Addition") this.add('-message', `${poke.sheetOutput}`);
+					if (poke.types.includes(typeid) && poke.kind && poke.kind === "Addition" && poke.sheetOutput) this.add('-message', `${poke.sheetOutput}`);
 				}
 				for (const id in this.dex.data.Pokedex) {
 					const poke = this.dex.data.Pokedex[id];
-					if (poke.types.includes(typeid) && poke.kind && poke.kind === "Special") this.add('-message', `${poke.sheetOutput}`);
+					if (poke.types.includes(typeid) && poke.kind && poke.kind === "Special" && poke.sheetOutput) this.add('-message', `${poke.sheetOutput}`);
 				}
 			}
 		},
