@@ -809,11 +809,13 @@ export const Scripts: ModdedBattleScriptsData = {
 						if (['heatwave'].includes(moveid)) {
 							if
 								(
-									(poke.types[0] && poke.types[0] === 'Fire') || (poke.types[1] && poke.types[1] === 'Fire') ||
-									(learnset.flamethrower) || (learnset2 && learnset2.flamethrower) || (learnset3 && learnset3.flamethrower) || (learnset4 && learnset4.flamethrower)
-								) && (
-									(poke.eggGroups[0] && poke.eggGroups[0] === 'Flying') || (poke.eggGroups[1] && poke.eggGroups[1] === 'Flying') ||
-									(learnset.defog) || (learnset2 && learnset2.defog) || (learnset3 && learnset3.defog) || (learnset4 && learnset4.defog)
+									(
+										(poke.types[0] && poke.types[0] === 'Fire') || (poke.types[1] && poke.types[1] === 'Fire') ||
+										(learnset.flamethrower) || (learnset2 && learnset2.flamethrower) || (learnset3 && learnset3.flamethrower) || (learnset4 && learnset4.flamethrower)
+									) && (
+										(poke.eggGroups[0] && poke.eggGroups[0] === 'Flying') || (poke.eggGroups[1] && poke.eggGroups[1] === 'Flying') ||
+										(learnset.defog) || (learnset2 && learnset2.defog) || (learnset3 && learnset3.defog) || (learnset4 && learnset4.defog)
+									)
 								) {
 									addRule = "addTrend";
 								}
