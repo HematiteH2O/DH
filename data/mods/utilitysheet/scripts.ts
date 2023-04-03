@@ -705,7 +705,7 @@ export const Scripts: ModdedBattleScriptsData = {
 						) addRule = "addTrend"; // Fire-type move trends
 						if (
 							((poke.types[0] && poke.types[0] === 'Water') || (poke.types[1] && poke.types[1] === 'Water')) &&
-							['dive', 'liquidation', 'waterfall', 'scald', 'surf', 'waterpulse', 'raindance', 'blizzard', 'icebeam', 'icywind', 'hail'].includes(moveid)
+							['dive', 'liquidation', 'waterfall', 'scald', 'splashzone', 'surf', 'waterpulse', 'raindance', 'blizzard', 'icebeam', 'icywind', 'hail'].includes(moveid)
 						) addRule = "addTrend"; // Water-type move trends
 						if (
 							((poke.types[0] && poke.types[0] === 'Electric') || (poke.types[1] && poke.types[1] === 'Electric')) &&
@@ -721,15 +721,15 @@ export const Scripts: ModdedBattleScriptsData = {
 						) addRule = "addTrend"; // Ice-type move trends
 						if (
 							((poke.types[0] && poke.types[0] === 'Fighting') || (poke.types[1] && poke.types[1] === 'Fighting')) &&
-							['brickbreak', 'focuspunch', 'lowkick', 'rocksmash', 'focusblast', 'vacuumwave', 'bulkup', 'rockslide', 'rocktomb', 'stoneedge', 'retaliate', 'strength', 'helpinghand', 'workup'].includes(moveid)
+							['brickbreak', 'focuspunch', 'lowkick', 'piledriver', 'rocksmash', 'focusblast', 'vacuumwave', 'bulkup', 'rockslide', 'rocktomb', 'stoneedge', 'retaliate', 'strength', 'helpinghand', 'workup'].includes(moveid)
 						) addRule = "addTrend"; // Fighting-type move trends
 						if (
 							((poke.types[0] && poke.types[0] === 'Poison') || (poke.types[1] && poke.types[1] === 'Poison')) &&
-							['raindance', 'acidspray', 'sludgebomb'].includes(moveid)
+							['raindance', 'acidspray', 'expiration', 'sludgebomb'].includes(moveid)
 						) addRule = "addTrend"; // Poison-type move trends
 						if (
 							((poke.types[0] && poke.types[0] === 'Ground') || (poke.types[1] && poke.types[1] === 'Ground')) &&
-							['rocksmash', 'bulldoze', 'dig', 'earthquake', 'earthpower', 'mudslap', 'rockslide', 'rocktomb', 'stoneedge', 'sandstorm', 'stealthrock', 'strength'].includes(moveid)
+							['rocksmash', 'aftershock', 'bulldoze', 'dig', 'earthquake', 'earthpower', 'mudslap', 'rockslide', 'rocktomb', 'stoneedge', 'sandstorm', 'stealthrock', 'strength'].includes(moveid)
 						) addRule = "addTrend"; // Ground-type move trends
 						if (
 							((poke.types[0] && poke.types[0] === 'Flying') || (poke.types[1] && poke.types[1] === 'Flying')) &&
@@ -737,7 +737,7 @@ export const Scripts: ModdedBattleScriptsData = {
 						) addRule = "addTrend"; // Flying-type move trends
 						if (
 							((poke.eggGroups[0] && poke.eggGroups[0] === 'Flying') || (poke.eggGroups[1] && poke.eggGroups[1] === 'Flying')) &&
-							['aerialace', 'aircutter', 'defog', 'fly', 'ominouswind', 'roost', 'tailwind'].includes(moveid)
+							['aerialace', 'fly', 'aircutter', 'windshear', 'defog', 'roost', 'tailwind', 'ominouswind'].includes(moveid)
 						) addRule = "addTrend"; // Flying Egg group move trends
 						if (
 							((poke.types[0] && poke.types[0] === 'Psychic') || (poke.types[1] && poke.types[1] === 'Psychic')) &&
