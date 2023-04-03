@@ -501,20 +501,36 @@ export const Scripts: ModdedBattleScriptsData = {
 					}
 				}
 				// any type not in one of these categories will be ignored as coverage!
-				const typeOrder: string [] = []; // this will help categorize the types of moves that the Pokémon has
-				if (poke.types[0] && !typeOrder.includes(poke.types[0])) typeOrder.push(poke.types[0]);
-				if (poke.types[1] && !typeOrder.includes(poke.types[1])) typeOrder.push(poke.types[1]);
-				for (const type in this.dataCache.TypeChart) {
-					if (offenseCoverage.includes(type)) typeOrder.push(type);
+				const typeOrder = {}; // this will help categorize the types of moves that the Pokémon has
+				let typeNum = 0;
+				if (poke.types[0]) {
+					typeOrder[typeNum] = poke.types[0];
+					typeNum += 1;
+				}
+				if (poke.types[1]) {
+					typeOrder[typeNum] = poke.types[1];
+					typeNum += 1;
 				}
 				for (const type in this.dataCache.TypeChart) {
-					if (weaknessCoverage.includes(type)) typeOrder.push(type);
+					if (offenseCoverage.includes(type)) typeOrder[typeNum] = type;
+					typeNum += 1;
 				}
 				for (const type in this.dataCache.TypeChart) {
-					if (otherCoverage.includes(type)) typeOrder.push(type);
+					if (weaknessCoverage.includes(type)) typeOrder[typeNum] = type;
+					typeNum += 1;
 				}
 				for (const type in this.dataCache.TypeChart) {
+					if (otherCoverage.includes(type)) typeOrder[typeNum] = type;
+					typeNum += 1;
+				}
+				for (const type in this.dataCache.TypeChart) {
+					if (
+						(poke.types[0] && type === poke.types[0]) || (poke.types[1] && type === poke.types[1]) || offenseCoverage.includes(type) ||
+						weaknessCoverage.includes(type) || otherCoverage.includes(type)
+					) continue;
 					if (!typeOrder.includes(type)) typeOrder.push(type);
+					typeOrder[typeNum] = type;
+					typeNum += 1;
 				}
 
 				for (const moveid in this.dataCache.Moves) {
@@ -747,7 +763,9 @@ export const Scripts: ModdedBattleScriptsData = {
 					+ (printno) + `~4~\n`
 					+ (printno) + "~5~TM and Tutor~Additional Trends~Natural~Fringe~Substitutions" + `\n`
 				];
-				for (const moveType in typeOrder) {
+				for (const typeInOrder in typeOrder) {
+					const moveType = typeOrder[typeInOrder];
+					console.log(moveType);
 					if (!poke.learnsetCumulative[moveType]) continue; // (stop breaking)
 					if (
 						poke.learnsetCumulative[moveType].Physical.natural.length || poke.learnsetCumulative[moveType].Physical.tmTutor.length ||
