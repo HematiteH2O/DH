@@ -45,6 +45,7 @@ export const Formats: FormatList = [
 		ruleset: ['Team Preview', 'HP Percentage Mod', 'Cancel Mod', 'Dynamax Clause', 'Sleep Clause Mod'],
 		onBegin() {
 			for (const typeid in this.dex.data.TypeChart) {
+				this.add('-message', `=== ${typeid} ===\n`);
 				for (const id in this.dex.data.Pokedex) {
 					const poke = this.dex.data.Pokedex[id];
 					if (poke.types.includes(typeid) && poke.kind && poke.kind === "Platinum") this.add('-message', `${poke.sheetOutput}`);
