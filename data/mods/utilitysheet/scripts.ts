@@ -682,15 +682,15 @@ export const Scripts: ModdedBattleScriptsData = {
 						if (notRealTutors.includes(moveid)) continue;
 						// account for the new starter moves
 						if (moveid === 'risingstalk') {
-							if (poke.abilities[0] !== "Overgrow" &&  && poke.abilities[0] !== "RKS System" && poke.abilities['H'] !== "Overgrow") continue;
+							if (poke.abilities[0] !== "Overgrow" && poke.abilities[0] !== "RKS System" && poke.abilities['H'] !== "Overgrow") continue;
 							addRule = "addTrend";
 						}
 						if (moveid === 'risingheat') {
-							if (poke.abilities[0] !== "Blaze" &&  && poke.abilities[0] !== "RKS System" && poke.abilities['H'] !== "Blaze") continue;
+							if (poke.abilities[0] !== "Blaze" && poke.abilities[0] !== "RKS System" && poke.abilities['H'] !== "Blaze") continue;
 							addRule = "addTrend";
 						}
 						if (moveid === 'risingtide') {
-							if (poke.abilities[0] !== "Torrent" &&  && poke.abilities[0] !== "RKS System" && poke.abilities['H'] !== "Torrent") continue;
+							if (poke.abilities[0] !== "Torrent" && poke.abilities[0] !== "RKS System" && poke.abilities['H'] !== "Torrent") continue;
 							addRule = "addTrend";
 						}
 
