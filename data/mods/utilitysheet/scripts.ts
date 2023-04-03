@@ -701,8 +701,85 @@ export const Scripts: ModdedBattleScriptsData = {
 						if (!(poke.gender && poke.gender === 'N') && moveid === 'attract') addRule = "addTrend";
 						if (
 							((poke.types[0] && poke.types[0] === 'Fire') || (poke.types[1] && poke.types[1] === 'Fire')) &&
-							['willowisp'].includes(moveid)
+							['flamecharge', 'fireblast', 'flamethrower', 'heatwave', 'incinerate', 'overheat', 'sunnyday', 'willowisp', 'solarbeam'].includes(moveid)
 						) addRule = "addTrend"; // Fire-type move trends
+						if (
+							((poke.types[0] && poke.types[0] === 'Water') || (poke.types[1] && poke.types[1] === 'Water')) &&
+							['dive', 'liquidation', 'waterfall', 'scald', 'surf', 'waterpulse', 'raindance', 'blizzard', 'icebeam', 'icywind', 'hail'].includes(moveid)
+						) addRule = "addTrend"; // Water-type move trends
+						if (
+							((poke.types[0] && poke.types[0] === 'Electric') || (poke.types[1] && poke.types[1] === 'Electric')) &&
+							['raindance', 'wildcharge', 'chargebeam', 'risingvoltage', 'shockwave', 'thunder', 'thunderbolt', 'voltswitch', 'thunderwave', 'lightscreen', 'signalbeam'].includes(moveid)
+						) addRule = "addTrend"; // Electric-type move trends
+						if (
+							((poke.types[0] && poke.types[0] === 'Grass') || (poke.types[1] && poke.types[1] === 'Grass')) &&
+							['sunnyday', 'bulletseed', 'seedbomb', 'energyball', 'gigadrain', 'grassknot', 'solarbeam', 'synthesis', 'worryseed', 'naturepower'].includes(moveid)
+						) addRule = "addTrend"; // Grass-type move trends
+						if (
+							((poke.types[0] && poke.types[0] === 'Ice') || (poke.types[1] && poke.types[1] === 'Ice')) &&
+							['raindance', 'avalanche', 'blizzard', 'icebeam', 'icywind', 'hail'].includes(moveid)
+						) addRule = "addTrend"; // Ice-type move trends
+						if (
+							((poke.types[0] && poke.types[0] === 'Fighting') || (poke.types[1] && poke.types[1] === 'Fighting')) &&
+							['brickbreak', 'focuspunch', 'lowkick', 'rocksmash', 'focusblast', 'vacuumwave', 'bulkup', 'rockslide', 'rocktomb', 'stoneedge', 'retaliate', 'strength', 'helpinghand', 'workup'].includes(moveid)
+						) addRule = "addTrend"; // Fighting-type move trends
+						if (
+							((poke.types[0] && poke.types[0] === 'Poison') || (poke.types[1] && poke.types[1] === 'Poison')) &&
+							['raindance', 'acidspray', 'sludgebomb'].includes(moveid)
+						) addRule = "addTrend"; // Poison-type move trends
+						if (
+							((poke.types[0] && poke.types[0] === 'Ground') || (poke.types[1] && poke.types[1] === 'Ground')) &&
+							['rocksmash', 'bulldoze', 'dig', 'earthquake', 'earthpower', 'mudslap', 'rockslide', 'rocktomb', 'stoneedge', 'sandstorm', 'stealthrock', 'strength'].includes(moveid)
+						) addRule = "addTrend"; // Ground-type move trends
+						if (
+							((poke.types[0] && poke.types[0] === 'Flying') || (poke.types[1] && poke.types[1] === 'Flying')) &&
+							['sunnyday', 'raindance'].includes(moveid)
+						) addRule = "addTrend"; // Flying-type move trends
+						if (
+							((poke.eggGroups[0] && poke.eggGroups[0] === 'Flying') || (poke.eggGroups[1] && poke.eggGroups[1] === 'Flying')) &&
+							['aerialace', 'aircutter', 'defog', 'fly', 'ominouswind', 'roost', 'tailwind'].includes(moveid)
+						) addRule = "addTrend"; // Flying Egg group move trends
+						if (
+							((poke.types[0] && poke.types[0] === 'Psychic') || (poke.types[1] && poke.types[1] === 'Psychic')) &&
+							['raindance', 'zenheadbutt', 'dreameater', 'psychic', 'psyshock', 'calmmind', 'lightscreen', 'magiccoat', 'reflect', 'skillswap', 'trick', 'trickroom', 'signalbeam', 'shadowball', 'psychup'].includes(moveid)
+						) addRule = "addTrend"; // Psychic-type move trends
+						if (
+							((poke.types[0] && poke.types[0] === 'Flying') || (poke.types[1] && poke.types[1] === 'Flying')) &&
+							['sunnyday', 'raindance', 'bugbite', 'stringshot'].includes(moveid)
+						) addRule = "addTrend"; // Bug-type move trends
+						if (
+							((poke.types[0] && poke.types[0] === 'Rock') || (poke.types[1] && poke.types[1] === 'Rock')) &&
+							['rocksmash', 'bulldoze', 'earthquake', 'earthpower', 'rockslide', 'rocktomb', 'stoneedge', 'ancientpower', 'meteorbeam', 'rockpolish', 'sandstorm', 'stealthrock', 'irondefense'].includes(moveid)
+						) addRule = "addTrend"; // Rock-type move trends
+						if (
+							((poke.types[0] && poke.types[0] === 'Ghost') || (poke.types[1] && poke.types[1] === 'Ghost')) &&
+							['dreameater', 'shadowball', 'ominouswind', 'spite'].includes(moveid)
+						) addRule = "addTrend"; // Ghost-type move trends
+						if (
+							((poke.types[0] && poke.types[0] === 'Dragon') || (poke.types[1] && poke.types[1] === 'Dragon')) &&
+							['dragonclaw', 'dragontail', 'outrage', 'dracometeor', 'dragonpulse', 'twister'].includes(moveid)
+						) addRule = "addTrend"; // Dragon-type move trends
+						if (
+							((poke.types[0] && poke.types[0] === 'Dark') || (poke.types[1] && poke.types[1] === 'Dark')) &&
+							['raindance', 'mudslap', 'spite', 'payback', 'thief', 'darkpulse', 'snarl', 'taunt', 'torment'].includes(moveid)
+						) addRule = "addTrend"; // Dark-type move trends
+						if (
+							((poke.types[0] && poke.types[0] === 'Steel') || (poke.types[1] && poke.types[1] === 'Steel')) &&
+							['rocksmash', 'ironhead', 'flashcannon', 'steelbeam', 'irondefense'].includes(moveid)
+						) addRule = "addTrend"; // Steel-type move trends
+						if (
+							((poke.types[0] && poke.types[0] === 'Fairy') || (poke.types[1] && poke.types[1] === 'Fairy')) &&
+							['sunnyday', 'raindance', 'lightscreen', 'dazzlinggleam', 'drainingkiss'].includes(moveid)
+						) addRule = "addTrend"; // Fairy-type move trends
+						if (
+							((poke.types[0] && poke.types[0] === 'Normal') || (poke.types[1] && poke.types[1] === 'Normal')) &&
+							['sunnyday', 'raindance', 'mudslap', 'workup'].includes(moveid)
+						) addRule = "addTrend"; // Normal-type move trends
+						if (
+							((poke.types[0] && poke.types[0] === 'Normal') || (poke.types[1] && poke.types[1] === 'Normal')) &&
+							!((poke.types[0] && poke.types[0] === 'Flying') || (poke.types[1] && poke.types[1] === 'Flying')) &&
+							['retaliate'].includes(moveid)
+						) addRule = "addTrend"; // Normal-type move trend, but not for the Flying group
 
 						// now sort it into that section
 						let competitive = false;
