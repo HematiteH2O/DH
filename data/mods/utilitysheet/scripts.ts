@@ -23,6 +23,9 @@ export const Scripts: ModdedBattleScriptsData = {
 			'superpower', 'swift', 'synthesis', 'tailwind', 'thunderpunch', 'trick', 'twister', 'uproar', 'vcreate', 'vacuumwave', 'volttackle', 'waterpledge',
 			'waterpulse', 'waterfall', 'worryseed', 'zenheadbutt', 'powershift',
 		]; // excludes Captivate
+		const notRealTutors = [
+			'relicsong', 'blastburn', 'firepledge', 'vcreate', 'hydrocannon', 'waterpledge', 'volttackle', 'frenzyplant', 'grasspledge', 'secretsword', 'dragonascent',
+		]; // don't show up as recommended if the Pokémon doesn't already get them
 		const dexitedMoves = [
 			'doubleteam', 'flash', 'kinesis', 'minimize', 'sandattack', 'smokescreen', 'storedpower', 'terablast',
 		];
@@ -671,10 +674,25 @@ export const Scripts: ModdedBattleScriptsData = {
 						}
 
 					} else if (pulseTms.includes(moveid) || pulseTutors.includes(moveid)) {
-
 						// if a TM or tutor is not learned, decide if it belongs in addTrend or addOther
 						// should still distinguish between competitive and flavor like above!
 						let addRule = "addOther";
+
+						// account for Pokémon-exclusive tutor moves
+						if (notRealTutors.includes(moveid)) continue;
+						// account for the new starter moves
+						if (moveid === 'risingstalk') {
+							if (poke.abilities[0] !== "Overgrow" &&  && poke.abilities[0] !== "RKS System" && poke.abilities['H'] !== "Overgrow") continue;
+							addRule = "addTrend";
+						}
+						if (moveid === 'risingheat') {
+							if (poke.abilities[0] !== "Blaze" &&  && poke.abilities[0] !== "RKS System" && poke.abilities['H'] !== "Blaze") continue;
+							addRule = "addTrend";
+						}
+						if (moveid === 'risingtide') {
+							if (poke.abilities[0] !== "Torrent" &&  && poke.abilities[0] !== "RKS System" && poke.abilities['H'] !== "Torrent") continue;
+							addRule = "addTrend";
+						}
 
 						// below should be a list of movepool trends that sort a move into either addOther or addTrend
 						if (
