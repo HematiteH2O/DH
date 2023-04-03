@@ -149,7 +149,65 @@ export const Scripts: ModdedBattleScriptsData = {
 		newMoves("phanpy", ["absorb", "encore"]);
 		newMoves("stantler", ["safeguard"]);
 		newMoves("larvitar", ["rage"]);
-		
+
+		// these are from BDSP
+		const bdspMoves = (mon: string, moves: string[]) => {
+			for (const move of moves) {
+				this.modData('Learnsets', this.toID(mon)).learnset[this.toID(move)] = ["8S0"];
+			}
+		};
+		bdspMoves("arceus", ["healingwish"]);
+		bdspMoves("ariados", ["bugbuzz"]);
+		bdspMoves("beautifly", ["leechlife"]);
+		bdspMoves("cacturne", ["assurance"]);
+		bdspMoves("camerupt", ["flamewheel"]);
+		bdspMoves("chatot", ["partingshot"]);
+		bdspMoves("darkrai", ["confuseray"]);
+		bdspMoves("deoxys", ["switcheroo", "toxicspikes"]);
+		bdspMoves("delcatty", ["babydolleyes", "furyswipes", "nastyplot"]);
+		bdspMoves("dodrio", ["leer", "lunge", "wingattack"]);
+		bdspMoves("dustox", ["leechlife"]);
+		bdspMoves("electrode", ["thundershock"]);
+		bdspMoves("empoleon", ["charm", "watergun"]);
+		bdspMoves("fearow", ["wingattack"]);
+		bdspMoves("floatzel", ["bite", "tackle", "tailwhip"]);
+		bdspMoves("forretress", ["bugbuzz"]);
+		bdspMoves("furret", ["growl"]);
+		bdspMoves("gligar", ["mudslap"]);
+		bdspMoves("grumpig", ["confusion", "growl", "nastyplot"]);
+		bdspMoves("honchkrow", ["gust"]);
+		bdspMoves("hypno", ["mindreader"]);
+		bdspMoves("kecleon", ["detect"]);
+		bdspMoves("luvdisc", ["babydolleyes", "tearfullook"]);
+		bdspMoves("manaphy", ["watergun"]);
+		bdspMoves("masquerain", ["soak", "supersonic", "watergun"]);
+		bdspMoves("medicham", ["pound", "psybeam"]);
+		bdspMoves("mightyena", ["nastyplot"]);
+		bdspMoves("mismagius", ["confusion"]);
+		bdspMoves("muk", ["smog"]);
+		bdspMoves("phione", ["watergun"]);
+		bdspMoves("pineco", ["autotomize"]);
+		bdspMoves("plusle", ["skillswap"]);
+		bdspMoves("probopass", ["bodypress"]);
+		bdspMoves("raticate", ["laserfocus", "sludgebomb"]);
+		bdspMoves("sentret", ["blizzard"]);
+		bdspMoves("slugma", ["sandstorm"]);
+		bdspMoves("stantler", ["entrainment", "lunge"]);
+		bdspMoves("sunflora", ["tackle"]);
+		bdspMoves("torterra", ["leafage"]);
+		bdspMoves("volbeat", ["playnice"]);
+		bdspMoves("wormadam", ["dig"]);
+		bdspMoves("wormadamsandy", ["dig", "gigadrain", "solarbeam"]);
+		bdspMoves("wormadamtrash", ["dig", "gigadrain", "solarbeam"]);
+		bdspMoves("yanmega", ["gust", "swordsdance"]);
+
+		const bdspRockClimb = (move: string, mons: string[]) => {
+			for (const mon of mons) {
+				this.modData('Learnsets', this.toID(mon)).learnset[this.toID(move)] = ["8S0"];
+			}
+		};
+		bdspRockClimb("rockclimb", ["venusaur", "blastoise", "nidoqueen", "nidoking", "golduck", "mankey", "primeape", "arcanine", "poliwrath", "machop", "machoke", "machamp", "cubone", "marowak", "hitmonlee", "hitmonchan", "chansey", "kangaskhan", "electabuzz", "magmar", "pinsir", "omastar", "kabutops", "snorlax", "mewtwo", "mew", "meganium", "typhlosion", "feraligatr", "ampharos", "granbull", "ursaring", "blissey", "raikou", "entei", "suicune", "tyranitar", "sceptile", "blaziken", "swampert", "ludicolo", "vigoroth", "slaking", "exploud", "makuhita", "hariyama", "aggron", "zangoose", "regirock", "regice", "registeel", "groudon", "turtwig", "grotle", "torterra", "chimchar", "monferno", "infernape", "empoleon", "cranidos", "rampardos", "munchlax", "lucario", "drapion", "croagunk", "toxicroak", "abomasnow", "electivire", "magmortar", "mamoswine", "heatran", "regigigas", "giratina", "giratinaorigin", "darkrai", "arceus"]);
+
 		// these are from Legends: Arceus
 		const legendsMoves = (mon: string, moves: string[]) => {
 			for (const move of moves) {
@@ -763,7 +821,11 @@ export const Scripts: ModdedBattleScriptsData = {
 						if (
 							((poke.types[0] && poke.types[0] === 'Dragon') || (poke.types[1] && poke.types[1] === 'Dragon')) &&
 							['dragonclaw', 'dragontail', 'outrage', 'dracometeor', 'dragonpulse', 'twister'].includes(moveid)
-						) addRule = "addTrend"; // Dragon-type move trends
+						) {
+							addRule = "addTrend"; // Dragon-type move trends
+						} else {
+							if ['dracometeor'].includes(moveid) continue;
+						}
 						if (
 							((poke.types[0] && poke.types[0] === 'Dark') || (poke.types[1] && poke.types[1] === 'Dark')) &&
 							['mudslap', 'spite', 'payback', 'thief', 'darkpulse', 'snarl', 'taunt', 'torment'].includes(moveid)
@@ -771,7 +833,11 @@ export const Scripts: ModdedBattleScriptsData = {
 						if (
 							((poke.types[0] && poke.types[0] === 'Steel') || (poke.types[1] && poke.types[1] === 'Steel')) &&
 							['rocksmash', 'ironhead', 'flashcannon', 'steelbeam', 'irondefense'].includes(moveid)
-						) addRule = "addTrend"; // Steel-type move trends
+						) {
+							addRule = "addTrend"; // Steel-type move trends
+						} else {
+							if ['steelbeam'].includes(moveid) continue;
+						}
 						if (
 							((poke.types[0] && poke.types[0] === 'Fairy') || (poke.types[1] && poke.types[1] === 'Fairy')) &&
 							['lightscreen', 'dazzlinggleam', 'drainingkiss'].includes(moveid)
