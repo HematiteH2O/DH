@@ -831,7 +831,7 @@ export const Scripts: ModdedBattleScriptsData = {
 						) {
 							addRule = "addTrend"; // Dragon-type move trends
 						} else {
-							if ['dracometeor'].includes(moveid) continue;
+							if (['dracometeor'].includes(moveid)) continue;
 						}
 						if (
 							((poke.types[0] && poke.types[0] === 'Dark') || (poke.types[1] && poke.types[1] === 'Dark')) &&
@@ -843,7 +843,7 @@ export const Scripts: ModdedBattleScriptsData = {
 						) {
 							addRule = "addTrend"; // Steel-type move trends
 						} else {
-							if ['steelbeam'].includes(moveid) continue;
+							if (['steelbeam'].includes(moveid)) continue;
 						}
 						if (
 							((poke.types[0] && poke.types[0] === 'Fairy') || (poke.types[1] && poke.types[1] === 'Fairy')) &&
