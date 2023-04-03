@@ -44,9 +44,27 @@ export const Formats: FormatList = [
 		
 		ruleset: ['Team Preview', 'HP Percentage Mod', 'Cancel Mod', 'Dynamax Clause', 'Sleep Clause Mod'],
 		onBegin() {
-			for (const id in this.dex.data.Pokedex) {
-				const poke = this.dex.data.Pokedex[id];
-				if (poke && poke.sheetOutput) this.add('-message', `${poke.sheetOutput}`);
+			for (const typeid in this.dex.data.TypeChart) {
+				for (const id in this.dex.data.Pokedex) {
+					const poke = this.dex.data.Pokedex[id];
+					if (poke.types.includes(typeid) && poke.kind && poke.kind === "Platinum") this.add('-message', `${poke.sheetOutput}`);
+				}
+				for (const id in this.dex.data.Pokedex) {
+					const poke = this.dex.data.Pokedex[id];
+					if (poke.types.includes(typeid) && poke.kind && poke.kind === "Remake") this.add('-message', `${poke.sheetOutput}`);
+				}
+				for (const id in this.dex.data.Pokedex) {
+					const poke = this.dex.data.Pokedex[id];
+					if (poke.types.includes(typeid) && poke.kind && poke.kind === "Variant") this.add('-message', `${poke.sheetOutput}`);
+				}
+				for (const id in this.dex.data.Pokedex) {
+					const poke = this.dex.data.Pokedex[id];
+					if (poke.types.includes(typeid) && poke.kind && poke.kind === "Addition") this.add('-message', `${poke.sheetOutput}`);
+				}
+				for (const id in this.dex.data.Pokedex) {
+					const poke = this.dex.data.Pokedex[id];
+					if (poke.types.includes(typeid) && poke.kind && poke.kind === "Special") this.add('-message', `${poke.sheetOutput}`);
+				}
 			}
 		},
 		mod: 'utilitysheet',
