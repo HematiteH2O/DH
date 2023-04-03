@@ -804,7 +804,7 @@ export const Scripts: ModdedBattleScriptsData = {
 									(poke.types[0] && poke.types[0] === 'Normal') || (poke.types[1] && poke.types[1] === 'Normal')
 								) addRule = "addTrend";
 							}
-						) // Sunny Day "trend" is... more complicated
+						} // Sunny Day "trend" is... more complicated
 
 						if (['heatwave'].includes(moveid)) {
 							if
