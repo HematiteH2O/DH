@@ -455,7 +455,7 @@ export const Scripts: ModdedBattleScriptsData = {
 		for (const id in this.dataCache.Pokedex) {
 			const poke = this.dataCache.Pokedex[id];
 			if (!poke || poke.evos) continue; // skip NFEs... and anything that can't be read correctly, just in case
-			if (!(pulseDex.contains(poke.name) || pulseDex.contains(poke.prevo) || pulseDex.contains(poke.baseSpecies) || pulseDex.contains(poke.baseForme))) continue;
+			if (!(pulseDex.includes(poke.name) || pulseDex.includes(poke.prevo) || pulseDex.includes(poke.baseSpecies) || pulseDex.includes(poke.baseForme))) continue;
 			if (this.dataCache.Learnsets[id] && this.dataCache.Learnsets[id].learnset) {
 				printno++;
 				poke.learnsetCumulative = {};
