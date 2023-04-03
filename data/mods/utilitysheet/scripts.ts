@@ -789,6 +789,7 @@ export const Scripts: ModdedBattleScriptsData = {
 				sheetOutput += (printno) + "~8~";
 				
 				poke.sheetOutput = sheetOutput;
+				if (poke.name === "Bulbasaur") console.log (typeOrder);
 			}
 		}
 	},
