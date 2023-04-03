@@ -528,7 +528,6 @@ export const Scripts: ModdedBattleScriptsData = {
 						(poke.types[0] && type === poke.types[0]) || (poke.types[1] && type === poke.types[1]) || offenseCoverage.includes(type) ||
 						weaknessCoverage.includes(type) || otherCoverage.includes(type)
 					) continue;
-					if (!typeOrder.includes(type)) typeOrder.push(type);
 					typeOrder[typeNum] = type;
 					typeNum += 1;
 				}
@@ -765,7 +764,6 @@ export const Scripts: ModdedBattleScriptsData = {
 				];
 				for (const typeInOrder in typeOrder) {
 					const moveType = typeOrder[typeInOrder];
-					console.log(moveType);
 					if (!poke.learnsetCumulative[moveType]) continue; // (stop breaking)
 					if (
 						poke.learnsetCumulative[moveType].Physical.natural.length || poke.learnsetCumulative[moveType].Physical.tmTutor.length ||
