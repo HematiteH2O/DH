@@ -50,8 +50,8 @@ export const Formats: FormatList = [
 			for (const typeid in this.dex.data.TypeChart) {
 				this.add('-message', `=== ${typeid} ===\n`);
 				for (const id in platinumDex) {
-					const poke = this.dex.data.Pokedex[id];
-					if (poke.types.includes(typeid) && poke.kind && poke.kind === "Platinum" && poke.sheetOutput) {
+					const poke = this.dex.data.Pokedex[this.toID(id)];
+					if (poke && poke.types.includes(typeid) && poke.kind && poke.kind === "Platinum" && poke.sheetOutput) {
 						this.add('-message', `${poke.sheetOutput}`);
 						poke.sheetOutput = poke.sheetOutput2;
 					}
