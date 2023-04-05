@@ -226,7 +226,7 @@ export const Scripts: ModdedBattleScriptsData = {
 		// these are from Legends: Arceus
 		for (const id in this.dataCache.Pokedex) {
 			if (this.dataCache.Learnsets.learnset2[id]) {
-				for (const moveid in this.dataCache.learnset2[id]) {
+				for (const moveid in this.dataCache.Learnsets.learnset2[id]) {
 					this.modData('Learnsets', id).learnset[moveid] = this.dataCache.Learnsets.learnset2[id][moveid];
 				}
 			}
