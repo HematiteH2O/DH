@@ -227,7 +227,30 @@ export const Scripts: ModdedBattleScriptsData = {
 		for (const id in this.dataCache.Pokedex) {
 			if (this.dataCache.Learnsets.learnset2[id]) {
 				for (const moveid in this.dataCache.Learnsets.learnset2[id]) {
-					this.modData('Learnsets', id).learnset[moveid] = this.dataCache.Learnsets.learnset2[id][moveid];
+					if (this.modData('Learnsets', id).learnset[moveid]) {
+						this.modData('Learnsets', id).learnset[moveid].push(this.dataCache.Learnsets.learnset2[id][moveid]);
+					} else {
+						this.modData('Learnsets', id).learnset[moveid] = this.dataCache.Learnsets.learnset2[id][moveid];
+					}
+				}
+			}
+			// some exceptional hard-coding
+			if (id === 'basculinwhitestriped') { // just another Basculin stripe
+				for (const moveid in this.dataCache.Learnsets.learnset2.basculin) {
+					if (this.modData('Learnsets', id).learnset[moveid]) {
+						this.modData('Learnsets', id).learnset[moveid].push(this.dataCache.Learnsets.basculin.learnset[moveid]);
+					} else {
+						this.modData('Learnsets', id).learnset[moveid] = this.dataCache.Learnsets.basculin.learnset[moveid];
+					}
+				}
+			}
+			if (id === 'basculegionf') { // same learnset as male Basculegion
+				for (const moveid in this.dataCache.Learnsets.learnset2.basculegion) {
+					if (this.modData('Learnsets', id).learnset[moveid]) {
+						this.modData('Learnsets', id).learnset[moveid].push(this.dataCache.Learnsets.learnset2.basculegion[moveid]);
+					} else {
+						this.modData('Learnsets', id).learnset[moveid] = this.dataCache.Learnsets.learnset2.basculegion[moveid];
+					}
 				}
 			}
 		}
