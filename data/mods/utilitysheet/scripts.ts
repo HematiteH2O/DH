@@ -481,7 +481,7 @@ export const Scripts: ModdedBattleScriptsData = {
 		let printno = 0;
 		for (const id in this.dataCache.Pokedex) {
 			const poke = this.dataCache.Pokedex[id];
-			if (!poke || poke.evos) continue; // skip NFEs... and anything that can't be read correctly, just in case
+			if (!poke || poke.evos || (poke.baseSpecies && ['pichu', 'pikachu', 'eevee'].includes(poke.baseSpecies))) continue; // skip NFEs... and anything that can't be read correctly, just in case
 			poke.kind = "National";
 			if (platinumDex.includes(poke.name) || platinumDex.includes(poke.prevo) || platinumDex.includes(poke.baseSpecies) || platinumDex.includes(poke.baseForme)) poke.kind = "Platinum";
 			if (bdspAndLegends.includes(poke.name) || bdspAndLegends.includes(poke.prevo) || bdspAndLegends.includes(poke.baseSpecies) || bdspAndLegends.includes(poke.baseForme)) poke.kind = "Remake";
