@@ -232,7 +232,7 @@ export const Scripts: ModdedBattleScriptsData = {
 			}
 			// some exceptional hard-coding
 			if (id === 'basculinwhitestriped') { // just another Basculin stripe
-				for (const moveid in this.dataCache.Learnsets.learnset2.basculin) {
+				for (const moveid in this.dataCache.Learnsets.basculin.learnset) {
 					if (!this.modData('Learnsets', id).learnset[moveid]) this.modData('Learnsets', id).learnset[moveid] = this.dataCache.Learnsets.basculin.learnset[moveid];
 				}
 			}
