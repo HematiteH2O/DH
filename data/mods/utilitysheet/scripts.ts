@@ -895,7 +895,8 @@ export const Scripts: ModdedBattleScriptsData = {
 							['retaliate'].includes(moveid)
 						) addRule = "addTrend"; // Normal-type move trend, but not for the Flying group
 
-						if (['sunnyday'].includes(moveid)) {
+						// some move-specific type trends
+						if (move.id === 'sunnyday') {
 							if ((poke.types[0] && poke.types[0] === 'Fire') || (poke.types[1] && poke.types[1] === 'Fire')) addRule = "addTrend";
 							if ((poke.types[0] && poke.types[0] === 'Grass') || (poke.types[1] && poke.types[1] === 'Grass')) addRule = "addTrend";
 							if (
@@ -914,8 +915,7 @@ export const Scripts: ModdedBattleScriptsData = {
 								) addRule = "addTrend";
 							}
 						} // Sunny Day "trend" is... more complicated
-
-						if (['heatwave'].includes(moveid)) {
+						if (move.id === 'heatwave') {
 							if (
 								(
 									(poke.types[0] && poke.types[0] === 'Fire') || (poke.types[1] && poke.types[1] === 'Fire') ||
@@ -937,6 +937,105 @@ export const Scripts: ModdedBattleScriptsData = {
 								) addRule = "addTrend";
 							}
 						} // I'm making sure Heat Wave goes to anything with both Defog and Flamethrower, as well as most of the Flying group
+						if (move.id === 'incinerate') {
+							if (
+								(
+									(poke.types[0] && poke.types[0] === 'Fire') || (poke.types[1] && poke.types[1] === 'Fire') ||
+									(learnset.fireblast) || (learnset2 && learnset2.fireblast) || (learnset3 && learnset3.fireblast) || (learnset4 && learnset4.fireblast)
+								)
+							) {
+								addRule = "addTrend"; // basically everything that's Fire-type or learns Fire Blast learns Incinerate, but...
+							} else {
+								if (
+									!(
+										(poke.types[0] && poke.types[0] === 'Dark') || (poke.types[1] && poke.types[1] === 'Dark') ||
+										(learnset.flamethrower) || (learnset2 && learnset2.flamethrower) || (learnset3 && learnset3.flamethrower) || (learnset4 && learnset4.flamethrower)
+									)
+								) {
+									continue; // if you don't meet that criterion, and you *also* aren't Dark-type and don't learn Flamethrower, just skip it!
+								}
+							}
+						}
+						if (move.id === 'burningjealousy') {
+							if (
+								!(
+									(poke.types[0] && poke.types[0] === 'Fire') || (poke.types[1] && poke.types[1] === 'Fire') ||
+									(poke.types[0] && poke.types[0] === 'Ghost') || (poke.types[1] && poke.types[1] === 'Ghost') ||
+									(poke.types[0] && poke.types[0] === 'Dark') || (poke.types[1] && poke.types[1] === 'Dark')
+								)
+							) {
+								continue;
+							}
+						}
+						if (move.id === 'liquidation') {
+							if (
+								!(
+									(poke.types[0] && poke.types[0] === 'Water') || (poke.types[1] && poke.types[1] === 'Water') ||
+									(poke.eggGroups[0] && poke.eggGroups[0] === 'Water 1') || (poke.eggGroups[1] && poke.eggGroups[1] === 'Water 1') ||
+									(poke.eggGroups[0] && poke.eggGroups[0] === 'Water 2') || (poke.eggGroups[1] && poke.eggGroups[1] === 'Water 2') ||
+									(poke.eggGroups[0] && poke.eggGroups[0] === 'Water 3') || (poke.eggGroups[1] && poke.eggGroups[1] === 'Water 3') ||
+									(poke.eggGroups[0] && poke.eggGroups[0] === 'Undiscovered') || (poke.eggGroups[1] && poke.eggGroups[1] === 'Undiscovered')
+								)
+							) {
+								continue;
+							}
+						}
+						if (move.id === 'scald' && (poke.types[0] && poke.types[0] === 'Ice') || (poke.types[1] && poke.types[1] === 'Ice')) continue;
+						if (['voltswitch', 'risingvoltage'].includes(moveid)) {
+							if (
+								!(
+									(poke.types[0] && poke.types[0] === 'Electric') || (poke.types[1] && poke.types[1] === 'Electric') ||
+									(poke.types[0] && poke.types[0] === 'Steel') || (poke.types[1] && poke.types[1] === 'Steel') ||
+									(poke.abilities[0] === "Quark Drive")
+								)
+							) {
+								continue;
+							}
+						}
+						if (move.id === 'electroweb') {
+							if (
+								!(
+									(poke.types[0] && poke.types[0] === 'Electric') || (poke.types[1] && poke.types[1] === 'Electric') ||
+									(poke.types[0] && poke.types[0] === 'Bug') || (poke.types[1] && poke.types[1] === 'Bug')
+								)
+							) {
+								continue;
+							}
+						}
+						if (move.id === 'scorchingsands') {
+							if (
+								!(
+									(poke.types[0] && poke.types[0] === 'Ground') || (poke.types[1] && poke.types[1] === 'Ground') ||
+									(poke.types[0] && poke.types[0] === 'Fire') || (poke.types[1] && poke.types[1] === 'Fire')
+								)
+							) {
+								continue;
+							}
+						}
+						if (['fly', 'skydrop', 'skyattack'].includes(moveid)) {
+							if (
+								!(
+									(poke.types[0] && poke.types[0] === 'Flying') || (poke.types[1] && poke.types[1] === 'Flying') ||
+									(poke.eggGroups[0] && poke.eggGroups[0] === 'Flying') || (poke.eggGroups[1] && poke.eggGroups[1] === 'Flying') ||
+									(poke.eggGroups[0] && poke.eggGroups[0] === 'Undiscovered') || (poke.eggGroups[1] && poke.eggGroups[1] === 'Undiscovered')
+								)
+							) {
+								continue;
+							}
+						}
+						if (move.id === 'bugbite') {
+							if (
+								!(
+									(poke.types[0] && poke.types[0] === 'Bug') || (poke.types[1] && poke.types[1] === 'Bug') ||
+									(poke.eggGroups[0] && poke.eggGroups[0] === 'Bug') || (poke.eggGroups[1] && poke.eggGroups[1] === 'Bug') ||
+									(poke.eggGroups[0] && poke.eggGroups[0] === 'Undiscovered') || (poke.eggGroups[1] && poke.eggGroups[1] === 'Undiscovered')
+								)
+							) {
+								continue;
+							}
+						}
+						if (move.id === 'uturn' && addRule !== "addTrend") continue; // you shouldn't get U-turn just because you have other Bug moves
+						if (move.id === 'poltergeist' && !((poke.types[0] && poke.types[0] === 'Ghost') || (poke.types[1] && poke.types[1] === 'Ghost'))) continue;
 
 						// now sort it into that section
 						let competitive = false;
