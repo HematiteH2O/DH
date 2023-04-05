@@ -48,23 +48,38 @@ export const Formats: FormatList = [
 				this.add('-message', `=== ${typeid} ===\n`);
 				for (const id in this.dex.data.Pokedex) {
 					const poke = this.dex.data.Pokedex[id];
-					if (poke.types.includes(typeid) && poke.kind && poke.kind === "Platinum" && poke.sheetOutput) this.add('-message', `${poke.sheetOutput}`);
+					if (poke.types.includes(typeid) && poke.kind && poke.kind === "Platinum" && poke.sheetOutput) {
+						this.add('-message', `${poke.sheetOutput}`);
+						poke.sheetOutput = poke.sheetOutput2;
+					}
 				}
 				for (const id in this.dex.data.Pokedex) {
 					const poke = this.dex.data.Pokedex[id];
-					if (poke.types.includes(typeid) && poke.kind && poke.kind === "Remake" && poke.sheetOutput) this.add('-message', `${poke.sheetOutput}`);
+					if (poke.types.includes(typeid) && poke.kind && poke.kind === "Remake" && poke.sheetOutput) {
+						this.add('-message', `${poke.sheetOutput}`);
+						poke.sheetOutput = poke.sheetOutput2;
+					}
 				}
 				for (const id in this.dex.data.Pokedex) {
 					const poke = this.dex.data.Pokedex[id];
-					if (poke.types.includes(typeid) && poke.kind && poke.kind === "Variant" && poke.sheetOutput) this.add('-message', `${poke.sheetOutput}`);
+					if (poke.types.includes(typeid) && poke.kind && poke.kind === "Variant" && poke.sheetOutput) {
+						this.add('-message', `${poke.sheetOutput}`);
+						poke.sheetOutput = poke.sheetOutput2;
+					}
 				}
 				for (const id in this.dex.data.Pokedex) {
 					const poke = this.dex.data.Pokedex[id];
-					if (poke.types.includes(typeid) && poke.kind && poke.kind === "Addition" && poke.sheetOutput) this.add('-message', `${poke.sheetOutput}`);
+					if (poke.types.includes(typeid) && poke.kind && poke.kind === "Addition" && poke.sheetOutput) {
+						this.add('-message', `${poke.sheetOutput}`);
+						poke.sheetOutput = poke.sheetOutput2;
+					}
 				}
 				for (const id in this.dex.data.Pokedex) {
 					const poke = this.dex.data.Pokedex[id];
-					if (poke.types.includes(typeid) && poke.kind && poke.kind === "Special" && poke.sheetOutput) this.add('-message', `${poke.sheetOutput}`);
+					if (poke.types.includes(typeid) && poke.kind && poke.kind === "Special" && poke.sheetOutput) {
+						this.add('-message', `${poke.sheetOutput}`);
+						poke.sheetOutput = poke.sheetOutput2;
+					}
 				}
 			}
 		},
