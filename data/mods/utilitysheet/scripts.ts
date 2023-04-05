@@ -620,7 +620,7 @@ export const Scripts: ModdedBattleScriptsData = {
 					typeNum += 1;
 				}
 				for (const type in this.dataCache.TypeChart) {
-					if (weaknessCoverage.includes(type)) typeOrder[typeNum] = type;
+					if (weaknessCoverage.includes(type) && !offenseCoverage.includes(type)) typeOrder[typeNum] = type;
 					typeNum += 1;
 				}
 				for (const type in this.dataCache.TypeChart) {
