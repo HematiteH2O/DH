@@ -896,6 +896,7 @@ export const Scripts: ModdedBattleScriptsData = {
 						) addRule = "addTrend"; // Normal-type move trend, but not for the Flying group
 
 						// some move-specific type trends
+						if (moveid === 'explosion' && addRule !== "addTrend") continue; // you shouldn't get Explosion just because you have other Normal moves
 						if (moveid === 'sunnyday') {
 							if ((poke.types[0] && poke.types[0] === 'Fire') || (poke.types[1] && poke.types[1] === 'Fire')) addRule = "addTrend";
 							if ((poke.types[0] && poke.types[0] === 'Grass') || (poke.types[1] && poke.types[1] === 'Grass')) addRule = "addTrend";
