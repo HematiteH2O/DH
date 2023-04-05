@@ -896,7 +896,7 @@ export const Scripts: ModdedBattleScriptsData = {
 						) addRule = "addTrend"; // Normal-type move trend, but not for the Flying group
 
 						// some move-specific type trends
-						if (move.id === 'sunnyday') {
+						if (moveid === 'sunnyday') {
 							if ((poke.types[0] && poke.types[0] === 'Fire') || (poke.types[1] && poke.types[1] === 'Fire')) addRule = "addTrend";
 							if ((poke.types[0] && poke.types[0] === 'Grass') || (poke.types[1] && poke.types[1] === 'Grass')) addRule = "addTrend";
 							if (
@@ -915,7 +915,7 @@ export const Scripts: ModdedBattleScriptsData = {
 								) addRule = "addTrend";
 							}
 						} // Sunny Day "trend" is... more complicated
-						if (move.id === 'heatwave') {
+						if (moveid === 'heatwave') {
 							if (
 								(
 									(poke.types[0] && poke.types[0] === 'Fire') || (poke.types[1] && poke.types[1] === 'Fire') ||
@@ -937,7 +937,7 @@ export const Scripts: ModdedBattleScriptsData = {
 								) addRule = "addTrend";
 							}
 						} // I'm making sure Heat Wave goes to anything with both Defog and Flamethrower, as well as most of the Flying group
-						if (move.id === 'incinerate') {
+						if (moveid === 'incinerate') {
 							if (
 								(
 									(poke.types[0] && poke.types[0] === 'Fire') || (poke.types[1] && poke.types[1] === 'Fire') ||
@@ -956,7 +956,7 @@ export const Scripts: ModdedBattleScriptsData = {
 								}
 							}
 						}
-						if (move.id === 'burningjealousy') {
+						if (moveid === 'burningjealousy') {
 							if (
 								!(
 									(poke.types[0] && poke.types[0] === 'Fire') || (poke.types[1] && poke.types[1] === 'Fire') ||
@@ -967,7 +967,7 @@ export const Scripts: ModdedBattleScriptsData = {
 								continue;
 							}
 						}
-						if (move.id === 'liquidation') {
+						if (moveid === 'liquidation') {
 							if (
 								!(
 									(poke.types[0] && poke.types[0] === 'Water') || (poke.types[1] && poke.types[1] === 'Water') ||
@@ -980,7 +980,7 @@ export const Scripts: ModdedBattleScriptsData = {
 								continue;
 							}
 						}
-						if (move.id === 'scald' && (poke.types[0] && poke.types[0] === 'Ice') || (poke.types[1] && poke.types[1] === 'Ice')) continue;
+						if (moveid === 'scald' && (poke.types[0] && poke.types[0] === 'Ice') || (poke.types[1] && poke.types[1] === 'Ice')) continue;
 						if (['voltswitch', 'risingvoltage'].includes(moveid)) {
 							if (
 								!(
@@ -992,7 +992,7 @@ export const Scripts: ModdedBattleScriptsData = {
 								continue;
 							}
 						}
-						if (move.id === 'electroweb') {
+						if (moveid === 'electroweb') {
 							if (
 								!(
 									(poke.types[0] && poke.types[0] === 'Electric') || (poke.types[1] && poke.types[1] === 'Electric') ||
@@ -1002,7 +1002,7 @@ export const Scripts: ModdedBattleScriptsData = {
 								continue;
 							}
 						}
-						if (move.id === 'scorchingsands') {
+						if (moveid === 'scorchingsands') {
 							if (
 								!(
 									(poke.types[0] && poke.types[0] === 'Ground') || (poke.types[1] && poke.types[1] === 'Ground') ||
@@ -1023,7 +1023,7 @@ export const Scripts: ModdedBattleScriptsData = {
 								continue;
 							}
 						}
-						if (move.id === 'bugbite') {
+						if (moveid === 'bugbite') {
 							if (
 								!(
 									(poke.types[0] && poke.types[0] === 'Bug') || (poke.types[1] && poke.types[1] === 'Bug') ||
@@ -1034,8 +1034,8 @@ export const Scripts: ModdedBattleScriptsData = {
 								continue;
 							}
 						}
-						if (move.id === 'uturn' && addRule !== "addTrend") continue; // you shouldn't get U-turn just because you have other Bug moves
-						if (move.id === 'poltergeist' && !((poke.types[0] && poke.types[0] === 'Ghost') || (poke.types[1] && poke.types[1] === 'Ghost'))) continue;
+						if (moveid === 'uturn' && addRule !== "addTrend") continue; // you shouldn't get U-turn just because you have other Bug moves
+						if (moveid === 'poltergeist' && !((poke.types[0] && poke.types[0] === 'Ghost') || (poke.types[1] && poke.types[1] === 'Ghost'))) continue;
 
 						// now sort it into that section
 						let competitive = false;
