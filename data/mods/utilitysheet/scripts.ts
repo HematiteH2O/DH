@@ -233,9 +233,12 @@ export const Scripts: ModdedBattleScriptsData = {
 			// some exceptional hard-coding
 			if (id === 'basculinwhitestriped') { // just another Basculin stripe
 				for (const moveid in this.dataCache.Learnsets.basculin.learnset) {
+					for (const source of this.dataCache.Learnsets.basculin.learnset[moveid]) {
+						if (parseInt(source.charAt(0)) === 9) continue; // don't give Basculegion moves from Basculin that were intentionally cut from its movepool
+					}
 					if (!this.modData('Learnsets', id).learnset[moveid]) this.modData('Learnsets', id).learnset[moveid] = this.dataCache.Learnsets.basculin.learnset[moveid];
 				}
-			}
+			} // I might extend this same practice to other regional variants
 			if (id === 'basculegionf') { // same learnset as male Basculegion
 				for (const moveid in this.dataCache.Learnsets.learnset2.basculegion) {
 					if (!this.modData('Learnsets', id).learnset[moveid]) this.modData('Learnsets', id).learnset[moveid] = this.dataCache.Learnsets.learnset2.basculegion[moveid];
