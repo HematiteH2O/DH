@@ -489,10 +489,10 @@ export const Scripts: ModdedBattleScriptsData = {
 			if (otherAdditions.includes(poke.name) || otherAdditions.includes(poke.prevo) || otherAdditions.includes(poke.baseSpecies) || otherAdditions.includes(poke.baseForme)) poke.kind = "Addition";
 			if (legendaries.includes(poke.name) || legendaries.includes(poke.prevo) || legendaries.includes(poke.baseSpecies) || legendaries.includes(poke.baseForme)) poke.kind = "Special";
 			*/
-			if (id.endsWith('alola')) poke.kind = "Alola",
-			if (id.endsWith('galar')) poke.kind = "Galar",
-			if (id.endsWith('hisui')) poke.kind = "Hisui",
-			if (id.endsWith('paldea') || id.endsWith('paldeafire') || id.endsWith('paldeawater')) poke.kind = "Paldea",
+			if (id.endsWith('alola')) poke.kind = "Alola";
+			if (id.endsWith('galar')) poke.kind = "Galar";
+			if (id.endsWith('hisui')) poke.kind = "Hisui";
+			if (id.endsWith('paldea') || id.endsWith('paldeafire') || id.endsWith('paldeawater')) poke.kind = "Paldea";
 			if (this.dataCache.Learnsets[id] && this.dataCache.Learnsets[id].learnset) {
 				printno++;
 				poke.learnsetCumulative = {};
