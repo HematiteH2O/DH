@@ -112,6 +112,25 @@ export const Formats: FormatList = [
 	},
 
 	{
+		name: "I only need this for like a minute",
+		desc: [
+			"I left out secondary Ice-types by mistake",
+		],
+		
+		ruleset: ['Team Preview', 'HP Percentage Mod', 'Cancel Mod', 'Dynamax Clause', 'Sleep Clause Mod'],
+		onBegin() {
+			for (const id in this.dex.data.Pokedex) {
+				const poke = this.dex.data.Pokedex[id];
+				if (poke.types[1] && poke.types[1] === "Ice" && poke.sheetOutput) {
+					this.add('-message', `${poke.sheetOutput}`);
+					poke.sheetOutput = null;
+				}
+			}
+		},
+		mod: 'utilitysheet',
+	},
+
+	{
 		name: "Variants Comparison",
 		desc: [
 			"Outputs a sheet that compares variants' authentic movepools to their base forms (excluding impossible transfers)!",
