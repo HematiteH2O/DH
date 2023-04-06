@@ -112,25 +112,6 @@ export const Formats: FormatList = [
 	},
 
 	{
-		name: "Utility Sheet x Variants Comparison",
-		desc: [
-			"Temporary",
-		],
-		
-		ruleset: ['Team Preview', 'HP Percentage Mod', 'Cancel Mod', 'Dynamax Clause', 'Sleep Clause Mod'],
-		onBegin() {
-			for (const id in this.dex.data.Pokedex) {
-				const poke = this.dex.data.Pokedex[id];
-				if (poke.sheetOutput) {
-					this.add('-message', `${poke.sheetOutput}`);
-					poke.sheetOutput = null;
-				}
-			}
-		},
-		mod: 'utilitysheet',
-	},
-
-	{
 		name: "Variants Comparison",
 		desc: [
 			"Outputs a sheet that compares variants' authentic movepools to their base forms (excluding impossible transfers)!",
