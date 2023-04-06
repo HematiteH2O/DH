@@ -741,7 +741,6 @@ export const Scripts: ModdedBattleScriptsData = {
 						}
 					}
 					if (!learned) {
-						let oriLearned = false;
 						let oldestGen = 7;
 						if (poke.kind === "Galar") oldestGen = 8;
 						if (poke.kind === "Hisui") oldestGen = 9;
@@ -767,26 +766,33 @@ export const Scripts: ModdedBattleScriptsData = {
 
 						// see if any of them learn the move (we already know the variant doesn't!)
 						// let's not worry how they learn it - only if they do at all
+						let skip = null;
+						let oriLearned = null;
 						if (oriLearnset[moveid]) {
+							oriLearned = true;
 							for (const source of oriLearnset[moveid]) {
-								if ((parseInt(source.charAt(0)) < oldestGen)) learned = true;
+								if (!(parseInt(source.charAt(0)) < oldestGen)) skip = true;
 							}
 						}
 						if (oriLearnset2 && oriLearnset2[moveid]) { // if it has a pre-evolution and its pre-evolution learns the move
 							for (const source of oriLearnset2[moveid]) {
-								if ((parseInt(source.charAt(0)) < oldestGen)) learned = true;
+								oriLearned = true;
+								if (!(parseInt(source.charAt(0)) < oldestGen)) skip = true;
 							}
 						}
 						if (oriLearnset3 && oriLearnset3[moveid]) { // if it has a pre-evolution and its pre-evolution learns the move
+							oriLearned = true;
 							for (const source of oriLearnset3[moveid]) {
-								if ((parseInt(source.charAt(0)) < oldestGen)) learned = true;
+								if (!(parseInt(source.charAt(0)) < oldestGen)) skip = true;
 							}
 						}
 						if (oriLearnset4 && oriLearnset4[moveid]) { // if it's the third stage and its basic stage learns the move
+							oriLearned = true;
 							for (const source of oriLearnset4[moveid]) {
-								if ((parseInt(source.charAt(0)) < oldestGen)) learned = true;
+								if (!(parseInt(source.charAt(0)) < oldestGen)) skip = true;
 							}
 						}
+						if (!oriLearned || skip) continue;
 						
 						// if a TM or tutor is not learned, decide if it belongs in addTrend or addOther
 						// should still distinguish between competitive and flavor like above!
