@@ -17280,8 +17280,8 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 	sleightofhand: {
 		num: -15,
 		name: "Sleight of Hand",
-		category: "Psychic",
-		type: "Physical",
+		category: "Physical",
+		type: "Psychic",
 	},
 	sludge: {
 		num: 124,
