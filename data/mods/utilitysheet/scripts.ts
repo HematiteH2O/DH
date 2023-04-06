@@ -482,18 +482,12 @@ export const Scripts: ModdedBattleScriptsData = {
 		for (const id in this.dataCache.Pokedex) {
 			const poke = this.dataCache.Pokedex[id];
 			if (!poke || poke.evos || id.startsWith('pichu') || id.startsWith('pikachu') || id.startsWith('eevee')) continue; // skip NFEs... and anything that can't be read correctly, just in case
-			/*
+			poke.kind = "National";
 			if (platinumDex.includes(poke.name) || platinumDex.includes(poke.prevo) || platinumDex.includes(poke.baseSpecies) || platinumDex.includes(poke.baseForme)) poke.kind = "Platinum";
 			if (bdspAndLegends.includes(poke.name) || bdspAndLegends.includes(poke.prevo) || bdspAndLegends.includes(poke.baseSpecies) || bdspAndLegends.includes(poke.baseForme)) poke.kind = "Remake";
 			if (variants.includes(poke.name) || variants.includes(poke.baseForme)) poke.kind = "Variant";
 			if (otherAdditions.includes(poke.name) || otherAdditions.includes(poke.prevo) || otherAdditions.includes(poke.baseSpecies) || otherAdditions.includes(poke.baseForme)) poke.kind = "Addition";
 			if (legendaries.includes(poke.name) || legendaries.includes(poke.prevo) || legendaries.includes(poke.baseSpecies) || legendaries.includes(poke.baseForme)) poke.kind = "Special";
-			*/
-			if (id.endsWith('alola')) poke.kind = "Alola";
-			else if (id.endsWith('galar')) poke.kind = "Galar";
-			else if (id.endsWith('hisui')) poke.kind = "Hisui";
-			else if (id.endsWith('paldea') || id.endsWith('paldeafire') || id.endsWith('paldeawater')) poke.kind = "Paldea";
-			else continue;
 			if (this.dataCache.Learnsets[id] && this.dataCache.Learnsets[id].learnset) {
 				printno++;
 				poke.learnsetCumulative = {};
@@ -741,64 +735,308 @@ export const Scripts: ModdedBattleScriptsData = {
 							}
 						}
 					}
-					if (!learned) {
-						let oldestGen = 7;
-						if (poke.kind === "Galar") oldestGen = 8;
-						if (poke.kind === "Hisui") oldestGen = 9;
-						if (poke.kind === "Paldea") oldestGen = 9;
-						
-						// gather the non-variant line's learnsets
-						const oriPoke = this.dataCache.Pokedex[this.toID(poke.baseSpecies)];
-						const oriLearnset = this.modData('Learnsets', this.toID(oriPoke.name)).learnset;
-						let oriLearnset2 = null;
-						let oriLearnset3 = null;
-						let oriLearnset4 = null;
-						if (poke.prevo) {
-							const oriPoke2 = this.dataCache.Pokedex[this.toID(poke.prevo)];
-							oriLearnset2 = this.modData('Learnsets', this.toID(oriPoke.prevo)).learnset;
-							if (oriPoke2.prevo) {
-								oriLearnset3 = this.modData('Learnsets', this.toID(oriPoke2.prevo)).learnset;
+					if (learned) {
+
+						// okay, so we know the move! now we need to figure out where it goes
+						let competitive = false;
+						if (dexitedMoves.includes(moveid)) learnedNatural = learnedTmTutor = false; // list these, but force them to be fringe moves
+
+						if (attackRMs.includes(moveid)) {
+							// what type is it?
+							const type = (moveid === 'judgment' || moveid === 'multiattack' || moveid === 'ragingbull' || moveid === 'revelationdance') ? poke.types[0] : move.type;
+							const category = (move.category === 'Special' || moveid === 'naturepower') ? "Special" : "Physical";
+							// assume a status move ended up physical if its category changed
+							if (
+								poke.types[0] === type || (poke.types[1] && poke.types[1] === type) || offenseCoverage.includes(type) || weaknessCoverage.includes(type)
+								|| otherCoverage.includes(type) || moveid === 'naturepower' || moveid === 'technoblast' || moveid === 'terrainpulse' || moveid === 'weatherball'
+								|| moveid === 'fakeout' || moveid === 'feint' || moveid === 'extremespeed' || moveid === 'suckerpunch' || moveid === 'firstimpression'
+								|| moveid === 'wavecrash'
+							) { // for attacking moves, proceed only if the move's type has any potential to be relevant (but including the Normal moves that defy type)
+								competitive = true;
+								if (learnedTmTutor) poke.learnsetCumulative[type][category].tmTutor.push(move.name);
+								else if (learnedNatural) poke.learnsetCumulative[type][category].natural.push(move.name);
+								else poke.learnsetCumulative[type][category].fringe.push(move.name);
 							}
 						}
-						if (oriPoke.changesFrom) {
-							const poke4 = this.dataCache.Pokedex[this.toID(oriPoke.changesFrom)];
-							oriLearnset4 = this.modData('Learnsets', this.toID(oriPoke.changesFrom)).learnset;
+						for (const section in movepoolSections) {
+							if (movepoolSections[section].includes(moveid)) {
+								competitive = true;
+								if (learnedTmTutor) poke.learnsetCumulative[section].Moves.tmTutor.push(move.name);
+								else if (learnedNatural) poke.learnsetCumulative[section].Moves.natural.push(move.name);
+								else poke.learnsetCumulative[section].Moves.fringe.push(move.name);
+							}
 						}
 
-						// see if any of them learn the move (we already know the variant doesn't!)
-						// let's not worry how they learn it - only if they do at all
-						let skip = null;
-						let oriLearned = null;
-						if (oriLearnset[moveid]) {
-							oriLearned = true;
-							for (const source of oriLearnset[moveid]) {
-								if (!(parseInt(source.charAt(0)) < oldestGen)) skip = true;
-							}
+						if (!competitive) {
+							// push the move's name to the appropriate categories
+							if (learnedTmTutor) poke.learnsetCumulative.Flavor.Moves.tmTutor.push(move.name);
+							else if (learnedNatural) poke.learnsetCumulative.Flavor.Moves.natural.push(move.name);
+							else poke.learnsetCumulative.Flavor.Moves.fringe.push(move.name);
 						}
-						if (oriLearnset2 && oriLearnset2[moveid]) { // if it has a pre-evolution and its pre-evolution learns the move
-							for (const source of oriLearnset2[moveid]) {
-								oriLearned = true;
-								if (!(parseInt(source.charAt(0)) < oldestGen)) skip = true;
-							}
-						}
-						if (oriLearnset3 && oriLearnset3[moveid]) { // if it has a pre-evolution and its pre-evolution learns the move
-							oriLearned = true;
-							for (const source of oriLearnset3[moveid]) {
-								if (!(parseInt(source.charAt(0)) < oldestGen)) skip = true;
-							}
-						}
-						if (oriLearnset4 && oriLearnset4[moveid]) { // if it's the third stage and its basic stage learns the move
-							oriLearned = true;
-							for (const source of oriLearnset4[moveid]) {
-								if (!(parseInt(source.charAt(0)) < oldestGen)) skip = true;
-							}
-						}
-						if (!oriLearned || skip) continue;
-						
+
+					} else if (pulseTms.includes(moveid) || pulseTutors.includes(moveid)) {
 						// if a TM or tutor is not learned, decide if it belongs in addTrend or addOther
 						// should still distinguish between competitive and flavor like above!
 						let addRule = "addOther";
-						if (pulseTms.includes(moveid) || pulseTutors.includes(moveid)) addRule = "addTrend";
+
+						// account for Pokémon-exclusive tutor moves
+						if (notRealTutors.includes(moveid)) continue;
+						// account for the new starter moves
+						if (moveid === 'risingstalk') {
+							if (poke.abilities[0] !== "Overgrow" && poke.abilities[0] !== "RKS System" && poke.abilities['H'] !== "Overgrow") continue;
+							addRule = "addTrend";
+						}
+						if (moveid === 'risingheat') {
+							if (poke.abilities[0] !== "Blaze" && poke.abilities[0] !== "RKS System" && poke.abilities['H'] !== "Blaze") continue;
+							addRule = "addTrend";
+						}
+						if (moveid === 'risingtide') {
+							if (poke.abilities[0] !== "Torrent" && poke.abilities[0] !== "RKS System" && poke.abilities['H'] !== "Torrent") continue;
+							addRule = "addTrend";
+						}
+
+						// below should be a list of movepool trends that sort a move into either addOther or addTrend
+						if (
+							['endure', 'facade', 'frustration', 'gigaimpact', 'return', 'hiddenpower', 'hyperbeam', 'naturalgift', 'snore', 'protect', 'secretpower', 'sleeptalk', 'substitute', 'swagger', 'toxic', 'rest'].includes(moveid)
+						) addRule = "addTrend"; // fully universal moves
+						if (!(poke.gender && poke.gender === 'N') && moveid === 'attract') addRule = "addTrend";
+						if (
+							((poke.types[0] && poke.types[0] === 'Fire') || (poke.types[1] && poke.types[1] === 'Fire')) &&
+							['flamecharge', 'fireblast', 'flamethrower', 'heatwave', 'incinerate', 'overheat', 'willowisp', 'solarbeam'].includes(moveid)
+						) addRule = "addTrend"; // Fire-type move trends
+						if (
+							((poke.types[0] && poke.types[0] === 'Water') || (poke.types[1] && poke.types[1] === 'Water')) &&
+							['dive', 'liquidation', 'waterfall', 'scald', 'splashzone', 'surf', 'waterpulse', 'raindance', 'blizzard', 'icebeam', 'icywind', 'hail'].includes(moveid)
+						) addRule = "addTrend"; // Water-type move trends
+						if (
+							((poke.types[0] && poke.types[0] === 'Electric') || (poke.types[1] && poke.types[1] === 'Electric')) &&
+							['raindance', 'wildcharge', 'chargebeam', 'risingvoltage', 'shockwave', 'thunder', 'thunderbolt', 'voltswitch', 'thunderwave', 'lightscreen', 'signalbeam'].includes(moveid)
+						) addRule = "addTrend"; // Electric-type move trends
+						if (
+							((poke.types[0] && poke.types[0] === 'Grass') || (poke.types[1] && poke.types[1] === 'Grass')) &&
+							['bulletseed', 'seedbomb', 'energyball', 'gigadrain', 'grassknot', 'solarbeam', 'synthesis', 'worryseed', 'naturepower'].includes(moveid)
+						) addRule = "addTrend"; // Grass-type move trends
+						if (
+							((poke.types[0] && poke.types[0] === 'Ice') || (poke.types[1] && poke.types[1] === 'Ice')) &&
+							['raindance', 'avalanche', 'blizzard', 'icebeam', 'icywind', 'hail'].includes(moveid)
+						) addRule = "addTrend"; // Ice-type move trends
+						if (
+							((poke.types[0] && poke.types[0] === 'Fighting') || (poke.types[1] && poke.types[1] === 'Fighting')) &&
+							['brickbreak', 'focuspunch', 'lowkick', 'piledriver', 'rocksmash', 'focusblast', 'vacuumwave', 'rockslide', 'rocktomb', 'stoneedge', 'retaliate', 'strength', 'helpinghand', 'workup'].includes(moveid)
+						) addRule = "addTrend"; // Fighting-type move trends
+						if (
+							((poke.types[0] && poke.types[0] === 'Fighting') || (poke.types[1] && poke.types[1] === 'Fighting')) &&
+							!((learnset.sacredsword) || (learnset2 && learnset2.sacredsword) || (learnset3 && learnset3.sacredsword) || (learnset4 && learnset4.sacredsword)) &&
+							['bulkup'].includes(moveid)
+						) addRule = "addTrend"; // Fighting-type move trend, but not for the ones with Sacred Sword
+						if (
+							((poke.types[0] && poke.types[0] === 'Poison') || (poke.types[1] && poke.types[1] === 'Poison')) &&
+							['raindance', 'acidspray', 'expiration', 'sludgebomb'].includes(moveid)
+						) addRule = "addTrend"; // Poison-type move trends
+						if (
+							((poke.types[0] && poke.types[0] === 'Ground') || (poke.types[1] && poke.types[1] === 'Ground')) &&
+							['rocksmash', 'aftershock', 'bulldoze', 'dig', 'earthquake', 'earthpower', 'mudslap', 'rockslide', 'rocktomb', 'stoneedge', 'sandstorm', 'stealthrock', 'strength'].includes(moveid)
+						) addRule = "addTrend"; // Ground-type move trends
+						if (
+							((poke.types[0] && poke.types[0] === 'Flying') || (poke.types[1] && poke.types[1] === 'Flying')) &&
+							['raindance'].includes(moveid) // insurance: even if they're not in the Flying Egg group
+						) addRule = "addTrend"; // Flying-type move trends
+						if (
+							((poke.eggGroups[0] && poke.eggGroups[0] === 'Flying') || (poke.eggGroups[1] && poke.eggGroups[1] === 'Flying')) &&
+							['aerialace', 'fly', 'aircutter', 'windshear', 'defog', 'roost', 'tailwind', 'ominouswind'].includes(moveid)
+						) addRule = "addTrend"; // Flying Egg group move trends (not type!)
+						if (
+							((poke.types[0] && poke.types[0] === 'Psychic') || (poke.types[1] && poke.types[1] === 'Psychic')) &&
+							['raindance', 'zenheadbutt', 'dreameater', 'psychic', 'psyshock', 'calmmind', 'lightscreen', 'magiccoat', 'reflect', 'skillswap', 'trick', 'trickroom', 'signalbeam', 'shadowball', 'psychup'].includes(moveid)
+						) addRule = "addTrend"; // Psychic-type move trends
+						if (
+							((poke.types[0] && poke.types[0] === 'Bug') || (poke.types[1] && poke.types[1] === 'Bug')) &&
+							['raindance', 'bugbite', 'stringshot'].includes(moveid)
+						) addRule = "addTrend"; // Bug-type move trends
+						if (
+							((poke.types[0] && poke.types[0] === 'Rock') || (poke.types[1] && poke.types[1] === 'Rock')) &&
+							['rocksmash', 'bulldoze', 'earthquake', 'earthpower', 'rockslide', 'rocktomb', 'stoneedge', 'ancientpower', 'meteorbeam', 'rockpolish', 'sandstorm', 'stealthrock', 'irondefense'].includes(moveid)
+						) addRule = "addTrend"; // Rock-type move trends
+						if (
+							((poke.types[0] && poke.types[0] === 'Ghost') || (poke.types[1] && poke.types[1] === 'Ghost')) &&
+							['dreameater', 'shadowball', 'ominouswind', 'spite'].includes(moveid)
+						) addRule = "addTrend"; // Ghost-type move trends
+						if (
+							((poke.types[0] && poke.types[0] === 'Dragon') || (poke.types[1] && poke.types[1] === 'Dragon')) &&
+							['dragonclaw', 'dragontail', 'outrage', 'dracometeor', 'dragonpulse', 'twister'].includes(moveid)
+						) {
+							addRule = "addTrend"; // Dragon-type move trends
+						} else {
+							if (['dracometeor'].includes(moveid)) continue;
+						}
+						if (
+							((poke.types[0] && poke.types[0] === 'Dark') || (poke.types[1] && poke.types[1] === 'Dark')) &&
+							['mudslap', 'spite', 'payback', 'thief', 'darkpulse', 'snarl', 'taunt', 'torment'].includes(moveid)
+						) addRule = "addTrend"; // Dark-type move trends
+						if (
+							((poke.types[0] && poke.types[0] === 'Steel') || (poke.types[1] && poke.types[1] === 'Steel')) &&
+							['rocksmash', 'ironhead', 'flashcannon', 'steelbeam', 'irondefense'].includes(moveid)
+						) {
+							addRule = "addTrend"; // Steel-type move trends
+						} else {
+							if (['steelbeam'].includes(moveid)) continue;
+						}
+						if (
+							((poke.types[0] && poke.types[0] === 'Fairy') || (poke.types[1] && poke.types[1] === 'Fairy')) &&
+							['lightscreen', 'dazzlinggleam', 'drainingkiss'].includes(moveid)
+						) addRule = "addTrend"; // Fairy-type move trends
+						if (
+							((poke.types[0] && poke.types[0] === 'Normal') || (poke.types[1] && poke.types[1] === 'Normal')) &&
+							['mudslap', 'workup'].includes(moveid)
+						) addRule = "addTrend"; // Normal-type move trends
+						if (
+							((poke.types[0] && poke.types[0] === 'Normal') || (poke.types[1] && poke.types[1] === 'Normal')) &&
+							!((poke.types[0] && poke.types[0] === 'Flying') || (poke.types[1] && poke.types[1] === 'Flying')) &&
+							['retaliate'].includes(moveid)
+						) addRule = "addTrend"; // Normal-type move trend, but not for the Flying group
+
+						// some move-specific type trends
+						if (moveid === 'explosion' && addRule !== "addTrend") continue; // you shouldn't get Explosion just because you have other Normal moves
+						if (moveid === 'sunnyday') {
+							if ((poke.types[0] && poke.types[0] === 'Fire') || (poke.types[1] && poke.types[1] === 'Fire')) addRule = "addTrend";
+							if ((poke.types[0] && poke.types[0] === 'Grass') || (poke.types[1] && poke.types[1] === 'Grass')) addRule = "addTrend";
+							if (
+								!((poke.types[0] && poke.types[0] === 'Water') || (poke.types[1] && poke.types[1] === 'Water') ||
+								(poke.types[0] && poke.types[0] === 'Electric') || (poke.types[1] && poke.types[1] === 'Electric') ||
+								(poke.types[0] && poke.types[0] === 'Ice') || (poke.types[1] && poke.types[1] === 'Ice') ||
+								(poke.types[0] && poke.types[0] === 'Ghost') || (poke.types[1] && poke.types[1] === 'Ghost') ||
+								(poke.types[0] && poke.types[0] === 'Steel') || (poke.types[1] && poke.types[1] === 'Steel'))
+							) {
+								if (
+									(poke.types[0] && poke.types[0] === 'Bug') || (poke.types[1] && poke.types[1] === 'Bug') ||
+									(poke.eggGroups[0] && poke.eggGroups[0] === 'Flying') || (poke.eggGroups[1] && poke.eggGroups[1] === 'Flying') ||
+									(poke.types[0] && poke.types[0] === 'Dragon') || (poke.types[1] && poke.types[1] === 'Dragon') ||
+									(poke.types[0] && poke.types[0] === 'Fairy') || (poke.types[1] && poke.types[1] === 'Fairy') ||
+									(poke.types[0] && poke.types[0] === 'Normal') || (poke.types[1] && poke.types[1] === 'Normal')
+								) addRule = "addTrend";
+							}
+						} // Sunny Day "trend" is... more complicated
+						if (moveid === 'heatwave') {
+							if (
+								(
+									(poke.types[0] && poke.types[0] === 'Fire') || (poke.types[1] && poke.types[1] === 'Fire') ||
+									(learnset.flamethrower) || (learnset2 && learnset2.flamethrower) || (learnset3 && learnset3.flamethrower) || (learnset4 && learnset4.flamethrower)
+								) && (
+									(poke.eggGroups[0] && poke.eggGroups[0] === 'Flying') || (poke.eggGroups[1] && poke.eggGroups[1] === 'Flying') ||
+									(learnset.defog) || (learnset2 && learnset2.defog) || (learnset3 && learnset3.defog) || (learnset4 && learnset4.defog)
+								)
+							) {
+								addRule = "addTrend";
+							}
+							if ((poke.eggGroups[0] && poke.eggGroups[0] === 'Flying') || (poke.eggGroups[1] && poke.eggGroups[1] === 'Flying')) {
+								if (
+									!((poke.types[0] && poke.types[0] === 'Water') || (poke.types[1] && poke.types[1] === 'Water') ||
+									  (poke.types[0] && poke.types[0] === 'Grass') || (poke.types[1] && poke.types[1] === 'Grass') ||
+									  (poke.types[0] && poke.types[0] === 'Ice') || (poke.types[1] && poke.types[1] === 'Ice') ||
+									  (poke.types[0] && poke.types[0] === 'Bug') || (poke.types[1] && poke.types[1] === 'Bug') ||
+									  (poke.types[0] && poke.types[0] === 'Steel') || (poke.types[1] && poke.types[1] === 'Steel'))
+								) addRule = "addTrend";
+							}
+						} // I'm making sure Heat Wave goes to anything with both Defog and Flamethrower, as well as most of the Flying group
+						if (moveid === 'incinerate') {
+							if (
+								(
+									(poke.types[0] && poke.types[0] === 'Fire') || (poke.types[1] && poke.types[1] === 'Fire') ||
+									(learnset.fireblast) || (learnset2 && learnset2.fireblast) || (learnset3 && learnset3.fireblast) || (learnset4 && learnset4.fireblast)
+								)
+							) {
+								addRule = "addTrend"; // basically everything that's Fire-type or learns Fire Blast learns Incinerate, but...
+							} else {
+								if (
+									!(
+										(poke.types[0] && poke.types[0] === 'Dark') || (poke.types[1] && poke.types[1] === 'Dark') ||
+										(learnset.flamethrower) || (learnset2 && learnset2.flamethrower) || (learnset3 && learnset3.flamethrower) || (learnset4 && learnset4.flamethrower)
+									)
+								) {
+									continue; // if you don't meet that criterion, and you *also* aren't Dark-type and don't learn Flamethrower, just skip it!
+								}
+							}
+						}
+						if (moveid === 'burningjealousy') {
+							if (
+								!(
+									(poke.types[0] && poke.types[0] === 'Fire') || (poke.types[1] && poke.types[1] === 'Fire') ||
+									(poke.types[0] && poke.types[0] === 'Ghost') || (poke.types[1] && poke.types[1] === 'Ghost') ||
+									(poke.types[0] && poke.types[0] === 'Dark') || (poke.types[1] && poke.types[1] === 'Dark')
+								)
+							) {
+								continue;
+							}
+						}
+						if (moveid === 'liquidation') {
+							if (
+								!(
+									(poke.types[0] && poke.types[0] === 'Water') || (poke.types[1] && poke.types[1] === 'Water') ||
+									(poke.eggGroups[0] && poke.eggGroups[0] === 'Water 1') || (poke.eggGroups[1] && poke.eggGroups[1] === 'Water 1') ||
+									(poke.eggGroups[0] && poke.eggGroups[0] === 'Water 2') || (poke.eggGroups[1] && poke.eggGroups[1] === 'Water 2') ||
+									(poke.eggGroups[0] && poke.eggGroups[0] === 'Water 3') || (poke.eggGroups[1] && poke.eggGroups[1] === 'Water 3') ||
+									(poke.eggGroups[0] && poke.eggGroups[0] === 'Undiscovered') || (poke.eggGroups[1] && poke.eggGroups[1] === 'Undiscovered')
+								)
+							) {
+								continue;
+							}
+						}
+						if (moveid === 'scald' && ((poke.types[0] && poke.types[0] === 'Ice') || (poke.types[1] && poke.types[1] === 'Ice'))) continue;
+						if (['voltswitch', 'risingvoltage'].includes(moveid)) {
+							if (
+								!(
+									(poke.types[0] && poke.types[0] === 'Electric') || (poke.types[1] && poke.types[1] === 'Electric') ||
+									(poke.types[0] && poke.types[0] === 'Steel') || (poke.types[1] && poke.types[1] === 'Steel') ||
+									(poke.abilities[0] === "Quark Drive")
+								)
+							) {
+								continue;
+							}
+						}
+						if (moveid === 'electroweb') {
+							if (
+								!(
+									(poke.types[0] && poke.types[0] === 'Electric') || (poke.types[1] && poke.types[1] === 'Electric') ||
+									(poke.types[0] && poke.types[0] === 'Bug') || (poke.types[1] && poke.types[1] === 'Bug')
+								)
+							) {
+								continue;
+							}
+						}
+						if (moveid === 'scorchingsands') {
+							if (
+								!(
+									(poke.types[0] && poke.types[0] === 'Ground') || (poke.types[1] && poke.types[1] === 'Ground') ||
+									(poke.types[0] && poke.types[0] === 'Fire') || (poke.types[1] && poke.types[1] === 'Fire')
+								)
+							) {
+								continue;
+							}
+						}
+						if (['fly', 'skydrop', 'skyattack'].includes(moveid)) {
+							if (
+								!(
+									(poke.types[0] && poke.types[0] === 'Flying') || (poke.types[1] && poke.types[1] === 'Flying') ||
+									(poke.eggGroups[0] && poke.eggGroups[0] === 'Flying') || (poke.eggGroups[1] && poke.eggGroups[1] === 'Flying') ||
+									(poke.eggGroups[0] && poke.eggGroups[0] === 'Undiscovered') || (poke.eggGroups[1] && poke.eggGroups[1] === 'Undiscovered')
+								)
+							) {
+								continue;
+							}
+						}
+						if (moveid === 'bugbite') {
+							if (
+								!(
+									(poke.types[0] && poke.types[0] === 'Bug') || (poke.types[1] && poke.types[1] === 'Bug') ||
+									(poke.eggGroups[0] && poke.eggGroups[0] === 'Bug') || (poke.eggGroups[1] && poke.eggGroups[1] === 'Bug') ||
+									(poke.eggGroups[0] && poke.eggGroups[0] === 'Undiscovered') || (poke.eggGroups[1] && poke.eggGroups[1] === 'Undiscovered')
+								)
+							) {
+								continue;
+							}
+						}
+						if (moveid === 'uturn' && addRule !== "addTrend") continue; // you shouldn't get U-turn just because you have other Bug moves
+						if (moveid === 'poltergeist' && !((poke.types[0] && poke.types[0] === 'Ghost') || (poke.types[1] && poke.types[1] === 'Ghost'))) continue;
 
 						// now sort it into that section
 						let competitive = false;
@@ -817,6 +1055,7 @@ export const Scripts: ModdedBattleScriptsData = {
 								poke.learnsetCumulative[type][category][addRule].push(move.name);
 							}
 						}
+						if (addRule === "addOther") continue; // addOther is only for types and categories
 						for (const section in movepoolSections) {
 							if (movepoolSections[section].includes(moveid)) {
 								competitive = true;
@@ -880,13 +1119,13 @@ export const Scripts: ModdedBattleScriptsData = {
 					if (!poke.learnsetCumulative[moveType]) continue; // (stop breaking)
 					if (
 						poke.learnsetCumulative[moveType].Physical.natural.length || poke.learnsetCumulative[moveType].Physical.tmTutor.length ||
-						poke.learnsetCumulative[moveType].Physical.fringe.length || poke.learnsetCumulative[moveType].Physical.addTrend.length || poke.learnsetCumulative[moveType].Physical.addOther.length
+						poke.learnsetCumulative[moveType].Physical.fringe.length || poke.learnsetCumulative[moveType].Physical.addTrend.length
 					) {
 						sheetOutput += poke.kind + `~` + (printno) + "~6~" + moveType + "~Physical~" + poke.learnsetCumulative[moveType].Physical.tmTutor + "~" + poke.learnsetCumulative[moveType].Physical.addTrend + "~" + poke.learnsetCumulative[moveType].Physical.natural + "~" + (poke.learnsetCumulative[moveType].Physical.fringe.length ? "(" + poke.learnsetCumulative[moveType].Physical.fringe + ")" : "") + "~" + (poke.learnsetCumulative[moveType].Physical.addOther.length ? "(" + poke.learnsetCumulative[moveType].Physical.addOther + ")" : "") + "" + `\n`;
 					}
 					if (
 						poke.learnsetCumulative[moveType].Special.natural.length || poke.learnsetCumulative[moveType].Special.tmTutor.length ||
-						poke.learnsetCumulative[moveType].Special.fringe.length || poke.learnsetCumulative[moveType].Special.addTrend.length || poke.learnsetCumulative[moveType].Special.addOther.length
+						poke.learnsetCumulative[moveType].Special.fringe.length || poke.learnsetCumulative[moveType].Special.addTrend.length
 					) {
 						sheetOutput += poke.kind + `~` + (printno) + "~6~" + moveType + "~Special~" + poke.learnsetCumulative[moveType].Special.tmTutor + "~" + poke.learnsetCumulative[moveType].Special.addTrend + "~" + poke.learnsetCumulative[moveType].Special.natural + "~" + (poke.learnsetCumulative[moveType].Special.fringe.length ? "(" + poke.learnsetCumulative[moveType].Special.fringe + ")" : "") + "~" + (poke.learnsetCumulative[moveType].Special.addOther.length ? "(" + poke.learnsetCumulative[moveType].Special.addOther + ")" : "") + "" + `\n`;
 					}
@@ -894,7 +1133,7 @@ export const Scripts: ModdedBattleScriptsData = {
 				for (const section in movepoolSections) {
 					if (
 						poke.learnsetCumulative[section].Moves.natural.length || poke.learnsetCumulative[section].Moves.tmTutor.length ||
-						poke.learnsetCumulative[section].Moves.fringe.length || poke.learnsetCumulative[section].Moves.addTrend.length || poke.learnsetCumulative[section].Moves.addOther.length
+						poke.learnsetCumulative[section].Moves.fringe.length || poke.learnsetCumulative[section].Moves.addTrend.length
 					) {
 						sheetOutput += poke.kind + `~` + (printno) + "~7~" + section + "~~" + poke.learnsetCumulative[section].Moves.tmTutor + "~" + poke.learnsetCumulative[section].Moves.addTrend + "~" + poke.learnsetCumulative[section].Moves.natural + "~" + (poke.learnsetCumulative[section].Moves.fringe.length ? "(" + poke.learnsetCumulative[section].Moves.fringe + ")" : "") + "~" + (poke.learnsetCumulative[section].Moves.addOther.length ? "(" + poke.learnsetCumulative[section].Moves.addOther + ")" : "") + "" + `\n`;
 					}
