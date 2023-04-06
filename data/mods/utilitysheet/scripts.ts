@@ -981,7 +981,7 @@ export const Scripts: ModdedBattleScriptsData = {
 								continue;
 							}
 						}
-						if (moveid === 'scald' && (poke.types[0] && poke.types[0] === 'Ice') || (poke.types[1] && poke.types[1] === 'Ice')) continue;
+						if (moveid === 'scald' && ((poke.types[0] && poke.types[0] === 'Ice') || (poke.types[1] && poke.types[1] === 'Ice'))) continue;
 						if (['voltswitch', 'risingvoltage'].includes(moveid)) {
 							if (
 								!(
