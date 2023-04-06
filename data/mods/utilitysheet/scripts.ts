@@ -36,7 +36,7 @@ export const Scripts: ModdedBattleScriptsData = {
 			'rocksmash', 'roleplay', 'rollout', 'secretpower', 'secretsword', 'seedbomb', 'shadowclaw', 'signalbeam', 'silverwind', 'skillswap', 'skyattack',
 			'sleightofhand', 'snore', 'spite', 'stealthrock', 'steelbeam', 'steelbeam', 'stompingtantrum', 'strength', 'stringshot', 'suckerpunch', 'superfang',
 			'superpower', 'swift', 'synthesis', 'tailwind', 'thunderpunch', 'trick', 'twister', 'uproar', 'vcreate', 'vacuumwave', 'volttackle', 'waterpledge',
-			'waterpulse', 'waterfall', 'worryseed', 'zenheadbutt', 'powershift',
+			'waterpulse', 'waterfall', 'worryseed', 'zenheadbutt', 'powershift', 'risingstalk', 'risingheat', 'risingtide',
 		]; // excludes Captivate
 		const notRealTutors = [
 			'relicsong', 'blastburn', 'firepledge', 'vcreate', 'hydrocannon', 'waterpledge', 'volttackle', 'frenzyplant', 'grasspledge', 'secretsword', 'dragonascent',
