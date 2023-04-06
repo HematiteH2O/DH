@@ -749,7 +749,7 @@ export const Scripts: ModdedBattleScriptsData = {
 						
 						// gather the non-variant line's learnsets
 						const oriPoke = this.dataCache.Pokedex[this.toID(poke.baseSpecies)];
-						const oriLearnset = this.modData('Learnsets', oriPoke.id).learnset;
+						const oriLearnset = this.modData('Learnsets', this.toID(oriPoke.name)).learnset;
 						let oriLearnset2 = null;
 						let oriLearnset3 = null;
 						let oriLearnset4 = null;
