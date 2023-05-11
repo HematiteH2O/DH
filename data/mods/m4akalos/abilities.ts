@@ -11,7 +11,7 @@ export const Abilities: {[abilityid: string]: ModdedAbilityData} = {
 		},
 		onSourceHit(target, source, move) {
 			if (move.category === "Status" && move.type === "Psychic" && move.selfSwitch && this.canSwitch(pokemon.side)) {
-				this.add('-ability', attacker, 'Mana Gate');
+				this.add('-ability', pokemon, 'Mana Gate');
 				this.add('-message', `${pokemon.name} switches out using Mana Gate!`);
 			}
 		},
