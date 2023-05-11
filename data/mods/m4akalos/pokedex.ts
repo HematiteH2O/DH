@@ -54,7 +54,7 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 		megaAbility: {0: "Solar Power"},
 		megaStats: {hp: 62, atk: 85, def: 62, spa: 129, spd: 114, spe: 129},
 		megaStone: "Heliolite",
-		movepoolAdditions: ["dragontail", "morningsun"],
+		movepoolAdditions: ["dragontail"],
 		megaCreator: "lydian",
 	},
 
