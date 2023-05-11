@@ -37,7 +37,7 @@ export const Abilities: {[abilityid: string]: ModdedAbilityData} = {
 	marshlandlord: {
 		shortDesc: "On switch-in, summons Water Sport and Mud Sport.",
 		onStart(source) {
-			this.add('-ability', attacker, 'Marshland Lord');
+			this.add('-ability', source, 'Marshland Lord');
 			this.field.addPseudoWeather('watersport');
 			this.field.addPseudoWeather('mudsport');
 		},
