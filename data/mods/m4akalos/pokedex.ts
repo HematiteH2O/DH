@@ -165,6 +165,41 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 		megaCreator: "Paulluxx and XtheGAMEmaster",
 	},
 
+	// slate 6
+
+	quagsire: {
+		inherit: true,
+		mega: "quagsiremega",
+		megaName: "Quagsire-Mega",
+		megaAbility: {0: "Marshland Lord"},
+		megaStats: {hp: 95, atk: 110, def: 125, spa: 100, spd: 65, spe: 35},
+		megaStone: "Quagsite",
+		movepoolAdditions: ["flipturn"],
+		megaCreator: "Sticky Fingaaa and IsoCon",
+	},
+
+	heatmor: {
+		inherit: true,
+		mega: "heatmormega",
+		megaName: "Heatmor-Mega",
+		megaType: ["Fire", "Ground"],
+		megaAbility: {0: "Stakeout"},
+		megaStats: {hp: 85, atk: 122, def: 76, spa: 105, spd: 106, spe: 90},
+		megaStone: "Heatmorite",
+		movepoolAdditions: ["powerwhip", "yawn"],
+		megaCreator: "War Incarnate and NANI?!",
+	},
+
+	pangoro: {
+		inherit: true,
+		mega: "pangoromega",
+		megaName: "Pangoro-Mega",
+		megaAbility: {0: "Bad Influence"},
+		megaStats: {hp: 95, atk: 134, def: 112, spa: 74, spd: 101, spe: 69},
+		megaStone: "Pangoronite",
+		megaCreator: "jazzmat",
+	},
+
 	// crossover Megas
 
 	lanturn: {
