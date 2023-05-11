@@ -9,10 +9,10 @@ export const Abilities: {[abilityid: string]: ModdedAbilityData} = {
 		onModifyMove(move) {
 			if (move.category === "Status" && move.type === "Psychic" && !move.selfSwitch) move.selfSwitch = true;
 		},
-		onBeforeMovePriority: 0.5,
-		onBeforeMove(attacker, defender, move) {
-			if (move.category === "Status" && move.type === "Psychic") {
+		onSourceHit(target, source, move) {
+			if (move.category === "Status" && move.type === "Psychic" && move.selfSwitch && this.canSwitch(pokemon.side)) {
 				this.add('-ability', attacker, 'Mana Gate');
+				this.add('-message', `${pokemon.name} switches out using Mana Gate!`);
 			}
 		},
 		name: "Mana Gate",
@@ -37,6 +37,7 @@ export const Abilities: {[abilityid: string]: ModdedAbilityData} = {
 	marshlandlord: {
 		shortDesc: "On switch-in, summons Water Sport and Mud Sport.",
 		onStart(source) {
+			this.add('-ability', attacker, 'Marshland Lord');
 			this.field.addPseudoWeather('watersport');
 			this.field.addPseudoWeather('mudsport');
 		},
