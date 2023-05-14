@@ -323,10 +323,6 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 		movepoolAdditions: ["flamethrower", "thunderbolt", "vacuumwave"],
 	},
 
-	wailmer: {
-		inherit: true,
-		movepoolAdditions: ["rapidspin", "shoreup"],
-	},
 	wailord: {
 		inherit: true,
 		mega: "wailordmega",
@@ -335,6 +331,7 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 		megaAbility: {0: "Uplifting"},
 		megaStone: "Wailordite",
 		megaCreator: "Paulluxx and KeroseneZanchu",
+		movepoolAdditions: ["rapidspin", "shoreup"],
 	},
 
 	flygon: {
@@ -387,7 +384,7 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 		megaAbility: {0: "Snow Warning"},
 		megaStone: "Reginite",
 		megaCreator: "Full_Korbe",
-		movepoolAdditions: ["lifedew", "meteorbeam", "teleport"],
+		movepoolAdditions: ["lifedew", "teleport"],
 	},
 
 	registeel: {
@@ -511,10 +508,6 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 		movepoolAdditions: ["partingshot", "poisongas", "sludgebomb", "sludgewave", "toxicspikes"],
 	},
 
-	murkrow: {
-		inherit: true,
-		movepoolAdditions: ["partingshot"],
-	},
 	honchkrow: {
 		inherit: true,
 		mega: "honchkrowmega",
@@ -523,7 +516,7 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 		megaAbility: {0: "Blackmail"},
 		megaStone: "Honchkronite",
 		megaCreator: "ausma",
-		movepoolAdditions: ["dualwingbeat"],
+		movepoolAdditions: ["dualwingbeat", "partingshot"],
 	},
 
 	spiritomb: {
@@ -576,7 +569,7 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 		inherit: true,
 		mega: "magmortarmega",
 		megaName: "Magmortar-Mega",
-		megaStats: {hp: 75, atk: 95, def: 87, spa: 170, spd: 110, spe: 103},
+		megaStats: {hp: 75, atk: 105, def: 87, spa: 170, spd: 110, spe: 93},
 		megaAbility: {0: "Neutralizing Gas"},
 		megaStone: "Magmortarite",
 		megaCreator: "Paulluxx and abismal",
@@ -646,7 +639,7 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 		megaAbility: {0: "Vajra"},
 		megaStone: "Zebstrikanite",
 		megaCreator: "BlueRay and JosJet",
-		movepoolAdditions: ["assurance", "jawlock", "snarl", "suckerpunch", "taunt"],
+		movepoolAdditions: ["assurance", "jawlock", "spikes", "suckerpunch", "taunt"],
 	},
 
 	gigalith: {
@@ -759,7 +752,7 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 		megaAbility: {0: "Two-Minded"},
 		megaStone: "Reunite",
 		megaCreator: "Hematite",
-		movepoolAdditions: ["photongeyser", "psychoboost"],
+		movepoolAdditions: ["psychoboost"],
 	},
 
 	vanilluxe: {
@@ -1435,7 +1428,7 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 		mega: "orbeetlemega",
 		megaName: "Orbeetle-Mega",
 		megaType: ["Bug", "Psychic"],
-		megaStats: {hp: 60, atk: 45, def: 130, spa: 130, spd: 140, spe: 100},
+		megaStats: {hp: 60, atk: 45, def: 130, spa: 140, spd: 140, spe: 90},
 		megaAbility: {0: "Gravitas"},
 		megaStone: "Orbeetlite",
 		megaCreator: "Scoopapa",
@@ -1495,7 +1488,7 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 		megaAbility: {0: "Mimicry"},
 		megaStone: "Grapplite",
 		megaCreator: "Hematite and KeroseneZanchu",
-		movepoolAdditions: ["bulletpunch", "flipturn", "gunkshot", "stormthrow"],
+		movepoolAdditions: ["flipturn", "gunkshot", "stormthrow"],
 	},
 
 	obstagoon: {
