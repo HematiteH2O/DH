@@ -1384,16 +1384,6 @@ export const Formats: {[k: string]: FormatData} = {
 			validate: [4, 6],
 			battle: 4,
 		},
-		ruleset: ['Standard GBU', '+Unobtainable', '+Past', 'VGC Timer', 'Dynamax Clause'],
-		onValidateTeam(team, format) {
-			/**@type {{[k: string]: true}} */
-			let speciesTable = {};
-			for (const set of team) {
-				let template = this.dex.getSpecies(set.species);
-				if (template.tier !== 'Evo!' && template.tier !== 'Evo (NFE)') {
-					return [set.species + ' is not legal in the Evolution Project format.'];
-				}
-			}
-		},
+		ruleset: ['Team Preview', 'Species Clause', 'Nickname Clause', 'Item Clause', 'Cancel Mod', 'VGC Timer'],
 	},
 };
