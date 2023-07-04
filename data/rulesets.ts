@@ -1375,9 +1375,9 @@ export const Formats: {[k: string]: FormatData} = {
 		},
 	},
 	vgc: {
+		effectType: 'ValidatorRule',
 		name: 'VGC',
 		desc: `Applies basic VGC rules to an existing format.`,
-		effectType: 'Rule',
 		gameType: 'doubles',
 		forcedLevel: 50,
 		teamLength: {
