@@ -1374,9 +1374,9 @@ export const Formats: {[k: string]: FormatData} = {
 			this.add('-start', pokemon, 'typechange', (pokemon.illusion || pokemon).getTypes(true).join('/'), '[silent]');
 		},
 	},
-	vgc: {
+	vgctemplate: {
 		effectType: 'Rule',
-		name: 'VGC',
+		name: 'VGC Template',
 		desc: `Applies basic VGC rules to an existing format.`,
 		// to do: remove !HP Percentage Mod, !OHKO Clause, !Evasion Moves Clause, !Sleep Clause Mod
 		onStart() {
@@ -1398,6 +1398,15 @@ export const Formats: {[k: string]: FormatData} = {
 				return ['You need at least 4 Pokémon for VGC!'];
 			}
 			return [];
+			// fake Species Clause
+			const speciesTable: Set<number> = new Set();
+			for (const set of team) {
+				const species = this.dex.getSpecies(set.species);
+				if (speciesTable.has(species.num)) {
+					return [`You are limited to one of each Pokémon by Species Clause.`, `(You have more than one ${species.baseSpecies})`];
+				}
+				speciesTable.add(species.num);
+			}
 			// fake Item Clause
 			const itemTable: Set<string> = new Set();
 			for (const set of team) {
