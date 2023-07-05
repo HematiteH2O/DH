@@ -1434,4 +1434,20 @@ export const Formats: {[k: string]: FormatData} = {
 			}
 		},
 	},
+	vgctemplatemod: {
+		effectType: 'Rule',
+		name: 'VGC Template Mod',
+		desc: `Applies basic VGC rules to an existing format.`,
+		// to do: remove !HP Percentage Mod, !OHKO Clause, !Evasion Moves Clause, !Sleep Clause Mod
+		ruleset: [
+			'Team Preview', 'Species Clause', 'Nickname Clause', 'Item Clause', 'VGC Timer', 'Cancel Mod',
+			'!HP Percentage Mod', '!OHKO Clause', '!Evasion Moves Clause', '!Sleep Clause Mod'
+		],
+		gameType: 'doubles',
+		forcedLevel: 50,
+		teamLength: {
+			validate: [4, 6],
+			battle: 4,
+		},
+	},
 };
