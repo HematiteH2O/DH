@@ -1,15 +1,22 @@
 export const Scripts: ModdedBattleScriptsData = {
 	init() {
-		const pulseTms = [
-			'adrenalinerush', 'aerialace', 'aftershock', 'aircurrent', 'attract', 'blizzard', 'bloodboil', 'brickbreak', 'bulkup', 'bulldoze', 'calmmind', 'darkpulse',
-			'dazzlinggleam', 'dragonclaw', 'drainpunch', 'earthquake', 'embargo', 'energyball', 'expiration', 'explosion', 'facade', 'falseswipe', 'fireblast', 'flamecharge',
-			'flamethrower', 'flashcannon', 'fling', 'focusblast', 'focuspunch', 'frustration', 'gigadrain', 'gigaimpact', 'gyroball', 'hail', 'healblock', 'hiddenpower',
-			'hyperbeam', 'icebeam', 'lastwill', 'lightscreen', 'liquidation', 'magiccoat', 'naturepower', 'oilfire', 'overheat', 'piledriver', 'poweruppunch',
-			'protect', 'psychic', 'psyshock', 'quash', 'raindance', 'reflect', 'reputation', 'rest', 'retaliate', 'return', 'revolvingdoorslam', 'risingvoltage', 'roar',
-			'rockpolish', 'rockslide', 'rocktomb', 'roost', 'safeguard', 'sandstorm', 'scald', 'scorchingsands', 'shadowball', 'shockwave', 'skydrop', 'sleeptalk',
-			'sludgebomb', 'snarl', 'snatch', 'solarbeam', 'splashzone', 'steelwing', 'stingingthorns', 'stoneedge', 'substitute', 'sunnyday', 'surf', 'swagger',
-			'swordsdance', 'taunt', 'thief', 'thunder', 'thunderwave', 'thunderbolt', 'torment', 'toxic', 'trickroom', 'uturn', 'voltswitch', 'wildcharge', 'willowisp',
-			'windshear', 'workup', 'xscissor',
+		const svTms = [
+			'bodyslam', 'facade', 'falseswipe', 'gigaimpact', 'takedown', 'hyperbeam', 'hypervoice', 'swift', 'terablast', 'batonpass', 'encore', 'endure',
+			'helpinghand', 'metronome', 'protect', 'scaryface', 'sleeptalk', 'substitute', 'swordsdance', 'firefang', 'firepunch', 'flamecharge', 'flareblitz',
+			'blastburn', 'fireblast', 'firepledge', 'firespin', 'flamethrower', 'heatwave', 'overheat', 'sunnyday', 'willowisp', 'liquidation', 'waterfall',
+			'chillingwater', 'hydrocannon', 'hydropump', 'surf', 'waterpledge', 'waterpulse', 'raindance', 'thunderfang', 'thunderpunch', 'wildcharge',
+			'chargebeam', 'electroball', 'thunder', 'thunderbolt', 'voltswitch', 'eerieimpulse', 'electricterrain', 'thunderwave', 'bulletseed', 'seedbomb',
+			'trailblaze', 'energyball', 'frenzyplant', 'gigadrain', 'grassknot', 'grasspledge', 'leafstorm', 'magicalleaf', 'solarbeam', 'grassyterrain',
+			'avalanche', 'icefang', 'icepunch', 'icespinner', 'blizzard', 'icebeam', 'icywind', 'snowscape', 'bodypress', 'brickbreak', 'closecombat',
+			'drainpunch', 'lowkick', 'lowsweep', 'reversal', 'aurasphere', 'focusblast', 'bulkup', 'gunkshot', 'poisonjab', 'poisontail', 'acidspray',
+			'sludgebomb', 'venoshock', 'toxicspikes', 'bulldoze', 'dig', 'drillrun', 'earthquake', 'stompingtantrum', 'earthpower', 'mudshot', 'mudslap',
+			'spikes', 'acrobatics', 'aerialace', 'bravebird', 'fly', 'aircutter', 'airslash', 'hurricane', 'tailwind', 'psychicfangs', 'zenheadbutt', 'psybeam',
+			'psychic', 'psyshock', 'storedpower', 'agility', 'amnesia', 'calmmind', 'imprison', 'lightscreen', 'psychicterrain', 'reflect', 'rest', 'skillswap',
+			'trick', 'trickroom', 'leechlife', 'pounce', 'uturn', 'xscissor', 'bugbuzz', 'pollenpuff', 'strugglebug', 'rockblast', 'rockslide', 'rocktomb',
+			'stoneedge', 'powergem', 'sandstorm', 'stealthrock', 'phantomforce', 'shadowclaw', 'hex', 'nightshade', 'shadowball', 'confuseray', 'dragonclaw',
+			'dragontail', 'outrage', 'dracometeor', 'dragonpulse', 'dragondance', 'crunch', 'fling', 'foulplay', 'thief', 'darkpulse', 'snarl', 'faketears',
+			'nastyplot', 'taunt', 'heavyslam', 'ironhead', 'metalclaw', 'smartstrike', 'flashcannon', 'steelbeam', 'irondefense', 'playrough', 'dazzlinggleam',
+			'disarmingvoice', 'drainingkiss'
 		];
 		const dexitedMoves = [
 			'karatechop', 'doubleslap', 'cometpunch', 'razorwind', 'jumpkick', 'rollingkick', 'twineedle', 'sonicboom', 'submission', 'dragonrage', 'meditate', 
@@ -39,7 +46,7 @@ export const Scripts: ModdedBattleScriptsData = {
 				'acidarmor', 'acupressure', 'agility', 'amnesia', 'aquastep', 'aurawheel', 'autotomize', 'barrier', 'bellydrum', 'bloodboil', 'bulkup', 'calmmind',
 				'clangoroussoul', 'coil', 'cosmicpower', 'cottonguard', 'curse', 'defendorder', 'diamondstorm', 'dragondance', 'filletaway', 'flamecharge', 'geomancy',
 				'growth', 'honeclaws', 'irondefense', 'metamorphosis', 'nastyplot', 'noretreat', 'quiverdance', 'rockpolish', 'runningstart', 'shellsmash', 'shelter',
-				'shiftgear', 'stockpile', 'stuffcheeks', 'surgingstrikes', 'swordsdance', 'tailglow', 'takeheart', 'trailblaze', 'triplearrows', 'victorydance',
+				'shiftgear', 'stockpile', 'stuffcheeks', 'swordsdance', 'tailglow', 'takeheart', 'trailblaze', 'triplearrows', 'victorydance',
 			],
 			Disrupt: [
 				// Status
@@ -127,6 +134,16 @@ export const Scripts: ModdedBattleScriptsData = {
 		for (const id in this.dataCache.Pokedex) {
 			const poke = this.dataCache.Pokedex[id];
 			if (!poke || poke.evos) continue; // skip NFEs... and anything that can't be read correctly, just in case
+			const groupBUnbanlist = [
+				"Agonette", "Alchevul", "Androimatide", "Armaruin", "Awesdruk", "Baashful", "Basilud", "Brasshopper", "Bruined", "Caddismith", "Caeruleto", "Capanopy", "Cardborg", "Carecrow", "Cavvage", "Chitana", "Chloravage", "Chubee", "Cloconstruct", "Covloris", "Croakast", "Cryosaurite", "Diabol", "Draatle", "Dreampunk", "Esporesce", "Faeraith", "Falstiletto", "Fendeerie", "Ferticotta", "Flumflare", "Fridgeate", "Frozalisk", "Fulmineus", "Funera", "Gachacha", "Gastrel", "Gnomeush", "Gorilax", "Harmadillo", "Hydrongea", "IronRailgun", "Jab-bark", "Jamborai", "Kaledzi", "Kepa-ying", "Klimausion", "Kurayami", "Lepwozectur", "Libuble", "Lizhaman", "Locustab", "Marshwift", "Matitrick", "Melethyst", "Mochiknight", "Mon-Chi", "Mustank", "Neuranium", "Ohlmagoon", "Orbitgami", "Origyrant", "Pandamonium", "Phantasail", "Phanthazem", "Plasmacaw", "Pompadork", "Possabomb", "Pyrelic", "Pyroccult", "Pyrove", "Ralirulero", "Rexxon", "Roquack", "Roseaphot", "Sail-Goshi", "Sapparine", "Scorjester", "Scorpdyceps", "Searberus", "Shockatrice", "Snowpea", "Spectache", "Spirem", "Spongimney", "Squwhirrl", "Sundon", "Surchin", "Thorbarage", "Tiramitzu", "Tometex", "Tusquoka-Agent", "Tyrannyan", "Vamperilico", "Velvittle", "Vesquadron", "Vulchar", "Wiifii", "Wildemyst", "Zassansa", "Zauryo", "Zenoise", "Zunowy",
+			];
+			if (poke.num > 999) {
+				poke.kind = "Group B";
+			} else if (groupBUnbanlist.includes(poke.name)) {
+				poke.kind = "Group AB";
+			} else {
+				poke.kind = "Group A";
+			}
 			if (this.dataCache.Learnsets[id] && this.dataCache.Learnsets[id].learnset) {
 				printno++;
 				poke.learnsetCumulative = {};
@@ -270,7 +287,7 @@ export const Scripts: ModdedBattleScriptsData = {
 					// "fringe moves" and transfer-only moves and future buffs are all lumped into one category unless they're TMs or tutors in Pulse
 					let learned = false;
 					let learnedNatural = false;
-					let learnedTmTutor = pulseTms.includes(moveid);
+					let learnedTmTutor = svTms.includes(moveid);
 					if (learnset[moveid] || ((learnset2 && learnset2[moveid])) || ((learnset3 && learnset3[moveid])) || (learnset4 && learnset4[moveid])) { // if it learns the move itself
 						for (const source of learnset[moveid]) {
 							learned = true;
