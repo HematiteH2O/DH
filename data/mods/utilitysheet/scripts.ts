@@ -1,20 +1,5 @@
 export const Scripts: ModdedBattleScriptsData = {
 	init() {
-		const platinumDex = [
-			"Turtwig", "Grotle", "Torterra", "Chimchar", "Monferno", "Infernape", "Piplup", "Prinplup", "Empoleon", "Starly", "Staravia", "Staraptor", "Bidoof", "Bibarel", "Kricketot", "Kricketune", "Shinx", "Luxio", "Luxray", "Abra", "Kadabra", "Alakazam", "Magikarp", "Gyarados", "Budew", "Roselia", "Roserade", "Zubat", "Golbat", "Crobat", "Geodude", "Graveler", "Golem", "Onix", "Steelix", "Cranidos", "Rampardos", "Shieldon", "Bastiodon", "Machop", "Machoke", "Machamp", "Psyduck", "Golduck", "Burmy", "Wormadam", "Wormadam-Sandy", "Wormadam-Trash", "Mothim", "Wurmple", "Silcoon", "Beautifly", "Cascoon", "Dustox", "Combee", "Vespiquen", "Pachirisu", "Buizel", "Floatzel", "Cherubi", "Cherrim", "Shellos", "Gastrodon", "Heracross", "Aipom", "Ambipom", "Drifloon", "Drifblim", "Buneary", "Lopunny", "Gastly", "Haunter", "Gengar", "Misdreavus", "Mismagius", "Murkrow", "Honchkrow", "Glameow", "Purugly", "Goldeen", "Seaking", "Barboach", "Whiscash", "Chingling", "Chimecho", "Stunky", "Skuntank", "Meditite", "Medicham", "Bronzor", "Bronzong", "Ponyta", "Rapidash", "Bonsly", "Sudowoodo", "Mime Jr.", "Mr. Mime", "Happiny", "Chansey", "Blissey", "Cleffa", "Clefairy", "Clefable", "Chatot", "Pichu", "Pikachu", "Raichu", "Hoothoot", "Noctowl", "Spiritomb", "Gible", "Gabite", "Garchomp", "Munchlax", "Snorlax", "Unown", "Riolu", "Lucario", "Wooper", "Quagsire", "Wingull", "Pelipper", "Girafarig", "Hippopotas", "Hippowdon", "Azurill", "Marill", "Azumarill", "Skorupi", "Drapion", "Croagunk", "Toxicroak", "Carnivine", "Remoraid", "Octillery", "Finneon", "Lumineon", "Tentacool", "Tentacruel", "Feebas", "Milotic", "Mantyke", "Mantine", "Snover", "Abomasnow", "Sneasel", "Weavile", "Rotom", "Gligar", "Gliscor", "Nosepass", "Probopass", "Ralts", "Kirlia", "Gardevoir", "Gallade", "Lickitung", "Lickilicky", "Eevee", "Vaporeon", "Jolteon", "Flareon", "Espeon", "Umbreon", "Leafeon", "Glaceon", "Swablu", "Altaria", "Togepi", "Togetic", "Togekiss", "Houndour", "Houndoom", "Magnemite", "Magneton", "Magnezone", "Tangela", "Tangrowth", "Yanma", "Yanmega", "Tropius", "Rhyhorn", "Rhydon", "Rhyperior", "Duskull", "Dusclops", "Dusknoir", "Porygon", "Porygon2", "Porygon-Z", "Scyther", "Scizor", "Elekid", "Electabuzz", "Electivire", "Magby", "Magmar", "Magmortar", "Swinub", "Piloswine", "Mamoswine", "Snorunt", "Glalie", "Froslass", "Absol",
-		];
-		const bdspAndLegends = [
-			"Smoochum", "Jynx", "Pinsir", "Sneasel-Hisui", "Sneasler", "Kleavor", "Vulpix-Alola", "Ninetales-Alola", "Growlithe-Hisui", "Arcanine-Hisui", "Basculin-White-Striped", "Basculegion", "Basculegion-F", "Qwilfish-Hisui", "Overqwil", "Voltorb-Hisui", "Electrode-Hisui", "Petilil", "Lilligant-Hisui", "Bergmite", "Avalugg-Hisui", "Spheal", "Sealeo", "Walrein", "Paras", "Parasect", "Teddiursa", "Ursaring", "Ursaluna", "Rufflet", "Braviary-Hisui", "Goomy", "Sliggoo-Hisui", "Goodra-Hisui", "Zorua-Hisui", "Zoroark-Hisui", "Stantler", "Wyrdeer",
-		];
-		const variants = [
-			"Geodude-Alola", "Graveler-Alola", "Golem-Alola", "Ponyta-Galar", "Rapidash-Galar", "Mr. Mime-Galar", "Raichu-Alola", "Wooper-Paldea", "Mr. Rime", "Sylveon", "Clodsire", "Farigiraf", "Vulpix", "Ninetales", "Growlithe", "Arcanine", "Qwilfish", "Basculin", "Basculin-Blue-Striped", "Voltorb", "Electrode", "Lilligant", "Avalugg", "Braviary", "Sliggoo", "Goodra", "Zorua", "Zoroark",
-		];
-		const otherAdditions = [
-			 "Darumaka", "Darumaka-Galar", "Darmanitan", "Darmanitan-Zen", "Darmanitan-Galar", "Darmanitan-Galar-Zen", "Numel", "Camerupt", "Slugma", "Magcargo", "Turtonator", "Poliwag", "Poliwhirl", "Poliwrath", "Politoed", "Clamperl", "Huntail", "Gorebyss", "Luvdisc", "Wailmer", "Wailord", "Pyukumuku", "Chinchou", "Lanturn", "Shellder", "Cloyster", "Seel", "Dewgong", "Staryu", "Starmie", "Relicanth", "Frillish", "Jellicent", "Horsea", "Seadra", "Kingdra", "Carvanha", "Sharpedo", "Corphish", "Crawdaunt", "Tynamo", "Eelektrik", "Eelektross", "Toxel", "Toxtricity", "Toxtricity-Low-Key", "Helioptile", "Heliolisk", "Oddish", "Gloom", "Vileplume", "Bellossom", "Skiddo", "Gogoat", "Fomantis", "Lurantis", "Shroomish", "Breloom", "Bellsprout", "Weepinbell", "Victreebel", "Exeggcute", "Exeggutor", "Exeggutor-Alola", "Cacnea", "Cacturne", "Snom", "Frosmoth", "Throh", "Sawk", "Crabrawler", "Crabominable", "Pancham", "Pangoro", "Koffing", "Weezing", "Weezing-Galar", "Gulpin", "Swalot", "Salandit", "Salazzle", "Diglett", "Diglett-Alola", "Dugtrio", "Dugtrio-Alola", "Mudbray", "Mudsdale", "Silicobra", "Sandaconda", "Golett", "Golurk", "Noibat", "Noivern", "Munna", "Musharna", "Espurr", "Meowstic", "Meowstic-F", "Hatenna", "Hattrem", "Hatterene", "Indeedee", "Indeedee-F", "Volbeat", "Illumise", "Shelmet", "Accelgor", "Karrablast", "Escavalier", "Wimpod", "Golisopod", "Grubbin", "Charjabug", "Vikavolt", "Spinarak", "Ariados", "Ledyba", "Ledian", "Surskit", "Masquerain", "Rolycoly", "Carkol", "Coalossal", "Minior", "Minior-Meteor", "Carbink", "Shuppet", "Banette", "Phantump", "Trevenant", "Dhelmise", "Axew", "Fraxure", "Haxorus", "Jangmo-o", "Hakamo-o", "Kommo-o", "Dratini", "Dragonair", "Dragonite", "Pawniard", "Bisharp", "Kingambit", "Rattata", "Rattata-Alola", "Raticate", "Raticate-Alola", "Skarmory", "Honedge", "Doublade", "Aegislash", "Aegislash-Blade", "Milcery", "Alcremie", "Kangaskhan", "Pidgey", "Pidgeotto", "Pidgeot", "Spearow", "Fearow", "Drampa", "Cyclizar", "Fidough", "Dachsbun", "Charcadet", "Armarouge", "Ceruledge", "Nacli", "Naclstack", "Garganacl", "Glimmet", "Glimmora", "Cetoddle", "Cetitan", "Tatsugiri", "Dondozo", "Nymble", "Lokix", "Gimmighoul", "Gholdengo", "Toedscool", "Toedscruel", "Wiglett", "Wugtrio",
-		];
-		const legendaries = [
-			"Uxie", "Mesprit", "Azelf", "Dialga", "Palkia", "Manaphy", "Giratina", "Heatran", "Regigigas", "Cresselia", "Phione", "Darkrai", "Shaymin", "Arceus", "Sandy Shocks", "Flutter Mane", "Iron Valiant", "Blacephalon", "Stakataka", "Regirock", "Regice", "Registeel", "Type: Null", "Silvally", "Necrozma",
-		];
 		const pulseTms = [
 			'adrenalinerush', 'aerialace', 'aftershock', 'aircurrent', 'attract', 'blizzard', 'bloodboil', 'brickbreak', 'bulkup', 'bulldoze', 'calmmind', 'darkpulse',
 			'dazzlinggleam', 'dragonclaw', 'drainpunch', 'earthquake', 'embargo', 'energyball', 'expiration', 'explosion', 'facade', 'falseswipe', 'fireblast', 'flamecharge',
@@ -26,23 +11,24 @@ export const Scripts: ModdedBattleScriptsData = {
 			'swordsdance', 'taunt', 'thief', 'thunder', 'thunderwave', 'thunderbolt', 'torment', 'toxic', 'trickroom', 'uturn', 'voltswitch', 'wildcharge', 'willowisp',
 			'windshear', 'workup', 'xscissor',
 		];
-		const pulseTutors = [
-			'acidspray', 'aircutter', 'ancientpower', 'aquatail', 'avalanche', 'blastburn', 'block', 'bodypress', 'bounce', 'brine', 'bugbite', 'bulletseed',
-			'burningjealousy', 'chargebeam', 'cut', 'defog', 'dig', 'dive', 'doubleteam', 'dracometeor', 'dracometeor', 'dragonascent', 'dragonpulse', 'dragontail',
-			'drainingkiss', 'dreameater', 'earthpower', 'endeavor', 'endure', 'firepledge', 'firepunch', 'flash', 'fly', 'foulplay', 'frenzyplant', 'furycutter',
-			'gastroacid', 'grassknot', 'grasspledge', 'gravity', 'gunkshot', 'healbell', 'heatwave', 'helpinghand', 'hydrocannon', 'hypervoice', 'icepunch', 'icywind',
-			'incinerate', 'irondefense', 'ironhead', 'irontail', 'knockoff', 'lastresort', 'lowkick', 'magnetrise', 'meteorbeam', 'mudslap', 'naturalgift', 'nosedive',
-			'ominouswind', 'outrage', 'painsplit', 'payback', 'playrough', 'pluck', 'poisonjab', 'poltergeist', 'psychup', 'recycle', 'relicsong', 'rockclimb',
-			'rocksmash', 'roleplay', 'rollout', 'secretpower', 'secretsword', 'seedbomb', 'shadowclaw', 'signalbeam', 'silverwind', 'skillswap', 'skyattack',
-			'sleightofhand', 'snore', 'spite', 'stealthrock', 'steelbeam', 'steelbeam', 'stompingtantrum', 'strength', 'stringshot', 'suckerpunch', 'superfang',
-			'superpower', 'swift', 'synthesis', 'tailwind', 'thunderpunch', 'trick', 'twister', 'uproar', 'vcreate', 'vacuumwave', 'volttackle', 'waterpledge',
-			'waterpulse', 'waterfall', 'worryseed', 'zenheadbutt', 'powershift', 'risingstalk', 'risingheat', 'risingtide',
-		]; // excludes Captivate
-		const notRealTutors = [
-			'relicsong', 'blastburn', 'firepledge', 'vcreate', 'hydrocannon', 'waterpledge', 'volttackle', 'frenzyplant', 'grasspledge', 'secretsword', 'dragonascent',
-		]; // don't show up as recommended if the Pokémon doesn't already get them
 		const dexitedMoves = [
-			'doubleteam', 'flash', 'kinesis', 'minimize', 'sandattack', 'smokescreen', 'storedpower', 'terablast',
+			'karatechop', 'doubleslap', 'cometpunch', 'razorwind', 'jumpkick', 'rollingkick', 'twineedle', 'sonicboom', 'submission', 'dragonrage', 'meditate', 
+			'rage', 'barrier', 'bide', 'mirrormove', 'eggbomb', 'boneclub', 'clamp', 'skullbash', 'spikecannon', 'constrict', 'kinesis', 'barrage', 'lovelykiss', 
+			'bubble', 'dizzypunch', 'flash', 'psywave', 'bonemerang', 'hyperfang', 'sharpen', 'conversion', 'sketch', 'triplekick', 'spiderweb', 'mindreader', 
+			'nightmare', 'conversion2', 'aeroblast', 'feintattack', 'octazooka', 'foresight', 'return', 'frustration', 'sacredfire', 'magnitude', 'pursuit', 
+			'vitalthrow', 'hiddenpower', 'hail', 'smellingsalts', 'naturepower', 'assist', 'magiccoat', 'revenge', 'refresh', 'grudge', 'snatch', 'secretpower', 
+			'camouflage', 'tailglow', 'lusterpurge', 'mistball', 'mudsport', 'iceball', 'needlearm', 'aromatherapy', 'odorsleuth', 'silverwind', 'grasswhistle', 
+			'signalbeam', 'skyuppercut', 'watersport', 'doomdesire', 'psychoboost', 'miracleeye', 'wakeupslap', 'naturalgift', 'embargo', 'psychoshift', 
+			'trumpcard', 'healblock', 'wringout', 'luckychant', 'mefirst', 'punishment', 'mudbomb', 'mirrorshot', 'rockclimb', 'rockwrecker', 'magnetbomb', 
+			'captivate', 'chatter', 'healorder', 'crushgrip', 'darkvoid', 'seedflare', 'ominouswind', 'autotomize', 'telekinesis', 'stormthrow', 'flameburst', 
+			'synchronoise', 'chipaway', 'skydrop', 'bestow', 'dualchop', 'heartstamp', 'leaftornado', 'steamroller', 'headcharge', 'geargrind', 'searingshot', 
+			'technoblast', 'secretsword', 'glaciate', 'boltstrike', 'blueflare', 'freezeshock', 'iceburn', 'fusionflare', 'fusionbolt', 'matblock', 'rototiller', 
+			'trickortreat', 'iondeluge', 'forestscurse', 'topsyturvy', 'craftyshield', 'flowershield', 'electrify', 'kingsshield', 'venomdrench', 'powder', 
+			'geomancy', 'poweruppunch', 'oblivionwing', 'thousandarrows', 'thousandwaves', 'landswrath', 'lightofruin', 'sparklingaria', 'floralhealing', 
+			'spotlight', 'toxicthread', 'laserfocus', 'gearup', 'anchorshot', 'purify', 'coreenforcer', 'beakblast', 'clangingscales', 'dragonhammer', 
+			'shelltrap', 'shadowbone', 'prismaticlaser', 'spectralthief', 'sunsteelstrike', 'moongeistbeam', 'naturesmadness', 'multiattack', 
+			'mindblown', 'plasmafists', 'photongeyser', 'doubleironbash', 'maxguard', 'octolock', 'boltbeak', 'fishiousrend', 'clangoroussoul', 'decorate', 
+			'snaptrap', 'aurawheel', 'strangesteam', 'obstruct', 'meteorassault', 'eternabeam', 
 		];
 		const movepoolSections = {
 			Self: [
@@ -95,350 +81,9 @@ export const Scripts: ModdedBattleScriptsData = {
 			Flavor: [],
 		}; // provisional
 
-		// event moves from Gen I and Gen II
-		const newMoves = (mon: string, moves: string[]) => {
-			for (const move of moves) {
-				this.modData('Learnsets', this.toID(mon)).learnset[this.toID(move)] = ["3S0"];
-			}
-		};
-		newMoves("bulbasaur", ["ancientpower"]);
-		newMoves("squirtle", ["zapcannon"]);
-		newMoves("spearow", ["sonicboom"]);
-		newMoves("fearow", ["payday"]);
-		newMoves("pichu", ["dizzypunch", "petaldance", "scaryface", "sing"]);
-		newMoves("nidoranf", ["lovelykiss", "moonlight", "sweetkiss"]);
-		newMoves("nidoranm", ["lovelykiss", "morningsun", "sweetkiss"]);
-		newMoves("cleffa", ["dizzypunch", "petaldance", "scaryface", "swift"]);
-		newMoves("igglybuff", ["dizzypunch", "petaldance", "scaryface"]);
-		newMoves("zubat", ["flail"]);
-		newMoves("psyduck", ["petaldance", "triattack"]);
-		newMoves("poliwag", ["growth", "lovelykiss"]);
-		newMoves("abra", ["foresight"]);
-		newMoves("machop", ["falseswipe", "thrash"]);
-		newMoves("bellsprout", ["lovelykiss", "sweetkiss"]);
-		newMoves("geodude", ["rapidspin"]);
-		newMoves("magnemite", ["agility"]);
-		newMoves("doduo", ["lowkick"]);
-		newMoves("seel", ["flail"]);
-		newMoves("onix", ["sharpen"]);
-		newMoves("drowzee", ["amnesia"]);
-		newMoves("voltorb", ["agility"]);
-		newMoves("cubone", ["furyattack"]);
-		newMoves("tyrogue", ["dizzypunch", "rage"]);
-		newMoves("lickitung", ["doubleslap"]);
-		newMoves("kangaskhan", ["feintattack"]);
-		newMoves("horsea", ["haze"]);
-		newMoves("mrmime", ["mindreader"]);
-		newMoves("scyther", ["sonicboom"]);
-		newMoves("smoochum", ["dizzypunch", "petaldance"]);
-		newMoves("elekid", ["dizzypunch", "pursuit"]);
-		newMoves("magby", ["dizzypunch"]);
-		newMoves("pinsir", ["rockthrow"]);
-		newMoves("tauros", ["quickattack"]);
-		newMoves("magikarp", ["bubble", "dragonrage", "reversal"]);
-		newMoves("lapras", ["bite"]);
-		newMoves("eevee", ["growth"]);
-		newMoves("snorlax", ["lovelykiss", "splash", "sweetkiss"]);
-		newMoves("chikorita", ["petaldance"]);
-		newMoves("totodile", ["submission"]);
-		newMoves("sentret", ["dizzypunch"]);
-		newMoves("ledyba", ["barrier"]);
-		newMoves("spinarak", ["growth"]);
-		newMoves("chinchou", ["lightscreen"]);
-		newMoves("natu", ["safeguard"]);
-		newMoves("marill", ["dizzypunch", "scaryface"]);
-		newMoves("hoppip", ["agility"]);
-		newMoves("sunkern", ["splash"]);
-		newMoves("yanma", ["sweetkiss"]);
-		newMoves("wooper", ["bellydrum", "scaryface"]);
-		newMoves("murkrow", ["beatup"]);
-		newMoves("misdreavus", ["hypnosis"]);
-		newMoves("wobbuffet", ["mimic"]);
-		newMoves("dunsparce", ["furyattack", "horndrill"]);
-		newMoves("snubbull", ["lovelykiss"]);
-		newMoves("sneasel", ["moonlight"]);
-		newMoves("swinub", ["whirlwind"]);
-		newMoves("remoraid", ["amnesia", "mist"]);
-		newMoves("delibird", ["payday"]);
-		newMoves("mantine", ["gust"]);
-		newMoves("phanpy", ["absorb", "encore"]);
-		newMoves("stantler", ["safeguard"]);
-		newMoves("larvitar", ["rage"]);
-
-		// these are from BDSP
-		const bdspMoves = (mon: string, moves: string[]) => {
-			for (const move of moves) {
-				this.modData('Learnsets', this.toID(mon)).learnset[this.toID(move)] = ["8S0"];
-			}
-		};
-		bdspMoves("arceus", ["healingwish"]);
-		bdspMoves("ariados", ["bugbuzz"]);
-		bdspMoves("beautifly", ["leechlife"]);
-		bdspMoves("cacturne", ["assurance"]);
-		bdspMoves("camerupt", ["flamewheel"]);
-		bdspMoves("chatot", ["partingshot"]);
-		bdspMoves("darkrai", ["confuseray"]);
-		bdspMoves("deoxys", ["switcheroo", "toxicspikes"]);
-		bdspMoves("delcatty", ["babydolleyes", "furyswipes", "nastyplot"]);
-		bdspMoves("dodrio", ["leer", "lunge", "wingattack"]);
-		bdspMoves("dustox", ["leechlife"]);
-		bdspMoves("electrode", ["thundershock"]);
-		bdspMoves("empoleon", ["charm", "watergun"]);
-		bdspMoves("fearow", ["wingattack"]);
-		bdspMoves("floatzel", ["bite", "tackle", "tailwhip"]);
-		bdspMoves("forretress", ["bugbuzz"]);
-		bdspMoves("furret", ["growl"]);
-		bdspMoves("gligar", ["mudslap"]);
-		bdspMoves("grumpig", ["confusion", "growl", "nastyplot"]);
-		bdspMoves("honchkrow", ["gust"]);
-		bdspMoves("hypno", ["mindreader"]);
-		bdspMoves("kecleon", ["detect"]);
-		bdspMoves("luvdisc", ["babydolleyes", "tearfullook"]);
-		bdspMoves("manaphy", ["watergun"]);
-		bdspMoves("masquerain", ["soak", "supersonic", "watergun"]);
-		bdspMoves("medicham", ["pound", "psybeam"]);
-		bdspMoves("mightyena", ["nastyplot"]);
-		bdspMoves("mismagius", ["confusion"]);
-		bdspMoves("muk", ["smog"]);
-		bdspMoves("phione", ["watergun"]);
-		bdspMoves("pineco", ["autotomize"]);
-		bdspMoves("plusle", ["skillswap"]);
-		bdspMoves("probopass", ["bodypress"]);
-		bdspMoves("raticate", ["laserfocus", "sludgebomb"]);
-		bdspMoves("sentret", ["blizzard"]);
-		bdspMoves("slugma", ["sandstorm"]);
-		bdspMoves("stantler", ["entrainment", "lunge"]);
-		bdspMoves("sunflora", ["tackle"]);
-		bdspMoves("torterra", ["leafage"]);
-		bdspMoves("volbeat", ["playnice"]);
-		bdspMoves("wormadam", ["dig"]);
-		bdspMoves("wormadamsandy", ["dig", "gigadrain", "solarbeam"]);
-		bdspMoves("wormadamtrash", ["dig", "gigadrain", "solarbeam"]);
-		bdspMoves("yanmega", ["gust", "swordsdance"]);
-
-		const bdspRockClimb = (move: string, mons: string[]) => {
-			for (const mon of mons) {
-				this.modData('Learnsets', this.toID(mon)).learnset[this.toID(move)] = ["8S0"];
-			}
-		};
-		bdspRockClimb("rockclimb", ["venusaur", "blastoise", "nidoqueen", "nidoking", "golduck", "mankey", "primeape", "arcanine", "poliwrath", "machop", "machoke", "machamp", "cubone", "marowak", "hitmonlee", "hitmonchan", "chansey", "kangaskhan", "electabuzz", "magmar", "pinsir", "omastar", "kabutops", "snorlax", "mewtwo", "mew", "meganium", "typhlosion", "feraligatr", "ampharos", "granbull", "ursaring", "blissey", "raikou", "entei", "suicune", "tyranitar", "sceptile", "blaziken", "swampert", "ludicolo", "vigoroth", "slaking", "exploud", "makuhita", "hariyama", "aggron", "zangoose", "regirock", "regice", "registeel", "groudon", "turtwig", "grotle", "torterra", "chimchar", "monferno", "infernape", "empoleon", "cranidos", "rampardos", "munchlax", "lucario", "drapion", "croagunk", "toxicroak", "abomasnow", "electivire", "magmortar", "mamoswine", "heatran", "regigigas", "giratina", "darkrai", "arceus"]);
-
-		// these are from Legends: Arceus
-		for (const id in this.dataCache.Pokedex) {
-			if (this.dataCache.Learnsets.learnset2[id]) {
-				for (const moveid in this.dataCache.Learnsets.learnset2[id]) {
-					if (!this.modData('Learnsets', id).learnset[moveid]) this.modData('Learnsets', id).learnset[moveid] = this.dataCache.Learnsets.learnset2[id][moveid];
-				}
-			}
-			// some exceptional hard-coding
-			if (id === 'basculinwhitestriped') { // just another Basculin stripe
-				for (const moveid in this.dataCache.Learnsets.basculin.learnset) {
-					let skip = false;
-					for (const source of this.dataCache.Learnsets.basculin.learnset[moveid]) {
-						if (parseInt(source.charAt(0)) === 9) skip = true; // don't give Basculegion moves from Basculin that were intentionally cut from its movepool
-					}
-					if (!skip && !this.modData('Learnsets', id).learnset[moveid]) this.modData('Learnsets', id).learnset[moveid] = this.dataCache.Learnsets.basculin.learnset[moveid];
-				}
-			} // I might extend this same practice to other regional variants
-			if (id === 'basculegionf') { // same learnset as male Basculegion
-				for (const moveid in this.dataCache.Learnsets.learnset2.basculegion) {
-					if (!this.modData('Learnsets', id).learnset[moveid]) this.modData('Learnsets', id).learnset[moveid] = this.dataCache.Learnsets.learnset2.basculegion[moveid];
-				}
-			}
-		}
-		const legendsMoves = (mon: string, moves: string[]) => {
-			for (const move of moves) {
-				this.modData('Learnsets', this.toID(mon)).learnset[this.toID(move)] = ["8S0"];
-			}
-		};
-		legendsMoves("abomasnow", ["iciclecrash"]);
-		legendsMoves("aipom", ["doubleedge", "mudbomb", "quickattack"]);
-		legendsMoves("ambipom", ["doubleedge", "mudbomb", "quickattack"]);
-		legendsMoves("arceus", ["ancientpower", "confusion", "quickattack", "extrasensory", "dazzlinggleam", "dracometeor", "mysticalfire", "steelbeam"]);
-		legendsMoves("azelf", ["doublehit", "mysticalpower", "powershift"]);
-		legendsMoves("barboach", ["zenheadbutt"]);
-		legendsMoves("bastiodon", ["powershift", "steelbeam"]);
-		legendsMoves("beautifly", ["airslash"]);
-		legendsMoves("bergmite", ["iceshard"]);
-		legendsMoves("bibarel", ["bite"]);
-		legendsMoves("bidoof", ["bite"]);
-		legendsMoves("blissey", ["babydolleyes", "drainingkiss", "fairywind", "powershift", "tackle"]);
-		legendsMoves("bonsly", ["headsmash", "irondefense", "tackle"]);
-		legendsMoves("budew", ["petaldance", "poisonjab", "poisonpowder", "poisonsting"]);
-		legendsMoves("buneary", ["doubleedge", "drainingkiss"]);
-		legendsMoves("burmy", ["strugglebug"]);
-		legendsMoves("carnivine", ["absorb", "leechlife"]);
-		legendsMoves("chansey", ["babydolleyes", "drainingkiss", "fairywind", "tackle"]);
-		legendsMoves("chatot", ["airslash", "gust", "hurricane", "powershift", "playrough", "snarl"]);
-		legendsMoves("cherrim", ["absorb", "doubleedge", "sleeppowder", "stunspore"]);
-		legendsMoves("cherubi", ["absorb", "doubleedge", "petaldance", "sleeppowder", "stunspore"]);
-		legendsMoves("chimchar", ["doubleedge", "tackle"]);
-		legendsMoves("chimecho", ["doubleedge", "extrasensory", "ominouswind"]);
-		legendsMoves("chingling", ["doubleedge", "extrasensory", "ominouswind", "energyball"]);
-		legendsMoves("clefable", ["babydolleyes", "doubleedge", "fairywind", "tackle"]);
-		legendsMoves("clefairy", ["babydolleyes", "doubleedge", "fairywind", "tackle"]);
-		legendsMoves("cleffa", ["babydolleyes", "calmmind", "doubleedge", "fairywind", "moonblast", "tackle"]);
-		legendsMoves("cranidos", ["bite", "tackle"]);
-		legendsMoves("cresselia", ["lunarblessing", "powershift", "recover", "tackle"]);
-		legendsMoves("croagunk", ["closecombat", "earthpower"]);
-		legendsMoves("cyndaquil", ["irontail"]);
-		legendsMoves("darkrai", ["hex", "shadowsneak"]);
-		legendsMoves("dartrix", ["aerialace", "airslash", "gust", "magicalleaf", "leafstorm", "psychocut"]);
-		legendsMoves("dewott", ["slash"]);
-		legendsMoves("drifblim", ["confusion", "extrasensory", "mysticalfire", "powershift"]);
-		legendsMoves("drifloon", ["confusion", "extrasensory", "mysticalfire"]);
-		legendsMoves("dusclops", ["absorb", "leechlife", "powershift"]);
-		legendsMoves("dusknoir", ["absorb", "leechlife", "powershift"]);
-		legendsMoves("duskull", ["absorb", "leechlife"]);
-		legendsMoves("dustox", ["extrasensory"]);
-		legendsMoves("eevee", ["calmmind", "mimic"]);
-		legendsMoves("electabuzz", ["spark"]);
-		legendsMoves("electivire", ["spark"]);
-		legendsMoves("elekid", ["spark"]);
-		legendsMoves("empoleon", ["doubleedge", "roost", "steelbeam", "wavecrash"]);
-		legendsMoves("espeon", ["mimic", "rocksmash"]);
-		legendsMoves("finneon", ["babydolleyes", "bubble", "airslash", "roost", "hydropump"]);
-		legendsMoves("flareon", ["calmmind", "powershift", "mimic"]);
-		legendsMoves("gallade", ["focusenergy", "icebeam"]);
-		legendsMoves("gardevoir", ["aurasphere", "recover", "icebeam"]);
-		legendsMoves("gastly", ["poisongas"]);
-		legendsMoves("gastrodon", ["tackle"]);
-		legendsMoves("gastrodoneast", ["tackle"]);
-		legendsMoves("gengar", ["poisongas", "powershift"]);
-		legendsMoves("glaceon", ["calmmind", "mimic", "powdersnow"]);
-		legendsMoves("glalie", ["iceball"]);
-		legendsMoves("glameow", ["doubleedge", "nastyplot", "nightslash", "tackle"]);
-		legendsMoves("gligar", ["mudbomb"]);
-		legendsMoves("gliscor", ["pinmissile", "spikes", "powershift"]);
-		legendsMoves("golbat", ["crosspoison"]);
-		legendsMoves("golduck", ["bubble", "triattack"]);
-		legendsMoves("goomy", ["acidspray", "hydropump", "shelter"]);
-		legendsMoves("grotle", ["bulldoze", "leafblade", "sleeppowder"]);
-		legendsMoves("gyarados", ["focusenergy"]);
-		legendsMoves("happiny", ["babydolleyes", "calmmind", "doubleedge", "drainingkiss", "fairywind", "softboiled", "tackle"]);
-		legendsMoves("haunter", ["poisongas"]);
-		legendsMoves("heatran", ["ember"]);
-		legendsMoves("heracross", ["slash", "calmmind", "outrage"]);
-		legendsMoves("hippopotas", ["mudbomb"]);
-		legendsMoves("hippowdon", ["mudbomb"]);
-		legendsMoves("honchkrow", ["airslash"]);
-		legendsMoves("infernape", ["doubleedge", "drainpunch", "ragingfury"]);
-		legendsMoves("jolteon", ["calmmind", "mimic"]);
-		legendsMoves("kadabra", ["hypnosis"]);
-		legendsMoves("kirlia", ["icebeam"]);
-		legendsMoves("kricketot", ["absorb", "tackle"]);
-		legendsMoves("kricketune", ["tackle"]);
-		legendsMoves("landorus", ["bite", "crunch", "sandsearstorm", "tackle", "twister"]);
-		legendsMoves("leafeon", ["calmmind", "leafage", "mimic"]);
-		legendsMoves("lickilicky", ["doubleedge", "tackle", "iceball"]);
-		legendsMoves("lickitung", ["doubleedge", "tackle", "iceball"]);
-		legendsMoves("lopunny", ["doubleedge", "drainingkiss", "machpunch"]);
-		legendsMoves("lucario", ["machpunch"]);
-		legendsMoves("lumineon", ["aerialace", "bubble", "airslash", "roost", "hydropump"]);
-		legendsMoves("machamp", ["doublehit", "drainpunch", "machpunch", "tackle"]);
-		legendsMoves("machoke", ["doublehit", "machpunch", "tackle"]);
-		legendsMoves("machop", ["doublehit", "machpunch", "tackle"]);
-		legendsMoves("magby", ["poisongas", "tackle"]);
-		legendsMoves("magmar", ["poisongas", "tackle"]);
-		legendsMoves("magmortar", ["poisongas", "tackle"]);
-		legendsMoves("mamoswine", ["babydolleyes"]);
-		legendsMoves("manaphy", ["bubble", "confusion", "hydropump", "moonblast", "takeheart", "zenheadbutt", "calmmind"]);
-		legendsMoves("mantine", ["doubleedge", "powershift"]);
-		legendsMoves("mantyke", ["doubleedge", "roost"]);
-		legendsMoves("mesprit", ["doublehit", "mysticalpower", "recover"]);
-		legendsMoves("mimejr", ["irondefense", "zenheadbutt"]);
-		legendsMoves("misdreavus", ["extrasensory", "hypnosis"]);
-		legendsMoves("mismagius", ["extrasensory", "hypnosis"]);
-		legendsMoves("monferno", ["doubleedge"]);
-		legendsMoves("mrmime", ["powershift"]);
-		legendsMoves("munchlax", ["gigaimpact", "highhorsepower", "iceball"]);
-		legendsMoves("murkrow", ["airslash", "nightslash"]);
-		legendsMoves("ninetales", ["flamewheel", "nastyplot"]);
-		legendsMoves("ninetalesalola", ["icefang"]);
-		legendsMoves("nosepass", ["flashcannon", "powershift"]);
-		legendsMoves("onix", ["powershift"]);
-		legendsMoves("oshawott", ["slash"]);
-		legendsMoves("pachirisu", ["crunch", "thundershock", "playrough"]);
-		legendsMoves("paras", ["energyball"]);
-		legendsMoves("petilil", ["leafage", "poisonpowder", "recover", "babydolleyes"]);
-		legendsMoves("phione", ["bubble", "confusion", "hydropump", "moonblast", "takeheart", "zenheadbutt", "calmmind"]);
-		legendsMoves("pichu", ["babydolleyes", "quickattack", "spark"]);
-		legendsMoves("pikachu", ["babydolleyes", "calmmind"]);
-		legendsMoves("piloswine", ["babydolleyes"]);
-		legendsMoves("piplup", ["doubleedge", "liquidation", "roost", "tackle"]);
-		legendsMoves("ponyta", ["doublehit"]);
-		legendsMoves("porygon", ["spark"]);
-		legendsMoves("porygon2", ["spark"]);
-		legendsMoves("porygonz", ["powershift", "spark"]);
-		legendsMoves("prinplup", ["doubleedge", "liquidation", "roost"]);
-		legendsMoves("probopass", ["steelbeam", "powershift"]);
-		legendsMoves("psyduck", ["bubble", "triattack"]);
-		legendsMoves("purugly", ["doubleedge", "nastyplot", "nightslash", "tackle"]);
-		legendsMoves("quilava", ["irontail"]);
-		legendsMoves("raichu", ["babydolleyes", "calmmind"]);
-		legendsMoves("ralts", ["icebeam"]);
-		legendsMoves("rampardos", ["powershift", "bite"]);
-		legendsMoves("rapidash", ["doublehit"]);
-		legendsMoves("regigigas", ["ancientpower", "powershift", "tackle"]);
-		legendsMoves("remoraid", ["bubble"]);
-		legendsMoves("rhydon", ["doubleedge"]);
-		legendsMoves("rhyhorn", ["doubleedge", "gigaimpact"]);
-		legendsMoves("rhyperior", ["doubleedge"]);
-		legendsMoves("riolu", ["aurasphere", "closecombat", "focusenergy"]);
-		legendsMoves("roselia", ["poisonpowder"]);
-		legendsMoves("roserade", ["poisonpowder"]);
-		legendsMoves("rowlet", ["aerialace", "airslash", "gust", "magicalleaf", "leafstorm", "psychocut"]);
-		legendsMoves("rufflet", ["doubleedge", "quickattack", "twister", "ominouswind"]);
-		legendsMoves("scizor", ["closecombat", "calmmind"]);
-		legendsMoves("scyther", ["closecombat", "calmmind"]);
-		legendsMoves("sealeo", ["liquidation", "babydolleyes"]);
-		legendsMoves("shaymin", ["leafage", "recover", "sleeppowder", "aerialace", "babydolleyes", "playrough"]);
-		legendsMoves("shellos", ["tackle"]);
-		legendsMoves("shieldon", ["steelbeam", "tackle"]);
-		legendsMoves("snorlax", ["iceball"]);
-		legendsMoves("snover", ["iciclecrash"]);
-		legendsMoves("spheal", ["liquidation", "babydolleyes"]);
-		legendsMoves("spiritomb", ["extrasensory"]);
-		legendsMoves("stantler", ["confusion", "psyshieldbash"]);
-		legendsMoves("staraptor", ["airslash", "gust", "focusenergy"]);
-		legendsMoves("staravia", ["airslash", "gigaimpact", "gust"]);
-		legendsMoves("starly", ["airslash", "gigaimpact", "gust"]);
-		legendsMoves("steelix", ["iceball", "powershift"]);
-		legendsMoves("stunky", ["doubleedge", "poisonjab", "tackle"]);
-		legendsMoves("sudowoodo", ["tackle"]);
-		legendsMoves("swinub", ["highhorsepower", "babydolleyes"]);
-		legendsMoves("sylveon", ["magicalleaf", "mimic", "rocksmash"]);
-		legendsMoves("tangela", ["acidspray", "doublehit"]);
-		legendsMoves("tangrowth", ["acidspray", "doublehit"]);
-		legendsMoves("teddiursa", ["highhorsepower", "focusenergy", "tackle"]);
-		legendsMoves("tentacool", ["acidarmor"]);
-		legendsMoves("thundurus", ["powershift", "spark", "tackle", "twister", "wildboltstorm"]);
-		legendsMoves("togekiss", ["babydolleyes", "calmmind", "moonblast", "tackle"]);
-		legendsMoves("togepi", ["babydolleyes", "calmmind", "fairywind", "moonblast", "tackle"]);
-		legendsMoves("togetic", ["airslash", "babydolleyes", "calmmind", "moonblast", "tackle"]);
-		legendsMoves("tornadus", ["bleakwindstorm", "tackle", "twister"]);
-		legendsMoves("torterra", ["leafblade", "headlongrush", "sleeppowder"]);
-		legendsMoves("toxicroak", ["closecombat", "earthpower"]);
-		legendsMoves("turtwig", ["bulldoze", "leafblade", "sleeppowder"]);
-		legendsMoves("umbreon", ["calmmind", "mimic", "powershift", "rocksmash"]);
-		legendsMoves("ursaring", ["highhorsepower", "focusenergy"]);
-		legendsMoves("uxie", ["doublehit", "hypnosis", "mysticalpower", "powershift"]);
-		legendsMoves("vaporeon", ["bubble", "calmmind", "mimic"]);
-		legendsMoves("vespiquen", ["powershift", "recover"]);
-		legendsMoves("vulpix", ["flamewheel", "nastyplot"]);
-		legendsMoves("vulpixalola", ["dazzlinggleam", "energyball", "icefang", "nastyplot", "quickattack"]);
-		legendsMoves("walrein", ["babydolleyes"]);
-		legendsMoves("whiscash", ["aerialace"]);
-		legendsMoves("wormadam", ["gust", "silverwind", "magicalleaf"]);
-		legendsMoves("wormadamsandy", ["gust", "silverwind"]);
-		legendsMoves("wormadamtrash", ["gust", "silverwind", "steelbeam"]);
-		legendsMoves("yanma", ["gust"]);
-		legendsMoves("yanmega", ["crunch"]);
-		legendsMoves("zubat", ["crosspoison"]);
-
 		// declaring which moves are "competitive" in general
 		const attackRMs = [
-			'accelerock', 'aciddrench', 'acidspray', 'acrobatics', 'adrenalinerush', 'aerialace', 'aeroblast', 'aftershock', 'airslash', 'anchorshot', 'ancientpower',
+			'accelerock', 'aciddrench', 'acidspray', 'acrobatics', 'adrenalinerush', 'aerialace', 'aeroblast', 'aftershock', 'airslash', 'anchorshot',
 			'appleacid', 'aquacutter', 'aquajet', 'aquastep', 'aquatail', 'arenatrap', 'armorcannon', 'assurance', 'astralbarrage', 'attackorder', 'aurasphere',
 			'aurawheel', 'axekick', 'barbbarrage', 'beakblast', 'behemothbash', 'behemothblade', 'belch', 'bitterblade', 'bittermalice', 'blazekick', 'bleakwindstorm',
 			'blizzard', 'bloodsuck', 'blueflare', 'bodypress', 'bodyslam', 'boltbeak', 'boltstrike', 'bonemerang', 'boomburst', 'bounce', 'bravebird', 'brickbreak',
@@ -464,9 +109,9 @@ export const Scripts: ModdedBattleScriptsData = {
 			'powerwhip', 'precipiceblades', 'prismaticlaser', 'provoke', 'psychout', 'psychic', 'psychicfangs', 'psychoboost', 'psychocut', 'psyshieldbash', 'psyshock',
 			'psystrike', 'pursuit', 'pyroball', 'quickattack', 'ragefist', 'ragingbull', 'rampageinstinct', 'rapidspin', 'razorshell', 'razorwind', 'relicsong',
 			'reputation', 'return', 'revelationdance', 'reversal', 'revolvingdoorslam', 'riposte', 'risingvoltage', 'roaroftime', 'rockblast', 'rockslide', 'rockthrow',
-			'rockwrecker', 'roilingwaves', 'rollout', 'runningbolt', 'sacredfire', 'sacredsword', 'saltcure', 'sandsearstorm', 'scald', 'scaleshot', 'scorchingsands',
+			'rockwrecker', 'roilingwaves', 'runningbolt', 'sacredfire', 'sacredsword', 'saltcure', 'sandsearstorm', 'scald', 'scaleshot', 'scorchingsands',
 			'searingshot', 'secretsword', 'seedbomb', 'seedflare', 'selfdestruct', 'shadowball', 'shadowbone', 'shadowclaw', 'shadowforce', 'shadowsneak', 'shadydeal',
-			'shellsidearm', 'shelltrap', 'signalbeam', 'silverwind', 'skittersmack', 'skyattack', 'skyuppercut', 'sleightofhand', 'sludgebomb', 'sludgewave',
+			'shellsidearm', 'shelltrap', 'signalbeam', 'skittersmack', 'skyattack', 'skyuppercut', 'sleightofhand', 'sludgebomb', 'sludgewave',
 			'smartstrike', 'smellingsalts', 'snipeshot', 'snowshovel', 'solarbeam', 'solarblade', 'spacialrend', 'spark', 'sparklingaria', 'spectralthief', 'spiderweb',
 			'spikyshield', 'spinout', 'spiritbreak', 'spiritshackle', 'spitup', 'splashzone', 'springtidestorm', 'steameruption', 'steelbeam', 'steelroller',
 			'stompingtantrum', 'stoneaxe', 'stoneedge', 'storedpower', 'stormthrow', 'strangesteam', 'suckerpunch', 'sunsteelstrike', 'superpower', 'surf',
@@ -481,13 +126,7 @@ export const Scripts: ModdedBattleScriptsData = {
 		let printno = 0;
 		for (const id in this.dataCache.Pokedex) {
 			const poke = this.dataCache.Pokedex[id];
-			if (!poke || poke.evos || id.startsWith('pichu') || id.startsWith('pikachu') || id.startsWith('eevee')) continue; // skip NFEs... and anything that can't be read correctly, just in case
-			poke.kind = "National";
-			if (platinumDex.includes(poke.name) || platinumDex.includes(poke.prevo) || platinumDex.includes(poke.baseSpecies) || platinumDex.includes(poke.baseForme)) poke.kind = "Platinum";
-			if (bdspAndLegends.includes(poke.name) || bdspAndLegends.includes(poke.prevo) || bdspAndLegends.includes(poke.baseSpecies) || bdspAndLegends.includes(poke.baseForme)) poke.kind = "Remake";
-			if (variants.includes(poke.name) || variants.includes(poke.baseForme)) poke.kind = "Variant";
-			if (otherAdditions.includes(poke.name) || otherAdditions.includes(poke.prevo) || otherAdditions.includes(poke.baseSpecies) || otherAdditions.includes(poke.baseForme)) poke.kind = "Addition";
-			if (legendaries.includes(poke.name) || legendaries.includes(poke.prevo) || legendaries.includes(poke.baseSpecies) || legendaries.includes(poke.baseForme)) poke.kind = "Special";
+			if (!poke || poke.evos) continue; // skip NFEs... and anything that can't be read correctly, just in case
 			if (this.dataCache.Learnsets[id] && this.dataCache.Learnsets[id].learnset) {
 				printno++;
 				poke.learnsetCumulative = {};
@@ -495,17 +134,13 @@ export const Scripts: ModdedBattleScriptsData = {
 					poke.learnsetCumulative[moveType] = {
 						Physical: {
 							tmTutor: [],
-							addTrend: [],
 							natural: [],
 							fringe: [],
-							addOther: [],
 						},
 						Special: {
 							tmTutor: [],
-							addTrend: [],
 							natural: [],
 							fringe: [],
-							addOther: [],
 						},
 					};
 				}
@@ -513,25 +148,11 @@ export const Scripts: ModdedBattleScriptsData = {
 					poke.learnsetCumulative[section] = {
 						Moves: {
 							tmTutor: [],
-							addTrend: [],
 							natural: [],
 							fringe: [],
-							addOther: [],
 						},
 					};
 				}
-
-				// identify the Pokémon's Gen of origin before going any further - it's useful!
-				let pokeGen = 1;
-				if (poke.num > 898 || id.endsWith('hisui') || id.endsWith('paldea') || id.endsWith('paldeafire') || id.endsWith('paldeawater')) pokeGen = 9;
-				else if (poke.num > 809 || id.endsWith('galar')) pokeGen = 8;
-				else if (poke.num > 721 || id.endsWith('alola')) pokeGen = 7;
-				else if (poke.num > 649 || id.endsWith('mega') || id.endsWith('megax') || id.endsWith('megay') || id.endsWith('primal')) pokeGen = 6;
-				else if (poke.num > 493) pokeGen = 5;
-				else if (poke.num > 386) pokeGen = 4;
-				else if (poke.num > 251) pokeGen = 3;
-				else if (poke.num > 151) pokeGen = 2;
-				if (poke.gen) pokeGen = poke.gen; // other forms from later Gens
 
 				// start with the vanilla learnset
 				const learnset = this.modData('Learnsets', this.toID(id)).learnset;
@@ -644,95 +265,16 @@ export const Scripts: ModdedBattleScriptsData = {
 						continue;
 					}
 
-					let moveGen = 1;
-					if (move.num > 826) moveGen = 9;
-					else if (move.num > 742) moveGen = 8;
-					else if (move.num > 621) moveGen = 7;
-					else if (move.num > 559) moveGen = 6;
-					else if (move.num > 467) moveGen = 5;
-					else if (move.num > 354) moveGen = 4;
-					else if (move.num > 251) moveGen = 3;
-					else if (move.num > 165) moveGen = 2;
-
 					// a simplified version of the Pulse learnset sheet:
 					// only decide a) if the Pokémon learns the move at all and b) if it's a safe bet it still gets it in Pulse or not
 					// "fringe moves" and transfer-only moves and future buffs are all lumped into one category unless they're TMs or tutors in Pulse
 					let learned = false;
 					let learnedNatural = false;
-					let learnedTmTutor = pulseTms.includes(moveid) || pulseTutors.includes(moveid);
-					if (learnset[moveid]) { // if it learns the move itself
+					let learnedTmTutor = pulseTms.includes(moveid);
+					if (learnset[moveid] || ((learnset2 && learnset2[moveid])) || ((learnset3 && learnset3[moveid])) || (learnset4 && learnset4[moveid])) { // if it learns the move itself
 						for (const source of learnset[moveid]) {
 							learned = true;
-							if (
-								(parseInt(source.charAt(0)) === pokeGen && pokeGen > 3) ||
-								(parseInt(source.charAt(0)) === moveGen && moveGen > 3) ||
-								parseInt(source.charAt(0)) === 4
-							) {
-								if (source.charAt(1) === 'L' || source.charAt(1) === 'E') learnedNatural = true;
-							}
-						}
-					}
-					if (learnset2 && learnset2[moveid]) { // if it has a pre-evolution and its pre-evolution learns the move
-						for (const source of learnset2[moveid]) {
-							learned = true;
-							if (
-								(parseInt(source.charAt(0)) === pokeGen && pokeGen > 3) ||
-								(parseInt(source.charAt(0)) === moveGen && moveGen > 3) ||
-								parseInt(source.charAt(0)) === 4
-							) {
-								if (source.charAt(1) === 'L' || source.charAt(1) === 'E') learnedNatural = true;
-							}
-						}
-					}
-					if (learnset3 && learnset3[moveid]) { // if it's the third stage and its basic stage learns the move
-						for (const source of learnset3[moveid]) {
-							learned = true;
-							if (
-								(parseInt(source.charAt(0)) === pokeGen && pokeGen > 3) ||
-								(parseInt(source.charAt(0)) === moveGen && moveGen > 3) ||
-								parseInt(source.charAt(0)) === 4
-							) {
-								if (source.charAt(1) === 'L' || source.charAt(1) === 'E') learnedNatural = true;
-							}
-						}
-					}
-					if (learnset4 && learnset4[moveid]) { // for stuff like Rotom
-						for (const source of learnset4[moveid]) {
-							learned = true;
-							if (
-								(parseInt(source.charAt(0)) === pokeGen && pokeGen > 3) ||
-								(parseInt(source.charAt(0)) === moveGen && moveGen > 3) ||
-								parseInt(source.charAt(0)) === 4
-							) {
-								if (source.charAt(1) === 'L' || source.charAt(1) === 'E') learnedNatural = true;
-							}
-						}
-					}
-					if (moveid === 'helpinghand') { // hard-coding to skip the Gen IX TM's distribution
-						learned = false;
-						if (learnset[moveid]) {
-							for (const source of learnset[moveid]) {
-								if (parseInt(source.charAt(0)) === 9 && source.charAt(1) === 'M') continue;
-								learned = true;
-							}
-						}
-						if (learnset2 && learnset2[moveid]) {
-							for (const source of learnset2[moveid]) {
-								if (parseInt(source.charAt(0)) === 9 && source.charAt(1) === 'M') continue;
-								learned = true;
-							}
-						}
-						if (learnset3 && learnset3[moveid]) {
-							for (const source of learnset3[moveid]) {
-								if (parseInt(source.charAt(0)) === 9 && source.charAt(1) === 'M') continue;
-								learned = true;
-							}
-						}
-						if (learnset4 && learnset4[moveid]) {
-							for (const source of learnset4[moveid]) {
-								if (parseInt(source.charAt(0)) === 9 && source.charAt(1) === 'M') continue;
-								learned = true;
-							}
+							learnedNatural = true;
 						}
 					}
 					if (learned) {
@@ -772,298 +314,6 @@ export const Scripts: ModdedBattleScriptsData = {
 							if (learnedTmTutor) poke.learnsetCumulative.Flavor.Moves.tmTutor.push(move.name);
 							else if (learnedNatural) poke.learnsetCumulative.Flavor.Moves.natural.push(move.name);
 							else poke.learnsetCumulative.Flavor.Moves.fringe.push(move.name);
-						}
-
-					} else if (pulseTms.includes(moveid) || pulseTutors.includes(moveid)) {
-						// if a TM or tutor is not learned, decide if it belongs in addTrend or addOther
-						// should still distinguish between competitive and flavor like above!
-						let addRule = "addOther";
-
-						// account for Pokémon-exclusive tutor moves
-						if (notRealTutors.includes(moveid)) continue;
-						// account for the new starter moves
-						if (moveid === 'risingstalk') {
-							if (poke.abilities[0] !== "Overgrow" && poke.abilities[0] !== "RKS System" && poke.abilities['H'] !== "Overgrow") continue;
-							addRule = "addTrend";
-						}
-						if (moveid === 'risingheat') {
-							if (poke.abilities[0] !== "Blaze" && poke.abilities[0] !== "RKS System" && poke.abilities['H'] !== "Blaze") continue;
-							addRule = "addTrend";
-						}
-						if (moveid === 'risingtide') {
-							if (poke.abilities[0] !== "Torrent" && poke.abilities[0] !== "RKS System" && poke.abilities['H'] !== "Torrent") continue;
-							addRule = "addTrend";
-						}
-
-						// below should be a list of movepool trends that sort a move into either addOther or addTrend
-						if (
-							['endure', 'facade', 'frustration', 'gigaimpact', 'return', 'hiddenpower', 'hyperbeam', 'naturalgift', 'snore', 'protect', 'secretpower', 'sleeptalk', 'substitute', 'swagger', 'toxic', 'rest'].includes(moveid)
-						) addRule = "addTrend"; // fully universal moves
-						if (!(poke.gender && poke.gender === 'N') && moveid === 'attract') addRule = "addTrend";
-						if (
-							((poke.types[0] && poke.types[0] === 'Fire') || (poke.types[1] && poke.types[1] === 'Fire')) &&
-							['flamecharge', 'fireblast', 'flamethrower', 'heatwave', 'incinerate', 'overheat', 'willowisp', 'solarbeam'].includes(moveid)
-						) addRule = "addTrend"; // Fire-type move trends
-						if (
-							((poke.types[0] && poke.types[0] === 'Water') || (poke.types[1] && poke.types[1] === 'Water')) &&
-							['dive', 'liquidation', 'waterfall', 'scald', 'splashzone', 'surf', 'waterpulse', 'raindance', 'blizzard', 'icebeam', 'icywind', 'hail'].includes(moveid)
-						) addRule = "addTrend"; // Water-type move trends
-						if (
-							((poke.types[0] && poke.types[0] === 'Electric') || (poke.types[1] && poke.types[1] === 'Electric')) &&
-							['raindance', 'wildcharge', 'chargebeam', 'risingvoltage', 'shockwave', 'thunder', 'thunderbolt', 'voltswitch', 'thunderwave', 'lightscreen', 'signalbeam'].includes(moveid)
-						) addRule = "addTrend"; // Electric-type move trends
-						if (
-							((poke.types[0] && poke.types[0] === 'Grass') || (poke.types[1] && poke.types[1] === 'Grass')) &&
-							['bulletseed', 'seedbomb', 'energyball', 'gigadrain', 'grassknot', 'solarbeam', 'synthesis', 'worryseed', 'naturepower'].includes(moveid)
-						) addRule = "addTrend"; // Grass-type move trends
-						if (
-							((poke.types[0] && poke.types[0] === 'Ice') || (poke.types[1] && poke.types[1] === 'Ice')) &&
-							['raindance', 'avalanche', 'blizzard', 'icebeam', 'icywind', 'hail'].includes(moveid)
-						) addRule = "addTrend"; // Ice-type move trends
-						if (
-							((poke.types[0] && poke.types[0] === 'Fighting') || (poke.types[1] && poke.types[1] === 'Fighting')) &&
-							['brickbreak', 'focuspunch', 'lowkick', 'piledriver', 'rocksmash', 'focusblast', 'vacuumwave', 'rockslide', 'rocktomb', 'stoneedge', 'retaliate', 'strength', 'helpinghand', 'workup'].includes(moveid)
-						) addRule = "addTrend"; // Fighting-type move trends
-						if (
-							((poke.types[0] && poke.types[0] === 'Fighting') || (poke.types[1] && poke.types[1] === 'Fighting')) &&
-							!((learnset.sacredsword) || (learnset2 && learnset2.sacredsword) || (learnset3 && learnset3.sacredsword) || (learnset4 && learnset4.sacredsword)) &&
-							['bulkup'].includes(moveid)
-						) addRule = "addTrend"; // Fighting-type move trend, but not for the ones with Sacred Sword
-						if (
-							((poke.types[0] && poke.types[0] === 'Poison') || (poke.types[1] && poke.types[1] === 'Poison')) &&
-							['raindance', 'acidspray', 'expiration', 'sludgebomb'].includes(moveid)
-						) addRule = "addTrend"; // Poison-type move trends
-						if (
-							((poke.types[0] && poke.types[0] === 'Ground') || (poke.types[1] && poke.types[1] === 'Ground')) &&
-							['rocksmash', 'aftershock', 'bulldoze', 'dig', 'earthquake', 'earthpower', 'mudslap', 'rockslide', 'rocktomb', 'stoneedge', 'sandstorm', 'stealthrock', 'strength'].includes(moveid)
-						) addRule = "addTrend"; // Ground-type move trends
-						if (
-							((poke.types[0] && poke.types[0] === 'Flying') || (poke.types[1] && poke.types[1] === 'Flying')) &&
-							['raindance'].includes(moveid) // insurance: even if they're not in the Flying Egg group
-						) addRule = "addTrend"; // Flying-type move trends
-						if (
-							((poke.eggGroups[0] && poke.eggGroups[0] === 'Flying') || (poke.eggGroups[1] && poke.eggGroups[1] === 'Flying')) &&
-							['aerialace', 'fly', 'aircutter', 'windshear', 'defog', 'roost', 'tailwind', 'ominouswind'].includes(moveid)
-						) addRule = "addTrend"; // Flying Egg group move trends (not type!)
-						if (
-							((poke.types[0] && poke.types[0] === 'Psychic') || (poke.types[1] && poke.types[1] === 'Psychic')) &&
-							['raindance', 'zenheadbutt', 'dreameater', 'psychic', 'psyshock', 'calmmind', 'lightscreen', 'magiccoat', 'reflect', 'skillswap', 'trick', 'trickroom', 'signalbeam', 'shadowball', 'psychup'].includes(moveid)
-						) addRule = "addTrend"; // Psychic-type move trends
-						if (
-							((poke.types[0] && poke.types[0] === 'Bug') || (poke.types[1] && poke.types[1] === 'Bug')) &&
-							['raindance', 'bugbite', 'stringshot'].includes(moveid)
-						) addRule = "addTrend"; // Bug-type move trends
-						if (
-							((poke.types[0] && poke.types[0] === 'Rock') || (poke.types[1] && poke.types[1] === 'Rock')) &&
-							['rocksmash', 'bulldoze', 'earthquake', 'earthpower', 'rockslide', 'rocktomb', 'stoneedge', 'ancientpower', 'meteorbeam', 'rockpolish', 'sandstorm', 'stealthrock', 'irondefense'].includes(moveid)
-						) addRule = "addTrend"; // Rock-type move trends
-						if (
-							((poke.types[0] && poke.types[0] === 'Ghost') || (poke.types[1] && poke.types[1] === 'Ghost')) &&
-							['dreameater', 'shadowball', 'ominouswind', 'spite'].includes(moveid)
-						) addRule = "addTrend"; // Ghost-type move trends
-						if (
-							((poke.types[0] && poke.types[0] === 'Dragon') || (poke.types[1] && poke.types[1] === 'Dragon')) &&
-							['dragonclaw', 'dragontail', 'outrage', 'dracometeor', 'dragonpulse', 'twister'].includes(moveid)
-						) {
-							addRule = "addTrend"; // Dragon-type move trends
-						} else {
-							if (['dracometeor'].includes(moveid)) continue;
-						}
-						if (
-							((poke.types[0] && poke.types[0] === 'Dark') || (poke.types[1] && poke.types[1] === 'Dark')) &&
-							['mudslap', 'spite', 'payback', 'thief', 'darkpulse', 'snarl', 'taunt', 'torment'].includes(moveid)
-						) addRule = "addTrend"; // Dark-type move trends
-						if (
-							((poke.types[0] && poke.types[0] === 'Steel') || (poke.types[1] && poke.types[1] === 'Steel')) &&
-							['rocksmash', 'ironhead', 'flashcannon', 'steelbeam', 'irondefense'].includes(moveid)
-						) {
-							addRule = "addTrend"; // Steel-type move trends
-						} else {
-							if (['steelbeam'].includes(moveid)) continue;
-						}
-						if (
-							((poke.types[0] && poke.types[0] === 'Fairy') || (poke.types[1] && poke.types[1] === 'Fairy')) &&
-							['lightscreen', 'dazzlinggleam', 'drainingkiss'].includes(moveid)
-						) addRule = "addTrend"; // Fairy-type move trends
-						if (
-							((poke.types[0] && poke.types[0] === 'Normal') || (poke.types[1] && poke.types[1] === 'Normal')) &&
-							['mudslap', 'workup'].includes(moveid)
-						) addRule = "addTrend"; // Normal-type move trends
-						if (
-							((poke.types[0] && poke.types[0] === 'Normal') || (poke.types[1] && poke.types[1] === 'Normal')) &&
-							!((poke.types[0] && poke.types[0] === 'Flying') || (poke.types[1] && poke.types[1] === 'Flying')) &&
-							['retaliate'].includes(moveid)
-						) addRule = "addTrend"; // Normal-type move trend, but not for the Flying group
-
-						// some move-specific type trends
-						if (moveid === 'explosion' && addRule !== "addTrend") continue; // you shouldn't get Explosion just because you have other Normal moves
-						if (moveid === 'sunnyday') {
-							if ((poke.types[0] && poke.types[0] === 'Fire') || (poke.types[1] && poke.types[1] === 'Fire')) addRule = "addTrend";
-							if ((poke.types[0] && poke.types[0] === 'Grass') || (poke.types[1] && poke.types[1] === 'Grass')) addRule = "addTrend";
-							if (
-								!((poke.types[0] && poke.types[0] === 'Water') || (poke.types[1] && poke.types[1] === 'Water') ||
-								(poke.types[0] && poke.types[0] === 'Electric') || (poke.types[1] && poke.types[1] === 'Electric') ||
-								(poke.types[0] && poke.types[0] === 'Ice') || (poke.types[1] && poke.types[1] === 'Ice') ||
-								(poke.types[0] && poke.types[0] === 'Ghost') || (poke.types[1] && poke.types[1] === 'Ghost') ||
-								(poke.types[0] && poke.types[0] === 'Steel') || (poke.types[1] && poke.types[1] === 'Steel'))
-							) {
-								if (
-									(poke.types[0] && poke.types[0] === 'Bug') || (poke.types[1] && poke.types[1] === 'Bug') ||
-									(poke.eggGroups[0] && poke.eggGroups[0] === 'Flying') || (poke.eggGroups[1] && poke.eggGroups[1] === 'Flying') ||
-									(poke.types[0] && poke.types[0] === 'Dragon') || (poke.types[1] && poke.types[1] === 'Dragon') ||
-									(poke.types[0] && poke.types[0] === 'Fairy') || (poke.types[1] && poke.types[1] === 'Fairy') ||
-									(poke.types[0] && poke.types[0] === 'Normal') || (poke.types[1] && poke.types[1] === 'Normal')
-								) addRule = "addTrend";
-							}
-						} // Sunny Day "trend" is... more complicated
-						if (moveid === 'heatwave') {
-							if (
-								(
-									(poke.types[0] && poke.types[0] === 'Fire') || (poke.types[1] && poke.types[1] === 'Fire') ||
-									(learnset.flamethrower) || (learnset2 && learnset2.flamethrower) || (learnset3 && learnset3.flamethrower) || (learnset4 && learnset4.flamethrower)
-								) && (
-									(poke.eggGroups[0] && poke.eggGroups[0] === 'Flying') || (poke.eggGroups[1] && poke.eggGroups[1] === 'Flying') ||
-									(learnset.defog) || (learnset2 && learnset2.defog) || (learnset3 && learnset3.defog) || (learnset4 && learnset4.defog)
-								)
-							) {
-								addRule = "addTrend";
-							}
-							if ((poke.eggGroups[0] && poke.eggGroups[0] === 'Flying') || (poke.eggGroups[1] && poke.eggGroups[1] === 'Flying')) {
-								if (
-									!((poke.types[0] && poke.types[0] === 'Water') || (poke.types[1] && poke.types[1] === 'Water') ||
-									  (poke.types[0] && poke.types[0] === 'Grass') || (poke.types[1] && poke.types[1] === 'Grass') ||
-									  (poke.types[0] && poke.types[0] === 'Ice') || (poke.types[1] && poke.types[1] === 'Ice') ||
-									  (poke.types[0] && poke.types[0] === 'Bug') || (poke.types[1] && poke.types[1] === 'Bug') ||
-									  (poke.types[0] && poke.types[0] === 'Steel') || (poke.types[1] && poke.types[1] === 'Steel'))
-								) addRule = "addTrend";
-							}
-						} // I'm making sure Heat Wave goes to anything with both Defog and Flamethrower, as well as most of the Flying group
-						if (moveid === 'incinerate') {
-							if (
-								(
-									(poke.types[0] && poke.types[0] === 'Fire') || (poke.types[1] && poke.types[1] === 'Fire') ||
-									(learnset.fireblast) || (learnset2 && learnset2.fireblast) || (learnset3 && learnset3.fireblast) || (learnset4 && learnset4.fireblast)
-								)
-							) {
-								addRule = "addTrend"; // basically everything that's Fire-type or learns Fire Blast learns Incinerate, but...
-							} else {
-								if (
-									!(
-										(poke.types[0] && poke.types[0] === 'Dark') || (poke.types[1] && poke.types[1] === 'Dark') ||
-										(learnset.flamethrower) || (learnset2 && learnset2.flamethrower) || (learnset3 && learnset3.flamethrower) || (learnset4 && learnset4.flamethrower)
-									)
-								) {
-									continue; // if you don't meet that criterion, and you *also* aren't Dark-type and don't learn Flamethrower, just skip it!
-								}
-							}
-						}
-						if (moveid === 'burningjealousy') {
-							if (
-								!(
-									(poke.types[0] && poke.types[0] === 'Fire') || (poke.types[1] && poke.types[1] === 'Fire') ||
-									(poke.types[0] && poke.types[0] === 'Ghost') || (poke.types[1] && poke.types[1] === 'Ghost') ||
-									(poke.types[0] && poke.types[0] === 'Dark') || (poke.types[1] && poke.types[1] === 'Dark')
-								)
-							) {
-								continue;
-							}
-						}
-						if (moveid === 'liquidation') {
-							if (
-								!(
-									(poke.types[0] && poke.types[0] === 'Water') || (poke.types[1] && poke.types[1] === 'Water') ||
-									(poke.eggGroups[0] && poke.eggGroups[0] === 'Water 1') || (poke.eggGroups[1] && poke.eggGroups[1] === 'Water 1') ||
-									(poke.eggGroups[0] && poke.eggGroups[0] === 'Water 2') || (poke.eggGroups[1] && poke.eggGroups[1] === 'Water 2') ||
-									(poke.eggGroups[0] && poke.eggGroups[0] === 'Water 3') || (poke.eggGroups[1] && poke.eggGroups[1] === 'Water 3') ||
-									(poke.eggGroups[0] && poke.eggGroups[0] === 'Undiscovered') || (poke.eggGroups[1] && poke.eggGroups[1] === 'Undiscovered')
-								)
-							) {
-								continue;
-							}
-						}
-						if (moveid === 'scald' && ((poke.types[0] && poke.types[0] === 'Ice') || (poke.types[1] && poke.types[1] === 'Ice'))) continue;
-						if (['voltswitch', 'risingvoltage'].includes(moveid)) {
-							if (
-								!(
-									(poke.types[0] && poke.types[0] === 'Electric') || (poke.types[1] && poke.types[1] === 'Electric') ||
-									(poke.types[0] && poke.types[0] === 'Steel') || (poke.types[1] && poke.types[1] === 'Steel') ||
-									(poke.abilities[0] === "Quark Drive")
-								)
-							) {
-								continue;
-							}
-						}
-						if (moveid === 'electroweb') {
-							if (
-								!(
-									(poke.types[0] && poke.types[0] === 'Electric') || (poke.types[1] && poke.types[1] === 'Electric') ||
-									(poke.types[0] && poke.types[0] === 'Bug') || (poke.types[1] && poke.types[1] === 'Bug')
-								)
-							) {
-								continue;
-							}
-						}
-						if (moveid === 'scorchingsands') {
-							if (
-								!(
-									(poke.types[0] && poke.types[0] === 'Ground') || (poke.types[1] && poke.types[1] === 'Ground') ||
-									(poke.types[0] && poke.types[0] === 'Fire') || (poke.types[1] && poke.types[1] === 'Fire')
-								)
-							) {
-								continue;
-							}
-						}
-						if (['fly', 'skydrop', 'skyattack'].includes(moveid)) {
-							if (
-								!(
-									(poke.types[0] && poke.types[0] === 'Flying') || (poke.types[1] && poke.types[1] === 'Flying') ||
-									(poke.eggGroups[0] && poke.eggGroups[0] === 'Flying') || (poke.eggGroups[1] && poke.eggGroups[1] === 'Flying') ||
-									(poke.eggGroups[0] && poke.eggGroups[0] === 'Undiscovered') || (poke.eggGroups[1] && poke.eggGroups[1] === 'Undiscovered')
-								)
-							) {
-								continue;
-							}
-						}
-						if (moveid === 'bugbite') {
-							if (
-								!(
-									(poke.types[0] && poke.types[0] === 'Bug') || (poke.types[1] && poke.types[1] === 'Bug') ||
-									(poke.eggGroups[0] && poke.eggGroups[0] === 'Bug') || (poke.eggGroups[1] && poke.eggGroups[1] === 'Bug') ||
-									(poke.eggGroups[0] && poke.eggGroups[0] === 'Undiscovered') || (poke.eggGroups[1] && poke.eggGroups[1] === 'Undiscovered')
-								)
-							) {
-								continue;
-							}
-						}
-						if (moveid === 'uturn' && addRule !== "addTrend") continue; // you shouldn't get U-turn just because you have other Bug moves
-						if (moveid === 'poltergeist' && !((poke.types[0] && poke.types[0] === 'Ghost') || (poke.types[1] && poke.types[1] === 'Ghost'))) continue;
-
-						// now sort it into that section
-						let competitive = false;
-						if (attackRMs.includes(moveid)) {
-							// what type is it?
-							const type = (moveid === 'judgment' || moveid === 'multiattack' || moveid === 'ragingbull' || moveid === 'revelationdance') ? poke.types[0] : move.type;
-							const category = (move.category === 'Special' || moveid === 'naturepower') ? "Special" : "Physical";
-							// assume a status move ended up physical if its category changed
-							if (
-								poke.types[0] === type || (poke.types[1] && poke.types[1] === type) || offenseCoverage.includes(type) || weaknessCoverage.includes(type)
-								|| otherCoverage.includes(type) || moveid === 'naturepower' || moveid === 'technoblast' || moveid === 'terrainpulse' || moveid === 'weatherball'
-								|| moveid === 'fakeout' || moveid === 'feint' || moveid === 'extremespeed' || moveid === 'suckerpunch' || moveid === 'firstimpression'
-								|| moveid === 'wavecrash'
-							) { // for attacking moves, proceed only if the move's type has any potential to be relevant (but including the Normal moves that defy type)
-								competitive = true;
-								poke.learnsetCumulative[type][category][addRule].push(move.name);
-							}
-						}
-						if (addRule === "addOther") continue; // addOther is only for types and categories
-						for (const section in movepoolSections) {
-							if (movepoolSections[section].includes(moveid)) {
-								competitive = true;
-								poke.learnsetCumulative[section].Moves[addRule].push(move.name);
-							}
-						}
-						if (!competitive) {
-							poke.learnsetCumulative.Flavor.Moves[addRule].push(move.name);
 						}
 
 					}
@@ -1121,13 +371,13 @@ export const Scripts: ModdedBattleScriptsData = {
 						poke.learnsetCumulative[moveType].Physical.natural.length || poke.learnsetCumulative[moveType].Physical.tmTutor.length ||
 						poke.learnsetCumulative[moveType].Physical.fringe.length || poke.learnsetCumulative[moveType].Physical.addTrend.length
 					) {
-						sheetOutput += poke.kind + `~` + (printno) + "~6~" + moveType + "~Physical~" + poke.learnsetCumulative[moveType].Physical.tmTutor + "~" + poke.learnsetCumulative[moveType].Physical.addTrend + "~" + poke.learnsetCumulative[moveType].Physical.natural + "~" + (poke.learnsetCumulative[moveType].Physical.fringe.length ? "(" + poke.learnsetCumulative[moveType].Physical.fringe + ")" : "") + "~" + (poke.learnsetCumulative[moveType].Physical.addOther.length ? "(" + poke.learnsetCumulative[moveType].Physical.addOther + ")" : "") + "" + `\n`;
+						sheetOutput += poke.kind + `~` + (printno) + "~6~" + moveType + "~Physical~" + poke.learnsetCumulative[moveType].Physical.tmTutor + "~" + poke.learnsetCumulative[moveType].Physical.natural + "~" + (poke.learnsetCumulative[moveType].Physical.fringe.length ? "(" + poke.learnsetCumulative[moveType].Physical.fringe + ")" : "") + `\n`;
 					}
 					if (
 						poke.learnsetCumulative[moveType].Special.natural.length || poke.learnsetCumulative[moveType].Special.tmTutor.length ||
 						poke.learnsetCumulative[moveType].Special.fringe.length || poke.learnsetCumulative[moveType].Special.addTrend.length
 					) {
-						sheetOutput += poke.kind + `~` + (printno) + "~6~" + moveType + "~Special~" + poke.learnsetCumulative[moveType].Special.tmTutor + "~" + poke.learnsetCumulative[moveType].Special.addTrend + "~" + poke.learnsetCumulative[moveType].Special.natural + "~" + (poke.learnsetCumulative[moveType].Special.fringe.length ? "(" + poke.learnsetCumulative[moveType].Special.fringe + ")" : "") + "~" + (poke.learnsetCumulative[moveType].Special.addOther.length ? "(" + poke.learnsetCumulative[moveType].Special.addOther + ")" : "") + "" + `\n`;
+						sheetOutput += poke.kind + `~` + (printno) + "~6~" + moveType + "~Special~" + poke.learnsetCumulative[moveType].Special.tmTutor + "~" + poke.learnsetCumulative[moveType].Special.natural + "~" + (poke.learnsetCumulative[moveType].Special.fringe.length ? "(" + poke.learnsetCumulative[moveType].Special.fringe + ")" : "") + `\n`;
 					}
 				}
 				for (const section in movepoolSections) {
@@ -1135,7 +385,7 @@ export const Scripts: ModdedBattleScriptsData = {
 						poke.learnsetCumulative[section].Moves.natural.length || poke.learnsetCumulative[section].Moves.tmTutor.length ||
 						poke.learnsetCumulative[section].Moves.fringe.length || poke.learnsetCumulative[section].Moves.addTrend.length
 					) {
-						sheetOutput += poke.kind + `~` + (printno) + "~7~" + section + "~~" + poke.learnsetCumulative[section].Moves.tmTutor + "~" + poke.learnsetCumulative[section].Moves.addTrend + "~" + poke.learnsetCumulative[section].Moves.natural + "~" + (poke.learnsetCumulative[section].Moves.fringe.length ? "(" + poke.learnsetCumulative[section].Moves.fringe + ")" : "") + "~" + (poke.learnsetCumulative[section].Moves.addOther.length ? "(" + poke.learnsetCumulative[section].Moves.addOther + ")" : "") + "" + `\n`;
+						sheetOutput += poke.kind + `~` + (printno) + "~7~" + section + "~~" + poke.learnsetCumulative[section].Moves.tmTutor + "~" + poke.learnsetCumulative[section].Moves.natural + "~" + (poke.learnsetCumulative[section].Moves.fringe.length ? "(" + poke.learnsetCumulative[section].Moves.fringe + ")" : "") + `\n`;
 					}
 				}
 				sheetOutput += (printno) + "~8~";
