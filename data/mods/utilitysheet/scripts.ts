@@ -134,6 +134,7 @@ export const Scripts: ModdedBattleScriptsData = {
 		for (const id in this.dataCache.Pokedex) {
 			const poke = this.dataCache.Pokedex[id];
 			if (!poke || poke.evos) continue; // skip NFEs... and anything that can't be read correctly, just in case
+			if (!(poke.tier && poke.tier === 'hi')) continue;
 			if (!poke.species) {
 				if (poke.name) {
 					poke.species = poke.name;
