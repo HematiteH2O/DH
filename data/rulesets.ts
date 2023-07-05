@@ -1375,15 +1375,54 @@ export const Formats: {[k: string]: FormatData} = {
 		},
 	},
 	vgc: {
-		effectType: 'ValidatorRule',
+		effectType: 'Rule',
 		name: 'VGC',
 		desc: `Applies basic VGC rules to an existing format.`,
-		gameType: 'doubles',
-		forcedLevel: 50,
-		teamLength: {
-			validate: [4, 6],
-			battle: 4,
+		// to do: remove !HP Percentage Mod, !OHKO Clause, !Evasion Moves Clause, !Sleep Clause Mod
+		onStart() {
+			(this.format as any).gameType = 'doubles';
+			(this.format as any).forcedLevel = 50;
+			(this.format as any).teamLength = {battle: 4};
 		},
-		ruleset: ['Nickname Clause', 'Item Clause', 'VGC Timer'],
+		timer: {
+			starting: 7 * 60, addPerTurn: 0, maxPerTurn: 55, maxFirstTurn: 90,
+			grace: 90, timeoutAutoChoose: true, dcTimerBank: false,
+		},
+		onValidateTeam(team, format) {
+			// fake 4-Pokémon minimum
+			let setCount = 0;
+			for (const set of team) {
+				setCount++;
+			}
+			if (setCount < 4) {
+				return ['You need at least 4 Pokémon for VGC!'];
+			}
+			return [];
+			// fake Item Clause
+			const itemTable: Set<string> = new Set();
+			for (const set of team) {
+				const item = this.toID(set.item);
+				if (!item) continue;
+				if (itemTable.has(item)) {
+					return [
+						`You are limited to one of each item by Item Clause.`,
+						`(You have more than one ${this.dex.getItem(item).name})`,
+					];
+				}
+				itemTable.add(item);
+			}
+			// fake Nickname Clause
+			const nameTable: Set<string> = new Set();
+			for (const set of team) {
+				const name = set.name;
+				if (name) {
+					if (name === this.dex.getSpecies(set.species).baseSpecies) continue;
+					if (nameTable.has(name)) {
+						return [`Your Pokémon must have different nicknames.`, `(You have more than one ${name})`];
+					}
+					nameTable.add(name);
+				}
+			}
+		},
 	},
 };
