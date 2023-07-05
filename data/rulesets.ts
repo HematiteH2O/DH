@@ -1384,6 +1384,6 @@ export const Formats: {[k: string]: FormatData} = {
 			validate: [4, 6],
 			battle: 4,
 		},
-		ruleset: ['Team Preview', 'Species Clause', 'Nickname Clause', 'Item Clause', 'Cancel Mod', 'VGC Timer'],
+		ruleset: ['Nickname Clause', 'Item Clause', 'VGC Timer'],
 	},
 };
