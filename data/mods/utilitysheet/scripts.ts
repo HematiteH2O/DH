@@ -296,11 +296,9 @@ export const Scripts: ModdedBattleScriptsData = {
 					let learned = false;
 					let learnedNatural = false;
 					let learnedTmTutor = svTms.includes(moveid);
-					if (learnset[moveid] || ((learnset2 && learnset2[moveid])) || ((learnset3 && learnset3[moveid])) || (learnset4 && learnset4[moveid])) { // if it learns the move itself
-						for (const source of learnset[moveid]) {
-							learned = true;
-							learnedNatural = true;
-						}
+					if (learnset[moveid] || (learnset2 && learnset2[moveid]) || (learnset3 && learnset3[moveid]) || (learnset4 && learnset4[moveid])) { // if it learns the move itself
+						learned = true;
+						learnedNatural = true;
 					}
 					if (learned) {
 
