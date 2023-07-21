@@ -118,7 +118,6 @@ export const Scripts: ModdedBattleScriptsData = {
 			// also consider simply listing all of the Pokémon above base 100 Speed, from fastest to slowest?
 			
 			// DEFENSIVE
-
 			Recovery: [
 				'recover', 'roost', 'shoreup', 'slackoff', 'softboiled', 'healorder', 'milkdrink',
 				'regenerator',
@@ -155,7 +154,6 @@ export const Scripts: ModdedBattleScriptsData = {
 			],
 
 			// FIELD EFFECTS
-
 			Screens: [
 				'lightscreen', 'reflect', // Veil is in the weather section
 				'creepingivy',  'lushmoss', 'psyshieldbash', 
@@ -166,6 +164,7 @@ export const Scripts: ModdedBattleScriptsData = {
 				'thunder', 'hurricane', // these seem less likely to be already covered by the other categories than Solar Beam or something
 				'sandstream', 'sandspit', 'sandrush', 'sandforce', 'sandveil',
 				'snowwarning', 'chillyreception', 'auroraveil', 'slushrush', 'icebody', 'iceface', 'snowcloak', // is it okay to list Chilly Reception twice?
+				'windshear',
 				'forecast',
 				'psychicsurge', 'mistysurge', 'electricsurge', 'surgesurfer', 'grassysurge', 'seedsower',
 				'trickroom',
