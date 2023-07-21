@@ -4,7 +4,7 @@ export const Scripts: ModdedBattleScriptsData = {
 	init() {
 		const ondasDexDraft = [
 			"Raichu", "Nidoqueen", "Nidoking", "Vileplume", "Slowbro", "Exeggutor", "Marowak", "Kangaskhan", "Starmie", "Jynx", "Gyarados", "Vaporeon", "Jolteon", "Flareon", "Lanturn", "Ampharos", "Bellossom", "Espeon", "Umbreon", "Slowking", "Heracross", "Magcargo", "Corsola", "Delibird", "Skarmory", "Houndoom", "Kingdra", "Smeargle", "Tyranitar", "Ludicolo", "Gardevoir", "Masquerain", "Ninjask", "Shedinja", "Exploud", "Delcatty", "Sableye", "Mawile", "Manectric", "Sharpedo", "Wailord", "Camerupt", "Torkoal", "Flygon", "Cacturne", "Altaria", "Zangoose", "Seviper", "Claydol", "Castform", "Banette", "Absol", "Huntail", "Gorebyss", "Bibarel", "Kricketune", "Roserade", "Vespiquen", "Cherrim", "Drifblim", "Honchkrow", "Skuntank", "Bronzong", "Lucario", "Toxicroak", "Lumineon", "Abomasnow", "Leafeon", "Glaceon", "Gallade", "Rotom", "Musharna", "Unfezant", "Gigalith", "Conkeldurr", "Leavanny", "Scolipede", "Crustle", "Scrafty", "Sigilyph", "Zoroark", "Cinccino", "Reuniclus", "Swanna", "Vanilluxe", "Sawsbuck", "Jellicent", "Klinklang", "Chandelure", "Cryogonal", "Druddigon", "Golurk", "Mandibuzz", "Heatmor", "Durant", "Hydreigon", "Volcarona", "Diggersby", "Gogoat", "Furfrou", "Aromatisse", "Slurpuff", "Barbaracle", "Dragalge", "Clawitzer", "Heliolisk", "Sylveon", "Klefki", "Ribombee", "Lycanroc", "Lycanroc-Midnight", "Lycanroc-Dusk", "Wishiwashi", "Mudsdale", "Araquanid", "Salazzle", "Bewear", "Oranguru", "Passimian", "Mimikyu", "Dhelmise", "Toxtricity", "Toxtricity-Low-Key", "Grimmsnarl", "Falinks", "Pincurchin", "Frosmoth", "Stonjourner", "Eiscue", "Indeedee", "Indeedee-F", "Duraludon", "Oinkologne", "Oinkologne-F", "Pawmot", "Maushold", "Arboliva", "Garganacl", "Armarouge", "Ceruledge", "Kilowattrel", "Mabosstiff", "Grafaiai", "Rabsca", "Bombirdier", "Palafin", "Revavroom", "Glimmora", "Houndstone", "Cetitan",
-      "Cursola", // wasn't showing up naturally as a Corsola relative before, oops
+			"Cursola", // wasn't showing up naturally as a Corsola relative before, oops
 		];
 		const ondasTms = [
 			'adrenalinerush', 'aerialace', 'aftershock', 'aircurrent', 'attract', 'blizzard', 'bloodboil', 'brickbreak', 'bulkup', 'bulldoze', 'calmmind', 'darkpulse',
@@ -51,132 +51,127 @@ export const Scripts: ModdedBattleScriptsData = {
       // UTILITY
       
       Hazards: [
-				// Setters
-				'spikes', 'ceaselessedge', 'groundbreak', 'spikes',
-        'stealthrock', 'stoneaxe',
-        'stickyweb',
-        'toxicspikes', 'contaminate', 'toxicdebris',
-        'backstab',
-        'tripwire',
-        // Removers
-        'defog', 'rapidspin', 'courtchange', 'mortalspin', 'tidyup', 'snowshovel',
-        // Prevention
-        'taunt', 'magicbounce', 'magiccoat', 'goodasgold',
-        // Self-KO
-        'memento', 'selfdestruct', 'explosion',
-      ],
-			Clerics: [
-				'aromatherapy', 'healbell',
-        'wish', 'gatheringswarm', 'revivalblessing',
-        'healingwish', 'lunardance',
-			],
-      Disruption: [
-        // Item control
-        'knockoff', 'corrosivegas', 'covet', 'thief',
-				'shadydeal', 'switcheroo', 'trick', 'mixedblessing',
-				// Move-binding
-        'encore', 'disable', 'reverb',
-        'destinybond', // I want Destiny Bond *somewhere* but I dunno where yet
-        // "Other" I guess
-        'prankster',
-        // Targeted trapping
-        'pursuit', 'arenatrap', 'shadowtag',
-        // Stallbreaking-trapping
-        'anchorshot', 'block', 'fairylock', 'firespin', 'infestation', 'jawlock', 'meanlook', 'octolock', 'provoke', 'sandtomb', 'spiderweb', 'spiritshackle', 'stickyfloor', 'thousandwaves', 'thundercage',
-      ],
+			// Setters
+			'spikes', 'ceaselessedge', 'groundbreak', 'spikes',
+			'stealthrock', 'stoneaxe',
+			'stickyweb',
+			'toxicspikes', 'contaminate', 'toxicdebris',
+			'backstab',
+			'tripwire',
+			// Removers
+			'defog', 'rapidspin', 'courtchange', 'mortalspin', 'tidyup', 'snowshovel',
+			// Prevention
+			'taunt', 'magicbounce', 'magiccoat', 'goodasgold',
+			// Self-KO
+			'memento', 'selfdestruct', 'explosion',
+		],
+		Clerics: [
+			'aromatherapy', 'healbell',
+			'wish', 'gatheringswarm', 'revivalblessing',
+			'healingwish', 'lunardance',
+		],
+		Disruption: [
+			// Item control
+			'knockoff', 'corrosivegas', 'covet', 'thief',
+			'shadydeal', 'switcheroo', 'trick', 'mixedblessing',
+			// Move-binding
+			'encore', 'disable', 'reverb',
+			'destinybond', // I want Destiny Bond *somewhere* but I dunno where yet
+			// "Other" I guess
+			'prankster',
+			// Targeted trapping
+			'pursuit', 'arenatrap', 'shadowtag',
+			// Stallbreaking-trapping?
+			'anchorshot', 'block', 'fairylock', 'firespin', 'infestation', 'jawlock', 'magmastorm', 'meanlook', 'octolock', 'provoke', 'sandtomb', 'spiderweb', 'spiritshackle', 'stickyfloor', 'thousandwaves', 'thundercage',
+		],
 
       // OFFENSIVE
 
-			Setup: [
-        // Wallbreaking
-        // phys
-        'swordsdance',
-        'bulkup', 'curse', 'coil', 'victorydance',
-        'bellydrum',
-        'honeclaws',
-        // spec
-        'nastyplot', 'tailglow',
-        'calmmind', 'takeheart',
-        'bloodboil',
-        // Crits
-        'focusenergy', 'triplearrows', 'octazooka', 'armorpierce', // (kinda)
-        
-        // Sweeping
-        'dragondance', 'shiftgear',
-        'quiverdance',
-        'agility', 'autotomize', 'rockpolish', 'speedboost', 'unburden', 'weakarmor',
-        'flamecharge', 'trailblaze', 'aquastep', 'aurawheel', 'runningstart', 'surgingstrikes',
-        'shellsmash', 'metamorphosis', 'filletaway', 'geomancy', 'clangoroussoul', 'noretreat',
-        
-        // Stallbreaking
-        'poisonheal', 'magicguard',
-        'catharsis', 'junglehealing', 'lunarblessing', 'refresh',
-        // Other
-				'batonpass',
-			],
+		Setup: [
+			// Wallbreaking
+			// phys
+			'swordsdance',
+			'bulkup', 'curse', 'coil', 'victorydance',
+			'bellydrum',
+			'honeclaws',
+			// spec
+			'nastyplot', 'tailglow',
+			'calmmind', 'takeheart',
+			'bloodboil',
+			// Crits
+			'focusenergy', 'triplearrows', 'octazooka', 'armorpierce', // (kinda)
+
+			// Sweeping
+			'dragondance', 'shiftgear',
+			'quiverdance',
+			'agility', 'autotomize', 'rockpolish', 'speedboost', 'unburden', 'weakarmor',
+			'aquastep', 'aurawheel', 'runningstart', 'surgingstrikes',
+			'shellsmash', 'metamorphosis', 'filletaway', 'geomancy', 'clangoroussoul', 'noretreat',
+
+			// Stallbreaking
+			'poisonheal', 'magicguard',
+			'catharsis', 'junglehealing', 'lunarblessing', 'refresh',
+			// Other
+			'batonpass',
+		],
 
       // STRONG PRIORITY SECTION - WIP
 
       // DEFENSIVE
 
-      Recovery: [
+			Recovery: [
 				'recover', 'roost', 'shoreup', 'slackoff', 'softboiled', 'healorder', 'milkdrink',
-        'regenerator',
+				'regenerator',
 				'strengthsap',
-        'painsplit', 'leechseed',
-        'moonlight', 'morningsun', 'synthesis',
-      ],
-      Status: [
-        // Burn
-        'flamebody', 'beakblast',
-        'willowisp', 'rashpowder',
-        'sacredfire', 'scald', 'scorchingsands', 'infernalparade',
-        // Poison
-        'poisonpoint', 'poisontouch',
-        'toxicthread', 'banefulbunker',
-        // Paralysis
-        'static',
-        'glare', 'thunderwave', 'stunspore',
-        'nuzzle', 'aftershock', 'bodyslam',
-        // Sleep
-        'spore', 'lovelykiss', 'sleeppowder', 'hypnosis', 'darkvoid',
-        // Other
-        'effectspore', 'direclaw', // random
-        'bittermalice', // frostbite?
-        'saltcure', // Salt Cure
-      ],
-      SetupControl: [
-        'unaware',
-        // clearing
-        'haze', 'clearsmog', 'heartswap', 'topsyturvy',
-        // phasing
-        'roar', 'whirlwind',
-        'perishsong', 'yawn',
-				'circlethrow',  'dragontail', 'revolvingdoorslam',
-      ],
+				'painsplit', 'leechseed',
+				'moonlight', 'morningsun', 'synthesis',
+			],
+			Status: [
+				// Burn
+				'flamebody', 'beakblast',
+				'willowisp', 'rashpowder',
+				'sacredfire', 'scald', 'scorchingsands', 'infernalparade',
+				// Poison
+				'poisonpoint', 'poisontouch',
+				'toxicthread', 'banefulbunker',
+				// Paralysis
+				'static',
+				'glare', 'thunderwave', 'stunspore',
+				'nuzzle', 'aftershock', 'bodyslam',
+				// Sleep
+				'spore', 'lovelykiss', 'sleeppowder', 'hypnosis', 'darkvoid',
+				// Other
+				'effectspore', 'direclaw', // random
+				'bittermalice', // frostbite?
+				'saltcure', // Salt Cure
+			],
+			SetupControl: [
+				'unaware',
+				'haze', 'clearsmog', 'heartswap', 'topsyturvy',
+				'roar', 'whirlwind', 'perishsong', 'yawn', 'circlethrow',  'dragontail', 'revolvingdoorslam',
+			],
 			Pivoting: [
 				'uturn', 'voltswitch', 'partingshot', 'teleport', 'flipturn', 'shedtail', 'chillyreception', 'pyrotechnics',
 			],
-      
-      // FIELD EFFECTS
-      
-      Screens: [
-        'lightscreen', 'reflect',
-        'auroraveil', // Veil might actually be worth running on Pokémon without Snow Warning since there's permahail
-        'creepingivy',  'lushmoss', 'psyshieldbash', 
-      ],
-      Weather: [
-        'drought', 'orichalcumpulse', 'chlorophyll', 'solarpower', 'protosynthesis, 'growth', 'harvest', 'flowergift', 'leafguard',
-        'drizzle', 'swiftswim', 'dryskin', 'raindish', 'hydration',
-        'thunder', 'hurricane', // these seem less likely to be already covered by the other categories than Solar Beam or something
-        'sandstream', 'sandspit', 'sandrush', 'sandforce', 'sandveil',
-        'snowwarning', 'chillyreception', 'auroraveil', 'slushrush', 'icebody', 'iceface', 'snowcloak', // is it okay to list Chilly Reception twice?
-        'forecast',
-        'psychicsurge', 'mistysurge', 'electricsurge', 'surgesurfer', 'grassysurge', 'seedsower',
-        'trickroom',
-      ],
 
-      // DOUBLES SECTION - WIP
+			// FIELD EFFECTS
+
+			Screens: [
+				'lightscreen', 'reflect', // Veil is in the weather section
+				'creepingivy',  'lushmoss', 'psyshieldbash', 
+			],
+			Weather: [
+				'drought', 'orichalcumpulse', 'chlorophyll', 'solarpower', 'protosynthesis, 'growth', 'harvest', 'flowergift', 'leafguard',
+				'drizzle', 'swiftswim', 'dryskin', 'raindish', 'hydration',
+				'thunder', 'hurricane', // these seem less likely to be already covered by the other categories than Solar Beam or something
+				'sandstream', 'sandspit', 'sandrush', 'sandforce', 'sandveil',
+				'snowwarning', 'chillyreception', 'auroraveil', 'slushrush', 'icebody', 'iceface', 'snowcloak', // is it okay to list Chilly Reception twice?
+				'forecast',
+				'psychicsurge', 'mistysurge', 'electricsurge', 'surgesurfer', 'grassysurge', 'seedsower',
+				'trickroom',
+			],
+
+			// DOUBLES SECTION - WIP
       
 			DoublesDisrupt: [
 				'acidspray', 'blackmail', 'breakingswipe', 'bulldoze', 'captivate', 'charm', 'constrict', 'cottonspore', 'demolition', 'detect', 'drumbeating', 'eerieimpulse',
