@@ -46,78 +46,78 @@ export const Scripts: ModdedBattleScriptsData = {
 			'doubleteam', 'flash', 'kinesis', 'minimize', 'sandattack', 'smokescreen', 'storedpower', 'terablast',
 		];
 		const movepoolSections = {
-      // should try to be set up in a way that doesn't need to distinguish moves from Abilities
+			// should try to be set up in a way that doesn't need to distinguish moves from Abilities
 
-      // UTILITY
-      
-      Hazards: [
-			// Setters
-			'spikes', 'ceaselessedge', 'groundbreak', 'spikes',
-			'stealthrock', 'stoneaxe',
-			'stickyweb',
-			'toxicspikes', 'contaminate', 'toxicdebris',
-			'backstab',
-			'tripwire',
-			// Removers
-			'defog', 'rapidspin', 'courtchange', 'mortalspin', 'tidyup', 'snowshovel',
-			// Prevention
-			'taunt', 'magicbounce', 'magiccoat', 'goodasgold',
-			// Self-KO
-			'memento', 'selfdestruct', 'explosion',
-		],
-		Clerics: [
-			'aromatherapy', 'healbell',
-			'wish', 'gatheringswarm', 'revivalblessing',
-			'healingwish', 'lunardance',
-		],
-		Disruption: [
-			// Item control
-			'knockoff', 'corrosivegas', 'covet', 'thief',
-			'shadydeal', 'switcheroo', 'trick', 'mixedblessing',
-			// Move-binding
-			'encore', 'disable', 'reverb',
-			'destinybond', // I want Destiny Bond *somewhere* but I dunno where yet
-			// "Other" I guess
-			'prankster',
-			// Targeted trapping
-			'pursuit', 'arenatrap', 'shadowtag',
-			// Stallbreaking-trapping?
-			'anchorshot', 'block', 'fairylock', 'firespin', 'infestation', 'jawlock', 'magmastorm', 'meanlook', 'octolock', 'provoke', 'sandtomb', 'spiderweb', 'spiritshackle', 'stickyfloor', 'thousandwaves', 'thundercage',
-		],
+			// UTILITY
+			Hazards: [
+				// Setters
+				'spikes', 'ceaselessedge', 'groundbreak', 'spikes',
+				'stealthrock', 'stoneaxe',
+				'stickyweb',
+				'toxicspikes', 'contaminate', 'toxicdebris',
+				'backstab',
+				'tripwire',
+				// Removers
+				'defog', 'rapidspin', 'courtchange', 'mortalspin', 'tidyup', 'snowshovel',
+				// Prevention
+				'taunt', 'magicbounce', 'magiccoat', 'goodasgold',
+				// Self-KO
+				'memento', 'selfdestruct', 'explosion',
+			],
+			Clerics: [
+				'aromatherapy', 'healbell',
+				'wish', 'gatheringswarm', 'revivalblessing',
+				'healingwish', 'lunardance',
+			],
+			Disruption: [
+				// Item control
+				'knockoff', 'corrosivegas', 'covet', 'thief',
+				'shadydeal', 'switcheroo', 'trick', 'mixedblessing',
+				// Move-binding
+				'encore', 'disable', 'reverb',
+				'destinybond', // I want Destiny Bond *somewhere* but I dunno where yet
+				// "Other" I guess
+				'prankster',
+				// Targeted trapping
+				'pursuit', 'arenatrap', 'shadowtag',
+				// Stallbreaking-trapping?
+				'anchorshot', 'block', 'fairylock', 'firespin', 'infestation', 'jawlock', 'magmastorm', 'meanlook', 'octolock', 'provoke', 'sandtomb', 'spiderweb', 'spiritshackle', 'stickyfloor', 'thousandwaves', 'thundercage',
+			],
 
-      // OFFENSIVE
+			// OFFENSIVE
+			Setup: [
+				// WALLBREAKING
+				// phys
+				'swordsdance',
+				'bulkup', 'curse', 'coil', 'victorydance',
+				'bellydrum',
+				'honeclaws',
+				// spec
+				'nastyplot', 'tailglow',
+				'calmmind', 'takeheart',
+				'bloodboil',
+				// crits
+				'focusenergy', 'triplearrows', 'octazooka', 'armorpierce', // (kinda)
 
-		Setup: [
-			// Wallbreaking
-			// phys
-			'swordsdance',
-			'bulkup', 'curse', 'coil', 'victorydance',
-			'bellydrum',
-			'honeclaws',
-			// spec
-			'nastyplot', 'tailglow',
-			'calmmind', 'takeheart',
-			'bloodboil',
-			// Crits
-			'focusenergy', 'triplearrows', 'octazooka', 'armorpierce', // (kinda)
+				// SWEEPING
+				'dragondance', 'shiftgear',
+				'quiverdance',
+				'agility', 'autotomize', 'rockpolish', 'speedboost', 'unburden', 'weakarmor',
+				'aquastep', 'aurawheel', 'runningstart', 'surgingstrikes',
+				'shellsmash', 'metamorphosis', 'filletaway', 'geomancy', 'clangoroussoul', 'noretreat',
 
-			// Sweeping
-			'dragondance', 'shiftgear',
-			'quiverdance',
-			'agility', 'autotomize', 'rockpolish', 'speedboost', 'unburden', 'weakarmor',
-			'aquastep', 'aurawheel', 'runningstart', 'surgingstrikes',
-			'shellsmash', 'metamorphosis', 'filletaway', 'geomancy', 'clangoroussoul', 'noretreat',
+				// stallbreaking
+				'poisonheal', 'magicguard',
+				'catharsis', 'junglehealing', 'lunarblessing', 'refresh',
+				// other
+				'batonpass',
+			],
 
-			// Stallbreaking
-			'poisonheal', 'magicguard',
-			'catharsis', 'junglehealing', 'lunarblessing', 'refresh',
-			// Other
-			'batonpass',
-		],
-
-      // STRONG PRIORITY SECTION - WIP
-
-      // DEFENSIVE
+			// PRIORITY SECTION - WIP
+			// probably filter by type for the 40 BP ones but not the stronger ones
+			// also consider simply listing all of the Pokémon above base 100 Speed, from fastest to slowest?
+			
+			// DEFENSIVE
 
 			Recovery: [
 				'recover', 'roost', 'shoreup', 'slackoff', 'softboiled', 'healorder', 'milkdrink',
