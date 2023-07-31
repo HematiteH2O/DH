@@ -2,6 +2,7 @@ export const Scripts: ModdedBattleScriptsData = {
 	init() {
 		const ondasDexDraft = [
 			"Raichu", "Nidoqueen", "Nidoking", "Vileplume", "Slowbro", "Exeggutor", "Marowak", "Kangaskhan", "Starmie", "Jynx", "Gyarados", "Vaporeon", "Jolteon", "Flareon", "Lanturn", "Ampharos", "Bellossom", "Espeon", "Umbreon", "Slowking", "Heracross", "Magcargo", "Corsola", "Delibird", "Skarmory", "Houndoom", "Kingdra", "Smeargle", "Tyranitar", "Ludicolo", "Gardevoir", "Masquerain", "Ninjask", "Shedinja", "Exploud", "Delcatty", "Sableye", "Mawile", "Manectric", "Sharpedo", "Wailord", "Camerupt", "Torkoal", "Flygon", "Cacturne", "Altaria", "Zangoose", "Seviper", "Claydol", "Castform", "Banette", "Absol", "Huntail", "Gorebyss", "Bibarel", "Kricketune", "Roserade", "Vespiquen", "Cherrim", "Drifblim", "Honchkrow", "Skuntank", "Bronzong", "Lucario", "Toxicroak", "Lumineon", "Abomasnow", "Leafeon", "Glaceon", "Gallade", "Rotom", "Musharna", "Unfezant", "Gigalith", "Conkeldurr", "Leavanny", "Scolipede", "Crustle", "Scrafty", "Sigilyph", "Zoroark", "Cinccino", "Reuniclus", "Swanna", "Vanilluxe", "Sawsbuck", "Jellicent", "Klinklang", "Chandelure", "Cryogonal", "Druddigon", "Golurk", "Mandibuzz", "Heatmor", "Durant", "Hydreigon", "Volcarona", "Diggersby", "Gogoat", "Furfrou", "Aromatisse", "Slurpuff", "Barbaracle", "Dragalge", "Clawitzer", "Heliolisk", "Sylveon", "Klefki", "Ribombee", "Lycanroc", "Lycanroc-Midnight", "Lycanroc-Dusk", "Wishiwashi", "Mudsdale", "Araquanid", "Salazzle", "Bewear", "Oranguru", "Passimian", "Mimikyu", "Dhelmise", "Toxtricity", "Toxtricity-Low-Key", "Grimmsnarl", "Falinks", "Pincurchin", "Frosmoth", "Stonjourner", "Eiscue", "Indeedee", "Indeedee-F", "Duraludon", "Oinkologne", "Oinkologne-F", "Pawmot", "Maushold", "Arboliva", "Garganacl", "Armarouge", "Ceruledge", "Kilowattrel", "Mabosstiff", "Grafaiai", "Rabsca", "Bombirdier", "Palafin", "Revavroom", "Glimmora", "Houndstone", "Cetitan",
+			"Cloyster", "Cursola", "Simisage", "Simisear", "Simipour", // later additions
 		];
 		const ondasTms = [
 			'adrenalinerush', 'aerialace', 'aftershock', 'aircurrent', 'attract', 'blizzard', 'bloodboil', 'brickbreak', 'bulkup', 'bulldoze', 'calmmind', 'darkpulse',
@@ -27,7 +28,7 @@ export const Scripts: ModdedBattleScriptsData = {
 			'waterpulse', 'waterfall', 'worryseed', 'zenheadbutt', 'powershift', 'risingstalk', 'risingheat', 'risingtide',
 			// Ondas now
 			'afteryou', 'lifedew', 'electroweb', 'sidewardshove', 'tractorbeam', 'gatheringswarm', 'soothingwave', 'sabotage', 'smackdown', 'spiritbreak',
-			'junglehealing', 'snowshovel', 'venoshock', 'groundbreak', 'leechlife', 'undermine', 'rampageinstinct', 'reverb', 'mixedblessing', 'horndrill',
+			'junglehealing', 'snowplow', 'venoshock', 'groundbreak', 'leechlife', 'undermine', 'rampageinstinct', 'reverb', 'mixedblessing', 'horndrill',
 			'pyrotechnics', 'roilingwaves', 'overload', 'expandingforce', 'reversalroom', 'metamorphosis', 'lashout', 'steelroller', 'catharsis'
 		];
 		const sinnohOnly = [
@@ -40,7 +41,7 @@ export const Scripts: ModdedBattleScriptsData = {
 			'relicsong', 'blastburn', 'firepledge', 'vcreate', 'hydrocannon', 'waterpledge', 'volttackle', 'frenzyplant', 'grasspledge', 'secretsword', 'dragonascent',
 		]; // don't show up as recommended if the Pokémon doesn't already get them
 		const dexitedMoves = [
-			'doubleteam', 'flash', 'kinesis', 'minimize', 'sandattack', 'smokescreen', 'storedpower', 'terablast',
+			'doubleteam', 'flash', 'kinesis', 'minimize', 'sandattack', 'smokescreen', 'snowscape', 'storedpower', 'terablast',
 		];
 		const movepoolSections = {
 			Self: [
@@ -73,7 +74,7 @@ export const Scripts: ModdedBattleScriptsData = {
 				'aromatherapy', 'catharsis', 'gatheringswarm', 'healbell', 'junglehealing', 'lunarblessing', 'refresh', 'revivalblessing', 'takeheart', 'wish',
 				// Field Control
 				'auroraveil', 'backstab', 'ceaselessedge', 'contaminate', 'courtchange', 'creepingivy', 'defog', 'groundbreak', 'lightscreen', 'lushmoss', 'mortalspin', 'psyshieldbash',
-				'rapidspin', 'reflect', 'snowshovel', 'spikes', 'stealthrock', 'stickyweb', 'stoneaxe', 'tidyup', 'toxicspikes', 'tripwire',
+				'rapidspin', 'reflect', 'snowplow', 'spikes', 'stealthrock', 'stickyweb', 'stoneaxe', 'tidyup', 'toxicspikes', 'tripwire',
 			],
 			Momentum: [
 				'batonpass', 'chillyreception', 'explosion', 'flipturn', 'healingwish', 'memento', 'partingshot', 'pyrotechnics', 'selfdestruct', 'shedtail', 'teleport',
@@ -465,7 +466,7 @@ export const Scripts: ModdedBattleScriptsData = {
 			'rockwrecker', 'roilingwaves', 'rollout', 'runningbolt', 'sacredfire', 'sacredsword', 'saltcure', 'sandsearstorm', 'scald', 'scaleshot', 'scorchingsands',
 			'searingshot', 'secretsword', 'seedbomb', 'seedflare', 'selfdestruct', 'shadowball', 'shadowbone', 'shadowclaw', 'shadowforce', 'shadowsneak', 'shadydeal',
 			'shellsidearm', 'shelltrap', 'signalbeam', 'silverwind', 'skittersmack', 'skyattack', 'skyuppercut', 'sleightofhand', 'sludgebomb', 'sludgewave',
-			'smartstrike', 'smellingsalts', 'snipeshot', 'snowshovel', 'solarbeam', 'solarblade', 'spacialrend', 'spark', 'sparklingaria', 'spectralthief', 'spiderweb',
+			'smartstrike', 'smellingsalts', 'snipeshot', 'snowplow', 'solarbeam', 'solarblade', 'spacialrend', 'spark', 'sparklingaria', 'spectralthief', 'spiderweb',
 			'spikyshield', 'spinout', 'spiritbreak', 'spiritshackle', 'spitup', 'splashzone', 'springtidestorm', 'steameruption', 'steelbeam', 'steelroller',
 			'stompingtantrum', 'stoneaxe', 'stoneedge', 'storedpower', 'stormthrow', 'strangesteam', 'suckerpunch', 'sunsteelstrike', 'superpower', 'surf',
 			'surgingstrikes', 'surpriseattack', 'switchflip', 'synchronoise', 'teardown', 'technoblast', 'terrainpulse', 'testingstrike', 'thousandarrows',
@@ -1000,6 +1001,13 @@ export const Scripts: ModdedBattleScriptsData = {
 								continue;
 							}
 						}
+						if (moveid === 'hail') {
+							if (
+								(learnset.snowscape) || (learnset2 && learnset2.snowscape) || (learnset3 && learnset3.snowscape) || (learnset4 && learnset4.snowscape)
+							) {
+								addRule = "addTrend";
+							}
+						} // I'm making sure Hail goes to anything with Snowscape if it didn't already have it (mostly Gen IX stuff)
 						if (moveid === 'scorchingsands') {
 							if (
 								!(
