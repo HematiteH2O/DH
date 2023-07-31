@@ -732,6 +732,8 @@ export const Scripts: ModdedBattleScriptsData = {
 								learned = true;
 							}
 						}
+						if (id === 'smeargle') learned = true;
+						if (id === 'mew' && learnedTmTutor) learned = true;
 					}
 					if (learned) {
 
