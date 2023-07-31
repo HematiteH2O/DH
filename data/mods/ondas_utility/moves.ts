@@ -17639,6 +17639,12 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		type: "Normal",
 		contestType: "Cute",
 	},
+	snowplow: {
+		num: -21,
+		name: "Snowplow",
+		category: "Physical",
+		type: "Ice",
+	},
 	snowscape: {
 		num: 883,
 		accuracy: true,
@@ -17651,12 +17657,6 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		weather: 'snow',
 		secondary: null,
 		target: "all",
-		type: "Ice",
-	},
-	snowshovel: {
-		num: -21,
-		name: "Snow Shovel",
-		category: "Physical",
 		type: "Ice",
 	},
 	soak: {
