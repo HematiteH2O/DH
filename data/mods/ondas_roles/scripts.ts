@@ -159,7 +159,7 @@ export const Scripts: ModdedBattleScriptsData = {
 				'creepingivy',  'lushmoss', 'psyshieldbash', 
 			],
 			Weather: [
-				'drought', 'orichalcumpulse', 'chlorophyll', 'solarpower', 'protosynthesis, 'growth', 'harvest', 'flowergift', 'leafguard',
+				'drought', 'orichalcumpulse', 'chlorophyll', 'solarpower', 'protosynthesis', 'growth', 'harvest', 'flowergift', 'leafguard',
 				'drizzle', 'swiftswim', 'dryskin', 'raindish', 'hydration',
 				'thunder', 'hurricane', // these seem less likely to be already covered by the other categories than Solar Beam or something
 				'sandstream', 'sandspit', 'sandrush', 'sandforce', 'sandveil',
