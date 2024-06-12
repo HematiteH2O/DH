@@ -1374,4 +1374,80 @@ export const Formats: {[k: string]: FormatData} = {
 			this.add('-start', pokemon, 'typechange', (pokemon.illusion || pokemon).getTypes(true).join('/'), '[silent]');
 		},
 	},
+	vgctemplate: {
+		effectType: 'Rule',
+		name: 'VGC Template',
+		desc: `Applies basic VGC rules to an existing format.`,
+		// to do: remove !HP Percentage Mod, !OHKO Clause, !Evasion Moves Clause, !Sleep Clause Mod
+		onStart() {
+			(this.format as any).gameType = 'doubles';
+			(this.format as any).forcedLevel = 50;
+			(this.format as any).teamLength = {battle: 4};
+		},
+		timer: {
+			starting: 7 * 60, addPerTurn: 0, maxPerTurn: 55, maxFirstTurn: 90,
+			grace: 90, timeoutAutoChoose: true, dcTimerBank: false,
+		},
+		onValidateTeam(team, format) {
+			// fake 4-Pokémon minimum
+			let setCount = 0;
+			for (const set of team) {
+				setCount++;
+			}
+			if (setCount < 4) {
+				return ['You need at least 4 Pokémon for VGC!'];
+			}
+			return [];
+			// fake Species Clause
+			const speciesTable: Set<number> = new Set();
+			for (const set of team) {
+				const species = this.dex.getSpecies(set.species);
+				if (speciesTable.has(species.num)) {
+					return [`You are limited to one of each Pokémon by Species Clause.`, `(You have more than one ${species.baseSpecies})`];
+				}
+				speciesTable.add(species.num);
+			}
+			// fake Item Clause
+			const itemTable: Set<string> = new Set();
+			for (const set of team) {
+				const item = this.toID(set.item);
+				if (!item) continue;
+				if (itemTable.has(item)) {
+					return [
+						`You are limited to one of each item by Item Clause.`,
+						`(You have more than one ${this.dex.getItem(item).name})`,
+					];
+				}
+				itemTable.add(item);
+			}
+			// fake Nickname Clause
+			const nameTable: Set<string> = new Set();
+			for (const set of team) {
+				const name = set.name;
+				if (name) {
+					if (name === this.dex.getSpecies(set.species).baseSpecies) continue;
+					if (nameTable.has(name)) {
+						return [`Your Pokémon must have different nicknames.`, `(You have more than one ${name})`];
+					}
+					nameTable.add(name);
+				}
+			}
+		},
+	},
+	vgctemplatemod: {
+		effectType: 'Rule',
+		name: 'VGC Template Mod',
+		desc: `Applies basic VGC rules to an existing format.`,
+		// to do: remove HP Percentage Mod
+		ruleset: [
+			'Team Preview', 'Species Clause', 'Nickname Clause', 'Item Clause', 'VGC Timer', 'Cancel Mod', // 'Picked Team Size = 4', '!! Adjust Level = 50',
+			'! OHKO Clause', '! Evasion Moves Clause', '! Sleep Clause Mod'
+		],
+		gameType: 'doubles',
+		forcedLevel: 50,
+		teamLength: {
+			validate: [4, 6],
+			battle: 4,
+		},
+	},
 };
