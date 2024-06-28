@@ -1,22 +1,25 @@
 export const Scripts: ModdedBattleScriptsData = {
 	init() {
 		const ondasDexDraft = [
-			"Raichu", "Nidoqueen", "Nidoking", "Vileplume", "Slowbro", "Exeggutor", "Marowak", "Kangaskhan", "Starmie", "Jynx", "Gyarados", "Vaporeon", "Jolteon", "Flareon", "Lanturn", "Ampharos", "Bellossom", "Espeon", "Umbreon", "Slowking", "Heracross", "Magcargo", "Corsola", "Delibird", "Skarmory", "Houndoom", "Kingdra", "Smeargle", "Tyranitar", "Ludicolo", "Gardevoir", "Masquerain", "Ninjask", "Shedinja", "Exploud", "Delcatty", "Sableye", "Mawile", "Manectric", "Sharpedo", "Wailord", "Camerupt", "Torkoal", "Flygon", "Cacturne", "Altaria", "Zangoose", "Seviper", "Claydol", "Castform", "Banette", "Absol", "Huntail", "Gorebyss", "Bibarel", "Kricketune", "Roserade", "Vespiquen", "Cherrim", "Drifblim", "Honchkrow", "Skuntank", "Bronzong", "Lucario", "Toxicroak", "Lumineon", "Abomasnow", "Leafeon", "Glaceon", "Gallade", "Rotom", "Musharna", "Unfezant", "Gigalith", "Conkeldurr", "Leavanny", "Scolipede", "Crustle", "Scrafty", "Sigilyph", "Zoroark", "Cinccino", "Reuniclus", "Swanna", "Vanilluxe", "Sawsbuck", "Jellicent", "Klinklang", "Chandelure", "Cryogonal", "Druddigon", "Golurk", "Mandibuzz", "Heatmor", "Durant", "Hydreigon", "Volcarona", "Diggersby", "Gogoat", "Furfrou", "Aromatisse", "Slurpuff", "Barbaracle", "Dragalge", "Clawitzer", "Heliolisk", "Sylveon", "Klefki", "Ribombee", "Lycanroc", "Lycanroc-Midnight", "Lycanroc-Dusk", "Wishiwashi", "Mudsdale", "Araquanid", "Salazzle", "Bewear", "Oranguru", "Passimian", "Mimikyu", "Dhelmise", "Toxtricity", "Toxtricity-Low-Key", "Grimmsnarl", "Falinks", "Pincurchin", "Frosmoth", "Stonjourner", "Eiscue", "Indeedee", "Indeedee-F", "Duraludon", "Oinkologne", "Oinkologne-F", "Pawmot", "Maushold", "Arboliva", "Garganacl", "Armarouge", "Ceruledge", "Kilowattrel", "Mabosstiff", "Grafaiai", "Rabsca", "Bombirdier", "Palafin", "Revavroom", "Glimmora", "Houndstone", "Cetitan",
+			"Raichu", "Nidoqueen", "Nidoking", "Vileplume", "Slowbro", "Exeggutor", "Marowak", "Kangaskhan", "Starmie", "Jynx", "Gyarados", "Vaporeon", "Jolteon", "Flareon", "Lanturn", "Ampharos", "Bellossom", "Espeon", "Umbreon", "Slowking", "Heracross", "Magcargo", "Corsola", "Delibird", "Skarmory", "Houndoom", "Kingdra", "Smeargle", "Tyranitar", "Ludicolo", "Gardevoir", "Masquerain", "Ninjask", "Shedinja", "Exploud", "Delcatty", "Sableye", "Mawile", "Manectric", "Sharpedo", "Wailord", "Camerupt", "Torkoal", "Flygon", "Cacturne", "Altaria", "Zangoose", "Seviper", "Claydol", "Castform", "Banette", "Absol", "Huntail", "Gorebyss", "Bibarel", "Kricketune", "Roserade", "Vespiquen", "Cherrim", "Drifblim", "Honchkrow", "Skuntank", "Bronzong", "Lucario", "Toxicroak", "Lumineon", "Abomasnow", "Leafeon", "Glaceon", "Gallade", "Rotom", "Musharna", "Unfezant", "Gigalith", "Conkeldurr", "Leavanny", "Scolipede", "Crustle", "Scrafty", "Sigilyph", "Zoroark", "Cinccino", "Reuniclus", "Swanna", "Vanilluxe", "Sawsbuck", "Jellicent", "Klinklang", "Chandelure", "Cryogonal", "Druddigon", "Golurk", "Mandibuzz", "Heatmor", "Durant", "Hydreigon", "Volcarona", "Diggersby", "Gogoat", "Furfrou", "Aromatisse", "Slurpuff", "Barbaracle", "Dragalge", "Clawitzer", "Heliolisk", "Sylveon", "Klefki", "Ribombee", "Lycanroc", "Lycanroc-Midnight", "Lycanroc-Dusk", "Wishiwashi", "Mudsdale", "Araquanid", "Salazzle", "Bewear", "Oranguru", "Passimian", "Mimikyu", "Dhelmise", "Toxtricity", "Toxtricity-Low-Key", "Grimmsnarl", "Falinks", "Pincurchin", "Frosmoth", "Stonjourner", "Eiscue", "Indeedee", "Indeedee-F", "Archaludon", "Oinkologne", "Oinkologne-F", "Pawmot", "Maushold", "Arboliva", "Garganacl", "Armarouge", "Ceruledge", "Kilowattrel", "Mabosstiff", "Grafaiai", "Rabsca", "Bombirdier", "Palafin", "Revavroom", "Glimmora", "Houndstone", "Cetitan",
 			"Cloyster", "Cursola", "Simisage", "Simisear", "Simipour", // later additions
+			"Palossand", "Garbodor", "Drampa", "Turtonator", "Tinkaton", "Basculegion", "Basculegion-F", "Noivern", // even later additions
+			"Magmortar", "Shuckle", "Drapion", "Runerigus", "Tsareena", "Gholdengo", // additions for variant lines
 		];
 		const ondasTms = [
 			'adrenalinerush', 'aerialace', 'aftershock', 'aircurrent', 'attract', 'blizzard', 'bloodboil', 'brickbreak', 'bulkup', 'bulldoze', 'calmmind', 'darkpulse',
 			'dazzlinggleam', 'dragonclaw', 'drainpunch', 'earthquake', 'embargo', 'energyball', 'expiration', 'explosion', 'facade', 'falseswipe', 'fireblast', 'flamecharge',
-			'flamethrower', 'flashcannon', 'fling', 'focusblast', 'focuspunch', 'frustration', 'gigadrain', 'gigaimpact', 'gyroball', 'hail', 'healblock', 'hiddenpower',
+			'flamethrower', 'flashcannon', 'fling', 'focusblast', 'focuspunch', 'frustration', 'gigadrain', 'gigaimpact', 'gyroball', 'hail', 'hiddenpower',
 			'hyperbeam', 'icebeam', 'lastwill', 'lightscreen', 'liquidation', 'magiccoat', 'naturepower', 'oilfire', 'overheat', 'piledriver', 'poweruppunch',
 			'protect', 'psychic', 'psyshock', 'quash', 'raindance', 'reflect', 'reputation', 'rest', 'retaliate', 'return', 'revolvingdoorslam', 'risingvoltage', 'roar',
 			'rockpolish', 'rockslide', 'rocktomb', 'roost', 'safeguard', 'sandstorm', 'scald', 'scorchingsands', 'shadowball', 'shockwave', 'skydrop', 'sleeptalk',
-			'sludgebomb', 'snarl', 'snatch', 'solarbeam', 'splashzone', 'steelwing', 'stingingthorns', 'stoneedge', 'substitute', 'sunnyday', 'surf', 'swagger',
-			'swordsdance', 'taunt', 'thief', 'thunder', 'thunderwave', 'thunderbolt', 'torment', 'toxic', 'trickroom', 'uturn', 'voltswitch', 'wildcharge', 'willowisp',
+			'sludgebomb', 'snarl', 'snatch', 'solarbeam', 'splashzone', 'steelwing', 'stoneedge', 'substitute', 'sunnyday', 'surf', 'swagger',
+			'swordsdance', 'taunt', 'thief', 'thunder', 'thunderwave', 'thunderbolt', 'torment', 'trickroom', 'uturn', 'voltswitch', 'wildcharge', 'willowisp',
 			'windshear', 'workup', 'xscissor',
+			'trashtalk', 'infestation', 'psychicnoise', // late additions
 		];
 		const ondasTutors = [
-			'acidspray', 'aircutter', 'ancientpower', 'aquatail', 'avalanche', 'blastburn', 'block', 'bodypress', 'bounce', 'brine', 'bugbite', 'bulletseed',
+			'acidspray', 'aircutter', 'ancientpower', 'aquatail', 'blastburn', 'block', 'bodypress', 'bounce', 'brine', 'bugbite', 'bulletseed',
 			'burningjealousy', 'chargebeam', 'cut', 'defog', 'dig', 'dive', 'doubleteam', 'dracometeor', 'dracometeor', 'dragonascent', 'dragonpulse', 'dragontail',
 			'drainingkiss', 'dreameater', 'earthpower', 'endeavor', 'endure', 'firepledge', 'firepunch', 'flash', 'fly', 'foulplay', 'frenzyplant', 'furycutter',
 			'gastroacid', 'grassknot', 'grasspledge', 'gravity', 'gunkshot', 'healbell', 'heatwave', 'helpinghand', 'hydrocannon', 'hypervoice', 'icepunch', 'icywind',
@@ -27,9 +30,10 @@ export const Scripts: ModdedBattleScriptsData = {
 			'superpower', 'swift', 'synthesis', 'tailwind', 'thunderpunch', 'trick', 'twister', 'uproar', 'vcreate', 'vacuumwave', 'volttackle', 'waterpledge',
 			'waterpulse', 'waterfall', 'worryseed', 'zenheadbutt', 'powershift', 'risingstalk', 'risingheat', 'risingtide',
 			// Ondas now
-			'afteryou', 'lifedew', 'electroweb', 'sidewardshove', 'tractorbeam', 'gatheringswarm', 'soothingwave', 'sabotage', 'smackdown', 'spiritbreak',
-			'junglehealing', 'snowplow', 'venoshock', 'groundbreak', 'leechlife', 'undermine', 'rampageinstinct', 'reverb', 'mixedblessing', 'horndrill',
-			'pyrotechnics', 'roilingwaves', 'overload', 'expandingforce', 'reversalroom', 'metamorphosis', 'lashout', 'steelroller', 'catharsis'
+			'afteryou', 'lifedew', 'electroweb', 'gatheringswarm', 'soothingwave', 'sabotage', 'smackdown', 'spiritbreak',
+			'snowplow', 'venoshock', 'groundbreak', 'leechlife', 'undermine', 'rampageinstinct', 'reverb', 'mixedblessing',
+			'pyrotechnics', 'roilingwaves', 'overload', 'expandingforce', 'metamorphosis', 'lashout', 'steelroller', 'catharsis',
+			'upperhand', 'chillingwater', 'rashreprisal', 'zenheadbutt', 'coldcomfort', 'dragoncheer', // late additions
 		];
 		const sinnohOnly = [
 			'aircutter', 'ancientpower', 'block', 'brine', 'bugbite', 'bulletseed', 'chargebeam', 'cut', 'dig', 'dive', 'dreameater', 'endeavor', 'endure',
@@ -53,11 +57,13 @@ export const Scripts: ModdedBattleScriptsData = {
 				'clangoroussoul', 'coil', 'cosmicpower', 'cottonguard', 'curse', 'defendorder', 'diamondstorm', 'dragondance', 'filletaway', 'flamecharge', 'geomancy',
 				'growth', 'honeclaws', 'irondefense', 'metamorphosis', 'nastyplot', 'noretreat', 'quiverdance', 'rockpolish', 'runningstart', 'shellsmash', 'shelter',
 				'shiftgear', 'stockpile', 'stuffcheeks', 'surgingstrikes', 'swordsdance', 'tailglow', 'takeheart', 'trailblaze', 'triplearrows', 'victorydance',
+				'meteorbeam', 'electroshot',
 			],
 			Disrupt: [
 				// Status
 				'aftershock', 'banefulbunker', 'beakblast', 'bittermalice', 'bodyslam', 'darkvoid', 'direclaw', 'glare', 'hypnosis', 'infernalparade', 'lovelykiss', 'nuzzle',
 				'rashpowder', 'sacredfire', 'saltcure', 'scald', 'scorchingsands', 'sleeppowder', 'spore', 'stunspore', 'thunderwave', 'toxicthread', 'willowisp',
+				'matchagotcha', 'burningbulwark', 'malignantchain',
 				// Setup Control
 				'circlethrow', 'clearsmog', 'dragontail', 'haze', 'heartswap', 'perishsong', 'revolvingdoorslam', 'roar', 'topsyturvy', 'whirlwind', 'yawn',
 				// Item Control
@@ -65,6 +71,7 @@ export const Scripts: ModdedBattleScriptsData = {
 				// Move-Binding
 				'anchorshot', 'block', 'destinybond', 'disable', 'encore', 'fairylock', 'firespin', 'infestation', 'jawlock', 'magnetrise', 'meanlook', 'octolock', 'powder',
 				'provoke', 'reverb', 'sandtomb', 'spiderweb', 'spiritshackle', 'stickyfloor', 'taunt', 'thousandwaves', 'thundercage',
+				'healblock', 'psychicnoise',
 				// Fixed Damage
 				'counter', 'dragonrage', 'finalgambit', 'fissure', 'guillotine', 'horndrill', 'mirrorcoat', 'naturesmadness', 'nightshade', 'ruination', 'seismictoss',
 				'sheercold', 'sonicboom', 'superfang',
@@ -85,11 +92,13 @@ export const Scripts: ModdedBattleScriptsData = {
 				'electroweb', 'esperwing', 'fakeout', 'faketears', 'featherdance', 'feint', 'fissurevent', 'fog', 'hyperdrill', 'hyperspacefury', 'hyperspacehole', 'icywind',
 				'imprison', 'incinerate', 'kingsshield', 'luminacrash', 'matblock', 'mixedblessing', 'obstruct', 'phantomforce', 'poisongas', 'psychout', 'quickguard', 'sabotage', 'screech',
 				'shelltrap', 'silktrap', 'skydrop', 'snarl', 'snatch', 'spikyshield', 'splashzone', 'stringshot', 'strugglebug', 'wideguard',
+				'syrupbomb', 'mightycleave', 'alluringvoice', 'upperhand',
 			],
 			DoublesSupport: [
 				'allyswitch', 'beatup', 'cleansingwave', 'coaching', 'decorate', 'doodle', 'entrainment', 'extendinghand', 'followme', 'gravity', 'healpulse', 'helpinghand',
 				'instruct', 'lifedew', 'pollenpuff', 'ragepowder', 'reversalroom', 'simplebeam', 'skillswap', 'soak', 'soothingwave', 'spicyextract', 'tailwind', 'tideturn',
 				'trickroom', 'windshear',
+				'dragoncheer',
 			],
 			Flavor: [],
 		}; // provisional
@@ -97,7 +106,8 @@ export const Scripts: ModdedBattleScriptsData = {
 		// event moves from Gen I and Gen II
 		const newMoves = (mon: string, moves: string[]) => {
 			for (const move of moves) {
-				this.modData('Learnsets', this.toID(mon)).learnset[this.toID(move)] = ["3S0"];
+				if (this.modData('Learnsets', this.toID(mon)).learnset[this.toID(move)]) continue;
+				this.modData('Learnsets', this.toID(mon)).learnset[this.toID(move)] = ["ES0"]; // E is for event
 			}
 		};
 		newMoves("bulbasaur", ["ancientpower"]);
@@ -167,7 +177,8 @@ export const Scripts: ModdedBattleScriptsData = {
 		// these are from BDSP
 		const bdspMoves = (mon: string, moves: string[]) => {
 			for (const move of moves) {
-				this.modData('Learnsets', this.toID(mon)).learnset[this.toID(move)] = ["8S0"];
+				if (this.modData('Learnsets', this.toID(mon)).learnset[this.toID(move)]) continue;
+				this.modData('Learnsets', this.toID(mon)).learnset[this.toID(move)] = ["BS0"]; // B is for BDSP
 			}
 		};
 		bdspMoves("arceus", ["healingwish"]);
@@ -217,7 +228,8 @@ export const Scripts: ModdedBattleScriptsData = {
 
 		const bdspRockClimb = (move: string, mons: string[]) => {
 			for (const mon of mons) {
-				this.modData('Learnsets', this.toID(mon)).learnset[this.toID(move)] = ["8S0"];
+				if (this.modData('Learnsets', this.toID(mon)).learnset[this.toID(move)]) continue;
+				this.modData('Learnsets', this.toID(mon)).learnset[this.toID(move)] = ["BS0"];
 			}
 		};
 		bdspRockClimb("rockclimb", ["venusaur", "blastoise", "nidoqueen", "nidoking", "golduck", "mankey", "primeape", "arcanine", "poliwrath", "machop", "machoke", "machamp", "cubone", "marowak", "hitmonlee", "hitmonchan", "chansey", "kangaskhan", "electabuzz", "magmar", "pinsir", "omastar", "kabutops", "snorlax", "mewtwo", "mew", "meganium", "typhlosion", "feraligatr", "ampharos", "granbull", "ursaring", "blissey", "raikou", "entei", "suicune", "tyranitar", "sceptile", "blaziken", "swampert", "ludicolo", "vigoroth", "slaking", "exploud", "makuhita", "hariyama", "aggron", "zangoose", "regirock", "regice", "registeel", "groudon", "turtwig", "grotle", "torterra", "chimchar", "monferno", "infernape", "empoleon", "cranidos", "rampardos", "munchlax", "lucario", "drapion", "croagunk", "toxicroak", "abomasnow", "electivire", "magmortar", "mamoswine", "heatran", "regigigas", "giratina", "darkrai", "arceus"]);
@@ -247,7 +259,8 @@ export const Scripts: ModdedBattleScriptsData = {
 		}
 		const legendsMoves = (mon: string, moves: string[]) => {
 			for (const move of moves) {
-				this.modData('Learnsets', this.toID(mon)).learnset[this.toID(move)] = ["8S0"];
+				if (this.modData('Learnsets', this.toID(mon)).learnset[this.toID(move)]) continue;
+				this.modData('Learnsets', this.toID(mon)).learnset[this.toID(move)] = ["LS0"]; // L is for Legends
 			}
 		};
 		legendsMoves("abomasnow", ["iciclecrash"]);
@@ -462,7 +475,7 @@ export const Scripts: ModdedBattleScriptsData = {
 			'piledriver', 'pinmissile', 'plasmafists', 'playrough', 'poisonjab', 'pollenpuff', 'poltergeist', 'populationbomb', 'powergem', 'powertrip', 'poweruppunch',
 			'powerwhip', 'precipiceblades', 'prismaticlaser', 'provoke', 'psychout', 'psychic', 'psychicfangs', 'psychoboost', 'psychocut', 'psyshieldbash', 'psyshock',
 			'psystrike', 'pursuit', 'pyroball', 'quickattack', 'ragefist', 'ragingbull', 'rampageinstinct', 'rapidspin', 'razorshell', 'razorwind', 'relicsong',
-			'reputation', 'return', 'revelationdance', 'reversal', 'revolvingdoorslam', 'riposte', 'risingvoltage', 'roaroftime', 'rockblast', 'rockslide', 'rockthrow',
+			'reputation', 'return', 'revelationdance', 'reversal', 'revolvingdoorslam', 'risingvoltage', 'roaroftime', 'rockblast', 'rockslide', 'rockthrow',
 			'rockwrecker', 'roilingwaves', 'rollout', 'runningbolt', 'sacredfire', 'sacredsword', 'saltcure', 'sandsearstorm', 'scald', 'scaleshot', 'scorchingsands',
 			'searingshot', 'secretsword', 'seedbomb', 'seedflare', 'selfdestruct', 'shadowball', 'shadowbone', 'shadowclaw', 'shadowforce', 'shadowsneak', 'shadydeal',
 			'shellsidearm', 'shelltrap', 'signalbeam', 'silverwind', 'skittersmack', 'skyattack', 'skyuppercut', 'sleightofhand', 'sludgebomb', 'sludgewave',
@@ -475,7 +488,10 @@ export const Scripts: ModdedBattleScriptsData = {
 			'watershuriken', 'waterspout', 'waterfall', 'wavecrash', 'weatherball', 'wickedblow', 'wildcharge', 'wildboltstorm', 'windshear', 'woodhammer', 'xscissor',
 			'zenheadbutt', 'zingzap',
 			// some I forgot:
-			'mixedblessing', 'pyrotechnics',
+			'mixedblessing', 'pyrotechnics', 'rashreprisal',
+			// DLC moves:
+			'bloodmoon', 'matchagotcha', 'ivycudgel', 'electroshot', 'terastarstorm', 'ficklebeam', 'thunderclap', 'mightycleave', 'tachyoncutter', 'hardpress',
+			'alluringvoice', 'temperflare', 'supercellslam', 'psychicnoise', 'upperhand', 'malignantchain',
 		]; // this category doesn't need to distinguish physical from special! that's handled later
 		// excludes Hidden Power and Natural Gift
 
@@ -706,35 +722,6 @@ export const Scripts: ModdedBattleScriptsData = {
 							}
 						}
 					}
-					if (moveid === 'helpinghand') { // hard-coding to skip the Gen IX TM's distribution
-						learned = false;
-						if (learnset[moveid]) {
-							for (const source of learnset[moveid]) {
-								if (parseInt(source.charAt(0)) === 9 && source.charAt(1) === 'M') continue;
-								learned = true;
-							}
-						}
-						if (learnset2 && learnset2[moveid]) {
-							for (const source of learnset2[moveid]) {
-								if (parseInt(source.charAt(0)) === 9 && source.charAt(1) === 'M') continue;
-								learned = true;
-							}
-						}
-						if (learnset3 && learnset3[moveid]) {
-							for (const source of learnset3[moveid]) {
-								if (parseInt(source.charAt(0)) === 9 && source.charAt(1) === 'M') continue;
-								learned = true;
-							}
-						}
-						if (learnset4 && learnset4[moveid]) {
-							for (const source of learnset4[moveid]) {
-								if (parseInt(source.charAt(0)) === 9 && source.charAt(1) === 'M') continue;
-								learned = true;
-							}
-						}
-						if (id === 'smeargle') learned = true;
-						if (id === 'mew' && learnedTmTutor) learned = true;
-					}
 					if (learned) {
 
 						// okay, so we know the move! now we need to figure out where it goes
@@ -743,14 +730,15 @@ export const Scripts: ModdedBattleScriptsData = {
 
 						if (attackRMs.includes(moveid)) {
 							// what type is it?
-							const type = (moveid === 'judgment' || moveid === 'multiattack' || moveid === 'ragingbull' || moveid === 'revelationdance') ? poke.types[0] : move.type;
+							let type = (moveid === 'judgment' || moveid === 'multiattack' || moveid === 'ragingbull' || moveid === 'revelationdance') ? poke.types[0] : move.type;
+							if (moveid === 'ivycudgel' && poke.types[1]) type = poke.types[1];
 							const category = (move.category === 'Special' || moveid === 'naturepower') ? "Special" : "Physical";
 							// assume a status move ended up physical if its category changed
 							if (
 								poke.types[0] === type || (poke.types[1] && poke.types[1] === type) || offenseCoverage.includes(type) || weaknessCoverage.includes(type)
 								|| otherCoverage.includes(type) || moveid === 'naturepower' || moveid === 'technoblast' || moveid === 'terrainpulse' || moveid === 'weatherball'
 								|| moveid === 'fakeout' || moveid === 'feint' || moveid === 'extremespeed' || moveid === 'suckerpunch' || moveid === 'firstimpression'
-								|| moveid === 'wavecrash'
+								|| moveid === 'thunderclap' || moveid === 'upperhand'
 							) { // for attacking moves, proceed only if the move's type has any potential to be relevant (but including the Normal moves that defy type)
 								competitive = true;
 								if (learnedTmTutor) poke.learnsetCumulative[type][category].tmTutor.push(move.name);
@@ -797,8 +785,10 @@ export const Scripts: ModdedBattleScriptsData = {
 
 						// below should be a list of movepool trends that sort a move into either addOther or addTrend
 						if (
-							['endure', 'facade', 'frustration', 'gigaimpact', 'return', 'hiddenpower', 'hyperbeam', 'naturalgift', 'snore', 'protect', 'secretpower', 'sleeptalk', 'substitute', 'swagger', 'toxic', 'rest'].includes(moveid)
+							['endure', 'facade', 'frustration', 'gigaimpact', 'return', 'hiddenpower', 'hyperbeam', 'naturalgift', 'snore', 'protect', 'secretpower', 'sleeptalk', 'substitute', 'swagger', 'trashtalk', 'rest'].includes(moveid)
 						) addRule = "addTrend"; // fully universal moves
+						// DOUBLE-CHECK: Infestation, Psychic Noise, Upper Hand, Chilling Water, Zen Headbutt, Dragon Cheer
+						// EVALUATE: Rash Reprisal, Cold Comfort
 						if (!(poke.gender && poke.gender === 'N') && moveid === 'attract') addRule = "addTrend";
 						if (
 							((poke.types[0] && poke.types[0] === 'Fire') || (poke.types[1] && poke.types[1] === 'Fire')) &&
@@ -1162,3 +1152,12 @@ export const Scripts: ModdedBattleScriptsData = {
 		}
 	},
 };
+
+// TO DO:
+// double-check trends for newly-added moves
+// add notes for Generation of fringe moves
+// add asterisk for additional trends, substitutions based on previous opportunities
+// add section for TMs and tutors the Pokémon never had the chance to learn, if not already above
+// add section for tutors by which tutor teaches them
+// add two spaces for manual inputs: one blank for further movepool changes, one blank for Tactics and stat comments
+// maaaybe have a better way of handling new variants / crossgens?
