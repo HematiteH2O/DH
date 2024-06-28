@@ -675,6 +675,7 @@ export const Scripts: ModdedBattleScriptsData = {
 					let learnedNatural = false;
 					let learnedTmTutor = ondasTms.includes(moveid) || (ondasTutors.includes(moveid) && !sinnohOnly.includes(moveid));
 					let fakeGen = null;
+					let authentic = false;
 					if (learnset[moveid]) { // if it learns the move itself
 						for (const source of learnset[moveid]) {
 							learned = true;
@@ -686,9 +687,8 @@ export const Scripts: ModdedBattleScriptsData = {
 								(parseInt(source.charAt(0)) === pokeGen && pokeGen > 3) ||
 								(parseInt(source.charAt(0)) === moveGen && moveGen > 3) ||
 								parseInt(source.charAt(0)) === 4
-							) {
-								if (source.charAt(1) === 'L' || source.charAt(1) === 'E') learnedNatural = true;
-							}
+							) authentic = true;
+							if (source.charAt(1) === 'L' || source.charAt(1) === 'E') learnedNatural = true;
 						}
 					}
 					if (learnset2 && learnset2[moveid]) { // if it has a pre-evolution and its pre-evolution learns the move
@@ -702,9 +702,8 @@ export const Scripts: ModdedBattleScriptsData = {
 								(parseInt(source.charAt(0)) === pokeGen && pokeGen > 3) ||
 								(parseInt(source.charAt(0)) === moveGen && moveGen > 3) ||
 								parseInt(source.charAt(0)) === 4
-							) {
-								if (source.charAt(1) === 'L' || source.charAt(1) === 'E') learnedNatural = true;
-							}
+							) authentic = true;
+							if (source.charAt(1) === 'L' || source.charAt(1) === 'E') learnedNatural = true;
 						}
 					}
 					if (learnset3 && learnset3[moveid]) { // if it's the third stage and its basic stage learns the move
@@ -718,9 +717,8 @@ export const Scripts: ModdedBattleScriptsData = {
 								(parseInt(source.charAt(0)) === pokeGen && pokeGen > 3) ||
 								(parseInt(source.charAt(0)) === moveGen && moveGen > 3) ||
 								parseInt(source.charAt(0)) === 4
-							) {
-								if (source.charAt(1) === 'L' || source.charAt(1) === 'E') learnedNatural = true;
-							}
+							) authentic = true;
+							if (source.charAt(1) === 'L' || source.charAt(1) === 'E') learnedNatural = true;
 						}
 					}
 					if (learnset4 && learnset4[moveid]) { // for stuff like Rotom
@@ -734,9 +732,8 @@ export const Scripts: ModdedBattleScriptsData = {
 								(parseInt(source.charAt(0)) === pokeGen && pokeGen > 3) ||
 								(parseInt(source.charAt(0)) === moveGen && moveGen > 3) ||
 								parseInt(source.charAt(0)) === 4
-							) {
-								if (source.charAt(1) === 'L' || source.charAt(1) === 'E') learnedNatural = true;
-							}
+							) authentic = true;
+							if (source.charAt(1) === 'L' || source.charAt(1) === 'E') learnedNatural = true;
 						}
 					}
 					if (learned) {
@@ -764,7 +761,7 @@ export const Scripts: ModdedBattleScriptsData = {
 							}
 						}
 						let title: string[] = [move.name];
-						if (fakeGen) {
+						if (!authentic && fakeGen) {
 							title += ` (${fakeGen})`;
 						}
 						for (const section in movepoolSections) {
