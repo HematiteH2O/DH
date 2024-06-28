@@ -674,9 +674,14 @@ export const Scripts: ModdedBattleScriptsData = {
 					let learned = false;
 					let learnedNatural = false;
 					let learnedTmTutor = ondasTms.includes(moveid) || (ondasTutors.includes(moveid) && !sinnohOnly.includes(moveid));
+					let fakeGen = null;
 					if (learnset[moveid]) { // if it learns the move itself
 						for (const source of learnset[moveid]) {
 							learned = true;
+							if (source.charAt(0) === 'L' || source.charAt(0) === 'B' || source.charAt(0) === 'E') {
+								fakeGen = source.charAt(0);
+								continue;
+							}
 							if (
 								(parseInt(source.charAt(0)) === pokeGen && pokeGen > 3) ||
 								(parseInt(source.charAt(0)) === moveGen && moveGen > 3) ||
@@ -689,6 +694,10 @@ export const Scripts: ModdedBattleScriptsData = {
 					if (learnset2 && learnset2[moveid]) { // if it has a pre-evolution and its pre-evolution learns the move
 						for (const source of learnset2[moveid]) {
 							learned = true;
+							if (source.charAt(0) === 'L' || source.charAt(0) === 'B' || source.charAt(0) === 'E') {
+								fakeGen = source.charAt(0);
+								continue;
+							}
 							if (
 								(parseInt(source.charAt(0)) === pokeGen && pokeGen > 3) ||
 								(parseInt(source.charAt(0)) === moveGen && moveGen > 3) ||
@@ -701,6 +710,10 @@ export const Scripts: ModdedBattleScriptsData = {
 					if (learnset3 && learnset3[moveid]) { // if it's the third stage and its basic stage learns the move
 						for (const source of learnset3[moveid]) {
 							learned = true;
+							if (source.charAt(0) === 'L' || source.charAt(0) === 'B' || source.charAt(0) === 'E') {
+								fakeGen = source.charAt(0);
+								continue;
+							}
 							if (
 								(parseInt(source.charAt(0)) === pokeGen && pokeGen > 3) ||
 								(parseInt(source.charAt(0)) === moveGen && moveGen > 3) ||
@@ -713,6 +726,10 @@ export const Scripts: ModdedBattleScriptsData = {
 					if (learnset4 && learnset4[moveid]) { // for stuff like Rotom
 						for (const source of learnset4[moveid]) {
 							learned = true;
+							if (source.charAt(0) === 'L' || source.charAt(0) === 'B' || source.charAt(0) === 'E') {
+								fakeGen = source.charAt(0);
+								continue;
+							}
 							if (
 								(parseInt(source.charAt(0)) === pokeGen && pokeGen > 3) ||
 								(parseInt(source.charAt(0)) === moveGen && moveGen > 3) ||
@@ -746,20 +763,24 @@ export const Scripts: ModdedBattleScriptsData = {
 								else poke.learnsetCumulative[type][category].fringe.push(move.name);
 							}
 						}
+						let title: string[] = [move.name];
+						if (fakeGen) {
+							title += ` (${fakeGen})`;
+						}
 						for (const section in movepoolSections) {
 							if (movepoolSections[section].includes(moveid)) {
 								competitive = true;
-								if (learnedTmTutor) poke.learnsetCumulative[section].Moves.tmTutor.push(move.name);
-								else if (learnedNatural) poke.learnsetCumulative[section].Moves.natural.push(move.name);
-								else poke.learnsetCumulative[section].Moves.fringe.push(move.name);
+								if (learnedTmTutor) poke.learnsetCumulative[section].Moves.tmTutor.push(title);
+								else if (learnedNatural) poke.learnsetCumulative[section].Moves.natural.push(title);
+								else poke.learnsetCumulative[section].Moves.fringe.push(title);
 							}
 						}
 
 						if (!competitive) {
 							// push the move's name to the appropriate categories
-							if (learnedTmTutor) poke.learnsetCumulative.Flavor.Moves.tmTutor.push(move.name);
-							else if (learnedNatural) poke.learnsetCumulative.Flavor.Moves.natural.push(move.name);
-							else poke.learnsetCumulative.Flavor.Moves.fringe.push(move.name);
+							if (learnedTmTutor) poke.learnsetCumulative.Flavor.Moves.tmTutor.push(title);
+							else if (learnedNatural) poke.learnsetCumulative.Flavor.Moves.natural.push(title);
+							else poke.learnsetCumulative.Flavor.Moves.fringe.push(title);
 						}
 
 					} else if (ondasTms.includes(moveid) || (ondasTutors.includes(moveid) && !sinnohOnly.includes(moveid))) {
@@ -787,8 +808,6 @@ export const Scripts: ModdedBattleScriptsData = {
 						if (
 							['endure', 'facade', 'frustration', 'gigaimpact', 'return', 'hiddenpower', 'hyperbeam', 'naturalgift', 'snore', 'protect', 'secretpower', 'sleeptalk', 'substitute', 'swagger', 'trashtalk', 'rest'].includes(moveid)
 						) addRule = "addTrend"; // fully universal moves
-						// DOUBLE-CHECK: Infestation, Psychic Noise, Upper Hand, Chilling Water, Zen Headbutt, Dragon Cheer
-						// EVALUATE: Rash Reprisal, Cold Comfort
 						if (!(poke.gender && poke.gender === 'N') && moveid === 'attract') addRule = "addTrend";
 						if (
 							((poke.types[0] && poke.types[0] === 'Fire') || (poke.types[1] && poke.types[1] === 'Fire')) &&
@@ -1037,6 +1056,7 @@ export const Scripts: ModdedBattleScriptsData = {
 						}
 						if (moveid === 'uturn' && addRule !== "addTrend") continue; // you shouldn't get U-turn just because you have other Bug moves
 						if (moveid === 'poltergeist' && !((poke.types[0] && poke.types[0] === 'Ghost') || (poke.types[1] && poke.types[1] === 'Ghost'))) continue;
+						if (moveid === 'spiritbreak' && learnset.throatchop) addRule = "addTrend";
 
 						// now sort it into that section
 						let competitive = false;
@@ -1154,10 +1174,9 @@ export const Scripts: ModdedBattleScriptsData = {
 };
 
 // TO DO:
-// double-check trends for newly-added moves
-// add notes for Generation of fringe moves
+// add notes for Generation of fringe moves (think I have it but make sure it works)
 // add asterisk for additional trends, substitutions based on previous opportunities
-// add section for TMs and tutors the Pokémon never had the chance to learn, if not already above
+// add section for TMs and tutors the Pokémon *never* had the chance to learn, if not accounted for above
 // add section for tutors by which tutor teaches them
 // add two spaces for manual inputs: one blank for further movepool changes, one blank for Tactics and stat comments
 // maaaybe have a better way of handling new variants / crossgens?
