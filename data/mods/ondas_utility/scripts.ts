@@ -45,7 +45,7 @@ export const Scripts: ModdedBattleScriptsData = {
 			'relicsong', 'blastburn', 'firepledge', 'vcreate', 'hydrocannon', 'waterpledge', 'volttackle', 'frenzyplant', 'grasspledge', 'secretsword', 'dragonascent',
 		]; // don't show up as recommended if the Pokémon doesn't already get them
 		const dexitedMoves = [
-			'doubleteam', 'flash', 'kinesis', 'minimize', 'sandattack', 'smokescreen', 'snowscape', 'storedpower', 'terablast',
+			'doubleteam', 'flash', 'kinesis', 'minimize', 'sandattack', 'smokescreen', 'snowscape', 'terablast',
 		];
 		const movepoolSections = {
 			Self: [
@@ -107,7 +107,7 @@ export const Scripts: ModdedBattleScriptsData = {
 		const newMoves = (mon: string, moves: string[]) => {
 			for (const move of moves) {
 				if (this.modData('Learnsets', this.toID(mon)).learnset[this.toID(move)]) continue;
-				this.modData('Learnsets', this.toID(mon)).learnset[this.toID(move)] = ["ES0"]; // E is for event
+				this.modData('Learnsets', this.toID(mon)).learnset[this.toID(move)] = ["7V"]; // no need to distinguish from regular VC
 			}
 		};
 		newMoves("bulbasaur", ["ancientpower"]);
@@ -178,7 +178,7 @@ export const Scripts: ModdedBattleScriptsData = {
 		const bdspMoves = (mon: string, moves: string[]) => {
 			for (const move of moves) {
 				if (this.modData('Learnsets', this.toID(mon)).learnset[this.toID(move)]) continue;
-				this.modData('Learnsets', this.toID(mon)).learnset[this.toID(move)] = ["BS0"]; // B is for BDSP
+				this.modData('Learnsets', this.toID(mon)).learnset[this.toID(move)] = ["4V"]; // 4V will be for BDSP
 			}
 		};
 		bdspMoves("arceus", ["healingwish"]);
@@ -229,7 +229,7 @@ export const Scripts: ModdedBattleScriptsData = {
 		const bdspRockClimb = (move: string, mons: string[]) => {
 			for (const mon of mons) {
 				if (this.modData('Learnsets', this.toID(mon)).learnset[this.toID(move)]) continue;
-				this.modData('Learnsets', this.toID(mon)).learnset[this.toID(move)] = ["BS0"];
+				this.modData('Learnsets', this.toID(mon)).learnset[this.toID(move)] = ["4V"];
 			}
 		};
 		bdspRockClimb("rockclimb", ["venusaur", "blastoise", "nidoqueen", "nidoking", "golduck", "mankey", "primeape", "arcanine", "poliwrath", "machop", "machoke", "machamp", "cubone", "marowak", "hitmonlee", "hitmonchan", "chansey", "kangaskhan", "electabuzz", "magmar", "pinsir", "omastar", "kabutops", "snorlax", "mewtwo", "mew", "meganium", "typhlosion", "feraligatr", "ampharos", "granbull", "ursaring", "blissey", "raikou", "entei", "suicune", "tyranitar", "sceptile", "blaziken", "swampert", "ludicolo", "vigoroth", "slaking", "exploud", "makuhita", "hariyama", "aggron", "zangoose", "regirock", "regice", "registeel", "groudon", "turtwig", "grotle", "torterra", "chimchar", "monferno", "infernape", "empoleon", "cranidos", "rampardos", "munchlax", "lucario", "drapion", "croagunk", "toxicroak", "abomasnow", "electivire", "magmortar", "mamoswine", "heatran", "regigigas", "giratina", "darkrai", "arceus"]);
@@ -260,7 +260,7 @@ export const Scripts: ModdedBattleScriptsData = {
 		const legendsMoves = (mon: string, moves: string[]) => {
 			for (const move of moves) {
 				if (this.modData('Learnsets', this.toID(mon)).learnset[this.toID(move)]) continue;
-				this.modData('Learnsets', this.toID(mon)).learnset[this.toID(move)] = ["LS0"]; // L is for Legends
+				this.modData('Learnsets', this.toID(mon)).learnset[this.toID(move)] = ["9V"]; // 9V will be for Legends
 			}
 		};
 		legendsMoves("abomasnow", ["iciclecrash"]);
@@ -674,69 +674,111 @@ export const Scripts: ModdedBattleScriptsData = {
 					let learned = false;
 					let learnedNatural = false;
 					let learnedTmTutor = ondasTms.includes(moveid) || (ondasTutors.includes(moveid) && !sinnohOnly.includes(moveid));
-					let fakeGen = null;
 					let authentic = false;
+					const moveGenSources: string[] = [];
+
 					if (learnset[moveid]) { // if it learns the move itself
 						for (const source of learnset[moveid]) {
 							learned = true;
-							if (source.charAt(0) === 'L' || source.charAt(0) === 'B' || source.charAt(0) === 'E') {
-								fakeGen = source.charAt(0);
-								continue;
-							}
 							if (
 								(parseInt(source.charAt(0)) === pokeGen && pokeGen > 3) ||
 								(parseInt(source.charAt(0)) === moveGen && moveGen > 3) ||
 								parseInt(source.charAt(0)) === 4
 							) authentic = true;
+
+							if (source === '7V') moveGenSources.push("VC");
+							else if (source === '8V') moveGenSources.push("LGPE");
+							else if (source === '4V') moveGenSources.push("BDSP");
+							else if (source === '9V') moveGenSources.push("Legends");
+							else moveGenSources.push(source.charAt(0));
+							// moveGenSources *should* end up as a complete list of all Gens that the Pokémon learns the move
+							
 							if (source.charAt(1) === 'L' || source.charAt(1) === 'E') learnedNatural = true;
 						}
 					}
 					if (learnset2 && learnset2[moveid]) { // if it has a pre-evolution and its pre-evolution learns the move
 						for (const source of learnset2[moveid]) {
 							learned = true;
-							if (source.charAt(0) === 'L' || source.charAt(0) === 'B' || source.charAt(0) === 'E') {
-								fakeGen = source.charAt(0);
-								continue;
-							}
 							if (
 								(parseInt(source.charAt(0)) === pokeGen && pokeGen > 3) ||
 								(parseInt(source.charAt(0)) === moveGen && moveGen > 3) ||
 								parseInt(source.charAt(0)) === 4
 							) authentic = true;
+
+							if (source === '7V') moveGenSources.push("VC");
+							else if (source === '8V') moveGenSources.push("LGPE");
+							else if (source === '4V') moveGenSources.push("BDSP");
+							else if (source === '9V') moveGenSources.push("Legends");
+							else moveGenSources.push(source.charAt(0));
+							// moveGenSources *should* end up as a complete list of all Gens that the Pokémon learns the move
+
 							if (source.charAt(1) === 'L' || source.charAt(1) === 'E') learnedNatural = true;
 						}
 					}
 					if (learnset3 && learnset3[moveid]) { // if it's the third stage and its basic stage learns the move
 						for (const source of learnset3[moveid]) {
 							learned = true;
-							if (source.charAt(0) === 'L' || source.charAt(0) === 'B' || source.charAt(0) === 'E') {
-								fakeGen = source.charAt(0);
-								continue;
-							}
 							if (
 								(parseInt(source.charAt(0)) === pokeGen && pokeGen > 3) ||
 								(parseInt(source.charAt(0)) === moveGen && moveGen > 3) ||
 								parseInt(source.charAt(0)) === 4
 							) authentic = true;
+
+							if (source === '7V') moveGenSources.push("VC");
+							else if (source === '8V') moveGenSources.push("LGPE");
+							else if (source === '4V') moveGenSources.push("BDSP");
+							else if (source === '9V') moveGenSources.push("Legends");
+							else moveGenSources.push(source.charAt(0));
+							// moveGenSources *should* end up as a complete list of all Gens that the Pokémon learns the move
+
 							if (source.charAt(1) === 'L' || source.charAt(1) === 'E') learnedNatural = true;
 						}
 					}
 					if (learnset4 && learnset4[moveid]) { // for stuff like Rotom
 						for (const source of learnset4[moveid]) {
 							learned = true;
-							if (source.charAt(0) === 'L' || source.charAt(0) === 'B' || source.charAt(0) === 'E') {
-								fakeGen = source.charAt(0);
-								continue;
-							}
 							if (
 								(parseInt(source.charAt(0)) === pokeGen && pokeGen > 3) ||
 								(parseInt(source.charAt(0)) === moveGen && moveGen > 3) ||
 								parseInt(source.charAt(0)) === 4
 							) authentic = true;
+
+							if (source === '7V') moveGenSources.push("VC");
+							else if (source === '8V') moveGenSources.push("LGPE");
+							else if (source === '4V') moveGenSources.push("BDSP");
+							else if (source === '9V') moveGenSources.push("Legends");
+							else moveGenSources.push(source.charAt(0));
+							// moveGenSources *should* end up as a complete list of all Gens that the Pokémon learns the move
+
 							if (source.charAt(1) === 'L' || source.charAt(1) === 'E') learnedNatural = true;
 						}
 					}
 					if (learned) {
+						let title: string[] = [move.name];
+						if (!authentic) {
+							let fakeGen = null;
+							// iterate through the Gens where the Pokémon *can* learn the move...
+							// in order according to how much you, uh, respect them, I guess?
+							// whichever one you would most like to display should be last
+							if (moveGenSources.includes("Legends")) fakeGen = "Legends"; // lowest priority
+
+							if (moveGenSources.includes("VC")) fakeGen = "VC";
+							if (moveGenSources.includes(3)) fakeGen = 3;
+							// if a move was lost after Gen III but added back later, I think I want to know when it was added back
+
+							if (moveGenSources.includes(9)) fakeGen = 9;
+							if (moveGenSources.includes("BDSP")) fakeGen = "BDSP";
+							if (moveGenSources.includes(8)) fakeGen = 8;
+							if (moveGenSources.includes("LGPE")) fakeGen = "LGPE";
+							if (moveGenSources.includes(7)) fakeGen = 7;
+							if (moveGenSources.includes(6)) fakeGen = 6;
+							if (moveGenSources.includes(5)) fakeGen = 5;
+							// Gen IV is always "authentic"
+
+							if (fakeGen) title += ` (${fakeGen})`;
+							// this should make it display how I want!
+							// like Nasty Plot vs Helping Hand (9) or Sleep Powder vs Sleep Powder (Legends)
+						}
 
 						// okay, so we know the move! now we need to figure out where it goes
 						let competitive = false;
@@ -755,14 +797,10 @@ export const Scripts: ModdedBattleScriptsData = {
 								|| moveid === 'thunderclap' || moveid === 'upperhand'
 							) { // for attacking moves, proceed only if the move's type has any potential to be relevant (but including the Normal moves that defy type)
 								competitive = true;
-								if (learnedTmTutor) poke.learnsetCumulative[type][category].tmTutor.push(move.name);
-								else if (learnedNatural) poke.learnsetCumulative[type][category].natural.push(move.name);
-								else poke.learnsetCumulative[type][category].fringe.push(move.name);
+								if (learnedTmTutor) poke.learnsetCumulative[type][category].tmTutor.push(title);
+								else if (learnedNatural) poke.learnsetCumulative[type][category].natural.push(title);
+								else poke.learnsetCumulative[type][category].fringe.push(title);
 							}
-						}
-						let title: string[] = [move.name];
-						if (!authentic && fakeGen) {
-							title += ` (${fakeGen})`;
 						}
 						for (const section in movepoolSections) {
 							if (movepoolSections[section].includes(moveid)) {
@@ -1171,7 +1209,7 @@ export const Scripts: ModdedBattleScriptsData = {
 };
 
 // TO DO:
-// add notes for Generation of fringe moves (think I have it but make sure it works)
+// add notes for Generation of buff/lost moves (think I have it but make sure it works)
 // add asterisk for additional trends, substitutions based on previous opportunities
 // add section for TMs and tutors the Pokémon *never* had the chance to learn, if not accounted for above
 // add section for tutors by which tutor teaches them
