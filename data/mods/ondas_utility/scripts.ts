@@ -494,6 +494,26 @@ export const Scripts: ModdedBattleScriptsData = {
 			'alluringvoice', 'temperflare', 'supercellslam', 'psychicnoise', 'upperhand', 'malignantchain',
 		]; // this category doesn't need to distinguish physical from special! that's handled later
 		// excludes Hidden Power and Natural Gift
+		const etesalta = [
+			'healbell', 'helpinghand', 'incinerate', 'chillingwater', 'electroweb', 'synthesis', 'icywind', 'upperhand', 'acidspray',
+			'mudslap', 'tailwind', 'trick', 'gatheringswarm', 'stealthrock', 'soothingwind', 'dragontail', 'dragoncheer', 'sabotage',
+			'irondefense', 'drainingkiss',
+		];
+		const manistral = [
+			'afteryou', 'snore', 'burningjealousy', 'waterpulse', 'lifedew', 'magnetrise', 'rashreprisal', 'snowplow', 'bodypress',
+			'venoshock', 'groundbreak', 'defog', 'gravity', 'leechlife', 'undermine', 'spite', 'rampageinstinct', 'foulplay', 'reverb',
+			'mixedblessing',
+		];
+		const valledar = [
+			'naturalgift', 'hypervoice', 'firepunch', 'heatwave', 'aquatail', 'thunderpunch', 'seedbomb', 'icepunch', 'lowkick', 'poisonjab',
+			'earthpower', 'bounce', 'zenheadbutt', 'signalbeam', 'smackdown', 'shadowclaw', 'dragonpulse', 'knockoff', 'ironhead',
+			'spiritbreak',
+		];
+		const coriallos = [
+			'superfang', 'painsplit', 'pyrotechnics', 'roilingwaves', 'overload', 'grassknot', 'coldcomfort', 'superpower', 'gunkshot',
+			'stompingtantrum', 'nosedive', 'expandingforce', 'sleightofhand', 'metamorphosis', 'meteorbeam', 'poltergeist', 'outrage',
+			'lashout', 'steelroller', 'catharsis',
+		];
 
 		let printno = 0;
 		for (const id in this.dataCache.Pokedex) {
@@ -817,6 +837,12 @@ export const Scripts: ModdedBattleScriptsData = {
 							else if (learnedNatural) poke.learnsetCumulative.Flavor.Moves.natural.push(title);
 							else poke.learnsetCumulative.Flavor.Moves.fringe.push(title);
 						}
+
+						if (etesalta.includes(moveid)) poke.learnsetCumulative.Tutor.etesalta.push(title);
+						if (manistral.includes(moveid)) poke.learnsetCumulative.Tutor.manistral.push(title);
+						if (valledar.includes(moveid)) poke.learnsetCumulative.Tutor.valledar.push(title);
+						if (coriallos.includes(moveid)) poke.learnsetCumulative.Tutor.coriallos.push(title);
+						// will have to do something similar for the addTrend moves but one thing at a time
 
 					} else if (ondasTms.includes(moveid) || (ondasTutors.includes(moveid) && !sinnohOnly.includes(moveid))) {
 						// if a TM or tutor is not learned, decide if it belongs in addTrend or addOther
