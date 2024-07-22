@@ -3,7 +3,7 @@ export const Formats: FormatList = [
 	{
 		section: "Spreadsheets",
 	},
-
+/*
 	{
 		name: "Dex Sheet Generator",
 		desc: [
@@ -35,7 +35,7 @@ export const Formats: FormatList = [
 		},
 		mod: 'pulselearnsets',
 	},
-
+*/
 	{
 		name: "Utility Sheet Generator",
 		desc: [
@@ -86,7 +86,7 @@ export const Formats: FormatList = [
 		},
 		mod: 'utilitysheet',
 	},
-
+/*
 	{
 		name: "Reverse Utility Sheet",
 		desc: [
@@ -158,5 +158,5 @@ export const Formats: FormatList = [
 		},
 		mod: 'typedata',
 	},
-
+*/
 ];
