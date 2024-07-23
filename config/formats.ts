@@ -94,7 +94,7 @@ export const Formats: FormatList = [
 				}
 			}
 		},
-		mod: 'utilitysheet',
+		mod: 'ondas_utility', // a genius always I am a genius
 	},
 /*
 	{
