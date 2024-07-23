@@ -789,8 +789,14 @@ export const Scripts: ModdedBattleScriptsData = {
 							else if (source === '8V') moveGenSources.push("LGPE");
 							else if (source === '4V') moveGenSources.push("BDSP");
 							else if (source === '9V') moveGenSources.push("Legends");
-							else moveGenSources.push(source.charAt(0));
+							else if (source.charAt(0) === '9') moveGenSources.push("9");
+							else if (source.charAt(0) === '8') moveGenSources.push("8");
+							else if (source.charAt(0) === '7') moveGenSources.push("7");
+							else if (source.charAt(0) === '6') moveGenSources.push("6");
+							else if (source.charAt(0) === '5') moveGenSources.push("5");
+							else if (source.charAt(0) === '3') moveGenSources.push("3");
 							// moveGenSources *should* end up as a complete list of all Gens that the Pokémon learns the move
+							// excludes 4 on purpose, and 1 and 2 are just "VC"
 
 							if (source.charAt(1) === 'L' || source.charAt(1) === 'E') learnedNatural = true;
 						}
