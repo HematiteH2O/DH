@@ -84,13 +84,13 @@ export const Formats: FormatList = [
 						poke.sheetOutput = poke.sheetOutput2;
 					}
 				}*/
-				this.add('-message', `=== Legendary stuff (not in Ondas) ===\n`); // just personal curiosity I guess?
-				for (const id in this.dex.data.Pokedex) {
-					const poke = this.dex.data.Pokedex[id];
-					if (poke.types.includes(typeid) && (!poke.kind || poke.kind !== "Ondas") && poke.tags && poke.sheetOutput) {
-						this.add('-message', `${poke.sheetOutput}`);
-						poke.sheetOutput = poke.sheetOutput2;
-					}
+			}
+			this.add('-message', `=== Legendary stuff (not in Ondas) ===\n`); // just personal curiosity I guess?
+			for (const id in this.dex.data.Pokedex) {
+				const poke = this.dex.data.Pokedex[id];
+				if ((!poke.kind || poke.kind !== "Ondas") && poke.sheetOutput) {
+					this.add('-message', `${poke.sheetOutput}`);
+					poke.sheetOutput = poke.sheetOutput2;
 				}
 			}
 		},
