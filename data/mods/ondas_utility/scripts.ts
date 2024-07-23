@@ -39,7 +39,7 @@ export const Scripts: ModdedBattleScriptsData = {
 			'aircutter', 'ancientpower', 'block', 'brine', 'bugbite', 'bulletseed', 'chargebeam', 'cut', 'dig', 'dive', 'dreameater', 'endeavor', 'endure',
 			'furycutter', 'gastroacid', 'irontail', 'lastresort', 'ominouswind', 'payback', 'playrough', 'pluck', 'powershift', 'psychup', 'recycle', 'rockclimb',
 			'rocksmash', 'roleplay', 'rollout', 'secretpower', 'silverwind', 'skillswap', 'skyattack', 'strength', 'stringshot', 'suckerpunch', 'swift', 'twister',
-			'uproar', 'vacuumwave', 'waterfall', 'worryseed', 'zenheadbutt'
+			'uproar', 'vacuumwave', 'waterfall', 'worryseed', 'avalanche'
 		];
 		const notRealTutors = [
 			'relicsong', 'blastburn', 'firepledge', 'vcreate', 'hydrocannon', 'waterpledge', 'volttackle', 'frenzyplant', 'grasspledge', 'secretsword', 'dragonascent',
@@ -47,6 +47,36 @@ export const Scripts: ModdedBattleScriptsData = {
 		const dexitedMoves = [
 			'doubleteam', 'flash', 'kinesis', 'minimize', 'sandattack', 'smokescreen', 'snowscape', 'terablast',
 		];
+
+		// this bit is for establishing which moves are taught at each tutor:
+		const etesalta = [
+			'healbell', 'helpinghand', 'incinerate', 'chillingwater', 'electroweb', 'synthesis', 'icywind', 'upperhand', 'acidspray',
+			'mudslap', 'tailwind', 'trick', 'gatheringswarm', 'stealthrock', 'soothingwind', 'dragontail', 'dragoncheer', 'sabotage',
+			'irondefense', 'drainingkiss',
+		];
+		const manistral = [
+			'afteryou', 'snore', 'burningjealousy', 'waterpulse', 'lifedew', 'magnetrise', 'rashreprisal', 'snowplow', 'bodypress',
+			'venoshock', 'groundbreak', 'defog', 'gravity', 'leechlife', 'undermine', 'spite', 'rampageinstinct', 'foulplay', 'reverb',
+			'mixedblessing',
+		];
+		const valledar = [
+			'naturalgift', 'hypervoice', 'firepunch', 'heatwave', 'aquatail', 'thunderpunch', 'seedbomb', 'icepunch', 'lowkick', 'poisonjab',
+			'earthpower', 'bounce', 'zenheadbutt', 'signalbeam', 'smackdown', 'shadowclaw', 'dragonpulse', 'knockoff', 'ironhead',
+			'spiritbreak',
+		];
+		const coriallos = [
+			'superfang', 'painsplit', 'pyrotechnics', 'roilingwaves', 'overload', 'grassknot', 'coldcomfort', 'superpower', 'gunkshot',
+			'stompingtantrum', 'nosedive', 'expandingforce', 'sleightofhand', 'metamorphosis', 'meteorbeam', 'poltergeist', 'outrage',
+			'lashout', 'steelroller', 'catharsis',
+		];
+		const sinnohTutor = [
+			'cut', 'rockclimb', 'strength', 'waterfall', 'rocksmash', 'secretpower', 'captivate', 'endure', 'psychup', 'recycle', 'brine',
+			'chargebeam', 'bulletseed', 'avalanche', 'lowsweep', 'dig', 'pluck', 'dreameater', 'skillswap', 'bugbuzz', 'silverwind',
+			'payback', 'nastyplot', 'irontail', 'dive', 'vacuumwave', 'aircutter', 'bugbite', 'furycutter', 'ominouswind', 'suckerpunch',
+			'lastresort', 'swift', 'uproar', 'block', 'worryseed', 'roleplay', 'stringshot', 'endeavor', 'gastroacid', 'skyattack',
+			'rollout', 'ancientpower', 'twister', 'powershift',
+		]; // these are NOT in Ondas, but I still want a row of them at the end for my own convenience
+
 		const movepoolSections = {
 			Self: [
 				// Recovery
@@ -494,34 +524,6 @@ export const Scripts: ModdedBattleScriptsData = {
 			'alluringvoice', 'temperflare', 'supercellslam', 'psychicnoise', 'upperhand', 'malignantchain',
 		]; // this category doesn't need to distinguish physical from special! that's handled later
 		// excludes Hidden Power and Natural Gift
-		// this bit is for establishing which moves are taught at each tutor:
-		const etesalta = [
-			'healbell', 'helpinghand', 'incinerate', 'chillingwater', 'electroweb', 'synthesis', 'icywind', 'upperhand', 'acidspray',
-			'mudslap', 'tailwind', 'trick', 'gatheringswarm', 'stealthrock', 'soothingwind', 'dragontail', 'dragoncheer', 'sabotage',
-			'irondefense', 'drainingkiss',
-		];
-		const manistral = [
-			'afteryou', 'snore', 'burningjealousy', 'waterpulse', 'lifedew', 'magnetrise', 'rashreprisal', 'snowplow', 'bodypress',
-			'venoshock', 'groundbreak', 'defog', 'gravity', 'leechlife', 'undermine', 'spite', 'rampageinstinct', 'foulplay', 'reverb',
-			'mixedblessing',
-		];
-		const valledar = [
-			'naturalgift', 'hypervoice', 'firepunch', 'heatwave', 'aquatail', 'thunderpunch', 'seedbomb', 'icepunch', 'lowkick', 'poisonjab',
-			'earthpower', 'bounce', 'zenheadbutt', 'signalbeam', 'smackdown', 'shadowclaw', 'dragonpulse', 'knockoff', 'ironhead',
-			'spiritbreak',
-		];
-		const coriallos = [
-			'superfang', 'painsplit', 'pyrotechnics', 'roilingwaves', 'overload', 'grassknot', 'coldcomfort', 'superpower', 'gunkshot',
-			'stompingtantrum', 'nosedive', 'expandingforce', 'sleightofhand', 'metamorphosis', 'meteorbeam', 'poltergeist', 'outrage',
-			'lashout', 'steelroller', 'catharsis',
-		];
-		const sinnohTutor = [
-			'cut', 'rockclimb', 'strength', 'waterfall', 'rocksmash', 'secretpower', 'captivate', 'endure', 'psychup', 'recycle', 'brine',
-			'chargebeam', 'bulletseed', 'avalanche', 'lowsweep', 'dig', 'pluck', 'dreameater', 'skillswap', 'bugbuzz', 'silverwind',
-			'payback', 'nastyplot', 'irontail', 'dive', 'vacuumwave', 'aircutter', 'bugbite', 'furycutter', 'ominouswind', 'suckerpunch',
-			'lastresort', 'swift', 'uproar', 'block', 'worryseed', 'roleplay', 'stringshot', 'endeavor', 'gastroacid', 'skyattack',
-			'rollout', 'ancientpower', 'twister', 'powershift',
-		]; // these are NOT in Ondas, but I still want a row of them at the end for my own convenience
 
 		let printno = 0;
 		for (const id in this.dataCache.Pokedex) {
@@ -566,6 +568,13 @@ export const Scripts: ModdedBattleScriptsData = {
 						},
 					};
 				}
+				poke.learnsetCumulative.Tutor = {
+					etesalta: [],
+					manistral: [],
+					valledar: [],
+					coriallos: [],
+					sinnohTutor: [],
+				};
 
 				// identify the Pokémon's Gen of origin before going any further - it's useful!
 				let pokeGen = 1;
@@ -855,7 +864,7 @@ export const Scripts: ModdedBattleScriptsData = {
 						if (manistral.includes(moveid)) poke.learnsetCumulative.Tutor.manistral.push(title);
 						if (valledar.includes(moveid)) poke.learnsetCumulative.Tutor.valledar.push(title);
 						if (coriallos.includes(moveid)) poke.learnsetCumulative.Tutor.coriallos.push(title);
-						if (sinnohTutor.includes(moveid)) poke.learnsetCumulative.Tutor.sinnoh.push(title);
+						if (sinnohTutor.includes(moveid)) poke.learnsetCumulative.Tutor.sinnohTutor.push(title);
 						// will have to do something similar for the addTrend moves but one thing at a time
 
 					} else if (ondasTms.includes(moveid) || (ondasTutors.includes(moveid) && !sinnohOnly.includes(moveid))) {
@@ -1139,7 +1148,7 @@ export const Scripts: ModdedBattleScriptsData = {
 							if (manistral.includes(moveid)) poke.learnsetCumulative.Tutor.manistral.push(move.name);
 							if (valledar.includes(moveid)) poke.learnsetCumulative.Tutor.valledar.push(move.name);
 							if (coriallos.includes(moveid)) poke.learnsetCumulative.Tutor.coriallos.push(move.name);
-							if (sinnohTutor.includes(moveid)) poke.learnsetCumulative.Tutor.sinnoh.push(move.name);
+							if (sinnohTutor.includes(moveid)) poke.learnsetCumulative.Tutor.sinnohTutor.push(move.name);
 						}
 
 						// now... I have to figure out if the Pokémon has ever had the chance to learn the move before, by TM or tutor
@@ -1299,7 +1308,7 @@ export const Scripts: ModdedBattleScriptsData = {
 				sheetOutput += poke.kind + `~` + (printno) + "~9~Manistral~~" + poke.learnsetCumulative.Tutor.manistral.sort() + `\n`;
 				sheetOutput += poke.kind + `~` + (printno) + "~9~Valledar~~" + poke.learnsetCumulative.Tutor.valledar.sort() + `\n`;
 				sheetOutput += poke.kind + `~` + (printno) + "~9~Coriallos~~" + poke.learnsetCumulative.Tutor.coriallos.sort() + `\n`;
-				sheetOutput += poke.kind + `~` + (printno) + "~9~Sinnoh~~(" + poke.learnsetCumulative.Tutor.sinnoh.sort() + `)\n`;
+				sheetOutput += poke.kind + `~` + (printno) + "~9~Sinnoh~~(" + poke.learnsetCumulative.Tutor.sinnohTutor.sort() + `)\n`;
 
 				// ~10~ two rows with space for comments: manual movepool changes, then Tactics and stat changes
 				sheetOutput += poke.kind + `~` + (printno) + `~10~Manual Changes~\n`;
