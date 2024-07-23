@@ -35,7 +35,7 @@ export const Scripts: ModdedBattleScriptsData = {
 			'pyrotechnics', 'roilingwaves', 'overload', 'expandingforce', 'metamorphosis', 'lashout', 'steelroller', 'catharsis',
 			'upperhand', 'chillingwater', 'rashreprisal', 'zenheadbutt', 'coldcomfort', 'dragoncheer', // late additions
 		];
-		const sinnohOnly = [
+		const sinnohOnly = [ // haven't updated this in a bit - should double-check before I use it again
 			'aircutter', 'ancientpower', 'block', 'brine', 'bugbite', 'bulletseed', 'chargebeam', 'cut', 'dig', 'dive', 'dreameater', 'endeavor', 'endure',
 			'furycutter', 'gastroacid', 'irontail', 'lastresort', 'ominouswind', 'payback', 'playrough', 'pluck', 'powershift', 'psychup', 'recycle', 'rockclimb',
 			'rocksmash', 'roleplay', 'rollout', 'secretpower', 'silverwind', 'skillswap', 'skyattack', 'strength', 'stringshot', 'suckerpunch', 'swift', 'twister',
@@ -494,6 +494,7 @@ export const Scripts: ModdedBattleScriptsData = {
 			'alluringvoice', 'temperflare', 'supercellslam', 'psychicnoise', 'upperhand', 'malignantchain',
 		]; // this category doesn't need to distinguish physical from special! that's handled later
 		// excludes Hidden Power and Natural Gift
+		// this bit is for establishing which moves are taught at each tutor:
 		const etesalta = [
 			'healbell', 'helpinghand', 'incinerate', 'chillingwater', 'electroweb', 'synthesis', 'icywind', 'upperhand', 'acidspray',
 			'mudslap', 'tailwind', 'trick', 'gatheringswarm', 'stealthrock', 'soothingwind', 'dragontail', 'dragoncheer', 'sabotage',
@@ -521,8 +522,8 @@ export const Scripts: ModdedBattleScriptsData = {
 			if (!poke || poke.evos || id.startsWith('pichu') || id.startsWith('pikachu') || id.startsWith('eevee')) continue;
 			if (ondasDexDraft.includes(poke.name) || ondasDexDraft.includes(poke.baseSpecies) || ondasDexDraft.includes(poke.baseForme)) poke.kind = "Ondas";
 			if (poke.prevo && (ondasDexDraft.includes(poke.prevo) || ondasDexDraft.includes(poke.prevo.baseSpecies) || ondasDexDraft.includes(poke.prevo.baseForme))) poke.kind = "Ondas";
+			// only include Pokémon in the regional dex at first... but still include Ondas iterations of starters and Legendaries, just in case they come up:
 			if ((!poke.kind || poke.kind !== "Ondas") && (poke.abilities[0] !== "Overgrow" && poke.abilities[0] !== "Blaze" && poke.abilities[0] !== "Torrent") && !poke.tags) continue;
-			// on the last line: still come up with Ondas iterations of starters and Legendaries, just in case they come up - the output for them goes at the bottom
 			if (this.dataCache.Learnsets[id] && this.dataCache.Learnsets[id].learnset) {
 				printno++;
 				poke.learnsetCumulative = {};
@@ -588,6 +589,7 @@ export const Scripts: ModdedBattleScriptsData = {
 				}
 
 				// now we're going to decide what moves are competitive on the Pokémon, so we need to know its type matchups
+				// this is kinda convoluted and stretchy... it's probably not important askdjhf
 				const wallTypes: string[] = []; // what types are hit worse than neutrally by both of the Pokémon's STABs?
 				for (const type in this.dataCache.TypeChart) {
 					if (
@@ -690,8 +692,8 @@ export const Scripts: ModdedBattleScriptsData = {
 					else if (move.num > 165) moveGen = 2;
 
 					// a simplified version of the Pulse learnset sheet:
-					// only decide a) if the Pokémon learns the move at all and b) if it's a safe bet it still gets it in Pulse or not
-					// "fringe moves" and transfer-only moves and future buffs are all lumped into one category unless they're TMs or tutors in Pulse
+					// only decide a) if the Pokémon learns the move at all and b) if it's a safe bet it still gets it in Ondas or not
+					// "fringe moves" and transfer-only moves and future buffs are all lumped into one category unless they're TMs or tutors here
 					let learned = false;
 					let learnedNatural = false;
 					let learnedTmTutor = ondasTms.includes(moveid) || (ondasTutors.includes(moveid) && !sinnohOnly.includes(moveid));
@@ -1256,11 +1258,12 @@ export const Scripts: ModdedBattleScriptsData = {
 
 // add section for tutors by which tutor teaches them
 
-// reminder to self: try using .sort() at the end of each move list to get them in alphabetical order
-// confirm if this causes a crash if the set is empty!
+// reminder to self: try using .sort() at the end of each move list to get them in alphabetical order?
+// would save a lot of effort and look nice
+// but make sure this doesn't cause a crash if the set is empty! (it very often will be)
 
 // add two spaces for manual inputs: one blank for further movepool changes, one blank for Tactics and stat comments
 
 // maaaybe have a better way of handling new variants / crossgens?
 // will need hard-coding for Volateal (combining Armarouge and Ceruledge's learnsets)
-// can the others just be Evo-style shortcut additions from early in scripts?
+// can the others just be Evo-style shortcut additions early in the script? I don't really need anything but their types and movepools
