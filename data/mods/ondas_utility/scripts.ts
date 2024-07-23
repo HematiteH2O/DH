@@ -1177,14 +1177,7 @@ export const Scripts: ModdedBattleScriptsData = {
 								}
 							}
 						}
-						if (alreadyCouldHave) {
-							title += ` (*)`;
-						} else {
-							// add to a list of moves the Pokémon could NOT already have had
-							// hmm... I think I'm gonna need one for each type, though, aren't I?
-							poke.learnsetCumulative[type][category].neverCouldHave.push(move.name);
-							// intentionally no asterisk because they would all have it!
-						}
+						if (alreadyCouldHave) title += ` (*)`;
 
 						// now sort it into that section
 						let competitive = false;
@@ -1201,6 +1194,7 @@ export const Scripts: ModdedBattleScriptsData = {
 							) { // for attacking moves, proceed only if the move's type has any potential to be relevant (but including the Normal moves that defy type)
 								competitive = true;
 								poke.learnsetCumulative[type][category][addRule].push(title);
+								if (!alreadyCouldHave) poke.learnsetCumulative[type][category].neverCouldHave.push(move.name);
 							}
 						}
 						if (addRule === "addOther") continue; // addOther is only for types and categories
@@ -1208,10 +1202,12 @@ export const Scripts: ModdedBattleScriptsData = {
 							if (movepoolSections[section].includes(moveid)) {
 								competitive = true;
 								poke.learnsetCumulative[section].Moves[addRule].push(title);
+								if (!alreadyCouldHave) poke.learnsetCumulative[section].neverCouldHave.push(move.name);
 							}
 						}
 						if (!competitive) {
 							poke.learnsetCumulative.Flavor.Moves[addRule].push(title);
+							if (!alreadyCouldHave) poke.learnsetCumulative.Flavor.neverCouldHave.push(move.name);
 						}
 
 					}
