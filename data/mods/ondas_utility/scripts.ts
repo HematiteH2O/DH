@@ -515,6 +515,13 @@ export const Scripts: ModdedBattleScriptsData = {
 			'stompingtantrum', 'nosedive', 'expandingforce', 'sleightofhand', 'metamorphosis', 'meteorbeam', 'poltergeist', 'outrage',
 			'lashout', 'steelroller', 'catharsis',
 		];
+		const sinnohTutor = [
+			'cut', 'rockclimb', 'strength', 'waterfall', 'rocksmash', 'secretpower', 'captivate', 'endure', 'psychup', 'recycle', 'brine',
+			'chargebeam', 'bulletseed', 'avalanche', 'lowsweep', 'dig', 'pluck', 'dreameater', 'skillswap', 'bugbuzz', 'silverwind',
+			'payback', 'nastyplot', 'irontail', 'dive', 'vacuumwave', 'aircutter', 'bugbite', 'furycutter', 'ominouswind', 'suckerpunch',
+			'lastresort', 'swift', 'uproar', 'block', 'worryseed', 'roleplay', 'stringshot', 'endeavor', 'gastroacid', 'skyattack',
+			'rollout', 'ancientpower', 'twister', 'powershift',
+		]; // these are NOT in Ondas, but I still want a row of them at the end for my own convenience
 
 		let printno = 0;
 		for (const id in this.dataCache.Pokedex) {
@@ -845,6 +852,7 @@ export const Scripts: ModdedBattleScriptsData = {
 						if (manistral.includes(moveid)) poke.learnsetCumulative.Tutor.manistral.push(title);
 						if (valledar.includes(moveid)) poke.learnsetCumulative.Tutor.valledar.push(title);
 						if (coriallos.includes(moveid)) poke.learnsetCumulative.Tutor.coriallos.push(title);
+						if (sinnohTutor.includes(moveid)) poke.learnsetCumulative.Tutor.sinnoh.push(title);
 						// will have to do something similar for the addTrend moves but one thing at a time
 
 					} else if (ondasTms.includes(moveid) || (ondasTutors.includes(moveid) && !sinnohOnly.includes(moveid))) {
@@ -1128,6 +1136,7 @@ export const Scripts: ModdedBattleScriptsData = {
 							if (manistral.includes(moveid)) poke.learnsetCumulative.Tutor.manistral.push(title);
 							if (valledar.includes(moveid)) poke.learnsetCumulative.Tutor.valledar.push(title);
 							if (coriallos.includes(moveid)) poke.learnsetCumulative.Tutor.coriallos.push(title);
+							if (sinnohTutor.includes(moveid)) poke.learnsetCumulative.Tutor.sinnoh.push(title);
 						}
 
 						// now sort it into that section
@@ -1230,11 +1239,23 @@ export const Scripts: ModdedBattleScriptsData = {
 						sheetOutput += poke.kind + `~` + (printno) + "~7~" + section + "~~" + poke.learnsetCumulative[section].Moves.tmTutor + "~" + poke.learnsetCumulative[section].Moves.addTrend + "~" + poke.learnsetCumulative[section].Moves.natural + "~" + (poke.learnsetCumulative[section].Moves.fringe.length ? "(" + poke.learnsetCumulative[section].Moves.fringe + ")" : "") + "~" + (poke.learnsetCumulative[section].Moves.addOther.length ? "(" + poke.learnsetCumulative[section].Moves.addOther + ")" : "") + "" + `\n`;
 					}
 				}
+
 				// ~8~ add TMs and tutors that have not been evaluated - should set up in the typeOrder section... agh this feels confusing right now
-				// ~9~ reiterate tutor moves by which tutor teaches them: Etesalta, then Manistral, then Valledar, then Coriallos... I just want to notice blanks
+
+				// ~9~ reiterate tutor moves by which tutor teaches them: Etesalta, Manistral, Valledar, Coriallos, then Sinnoh... I just want to notice blanks
+				sheetOutput += poke.kind + `~` + (printno) + "~9~Etesalta~~" + poke.learnsetCumulative.Tutor.etesalta + `\n`;
+				sheetOutput += poke.kind + `~` + (printno) + "~9~Manistral~~" + poke.learnsetCumulative.Tutor.manistral + `\n`;
+				sheetOutput += poke.kind + `~` + (printno) + "~9~Valledar~~" + poke.learnsetCumulative.Tutor.valledar + `\n`;
+				sheetOutput += poke.kind + `~` + (printno) + "~9~Coriallos~~" + poke.learnsetCumulative.Tutor.coriallos + `\n`;
+				sheetOutput += poke.kind + `~` + (printno) + "~9~Sinnoh~~(" + poke.learnsetCumulative.Tutor.sinnoh + `)\n`;
+
 				// ~10~ two rows with space for comments: manual movepool changes, then Tactics and stat changes
+				sheetOutput += poke.kind + `~` + (printno) + `~10~Manual Changes~\n`;
+				sheetOutput += poke.kind + `~` + (printno) + `~10~Other Comments~\n`;
+
 				// ~11~ a blank space
-				sheetOutput += (printno) + "~8~";
+				sheetOutput += (printno) + "~11~";
+
 				let sheetOutput2: string[] = [
 					(poke3 ? poke.kind + `~` + (printno) + `~1~=IMAGE("https://www.smogon.com/forums//media/minisprites/` + poke3id + `.png",3)~~` + poke3.name + "~" + poke3.types[0] + "~" + (poke3.types[1] ? poke3.types[1] : "") + "~" + poke3abilities + "~" + poke3.baseStats.hp + "~" + poke3.baseStats.atk + "~" + poke3.baseStats.def + "~" + poke3.baseStats.spa + "~" + poke3.baseStats.spd + "~" + poke3.baseStats.spe + "~" + `\n` : "")
 					+ (poke2 ? poke.kind + `~` + (printno) + `~2~=IMAGE("https://www.smogon.com/forums//media/minisprites/` + poke2id + `.png",3)~~` + poke2.name + "~" + poke2.types[0] + "~" + (poke2.types[1] ? poke2.types[1] : "") + "~" + poke2abilities + "~" + poke2.baseStats.hp + "~" + poke2.baseStats.atk + "~" + poke2.baseStats.def + "~" + poke2.baseStats.spa + "~" + poke2.baseStats.spd + "~" + poke2.baseStats.spe + "~" + `\n` : "")
@@ -1257,6 +1278,7 @@ export const Scripts: ModdedBattleScriptsData = {
 // if it hasn't had a previous opportunity and isn't already in a visible substitutions row: add a new row with that information
 
 // add section for tutors by which tutor teaches them
+// maybe also add a Sinnoh-only tutor section for my personal reference, even though it shouldn't affect learnset design yet
 
 // reminder to self: try using .sort() at the end of each move list to get them in alphabetical order?
 // would save a lot of effort and look nice
