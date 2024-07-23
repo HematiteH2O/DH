@@ -1202,12 +1202,12 @@ export const Scripts: ModdedBattleScriptsData = {
 							if (movepoolSections[section].includes(moveid)) {
 								competitive = true;
 								poke.learnsetCumulative[section].Moves[addRule].push(title);
-								if (!alreadyCouldHave) poke.learnsetCumulative[section].neverCouldHave.push(move.name);
+								if (!alreadyCouldHave) poke.learnsetCumulative[section].Moves.neverCouldHave.push(move.name);
 							}
 						}
 						if (!competitive) {
 							poke.learnsetCumulative.Flavor.Moves[addRule].push(title);
-							if (!alreadyCouldHave) poke.learnsetCumulative.Flavor.neverCouldHave.push(move.name);
+							if (!alreadyCouldHave) poke.learnsetCumulative.Flavor.Moves.neverCouldHave.push(move.name);
 						}
 
 					}
