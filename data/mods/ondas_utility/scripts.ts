@@ -1163,7 +1163,7 @@ export const Scripts: ModdedBattleScriptsData = {
 							for (const source of learnset.protect) {
 								if (['M', 'T'].includes(source.charAt(1))) {
 									for (const sourceMew of this.dataCache.Learnsets.mew.learnset[moveid]) {
-										if (sourceMew === source) alreadyCouldHave = true;
+										if (sourceMew.charAt(0) === source.charAt(0)) alreadyCouldHave = true;
 									}
 								}
 							}
@@ -1171,13 +1171,13 @@ export const Scripts: ModdedBattleScriptsData = {
 								for (const source of learnset.return) {
 									if (['M', 'T'].includes(source.charAt(1))) {
 										for (const sourceMew of this.dataCache.Learnsets.mew.learnset[moveid]) {
-											if (sourceMew === source) alreadyCouldHave = true;
+											if (sourceMew.charAt(0) === source.charAt(0)) alreadyCouldHave = true;
 										}
 									}
 								}
 							}
 						}
-						if (alreadyCouldHave) title += ` (*)`;
+						if (alreadyCouldHave) title += `*`;
 
 						// now sort it into that section
 						let competitive = false;
@@ -1291,7 +1291,8 @@ export const Scripts: ModdedBattleScriptsData = {
 				}
 
 				// ~8~ add TMs and tutors that have not been evaluated - should set up in the typeOrder section... agh this feels confusing right now
-				sheetOutput += poke.kind + `~` + (printno) + "~8~Unchecked Moves~~" + uncheckedMoves.sort() + `\n`;
+				// sheetOutput += poke.kind + `~` + (printno) + "~8~Unchecked Moves~~" + uncheckedMoves.sort() + `\n`;
+				// actually I didn't like that! so I have commented it out
 
 				// ~9~ reiterate tutor moves by which tutor teaches them: Etesalta, Manistral, Valledar, Coriallos, then Sinnoh... I just want to notice blanks
 				sheetOutput += poke.kind + `~` + (printno) + "~9~Etesalta~~" + poke.learnsetCumulative.Tutor.etesalta.sort() + `\n`;
