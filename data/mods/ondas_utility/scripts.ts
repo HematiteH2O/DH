@@ -1268,9 +1268,7 @@ export const Scripts: ModdedBattleScriptsData = {
 					) {
 						sheetOutput += poke.kind + `~` + (printno) + "~6~" + moveType + "~Physical~" + poke.learnsetCumulative[moveType].Physical.tmTutor.sort() + "~" + poke.learnsetCumulative[moveType].Physical.addTrend.sort() + "~" + poke.learnsetCumulative[moveType].Physical.natural.sort() + "~" + (poke.learnsetCumulative[moveType].Physical.fringe.length ? "(" + poke.learnsetCumulative[moveType].Physical.fringe.sort() + ")" : "") + "~" + (poke.learnsetCumulative[moveType].Physical.addOther.length ? "(" + poke.learnsetCumulative[moveType].Physical.addOther.sort() + ")" : "") + "" + `\n`;
 					} else {
-						for (const uncheckedMove in poke.learnsetCumulative[moveType].Physical.neverCouldHave) {
-							uncheckedMoves.push(uncheckedMove.name);
-						}
+						uncheckedMoves.concat(poke.learnsetCumulative[moveType].Physical.neverCouldHave);
 					}
 					if (
 						poke.learnsetCumulative[moveType].Special.natural.length || poke.learnsetCumulative[moveType].Special.tmTutor.length ||
@@ -1278,9 +1276,7 @@ export const Scripts: ModdedBattleScriptsData = {
 					) {
 						sheetOutput += poke.kind + `~` + (printno) + "~6~" + moveType + "~Special~" + poke.learnsetCumulative[moveType].Special.tmTutor.sort() + "~" + poke.learnsetCumulative[moveType].Special.addTrend.sort() + "~" + poke.learnsetCumulative[moveType].Special.natural.sort() + "~" + (poke.learnsetCumulative[moveType].Special.fringe.length ? "(" + poke.learnsetCumulative[moveType].Special.fringe.sort() + ")" : "") + "~" + (poke.learnsetCumulative[moveType].Special.addOther.length ? "(" + poke.learnsetCumulative[moveType].Special.addOther.sort() + ")" : "") + "" + `\n`;
 					} else {
-						for (const uncheckedMove in poke.learnsetCumulative[moveType].Special.neverCouldHave) {
-							uncheckedMoves.push(uncheckedMove.name);
-						}
+						uncheckedMoves.concat(poke.learnsetCumulative[moveType].Special.neverCouldHave);
 					}
 				}
 				for (const section in movepoolSections) {
@@ -1290,9 +1286,7 @@ export const Scripts: ModdedBattleScriptsData = {
 					) {
 						sheetOutput += poke.kind + `~` + (printno) + "~7~" + section + "~~" + poke.learnsetCumulative[section].Moves.tmTutor.sort() + "~" + poke.learnsetCumulative[section].Moves.addTrend.sort() + "~" + poke.learnsetCumulative[section].Moves.natural.sort() + "~" + (poke.learnsetCumulative[section].Moves.fringe.length ? "(" + poke.learnsetCumulative[section].Moves.fringe.sort() + ")" : "") + "~" + (poke.learnsetCumulative[section].Moves.addOther.length ? "(" + poke.learnsetCumulative[section].Moves.addOther.sort() + ")" : "") + "" + `\n`;
 					} else {
-						for (const uncheckedMove in poke.learnsetCumulative[section].Moves.neverCouldHave) {
-							uncheckedMoves.push(uncheckedMove.name);
-						}
+						uncheckedMoves.concat(poke.learnsetCumulative[section].Moves.neverCouldHave);
 					}
 				}
 
