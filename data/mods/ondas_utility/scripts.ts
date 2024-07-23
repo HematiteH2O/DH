@@ -521,7 +521,8 @@ export const Scripts: ModdedBattleScriptsData = {
 			if (!poke || poke.evos || id.startsWith('pichu') || id.startsWith('pikachu') || id.startsWith('eevee')) continue;
 			if (ondasDexDraft.includes(poke.name) || ondasDexDraft.includes(poke.baseSpecies) || ondasDexDraft.includes(poke.baseForme)) poke.kind = "Ondas";
 			if (poke.prevo && (ondasDexDraft.includes(poke.prevo) || ondasDexDraft.includes(poke.prevo.baseSpecies) || ondasDexDraft.includes(poke.prevo.baseForme))) poke.kind = "Ondas";
-			if (!poke.kind || poke.kind !== "Ondas") continue;
+			if ((!poke.kind || poke.kind !== "Ondas") && (poke.abilities[0] !== "Overgrow" && poke.abilities[0] !== "Blaze" && poke.abilities[0] !== "Torrent") && !poke.tags) continue;
+			// on the last line: still come up with Ondas iterations of starters and Legendaries, just in case they come up - the output for them goes at the bottom
 			if (this.dataCache.Learnsets[id] && this.dataCache.Learnsets[id].learnset) {
 				printno++;
 				poke.learnsetCumulative = {};
@@ -1119,6 +1120,14 @@ export const Scripts: ModdedBattleScriptsData = {
 						if (moveid === 'poltergeist' && !((poke.types[0] && poke.types[0] === 'Ghost') || (poke.types[1] && poke.types[1] === 'Ghost'))) continue;
 						if (moveid === 'spiritbreak' && learnset.throatchop) addRule = "addTrend";
 
+						// now put it in as a tutor move
+						if (addRule === "addTrend") {
+							if (etesalta.includes(moveid)) poke.learnsetCumulative.Tutor.etesalta.push(title);
+							if (manistral.includes(moveid)) poke.learnsetCumulative.Tutor.manistral.push(title);
+							if (valledar.includes(moveid)) poke.learnsetCumulative.Tutor.valledar.push(title);
+							if (coriallos.includes(moveid)) poke.learnsetCumulative.Tutor.coriallos.push(title);
+						}
+
 						// now sort it into that section
 						let competitive = false;
 						if (attackRMs.includes(moveid)) {
@@ -1203,13 +1212,13 @@ export const Scripts: ModdedBattleScriptsData = {
 						poke.learnsetCumulative[moveType].Physical.fringe.length || poke.learnsetCumulative[moveType].Physical.addTrend.length
 					) {
 						sheetOutput += poke.kind + `~` + (printno) + "~6~" + moveType + "~Physical~" + poke.learnsetCumulative[moveType].Physical.tmTutor + "~" + poke.learnsetCumulative[moveType].Physical.addTrend + "~" + poke.learnsetCumulative[moveType].Physical.natural + "~" + (poke.learnsetCumulative[moveType].Physical.fringe.length ? "(" + poke.learnsetCumulative[moveType].Physical.fringe + ")" : "") + "~" + (poke.learnsetCumulative[moveType].Physical.addOther.length ? "(" + poke.learnsetCumulative[moveType].Physical.addOther + ")" : "") + "" + `\n`;
-					}
+					} // TODO: else? - add some subset of unchecked tutors to the section that goes in 8?
 					if (
 						poke.learnsetCumulative[moveType].Special.natural.length || poke.learnsetCumulative[moveType].Special.tmTutor.length ||
 						poke.learnsetCumulative[moveType].Special.fringe.length || poke.learnsetCumulative[moveType].Special.addTrend.length
 					) {
 						sheetOutput += poke.kind + `~` + (printno) + "~6~" + moveType + "~Special~" + poke.learnsetCumulative[moveType].Special.tmTutor + "~" + poke.learnsetCumulative[moveType].Special.addTrend + "~" + poke.learnsetCumulative[moveType].Special.natural + "~" + (poke.learnsetCumulative[moveType].Special.fringe.length ? "(" + poke.learnsetCumulative[moveType].Special.fringe + ")" : "") + "~" + (poke.learnsetCumulative[moveType].Special.addOther.length ? "(" + poke.learnsetCumulative[moveType].Special.addOther + ")" : "") + "" + `\n`;
-					}
+					} // TODO: else? - add some subset of unchecked tutors to the section that goes in 8?
 				}
 				for (const section in movepoolSections) {
 					if (
@@ -1219,12 +1228,16 @@ export const Scripts: ModdedBattleScriptsData = {
 						sheetOutput += poke.kind + `~` + (printno) + "~7~" + section + "~~" + poke.learnsetCumulative[section].Moves.tmTutor + "~" + poke.learnsetCumulative[section].Moves.addTrend + "~" + poke.learnsetCumulative[section].Moves.natural + "~" + (poke.learnsetCumulative[section].Moves.fringe.length ? "(" + poke.learnsetCumulative[section].Moves.fringe + ")" : "") + "~" + (poke.learnsetCumulative[section].Moves.addOther.length ? "(" + poke.learnsetCumulative[section].Moves.addOther + ")" : "") + "" + `\n`;
 					}
 				}
+				// ~8~ add TMs and tutors that have not been evaluated - should set up in the typeOrder section... agh this feels confusing right now
+				// ~9~ reiterate tutor moves by which tutor teaches them: Etesalta, then Manistral, then Valledar, then Coriallos... I just want to notice blanks
+				// ~10~ two rows with space for comments: manual movepool changes, then Tactics and stat changes
+				// ~11~ a blank space
 				sheetOutput += (printno) + "~8~";
 				let sheetOutput2: string[] = [
 					(poke3 ? poke.kind + `~` + (printno) + `~1~=IMAGE("https://www.smogon.com/forums//media/minisprites/` + poke3id + `.png",3)~~` + poke3.name + "~" + poke3.types[0] + "~" + (poke3.types[1] ? poke3.types[1] : "") + "~" + poke3abilities + "~" + poke3.baseStats.hp + "~" + poke3.baseStats.atk + "~" + poke3.baseStats.def + "~" + poke3.baseStats.spa + "~" + poke3.baseStats.spd + "~" + poke3.baseStats.spe + "~" + `\n` : "")
 					+ (poke2 ? poke.kind + `~` + (printno) + `~2~=IMAGE("https://www.smogon.com/forums//media/minisprites/` + poke2id + `.png",3)~~` + poke2.name + "~" + poke2.types[0] + "~" + (poke2.types[1] ? poke2.types[1] : "") + "~" + poke2abilities + "~" + poke2.baseStats.hp + "~" + poke2.baseStats.atk + "~" + poke2.baseStats.def + "~" + poke2.baseStats.spa + "~" + poke2.baseStats.spd + "~" + poke2.baseStats.spe + "~" + `\n` : "")
 					+ poke.kind + `~` + (printno) + `~3~=IMAGE("https://www.smogon.com/forums//media/minisprites/` + iconid + `.png",3)~~` + poke.name + "~" + poke.types[0] + "~" + (poke.types[1] ? poke.types[1] : "") + "~" + abilities + "~" + poke.baseStats.hp + "~" + poke.baseStats.atk + "~" + poke.baseStats.def + "~" + poke.baseStats.spa + "~" + poke.baseStats.spd + "~" + poke.baseStats.spe + "~" + `\n`
-					+ (printno) + "~8~"
+					+ (printno) + "~11~"
 				]; // abbreviated version
 				
 				poke.sheetOutput = sheetOutput;
@@ -1235,9 +1248,19 @@ export const Scripts: ModdedBattleScriptsData = {
 };
 
 // TO DO:
-// add notes for Generation of buff/lost moves (think I have it but make sure it works)
-// add asterisk for additional trends, substitutions based on previous opportunities
-// add section for TMs and tutors the Pokémon *never* had the chance to learn, if not accounted for above
+// add notes for Generation of buff/lost moves (think I have this, but make sure it works)
+
+// identify which tutors the Pokémon has and hasn't had previous opportunities to learn - this part feels the trickiest to me...
+// if it has had a previous opportunity: add asterisk for additional trends, substitutions
+// if it hasn't had a previous opportunity and isn't already in a visible substitutions row: add a new row with that information
+
 // add section for tutors by which tutor teaches them
+
+// reminder to self: try using .sort() at the end of each move list to get them in alphabetical order
+// confirm if this causes a crash if the set is empty!
+
 // add two spaces for manual inputs: one blank for further movepool changes, one blank for Tactics and stat comments
+
 // maaaybe have a better way of handling new variants / crossgens?
+// will need hard-coding for Volateal (combining Armarouge and Ceruledge's learnsets)
+// can the others just be Evo-style shortcut additions from early in scripts?
