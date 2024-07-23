@@ -1258,7 +1258,7 @@ export const Scripts: ModdedBattleScriptsData = {
 					+ poke.kind + `~` + (printno) + `~4~\n`
 					+ poke.kind + `~` + (printno) + "~5~TM and Tutor~Additional Trends~Natural~Fringe~Substitutions" + `\n`
 				];
-				uncheckedMoves = [];
+				let uncheckedMoves = [];
 				for (const typeInOrder in typeOrder) {
 					const moveType = typeOrder[typeInOrder];
 					if (!poke.learnsetCumulative[moveType]) continue; // (stop breaking)
