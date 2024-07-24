@@ -539,7 +539,7 @@ export const Scripts: ModdedBattleScriptsData = {
 		this.dataCache.Pokedex.skorupi.evos = ["Drapion", "Drapion-Ondas"];
 		this.dataCache.Pokedex.drapionondas.name = ["Drapion-Ondas"];
 		this.dataCache.Pokedex.drapionondas.prevo = ["Skorupi"];
-		this.dataCache.Pokedex.drapionondas.types = ["Bug", "Steel"];
+		this.dataCache.Pokedex.drapionondas.types = ["Steel", "Bug"];
 		this.dataCache.Pokedex.drapionondas.kind = "Custom";
 
 		// Yamask and Runerigus
