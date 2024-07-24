@@ -492,6 +492,7 @@ export const Scripts: ModdedBattleScriptsData = {
 		// I should set poke.kind = "Custom" for each of them so they appear at the top
 		// Resurrectric, Magmorgana, Cherrimp, Rubulwark, Boscaludon, Volateal
 		// Shuckle, Drapion, Runerigus, Aromatisse, Slurpuff, Tsareena, Gholdengo
+		/*
 
 		// Resurrectric
 		this.modData('Pokedex', 'resurrectric') = this.modData('Pokedex', 'marowak');
@@ -654,6 +655,7 @@ export const Scripts: ModdedBattleScriptsData = {
 		this.modData('Pokedex', 'gholdengoondas').prevo = ["Gimmighoul-Home"];
 		this.modData('Pokedex', 'gholdengoondas').types = ["Ghost", "Ground"];
 		this.modData('Pokedex', 'gholdengoondas').kind = "Custom";
+  */
 
 		// declaring which moves are "competitive" in general
 		const attackRMs = [
