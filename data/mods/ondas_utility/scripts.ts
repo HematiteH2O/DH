@@ -1069,7 +1069,7 @@ export const Scripts: ModdedBattleScriptsData = {
 						if (sinnohTutor.includes(moveid)) poke.learnsetCumulative.Tutor.sinnohTutor.push(title);
 						// will have to do something similar for the addTrend moves but one thing at a time
 
-						if (learnedNatural) {
+						if (learnedNatural && !ondasTms.includes(moveid)) { // skip TMs, don't skip tutors
 							// sort by base power
 							// add to poke.learnsetCumulative.Level.sub20, sub40, sub60, sub80, sub100 or leftover accordingly
 							// separate tutors from non-tutors
