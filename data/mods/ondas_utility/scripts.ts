@@ -827,6 +827,9 @@ export const Scripts: ModdedBattleScriptsData = {
 							// this should make it display how I want!
 							// like Nasty Plot vs Helping Hand (9) or Sleep Powder vs Sleep Powder (Legends)
 						}
+						
+						if (!learnedTmTutor && !learnedNatural && sinnohTutor.includes(moveid)) title += `♢`;
+						// add diamond symbol to fringe moves that will be added back in Pulse
 
 						// okay, so we know the move! now we need to figure out where it goes
 						let competitive = false;
@@ -873,10 +876,11 @@ export const Scripts: ModdedBattleScriptsData = {
 						if (sinnohTutor.includes(moveid)) poke.learnsetCumulative.Tutor.sinnohTutor.push(title);
 						// will have to do something similar for the addTrend moves but one thing at a time
 
-					} else if (ondasTms.includes(moveid) || (ondasTutors.includes(moveid) && !sinnohOnly.includes(moveid))) {
+					} else if (ondasTms.includes(moveid) || (ondasTutors.includes(moveid))) {
 						// if a TM or tutor is not learned, decide if it belongs in addTrend or addOther
 						// should still distinguish between competitive and flavor like above!
 						let addRule = "addOther";
+						let addSinnohOnly = sinnohOnly.includes(moveid);
 
 if (poke.name === 'Mew') {
 	addRule = "addTrend";
@@ -1183,6 +1187,7 @@ if (poke.name === 'Mew') {
 						if (addRule === "addTrend" && alreadyCouldHave) title += `*`; // addTrend: point out ones you could have had already
 						if (addRule !== "addTrend" && !alreadyCouldHave) title += `+`; // else: emphasize ones you couldn't already have
 						// (feels more helpful than the other way around)
+						if (addSinnohOnly) title += `^`; // highlight when a move is only being added in Sinnoh
 
 						// now put it in as a tutor move
 						if (addRule === "addTrend") {
@@ -1192,6 +1197,7 @@ if (poke.name === 'Mew') {
 							if (coriallos.includes(moveid)) poke.learnsetCumulative.Tutor.coriallos.push(title);
 							if (sinnohTutor.includes(moveid)) poke.learnsetCumulative.Tutor.sinnohTutor.push(title);
 						}
+						if (addSinnohOnly) continue; // if a move trend is Sinnoh-only, don't include it anywhere else!
 
 						// now sort it into that section
 						let competitive = false;
