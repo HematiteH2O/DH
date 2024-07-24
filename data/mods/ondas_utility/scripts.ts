@@ -878,6 +878,10 @@ export const Scripts: ModdedBattleScriptsData = {
 						// should still distinguish between competitive and flavor like above!
 						let addRule = "addOther";
 
+if (poke.name === 'Mew') {
+	addRule = "addTrend";
+} else {
+
 						// account for Pokémon-exclusive tutor moves
 						if (notRealTutors.includes(moveid)) continue;
 						// account for the new starter moves
@@ -1147,6 +1151,8 @@ export const Scripts: ModdedBattleScriptsData = {
 						if (moveid === 'uturn' && addRule !== "addTrend") continue; // you shouldn't get U-turn just because you have other Bug moves
 						if (moveid === 'poltergeist' && !((poke.types[0] && poke.types[0] === 'Ghost') || (poke.types[1] && poke.types[1] === 'Ghost'))) continue;
 						if (moveid === 'spiritbreak' && learnset.throatchop) addRule = "addTrend";
+
+}
 
 						// now... I have to figure out if the Pokémon has ever had the chance to learn the move before, by TM or tutor
 						// I'm gonna do a shortcut here:
