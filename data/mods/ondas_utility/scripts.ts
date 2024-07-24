@@ -103,8 +103,8 @@ export const Scripts: ModdedBattleScriptsData = {
 				'provoke', 'reverb', 'sandtomb', 'spiderweb', 'spiritshackle', 'stickyfloor', 'taunt', 'thousandwaves', 'thundercage',
 				'healblock', 'psychicnoise',
 				// Fixed Damage
-				'counter', 'dragonrage', 'finalgambit', 'fissure', 'guillotine', 'horndrill', 'mirrorcoat', 'naturesmadness', 'nightshade', 'ruination', 'seismictoss',
-				'sheercold', 'sonicboom', 'superfang',
+				'counter', 'dragonrage', 'finalgambit', 'mirrorcoat', 'naturesmadness', 'nightshade', 'ruination', 'seismictoss',
+				'sonicboom', 'superfang',
 			],
 			Support: [
 				// Cleric
@@ -510,7 +510,7 @@ export const Scripts: ModdedBattleScriptsData = {
 			'searingshot', 'secretsword', 'seedbomb', 'seedflare', 'selfdestruct', 'shadowball', 'shadowbone', 'shadowclaw', 'shadowforce', 'shadowsneak', 'shadydeal',
 			'shellsidearm', 'shelltrap', 'signalbeam', 'silverwind', 'skittersmack', 'skyattack', 'skyuppercut', 'sleightofhand', 'sludgebomb', 'sludgewave',
 			'smartstrike', 'smellingsalts', 'snipeshot', 'snowplow', 'solarbeam', 'solarblade', 'spacialrend', 'spark', 'sparklingaria', 'spectralthief', 'spiderweb',
-			'spikyshield', 'spinout', 'spiritbreak', 'spiritshackle', 'spitup', 'splashzone', 'springtidestorm', 'steameruption', 'steelbeam', 'steelroller',
+			'spinout', 'spiritbreak', 'spiritshackle', 'spitup', 'splashzone', 'springtidestorm', 'steameruption', 'steelbeam', 'steelroller',
 			'stompingtantrum', 'stoneaxe', 'stoneedge', 'storedpower', 'stormthrow', 'strangesteam', 'suckerpunch', 'sunsteelstrike', 'superpower', 'surf',
 			'surgingstrikes', 'surpriseattack', 'switchflip', 'synchronoise', 'teardown', 'technoblast', 'terrainpulse', 'testingstrike', 'thousandarrows',
 			'thousandwaves', 'throatchop', 'thunder', 'thundercage', 'thunderfang', 'thunderpunch', 'thunderbolt', 'thunderouskick', 'torchsong', 'triattack',
@@ -519,6 +519,8 @@ export const Scripts: ModdedBattleScriptsData = {
 			'zenheadbutt', 'zingzap',
 			// some I forgot:
 			'mixedblessing', 'pyrotechnics', 'rashreprisal',
+			// buffed:
+			'guillotine', 'horndrill', 'sheercold', 'fissure', // these have base powers now
 			// DLC moves:
 			'bloodmoon', 'matchagotcha', 'ivycudgel', 'electroshot', 'terastarstorm', 'ficklebeam', 'thunderclap', 'mightycleave', 'tachyoncutter', 'hardpress',
 			'alluringvoice', 'temperflare', 'supercellslam', 'psychicnoise', 'upperhand', 'malignantchain', 'hydrosteam', 'psyblade',
