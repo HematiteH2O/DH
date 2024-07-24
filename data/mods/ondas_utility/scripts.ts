@@ -915,12 +915,36 @@ export const Scripts: ModdedBattleScriptsData = {
 							let basePower = 0;
 							if (move.basePower) basePower = move.basePower;
 							if (move.type && move.type === 'Normal') basePower *= 0.75;
+							if (move.willCrit) basePower *= 1.5;
 							if (move.multihit) {
 								if (move.multihit === 2) basePower *= 2;
 								else if (move.multihit === 10) basePower *= 10;
 								else if (move.multihit === 3) basePower *= 6; // Triple Kick, Triple Axel
 								else basePower *= 3;
 							}
+
+							// now hard-code some that changed
+							if (['doublehit'].includes(moveid)) basePower = 0;
+							if (['constrict'].includes(moveid)) basePower = 20;
+							if (['poisonsting', 'storedpower'].includes(moveid)) basePower = 30;
+							if (['knockoff'].includes(moveid)) basePower = 40;
+							if (['ceaselessedge'].includes(moveid)) basePower = 45;
+							if (['swift', 'shockwave', 'magicalleaf', 'aerialace', 'shadowpunch', 'feintattack', 'magnetbomb', 'mudslap', 'ominouswind', 'megadrain', 'poweruppunch', 'shelltrap', 'jetpunch', 'octazooka', 'triplearrows', 'bittermalice'].includes(moveid)) basePower = 50;
+							if (['stoneaxe'].includes(moveid)) basePower = 55;
+							if (['smartstrike', 'steelwing', 'clearsmog', 'smackdown'].includes(moveid)) basePower = 60;
+							if (['incinerate', 'direclaw', 'skyuppercut'].includes(moveid)) basePower = 65;
+							if (['chargebeam', 'hiddenpower', 'synchronoise'].includes(moveid)) basePower = 70;
+							if (['firepledge', 'waterpledge', 'grasspledge'].includes(moveid)) basePower = 75;
+							if (['vitalthrow', 'snore', 'spiderweb', 'uproar'].includes(moveid)) basePower = 80;
+							if (['brickbreak', 'seedflare'].includes(moveid)) basePower = 85;
+							if (['burningjealousy'].includes(moveid)) basePower = 90;
+							if (['multiattack'].includes(moveid)) basePower = 95;
+							if (['wavecrash', 'twineedle', 'spitup', 'ragingfury', 'skyattack'].includes(moveid)) basePower = 100;
+							if (['closecombat', 'doubleironbash'].includes(moveid)) basePower = 100;
+							if (['guillotine', 'horndrill', 'fissure', 'sheercold', 'mistyexplosion', 'present'].includes(moveid)) basePower = 120;
+							if (['triplekick'].includes(moveid)) basePower = 130;
+							if (['chloroblast', 'roaroftime'].includes(moveid)) basePower = 140;
+
 							if (tutor) {
 								if (basePower < 21) poke.learnsetCumulative.Level.sub20tutor.push(title);
 								else if (basePower < 41) poke.learnsetCumulative.Level.sub40tutor.push(title);
