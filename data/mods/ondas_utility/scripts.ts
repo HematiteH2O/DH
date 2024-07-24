@@ -927,8 +927,14 @@ export const Scripts: ModdedBattleScriptsData = {
 							else if (source === '8V') moveGenSources.push("LGPE");
 							else if (source === '4V') moveGenSources.push("BDSP");
 							else if (source === '9V') moveGenSources.push("Legends");
-							else moveGenSources.push(source.charAt(0));
+							else if (source.charAt(0) === '9') moveGenSources.push("9");
+							else if (source.charAt(0) === '8') moveGenSources.push("8");
+							else if (source.charAt(0) === '7') moveGenSources.push("7");
+							else if (source.charAt(0) === '6') moveGenSources.push("6");
+							else if (source.charAt(0) === '5') moveGenSources.push("5");
+							else if (source.charAt(0) === '3') moveGenSources.push("3");
 							// moveGenSources *should* end up as a complete list of all Gens that the Pokémon learns the move
+							// excludes 4 on purpose, and 1 and 2 are just "VC"
 							
 							if (source.charAt(1) === 'L' || source.charAt(1) === 'E') learnedNatural = true;
 						}
@@ -946,8 +952,14 @@ export const Scripts: ModdedBattleScriptsData = {
 							else if (source === '8V') moveGenSources.push("LGPE");
 							else if (source === '4V') moveGenSources.push("BDSP");
 							else if (source === '9V') moveGenSources.push("Legends");
-							else moveGenSources.push(source.charAt(0));
+							else if (source.charAt(0) === '9') moveGenSources.push("9");
+							else if (source.charAt(0) === '8') moveGenSources.push("8");
+							else if (source.charAt(0) === '7') moveGenSources.push("7");
+							else if (source.charAt(0) === '6') moveGenSources.push("6");
+							else if (source.charAt(0) === '5') moveGenSources.push("5");
+							else if (source.charAt(0) === '3') moveGenSources.push("3");
 							// moveGenSources *should* end up as a complete list of all Gens that the Pokémon learns the move
+							// excludes 4 on purpose, and 1 and 2 are just "VC"
 
 							if (source.charAt(1) === 'L' || source.charAt(1) === 'E') learnedNatural = true;
 						}
@@ -965,8 +977,14 @@ export const Scripts: ModdedBattleScriptsData = {
 							else if (source === '8V') moveGenSources.push("LGPE");
 							else if (source === '4V') moveGenSources.push("BDSP");
 							else if (source === '9V') moveGenSources.push("Legends");
-							else moveGenSources.push(source.charAt(0));
+							else if (source.charAt(0) === '9') moveGenSources.push("9");
+							else if (source.charAt(0) === '8') moveGenSources.push("8");
+							else if (source.charAt(0) === '7') moveGenSources.push("7");
+							else if (source.charAt(0) === '6') moveGenSources.push("6");
+							else if (source.charAt(0) === '5') moveGenSources.push("5");
+							else if (source.charAt(0) === '3') moveGenSources.push("3");
 							// moveGenSources *should* end up as a complete list of all Gens that the Pokémon learns the move
+							// excludes 4 on purpose, and 1 and 2 are just "VC"
 
 							if (source.charAt(1) === 'L' || source.charAt(1) === 'E') learnedNatural = true;
 						}
@@ -1572,7 +1590,7 @@ if (poke.name === 'Mew') {
 				sheetOutput += poke.kind + `~` + (printno) + "~9~Sinnoh~~(" + poke.learnsetCumulative.Tutor.sinnohTutor.sort() + `)\n`;
 
 				// ~10~ a rough pass of a natural movepool sorted into BP ranges, then two rows with space for comments: manual movepool changes, then Tactics and stat changes
-				sheetOutput += poke.kind + `~` + (printno) + "~10~Level-Up~~%- " + (poke.learnsetCumulative.Level.sub20 ? poke.learnsetCumulative.Level.sub20.sort() : "--") + ((poke.learnsetCumulative.Level.sub20tutor ? "; " + poke.learnsetCumulative.Level.sub20tutor.sort() : "")) + `\n- ` + (poke.learnsetCumulative.Level.sub40 ? poke.learnsetCumulative.Level.sub40.sort() : "--") + ((poke.learnsetCumulative.Level.sub40tutor ? "; " + poke.learnsetCumulative.Level.sub40tutor.sort() : "")) + `\n- ` + (poke.learnsetCumulative.Level.sub60 ? poke.learnsetCumulative.Level.sub60.sort() : "--") + ((poke.learnsetCumulative.Level.sub60tutor ? "; " + poke.learnsetCumulative.Level.sub60tutor.sort() : "")) + `\n- ` + (poke.learnsetCumulative.Level.sub80 ? poke.learnsetCumulative.Level.sub80.sort() : "--") + ((poke.learnsetCumulative.Level.sub80tutor ? "; " + poke.learnsetCumulative.Level.sub80tutor.sort() : "")) + `\n- ` + (poke.learnsetCumulative.Level.sub100 ? poke.learnsetCumulative.Level.sub100.sort() : "--") + ((poke.learnsetCumulative.Level.sub100tutor ? "; " + poke.learnsetCumulative.Level.sub100tutor.sort() : "")) + `\n- ` + (poke.learnsetCumulative.Level.leftover ? poke.learnsetCumulative.Level.leftover.sort() : "--") + ((poke.learnsetCumulative.Level.leftovertutor ? "; " + poke.learnsetCumulative.Level.leftovertutor.sort() : "")) + `%\n`;
+				sheetOutput += poke.kind + `~` + (printno) + "~10~Level-Up~~%- " + (poke.learnsetCumulative.Level.sub20 ? poke.learnsetCumulative.Level.sub20.sort() : "--") + ((poke.learnsetCumulative.Level.sub20tutor ? "; " + poke.learnsetCumulative.Level.sub20tutor.sort() : "")) + `_\n- ` + (poke.learnsetCumulative.Level.sub40 ? poke.learnsetCumulative.Level.sub40.sort() : "--") + ((poke.learnsetCumulative.Level.sub40tutor ? "; " + poke.learnsetCumulative.Level.sub40tutor.sort() : "")) + `_\n- ` + (poke.learnsetCumulative.Level.sub60 ? poke.learnsetCumulative.Level.sub60.sort() : "--") + ((poke.learnsetCumulative.Level.sub60tutor ? "; " + poke.learnsetCumulative.Level.sub60tutor.sort() : "")) + `_\n- ` + (poke.learnsetCumulative.Level.sub80 ? poke.learnsetCumulative.Level.sub80.sort() : "--") + ((poke.learnsetCumulative.Level.sub80tutor ? "; " + poke.learnsetCumulative.Level.sub80tutor.sort() : "")) + `_\n- ` + (poke.learnsetCumulative.Level.sub100 ? poke.learnsetCumulative.Level.sub100.sort() : "--") + ((poke.learnsetCumulative.Level.sub100tutor ? "; " + poke.learnsetCumulative.Level.sub100tutor.sort() : "")) + `_\n- ` + (poke.learnsetCumulative.Level.leftover ? poke.learnsetCumulative.Level.leftover.sort() : "--") + ((poke.learnsetCumulative.Level.leftovertutor ? "; " + poke.learnsetCumulative.Level.leftovertutor.sort() : "")) + `%\n`;
 				// remember to Ctrl + F "%" into quotation marks
 				sheetOutput += poke.kind + `~` + (printno) + `~10~Manual Changes~~(` + poke.name + `)\n`;
 				sheetOutput += poke.kind + `~` + (printno) + `~10~Other Comments~~(` + poke.name + `)\n`;
