@@ -1205,7 +1205,7 @@ export const Scripts: ModdedBattleScriptsData = {
 								if (!alreadyCouldHave) poke.learnsetCumulative[type][category].neverCouldHave.push(move.name);
 							}
 						}
-						if (addRule === "addOther") continue; // addOther is only for types and categories
+						if (addRule === "addOther" && alreadyCouldHave) continue; // addOther is only for types and categories, unless a move is totally new
 						for (const section in movepoolSections) {
 							if (movepoolSections[section].includes(moveid)) {
 								competitive = true;
