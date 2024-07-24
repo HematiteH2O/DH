@@ -7,7 +7,7 @@ export const Scripts: ModdedBattleScriptsData = {
 			"Magmortar", "Shuckle", "Drapion", "Runerigus", "Tsareena", "Gholdengo", // additions for variant lines
 		];
 		const ondasTms = [
-			'adrenalinerush', 'aerialace', 'aftershock', 'aircurrent', 'attract', 'blizzard', 'bloodboil', 'brickbreak', 'bulkup', 'bulldoze', 'calmmind', 'darkpulse',
+			'adrenalinerush', 'aerialace', 'aftershock', 'attract', 'blizzard', 'bloodboil', 'brickbreak', 'bulkup', 'bulldoze', 'calmmind', 'darkpulse',
 			'dazzlinggleam', 'dragonclaw', 'drainpunch', 'earthquake', 'embargo', 'energyball', 'expiration', 'explosion', 'facade', 'falseswipe', 'fireblast', 'flamecharge',
 			'flamethrower', 'flashcannon', 'fling', 'focusblast', 'focuspunch', 'frustration', 'gigadrain', 'gigaimpact', 'gyroball', 'hail', 'hiddenpower',
 			'hyperbeam', 'icebeam', 'lastwill', 'lightscreen', 'liquidation', 'magiccoat', 'naturepower', 'oilfire', 'overheat', 'piledriver', 'poweruppunch',
@@ -592,6 +592,20 @@ export const Scripts: ModdedBattleScriptsData = {
 					coriallos: [],
 					sinnohTutor: [],
 				};
+				poke.learnsetCumulative.Level = {
+					sub20: [],
+					sub20tutor: [],
+					sub40: [],
+					sub40tutor: [],
+					sub60: [],
+					sub60tutor: [],
+					sub80: [],
+					sub80tutor: [],
+					sub100: [],
+					sub100tutor: [],
+					leftover: [],
+					leftovertutor: [],
+				};
 
 				// identify the Pokémon's Gen of origin before going any further - it's useful!
 				let pokeGen = 1;
@@ -892,6 +906,37 @@ export const Scripts: ModdedBattleScriptsData = {
 						if (coriallos.includes(moveid)) poke.learnsetCumulative.Tutor.coriallos.push(title);
 						if (sinnohTutor.includes(moveid)) poke.learnsetCumulative.Tutor.sinnohTutor.push(title);
 						// will have to do something similar for the addTrend moves but one thing at a time
+
+						if (learnedNatural) {
+							// sort by base power
+							// add to poke.learnsetCumulative.Level.sub20, sub40, sub60, sub80, sub100 or leftover accordingly
+							// separate tutors from non-tutors
+							let tutor = (etesalta.includes(moveid) || manistral.includes(moveid) || valledar.includes(moveid) || coriallos.includes(moveid));
+							let basePower = 0;
+							if (move.basePower) basePower = move.basePower;
+							if (move.type && move.type === 'Normal') basePower *= 0.75;
+							if (move.multihit) {
+								if (move.multihit === 2) basePower *= 2;
+								else if (move.multihit === 10) basePower *= 10;
+								else if (move.multihit === 3) basePower *= 6; // Triple Kick, Triple Axel
+								else basePower *= 3;
+							}
+							if (tutor) {
+								if (basePower < 21) poke.learnsetCumulative.Level.sub20tutor.push(title);
+								else if (basePower < 41) poke.learnsetCumulative.Level.sub40tutor.push(title);
+								else if (basePower < 61) poke.learnsetCumulative.Level.sub60tutor.push(title);
+								else if (basePower < 81) poke.learnsetCumulative.Level.sub80tutor.push(title);
+								else if (basePower < 101) poke.learnsetCumulative.Level.sub100tutor.push(title);
+								else poke.learnsetCumulative.Level.leftovertutor.push(title);
+							} else {
+								if (basePower < 21) poke.learnsetCumulative.Level.sub20.push(title);
+								else if (basePower < 41) poke.learnsetCumulative.Level.sub40.push(title);
+								else if (basePower < 61) poke.learnsetCumulative.Level.sub60.push(title);
+								else if (basePower < 81) poke.learnsetCumulative.Level.sub80.push(title);
+								else if (basePower < 101) poke.learnsetCumulative.Level.sub100.push(title);
+								else poke.learnsetCumulative.Level.leftover.push(title);
+							}
+						}
 
 					} else if (ondasTms.includes(moveid) || (ondasTutors.includes(moveid))) {
 						// if a TM or tutor is not learned, decide if it belongs in addTrend or addOther
@@ -1338,7 +1383,9 @@ if (poke.name === 'Mew') {
 				sheetOutput += poke.kind + `~` + (printno) + "~9~Coriallos~~" + poke.learnsetCumulative.Tutor.coriallos.sort() + `\n`;
 				sheetOutput += poke.kind + `~` + (printno) + "~9~Sinnoh~~(" + poke.learnsetCumulative.Tutor.sinnohTutor.sort() + `)\n`;
 
-				// ~10~ two rows with space for comments: manual movepool changes, then Tactics and stat changes
+				// ~10~ a rough pass of a natural movepool sorted into BP ranges, then two rows with space for comments: manual movepool changes, then Tactics and stat changes
+				sheetOutput += poke.kind + `~` + (printno) + "~10~Level-Up~~%- " + (poke.learnsetCumulative.Level.sub20 ? poke.learnsetCumulative.Level.sub20.sort() : "--") + ((poke.learnsetCumulative.Level.sub20tutor ? "; " + poke.learnsetCumulative.Level.sub20tutor.sort() : "")) + `\n- ` + (poke.learnsetCumulative.Level.sub40 ? poke.learnsetCumulative.Level.sub40.sort() : "--") + ((poke.learnsetCumulative.Level.sub40tutor ? "; " + poke.learnsetCumulative.Level.sub40tutor.sort() : "")) + `\n- ` + (poke.learnsetCumulative.Level.sub60 ? poke.learnsetCumulative.Level.sub60.sort() : "--") + ((poke.learnsetCumulative.Level.sub60tutor ? "; " + poke.learnsetCumulative.Level.sub60tutor.sort() : "")) + `\n- ` + (poke.learnsetCumulative.Level.sub80 ? poke.learnsetCumulative.Level.sub80.sort() : "--") + ((poke.learnsetCumulative.Level.sub80tutor ? "; " + poke.learnsetCumulative.Level.sub80tutor.sort() : "")) + `\n- ` + (poke.learnsetCumulative.Level.sub100 ? poke.learnsetCumulative.Level.sub100.sort() : "--") + ((poke.learnsetCumulative.Level.sub100tutor ? "; " + poke.learnsetCumulative.Level.sub100tutor.sort() : "")) + `\n- ` + (poke.learnsetCumulative.Level.leftover ? poke.learnsetCumulative.Level.leftover.sort() : "--") + ((poke.learnsetCumulative.Level.leftovertutor ? "; " + poke.learnsetCumulative.Level.leftovertutor.sort() : "")) + `%\n`;
+				// remember to Ctrl + F "%" into quotation marks
 				sheetOutput += poke.kind + `~` + (printno) + `~10~Manual Changes~~(` + poke.name + `)\n`;
 				sheetOutput += poke.kind + `~` + (printno) + `~10~Other Comments~~(` + poke.name + `)\n`;
 
