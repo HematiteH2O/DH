@@ -268,7 +268,7 @@ export const Scripts: ModdedBattleScriptsData = {
 		for (const id in this.dataCache.Pokedex) {
 			if (this.dataCache.Learnsets.learnset2[id]) {
 				for (const moveid in this.dataCache.Learnsets.learnset2[id]) {
-					if (!this.modData('Learnsets', id).learnset[moveid]) this.modData('Learnsets', id).learnset[moveid] = this.dataCache.Learnsets.learnset2[id][moveid];
+					if (!this.modData('Learnsets', id).learnset[moveid]) this.modData('Learnsets', id).learnset[moveid] = ["9V"]; // 9V will be for Legends
 				}
 			}
 			// some exceptional hard-coding
