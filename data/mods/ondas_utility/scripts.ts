@@ -1183,7 +1183,8 @@ export const Scripts: ModdedBattleScriptsData = {
 								}
 							}
 						}
-						if (alreadyCouldHave) title += `*`;
+						if (alreadyCouldHave) title += `**`; // emphasize ones you couldn't already have
+						// (feels more helpful than the other way around)
 
 						// now sort it into that section
 						let competitive = false;
