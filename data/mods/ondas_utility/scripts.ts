@@ -494,166 +494,166 @@ export const Scripts: ModdedBattleScriptsData = {
 		// Shuckle, Drapion, Runerigus, Aromatisse, Slurpuff, Tsareena, Gholdengo
 
 		// Resurrectric
-		this.dataCache.Pokedex.resurrectric = this.dataCache.Pokedex.marowak;
-		this.dataCache.Learnsets.resurrectric = this.dataCache.Learnsets.marowak;
-		this.dataCache.Pokedex.marowak.evos = ["Resurrectric"];
-		this.dataCache.Pokedex.resurrectric.name = ["Resurrectric"];
-		this.dataCache.Pokedex.resurrectric.prevo = ["Marowak"];
-		this.dataCache.Pokedex.resurrectric.types = ["Ground", "Electric"];
-		this.dataCache.Pokedex.resurrectric.kind = "Custom";
+		this.modData('Pokedex', 'resurrectric') = this.modData('Pokedex', 'marowak');
+		this.modData('Learnsets', 'resurrectric') = this.modData('Learnsets', 'marowak');
+		this.modData('Pokedex', 'marowak').evos = ["Resurrectric"];
+		this.modData('Pokedex', 'resurrectric').name = ["Resurrectric"];
+		this.modData('Pokedex', 'resurrectric').prevo = ["Marowak"];
+		this.modData('Pokedex', 'resurrectric').types = ["Ground", "Electric"];
+		this.modData('Pokedex', 'resurrectric').kind = "Custom";
 
 		// Magmorgana
-		this.dataCache.Pokedex.magmorgana = this.dataCache.Pokedex.magmar;
-		this.dataCache.Learnsets.magmorgana = this.dataCache.Learnsets.magmar;
-		this.dataCache.Pokedex.magmar.evos = ["Magmortar", "Magmorgana"];
-		this.dataCache.Pokedex.magmorgana.name = ["Magmorgana"];
-		this.dataCache.Pokedex.magmorgana.prevo = ["Magmar"];
-		this.dataCache.Pokedex.magmorgana.types = ["Fire", "Fairy"];
-		this.dataCache.Pokedex.magmorgana.kind = "Custom";
+		this.modData('Pokedex', 'magmorgana') = this.modData('Pokedex', 'magmar');
+		this.modData('Learnsets', 'magmorgana') = this.modData('Learnsets', 'magmar');
+		this.modData('Pokedex', 'magmar').evos = ["Magmortar", "Magmorgana"];
+		this.modData('Pokedex', 'magmorgana').name = ["Magmorgana"];
+		this.modData('Pokedex', 'magmorgana').prevo = ["Magmar"];
+		this.modData('Pokedex', 'magmorgana').types = ["Fire", "Fairy"];
+		this.modData('Pokedex', 'magmorgana').kind = "Custom";
 
 		// Shuckle
-		this.dataCache.Pokedex.shuckleondas = this.dataCache.Pokedex.shuckle;
-		this.dataCache.Learnsets.shuckleondas = this.dataCache.Learnsets.shuckle;
-		this.dataCache.Pokedex.shuckleondas.name = ["Shuckle-Ondas"];
-		this.dataCache.Pokedex.shuckleondas.types = ["Fire", "Rock"];
-		this.dataCache.Pokedex.shuckleondas.kind = "Custom";
+		this.modData('Pokedex', 'shuckleondas') = this.modData('Pokedex', 'shuckle');
+		this.modData('Learnsets', 'shuckleondas') = this.modData('Learnsets', 'shuckle');
+		this.modData('Pokedex', 'shuckleondas').name = ["Shuckle-Ondas"];
+		this.modData('Pokedex', 'shuckleondas').types = ["Fire", "Rock"];
+		this.modData('Pokedex', 'shuckleondas').kind = "Custom";
 
 		// Cherubi and Cherrimp
-		this.dataCache.Pokedex.cherubiondas = this.dataCache.Pokedex.cherubi;
-		this.dataCache.Learnsets.cherubiondas = this.dataCache.Learnsets.cherubi;
-		this.dataCache.Pokedex.cherubiondas.name = ["Cherubi-Ondas"];
-		this.dataCache.Pokedex.cherubiondas.evos = ["Cherrimp"];
-		this.dataCache.Pokedex.cherubiondas.types = ["Grass", "Dark"];
-		// this.dataCache.Pokedex.cherubiondas.kind = "Custom";
+		this.modData('Pokedex', 'cherubiondas') = this.modData('Pokedex', 'cherubi');
+		this.modData('Learnsets', 'cherubiondas') = this.modData('Learnsets', 'cherubi');
+		this.modData('Pokedex', 'cherubiondas').name = ["Cherubi-Ondas"];
+		this.modData('Pokedex', 'cherubiondas').evos = ["Cherrimp"];
+		this.modData('Pokedex', 'cherubiondas').types = ["Grass", "Dark"];
+		// this.modData('Pokedex', 'cherubiondas').kind = "Custom";
 
-		this.dataCache.Pokedex.cherrimp = this.dataCache.Pokedex.cherrim;
-		this.dataCache.Learnsets.cherrimp = this.dataCache.Learnsets.cherrim;
-		this.dataCache.Pokedex.cherrimp.name = ["Cherrimp"];
-		this.dataCache.Pokedex.cherrimp.prevo = ["Cherubi-Ondas"];
-		this.dataCache.Pokedex.cherrimp.types = ["Grass", "Dark"];
-		this.dataCache.Pokedex.cherrimp.kind = "Custom";
+		this.modData('Pokedex', 'cherrimp') = this.modData('Pokedex', 'cherrim');
+		this.modData('Learnsets', 'cherrimp') = this.modData('Learnsets', 'cherrim');
+		this.modData('Pokedex', 'cherrimp').name = ["Cherrimp"];
+		this.modData('Pokedex', 'cherrimp').prevo = ["Cherubi-Ondas"];
+		this.modData('Pokedex', 'cherrimp').types = ["Grass", "Dark"];
+		this.modData('Pokedex', 'cherrimp').kind = "Custom";
 
 		// Drapion
-		this.dataCache.Pokedex.drapionondas = this.dataCache.Pokedex.drapion;
-		this.dataCache.Learnsets.drapionondas = this.dataCache.Learnsets.drapion;
-		this.dataCache.Pokedex.skorupi.evos = ["Drapion", "Drapion-Ondas"];
-		this.dataCache.Pokedex.drapionondas.name = ["Drapion-Ondas"];
-		this.dataCache.Pokedex.drapionondas.prevo = ["Skorupi"];
-		this.dataCache.Pokedex.drapionondas.types = ["Steel", "Bug"];
-		this.dataCache.Pokedex.drapionondas.kind = "Custom";
+		this.modData('Pokedex', 'drapionondas') = this.modData('Pokedex', 'drapion');
+		this.modData('Learnsets', 'drapionondas') = this.modData('Learnsets', 'drapion');
+		this.modData('Pokedex', 'skorupi').evos = ["Drapion", "Drapion-Ondas"];
+		this.modData('Pokedex', 'drapionondas').name = ["Drapion-Ondas"];
+		this.modData('Pokedex', 'drapionondas').prevo = ["Skorupi"];
+		this.modData('Pokedex', 'drapionondas').types = ["Steel", "Bug"];
+		this.modData('Pokedex', 'drapionondas').kind = "Custom";
 
 		// Yamask and Runerigus
-		this.dataCache.Pokedex.yamaskondas = this.dataCache.Pokedex.yamaskgalar;
-		this.dataCache.Learnsets.yamaskondas = this.dataCache.Learnsets.yamaskgalar;
-		this.dataCache.Pokedex.yamaskondas.name = ["Yamask-Ondas"];
-		this.dataCache.Pokedex.yamaskondas.evos = ["Runerigus-Ondas"];
-		this.dataCache.Pokedex.yamaskondas.types = ["Psychic"];
-		// this.dataCache.Pokedex.yamaskondas.kind = "Custom";
+		this.modData('Pokedex', 'yamaskondas') = this.modData('Pokedex', 'yamaskgalar');
+		this.modData('Learnsets', 'yamaskondas') = this.modData('Learnsets', 'yamaskgalar');
+		this.modData('Pokedex', 'yamaskondas').name = ["Yamask-Ondas"];
+		this.modData('Pokedex', 'yamaskondas').evos = ["Runerigus-Ondas"];
+		this.modData('Pokedex', 'yamaskondas').types = ["Psychic"];
+		// this.modData('Pokedex', 'yamaskondas').kind = "Custom";
 
-		this.dataCache.Pokedex.runerigusondas = this.dataCache.Pokedex.runerigus;
-		this.dataCache.Learnsets.runerigusondas = this.dataCache.Learnsets.runerigus;
-		this.dataCache.Pokedex.runerigusondas.name = ["Runerigus-Ondas"];
-		this.dataCache.Pokedex.runerigusondas.prevo = ["Yamask-Ondas"];
-		this.dataCache.Pokedex.runerigusondas.types = ["Psychic", "Water"];
-		this.dataCache.Pokedex.runerigusondas.kind = "Custom";
+		this.modData('Pokedex', 'runerigusondas') = this.modData('Pokedex', 'runerigus');
+		this.modData('Learnsets', 'runerigusondas') = this.modData('Learnsets', 'runerigus');
+		this.modData('Pokedex', 'runerigusondas').name = ["Runerigus-Ondas"];
+		this.modData('Pokedex', 'runerigusondas').prevo = ["Yamask-Ondas"];
+		this.modData('Pokedex', 'runerigusondas').types = ["Psychic", "Water"];
+		this.modData('Pokedex', 'runerigusondas').kind = "Custom";
 
 		// Rubulwark
-		this.dataCache.Pokedex.rubulwark = this.dataCache.Pokedex.druddigon;
-		this.dataCache.Learnsets.rubulwark = this.dataCache.Learnsets.druddigon;
-		this.dataCache.Pokedex.druddigon.evos = ["Rubulwark"];
-		this.dataCache.Pokedex.rubulwark.name = ["Rubulwark"];
-		this.dataCache.Pokedex.rubulwark.prevo = ["Druddigon"];
-		this.dataCache.Pokedex.rubulwark.types = ["Dragon", "Rock"];
-		this.dataCache.Pokedex.rubulwark.kind = "Custom";
+		this.modData('Pokedex', 'rubulwark') = this.modData('Pokedex', 'druddigon');
+		this.modData('Learnsets', 'rubulwark') = this.modData('Learnsets', 'druddigon');
+		this.modData('Pokedex', 'druddigon').evos = ["Rubulwark"];
+		this.modData('Pokedex', 'rubulwark').name = ["Rubulwark"];
+		this.modData('Pokedex', 'rubulwark').prevo = ["Druddigon"];
+		this.modData('Pokedex', 'rubulwark').types = ["Dragon", "Rock"];
+		this.modData('Pokedex', 'rubulwark').kind = "Custom";
 
 		// Spritzee and Aromatisse
-		this.dataCache.Pokedex.spritzeeondas = this.dataCache.Pokedex.spritzee;
-		this.dataCache.Learnsets.spritzeeondas = this.dataCache.Learnsets.spritzee;
-		this.dataCache.Pokedex.spritzeeondas.name = ["Spritzee-Ondas"];
-		this.dataCache.Pokedex.spritzeeondas.evos = ["Aromatisse-Ondas"];
-		this.dataCache.Pokedex.spritzeeondas.types = ["Fairy", "Poison"];
-		// this.dataCache.Pokedex.spritzeeondas.kind = "Custom";
+		this.modData('Pokedex', 'spritzeeondas') = this.modData('Pokedex', 'spritzee');
+		this.modData('Learnsets', 'spritzeeondas') = this.modData('Learnsets', 'spritzee');
+		this.modData('Pokedex', 'spritzeeondas').name = ["Spritzee-Ondas"];
+		this.modData('Pokedex', 'spritzeeondas').evos = ["Aromatisse-Ondas"];
+		this.modData('Pokedex', 'spritzeeondas').types = ["Fairy", "Poison"];
+		// this.modData('Pokedex', 'spritzeeondas').kind = "Custom";
 
-		this.dataCache.Pokedex.aromatisseondas = this.dataCache.Pokedex.aromatisse;
-		this.dataCache.Learnsets.aromatisseondas = this.dataCache.Learnsets.aromatisse;
-		this.dataCache.Pokedex.aromatisseondas.name = ["Aromatisse-Ondas"];
-		this.dataCache.Pokedex.aromatisseondas.prevo = ["Spritzee-Ondas"];
-		this.dataCache.Pokedex.aromatisseondas.types = ["Fairy", "Poison"];
-		this.dataCache.Pokedex.aromatisseondas.kind = "Custom";
+		this.modData('Pokedex', 'aromatisseondas') = this.modData('Pokedex', 'aromatisse');
+		this.modData('Learnsets', 'aromatisseondas') = this.modData('Learnsets', 'aromatisse');
+		this.modData('Pokedex', 'aromatisseondas').name = ["Aromatisse-Ondas"];
+		this.modData('Pokedex', 'aromatisseondas').prevo = ["Spritzee-Ondas"];
+		this.modData('Pokedex', 'aromatisseondas').types = ["Fairy", "Poison"];
+		this.modData('Pokedex', 'aromatisseondas').kind = "Custom";
 
 		// Swirlix and Slurpuff
-		this.dataCache.Pokedex.swirlixondas = this.dataCache.Pokedex.swirlix;
-		this.dataCache.Learnsets.swirlixondas = this.dataCache.Learnsets.swirlix;
-		this.dataCache.Pokedex.swirlixondas.name = ["Swirlix-Ondas"];
-		this.dataCache.Pokedex.swirlixondas.evos = ["Slurpuff-Ondas"];
-		this.dataCache.Pokedex.swirlixondas.types = ["Fairy", "Ice"];
-		// this.dataCache.Pokedex.swirlixondas.kind = "Custom";
+		this.modData('Pokedex', 'swirlixondas') = this.modData('Pokedex', 'swirlix');
+		this.modData('Learnsets', 'swirlixondas') = this.modData('Learnsets', 'swirlix');
+		this.modData('Pokedex', 'swirlixondas').name = ["Swirlix-Ondas"];
+		this.modData('Pokedex', 'swirlixondas').evos = ["Slurpuff-Ondas"];
+		this.modData('Pokedex', 'swirlixondas').types = ["Fairy", "Ice"];
+		// this.modData('Pokedex', 'swirlixondas.kind') = "Custom";
 
-		this.dataCache.Pokedex.slurpuffondas = this.dataCache.Pokedex.slurpuff;
-		this.dataCache.Learnsets.slurpuffondas = this.dataCache.Learnsets.slurpuff;
-		this.dataCache.Pokedex.slurpuffondas.name = ["Slurpuff-Ondas"];
-		this.dataCache.Pokedex.slurpuffondas.prevo = ["Swirlix-Ondas"];
-		this.dataCache.Pokedex.slurpuffondas.types = ["Fairy", "Ice"];
-		this.dataCache.Pokedex.slurpuffondas.kind = "Custom";
+		this.modData('Pokedex', 'slurpuffondas') = this.modData('Pokedex', 'slurpuff');
+		this.modData('Learnsets', 'slurpuffondas') = this.modData('Learnsets', 'slurpuff');
+		this.modData('Pokedex', 'slurpuffondas').name = ["Slurpuff-Ondas"];
+		this.modData('Pokedex', 'slurpuffondas').prevo = ["Swirlix-Ondas"];
+		this.modData('Pokedex', 'slurpuffondas').types = ["Fairy", "Ice"];
+		this.modData('Pokedex', 'slurpuffondas').kind = "Custom";
 
 		// Bounsweet, Steenee and Tsareena
-		this.dataCache.Pokedex.bounsweetondas = this.dataCache.Pokedex.bounsweet;
-		this.dataCache.Learnsets.bounsweetondas = this.dataCache.Learnsets.bounsweet;
-		this.dataCache.Pokedex.bounsweetondas.name = ["Bounsweet-Ondas"];
-		this.dataCache.Pokedex.bounsweetondas.evos = ["Steenee-Ondas"];
-		this.dataCache.Pokedex.bounsweetondas.types = ["Grass", "Normal"];
-		// this.dataCache.Pokedex.bounsweetondas.kind = "Custom";
+		this.modData('Pokedex', 'bounsweetondas') = this.modData('Pokedex', 'bounsweet');
+		this.modData('Learnsets', 'bounsweetondas') = this.modData('Learnsets', 'bounsweet');
+		this.modData('Pokedex', 'bounsweetondas').name = ["Bounsweet-Ondas"];
+		this.modData('Pokedex', 'bounsweetondas').evos = ["Steenee-Ondas"];
+		this.modData('Pokedex', 'bounsweetondas').types = ["Grass", "Normal"];
+		// this.modData('Pokedex', 'bounsweetondas').kind = "Custom";
 
-		this.dataCache.Pokedex.steeneeondas = this.dataCache.Pokedex.bounsweet;
-		this.dataCache.Learnsets.steeneeondas = this.dataCache.Learnsets.bounsweet;
-		this.dataCache.Pokedex.steeneeondas.name = ["Steenee-Ondas"];
-		this.dataCache.Pokedex.steeneeondas.prevo = ["Bounsweet-Ondas"];
-		this.dataCache.Pokedex.steeneeondas.evos = ["Tsareena-Ondas"];
-		this.dataCache.Pokedex.steeneeondas.types = ["Grass", "Normal"];
-		// this.dataCache.Pokedex.steeneeondas.kind = "Custom";
+		this.modData('Pokedex', 'steeneeondas') = this.modData('Pokedex', 'bounsweet');
+		this.modData('Learnsets', 'steeneeondas') = this.modData('Learnsets', 'bounsweet');
+		this.modData('Pokedex', 'steeneeondas').name = ["Steenee-Ondas"];
+		this.modData('Pokedex', 'steeneeondas').prevo = ["Bounsweet-Ondas"];
+		this.modData('Pokedex', 'steeneeondas').evos = ["Tsareena-Ondas"];
+		this.modData('Pokedex', 'steeneeondas').types = ["Grass", "Normal"];
+		// this.modData('Pokedex', 'steeneeondas').kind = "Custom";
 
-		this.dataCache.Pokedex.tsareenaondas = this.dataCache.Pokedex.tsareena;
-		this.dataCache.Learnsets.tsareenaondas = this.dataCache.Learnsets.tsareena;
-		this.dataCache.Pokedex.tsareenaondas.name = ["Tsareena-Ondas"];
-		this.dataCache.Pokedex.tsareenaondas.prevo = ["Steenee-Ondas"];
-		this.dataCache.Pokedex.tsareenaondas.types = ["Grass", "Normal"];
-		this.dataCache.Pokedex.tsareenaondas.kind = "Custom";
+		this.modData('Pokedex', 'tsareenaondas') = this.modData('Pokedex', 'tsareena');
+		this.modData('Learnsets', 'tsareenaondas') = this.modData('Learnsets', 'tsareena');
+		this.modData('Pokedex', 'tsareenaondas').name = ["Tsareena-Ondas"];
+		this.modData('Pokedex', 'tsareenaondas').prevo = ["Steenee-Ondas"];
+		this.modData('Pokedex', 'tsareenaondas').types = ["Grass", "Normal"];
+		this.modData('Pokedex', 'tsareenaondas').kind = "Custom";
 
 		// Boscaludon
-		this.dataCache.Pokedex.boscaludon = this.dataCache.Pokedex.duraludon;
-		this.dataCache.Learnsets.boscaludon = this.dataCache.Learnsets.duraludon;
-		this.dataCache.Pokedex.duraludon.evos = ["Archaludon", "Boscaludon"];
-		this.dataCache.Pokedex.boscaludon.name = ["Boscaludon"];
-		this.dataCache.Pokedex.boscaludon.prevo = ["Duraludon"];
-		this.dataCache.Pokedex.boscaludon.types = ["Steel", "Grass"];
-		this.dataCache.Pokedex.boscaludon.kind = "Custom";
+		this.modData('Pokedex', 'boscaludon') = this.modData('Pokedex', 'duraludon');
+		this.modData('Learnsets', 'boscaludon') = this.modData('Learnsets', 'duraludon');
+		this.modData('Pokedex', 'duraludon').evos = ["Archaludon", "Boscaludon"];
+		this.modData('Pokedex', 'boscaludon').name = ["Boscaludon"];
+		this.modData('Pokedex', 'boscaludon').prevo = ["Duraludon"];
+		this.modData('Pokedex', 'boscaludon').types = ["Steel", "Grass"];
+		this.modData('Pokedex', 'boscaludon').kind = "Custom";
 
 		// Volateal
-		this.dataCache.Pokedex.volateal = this.dataCache.Pokedex.charcadet;
-		this.dataCache.Learnsets.volateal = this.dataCache.Learnsets.charcadet;
-		this.dataCache.Pokedex.charcadet.evos = ["Armarouge", "Ceruledge", "Volateal"];
-		this.dataCache.Pokedex.volateal.name = ["Volateal"];
-		this.dataCache.Pokedex.volateal.prevo = ["Charcadet"];
-		this.dataCache.Pokedex.volateal.types = ["Fire", "Flying"];
-		this.dataCache.Pokedex.volateal.eggGroups = ["Human-Like", "Flying"]; // for move trends
-		this.dataCache.Pokedex.volateal.kind = "Custom";
-		for (const moveid in this.dataCache.Learnsets.armarouge.learnset) {
-			if (this.dataCache.Learnsets.ceruledge.learnset[moveid]) this.dataCache.Learnsets.volateal.learnset[moveid] = this.dataCache.Learnsets.armarouge.learnset[moveid];
+		this.modData('Pokedex', 'volateal') = this.modData('Pokedex', 'charcadet');
+		this.modData('Learnsets', 'volateal') = this.modData('Learnsets', 'charcadet');
+		this.modData('Pokedex', 'charcadet').evos = ["Armarouge", "Ceruledge", "Volateal"];
+		this.modData('Pokedex', 'volateal').name = ["Volateal"];
+		this.modData('Pokedex', 'volateal').prevo = ["Charcadet"];
+		this.modData('Pokedex', 'volateal').types = ["Fire", "Flying"];
+		this.modData('Pokedex', 'volateal').eggGroups = ["Human-Like", "Flying"]; // for move trends
+		this.modData('Pokedex', 'volateal').kind = "Custom";
+		for (const moveid in this.modData('Learnsets', 'armarouge').learnset) {
+			if (this.modData('Learnsets', 'ceruledge').learnset[moveid]) this.modData('Learnsets', 'volateal').learnset[moveid] = this.modData('Learnsets', 'armarouge').learnset[moveid];
 		} // add any moves both Armarouge and Ceruledge learn
 
 		// Gimmighoul and Gholdengo
-		this.dataCache.Pokedex.gimmighoulhome = this.dataCache.Pokedex.gimmighoul;
-		this.dataCache.Learnsets.gimmighoulhome = this.dataCache.Learnsets.gimmighoul;
-		this.dataCache.Pokedex.gimmighoulhome.name = ["Gimmighoul-Home"];
-		this.dataCache.Pokedex.gimmighoulhome.evos = ["Gholdengo-Ondas"];
-		// this.dataCache.Pokedex.gimmighoulhome.kind = "Custom";
+		this.modData('Pokedex', 'gimmighoulhome') = this.modData('Pokedex', 'gimmighoul');
+		this.modData('Learnsets', 'gimmighoulhome') = this.modData('Learnsets', 'gimmighoul');
+		this.modData('Pokedex', 'gimmighoulhome').name = ["Gimmighoul-Home"];
+		this.modData('Pokedex', 'gimmighoulhome').evos = ["Gholdengo-Ondas"];
+		// this.modData('Pokedex''), 'gimmighoulhome.kind = "Custom";
 
-		this.dataCache.Pokedex.gholdengoondas = this.dataCache.Pokedex.gholdengo;
-		this.dataCache.Learnsets.gholdengoondas = this.dataCache.Learnsets.gholdengo;
-		this.dataCache.Pokedex.gholdengoondas.name = ["Gholdengo-Ondas"];
-		this.dataCache.Pokedex.gholdengoondas.prevo = ["Gimmighoul-Home"];
-		this.dataCache.Pokedex.gholdengoondas.types = ["Ghost", "Ground"];
-		this.dataCache.Pokedex.gholdengoondas.kind = "Custom";
+		this.modData('Pokedex', 'gholdengoondas') = this.modData('Pokedex', 'gholdengo');
+		this.modData('Learnsets', 'gholdengoondas') = this.modData('Learnsets', 'gholdengo');
+		this.modData('Pokedex', 'gholdengoondas').name = ["Gholdengo-Ondas"];
+		this.modData('Pokedex', 'gholdengoondas').prevo = ["Gimmighoul-Home"];
+		this.modData('Pokedex', 'gholdengoondas').types = ["Ghost", "Ground"];
+		this.modData('Pokedex', 'gholdengoondas').kind = "Custom";
 
 		// declaring which moves are "competitive" in general
 		const attackRMs = [
