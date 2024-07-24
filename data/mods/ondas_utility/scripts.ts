@@ -528,7 +528,7 @@ export const Scripts: ModdedBattleScriptsData = {
 		let printno = 0;
 		for (const id in this.dataCache.Pokedex) {
 			const poke = this.dataCache.Pokedex[id];
-			if (!poke || poke.evos || id.startsWith('pichu') || id.startsWith('pikachu') || id.startsWith('eevee')) continue;
+			if (!poke || poke.evos || id.endsWith('totem') || id.startsWith('pichu') || id.startsWith('pikachu') || id.startsWith('eevee')) continue;
 			if (ondasDexDraft.includes(poke.name) || ondasDexDraft.includes(poke.baseSpecies) || ondasDexDraft.includes(poke.baseForme)) poke.kind = "Ondas";
 			if (poke.prevo && (ondasDexDraft.includes(poke.prevo) || ondasDexDraft.includes(poke.prevo.baseSpecies) || ondasDexDraft.includes(poke.prevo.baseForme))) poke.kind = "Ondas";
 			// only include Pokémon in the regional dex at first... but still include Ondas iterations of starters and Legendaries, just in case they come up:
@@ -1316,8 +1316,8 @@ if (poke.name === 'Mew') {
 				sheetOutput += poke.kind + `~` + (printno) + "~9~Sinnoh~~(" + poke.learnsetCumulative.Tutor.sinnohTutor.sort() + `)\n`;
 
 				// ~10~ two rows with space for comments: manual movepool changes, then Tactics and stat changes
-				sheetOutput += poke.kind + `~` + (printno) + `~10~Manual Changes~\n`;
-				sheetOutput += poke.kind + `~` + (printno) + `~10~Other Comments~\n`;
+				sheetOutput += poke.kind + `~` + (printno) + `~10~Manual Changes~` + poke.name + `\n`;
+				sheetOutput += poke.kind + `~` + (printno) + `~10~Other Comments~` + poke.name + `\n`;
 
 				// ~11~ a blank space
 				sheetOutput += (printno) + "~11~";
