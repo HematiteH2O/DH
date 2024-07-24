@@ -927,12 +927,12 @@ export const Scripts: ModdedBattleScriptsData = {
 							else if (source === '8V') moveGenSources.push("LGPE");
 							else if (source === '4V') moveGenSources.push("BDSP");
 							else if (source === '9V') moveGenSources.push("Legends");
-							else if (source.charAt(0) === '9') moveGenSources.push("9");
-							else if (source.charAt(0) === '8') moveGenSources.push("8");
-							else if (source.charAt(0) === '7') moveGenSources.push("7");
-							else if (source.charAt(0) === '6') moveGenSources.push("6");
-							else if (source.charAt(0) === '5') moveGenSources.push("5");
-							else if (source.charAt(0) === '3') moveGenSources.push("3");
+							else if (source.charAt(0) === '9') moveGenSources.push("Gen 9");
+							else if (source.charAt(0) === '8') moveGenSources.push("Gen 8");
+							else if (source.charAt(0) === '7') moveGenSources.push("Gen 7");
+							else if (source.charAt(0) === '6') moveGenSources.push("Gen 6");
+							else if (source.charAt(0) === '5') moveGenSources.push("Gen 5");
+							else if (source.charAt(0) === '3') moveGenSources.push("Gen 3");
 							// moveGenSources *should* end up as a complete list of all Gens that the Pokémon learns the move
 							// excludes 4 on purpose, and 1 and 2 are just "VC"
 							
@@ -952,12 +952,12 @@ export const Scripts: ModdedBattleScriptsData = {
 							else if (source === '8V') moveGenSources.push("LGPE");
 							else if (source === '4V') moveGenSources.push("BDSP");
 							else if (source === '9V') moveGenSources.push("Legends");
-							else if (source.charAt(0) === '9') moveGenSources.push("9");
-							else if (source.charAt(0) === '8') moveGenSources.push("8");
-							else if (source.charAt(0) === '7') moveGenSources.push("7");
-							else if (source.charAt(0) === '6') moveGenSources.push("6");
-							else if (source.charAt(0) === '5') moveGenSources.push("5");
-							else if (source.charAt(0) === '3') moveGenSources.push("3");
+							else if (source.charAt(0) === '9') moveGenSources.push("Gen 9");
+							else if (source.charAt(0) === '8') moveGenSources.push("Gen 8");
+							else if (source.charAt(0) === '7') moveGenSources.push("Gen 7");
+							else if (source.charAt(0) === '6') moveGenSources.push("Gen 6");
+							else if (source.charAt(0) === '5') moveGenSources.push("Gen 5");
+							else if (source.charAt(0) === '3') moveGenSources.push("Gen 3");
 							// moveGenSources *should* end up as a complete list of all Gens that the Pokémon learns the move
 							// excludes 4 on purpose, and 1 and 2 are just "VC"
 
@@ -977,12 +977,12 @@ export const Scripts: ModdedBattleScriptsData = {
 							else if (source === '8V') moveGenSources.push("LGPE");
 							else if (source === '4V') moveGenSources.push("BDSP");
 							else if (source === '9V') moveGenSources.push("Legends");
-							else if (source.charAt(0) === '9') moveGenSources.push("9");
-							else if (source.charAt(0) === '8') moveGenSources.push("8");
-							else if (source.charAt(0) === '7') moveGenSources.push("7");
-							else if (source.charAt(0) === '6') moveGenSources.push("6");
-							else if (source.charAt(0) === '5') moveGenSources.push("5");
-							else if (source.charAt(0) === '3') moveGenSources.push("3");
+							else if (source.charAt(0) === '9') moveGenSources.push("Gen 9");
+							else if (source.charAt(0) === '8') moveGenSources.push("Gen 8");
+							else if (source.charAt(0) === '7') moveGenSources.push("Gen 7");
+							else if (source.charAt(0) === '6') moveGenSources.push("Gen 6");
+							else if (source.charAt(0) === '5') moveGenSources.push("Gen 5");
+							else if (source.charAt(0) === '3') moveGenSources.push("Gen 3");
 							// moveGenSources *should* end up as a complete list of all Gens that the Pokémon learns the move
 							// excludes 4 on purpose, and 1 and 2 are just "VC"
 
@@ -1002,12 +1002,12 @@ export const Scripts: ModdedBattleScriptsData = {
 							else if (source === '8V') moveGenSources.push("LGPE");
 							else if (source === '4V') moveGenSources.push("BDSP");
 							else if (source === '9V') moveGenSources.push("Legends");
-							else if (source.charAt(0) === '9') moveGenSources.push("9");
-							else if (source.charAt(0) === '8') moveGenSources.push("8");
-							else if (source.charAt(0) === '7') moveGenSources.push("7");
-							else if (source.charAt(0) === '6') moveGenSources.push("6");
-							else if (source.charAt(0) === '5') moveGenSources.push("5");
-							else if (source.charAt(0) === '3') moveGenSources.push("3");
+							else if (source.charAt(0) === '9') moveGenSources.push("Gen 9");
+							else if (source.charAt(0) === '8') moveGenSources.push("Gen 8");
+							else if (source.charAt(0) === '7') moveGenSources.push("Gen 7");
+							else if (source.charAt(0) === '6') moveGenSources.push("Gen 6");
+							else if (source.charAt(0) === '5') moveGenSources.push("Gen 5");
+							else if (source.charAt(0) === '3') moveGenSources.push("Gen 3");
 							// moveGenSources *should* end up as a complete list of all Gens that the Pokémon learns the move
 							// excludes 4 on purpose, and 1 and 2 are just "VC"
 
@@ -1024,16 +1024,16 @@ export const Scripts: ModdedBattleScriptsData = {
 							if (moveGenSources.includes("Legends")) fakeGen = "Legends"; // lowest priority
 
 							if (moveGenSources.includes("VC")) fakeGen = "VC";
-							if (moveGenSources.includes(3)) fakeGen = 3;
+							if (moveGenSources.includes("Gen 3")) fakeGen = 3;
 							// if a move was lost after Gen III but added back later, I think I want to know when it was added back
 
-							if (moveGenSources.includes(9)) fakeGen = 9;
+							if (moveGenSources.includes("Gen 9")) fakeGen = 9;
 							if (moveGenSources.includes("BDSP")) fakeGen = "BDSP";
-							if (moveGenSources.includes(8)) fakeGen = 8;
+							if (moveGenSources.includes("Gen 8")) fakeGen = 8;
 							if (moveGenSources.includes("LGPE")) fakeGen = "LGPE";
-							if (moveGenSources.includes(7)) fakeGen = 7;
-							if (moveGenSources.includes(6)) fakeGen = 6;
-							if (moveGenSources.includes(5)) fakeGen = 5;
+							if (moveGenSources.includes("Gen 7")) fakeGen = 7;
+							if (moveGenSources.includes("Gen 6")) fakeGen = 6;
+							if (moveGenSources.includes("Gen 5")) fakeGen = 5;
 							// Gen IV is always "authentic"
 
 							if (fakeGen) title += ` (${fakeGen})`;
