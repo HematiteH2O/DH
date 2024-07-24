@@ -478,6 +478,11 @@ export const Scripts: ModdedBattleScriptsData = {
 		legendsMoves("yanmega", ["crunch"]);
 		legendsMoves("zubat", ["crosspoison"]);
 
+		// TODO: if I *want* to add the new variants and crossgens, I should just do some hard-coding here
+		// I should set poke.kind = "Custom" for each of them so they appear at the top
+		// Resurrectric, Magmorgana, Cherrimp, Rubulwark, Boscaludon, Volateal
+		// Shuckle, Drapion, Runerigus, Aromatisse, Slurpuff, Tsareena, Gholdengo
+
 		// declaring which moves are "competitive" in general
 		const attackRMs = [
 			'accelerock', 'aciddrench', 'acidspray', 'acrobatics', 'adrenalinerush', 'aerialace', 'aeroblast', 'aftershock', 'airslash', 'anchorshot', 'ancientpower',
@@ -531,10 +536,10 @@ export const Scripts: ModdedBattleScriptsData = {
 		for (const id in this.dataCache.Pokedex) {
 			const poke = this.dataCache.Pokedex[id];
 			if (!poke || poke.evos || id.endsWith('totem') || id.startsWith('pichu') || id.startsWith('pikachu') || id.startsWith('eevee')) continue;
-			if (ondasDexDraft.includes(poke.name) || ondasDexDraft.includes(poke.baseSpecies) || ondasDexDraft.includes(poke.baseForme)) poke.kind = "Ondas";
-			if (poke.prevo && (ondasDexDraft.includes(poke.prevo) || ondasDexDraft.includes(poke.prevo.baseSpecies) || ondasDexDraft.includes(poke.prevo.baseForme))) poke.kind = "Ondas";
+			if ((ondasDexDraft.includes(poke.name) || ondasDexDraft.includes(poke.baseSpecies) || ondasDexDraft.includes(poke.baseForme)) && !poke.kind) poke.kind = "Ondas";
+			if (poke.prevo && (ondasDexDraft.includes(poke.prevo) || ondasDexDraft.includes(poke.prevo.baseSpecies) || ondasDexDraft.includes(poke.prevo.baseForme)) && !poke.kind) poke.kind = "Ondas";
 			// only include Pokémon in the regional dex at first... but still include Ondas iterations of starters and Legendaries, just in case they come up:
-			if ((!poke.kind || poke.kind !== "Ondas") && (poke.abilities[0] !== "Overgrow" && poke.abilities[0] !== "Blaze" && poke.abilities[0] !== "Torrent") && !poke.tags) continue;
+			if ((!poke.kind) && (poke.abilities[0] !== "Overgrow" && poke.abilities[0] !== "Blaze" && poke.abilities[0] !== "Torrent") && !poke.tags) continue;
 			if (this.dataCache.Learnsets[id] && this.dataCache.Learnsets[id].learnset) {
 				printno++;
 				poke.learnsetCumulative = {};
