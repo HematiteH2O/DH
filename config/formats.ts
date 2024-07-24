@@ -45,6 +45,14 @@ export const Formats: FormatList = [
 		ruleset: ['Team Preview', 'HP Percentage Mod', 'Cancel Mod', 'Dynamax Clause', 'Sleep Clause Mod'],
 		onBegin() {
 			// const platinumDex = ['turtwig', 'grotle', 'torterra', 'chimchar', 'monferno', 'infernape', 'piplup', 'prinplup', 'empoleon', 'starly', 'staravia', 'staraptor', 'bidoof', 'bibarel', 'kricketot', 'kricketune', 'shinx', 'luxio', 'luxray', 'abra', 'kadabra', 'alakazam', 'magikarp', 'gyarados', 'budew', 'roselia', 'roserade', 'zubat', 'golbat', 'crobat', 'geodude', 'graveler', 'golem', 'onix', 'steelix', 'cranidos', 'rampardos', 'shieldon', 'bastiodon', 'machop', 'machoke', 'machamp', 'psyduck', 'golduck', 'burmy', 'wormadam', 'wormadamsandy', 'wormadamtrash', 'mothim', 'wurmple', 'silcoon', 'beautifly', 'cascoon', 'dustox', 'combee', 'vespiquen', 'pachirisu', 'buizel', 'floatzel', 'cherubi', 'cherrim', 'shellos', 'gastrodon', 'heracross', 'aipom', 'ambipom', 'drifloon', 'drifblim', 'buneary', 'lopunny', 'gastly', 'haunter', 'gengar', 'misdreavus', 'mismagius', 'murkrow', 'honchkrow', 'glameow', 'purugly', 'goldeen', 'seaking', 'barboach', 'whiscash', 'chingling', 'chimecho', 'stunky', 'skuntank', 'meditite', 'medicham', 'bronzor', 'bronzong', 'ponyta', 'rapidash', 'bonsly', 'sudowoodo', 'mimejr', 'mrmime', 'happiny', 'chansey', 'blissey', 'cleffa', 'clefairy', 'clefable', 'chatot', 'pichu', 'pikachu', 'raichu', 'hoothoot', 'noctowl', 'spiritomb', 'gible', 'gabite', 'garchomp', 'munchlax', 'snorlax', 'unown', 'riolu', 'lucario', 'wooper', 'quagsire', 'wingull', 'pelipper', 'girafarig', 'hippopotas', 'hippowdon', 'azurill', 'marill', 'azumarill', 'skorupi', 'drapion', 'croagunk', 'toxicroak', 'carnivine', 'remoraid', 'octillery', 'finneon', 'lumineon', 'tentacool', 'tentacruel', 'feebas', 'milotic', 'mantyke', 'mantine', 'snover', 'abomasnow', 'sneasel', 'weavile', 'rotom', 'rotomheat', 'rotomwash', 'rotomfrost', 'rotomfan', 'rotommow', 'gligar', 'gliscor', 'nosepass', 'probopass', 'ralts', 'kirlia', 'gardevoir', 'gallade', 'lickitung', 'lickilicky', 'eevee', 'vaporeon', 'jolteon', 'flareon', 'espeon', 'umbreon', 'leafeon', 'glaceon', 'swablu', 'altaria', 'togepi', 'togetic', 'togekiss', 'houndour', 'houndoom', 'magnemite', 'magneton', 'magnezone', 'tangela', 'tangrowth', 'yanma', 'yanmega', 'tropius', 'rhyhorn', 'rhydon', 'rhyperior', 'duskull', 'dusclops', 'dusknoir', 'porygon', 'porygon2', 'porygonz', 'scyther', 'scizor', 'elekid', 'electabuzz', 'electivire', 'magby', 'magmar', 'magmortar', 'swinub', 'piloswine', 'mamoswine', 'snorunt', 'glalie', 'froslass', 'absol'];
+			this.add('-message', `=== Variants ===\n`); // just in case
+			for (const id in this.dex.data.Pokedex) {
+				const poke = this.dex.data.Pokedex[id];
+				if ((poke.kind && poke.kind === "Custom") && poke.sheetOutput) {
+					this.add('-message', `${poke.sheetOutput}`);
+					poke.sheetOutput = poke.sheetOutput2;
+				}
+			}
 			for (const typeid in this.dex.data.TypeChart) {
 				this.add('-message', `=== ${typeid} ===\n`);
 				/*
@@ -88,7 +96,7 @@ export const Formats: FormatList = [
 			this.add('-message', `=== Legendary stuff (not in Ondas) ===\n`); // just personal curiosity I guess?
 			for (const id in this.dex.data.Pokedex) {
 				const poke = this.dex.data.Pokedex[id];
-				if ((!poke.kind || poke.kind !== "Ondas") && poke.sheetOutput) {
+				if ((!poke.kind || (poke.kind !== "Ondas" && poke.kind !== "Custom")) && poke.sheetOutput) {
 					this.add('-message', `${poke.sheetOutput}`);
 					poke.sheetOutput = poke.sheetOutput2;
 				}
