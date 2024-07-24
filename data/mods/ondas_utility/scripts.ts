@@ -521,7 +521,7 @@ export const Scripts: ModdedBattleScriptsData = {
 			'mixedblessing', 'pyrotechnics', 'rashreprisal',
 			// DLC moves:
 			'bloodmoon', 'matchagotcha', 'ivycudgel', 'electroshot', 'terastarstorm', 'ficklebeam', 'thunderclap', 'mightycleave', 'tachyoncutter', 'hardpress',
-			'alluringvoice', 'temperflare', 'supercellslam', 'psychicnoise', 'upperhand', 'malignantchain',
+			'alluringvoice', 'temperflare', 'supercellslam', 'psychicnoise', 'upperhand', 'malignantchain', 'hydrosteam', 'psyblade',
 		]; // this category doesn't need to distinguish physical from special! that's handled later
 		// excludes Hidden Power and Natural Gift
 
