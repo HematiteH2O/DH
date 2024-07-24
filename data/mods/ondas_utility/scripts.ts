@@ -39,7 +39,7 @@ export const Scripts: ModdedBattleScriptsData = {
 			'aircutter', 'ancientpower', 'block', 'brine', 'bugbite', 'bulletseed', 'chargebeam', 'cut', 'dig', 'dive', 'dreameater', 'endeavor', 'endure',
 			'furycutter', 'gastroacid', 'irontail', 'lastresort', 'ominouswind', 'payback', 'playrough', 'pluck', 'powershift', 'psychup', 'recycle', 'rockclimb',
 			'rocksmash', 'roleplay', 'rollout', 'secretpower', 'silverwind', 'skillswap', 'skyattack', 'strength', 'stringshot', 'suckerpunch', 'swift', 'twister',
-			'uproar', 'vacuumwave', 'waterfall', 'worryseed', 'avalanche'
+			'uproar', 'vacuumwave', 'waterfall', 'worryseed', 'avalanche', 'toxic',
 		];
 		const notRealTutors = [
 			'relicsong', 'blastburn', 'firepledge', 'vcreate', 'hydrocannon', 'waterpledge', 'volttackle', 'frenzyplant', 'grasspledge', 'secretsword', 'dragonascent',
@@ -70,11 +70,21 @@ export const Scripts: ModdedBattleScriptsData = {
 			'lashout', 'steelroller', 'catharsis',
 		];
 		const sinnohTutor = [
-			'cut', 'rockclimb', 'strength', 'waterfall', 'rocksmash', 'secretpower', 'captivate', 'endure', 'psychup', 'recycle', 'brine',
-			'chargebeam', 'bulletseed', 'avalanche', 'lowsweep', 'dig', 'pluck', 'dreameater', 'skillswap', 'bugbuzz', 'silverwind',
-			'payback', 'nastyplot', 'irontail', 'dive', 'vacuumwave', 'aircutter', 'bugbite', 'furycutter', 'ominouswind', 'suckerpunch',
-			'lastresort', 'swift', 'uproar', 'block', 'worryseed', 'roleplay', 'stringshot', 'endeavor', 'gastroacid', 'skyattack',
-			'rollout', 'ancientpower', 'twister', 'powershift',
+			'cut', 'rockclimb', 'strength', 'waterfall', 'rocksmash', 'defog',
+
+			'naturalgift', 'secretpower', 'captivate', 'endure', 'psychup', 'recycle', 'brine', 'waterpulse', 'chargebeam', 'bulletseed',
+			'grassknot', 'avalanche', 'lowsweep', 'poisonjab', 'toxic', 'dig', 'pluck', 'dreameater', 'skillswap', 'bugbuzz', 'silverwind',
+			'stealthrock', 'shadowclaw', 'dragonpulse', 'payback', 'nastyplot', 'irontail',
+
+			'firepunch', 'dive', 'thunderpunch', 'icepunch', 'icywind', 'vacuumwave', 'aircutter', 'zenheadbutt', 'trick', 'bugbite',
+			'furycutter', 'ominouswind', 'knockoff', 'suckerpunch',
+
+			'lastresort', 'snore', 'swift', 'uproar', 'block', 'healbell', 'helpinghand', 'magnetrise', 'synthesis', 'worryseed',
+			'tailwind', 'gravity', 'roleplay', 'stringshot', 'spite',
+
+			'endeavor', 'superfang', 'painsplit', 'heatwave', 'aquatail', 'seedbomb', 'lowkick', 'superpower', 'gunkshot', 'gastroacid',
+			'earthpower', 'mudslap', 'bounce', 'skyattack', 'signalbeam', 'rollout', 'ancientpower', 'outrage', 'twister', 'ironhead',
+			'irondefense',
 		]; // these are NOT in Ondas, but I still want a row of them at the end for my own convenience
 
 		const movepoolSections = {
@@ -118,7 +128,7 @@ export const Scripts: ModdedBattleScriptsData = {
 				'uturn', 'voltswitch',
 			],
 			DoublesDisrupt: [
-				'acidspray', 'blackmail', 'breakingswipe', 'bulldoze', 'captivate', 'charm', 'constrict', 'cottonspore', 'demolition', 'detect', 'drumbeating', 'eerieimpulse',
+				'acidspray', 'blackmail', 'breakingswipe', 'bulldoze', 'charm', 'constrict', 'cottonspore', 'demolition', 'detect', 'drumbeating', 'eerieimpulse',
 				'electroweb', 'esperwing', 'fakeout', 'faketears', 'featherdance', 'feint', 'fissurevent', 'fog', 'hyperdrill', 'hyperspacefury', 'hyperspacehole', 'icywind',
 				'imprison', 'incinerate', 'kingsshield', 'luminacrash', 'matblock', 'mixedblessing', 'obstruct', 'phantomforce', 'poisongas', 'psychout', 'quickguard', 'sabotage', 'screech',
 				'shelltrap', 'silktrap', 'skydrop', 'snarl', 'snatch', 'spikyshield', 'splashzone', 'stringshot', 'strugglebug', 'wideguard',
@@ -539,7 +549,7 @@ export const Scripts: ModdedBattleScriptsData = {
 			if ((ondasDexDraft.includes(poke.name) || ondasDexDraft.includes(poke.baseSpecies) || ondasDexDraft.includes(poke.baseForme)) && !poke.kind) poke.kind = "Ondas";
 			if (poke.prevo && (ondasDexDraft.includes(poke.prevo) || ondasDexDraft.includes(poke.prevo.baseSpecies) || ondasDexDraft.includes(poke.prevo.baseForme)) && !poke.kind) poke.kind = "Ondas";
 			// only include Pokémon in the regional dex at first... but still include Ondas iterations of starters and Legendaries, just in case they come up:
-			if ((!poke.kind) && (poke.abilities[0] !== "Overgrow" && poke.abilities[0] !== "Blaze" && poke.abilities[0] !== "Torrent") && !poke.tags) continue;
+			if ((!poke.kind) && (poke.abilities[0] !== "Overgrow" && poke.abilities[0] !== "Blaze" && poke.abilities[0] !== "Torrent") && !(poke.tags || (poke.baseForme && poke.baseForme.tags))) continue;
 			if (this.dataCache.Learnsets[id] && this.dataCache.Learnsets[id].learnset) {
 				printno++;
 				poke.learnsetCumulative = {};
@@ -911,8 +921,8 @@ if (poke.name === 'Mew') {
 
 						// below should be a list of movepool trends that sort a move into either addOther or addTrend
 						if (
-							['endure', 'facade', 'frustration', 'gigaimpact', 'return', 'hiddenpower', 'hyperbeam', 'naturalgift', 'snore', 'protect', 'secretpower', 'sleeptalk', 'substitute', 'swagger', 'trashtalk', 'rest'].includes(moveid)
-						) addRule = "addTrend"; // fully universal moves
+							['captivate', 'endure', 'facade', 'frustration', 'gigaimpact', 'return', 'hiddenpower', 'hyperbeam', 'naturalgift', 'snore', 'protect', 'secretpower', 'sleeptalk', 'substitute', 'swagger', 'trashtalk', 'toxic', 'rest'].includes(moveid)
+						) addRule = "addTrend"; // fully universal moves - includes some Sinnoh-only ones
 						if (!(poke.gender && poke.gender === 'N') && moveid === 'attract') addRule = "addTrend";
 						if (
 							((poke.types[0] && poke.types[0] === 'Fire') || (poke.types[1] && poke.types[1] === 'Fire')) &&
