@@ -1316,8 +1316,8 @@ if (poke.name === 'Mew') {
 				sheetOutput += poke.kind + `~` + (printno) + "~9~Sinnoh~~(" + poke.learnsetCumulative.Tutor.sinnohTutor.sort() + `)\n`;
 
 				// ~10~ two rows with space for comments: manual movepool changes, then Tactics and stat changes
-				sheetOutput += poke.kind + `~` + (printno) + `~10~Manual Changes~` + poke.name + `\n`;
-				sheetOutput += poke.kind + `~` + (printno) + `~10~Other Comments~` + poke.name + `\n`;
+				sheetOutput += poke.kind + `~` + (printno) + `~10~Manual Changes~~(` + poke.name + `)\n`;
+				sheetOutput += poke.kind + `~` + (printno) + `~10~Other Comments~~(` + poke.name + `)\n`;
 
 				// ~11~ a blank space
 				sheetOutput += (printno) + "~11~";
