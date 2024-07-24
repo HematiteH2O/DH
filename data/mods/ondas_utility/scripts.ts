@@ -1148,15 +1148,6 @@ export const Scripts: ModdedBattleScriptsData = {
 						if (moveid === 'poltergeist' && !((poke.types[0] && poke.types[0] === 'Ghost') || (poke.types[1] && poke.types[1] === 'Ghost'))) continue;
 						if (moveid === 'spiritbreak' && learnset.throatchop) addRule = "addTrend";
 
-						// now put it in as a tutor move
-						if (addRule === "addTrend") {
-							if (etesalta.includes(moveid)) poke.learnsetCumulative.Tutor.etesalta.push(move.name);
-							if (manistral.includes(moveid)) poke.learnsetCumulative.Tutor.manistral.push(move.name);
-							if (valledar.includes(moveid)) poke.learnsetCumulative.Tutor.valledar.push(move.name);
-							if (coriallos.includes(moveid)) poke.learnsetCumulative.Tutor.coriallos.push(move.name);
-							if (sinnohTutor.includes(moveid)) poke.learnsetCumulative.Tutor.sinnohTutor.push(move.name);
-						}
-
 						// now... I have to figure out if the Pokémon has ever had the chance to learn the move before, by TM or tutor
 						// I'm gonna do a shortcut here:
 						// if the Pokémon is *not* Ditto, Unown, Wobbuffet or Smeargle,
@@ -1186,6 +1177,15 @@ export const Scripts: ModdedBattleScriptsData = {
 						if (addRule === "addTrend" && alreadyCouldHave) title += `*`; // addTrend: point out ones you could have had already
 						if (addRule !== "addTrend" && !alreadyCouldHave) title += `**`; // else: emphasize ones you couldn't already have
 						// (feels more helpful than the other way around)
+
+						// now put it in as a tutor move
+						if (addRule === "addTrend") {
+							if (etesalta.includes(moveid)) poke.learnsetCumulative.Tutor.etesalta.push(title);
+							if (manistral.includes(moveid)) poke.learnsetCumulative.Tutor.manistral.push(title);
+							if (valledar.includes(moveid)) poke.learnsetCumulative.Tutor.valledar.push(title);
+							if (coriallos.includes(moveid)) poke.learnsetCumulative.Tutor.coriallos.push(title);
+							if (sinnohTutor.includes(moveid)) poke.learnsetCumulative.Tutor.sinnohTutor.push(title);
+						}
 
 						// now sort it into that section
 						let competitive = false;
