@@ -117,7 +117,7 @@ export const Formats: FormatList = [
 			];
 			for (const id in kalosDex) {
 				const poke = this.dex.data.Pokedex[id];
-				if (poke.sheetOutput) {
+				if (poke && poke.sheetOutput) {
 					this.add('-message', `${poke.sheetOutput}`);
 				} else {
 					console.log(id);
