@@ -44,11 +44,10 @@ export const Scripts: ModdedBattleScriptsData = {
 		let printno = 0;
 		for (const id in this.dataCache.Pokedex) {
 			const poke = this.dataCache.Pokedex[id];
-			if (!poke || poke.evos || id.endsWith('totem') || id.startsWith('pichu') || id.startsWith('pikachu') || id.startsWith('eevee')) continue;
-			if ((ondasDexDraft.includes(poke.name) || ondasDexDraft.includes(poke.baseSpecies) || ondasDexDraft.includes(poke.baseForme)) && !poke.kind) poke.kind = "Ondas";
-			if (poke.prevo && (ondasDexDraft.includes(poke.prevo) || ondasDexDraft.includes(poke.prevo.baseSpecies) || ondasDexDraft.includes(poke.prevo.baseForme)) && !poke.kind) poke.kind = "Ondas";
-			// only include Pokémon in the regional dex at first... but still include Ondas iterations of starters and Legendaries, just in case they come up:
-			if ((!poke.kind) && (poke.abilities[0] !== "Overgrow" && poke.abilities[0] !== "Blaze" && poke.abilities[0] !== "Torrent") && !(poke.tags || (poke.baseForme && poke.baseForme.tags))) continue;
+			if (!poke) continue;
+			if ((kalosDex.includes(poke.name) || kalosDex.includes(poke.baseSpecies) || kalosDex.includes(poke.baseForme)) && !poke.kind) poke.kind = "Kalos";
+			// RESUME FROM HERE
+
 			if (this.dataCache.Learnsets[id] && this.dataCache.Learnsets[id].learnset) {
 				printno++;
 				poke.learnsetCumulative = {};
