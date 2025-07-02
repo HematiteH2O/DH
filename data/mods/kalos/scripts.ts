@@ -55,7 +55,11 @@ export const Scripts: ModdedBattleScriptsData = {
 				// start with the vanilla learnset
 				const learnset = this.modData('Learnsets', this.toID(id)).learnset;
 				for (const moveid in this.dataCache.Moves) {
-					// identify the Gen of the move
+
+// NOTICE: you will need to account for pre-evolutions' movepools before generating new level-up lists!
+// specifically this is because of Egg moves, which I notice are only on the basic stage
+// oops!
+
 					const move = this.dataCache.Moves[moveid];
 					if (!move) {
 						console.log(moveid);
