@@ -81,7 +81,7 @@ export const Scripts: ModdedBattleScriptsData = {
 					}
 					if (learned && !learnedLvUp && !learnedTm && learnedOras) learnedLvUp = true; // add tutors and Egg moves to level-up, but not event moves
 					if (learned) {
-						// okay, so we know the move! now we need to figure out where it goes
+						let title: string[] = [move.name];
 						for (const section in movepoolSections) {
 							if (movepoolSections[section].includes(moveid)) {
 								poke.learnsetCumulative[section].Moves.push(title);
