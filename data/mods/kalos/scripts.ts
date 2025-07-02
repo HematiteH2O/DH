@@ -62,7 +62,7 @@ export const Scripts: ModdedBattleScriptsData = {
 					// "fringe moves" and transfer-only moves and future buffs are all lumped into one category unless they're TMs or tutors here
 					let learned = false;
 					let learnedLvUp = false;
-					let learnedTM = false;
+					let learnedTm = false;
 					let learnedOras = false;
 					if (learnset[moveid]) { // if it learns the move
 						for (const source of learnset[moveid]) {
