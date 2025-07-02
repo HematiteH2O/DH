@@ -47,6 +47,11 @@ export const Scripts: ModdedBattleScriptsData = {
 			if (this.dataCache.Learnsets[id] && this.dataCache.Learnsets[id].learnset) {
 				printno++;
 				poke.learnsetCumulative = {};
+				for (const section in movepoolSections) {
+					poke.learnsetCumulative[section] = {
+						Moves: [],
+					};
+				}
 				// start with the vanilla learnset
 				const learnset = this.modData('Learnsets', this.toID(id)).learnset;
 				for (const moveid in this.dataCache.Moves) {
