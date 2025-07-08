@@ -165,7 +165,7 @@ export const Scripts: ModdedBattleScriptsData = {
 					if (move.category && move.category !== 'Status') {
 						moveName = moveName; // attacks should be the last move learned at a level so NPCs don't often get stuck with none
 					} else {
-						moveName = `zzz ` + moveName; // status moves first, then
+						moveName = `0` + moveName; // status moves first, then
 					}
 
 					// evolutions learn exclusive moves at their evolution level, if possible!
@@ -199,7 +199,7 @@ export const Scripts: ModdedBattleScriptsData = {
 				];
 				for (const level in poke.learnsetCumulative.learnset) {
 					if (poke.learnsetCumulative.learnset[level].movesLearned.length) {
-						poke.learnsetCumulative.learnset[level].movesLearned.sort;
+						poke.learnsetCumulative.learnset[level].movesLearned.sort();
 						for (const moveid of poke.learnsetCumulative.learnset[level].movesLearned) {
 							sheetOutput += `\n` + (parseInt(level) + 1) + ` - ` + moveid;
 						}
