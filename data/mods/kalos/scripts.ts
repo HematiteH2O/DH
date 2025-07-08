@@ -112,7 +112,7 @@ export const Scripts: ModdedBattleScriptsData = {
 					}
 
 					lv = basePower - 40;
-					lv *= 0.8;
+					lv *= 0.85;
 					lv = Math.floor(lv);
 					if (lv < 1) lv = 1;
 
@@ -130,19 +130,34 @@ export const Scripts: ModdedBattleScriptsData = {
 					if (72 < lv) lv = 72; // c'mon you can learn anything you want at that point
 
 					// assign exceptional levels to (some) status moves
-					// if (['fellstinger'].includes(moveid)) lv = 1;
+					if (['aromaticmist', 'assist', 'bide', 'copycat', 'flash', 'howl', 'kinesis', 'mirrormove', 'sandattack', 'smokescreen', 'sonicboom'].includes(moveid)) lv = 8;
+					if (['charge', 'detect', 'mefirst', 'naturalgift', 'protect', 'sweetscent', 'wish', 'workup'].includes(moveid)) lv = 15;
+					if (['agility', 'autotomize', 'defendorder', 'dragonrage', 'rockpolish', 'screech', 'swordsdance'].includes(moveid)) lv = 20;
+					if (['afteryou', 'babydolleyes', 'camouflage', 'charm', 'cottonspore', 'dragondance', 'electrify', 'entrainment', 'featherdance', 'flatter', 'flowershield', 'grassknot', 'grudge', 'guardswap', 'gyroball', 'honeclaws', 'lowkick', 'magiccoat', 'magneticflux', 'magnitude', 'mist', 'partingshot', 'poisonpowder', 'powerswap', 'psychup', 'quash', 'rototiller', 'tickle', 'torment'].includes(moveid)) lv = 24;
+					if (['healpulse', 'helpinghand', 'iondeluge', 'luckychant', 'magicroom', 'magnetrise', 'naturepower', 'poisongas', 'wonderroom'].includes(moveid)) lv = 27;
+					if (['acidarmor', 'acupressure', 'allyswitch', 'aromatherapy', 'barrier', 'bestow', 'bulkup', 'confuseray', 'curse', 'disable', 'fling', 'grasswhistle', 'guardsplit', 'healbell', 'hypnosis', 'irondefense', 'nastyplot', 'powersplit', 'psychoshift', 'recycle', 'reflect', 'reflecttype', 'refresh', 'safeguard', 'sing', 'spikes', 'spikyshield', 'spitup', 'stealthrock', 'stockpile', 'stunspore', 'substitute', 'swallow', 'switcheroo', 'tailglow', 'toxic', 'toxicspikes', 'trick', 'trickroom', 'venomdrench', 'wideguard', 'willowisp'].includes(moveid)) lv = 32;
+					if (['calmmind', 'coil', 'cottonguard', 'crushgrip', 'eerieimpulse', 'flail', 'forestscurse', 'frustration', 'glare', 'growth', 'hail', 'healblock', 'healorder', 'heatcrash', 'moonlight', 'morningsun', 'painsplit', 'punishment', 'ragepowder', 'raindance', 'return', 'roleplay', 'sandstorm', 'shiftgear', 'skillswap', 'sleeppowder', 'sleeptalk', 'snatch', 'soak', 'spore', 'sunnyday', 'swagger', 'synthesis', 'telekinesis', 'thunderwave', 'topsyturvy', 'trickortreat', 'wringout'].includes(moveid)) lv = 35;
+					if (['amnesia', 'attract', 'batonpass', 'beatup', 'bellydrum', 'captivate', 'destinybond', 'electricterrain', 'embargo', 'encore', 'endeavor', 'faketears', 'grassyterrain', 'healingwish', 'heavyslam', 'leechseed', 'lightscreen', 'lunardance', 'matblock', 'metalsound', 'milkdrink', 'mindreader', 'miracleeye', 'mistyterrain', 'mudsport', 'nightmare', 'quickguard', 'quiverdance', 'recover', 'rest', 'reversal', 'roost', 'simplebeam', 'slackoff', 'softboiled', 'spite', 'stickyweb', 'superfang', 'taunt', 'yawn'].includes(moveid)) lv = 39;
+					if (['cosmicpower', 'craftyshield', 'doubleteam', 'electroball', 'finalgambit', 'followme', 'gastroacid', 'haze', 'imprison', 'kingsshield', 'memento', 'powder', 'roar', 'teeterdance', 'whirlwind', 'worryseed'].includes(moveid)) lv = 44;
+					if (['defog', 'gravity', 'lovelykiss', 'minimize', 'shellsmash', 'tailwind'].includes(moveid)) lv = 50;
+					if (['darkvoid', 'geomancy', 'perishsong'].includes(moveid)) lv = 54;
+
+					let moveName: string[] = [` - ` + move.name];
+					if (move.category && move.category !== 'Status') moveName = `a` + moveName; // attacks should be the last move learned at a level so NPCs don't often get stuck with none
 
 					// evolutions learn exclusive moves at their evolution level, if possible!
 					if (poke.evoLevel) {
-						if ((!learnset2 || !learnset2[moveid]) && (!learnset3 || !learnset3[moveid])) {
-							if (lv < evoLevel) lv = evoLevel;
+						if ((!learnset2 || !learnset2[moveid]) && (!learnset3 || !learnset3[moveid]) && (lv < evoLevel)) {
+							lv = evoLevel;
+							let bonuslv1: string[] = [`\n 1` + moveName];
+							poke.learnsetCumulative.learnset.push(bonuslv1);
 						}
 					}
 
 					// first assign the move a level
 
 					// then send it to the learnset
-					let movelv: string[] = [`\n ` + lv + ` - ` + move.name];
+					let movelv: string[] = [`\n ` + lv + moveName];
 					poke.learnsetCumulative.learnset.push(movelv);
 				}
 				poke.learnsetCumulative.learnset.sort();
