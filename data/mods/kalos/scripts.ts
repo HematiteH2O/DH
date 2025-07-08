@@ -80,8 +80,8 @@ export const Scripts: ModdedBattleScriptsData = {
 							}
 						}
 					}
+					if (!learnedLvUp && ['grasspledge', 'firepledge', 'waterpledge', 'hydrocannon', 'frenzyplant', 'blastburn', 'dracometeor', 'gigaimpact', 'snore'].includes(moveid)) continue;
 					if (learned && !learnedLvUp && !learnedTm && learnedOras) learnedLvUp = true; // add tutors and Egg moves to level-up, but not event moves
-					if (['grasspledge', 'firepledge', 'waterpledge', 'hydrocannon', 'frenzyplant', 'blastburn', 'dracometeor'].includes(moveid)) continue;
 					if (learnedLvUp) poke.learnsetCumulative.Moves.push(moveid);
 				}
 				for (const moveid of poke.learnsetCumulative.Moves) {
@@ -101,7 +101,6 @@ export const Scripts: ModdedBattleScriptsData = {
 						if (['lusterpurge'].includes(moveid)) basePower = 70;
 						if (['mistball'].includes(moveid)) basePower = 70;
 
-						if (['focuspunch'].includes(moveid)) basePower = 85;
 						if (move.multihit) {
 							if (move.multihit === 2) basePower *= 2;
 							else if (move.multihit === 3) basePower *= 6; // Triple Kick, Triple Axel
@@ -114,7 +113,8 @@ export const Scripts: ModdedBattleScriptsData = {
 							if (move.recoil === [33, 100]) basePower *= 6 / 7;
 							if (move.recoil === [1, 2]) basePower *= 4 / 5;
 						}
-						if (move.type && (move.type === 'Normal' || !poke.types.includes(move.type))) basePower *= 0.8;
+						if (move.type && (move.type === 'Normal')) basePower *= 0.8;
+						if (['weatherball'].includes(moveid)) basePower = 100;
 						if (move.willCrit) basePower *= 1.5;
 					}
 
@@ -146,6 +146,15 @@ export const Scripts: ModdedBattleScriptsData = {
 					if (['cosmicpower', 'craftyshield', 'doubleteam', 'electroball', 'finalgambit', 'followme', 'gastroacid', 'haze', 'imprison', 'kingsshield', 'memento', 'powder', 'roar', 'teeterdance', 'whirlwind', 'worryseed'].includes(moveid)) lv = 44;
 					if (['defog', 'gravity', 'lovelykiss', 'minimize', 'shellsmash', 'tailwind'].includes(moveid)) lv = 50;
 					if (['darkvoid', 'geomancy', 'perishsong'].includes(moveid)) lv = 54;
+
+					if (['tackle'].includes(moveid)) lv = 1;
+					if (['pound'].includes(moveid)) lv = 1;
+					if (['scratch'].includes(moveid)) lv = 1;
+					if (['vinewhip'].includes(moveid)) lv = 5;
+					if (['rollout', 'iceball'].includes(moveid)) lv = 8;
+					if (move.volatileStatus && move.volatileStatus === 'partiallytrapped') lv = 12;
+					if (['acidspray', 'drainingkiss', 'echoedvoice', 'furycutter', 'nuzzle', 'poweruppunch'].includes(moveid)) lv = 18;
+					if (['focuspunch'].includes(moveid)) lv = 36;
 
 					let moveName: string[] = [move.name];
 					if (move.category && move.category !== 'Status') {
