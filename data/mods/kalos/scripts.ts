@@ -84,8 +84,9 @@ export const Scripts: ModdedBattleScriptsData = {
 					if (learnedLvUp) poke.learnsetCumulative.Moves.push(moveid);
 				}
 				for (const moveid in poke.learnsetCumulative.Moves) {
-					let lv = 1;
 					const move = this.dataCache.Moves[moveid];
+					if (!move) continue;
+					let lv = 1;
 					let basePower = 1;
 					if (move.basePower && move.basePower > 0) {
 						basePower = move.basePower;
