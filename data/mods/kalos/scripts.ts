@@ -202,7 +202,7 @@ export const Scripts: ModdedBattleScriptsData = {
 				for (const level in poke.learnsetCumulative.learnset) {
 					if (poke.learnsetCumulative.learnset[level].length) {
 						poke.learnsetCumulative.learnset[level].sort;
-						for (const moveid in poke.learnsetCumulative.learnset(level)) {
+						for (const moveid in poke.learnsetCumulative.learnset[level]) {
 							sheetOutput += `\n` + level + ` - ` + move;
 						}
 					}
