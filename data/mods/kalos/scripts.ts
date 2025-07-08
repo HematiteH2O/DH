@@ -13,7 +13,10 @@ export const Scripts: ModdedBattleScriptsData = {
 
 			if (this.dataCache.Learnsets[id] && this.dataCache.Learnsets[id].learnset) {
 				printno++;
-				poke.learnsetCumulative = {};
+				poke.learnsetCumulative = {
+							Moves: [],
+							learnset: [],
+				};
 				// start with the vanilla learnset
 				const learnset = this.modData('Learnsets', this.toID(id)).learnset;
 				let learnset2 = null;
