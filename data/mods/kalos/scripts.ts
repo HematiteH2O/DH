@@ -83,7 +83,7 @@ export const Scripts: ModdedBattleScriptsData = {
 					if (learned && !learnedLvUp && !learnedTm && learnedOras) learnedLvUp = true; // add tutors and Egg moves to level-up, but not event moves
 					if (learnedLvUp) poke.learnsetCumulative.Moves.push(moveid);
 				}
-				for (const moveid in poke.learnsetCumulative.Moves) {
+				for (const moveid of poke.learnsetCumulative.Moves) {
 					const move = this.dataCache.Moves[moveid];
 					if (!move) continue;
 					let lv = 1;
@@ -153,7 +153,7 @@ export const Scripts: ModdedBattleScriptsData = {
 					if (poke.evoLevel) {
 						if ((!learnset2 || !learnset2[moveid]) && (!learnset3 || !learnset3[moveid]) && (lv < evoLevel)) {
 							lv = evoLevel;
-							let bonuslv1: string[] = [`\n 1` + moveName];
+							let bonuslv1: string[] = [`1` + moveName];
 							poke.learnsetCumulative.learnset.push(bonuslv1);
 						}
 					}
@@ -165,15 +165,13 @@ export const Scripts: ModdedBattleScriptsData = {
 					poke.learnsetCumulative.learnset.push(movelv);
 				}
 				poke.learnsetCumulative.learnset.sort();
-
-				// abilities
 				if (!poke || !poke.learnsetCumulative.learnset) return;
 				// finalize sheetOutput now.........
 				let sheetOutput: string[] = [
 					`\n\n` + poke.name + `\n`
 				];
-				for (const move in poke.learnsetCumulative.learnset) {
-					sheetOutput += move;
+				for (const move of poke.learnsetCumulative.learnset) {
+					sheetOutput += `\n` + move;
 				}
 				poke.sheetOutput = sheetOutput;
 			}
