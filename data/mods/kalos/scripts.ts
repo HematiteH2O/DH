@@ -165,7 +165,7 @@ export const Scripts: ModdedBattleScriptsData = {
 					if (move.category && move.category !== 'Status') {
 						moveName = moveName; // attacks should be the last move learned at a level so NPCs don't often get stuck with none
 					} else {
-						moveName = `0` + moveName; // status moves first, then
+						moveName = `zzz ` + moveName; // status moves first, then
 					}
 
 					// evolutions learn exclusive moves at their evolution level, if possible!
