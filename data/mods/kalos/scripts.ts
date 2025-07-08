@@ -199,10 +199,10 @@ export const Scripts: ModdedBattleScriptsData = {
 				let sheetOutput: string[] = [
 					`\n\n` + poke.name + `\n`
 				];
-				for (const level of poke.learnsetCumulative.learnset) {
+				for (const level in poke.learnsetCumulative.learnset) {
 					if (poke.learnsetCumulative.learnset[level].length) {
 						poke.learnsetCumulative.learnset[level].sort;
-						for (const moveid of poke.learnsetCumulative.learnset(level)) {
+						for (const moveid in poke.learnsetCumulative.learnset(level)) {
 							sheetOutput += `\n` + level + ` - ` + move;
 						}
 					}
