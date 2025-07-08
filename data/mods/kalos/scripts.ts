@@ -151,8 +151,8 @@ export const Scripts: ModdedBattleScriptsData = {
 
 					// evolutions learn exclusive moves at their evolution level, if possible!
 					if (poke.evoLevel) {
-						if ((!learnset2 || !learnset2[moveid]) && (!learnset3 || !learnset3[moveid]) && (lv < evoLevel)) {
-							lv = evoLevel;
+						if ((!learnset2 || !learnset2[moveid]) && (!learnset3 || !learnset3[moveid]) && (lv < poke.evoLevel)) {
+							lv = poke.evoLevel;
 							let bonuslv1: string[] = [`1` + moveName];
 							poke.learnsetCumulative.learnset.push(bonuslv1);
 						}
