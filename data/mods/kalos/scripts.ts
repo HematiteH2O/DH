@@ -115,9 +115,7 @@ export const Scripts: ModdedBattleScriptsData = {
 						if (move.willCrit) basePower *= 1.5;
 					}
 
-					lv = basePower - 40;
-					lv *= 0.85;
-					lv = Math.floor(lv);
+					lv = Math.floor((basePower * 0.7) - 33);
 					if (lv < 1) lv = 1;
 
 					// coverage type lenience
