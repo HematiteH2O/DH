@@ -100,6 +100,7 @@ export const Scripts: ModdedBattleScriptsData = {
 						if (['tackle'].includes(moveid)) basePower = 50;
 						if (['lusterpurge'].includes(moveid)) basePower = 70;
 						if (['mistball'].includes(moveid)) basePower = 70;
+						if (['acrobatics'].includes(moveid)) basePower = (110 / 1.2);
 
 						if (move.multihit) {
 							if (move.multihit === 2) basePower *= 2;
@@ -147,6 +148,7 @@ export const Scripts: ModdedBattleScriptsData = {
 					if (['defog', 'gravity', 'lovelykiss', 'minimize', 'shellsmash', 'tailwind'].includes(moveid)) lv = 50;
 					if (['darkvoid', 'geomancy', 'perishsong'].includes(moveid)) lv = 54;
 
+					// power exceptions
 					if (['tackle'].includes(moveid)) lv = 1;
 					if (['pound'].includes(moveid)) lv = 1;
 					if (['scratch'].includes(moveid)) lv = 1;
@@ -155,6 +157,7 @@ export const Scripts: ModdedBattleScriptsData = {
 					if (move.volatileStatus && move.volatileStatus === 'partiallytrapped') lv = 12;
 					if (['acidspray', 'drainingkiss', 'echoedvoice', 'furycutter', 'nuzzle', 'poweruppunch'].includes(moveid)) lv = 18;
 					if (['focuspunch'].includes(moveid)) lv = 36;
+					if (['overheat'].includes(moveid)) lv = 56;
 
 					let moveName: string[] = [move.name];
 					if (move.category && move.category !== 'Status') {
@@ -165,7 +168,18 @@ export const Scripts: ModdedBattleScriptsData = {
 
 					// evolutions learn exclusive moves at their evolution level, if possible!
 					if (poke.evoLevel) {
-						if ((!learnset2 || !learnset2[moveid]) && (!learnset3 || !learnset3[moveid]) && (lv < poke.evoLevel)) {
+						let evoMove = true;
+						if (learnset2 && learnset2[moveid]) { // if it learns the move
+							for (const source of learnset2[moveid]) {
+								if (parseInt(source.charAt(0)) === 6) evoMove = false;
+							}
+						}
+						if (learnset3 && learnset3[moveid]) { // if it learns the move
+							for (const source of learnset3[moveid]) {
+								if (parseInt(source.charAt(0)) === 6) evoMove = false;
+							}
+						}
+						if (evoMove && (lv < poke.evoLevel)) {
 							lv = poke.evoLevel;
 							let bonuslv1: string[] = [`1` + moveName];
 							poke.learnsetCumulative.learnset.push(bonuslv1);
