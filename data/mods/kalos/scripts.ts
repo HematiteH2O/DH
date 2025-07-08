@@ -56,7 +56,7 @@ export const Scripts: ModdedBattleScriptsData = {
 								learned = true;
 								if (source.charAt(1) === 'L') learnedLvUp = true;
 								if (source.charAt(1) === 'M' && !postgameTms.includes(moveid)) learnedTm = true;
-								if (source.charAt(1) === 'E' || source.charAt(1) === 'T') learnedOras = true;
+								if (source.charAt(1) === 'E' || source.charAt(1) === 'T' || source.charAt(1) === 'M') learnedOras = true;
 							}
 						}
 					}
@@ -66,7 +66,7 @@ export const Scripts: ModdedBattleScriptsData = {
 								learned = true;
 								if (source.charAt(1) === 'L') learnedLvUp = true;
 								if (source.charAt(1) === 'M' && !postgameTms.includes(moveid)) learnedTm = true;
-								if (source.charAt(1) === 'E' || source.charAt(1) === 'T') learnedOras = true;
+								if (source.charAt(1) === 'E' || source.charAt(1) === 'T' || source.charAt(1) === 'M') learnedOras = true;
 							}
 						}
 					}
@@ -76,12 +76,12 @@ export const Scripts: ModdedBattleScriptsData = {
 								learned = true;
 								if (source.charAt(1) === 'L') learnedLvUp = true;
 								if (source.charAt(1) === 'M' && !postgameTms.includes(moveid)) learnedTm = true;
-								if (source.charAt(1) === 'E' || source.charAt(1) === 'T') learnedOras = true;
+								if (source.charAt(1) === 'E' || source.charAt(1) === 'T' || source.charAt(1) === 'M') learnedOras = true;
 							}
 						}
 					}
 					if (!learnedLvUp && ['grasspledge', 'firepledge', 'waterpledge', 'hydrocannon', 'frenzyplant', 'blastburn', 'dracometeor', 'gigaimpact', 'snore'].includes(moveid)) continue;
-					if (learned && !learnedLvUp && !learnedTm && learnedOras) learnedLvUp = true; // add tutors and Egg moves to level-up, but not event moves
+					if (learned && !learnedLvUp && !learnedTm && learnedOras) learnedLvUp = true; // add tutors, Egg moves and postgame TMs to level-up, but not event moves
 					if (learnedLvUp) poke.learnsetCumulative.Moves.push(moveid);
 				}
 				for (const moveid of poke.learnsetCumulative.Moves) {
@@ -199,7 +199,7 @@ export const Scripts: ModdedBattleScriptsData = {
 				for (const level in poke.learnsetCumulative.learnset) {
 					if (poke.learnsetCumulative.learnset[level].movesLearned.length) {
 						poke.learnsetCumulative.learnset[level].movesLearned.sort;
-						for (const moveid in poke.learnsetCumulative.learnset[level].movesLearned) {
+						for (const moveid of poke.learnsetCumulative.learnset[level].movesLearned) {
 							sheetOutput += `\n` + level + ` - ` + moveid;
 						}
 					}
