@@ -81,6 +81,7 @@ export const Scripts: ModdedBattleScriptsData = {
 						}
 					}
 					if (learned && !learnedLvUp && !learnedTm && learnedOras) learnedLvUp = true; // add tutors and Egg moves to level-up, but not event moves
+					if (['grasspledge', 'firepledge', 'waterpledge', 'hydrocannon', 'frenzyplant', 'blastburn', 'dracometeor'].includes(moveid)) continue;
 					if (learnedLvUp) poke.learnsetCumulative.Moves.push(moveid);
 				}
 				for (const moveid of poke.learnsetCumulative.Moves) {
@@ -115,7 +116,7 @@ export const Scripts: ModdedBattleScriptsData = {
 						if (move.willCrit) basePower *= 1.5;
 					}
 
-					lv = Math.floor((basePower * 0.7) - 33);
+					lv = Math.floor((basePower * 0.7) - 23);
 					if (lv < 1) lv = 1;
 
 					// coverage type lenience
@@ -144,7 +145,7 @@ export const Scripts: ModdedBattleScriptsData = {
 					if (['defog', 'gravity', 'lovelykiss', 'minimize', 'shellsmash', 'tailwind'].includes(moveid)) lv = 50;
 					if (['darkvoid', 'geomancy', 'perishsong'].includes(moveid)) lv = 54;
 
-					let moveName: string[] = [` - ` + move.name];
+					let moveName: string[] = [move.name];
 					if (move.category && move.category !== 'Status') {
 						moveName = `~z~` + moveName; // attacks should be the last move learned at a level so NPCs don't often get stuck with none
 					} else {
