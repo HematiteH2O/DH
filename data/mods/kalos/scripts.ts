@@ -17,6 +17,9 @@ export const Scripts: ModdedBattleScriptsData = {
 							Moves: [],
 							learnset: [],
 				};
+				for (let i = 1; i < 99; i++) {
+					poke.learnsetCumulative.learnset[i] = [];
+				}
 				// start with the vanilla learnset
 				const learnset = this.modData('Learnsets', this.toID(id)).learnset;
 				let learnset2 = null;
@@ -87,6 +90,8 @@ export const Scripts: ModdedBattleScriptsData = {
 				for (const moveid of poke.learnsetCumulative.Moves) {
 					const move = this.dataCache.Moves[moveid];
 					if (!move) continue;
+
+					// first assign the move a level
 					let lv = 1;
 					let basePower = 1;
 					if (move.basePower && move.basePower > 0) {
@@ -161,9 +166,9 @@ export const Scripts: ModdedBattleScriptsData = {
 
 					let moveName: string[] = [move.name];
 					if (move.category && move.category !== 'Status') {
-						moveName = `~z~` + moveName; // attacks should be the last move learned at a level so NPCs don't often get stuck with none
+						moveName = moveName; // attacks should be the last move learned at a level so NPCs don't often get stuck with none
 					} else {
-						moveName = `~a~` + moveName; // status moves first, then
+						moveName = `*` + moveName; // status moves first, then
 					}
 
 					// evolutions learn exclusive moves at their evolution level, if possible!
@@ -180,17 +185,13 @@ export const Scripts: ModdedBattleScriptsData = {
 							}
 						}
 						if (evoMove && (lv < poke.evoLevel)) {
+							poke.learnsetCumulative.learnset[1].push(moveName); // bonus level 1
 							lv = poke.evoLevel;
-							let bonuslv1: string[] = [`1` + moveName];
-							poke.learnsetCumulative.learnset.push(bonuslv1);
 						}
 					}
 
-					// first assign the move a level
-
 					// then send it to the learnset
-					let movelv: string[] = [`\n ` + lv + moveName];
-					poke.learnsetCumulative.learnset.push(movelv);
+					poke.learnsetCumulative.learnset[lv].push(moveName);
 				}
 				poke.learnsetCumulative.learnset.sort();
 				if (!poke || !poke.learnsetCumulative.learnset) return;
@@ -198,8 +199,13 @@ export const Scripts: ModdedBattleScriptsData = {
 				let sheetOutput: string[] = [
 					`\n\n` + poke.name + `\n`
 				];
-				for (const move of poke.learnsetCumulative.learnset) {
-					sheetOutput += `\n` + move;
+				for (const level of poke.learnsetCumulative.learnset) {
+					if (poke.learnsetCumulative.learnset[level].length) {
+						poke.learnsetCumulative.learnset[level].sort;
+						for (const moveid of poke.learnsetCumulative.learnset(level) {
+							sheetOutput += `\n` + level + ` - ` + move;
+						}
+					}
 				}
 				poke.sheetOutput = sheetOutput;
 			}
