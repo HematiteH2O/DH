@@ -100,6 +100,8 @@ export const Scripts: ModdedBattleScriptsData = {
 						if (['tackle'].includes(moveid)) basePower = 50;
 						if (['lusterpurge'].includes(moveid)) basePower = 70;
 						if (['mistball'].includes(moveid)) basePower = 70;
+
+						if (['focuspunch'].includes(moveid)) basePower = 85;
 						if (move.multihit) {
 							if (move.multihit === 2) basePower *= 2;
 							else if (move.multihit === 3) basePower *= 6; // Triple Kick, Triple Axel
@@ -112,7 +114,7 @@ export const Scripts: ModdedBattleScriptsData = {
 							if (move.recoil === [33, 100]) basePower *= 6 / 7;
 							if (move.recoil === [1, 2]) basePower *= 4 / 5;
 						}
-						if (move.type && (move.type === 'Normal' || !poke.types.includes[move.type])) basePower *= 0.8;
+						if (move.type && (move.type === 'Normal' || !poke.types.includes(move.type))) basePower *= 0.8;
 						if (move.willCrit) basePower *= 1.5;
 					}
 
@@ -120,16 +122,16 @@ export const Scripts: ModdedBattleScriptsData = {
 					if (lv < 1) lv = 1;
 
 					// coverage type lenience
-					if (['Fire', 'Flying', 'Rock'].includes(moveid) && 9 < lv && lv < 14) lv = 9; // Viola
-					if (['Water', 'Grass', 'Fighting', 'Ground', 'Steel'].includes(moveid) && 24 < lv && lv < 30) lv = 24; // Grant
-					if (['Flying', 'Psychic', 'Fairy'].includes(moveid) && 32 < lv && lv < 38) lv = 32; // Korrina
-					if (['Fire', 'Ice', 'Poison', 'Flying', 'Bug'].includes(moveid) && 35 < lv && lv < 41) lv = 35; // Ramos
-					if (['Fire', 'Fighting', 'Ground'].includes(moveid) && 39 < lv && lv < 45) lv = 39; // Aliana and Clemont
-					if (['Poison', 'Steel'].includes(moveid) && 44 < lv && lv < 50) lv = 44; // Valerie
-					if (['Bug', 'Ghost', 'Dark'].includes(moveid) && 51 < lv && lv < 57) lv = 51; // Olympia
-					if (['Psychic', 'Ground'].includes(moveid) && 51 < lv && lv < 57) lv = 51; // Xerosic
-					if (['Flying', 'Psychic', 'Fairy'].includes(moveid) && 55 < lv && lv < 61) lv = 55; // Tierno??
-					if (['Fire', 'Fighting', 'Rock', 'Steel'].includes(moveid) && 63 < lv && lv < 69) lv = 63; // Wulfric
+					if (['Fire', 'Flying', 'Rock'].includes(moveid) && 9 < lv && lv < 14) lv -= 2; // Viola
+					if (['Water', 'Grass', 'Fighting', 'Ground', 'Steel'].includes(moveid) && 24 < lv && lv < 30) lv -= 2; // Grant
+					if (['Flying', 'Psychic', 'Fairy'].includes(moveid) && 32 < lv && lv < 38) lv -= 2; // Korrina
+					if (['Fire', 'Ice', 'Poison', 'Flying', 'Bug'].includes(moveid) && 35 < lv && lv < 41) lv -= 2; // Ramos
+					if (['Fire', 'Fighting', 'Ground'].includes(moveid) && 39 < lv && lv < 45) lv -= 2; // Aliana and Clemont
+					if (['Poison', 'Steel'].includes(moveid) && 44 < lv && lv < 50) lv -= 2; // Valerie
+					if (['Bug', 'Ghost', 'Dark'].includes(moveid) && 51 < lv && lv < 57) lv -= 2; // Olympia
+					if (['Psychic', 'Ground'].includes(moveid) && 51 < lv && lv < 57) lv -= 2; // Xerosic
+					if (['Flying', 'Psychic', 'Fairy'].includes(moveid) && 55 < lv && lv < 61) lv -= 2; // Tierno??
+					if (['Fire', 'Fighting', 'Rock', 'Steel'].includes(moveid) && 63 < lv && lv < 69) lv -= 2; // Wulfric
 					if (72 < lv) lv = 72; // c'mon you can learn anything you want at that point
 
 					// assign exceptional levels to (some) status moves
