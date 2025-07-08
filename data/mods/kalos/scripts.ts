@@ -18,7 +18,9 @@ export const Scripts: ModdedBattleScriptsData = {
 							learnset: [],
 				};
 				for (let i = 1; i < 99; i++) {
-					poke.learnsetCumulative.learnset[i] = [];
+					poke.learnsetCumulative.learnset[i] = {
+						movesLearned: [],
+					}
 				}
 				// start with the vanilla learnset
 				const learnset = this.modData('Learnsets', this.toID(id)).learnset;
@@ -35,11 +37,6 @@ export const Scripts: ModdedBattleScriptsData = {
 				}
 
 				for (const moveid in this.dataCache.Moves) {
-
-// NOTICE: you will need to account for pre-evolutions' movepools before generating new level-up lists!
-// specifically this is because of Egg moves, which I notice are only on the basic stage
-// oops!
-
 					const move = this.dataCache.Moves[moveid];
 					if (!move) {
 						console.log(moveid);
@@ -185,13 +182,13 @@ export const Scripts: ModdedBattleScriptsData = {
 							}
 						}
 						if (evoMove && (lv < poke.evoLevel)) {
-							poke.learnsetCumulative.learnset[1].push(moveName); // bonus level 1
+							poke.learnsetCumulative.learnset[1].movesLearned.push(moveName); // bonus level 1
 							lv = poke.evoLevel;
 						}
 					}
 
 					// then send it to the learnset
-					poke.learnsetCumulative.learnset[lv].push(moveName);
+					poke.learnsetCumulative.learnset[lv].movesLearned.push(moveName);
 				}
 				poke.learnsetCumulative.learnset.sort();
 				if (!poke || !poke.learnsetCumulative.learnset) return;
@@ -200,9 +197,9 @@ export const Scripts: ModdedBattleScriptsData = {
 					`\n\n` + poke.name + `\n`
 				];
 				for (const level in poke.learnsetCumulative.learnset) {
-					if (poke.learnsetCumulative.learnset[level].length) {
-						poke.learnsetCumulative.learnset[level].sort;
-						for (const moveid in poke.learnsetCumulative.learnset[level]) {
+					if (poke.learnsetCumulative.learnset[level].movesLearned.length) {
+						poke.learnsetCumulative.learnset[level].movesLearned.sort;
+						for (const moveid in poke.learnsetCumulative.learnset[level].movesLearned) {
 							sheetOutput += `\n` + level + ` - ` + moveid;
 						}
 					}
