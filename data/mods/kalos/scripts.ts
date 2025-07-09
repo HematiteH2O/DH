@@ -106,7 +106,8 @@ export const Scripts: ModdedBattleScriptsData = {
 					if (learned && !learnedLvUp && !learnedTm && learnedOras) {
 						let moveName: string[] = [move.name];
 						moveName = `0` + moveName; // status moves first, then
-						poke.learnsetCumulative.learnset.1.movesLearned.push(moveName); // learn at level 1 if there are no other options
+						let level = 1;
+						poke.learnsetCumulative.learnset[level].movesLearned.push(moveName); // learn at level 1 if there are no other options
 					}
 				}
 // this was a cool exercise but not what I'm doing this time
