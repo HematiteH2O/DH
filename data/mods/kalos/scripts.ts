@@ -59,9 +59,9 @@ export const Scripts: ModdedBattleScriptsData = {
 									learnedLvUp = true;
 									// and then...
 									if (learnset2 && !learnset2[moveid] && poke.evoLevel && poke.evoLevel > source.substr(2)) {
-										poke.learnsetCumulative.learnset[poke.evoLevel].movesLearned.push(moveName); // evolution moves for convenience
+										poke.learnsetCumulative.learnset[poke.evoLevel].movesLearned.push(move.name); // evolution moves for convenience
 									} else {
-										poke.learnsetCumulative.learnset[parseInt(source.substr(2))].movesLearned.push(moveName); // otherwise, just the canon level
+										poke.learnsetCumulative.learnset[parseInt(source.substr(2))].movesLearned.push(move.name); // otherwise, just the canon level
 									}
 								}
 								if (source.charAt(1) === 'M' && !postgameTms.includes(moveid)) learnedTm = true;
@@ -74,8 +74,10 @@ export const Scripts: ModdedBattleScriptsData = {
 							if (parseInt(source.charAt(0)) === 6) {
 								learned = true;
 								if (source.charAt(1) === 'L') {
-									if (!learnedLvUp) poke.learnsetCumulative.learnset.1.movesLearned.push(moveName); // send to level 1 if it's only learned by a pre-evolution
-									learnedLvUp = true;
+									if (!learnedLvUp) {
+										poke.learnsetCumulative.learnset.1.movesLearned.push(move.name); // send to level 1 if it's only learned by a pre-evolution
+										learnedLvUp = true;
+									}
 								}
 								if (source.charAt(1) === 'M' && !postgameTms.includes(moveid)) learnedTm = true;
 								if (source.charAt(1) === 'E' || source.charAt(1) === 'T' || source.charAt(1) === 'M') learnedOras = true;
@@ -87,7 +89,7 @@ export const Scripts: ModdedBattleScriptsData = {
 							if (parseInt(source.charAt(0)) === 6) {
 								learned = true;
 								if (source.charAt(1) === 'L') {
-									if (!learnedLvUp) poke.learnsetCumulative.learnset.1.movesLearned.push(moveName); // send to level 1 if it's only learned by a pre-evolution
+									if (!learnedLvUp) poke.learnsetCumulative.learnset.1.movesLearned.push(move.name); // send to level 1 if it's only learned by a pre-evolution
 									learnedLvUp = true;
 								}
 								if (source.charAt(1) === 'L') learnedLvUp = true;
