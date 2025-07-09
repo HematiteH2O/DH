@@ -75,7 +75,8 @@ export const Scripts: ModdedBattleScriptsData = {
 								learned = true;
 								if (source.charAt(1) === 'L') {
 									if (!learnedLvUp) {
-										poke.learnsetCumulative.learnset.1.movesLearned.push(move.name); // send to level 1 if it's only learned by a pre-evolution
+										let level = 1;
+										poke.learnsetCumulative.learnset[level].movesLearned.push(move.name);
 										learnedLvUp = true;
 									}
 								}
@@ -89,8 +90,11 @@ export const Scripts: ModdedBattleScriptsData = {
 							if (parseInt(source.charAt(0)) === 6) {
 								learned = true;
 								if (source.charAt(1) === 'L') {
-									if (!learnedLvUp) poke.learnsetCumulative.learnset.1.movesLearned.push(move.name); // send to level 1 if it's only learned by a pre-evolution
-									learnedLvUp = true;
+									if (!learnedLvUp) {
+										let level = 1;
+										poke.learnsetCumulative.learnset[level].movesLearned.push(move.name);
+										learnedLvUp = true;
+									}
 								}
 								if (source.charAt(1) === 'L') learnedLvUp = true;
 								if (source.charAt(1) === 'M' && !postgameTms.includes(moveid)) learnedTm = true;
