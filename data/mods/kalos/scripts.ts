@@ -61,7 +61,11 @@ export const Scripts: ModdedBattleScriptsData = {
 									if (learnset2 && !learnset2[moveid] && poke.evoLevel && poke.evoLevel > source.substr(2)) {
 										poke.learnsetCumulative.learnset[poke.evoLevel].movesLearned.push(move.name); // evolution moves for convenience
 									} else {
-										poke.learnsetCumulative.learnset[parseInt(source.substr(2))].movesLearned.push(move.name); // otherwise, just the canon level
+										if (source.substr(2) && poke.learnsetCumulative.learnset[parseInt(source.substr(2))]) {
+											poke.learnsetCumulative.learnset[parseInt(source.substr(2))].movesLearned.push(move.name); // otherwise, just the canon level
+										} else {
+											console.log(poke.name + ` - ` + move.name + ` - source ` + source);
+										}
 									}
 								}
 								if (source.charAt(1) === 'M' && !postgameTms.includes(moveid)) learnedTm = true;
