@@ -50,11 +50,20 @@ export const Scripts: ModdedBattleScriptsData = {
 					let learnedLvUp = false;
 					let learnedTm = false;
 					let learnedOras = false;
+					let levelLearned = 1;
 					if (learnset[moveid]) { // if it learns the move
 						for (const source of learnset[moveid]) {
 							if (parseInt(source.charAt(0)) === 6) {
 								learned = true;
-								if (source.charAt(1) === 'L') learnedLvUp = true;
+								if (source.charAt(1) === 'L') {
+									learnedLvUp = true;
+									// and then...
+									if (learnset2 && !learnset2[moveid] && poke.evoLevel && poke.evoLevel > source.substr(2)) {
+										poke.learnsetCumulative.learnset[poke.evoLevel].movesLearned.push(moveName); // evolution moves for convenience
+									} else {
+										poke.learnsetCumulative.learnset[parseInt(source.substr(2))].movesLearned.push(moveName); // otherwise, just the canon level
+									}
+								}
 								if (source.charAt(1) === 'M' && !postgameTms.includes(moveid)) learnedTm = true;
 								if (source.charAt(1) === 'E' || source.charAt(1) === 'T' || source.charAt(1) === 'M') learnedOras = true;
 							}
@@ -64,7 +73,10 @@ export const Scripts: ModdedBattleScriptsData = {
 						for (const source of learnset2[moveid]) {
 							if (parseInt(source.charAt(0)) === 6) {
 								learned = true;
-								if (source.charAt(1) === 'L') learnedLvUp = true;
+								if (source.charAt(1) === 'L') {
+									if (!learnedLvUp) poke.learnsetCumulative.learnset.1.movesLearned.push(moveName); // send to level 1 if it's only learned by a pre-evolution
+									learnedLvUp = true;
+								}
 								if (source.charAt(1) === 'M' && !postgameTms.includes(moveid)) learnedTm = true;
 								if (source.charAt(1) === 'E' || source.charAt(1) === 'T' || source.charAt(1) === 'M') learnedOras = true;
 							}
@@ -74,6 +86,10 @@ export const Scripts: ModdedBattleScriptsData = {
 						for (const source of learnset3[moveid]) {
 							if (parseInt(source.charAt(0)) === 6) {
 								learned = true;
+								if (source.charAt(1) === 'L') {
+									if (!learnedLvUp) poke.learnsetCumulative.learnset.1.movesLearned.push(moveName); // send to level 1 if it's only learned by a pre-evolution
+									learnedLvUp = true;
+								}
 								if (source.charAt(1) === 'L') learnedLvUp = true;
 								if (source.charAt(1) === 'M' && !postgameTms.includes(moveid)) learnedTm = true;
 								if (source.charAt(1) === 'E' || source.charAt(1) === 'T' || source.charAt(1) === 'M') learnedOras = true;
@@ -81,9 +97,14 @@ export const Scripts: ModdedBattleScriptsData = {
 						}
 					}
 					if (!learnedLvUp && ['grasspledge', 'firepledge', 'waterpledge', 'hydrocannon', 'frenzyplant', 'blastburn', 'dracometeor', 'gigaimpact', 'snore'].includes(moveid)) continue;
-					if (learned && !learnedLvUp && !learnedTm && learnedOras) learnedLvUp = true; // add tutors, Egg moves and postgame TMs to level-up, but not event moves
-					if (learnedLvUp) poke.learnsetCumulative.Moves.push(moveid);
+					if (learned && !learnedLvUp && !learnedTm && learnedOras) {
+						let moveName: string[] = [move.name];
+						moveName = `0` + moveName; // status moves first, then
+						poke.learnsetCumulative.learnset.1.movesLearned.push(moveName); // learn at level 1 if there are no other options
+					}
 				}
+// this was a cool exercise but not what I'm doing this time
+/*
 				for (const moveid of poke.learnsetCumulative.Moves) {
 					const move = this.dataCache.Moves[moveid];
 					if (!move) continue;
@@ -191,11 +212,12 @@ export const Scripts: ModdedBattleScriptsData = {
 					// then send it to the learnset
 					poke.learnsetCumulative.learnset[lv].movesLearned.push(moveName);
 				}
+*/
 				poke.learnsetCumulative.learnset.sort();
 				if (!poke || !poke.learnsetCumulative.learnset) return;
 				// finalize sheetOutput now.........
 				let sheetOutput: string[] = [
-					`\n\n` + poke.name + `\n`
+					`\n\n` + (poke.evoLevel ? (poke.name + ` // ` + poke.evoLevel) : poke.name) + `\n`
 				];
 				for (const level in poke.learnsetCumulative.learnset) {
 					if (poke.learnsetCumulative.learnset[level].movesLearned.length) {
