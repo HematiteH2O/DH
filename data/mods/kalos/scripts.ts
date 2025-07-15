@@ -10,6 +10,11 @@ export const Scripts: ModdedBattleScriptsData = {
 		];
 
 		const movepoolSections = {
+			Stab1: [
+			],
+			Stab2: [
+			],
+
 			SpeedControl: [
 				'tailwind', 'trickroom', 'stickyweb', 'bulldoze', 'cottonspore', 'stringshot', 'electroweb', 'icywind', 'thunderwave', 'nuzzle', 'lowsweep', 'mudshot', 'rocktomb',
 				'scaryface',
@@ -144,6 +149,8 @@ export const Scripts: ModdedBattleScriptsData = {
 								poke.learnsetCumulative[section].Moves.push(title);
 							}
 						}
+						if ((move.category && move.category !== 'Status') && move.type && poke.types && (poke.types[0] === move.type)) poke.learnsetCumulative.Stab1.Moves.push(title);
+						if ((move.category && move.category !== 'Status') && move.type && poke.types && poke.types[1] && poke.types[1] === move.type) poke.learnsetCumulative.Stab2.Moves.push(title);
 					}
 				}
 
