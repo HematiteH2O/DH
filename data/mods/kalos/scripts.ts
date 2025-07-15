@@ -168,6 +168,11 @@ export const Scripts: ModdedBattleScriptsData = {
 				let sheetOutput: string[] = [
 					(printno) + `~3~=IMAGE("https://www.smogon.com/forums//media/minisprites/` + iconid + `.png",3)~` + poke.name + "~" + poke.types[0] + "~" + (poke.types[1] ? poke.types[1] : "") + "~" + abilities + "~" + poke.baseStats.hp + "~" + poke.baseStats.atk + "~" + poke.baseStats.def + "~" + poke.baseStats.spa + "~" + poke.baseStats.spd + "~" + poke.baseStats.spe + "~"
 				];
+				if (poke.evoLevel) { // helpful
+					sheetOutput += "~" + `poke.evoLevel`;
+				} else {
+					sheetOutput += "~"; // just a blank cell
+				}
 				for (const section in movepoolSections) {
 					if (
 						poke.learnsetCumulative[section].Moves.length
