@@ -156,9 +156,9 @@ export const Scripts: ModdedBattleScriptsData = {
 				if (poke.abilities['S']) abilities += ` // (${this.dataCache.Abilities[this.toID(poke.abilities['S'])].name})`;
 
 				// added for Team Flare Grunts
-				if (poke.abilities[0] && !sunAbilities.includes(poke.abilities[0])) poke.learnsetCumulative.Sun.Moves.push(poke.abilities[0]);
-				if (poke.abilities[1] && !sunAbilities.includes(poke.abilities[0])) poke.learnsetCumulative.Sun.Moves.push(poke.abilities[1]);
-				if (poke.abilities['H'] && !sunAbilities.includes(poke.abilities[0])) poke.learnsetCumulative.Sun.Moves.push(poke.abilities['H']);
+				if (poke.abilities[0] && sunAbilities.includes(poke.abilities[0])) poke.learnsetCumulative.Sun.Moves.push(poke.abilities[0]);
+				if (poke.abilities[1] && sunAbilities.includes(poke.abilities[1])) poke.learnsetCumulative.Sun.Moves.push(poke.abilities[1]);
+				if (poke.abilities['H'] && sunAbilities.includes(poke.abilities['H'])) poke.learnsetCumulative.Sun.Moves.push(poke.abilities['H']);
 
 				// icon name
 				var iconid = id;
