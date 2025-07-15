@@ -5,6 +5,9 @@ export const Scripts: ModdedBattleScriptsData = {
 			'flashcannon', 'wildcharge',
 			// 'round', 'gigaimpact', 'swagger',
 		];
+		const sunAbilities = [
+			'Solar Power', 'Chlorophyll', 'Leaf Guard', 'Harvest',
+		];
 
 		const movepoolSections = {
 			SpeedControl: [
@@ -37,6 +40,22 @@ export const Scripts: ModdedBattleScriptsData = {
 				'acupressure', 'dragondance', 'flamecharge', 'quiverdance', 'shellsmash', 'shiftgear', 'swordsdance', 'bellydrum', 'poweruppunch', 'chargebeam', 'fierydance', 'growth',
 				'nastyplot', 'tailglow', 'rototiller', 'flowershield', 'magneticflux',
 			],
+
+			// Team Flare Grunts
+			Sun: [
+				'morningsun', 'synthesis', 'moonlight', 'solarbeam', 'weatherball', 'growth',
+				// also check for Solar Power, Chlorophyll, Leaf Guard, Harvest later
+			],
+			Dark: [
+				'assurance', 'beatup', 'bite', 'crunch', 'darkpulse', 'darkvoid', 'embargo', 'faketears', 'feintattack', 'flatter', 'fling', 'foulplay', 'honeclaws', 'knockoff', 'memento',
+				'nastyplot', 'nightdaze', 'nightslash', 'partingshot', 'payback', 'punishment', 'pursuit', 'quash', 'snarl', 'snatch', 'suckerpunch', 'switcheroo', 'taunt', 'thief',
+				'topsyturvy', 'torment',
+			],
+			Fire: [
+				'blastburn', 'blazekick', 'blueflare', 'ember', 'eruption', 'fierydance', 'fireblast', 'firefang', 'firepledge', 'firepunch', 'firespin', 'flameburst', 'flamecharge',
+				'flamewheel', 'flamethrower', 'flareblitz', 'fusionflare', 'heatcrash', 'heatwave', 'incinerate', 'inferno', 'lavaplume', 'magmastorm', 'overheat', 'sacredfire',
+				'searingshot', 'sunnyday', 'vcreate', 'willowisp',
+			],
 		};
 
 		let printno = 0;
@@ -54,6 +73,18 @@ export const Scripts: ModdedBattleScriptsData = {
 				}
 				// start with the vanilla learnset
 				const learnset = this.modData('Learnsets', this.toID(id)).learnset;
+				let learnset2 = null;
+				let learnset3 = null;
+
+				// if the Pokémon has pre-evolutions, add their learnsets, too!
+				if (poke.prevo) {
+					const poke2 = this.dataCache.Pokedex[this.toID(poke.prevo)];
+					learnset2 = this.modData('Learnsets', this.toID(poke.prevo)).learnset;
+					if (poke2.prevo) {
+						learnset3 = this.modData('Learnsets', this.toID(poke2.prevo)).learnset;
+					}
+				}
+
 				for (const moveid in this.dataCache.Moves) {
 
 // NOTICE: you will need to account for pre-evolutions' movepools before generating new level-up lists!
@@ -65,6 +96,7 @@ export const Scripts: ModdedBattleScriptsData = {
 						console.log(moveid);
 						continue;
 					}
+					let title: string[] = [move.name];
 
 					// a simplified version of the Pulse learnset sheet:
 					// only decide a) if the Pokémon learns the move at all and b) if it's a safe bet it still gets it in Ondas or not
@@ -77,15 +109,36 @@ export const Scripts: ModdedBattleScriptsData = {
 						for (const source of learnset[moveid]) {
 							if (parseInt(source.charAt(0)) === 6) {
 								learned = true;
-								if (source.charAt(1) === 'L') learnedLvUp = true;
+								if (source.charAt(1) === 'L') {
+									learnedLvUp = true;
+									title = `(` + source.substr(2) + `) ` + title;
+								}
 								if (source.charAt(1) === 'M' && !postgameTms.includes(moveid)) learnedTm = true;
 								if (source.charAt(1) === 'E' || source.charAt(1) === 'T') learnedOras = true;
 							}
 						}
 					}
-					if (learned && !learnedLvUp && !learnedTm && learnedOras) learnedLvUp = true; // add tutors and Egg moves to level-up, but not event moves
+					if (learnset2 && learnset2[moveid]) { // if it learns the move
+						for (const source of learnset2[moveid]) {
+							if (parseInt(source.charAt(0)) === 6) {
+								learned = true;
+								if (source.charAt(1) === 'L') learnedLvUp = true;
+								if (source.charAt(1) === 'M' && !postgameTms.includes(moveid)) learnedTm = true;
+								if (source.charAt(1) === 'E' || source.charAt(1) === 'T' || source.charAt(1) === 'M') learnedOras = true;
+							}
+						}
+					}
+					if (learnset3 && learnset3[moveid]) { // if it learns the move
+						for (const source of learnset3[moveid]) {
+							if (parseInt(source.charAt(0)) === 6) {
+								learned = true;
+								if (source.charAt(1) === 'L') learnedLvUp = true;
+								if (source.charAt(1) === 'M' && !postgameTms.includes(moveid)) learnedTm = true;
+								if (source.charAt(1) === 'E' || source.charAt(1) === 'T' || source.charAt(1) === 'M') learnedOras = true;
+							}
+						}
+					}
 					if (learned) {
-						let title: string[] = [move.name];
 						for (const section in movepoolSections) {
 							if (movepoolSections[section].includes(moveid)) {
 								poke.learnsetCumulative[section].Moves.push(title);
@@ -101,6 +154,12 @@ export const Scripts: ModdedBattleScriptsData = {
 				if (poke.abilities[1]) abilities += ` / ${this.dataCache.Abilities[this.toID(poke.abilities[1])].name}`;
 				if (poke.abilities['H']) abilities += ` // ${this.dataCache.Abilities[this.toID(poke.abilities['H'])].name}`;
 				if (poke.abilities['S']) abilities += ` // (${this.dataCache.Abilities[this.toID(poke.abilities['S'])].name})`;
+
+				// added for Team Flare Grunts
+				if (poke.abilities[0] && !sunAbilities.includes(poke.abilities[0])) poke.learnsetCumulative.Sun.Moves.push(poke.abilities[0]);
+				if (poke.abilities[1] && !sunAbilities.includes(poke.abilities[0])) poke.learnsetCumulative.Sun.Moves.push(poke.abilities[1]);
+				if (poke.abilities['H'] && !sunAbilities.includes(poke.abilities[0])) poke.learnsetCumulative.Sun.Moves.push(poke.abilities['H']);
+
 				// icon name
 				var iconid = id;
 				// var iconid = iconname.replace(" ", `-`).replace(`.`, ``).replace(`:`, ``).replace(`\u2019`, ``); // to get rid of spaces and periods
