@@ -77,7 +77,12 @@ export const Scripts: ModdedBattleScriptsData = {
 					};
 				}
 				// start with the vanilla learnset
-				const learnset = this.modData('Learnsets', this.toID(id)).learnset;
+				let learnset = null;
+				if (poke.baseSpecies) {
+					learnset = this.modData('Learnsets', this.toID(poke.baseSpecies)).learnset;
+				} else {
+					learnset = this.modData('Learnsets', this.toID(id)).learnset;
+				}
 				let learnset2 = null;
 				let learnset3 = null;
 
