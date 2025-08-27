@@ -271,7 +271,14 @@ Other post-Gen V moves I probably *can* backport if it comes up
 					if (learnset3) moveName = prevo2LevelLearned + ` - ` + moveName; // add prevo2 levels
 					if (learnset2) moveName = prevoLevelLearned + ` - ` + moveName; // add prevo levels
 					if (levelLearned < 1 || levelLearned > 101) continue;
-					poke.learnsetCumulative.learnset[levelLearned].movesLearned.push(moveName);
+					if (levelLearned == 101) {
+						// reset move name
+						moveName = move.name;
+						if (move.num && move.num > 559) moveName = moveName + `*`; // but you still want this information attached
+						poke.learnsetCumulative.learnset[levelLearned].movesLearned.push(move.name);
+					} else {
+						poke.learnsetCumulative.learnset[levelLearned].movesLearned.push(moveName);
+					}
 				}
 
 				poke.learnsetCumulative.learnset.sort();
