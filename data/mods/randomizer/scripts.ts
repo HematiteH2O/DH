@@ -130,7 +130,7 @@ Other post-Gen V moves I probably *can* backport if it comes up
 		let printno = 0;
 		for (const id in this.dataCache.Pokedex) {
 			const poke = this.dataCache.Pokedex[id];
-			if (!poke) continue;
+			if (!poke || poke.evos) continue;
 
 			if (this.dataCache.Learnsets[id] && this.dataCache.Learnsets[id].learnset) {
 				printno++;
@@ -171,6 +171,8 @@ Other post-Gen V moves I probably *can* backport if it comes up
 					let learnedTm = false;
 					let include = false;
 					let levelLearned = 999;
+					let prevoLevelLearned = 999;
+					let prevo2LevelLearned = 999;
 					let genVLearnedTmAlready = false;
 					if (learnset[moveid]) { // if it learns the move
 						learned = true;
@@ -205,12 +207,12 @@ Other post-Gen V moves I probably *can* backport if it comes up
 						learned = true;
 						for (const source of learnset2[moveid]) {
 							// include level-up and Egg moves from all Generations...
-							if (parseInt(source.charAt(0)) === 5 && (source.charAt(1) === 'T' || source.charAt(1) === 'M')) {
-								genVLearnedTmAlready = true;
-							}
 							if (source.charAt(1) === 'L') {
 								learnedLvUp = true;
-								if (parseInt(source.charAt(0)) < 8) if (source.substr(2) < levelLearned) levelLearned = source.substr(2);
+								if (parseInt(source.charAt(0)) < 8) {
+									if (source.substr(2) < levelLearned) levelLearned = source.substr(2);
+									if (source.substr(2) < prevoLevelLearned) prevoLevelLearned = source.substr(2);
+								}
 								// (but ignore levels for Gen VIII and on)
 								include = true;
 							}
@@ -221,17 +223,28 @@ Other post-Gen V moves I probably *can* backport if it comes up
 								if (!postgameTms.includes(moveid)) learnedTm = true; // so I know if they need to be in level-up anyway
 							}
 						}
+						if (learnedLvUp && learnset3) {
+							let prevoLearned = false;
+							let evoLevel = null;
+							let poke2 = this.dataCache.Pokedex[this.toID(poke.prevo)];
+							if (poke2.evoLevel) evoLevel = poke2.evoLevel;
+							if (learnset3[moveid]) {
+								for (const source of learnset3[moveid]) if (source.charAt(1) === 'L' && parseInt(source.charAt(0)) < 8) prevoLearned = true;
+							}
+							if (prevoLearned === false && evoLevel && evoLevel > levelLearned) levelLearned = evoLevel;
+							if (prevoLearned === false && evoLevel && evoLevel > levelLearned) prevoLevelLearned = evoLevel;
+						}
 					}
 					if (learnset3 && learnset3[moveid]) { // if it learns the move
 						learned = true;
 						for (const source of learnset3[moveid]) {
 							// include level-up and Egg moves from all Generations...
-							if (parseInt(source.charAt(0)) === 5 && (source.charAt(1) === 'T' || source.charAt(1) === 'M')) {
-								genVLearnedTmAlready = true;
-							}
 							if (source.charAt(1) === 'L') {
 								learnedLvUp = true;
-								if (parseInt(source.charAt(0)) < 8) if (source.substr(2) < levelLearned) levelLearned = source.substr(2);
+								if (parseInt(source.charAt(0)) < 8) {
+									if (source.substr(2) < levelLearned) levelLearned = source.substr(2);
+									if (source.substr(2) < prevo2LevelLearned) prevo2LevelLearned = source.substr(2);
+								}
 								// (but ignore levels for Gen VIII and on)
 								include = true;
 							}
@@ -248,6 +261,8 @@ Other post-Gen V moves I probably *can* backport if it comes up
 					if (!learnedLvUp && ['grasspledge', 'firepledge', 'waterpledge', 'hydrocannon', 'frenzyplant', 'blastburn', 'dracometeor', 'gigaimpact'].includes(moveid)) continue;
 					if (learned && !learnedLvUp && !learnedTm) levelLearned = 101;
 					if (levelLearned == 999) levelLearned = 101;
+					if (prevoLevelLearned == 999) prevoLevelLearned = `--`;
+					if (prevo2LevelLearned == 999) prevo2LevelLearned = `--`;
 					let moveName: string[] = [move.name];
 					if (genVTms.includes(moveid)) {
 						if (!genVLearnedTmAlready) poke.additionalTms.push(moveName); // make sure to identify TMs that need to be added manually
@@ -255,10 +270,9 @@ Other post-Gen V moves I probably *can* backport if it comes up
 					}
 					if (move.category && move.category === 'Status') moveName = `0` + moveName; // attacks should be the last move learned at a level so NPCs don't often get stuck with none
 					if (move.num && move.num > 559) moveName = moveName + `*`; // identify post-Gen V moves
-					if (levelLearned < 1 || levelLearned > 101) {
-						console.log(poke.name + ` - ` + moveName + ` - ` + levelLearned);
-						continue;
-					}
+					if (learnset2) moveName = prevoLevelLearned + ` - ` + moveName; // add prevo levels
+					if (learnset3) moveName = prevo2LevelLearned + ` - ` + moveName; // add prevo2 levels
+					if (levelLearned < 1 || levelLearned > 101) continue;
 					poke.learnsetCumulative.learnset[levelLearned].movesLearned.push(moveName);
 				}
 
