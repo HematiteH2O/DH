@@ -195,7 +195,7 @@ Other post-Gen V moves I probably *can* backport if it comes up
 							if (source.charAt(1) === 'L') {
 								learnedLvUp = true;
 								if (parseInt(source.charAt(0)) < 8 || future) if (parseInt(source.substr(2)) < parseInt(levelLearned)) {
-									if (parseInt(source.substr(2)) === 1) {
+									if (parseInt(source.substr(2)) < 2) {
 										lv1 = true;
 									} else {
 										levelLearned = source.substr(2);
@@ -233,7 +233,7 @@ Other post-Gen V moves I probably *can* backport if it comes up
 								if (parseInt(source.charAt(0)) < 8 || future) {
 									guaranteeShowLv = true;
 									if (parseInt(source.substr(2)) < parseInt(prevoLevelLearned)) {
-										if (parseInt(source.substr(2)) === 1) {
+										if (parseInt(source.substr(2)) < 2) {
 											prevoLv1 = true;
 										} else {
 											prevoLevelLearned = source.substr(2);
@@ -275,7 +275,7 @@ Other post-Gen V moves I probably *can* backport if it comes up
 								if (parseInt(source.charAt(0)) < 8 || future) {
 									guaranteeShowLv = true;
 									if (parseInt(source.substr(2)) < parseInt(prevo2LevelLearned)) {
-										if (parseInt(source.substr(2)) === 1) {
+										if (parseInt(source.substr(2)) < 2) {
 											prevo2lv1 = true;
 										} else {
 											prevo2LevelLearned = source.substr(2);
