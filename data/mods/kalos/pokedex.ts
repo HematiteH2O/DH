@@ -1402,7 +1402,7 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 		color: "Brown",
 		prevo: "Mankey",
 		evoLevel: 28,
-		evos: ["Annihilape"],
+		// evos: ["Annihilape"],
 		eggGroups: ["Field"],
 	},
 	growlithe: {
@@ -4090,7 +4090,7 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 		heightm: 1.5,
 		weightkg: 41.5,
 		color: "Yellow",
-		evos: ["Farigiraf"],
+		// evos: ["Farigiraf"],
 		eggGroups: ["Field"],
 	},
 	pineco: {
@@ -4127,7 +4127,7 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 		heightm: 1.5,
 		weightkg: 14,
 		color: "Yellow",
-		evos: ["Dudunsparce", "Dudunsparce-Three-Segment"],
+		// evos: ["Dudunsparce", "Dudunsparce-Three-Segment"],
 		eggGroups: ["Field"],
 	},
 	gligar: {
@@ -4345,7 +4345,7 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 		color: "Brown",
 		prevo: "Teddiursa",
 		evoLevel: 30,
-		evos: ["Ursaluna"],
+		// evos: ["Ursaluna"],
 		eggGroups: ["Field"],
 	},
 	slugma: {
@@ -4595,7 +4595,7 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 		heightm: 1.4,
 		weightkg: 71.2,
 		color: "Brown",
-		evos: ["Wyrdeer"],
+		// evos: ["Wyrdeer"],
 		eggGroups: ["Field"],
 	},
 	smeargle: {
@@ -11005,7 +11005,7 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 		color: "Red",
 		prevo: "Pawniard",
 		evoLevel: 52,
-		evos: ["Kingambit"],
+		// evos: ["Kingambit"],
 		eggGroups: ["Human-Like"],
 	},
 	bouffalant: {
@@ -16047,7 +16047,7 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 		heightm: 1.8,
 		weightkg: 40,
 		color: "White",
-		evos: ["Archaludon"],
+		// evos: ["Archaludon"],
 		eggGroups: ["Mineral", "Dragon"],
 		canGigantamax: "G-Max Depletion",
 	},
