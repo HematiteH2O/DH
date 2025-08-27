@@ -225,37 +225,69 @@ UNIVERSAL MOVES
 
 INITIAL LIST
 
-Universal	Confide, Double Team, Endure, Facade, Frustration, Giga Impact, Headbutt, Hidden Power, Hyper Beam, Protect, Rain Dance, Rest, Return, Round, Secret Power, Sleep Talk, Snore, Substitute, Sunny Day, Swagger, Take Down, Toxic
-Fire			Ember, Fire Blast, Fire Spin, Flame Charge, Flamethrower, Flare Blitz, Heat Wave, Incinerate, Overheat, Reflect, Rock Smash, Solar Beam, Will-O-Wisp
-Water			Blizzard, Chilling Water, Dive, Hail, Hydro Pump, Ice Beam, Icy Wind, Liquidation, Scald, Surf, Water Pulse, Whirlpool
-Electric		Charge, Charge Beam, Discharge, Eerie Impulse, Electro Ball, Flash, Light Screen, Reflect, Shock Wave, Signal Beam, Swift, Thunder, Thunder Shock, Thunder Wave, Thunderbolt, Volt Switch, Wild Charge
-Grass			Bullet Seed, Energy Ball, Flash, Giga Drain, Grass Knot, Leaf Storm, Magical Leaf, Mega Drain, Nature Power, Poison Powder, Reflect, Seed Bomb, Sleep Powder, Sludge Bomb, Solar Beam, Stun Spore, Synthesis, Trailblaze, Worry Seed
-Ice			Avalanche, Blizzard, Hail, Ice Beam, Ice Shard, Icicle Spear, Icy Wind, Reflect, Signal Beam, Snowscape
-Fighting		Brick Break, Bulk Up, Close Combat, Coaching, Earthquake, Focus Blast, Focus Energy, Helping Hand, Ice Punch, Poison Jab, Retaliate, Revenge, Reversal, Rock Slide, Rock Smash, Rock Tomb, Seismic Toss, Stone Edge, Strength, Work Up
-Poison		Acid Spray, Gunk Shot, Sludge Bomb, Toxic, Venoshock
-Ground		Body Slam, Bulldoze, Dig, Earth Power, Earthquake, Mud Shot, Mud-Slap, Rock Slide, Rock Smash, Rock Tomb, Sandstorm, Stealth Rock, Stone Edge, Strength
-Flying		Aerial Ace, Defog, Fly, Reflect, Roost, Swift, Tailwind
-Psychic		Calm Mind, Dream Eater, Flash, Future Sight, Helping Hand, Light Screen, Magic Coat, Psybeam, Psych Up, Psychic, Psyshock, Reflect, Shadow Ball, Signal Beam, Skill Swap, Stored Power, Swift, Telekinesis, Teleport, Trick, Trick Room, Zen Headbutt
-Bug			Bug Bite, Bug Buzz, Pounce, Roost, Struggle Bug, U-turn, X-Scissor
-Rock			Body Slam, Brick Break, Bulldoze, Earth Power, Earthquake, Iron Defense, Rock Blast, Rock Polish, Rock Slide, Rock Smash, Rock Throw, Rock Tomb, Sandstorm, Seismic Toss, Smack Down, Stealth Rock, Stone Edge
-Ghost			Confuse Ray, Hex, Night Shade, Shadow Ball, Spite
-Dragon		Body Slam, Draco Meteor, Dragon Breath, Dragon Claw, Dragon Pulse, Dragon Tail, Hone Claws, Outrage, Rock Smash, Strength
-Dark			Dark Pulse, Lash Out, Payback, Retaliate, Scary Face, Snarl, Spite, Taunt, Thief, Torment
-Steel			Flash Cannon, Iron Defense, Iron Head, Rock Smash, Steel Beam
+Universal	Attract, Double Team, Facade, Frustration, Giga Impact, Hidden Power, Hyper Beam, Protect, Rain Dance, Rest, Return, Round, Sleep Talk, Snore, Substitute, Sunny Day, Swagger, Toxic
+
+Fire			Fire Blast, Flame Charge, Flamethrower, Heat Wave, Overheat, Reflect, Rock Smash, Solar Beam, Will-O-Wisp
+Water			Blizzard, Dive, Hail, Ice Beam, Icy Wind, Scald, Surf
+* Chilling Water
+Electric		Charge Beam, Flash, Light Screen, Reflect, Signal Beam, Thunder, Thunder Wave, Thunderbolt, Volt Switch, Wild Charge
+* Discharge, Eerie Impulse
+Grass			Energy Ball, Flash, Giga Drain, Grass Knot, Reflect, Seed Bomb, Sludge Bomb, Solar Beam, Synthesis, Worry Seed
+* Bullet Seed, Poison Powder, Sleep Powder, Stun Spore, Trailblaze
+Ice			Blizzard, Hail, Ice Beam, Icy Wind, Reflect, Signal Beam, Snowscape
+Fighting		Brick Break, Bulk Up, Earthquake, Focus Blast, Helping Hand, Ice Punch, Poison Jab, Retaliate, Rock Slide, Rock Smash, Rock Tomb, Stone Edge, Strength, Work Up
+* Coaching
+Poison		Gunk Shot, Sludge Bomb, Toxic, Venoshock
+* Acid Spray
+Ground		Bulldoze, Dig, Earth Power, Earthquake, Rock Slide, Rock Smash, Rock Tomb, Sandstorm, Stealth Rock, Stone Edge, Strength
+Flying		Aerial Ace, Fly, Reflect, Roost, Tailwind
+Psychic		Calm Mind, Dream Eater, Flash, Helping Hand, Light Screen, Magic Coat, Psych Up, Psychic, Psyshock, Reflect, Shadow Ball, Signal Beam, Skill Swap, Telekinesis, Trick, Trick Room, Zen Headbutt
+* Teleport
+Bug			Bug Bite, Roost, Struggle Bug, U-turn, X-Scissor
+* Pounce
+Rock			Brick Break, Bulldoze, Earth Power, Earthquake, Iron Defense, Rock Polish, Rock Slide, Rock Smash, Rock Tomb, Sandstorm, Smack Down, Stealth Rock, Stone Edge
+Ghost			Shadow Ball, Spite
+* Hex
+Dragon		Draco Meteor, Dragon Claw, Dragon Pulse, Dragon Tail, Hone Claws, Outrage, Rock Smash, Strength
+Dark			Dark Pulse, Payback, Retaliate, Snarl, Spite, Taunt, Thief, Torment
+Steel			Flash Cannon, Iron Defense, Iron Head, Rock Smash
+* Steel Beam (maybe)
 Normal		Helping Hand, Retaliate, Work Up
 
-Post-Gen V moves
-- Confide
+Monster		Blizzard, Bulldoze, Earthquake, Ice Beam, Iron Tail, Outrage, Rock Smash, Strength
+Human-Like	Brick Break, Fire Punch, Fling, Focus Blast, Helping Hand, Ice Punch, Taunt, Thunder Punch
+* Focus Punch, Power-Up Punch
+Water 1		Blizzard, Dive, Hail, Ice Beam, Icy Wind, Scald, Surf, Waterfall
+* Chilling Water
+Water 3		Blizzard, Helping Hand, Ice Beam, Reflect, Rock Slide, Scald, Surf
+* Chilling Water
+Bug			Bug Bite, Roost, Struggle Bug, U-turn, X-Scissor
+* Pounce
+Flying		Aerial Ace, Fly, Heat Wave, Pluck, Roost, Sky Attack, Tailwind, U-turn
+* Air Cutter, Hurricane, Quick Attack
+Amorphous	Dark Pulse, Flash, Pain Split, Shadow Ball, Sludge Bomb, Taunt
+* Hex
+Field			Dig, Iron Tail
+Water 2		Blizzard, Bounce, Dive, Hail, Ice Beam, Icy Wind, Scald, Surf, Waterfall
+* Chilling Water
+Fairy			Brick Break, Calm Mind, Dig, Flash, Helping Hand, Iron Tail, Light Screen, Psychic, Reflect, Thunder Wave
+* Growl, Teleport
+Grass			Bullet Seed, Energy Ball, Flash, Giga Drain, Grass Knot, Reflect, Seed Bomb, Sludge Bomb, Solar Beam, Swords Dance, Synthesis, Worry Seed
+* Bullet Seed, Growth, Leech Seed, Poison Powder, Sleep Powder, Stun Spore, Trailblaze
+Dragon		Bulldoze, Dragon Pulse, Dragon Tail, Earthquake, Iron Tail, Outrage, Rock Smash, Strength
+* Breaking Swipe, Leer
+
+Asterisks are moves that are not TMs, but that I want to be distributed widely anyway
+
+Post-Gen V moves I'm interested in backporting for this purpose
 - Chilling Water
-- Liquidation
 - Eerie Impulse
 - Trailblaze
 - Coaching
 - Pounce
 - Steel Beam (? is this possible? I could do special Head Smash at least)
-
-OTHER
-- 
+- Power-Up Punch
+- Breaking Swipe
 */
 
 		let printno = 0;
