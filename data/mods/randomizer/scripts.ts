@@ -220,6 +220,30 @@ export const Scripts: ModdedBattleScriptsData = {
 // - add universal TMs and tutors by type
 // ** I want to increase my list to "moves that have been universal any time since Gen IV and are TMs/tutors in Gen V," not just the ones that were universal in Gen V
 
+/*
+UNIVERSAL MOVES
+
+Universal	Confide, Double Team, Endure, Facade, Frustration, Giga Impact, Headbutt, Hidden Power, Hyper Beam, Protect, Rain Dance, Rest, Return, Round, Secret Power, Sleep Talk, Snore, Substitute, Sunny Day, Swagger, Take Down, Tera Blast, Toxic
+Fire			Ember, Fire Blast, Fire Spin, Flame Charge, Flamethrower, Flare Blitz, Heat Wave, Incinerate, Overheat, Reflect, Rock Smash, Solar Beam, Will-O-Wisp
+Water			Blizzard, Chilling Water, Dive, Hail, Hydro Pump, Ice Beam, Icy Wind, Liquidation, Scald, Surf, Water Pulse, Whirlpool
+Electric		Charge, Charge Beam, Discharge, Eerie Impulse, Electric Terrain, Electro Ball, Flash, Light Screen, Reflect, Rising Voltage, Shock Wave, Signal Beam, Swift, Thunder, Thunder Shock, Thunder Wave, Thunderbolt, Volt Switch, Wild Charge
+Grass			Bullet Seed, Energy Ball, Flash, Giga Drain, Grass Knot, Grassy Terrain, Leaf Storm, Magical Leaf, Mega Drain, Nature Power, Poison Powder, Reflect, Seed Bomb, Sleep Powder, Sludge Bomb, Solar Beam, Stun Spore, Synthesis, Trailblaze, Worry Seed
+Ice			Avalanche, Blizzard, Hail, Ice Beam, Ice Shard, Icicle Spear, Icy Wind, Reflect, Signal Beam, Snowscape
+Fighting		Brick Break, Bulk Up, Close Combat, Coaching, Earthquake, Focus Blast, Focus Energy, Helping Hand, Ice Punch, Poison Jab, Retaliate, Revenge, Reversal, Rock Slide, Rock Smash, Rock Tomb, Seismic Toss, Stone Edge, Strength, Work Up
+Poison		Acid Spray, Gunk Shot, Sludge Bomb, Toxic, Venoshock
+Ground		Body Slam, Bulldoze, Dig, Earth Power, Earthquake, Mud Shot, Mud-Slap, Rock Slide, Rock Smash, Rock Tomb, Sandstorm, Stealth Rock, Stomping Tantrum, Stone Edge, Strength
+Flying		Aerial Ace, Defog, Dual Wingbeat, Fly, Reflect, Roost, Swift, Tailwind
+Psychic		Calm Mind, Dream Eater, Expanding Force, Flash, Future Sight, Helping Hand, Light Screen, Magic Coat, Psybeam, Psych Up, Psychic, Psychic Terrain, Psyshock, Reflect, Shadow Ball, Signal Beam, Skill Swap, Stored Power, Swift, Telekinesis, Teleport, Trick, Trick Room, Zen Headbutt
+Bug			Bug Bite, Bug Buzz, Pounce, Roost, Struggle Bug, U-turn, X-Scissor
+Rock			Body Slam, Brick Break, Bulldoze, Earth Power, Earthquake, Iron Defense, Rock Blast, Rock Polish, Rock Slide, Rock Smash, Rock Throw, Rock Tomb, Sandstorm, Seismic Toss, Smack Down, Stealth Rock, Stone Edge
+Ghost			Confuse Ray, Hex, Night Shade, Shadow Ball, Spite
+Dragon		Body Slam, Draco Meteor, Dragon Breath, Dragon Claw, Dragon Pulse, Dragon Tail, Hone Claws, Outrage, Rock Smash, Strength
+Dark			Dark Pulse, Lash Out, Payback, Retaliate, Scary Face, Snarl, Spite, Taunt, Thief, Torment
+Steel			Flash Cannon, Iron Defense, Iron Head, Rock Smash, Steel Beam
+Fairy			Charm, Dazzling Gleam, Draining Kiss, Fling, Light Screen, Misty Terrain, Reflect, Shadow Ball
+Normal		Helping Hand, Retaliate, Work Up
+*/
+
 		let printno = 0;
 		for (const id in this.dataCache.Pokedex) {
 			const poke = this.dataCache.Pokedex[id];
