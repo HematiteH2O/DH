@@ -196,7 +196,7 @@ Other post-Gen V moves I probably *can* backport if it comes up
 						if (learnedLvUp && learnset2) {
 							let prevoLearned = false;
 							if (learnset2[moveid]) {
-								for (const source of learnset2[moveid]) if (source.charAt(1) === 'L') prevoLearned = true;
+								for (const source of learnset2[moveid]) if (source.charAt(1) === 'L' && parseInt(source.charAt(0)) < 8) prevoLearned = true;
 							}
 							if (prevoLearned === false && poke.evoLevel && poke.evoLevel > levelLearned) levelLearned = poke.evoLevel;
 						}
