@@ -131,6 +131,7 @@ Other post-Gen V moves I probably *can* backport if it comes up
 		for (const id in this.dataCache.Pokedex) {
 			const poke = this.dataCache.Pokedex[id];
 			if (!poke || poke.evos) continue;
+			if (poke.num && poke.num < 0) continue; // skip CAPs
 
 			if (this.dataCache.Learnsets[id] && this.dataCache.Learnsets[id].learnset) {
 				printno++;
@@ -174,7 +175,7 @@ Other post-Gen V moves I probably *can* backport if it comes up
 					let prevoLevelLearned = 999;
 					let prevo2LevelLearned = 999;
 					let genVLearnedTmAlready = false;
-					let guaranteeShowLv1 = false;
+					let guaranteeShowLv = false;
 					if (learnset[moveid]) { // if it learns the move
 						learned = true;
 						for (const source of learnset[moveid]) {
@@ -214,7 +215,7 @@ Other post-Gen V moves I probably *can* backport if it comes up
 							// include level-up and Egg moves from all Generations...
 							if (source.charAt(1) === 'L') {
 								learnedLvUp = true;
-								guaranteeShowLv1 = true;
+								guaranteeShowLv = true;
 								if (parseInt(source.charAt(0)) < 8) {
 									if (source.substr(2) < prevoLevelLearned) prevoLevelLearned = source.substr(2);
 								}
@@ -250,7 +251,7 @@ Other post-Gen V moves I probably *can* backport if it comes up
 							// include level-up and Egg moves from all Generations...
 							if (source.charAt(1) === 'L') {
 								learnedLvUp = true;
-								guaranteeShowLv1 = true;
+								guaranteeShowLv = true;
 								if (parseInt(source.charAt(0)) < 8) {
 									if (source.substr(2) < prevo2LevelLearned) prevo2LevelLearned = source.substr(2);
 								}
@@ -271,8 +272,8 @@ Other post-Gen V moves I probably *can* backport if it comes up
 					if (learned && !learnedLvUp && !learnedTm) levelLearned = 101;
 					if (levelLearned == 999) levelLearned = 101;
 					if (prevoLevelLearned == 999) {
-						if (guaranteeShowLv1) {
-							prevoLevelLearned = 1;
+						if (guaranteeShowLv && prevo2LevelLearned) {
+							prevoLevelLearned = prevo2LevelLearned;
 						} else {
 							prevoLevelLearned = `n/a`;
 						}
@@ -286,9 +287,8 @@ Other post-Gen V moves I probably *can* backport if it comes up
 						if (prevo2LevelLearned > prevoLevelLearned && prevoLevelLearned > 1) prevo2LevelLearned = prevoLevelLearned;
 					}
 					let moveName: string[] = [move.name];
-					if (levelLearned == 101 && guaranteeShowLv1) {
-						levelLearned = 1;
-						moveName = `0` + moveName;
+					if (levelLearned == 101 && guaranteeShowLv) {
+						levelLearned = prevoLevelLearned;
 					}
 					if (genVTms.includes(moveid)) {
 						if (!genVLearnedTmAlready) poke.additionalTms.push(moveName); // make sure to identify TMs that need to be added manually
