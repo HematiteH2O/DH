@@ -142,12 +142,7 @@ export const Formats: FormatList = [
 		onBegin() {
 			for (const id in this.dex.data.Pokedex) {
 				const poke = this.dex.data.Pokedex[id];
-				if (poke && poke.sheetOutput) {
-					this.add('-message', `${poke.sheetOutput}`);
-				} else {
-					this.add('-message', ``);
-					console.log(id);
-				}
+				if (poke && poke.sheetOutput) this.add('-message', `${poke.sheetOutput}`);
 			}
 		},
 		mod: 'randomizer',
