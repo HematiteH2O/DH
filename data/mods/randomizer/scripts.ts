@@ -282,7 +282,7 @@ Dragon		Bulldoze, Dragon Pulse, Dragon Tail, Earthquake, Iron Tail, Outrage, Roc
 
 Asterisks are moves that are not TMs, but that I want to be distributed widely anyway
 
-Post-Gen V moves I'm interested in backporting for this purpose
+Post-Gen V moves I'm interested in backporting based on the above list
 - Chilling Water
 - Eerie Impulse
 - Trailblaze
@@ -291,6 +291,21 @@ Post-Gen V moves I'm interested in backporting for this purpose
 - Steel Beam (? is this possible? I could do special Head Smash at least)
 - Power-Up Punch
 - Breaking Swipe
+
+Other post-Gen V moves I probably *can* backport if it comes up
+	Phantom Force, Noble Roar, Parabolic Charge, Petal Blizzard, Boomburst, Play Nice, Confide, Diamond Storm, Steam Eruption, Hyperspace Hole, Water Shuriken, Aromatic Mist,
+	Baby-Doll Eyes, Nuzzle, Infestation, Power-Up Punch;
+
+ 	First Impression (?), Spirit Shackle (?), Darkest Lariat, Ice Hammer, High Horsepower, Solar Blade, Leafage, Anchor Shot (?), Lunge, Fire Lash, Power Trip, Smart Strike, Trop Kick,
+  	Clanging Scales, Dragon Hammer, Brutal Swing, Psychic Fangs, Shadow Bone, Accelerock, Liquidation, Tearful Look, Zing Zap, Mind Blown (?);
+
+	Snipe Shot, Magic Powder (?), Decorate, Drum Beating, Snap Trap, Pyro Ball, Breaking Swipe, Branch Poke, Overdrive, Apple Acid, Life Dew (?), False Surrender, Meteor Assault,
+ 	Scale Shot (?), Skitter Smack, Corrosive Gas (?), Coaching, Flip Turn, Triple Axel (?), Dual Wingbeat, Scorching Sands, Mystical Power, Raging Fury, Wave Crash, Chloroblast (?),
+  	Mountain Gale, Victory Dance, Headlong Rush, Barb Barrage (?), Esper Wing, Bitter Malice, Shelter, Infernal Parade (?), Bleakwind Storm, Wildbolt Storm, Sandsear Storm (?);
+
+	Axe Kick (?), Lumina Crash, Jet Punch, Spicy Extract, Spin Out, Population Bomb (?), Triple Dive, Kowtow Cleave, Flower Trick, Torch Song, Aqua Step, Make It Rain, Pounce,
+ 	Trailblaze, Chilling Water, Hyper Drill, Twin Beam, Armor Cannon, Bitter Blade, Comeuppance, Aqua Cutter, Matcha Gotcha (?), Thunderclap, Mighty Cleave, Tachyon Cutter,
+  	Hard Press (?), Supercell Slam, Malignant Chain
 */
 
 		let printno = 0;
