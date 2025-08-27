@@ -327,7 +327,11 @@ Other post-Gen V moves I probably *can* backport if it comes up
 					}
 					if (levelLearned == 101 && (lv1 || prevoLv1 || prevo2lv1)) {
 						levelLearned = 1;
-						if (lv1 && !(prevoLv1 || prevo2lv1) && poke.evoLevel) levelLearned = poke.evoLevel;
+						if (lv1 && prevoLv1 && !prevo2lv1) {
+							const poke2 = this.dataCache.Pokedex[this.toID(poke.prevo)];
+							if (poke2 && poke2.evoLevel) levelLearned = poke2.evoLevel;
+						}
+						if (lv1 && !prevoLv1 && !prevo2lv1) && poke.evoLevel) levelLearned = poke.evoLevel;
 					}
 					if (genVTms.includes(moveid)) {
 						if (!genVLearnedTmAlready) poke.additionalTms.push(moveName); // make sure to identify TMs that need to be added manually
