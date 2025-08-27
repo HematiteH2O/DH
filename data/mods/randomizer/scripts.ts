@@ -145,6 +145,7 @@ Other post-Gen V moves I probably *can* backport if it comes up
 							learnset: [],
 				};
 				poke.additionalTms = [];
+				poke.backports = [];
 				for (let i = 1; i < 102; i++) {
 					poke.learnsetCumulative.learnset[i] = {
 						movesLearned: [],
@@ -334,8 +335,11 @@ Other post-Gen V moves I probably *can* backport if it comes up
 					if (levelLearned == 101) {
 						// reset move name
 						moveName = move.name;
-						if (move.num && move.num > 559) moveName = moveName + `*`; // but you still want this information attached
-						poke.learnsetCumulative.learnset[levelLearned].movesLearned.push(moveName);
+						if (move.num && move.num > 559) {
+							poke.backports.push(moveName);
+						} else {
+							poke.learnsetCumulative.learnset[levelLearned].movesLearned.push(move.name);
+						}
 					} else {
 						poke.learnsetCumulative.learnset[levelLearned].movesLearned.push(moveName);
 					}
@@ -361,6 +365,13 @@ Other post-Gen V moves I probably *can* backport if it comes up
 							}
 						}
 					}
+				}
+				if (poke.backports.length) {
+					poke.backports.sort();
+					// TODO: these should include (and be sorted by) TM numbers, ideally
+					sheetOutput += `\n~ Possible backports\n`
+					for (const moveid of poke.backports) sheetOutput += moveid + `, `;
+					sheetOutput += `~`;
 				}
 				if (poke.additionalTms.length) {
 					poke.additionalTms.sort();
