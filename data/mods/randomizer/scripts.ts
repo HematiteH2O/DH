@@ -131,6 +131,7 @@ Other post-Gen V moves I probably *can* backport if it comes up
 		for (const id in this.dataCache.Pokedex) {
 			const poke = this.dataCache.Pokedex[id];
 			if (!poke) continue;
+			console.log(poke.name);
 
 			if (this.dataCache.Learnsets[id] && this.dataCache.Learnsets[id].learnset) {
 				printno++;
@@ -206,7 +207,7 @@ Other post-Gen V moves I probably *can* backport if it comes up
 					}
 					if (move.category && move.category === 'Status') moveName = `0` + moveName; // attacks should be the last move learned at a level so NPCs don't often get stuck with none
 					if (move.num && move.num > 559) moveName = moveName + ` *`; // identify post-Gen V moves
-					if (levelLearned > 101) {
+					if (levelLearned < 1 || levelLearned > 101) {
 						console.log(poke.name + ` - ` + moveName + ` - ` + levelLearned);
 						continue;
 					}
