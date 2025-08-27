@@ -185,7 +185,7 @@ Other post-Gen V moves I probably *can* backport if it comes up
 							}
 							if (source.charAt(1) === 'L') {
 								learnedLvUp = true;
-								if (parseInt(source.charAt(0)) < 8) if (source.substr(2) < levelLearned) levelLearned = source.substr(2);
+								if (parseInt(source.charAt(0)) < 8) if (parseInt(source.substr(2)) < parseInt(levelLearned)) levelLearned = source.substr(2);
 								// (but ignore levels for Gen VIII and on)
 								include = true;
 							}
@@ -201,7 +201,7 @@ Other post-Gen V moves I probably *can* backport if it comes up
 							let prevoLearned = false;
 							if (learnset2[moveid]) {
 								for (const source of learnset2[moveid]) if (source.charAt(1) === 'L' && parseInt(source.charAt(0)) < 8) {
-									if (poke.evoLevel && !(source.substr(2) > poke.evoLevel)) prevoLearned = true;
+									if (poke.evoLevel && !(parseInt(source.substr(2)) > poke.evoLevel)) prevoLearned = true;
 									// covers for edge cases like Pidgeot learning Hurricane at level 1 and Pidgeotto learning it well after it evolves
 									// otherwise, Pidgeot gets it moved to level 1 *and* misses the later level, so we at least want it to be level 36
 								}
@@ -217,7 +217,7 @@ Other post-Gen V moves I probably *can* backport if it comes up
 								learnedLvUp = true;
 								guaranteeShowLv = true;
 								if (parseInt(source.charAt(0)) < 8) {
-									if (source.substr(2) < prevoLevelLearned) prevoLevelLearned = source.substr(2);
+									if (parseInt(source.substr(2)) < parseInt(prevoLevelLearned)) prevoLevelLearned = source.substr(2);
 								}
 								// (but ignore levels for Gen VIII and on)
 								include = true;
@@ -236,7 +236,7 @@ Other post-Gen V moves I probably *can* backport if it comes up
 							if (poke2.evoLevel) evoLevel = poke2.evoLevel;
 							if (learnset3[moveid]) {
 								for (const source of learnset3[moveid]) if (source.charAt(1) === 'L' && parseInt(source.charAt(0)) < 8) {
-									if (evoLevel && !(source.substr(2) > evoLevel)) prevoLearned = true;
+									if (evoLevel && !(parseInt(source.substr(2)) > evoLevel)) prevoLearned = true;
 									// covers for edge cases like Pidgeot learning Hurricane at level 1 and Pidgey learning it well after it evolves
 									// otherwise, Pidgeot gets it moved to level 1 *and* misses the later level, so we at least want it to be level 36
 								}
@@ -253,7 +253,7 @@ Other post-Gen V moves I probably *can* backport if it comes up
 								learnedLvUp = true;
 								guaranteeShowLv = true;
 								if (parseInt(source.charAt(0)) < 8) {
-									if (source.substr(2) < prevo2LevelLearned) prevo2LevelLearned = source.substr(2);
+									if (parseInt(source.substr(2)) < parseInt(prevo2LevelLearned)) prevo2LevelLearned = source.substr(2);
 								}
 								// (but ignore levels for Gen VIII and on)
 								include = true;
