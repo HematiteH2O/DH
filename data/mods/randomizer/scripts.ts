@@ -136,7 +136,7 @@ Other post-Gen V moves I probably *can* backport if it comes up
 			if (poke.num && poke.num < 0) continue; // skip CAPs
 			let future = false; // determine if something is Gen VIII or later
 			if (poke.num && poke.num > 809) future = true;
-			if (poke.forme && (poke.forme === "Galar" || poke.baseSpecies === "Tauros")) future = true;
+			if (poke.forme && (poke.forme === "Galar" || poke.forme === "Hisui" || poke.baseSpecies === "Tauros")) future = true;
 
 			if (this.dataCache.Learnsets[id] && this.dataCache.Learnsets[id].learnset) {
 				printno++;
@@ -331,7 +331,7 @@ Other post-Gen V moves I probably *can* backport if it comes up
 							const poke2 = this.dataCache.Pokedex[this.toID(poke.prevo)];
 							if (poke2 && poke2.evoLevel) levelLearned = poke2.evoLevel;
 						}
-						if (lv1 && !prevoLv1 && !prevo2lv1) && poke.evoLevel) levelLearned = poke.evoLevel;
+						if (lv1 && !prevoLv1 && !prevo2lv1 && poke.evoLevel) levelLearned = poke.evoLevel;
 					}
 					if (genVTms.includes(moveid)) {
 						if (!genVLearnedTmAlready) poke.additionalTms.push(moveName); // make sure to identify TMs that need to be added manually
