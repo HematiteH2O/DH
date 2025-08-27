@@ -204,6 +204,15 @@ export const Scripts: ModdedBattleScriptsData = {
 */
 export const Scripts: ModdedBattleScriptsData = {
 	init() {
+		const hms = [
+			'cut', 'surf', 'fly', 'strength', 'waterfall', 'dive', 'flash', 'dig',
+		];
+		const genVTms = [
+			// TMs
+			'honeclaws',
+			// tutors
+			'heatwave',
+		]; // must include the whole list, even the ones below
 		const postgameTms = [
 			// TMs
 			'safeguard', 'smackdown', 'brickbreak', 'pluck', 'sludgewave', 'allyswitch', 'incinerate', 'quash', 'explosion', 'swordsdance', 'psychup', 'frostbreath', 'uturn', 'trickroom',
@@ -219,11 +228,13 @@ export const Scripts: ModdedBattleScriptsData = {
 // TODO LIST:
 // - add universal moves to learnsets when randomizing (based on the new type); obviously highlight where they're new since this is manual!
 // --- also highlight TMs that are learned now, but weren't already in Gen V, if they were TMs at the time (for my own convenience)
-// - shift each move to the lowest level it's ever learned pre-Gen VIII
-// - delay early moves to evolution levels if the pre-evolution didn't have them
-// - list all (non-TM) Egg moves, post-Gen VIII Egg/level-up additions, and the above postgameTms section at the end ("moves that can be assigned levels if I want")
-// - go through move substitutions by type, but keep the old move listed in the same row just in case (ex. "Icy Wind -> Struggle Bug")
+// - go through move substitutions by type, but keep the old move listed in the same row just in case (ex. "15 - Icy Wind -> Struggle Bug")
 // - possible: filter out moves that are already TMs if the player gets the TM earlier than the level-up move (save on space)
+
+// - shift each move to the lowest level it's ever learned pre-Gen VIII - done
+// - delay early moves to evolution levels if the pre-evolution didn't have them - done
+// - list all (non-TM) Egg moves, post-Gen VIII Egg/level-up additions, and the above postgameTms section at the end ("moves that can be assigned levels if I want") - done
+// - forcibly remove all field move TMs and HMs from level-up!! - done
 
 /*
 // UNIVERSAL MOVES
@@ -319,7 +330,7 @@ Other post-Gen V moves I probably *can* backport if it comes up
 							Moves: [],
 							learnset: [],
 				};
-				for (let i = 1; i < 99; i++) {
+				for (let i = 0; i < 99; i++) {
 					poke.learnsetCumulative.learnset[i] = {
 						movesLearned: [],
 					}
@@ -344,77 +355,41 @@ Other post-Gen V moves I probably *can* backport if it comes up
 						console.log(moveid);
 						continue;
 					}
+					if (hms.includes(moveid)) continue; // skip HMs
 
-					// a simplified version of the Pulse learnset sheet:
-					// only decide a) if the Pokémon learns the move at all and b) if it's a safe bet it still gets it in Ondas or not
-					// "fringe moves" and transfer-only moves and future buffs are all lumped into one category unless they're TMs or tutors here
 					let learned = false;
 					let learnedLvUp = false;
 					let learnedTm = false;
-					let learnedOras = false;
-					let levelLearned = 1;
+					let include = false;
+					let levelLearned = 999;
 					if (learnset[moveid]) { // if it learns the move
+						learned = true;
 						for (const source of learnset[moveid]) {
-							if (parseInt(source.charAt(0)) === 6) {
-								learned = true;
-								if (source.charAt(1) === 'L') {
-									learnedLvUp = true;
-									// and then...
-									if (learnset2 && !learnset2[moveid] && poke.evoLevel && poke.evoLevel > source.substr(2)) {
-										poke.learnsetCumulative.learnset[poke.evoLevel].movesLearned.push(move.name); // evolution moves for convenience
-									} else {
-										if (source.substr(2) && poke.learnsetCumulative.learnset[parseInt(source.substr(2))]) {
-											poke.learnsetCumulative.learnset[parseInt(source.substr(2))].movesLearned.push(move.name); // otherwise, just the canon level
-										} else {
-											console.log(poke.name + ` - ` + move.name + ` - source ` + source);
-										}
-									}
-								}
-								if (source.charAt(1) === 'M' && !postgameTms.includes(moveid)) learnedTm = true;
-								if (source.charAt(1) === 'E' || source.charAt(1) === 'T' || source.charAt(1) === 'M') learnedOras = true;
+							// include level-up and Egg moves from all Generations...
+							if (source.charAt(1) === 'L') {
+								learnedLvUp = true;
+								if (parseInt(source.charAt(0)) < 8) if (source.substr(2) < levelLearned) levelLearned = source.substr(2);
+								// (but ignore levels for Gen VIII and on)
+							}
+							if (source.charAt(1) === 'E') include = true;
+							// ... and then TM and tutor moves only if they were accessible TMs and tutors in Gen V, specifically
+							if (genVTms.includes(moveid)) {
+								include = true; // so I know if they're to be included at all
+								if (!postgameTms.includes(moveid)) learnedTm = true; // so I know if they need to be in level-up anyway
 							}
 						}
+						// evolution-only moves should be moved to the level of evolution
+						if (learnedLvUp) if (learnset2 && !learnset2[moveid] && poke.evoLevel && poke.evoLevel > levelLearned) levelLearned = poke.evoLevel;
 					}
-					if (learnset2 && learnset2[moveid]) { // if it learns the move
-						for (const source of learnset2[moveid]) {
-							if (parseInt(source.charAt(0)) === 6) {
-								learned = true;
-								if (source.charAt(1) === 'L') {
-									if (!learnedLvUp) {
-										let level = 1;
-										poke.learnsetCumulative.learnset[level].movesLearned.push(move.name);
-										learnedLvUp = true;
-									}
-								}
-								if (source.charAt(1) === 'M' && !postgameTms.includes(moveid)) learnedTm = true;
-								if (source.charAt(1) === 'E' || source.charAt(1) === 'T' || source.charAt(1) === 'M') learnedOras = true;
-							}
-						}
-					}
-					if (learnset3 && learnset3[moveid]) { // if it learns the move
-						for (const source of learnset3[moveid]) {
-							if (parseInt(source.charAt(0)) === 6) {
-								learned = true;
-								if (source.charAt(1) === 'L') {
-									if (!learnedLvUp) {
-										let level = 1;
-										poke.learnsetCumulative.learnset[level].movesLearned.push(move.name);
-										learnedLvUp = true;
-									}
-								}
-								if (source.charAt(1) === 'L') learnedLvUp = true;
-								if (source.charAt(1) === 'M' && !postgameTms.includes(moveid)) learnedTm = true;
-								if (source.charAt(1) === 'E' || source.charAt(1) === 'T' || source.charAt(1) === 'M') learnedOras = true;
-							}
-						}
-					}
-					if (!learnedLvUp && ['grasspledge', 'firepledge', 'waterpledge', 'hydrocannon', 'frenzyplant', 'blastburn', 'dracometeor', 'gigaimpact', 'snore'].includes(moveid)) continue;
-					if (learned && !learnedLvUp && !learnedTm && learnedOras) {
-						let moveName: string[] = [move.name];
-						moveName = `0` + moveName; // status moves first, then
-						let level = 1;
-						poke.learnsetCumulative.learnset[level].movesLearned.push(moveName); // learn at level 1 if there are no other options
-					}
+					// if (learnset2 && learnset2[moveid]) { // if it learns the move
+					// (copy the above when ready)
+					if (!learnedLvUp && ['grasspledge', 'firepledge', 'waterpledge', 'hydrocannon', 'frenzyplant', 'blastburn', 'dracometeor', 'gigaimpact'].includes(moveid)) continue;
+					if (learned && !learnedLvUp && !learnedTm && include) levelLearned = 0;
+					if (levelLearned == 999) levelLearned = 0;
+					let moveName: string[] = [move.name];
+					if (move.category && move.category === 'Status') moveName = `0` + moveName; // attacks should be the last move learned at a level so NPCs don't often get stuck with none
+					if (move.num && move.num > 559) moveName = moveName + ` *`; // identify post-Gen V moves
+					poke.learnsetCumulative.learnset[levelLearned].movesLearned.push(moveName);
 				}
 
 				poke.learnsetCumulative.learnset.sort();
@@ -423,14 +398,22 @@ Other post-Gen V moves I probably *can* backport if it comes up
 				let sheetOutput: string[] = [
 					`\n\n` + (poke.evoLevel ? (poke.name + ` // ` + poke.evoLevel) : poke.name) + `\n`
 				];
+				// TODO: other randomizer features (types, Abilities, stats)
 				for (const level in poke.learnsetCumulative.learnset) {
 					if (poke.learnsetCumulative.learnset[level].movesLearned.length) {
 						poke.learnsetCumulative.learnset[level].movesLearned.sort();
+						if (level === 0) continue;
 						for (const moveid of poke.learnsetCumulative.learnset[level].movesLearned) {
-							sheetOutput += `\n` + (parseInt(level) + 1) + ` - ` + moveid;
+							sheetOutput += `\n` + level + ` - ` + moveid;
 						}
 					}
 				}
+				// bonus moves: to assign a level
+				sheetOutput += `\n~ Additional moves`
+				for (const moveid of poke.learnsetCumulative.learnset.0.movesLearned) sheetOutput += `\n0 - ` + moveid;
+				sheetOutput += `\n~ Additional TMs and tutors`
+				// TODO
+				// these should include (and be sorted by) TM numbers, ideally
 				poke.sheetOutput = sheetOutput;
 			}
 		}
