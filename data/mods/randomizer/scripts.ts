@@ -226,7 +226,7 @@ Other post-Gen V moves I probably *can* backport if it comes up
 								learnedLvUp = true;
 								if (parseInt(source.charAt(0)) < 8) {
 									guaranteeShowLv = true;
-									if (parseInt(source.substr(2)) < parseInt(prevoLevelLearned) {
+									if (parseInt(source.substr(2)) < parseInt(prevoLevelLearned)) {
 										if (parseInt(source.substr(2)) === 1) {
 											prevoLv1 = true;
 										} else {
@@ -292,7 +292,6 @@ Other post-Gen V moves I probably *can* backport if it comes up
 					if (!learnedLvUp && ['grasspledge', 'firepledge', 'waterpledge', 'hydrocannon', 'frenzyplant', 'blastburn', 'dracometeor', 'gigaimpact'].includes(moveid)) continue;
 					if (learned && !learnedLvUp && !learnedTm) levelLearned = 101;
 					if (levelLearned == 999) levelLearned = 101;
-					if (lv1 || prevoLv1 || prevo2lv1) levelLearned = 1;
 					if (prevoLevelLearned == 999) {
 						if (guaranteeShowLv && prevo2LevelLearned && prevo2LevelLearned !== 999) {
 							prevoLevelLearned = prevo2LevelLearned;
@@ -314,6 +313,7 @@ Other post-Gen V moves I probably *can* backport if it comes up
 					if (levelLearned == 101 && guaranteeShowLv) {
 						levelLearned = prevoLevelLearned;
 					}
+					if (levelLearned == 101 && (lv1 || prevoLv1 || prevo2lv1)) levelLearned = 1;
 					if (genVTms.includes(moveid)) {
 						if (!genVLearnedTmAlready) poke.additionalTms.push(moveName); // make sure to identify TMs that need to be added manually
 						if (levelLearned === 101 && !postgameTms.includes(moveid)) continue; // skip level 0 moves if they're on the Gen V TM/tutor list
