@@ -215,8 +215,8 @@ Other post-Gen V moves I probably *can* backport if it comes up
 							// include level-up and Egg moves from all Generations...
 							if (source.charAt(1) === 'L') {
 								learnedLvUp = true;
-								guaranteeShowLv = true;
 								if (parseInt(source.charAt(0)) < 8) {
+									guaranteeShowLv = true;
 									if (parseInt(source.substr(2)) < parseInt(prevoLevelLearned)) prevoLevelLearned = source.substr(2);
 								}
 								// (but ignore levels for Gen VIII and on)
@@ -251,8 +251,8 @@ Other post-Gen V moves I probably *can* backport if it comes up
 							// include level-up and Egg moves from all Generations...
 							if (source.charAt(1) === 'L') {
 								learnedLvUp = true;
-								guaranteeShowLv = true;
 								if (parseInt(source.charAt(0)) < 8) {
+									guaranteeShowLv = true;
 									if (parseInt(source.substr(2)) < parseInt(prevo2LevelLearned)) prevo2LevelLearned = source.substr(2);
 								}
 								// (but ignore levels for Gen VIII and on)
