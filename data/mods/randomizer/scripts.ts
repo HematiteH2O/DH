@@ -272,7 +272,7 @@ Other post-Gen V moves I probably *can* backport if it comes up
 										if (parseInt(source.substr(2)) === 1) {
 											prevo2lv1 = true;
 										} else {
-											levelLearned = source.substr(2);
+											prevo2LevelLearned = source.substr(2);
 										}
 									}
 								}
