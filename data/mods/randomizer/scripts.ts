@@ -271,7 +271,11 @@ Other post-Gen V moves I probably *can* backport if it comes up
 					if (learned && !learnedLvUp && !learnedTm) levelLearned = 101;
 					if (levelLearned == 999) levelLearned = 101;
 					if (prevoLevelLearned == 999) {
-						prevoLevelLearned = `n/a`;
+						if (guaranteeShowLv1) {
+							prevoLevelLearned = 1;
+						} else {
+							prevoLevelLearned = `n/a`;
+						}
 					} else {
 						if (prevoLevelLearned > levelLearned && levelLearned > 1) prevoLevelLearned = levelLearned;
 					}
