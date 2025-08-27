@@ -209,9 +209,20 @@ export const Scripts: ModdedBattleScriptsData = {
 		];
 		const genVTms = [
 			// TMs
-			'honeclaws',
+			'honeclaws', 'dragonclaw', 'psyshock', 'calmmind', 'roar', 'toxic', 'hail', 'bulkup', 'venoshock', 'hiddenpower', 'sunnyday', 'taunt', 'icebeam', 'blizzard', 'hyperbeam',
+			'lightscreen', 'protect', 'raindance', 'telekinesis', 'safeguard', 'frustration', 'solarbeam', 'smackdown', 'thunderbolt', 'thunder', 'earthquake', 'return', 'dig', 'psychic',
+			'shadowball', 'brickbreak', 'doubleteam', 'reflect', 'sludgewave', 'flamethrower', 'sludgebomb', 'sandstorm', 'fireblast', 'rocktomb', 'aerialace', 'torment', 'facade',
+			'flamecharge', 'rest', 'attract', 'thief', 'lowsweep', 'round', 'echoedvoice', 'overheat', 'allyswitch', 'focusblast', 'energyball', 'falseswipe', 'scald', 'fling',
+			'chargebeam', 'skydrop', 'incinerate', 'quash', 'willowisp', 'acrobatics', 'embargo', 'explosion', 'shadowclaw', 'payback', 'retaliate', 'gigaimpact', 'rockpolish', 'flash',
+			'stoneedge', 'voltswitch', 'thunderwave', 'gyroball', 'swordsdance', 'strugglebug', 'psychup', 'bulldoze', 'frostbreath', 'rockslide', 'xscissor', 'dragontail', 'workup',
+			'poisonjab', 'dreameater', 'grassknot', 'swagger', 'pluck', 'uturn', 'substitute', 'flashcannon', 'trickroom', 'wildcharge', 'rocksmash', 'snarl', 'cut', 'fly', 'surf', 
+			'strength', 'waterfall', 'dive',
 			// tutors
-			'heatwave',
+			'grasspledge', 'firepledge', 'waterpledge', 'frenzyplant', 'blastburn', 'hydrocannon', 'covet', 'bugbite', 'drillrun', 'bounce', 'signalbeam', 'ironhead', 'superfang',
+			'uproar', 'seedbomb', 'dualchop', 'lowkick', 'gunkshot', 'thunderpunch', 'firepunch', 'icepunch', 'lastresort', 'irondefense', 'magnetrise', 'magiccoat', 'block', 'hypervoice',
+			'electroweb', 'icywind', 'irontail', 'aquatail', 'earthpower', 'zenheadbutt', 'foulplay', 'superpower', 'gravity', 'dragonpulse', 'darkpulse', 'dracometeor', 'bind', 'snore',
+			'healbell', 'knockoff', 'synthesis', 'roost', 'skyattack', 'roleplay', 'heatwave', 'gigadrain', 'drainpunch', 'painsplit', 'tailwind', 'worryseed', 'gastroacid', 'helpinghand',
+			'afteryou', 'magicroom', 'wonderroom', 'spite', 'recycle', 'trick', 'stealthrock', 'outrage', 'endeavor', 'sleeptalk', 'skillswap', 'snatch', 
 		]; // must include the whole list, even the ones below
 		const postgameTms = [
 			// TMs
