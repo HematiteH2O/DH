@@ -131,7 +131,6 @@ Other post-Gen V moves I probably *can* backport if it comes up
 		for (const id in this.dataCache.Pokedex) {
 			const poke = this.dataCache.Pokedex[id];
 			if (!poke) continue;
-			console.log(poke.name);
 
 			if (this.dataCache.Learnsets[id] && this.dataCache.Learnsets[id].learnset) {
 				printno++;
@@ -140,7 +139,7 @@ Other post-Gen V moves I probably *can* backport if it comes up
 							learnset: [],
 				};
 				poke.additionalTms = [];
-				for (let i = 1; i < 102; i++) {
+				for (let i = 1; i < 103; i++) {
 					poke.learnsetCumulative.learnset[i] = {
 						movesLearned: [],
 					}
@@ -195,19 +194,20 @@ Other post-Gen V moves I probably *can* backport if it comes up
 						// evolution-only moves should be moved to the level of evolution
 						if (learnedLvUp) if (learnset2 && !learnset2[moveid] && poke.evoLevel && poke.evoLevel > levelLearned) levelLearned = poke.evoLevel;
 					}
+					if (!learned) continue;
 					// if (learnset2 && learnset2[moveid]) { // if it learns the move
 					// (copy the above when ready)
 					if (!learnedLvUp && ['grasspledge', 'firepledge', 'waterpledge', 'hydrocannon', 'frenzyplant', 'blastburn', 'dracometeor', 'gigaimpact'].includes(moveid)) continue;
-					if (learned && !learnedLvUp && !learnedTm && include) levelLearned = 101;
-					if (levelLearned == 999) levelLearned = 101;
+					if (learned && !learnedLvUp && !learnedTm && include) levelLearned = 102;
+					if (levelLearned == 999) levelLearned = 102;
 					let moveName: string[] = [move.name];
 					if (genVTms.includes(moveid)) {
 						if (!genVLearnedTmAlready) poke.additionalTms.push(moveName); // make sure to identify TMs that need to be added manually
-						if (levelLearned === 101 && !postgameTms.includes(moveid)) continue; // skip level 0 moves if they're on the Gen V TM/tutor list
+						if (levelLearned === 102 && !postgameTms.includes(moveid)) continue; // skip level 0 moves if they're on the Gen V TM/tutor list
 					}
 					if (move.category && move.category === 'Status') moveName = `0` + moveName; // attacks should be the last move learned at a level so NPCs don't often get stuck with none
 					if (move.num && move.num > 559) moveName = moveName + ` *`; // identify post-Gen V moves
-					if (levelLearned < 1 || levelLearned > 101) {
+					if (levelLearned < 1 || levelLearned > 102) {
 						console.log(poke.name + ` - ` + moveName + ` - ` + levelLearned);
 						continue;
 					}
@@ -224,14 +224,14 @@ Other post-Gen V moves I probably *can* backport if it comes up
 				for (const level in poke.learnsetCumulative.learnset) {
 					if (poke.learnsetCumulative.learnset[level].movesLearned.length) {
 						poke.learnsetCumulative.learnset[level].movesLearned.sort();
-						if (parseInt(level) === 101) {
+						if (parseInt(level) === 102) {
 							sheetOutput += `\n~ Additional moves`
 							for (const moveid of poke.learnsetCumulative.learnset[level].movesLearned) {
 								sheetOutput += `\n` + moveid;
 							}
 						} else {
 							for (const moveid of poke.learnsetCumulative.learnset[level].movesLearned) {
-								sheetOutput += `\n` + level + ` - ` + moveid;
+								sheetOutput += `\n` + (parseInt(level) + 1) + ` - ` + moveid;
 							}
 						}
 					}
