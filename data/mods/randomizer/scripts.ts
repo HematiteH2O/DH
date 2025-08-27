@@ -259,8 +259,17 @@ Other post-Gen V moves I probably *can* backport if it comes up
 					if (!learnedLvUp && ['grasspledge', 'firepledge', 'waterpledge', 'hydrocannon', 'frenzyplant', 'blastburn', 'dracometeor', 'gigaimpact'].includes(moveid)) continue;
 					if (learned && !learnedLvUp && !learnedTm) levelLearned = 101;
 					if (levelLearned == 999) levelLearned = 101;
-					if (prevoLevelLearned == 999) prevoLevelLearned = `--`;
-					if (prevo2LevelLearned == 999) prevo2LevelLearned = `--`;
+					if (prevoLevelLearned == 999) {
+						prevoLevelLearned = `--`;
+					} else {
+						if (prevoLevelLearned > levelLearned) prevoLevelLearned = levelLearned;
+					}
+					if (prevo2LevelLearned == 999) {
+						prevo2LevelLearned = `--`;
+					} else {
+						if (prevo2LevelLearned > levelLearned) prevo2LevelLearned = levelLearned;
+						if (prevo2LevelLearned > prevoLevelLearned) prevo2LevelLearned = prevoLevelLearned;
+					}
 					let moveName: string[] = [move.name];
 					if (genVTms.includes(moveid)) {
 						if (!genVLearnedTmAlready) poke.additionalTms.push(moveName); // make sure to identify TMs that need to be added manually
