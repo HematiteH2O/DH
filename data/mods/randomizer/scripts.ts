@@ -225,11 +225,10 @@ Other post-Gen V moves I probably *can* backport if it comes up
 				for (const level in poke.learnsetCumulative.learnset) {
 					if (poke.learnsetCumulative.learnset[level].movesLearned.length) {
 						poke.learnsetCumulative.learnset[level].movesLearned.sort();
-						if (parseInt(level) > 100) {
-							sheetOutput += `\n~ Additional moves`
-							for (const moveid of poke.learnsetCumulative.learnset[level].movesLearned) {
-								sheetOutput += `\n` + moveid;
-							}
+						if (parseInt(level) > 99) {
+							sheetOutput += `\n~ Additional moves\n`
+							for (const moveid of poke.learnsetCumulative.learnset[level].movesLearned) sheetOutput += moveid + `, `;
+							sheetOutput += `~`;
 						} else {
 							for (const moveid of poke.learnsetCumulative.learnset[level].movesLearned) {
 								sheetOutput += `\n` + (parseInt(level) + 1) + ` - ` + moveid;
@@ -240,8 +239,9 @@ Other post-Gen V moves I probably *can* backport if it comes up
 				if (poke.additionalTms.length) {
 					poke.additionalTms.sort();
 					// TODO: these should include (and be sorted by) TM numbers, ideally
-					sheetOutput += `\n~ Additional TMs and tutors`
-					for (const moveid of poke.additionalTms) sheetOutput += `\n0 - ` + moveid;
+					sheetOutput += `\n~ Additional TMs and tutors\n`
+					for (const moveid of poke.additionalTms) sheetOutput += moveid + `, `;
+					sheetOutput += `~`;
 				}
 				poke.sheetOutput = sheetOutput;
 			}
