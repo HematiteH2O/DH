@@ -205,25 +205,28 @@ export const Scripts: ModdedBattleScriptsData = {
 export const Scripts: ModdedBattleScriptsData = {
 	init() {
 		const postgameTms = [
+			// TMs
 			'safeguard', 'smackdown', 'brickbreak', 'pluck', 'sludgewave', 'allyswitch', 'incinerate', 'quash', 'explosion', 'swordsdance', 'psychup', 'frostbreath', 'uturn', 'trickroom',
 			'honeclaws', 'dragonclaw', 'calmmind', 'bulkup', 'telekinesis', 'solarbeam', 'earthquake', 'sludgebomb', 'flamecharge', 'lowsweep', 'overheat', 'focusblast', 'stoneedge',
 			'poisonjab', 'dreameater', 'grassknot', 'flashcannon',
+			// tutors
+			'covet', 'electroweb', 'icywind', 'healbell', 'drainpunch', 'tailwind',
+			'worryseed', 'gastroacid', 'helpinghand', 'afteryou', 'magicroom', 'wonderroom', 'spite', 'recycle', 'trick', 'stealthrock', 'outrage', 'endeavor', 'sleeptalk', 'skillswap',
+			'snatch',
 			// 'hiddenpower', 'protect', 'doubleteam', 'round', 'swagger', 'substitute',
 		];
 
-// TODO FIRST:
+// TODO LIST:
+// - add universal moves to learnsets when randomizing (based on the new type); obviously highlight where they're new since this is manual!
+// --- also highlight TMs that are learned now, but weren't already in Gen V, if they were TMs at the time (for my own convenience)
 // - shift each move to the lowest level it's ever learned pre-Gen VIII
-// - list tutors I wish were available earlier so I can add them to level-up manually
-// - list all (non-TM) Egg moves and post-Gen VIII Egg/level-up additions in sections at the end ("moves that can be assigned levels")
-// - list TMs that are learned now, but weren't already in Gen V, even though they were TMs
+// - delay early moves to evolution levels if the pre-evolution didn't have them
+// - list all (non-TM) Egg moves, post-Gen VIII Egg/level-up additions, and the above postgameTms section at the end ("moves that can be assigned levels if I want")
 // - go through move substitutions by type, but keep the old move listed in the same row just in case (ex. "Icy Wind -> Struggle Bug")
-// - add universal TMs and tutors by type
-// ** I want to increase my list to "moves that have been universal any time since Gen IV and are TMs/tutors in Gen V," not just the ones that were universal in Gen V
+// - possible: filter out moves that are already TMs if the player gets the TM earlier than the level-up move (save on space)
 
 /*
-UNIVERSAL MOVES
-
-INITIAL LIST
+// UNIVERSAL MOVES
 
 Universal	Attract, Double Team, Facade, Frustration, Giga Impact, Hidden Power, Hyper Beam, Protect, Rain Dance, Rest, Return, Round, Sleep Talk, Snore, Substitute, Sunny Day, Swagger, Toxic
 
