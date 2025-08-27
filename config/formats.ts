@@ -132,6 +132,26 @@ export const Formats: FormatList = [
 		},
 		mod: 'kalos', // a genius always I am a genius
 	},
+	{
+		name: "Randomizer dex output",
+		desc: [
+			"WIP but it's for the randomizer! (obviously)",
+		],
+		
+		ruleset: ['Team Preview', 'HP Percentage Mod', 'Cancel Mod', 'Dynamax Clause', 'Sleep Clause Mod'],
+		onBegin() {
+			for (const id in this.dex.data.Pokedex) {
+				const poke = this.dex.data.Pokedex[id];
+				if (poke && poke.sheetOutput) {
+					this.add('-message', `${poke.sheetOutput}`);
+				} else {
+					this.add('-message', ``);
+					console.log(id);
+				}
+			}
+		},
+		mod: 'randomizer',
+	},
 /*
 	{
 		name: "Reverse Utility Sheet",
