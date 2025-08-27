@@ -210,7 +210,6 @@ Other post-Gen V moves I probably *can* backport if it comes up
 							if (source.charAt(1) === 'L') {
 								learnedLvUp = true;
 								if (parseInt(source.charAt(0)) < 8) {
-									if (source.substr(2) < levelLearned) levelLearned = source.substr(2);
 									if (source.substr(2) < prevoLevelLearned) prevoLevelLearned = source.substr(2);
 								}
 								// (but ignore levels for Gen VIII and on)
@@ -232,7 +231,7 @@ Other post-Gen V moves I probably *can* backport if it comes up
 								for (const source of learnset3[moveid]) if (source.charAt(1) === 'L' && parseInt(source.charAt(0)) < 8) prevoLearned = true;
 							}
 							if (prevoLearned === false && evoLevel && evoLevel > levelLearned) levelLearned = evoLevel;
-							if (prevoLearned === false && evoLevel && evoLevel > levelLearned) prevoLevelLearned = evoLevel;
+							if (prevoLearned === false && evoLevel && evoLevel > prevoLevelLearned) prevoLevelLearned = evoLevel;
 						}
 					}
 					if (learnset3 && learnset3[moveid]) { // if it learns the move
@@ -242,7 +241,6 @@ Other post-Gen V moves I probably *can* backport if it comes up
 							if (source.charAt(1) === 'L') {
 								learnedLvUp = true;
 								if (parseInt(source.charAt(0)) < 8) {
-									if (source.substr(2) < levelLearned) levelLearned = source.substr(2);
 									if (source.substr(2) < prevo2LevelLearned) prevo2LevelLearned = source.substr(2);
 								}
 								// (but ignore levels for Gen VIII and on)
@@ -270,8 +268,8 @@ Other post-Gen V moves I probably *can* backport if it comes up
 					}
 					if (move.category && move.category === 'Status') moveName = `0` + moveName; // attacks should be the last move learned at a level so NPCs don't often get stuck with none
 					if (move.num && move.num > 559) moveName = moveName + `*`; // identify post-Gen V moves
-					if (learnset2) moveName = prevoLevelLearned + ` - ` + moveName; // add prevo levels
 					if (learnset3) moveName = prevo2LevelLearned + ` - ` + moveName; // add prevo2 levels
+					if (learnset2) moveName = prevoLevelLearned + ` - ` + moveName; // add prevo levels
 					if (levelLearned < 1 || levelLearned > 101) continue;
 					poke.learnsetCumulative.learnset[levelLearned].movesLearned.push(moveName);
 				}
