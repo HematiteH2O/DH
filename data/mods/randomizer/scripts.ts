@@ -174,6 +174,7 @@ Other post-Gen V moves I probably *can* backport if it comes up
 					let prevoLevelLearned = 999;
 					let prevo2LevelLearned = 999;
 					let genVLearnedTmAlready = false;
+					let guaranteeShowLv1 = false;
 					if (learnset[moveid]) { // if it learns the move
 						learned = true;
 						for (const source of learnset[moveid]) {
@@ -260,22 +261,25 @@ Other post-Gen V moves I probably *can* backport if it comes up
 					if (learned && !learnedLvUp && !learnedTm) levelLearned = 101;
 					if (levelLearned == 999) levelLearned = 101;
 					if (prevoLevelLearned == 999) {
-						prevoLevelLearned = `--`;
+						prevoLevelLearned = `n/a`;
 					} else {
 						if (prevoLevelLearned > levelLearned) prevoLevelLearned = levelLearned;
 					}
 					if (prevo2LevelLearned == 999) {
-						prevo2LevelLearned = `--`;
+						prevo2LevelLearned = `n/a`;
 					} else {
 						if (prevo2LevelLearned > levelLearned) prevo2LevelLearned = levelLearned;
 						if (prevo2LevelLearned > prevoLevelLearned) prevo2LevelLearned = prevoLevelLearned;
+					}
+					if (levelLearned == 101 && guaranteeShowLv1) {
+						levelLearned = 1;
+						moveName = `0` + moveName;
 					}
 					let moveName: string[] = [move.name];
 					if (genVTms.includes(moveid)) {
 						if (!genVLearnedTmAlready) poke.additionalTms.push(moveName); // make sure to identify TMs that need to be added manually
 						if (levelLearned === 101 && !postgameTms.includes(moveid)) continue; // skip level 0 moves if they're on the Gen V TM/tutor list
 					}
-					if (move.category && move.category === 'Status') moveName = `0` + moveName; // attacks should be the last move learned at a level so NPCs don't often get stuck with none
 					if (move.num && move.num > 559) moveName = moveName + `*`; // identify post-Gen V moves
 					if (learnset3) moveName = prevo2LevelLearned + ` - ` + moveName; // add prevo2 levels
 					if (learnset2) moveName = prevoLevelLearned + ` - ` + moveName; // add prevo levels
@@ -284,7 +288,7 @@ Other post-Gen V moves I probably *can* backport if it comes up
 						// reset move name
 						moveName = move.name;
 						if (move.num && move.num > 559) moveName = moveName + `*`; // but you still want this information attached
-						poke.learnsetCumulative.learnset[levelLearned].movesLearned.push(move.name);
+						poke.learnsetCumulative.learnset[levelLearned].movesLearned.push(moveName);
 					} else {
 						poke.learnsetCumulative.learnset[levelLearned].movesLearned.push(moveName);
 					}
