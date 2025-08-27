@@ -210,6 +210,7 @@ Other post-Gen V moves I probably *can* backport if it comes up
 							// include level-up and Egg moves from all Generations...
 							if (source.charAt(1) === 'L') {
 								learnedLvUp = true;
+								guaranteeShowLv1 = true;
 								if (parseInt(source.charAt(0)) < 8) {
 									if (source.substr(2) < prevoLevelLearned) prevoLevelLearned = source.substr(2);
 								}
@@ -241,6 +242,7 @@ Other post-Gen V moves I probably *can* backport if it comes up
 							// include level-up and Egg moves from all Generations...
 							if (source.charAt(1) === 'L') {
 								learnedLvUp = true;
+								guaranteeShowLv1 = true;
 								if (parseInt(source.charAt(0)) < 8) {
 									if (source.substr(2) < prevo2LevelLearned) prevo2LevelLearned = source.substr(2);
 								}
@@ -263,13 +265,13 @@ Other post-Gen V moves I probably *can* backport if it comes up
 					if (prevoLevelLearned == 999) {
 						prevoLevelLearned = `n/a`;
 					} else {
-						if (prevoLevelLearned > levelLearned) prevoLevelLearned = levelLearned;
+						if (prevoLevelLearned > levelLearned && levelLearned > 1) prevoLevelLearned = levelLearned;
 					}
 					if (prevo2LevelLearned == 999) {
 						prevo2LevelLearned = `n/a`;
 					} else {
-						if (prevo2LevelLearned > levelLearned) prevo2LevelLearned = levelLearned;
-						if (prevo2LevelLearned > prevoLevelLearned) prevo2LevelLearned = prevoLevelLearned;
+						if (prevo2LevelLearned > levelLearned && levelLearned > 1) prevo2LevelLearned = levelLearned;
+						if (prevo2LevelLearned > prevoLevelLearned && prevoLevelLearned > 1) prevo2LevelLearned = prevoLevelLearned;
 					}
 					if (levelLearned == 101 && guaranteeShowLv1) {
 						levelLearned = 1;
