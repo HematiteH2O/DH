@@ -1,5 +1,6 @@
 // pasting Kalos for convenience
 export const Scripts: ModdedBattleScriptsData = {
+/* Kalos currently
 	init() {
 		const postgameTms = [
 			'roar', 'lightscreen', 'smackdown', 'sludgewave', 'overheat', 'steelwing', 'skydrop', 'incinerate', 'quash', 'explosion', 'retaliate', 'voltswitch', 'dreameater',
@@ -200,14 +201,24 @@ export const Scripts: ModdedBattleScriptsData = {
 		}
 	},
 };
-
-/* export const Scripts: ModdedBattleScriptsData = {
+*/
+export const Scripts: ModdedBattleScriptsData = {
 	init() {
 		const postgameTms = [
-			'roar', 'lightscreen', 'smackdown', 'sludgewave', 'overheat', 'steelwing', 'skydrop', 'incinerate', 'quash', 'explosion', 'retaliate', 'voltswitch', 'dreameater',
-			'flashcannon', 'wildcharge',
-			// 'round', 'gigaimpact', 'swagger',
+			'safeguard', 'smackdown', 'brickbreak', 'pluck', 'sludgewave', 'allyswitch', 'incinerate', 'quash', 'explosion', 'swordsdance', 'psychup', 'frostbreath', 'uturn', 'trickroom',
+			'honeclaws', 'dragonclaw', 'calmmind', 'bulkup', 'telekinesis', 'solarbeam', 'earthquake', 'sludgebomb', 'flamecharge', 'lowsweep', 'overheat', 'focusblast', 'stoneedge',
+			'poisonjab', 'dreameater', 'grassknot', 'flashcannon',
+			// 'hiddenpower', 'protect', 'doubleteam', 'round', 'swagger', 'substitute',
 		];
+
+// TODO FIRST:
+// - shift each move to the lowest level it's ever learned pre-Gen VIII
+// - list tutors I wish were available earlier so I can add them to level-up manually
+// - list all (non-TM) Egg moves and post-Gen VIII Egg/level-up additions in sections at the end ("moves that can be assigned levels")
+// - list TMs that are learned now, but weren't already in Gen V, even though they were TMs
+// - go through move substitutions by type, but keep the old move listed in the same row just in case (ex. "Icy Wind -> Struggle Bug")
+// - add universal TMs and tutors by type
+// ** I want to increase my list to "moves that have been universal any time since Gen IV and are TMs/tutors in Gen V," not just the ones that were universal in Gen V
 
 		let printno = 0;
 		for (const id in this.dataCache.Pokedex) {
@@ -337,7 +348,6 @@ export const Scripts: ModdedBattleScriptsData = {
 		}
 	},
 };
-*/
 
 // this was a cool exercise but not what I'm doing this time
 /*
