@@ -131,7 +131,12 @@ Other post-Gen V moves I probably *can* backport if it comes up
 		for (const id in this.dataCache.Pokedex) {
 			const poke = this.dataCache.Pokedex[id];
 			if (!poke || poke.evos) continue;
+			if (poke.baseSpecies && (poke.baseSpecies === "Pikachu" || poke.baseSpecies === "Pichu" || poke.baseSpecies === "Eevee" || poke.baseSpecies === "Floette")) continue;
+			if (poke.forme && (poke.forme === "Totem" || poke.forme === "Alola-Totem")) continue;
 			if (poke.num && poke.num < 0) continue; // skip CAPs
+			let future = false; // determine if something is Gen VIII or later
+			if (poke.num && poke.num > 809) future = true;
+			if (poke.forme && (poke.forme === "Galar" || poke.baseSpecies === "Tauros")) future = true;
 
 			if (this.dataCache.Learnsets[id] && this.dataCache.Learnsets[id].learnset) {
 				printno++;
@@ -188,7 +193,7 @@ Other post-Gen V moves I probably *can* backport if it comes up
 							}
 							if (source.charAt(1) === 'L') {
 								learnedLvUp = true;
-								if (parseInt(source.charAt(0)) < 8) if (parseInt(source.substr(2)) < parseInt(levelLearned)) {
+								if (parseInt(source.charAt(0)) < 8 || future) if (parseInt(source.substr(2)) < parseInt(levelLearned)) {
 									if (parseInt(source.substr(2)) === 1) {
 										lv1 = true;
 									} else {
@@ -209,7 +214,7 @@ Other post-Gen V moves I probably *can* backport if it comes up
 						if (learnedLvUp && learnset2) {
 							let prevoLearned = false;
 							if (learnset2[moveid]) {
-								for (const source of learnset2[moveid]) if (source.charAt(1) === 'L' && parseInt(source.charAt(0)) < 8) {
+								for (const source of learnset2[moveid]) if (source.charAt(1) === 'L' && parseInt(source.charAt(0)) < 8 || future) {
 									if (poke.evoLevel && !(parseInt(source.substr(2)) > poke.evoLevel)) prevoLearned = true;
 									// covers for edge cases like Pidgeot learning Hurricane at level 1 and Pidgeotto learning it well after it evolves
 									// otherwise, Pidgeot gets it moved to level 1 *and* misses the later level, so we at least want it to be level 36
@@ -224,7 +229,7 @@ Other post-Gen V moves I probably *can* backport if it comes up
 							// include level-up and Egg moves from all Generations...
 							if (source.charAt(1) === 'L') {
 								learnedLvUp = true;
-								if (parseInt(source.charAt(0)) < 8) {
+								if (parseInt(source.charAt(0)) < 8 || future) {
 									guaranteeShowLv = true;
 									if (parseInt(source.substr(2)) < parseInt(prevoLevelLearned)) {
 										if (parseInt(source.substr(2)) === 1) {
@@ -250,7 +255,7 @@ Other post-Gen V moves I probably *can* backport if it comes up
 							let poke2 = this.dataCache.Pokedex[this.toID(poke.prevo)];
 							if (poke2.evoLevel) evoLevel = poke2.evoLevel;
 							if (learnset3[moveid]) {
-								for (const source of learnset3[moveid]) if (source.charAt(1) === 'L' && parseInt(source.charAt(0)) < 8) {
+								for (const source of learnset3[moveid]) if (source.charAt(1) === 'L' && parseInt(source.charAt(0)) < 8 || future) {
 									if (evoLevel && !(parseInt(source.substr(2)) > evoLevel)) prevoLearned = true;
 									// covers for edge cases like Pidgeot learning Hurricane at level 1 and Pidgey learning it well after it evolves
 									// otherwise, Pidgeot gets it moved to level 1 *and* misses the later level, so we at least want it to be level 36
@@ -266,7 +271,7 @@ Other post-Gen V moves I probably *can* backport if it comes up
 							// include level-up and Egg moves from all Generations...
 							if (source.charAt(1) === 'L') {
 								learnedLvUp = true;
-								if (parseInt(source.charAt(0)) < 8) {
+								if (parseInt(source.charAt(0)) < 8 || future) {
 									guaranteeShowLv = true;
 									if (parseInt(source.substr(2)) < parseInt(prevo2LevelLearned)) {
 										if (parseInt(source.substr(2)) === 1) {
