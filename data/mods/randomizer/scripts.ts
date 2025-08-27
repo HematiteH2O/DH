@@ -139,7 +139,7 @@ Other post-Gen V moves I probably *can* backport if it comes up
 							learnset: [],
 				};
 				poke.additionalTms = [];
-				for (let i = 1; i < 101; i++) {
+				for (let i = 1; i < 102; i++) {
 					poke.learnsetCumulative.learnset[i] = {
 						movesLearned: [],
 					}
