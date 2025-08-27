@@ -139,7 +139,7 @@ Other post-Gen V moves I probably *can* backport if it comes up
 							learnset: [],
 				};
 				poke.additionalTms = [];
-				for (let i = 0; i < 99; i++) {
+				for (let i = 1; i < 101; i++) {
 					poke.learnsetCumulative.learnset[i] = {
 						movesLearned: [],
 					}
@@ -197,12 +197,12 @@ Other post-Gen V moves I probably *can* backport if it comes up
 					// if (learnset2 && learnset2[moveid]) { // if it learns the move
 					// (copy the above when ready)
 					if (!learnedLvUp && ['grasspledge', 'firepledge', 'waterpledge', 'hydrocannon', 'frenzyplant', 'blastburn', 'dracometeor', 'gigaimpact'].includes(moveid)) continue;
-					if (learned && !learnedLvUp && !learnedTm && include) levelLearned = 0;
-					if (levelLearned == 999) levelLearned = 0;
+					if (learned && !learnedLvUp && !learnedTm && include) levelLearned = 101;
+					if (levelLearned == 999) levelLearned = 101;
 					let moveName: string[] = [move.name];
 					if (genVTms.includes(moveid)) {
 						if (!genVLearnedTmAlready) poke.additionalTms.push(moveName); // make sure to identify TMs that need to be added manually
-						if (levelLearned === 0 && !postgameTms.includes(moveid)) continue; // skip level 0 moves if they're on the Gen V TM/tutor list
+						if (levelLearned === 101 && !postgameTms.includes(moveid)) continue; // skip level 0 moves if they're on the Gen V TM/tutor list
 					}
 					if (move.category && move.category === 'Status') moveName = `0` + moveName; // attacks should be the last move learned at a level so NPCs don't often get stuck with none
 					if (move.num && move.num > 559) moveName = moveName + ` *`; // identify post-Gen V moves
@@ -219,16 +219,17 @@ Other post-Gen V moves I probably *can* backport if it comes up
 				for (const level in poke.learnsetCumulative.learnset) {
 					if (poke.learnsetCumulative.learnset[level].movesLearned.length) {
 						poke.learnsetCumulative.learnset[level].movesLearned.sort();
-						if (level === 0) continue;
-						for (const moveid of poke.learnsetCumulative.learnset[level].movesLearned) {
-							sheetOutput += `\n` + level + ` - ` + moveid;
+						if (parseInt(level) === 101) {
+							sheetOutput += `\n~ Additional moves`
+							for (const moveid of poke.learnsetCumulative.learnset[level].movesLearned) {
+								sheetOutput += `\n` + moveid;
+							}
+						} else {
+							for (const moveid of poke.learnsetCumulative.learnset[level].movesLearned) {
+								sheetOutput += `\n` + level + ` - ` + moveid;
+							}
 						}
 					}
-				}
-				// bonus moves: to assign a level
-				if (poke.learnsetCumulative.learnset.0.movesLearned.length) {
-					sheetOutput += `\n~ Additional moves`
-					for (const moveid of poke.learnsetCumulative.learnset.0.movesLearned) sheetOutput += `\n0 - ` + moveid;
 				}
 				if (poke.additionalTms.length) {
 					poke.additionalTms.sort();
