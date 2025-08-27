@@ -193,10 +193,57 @@ Other post-Gen V moves I probably *can* backport if it comes up
 							}
 						}
 						// evolution-only moves should be moved to the level of evolution
-						if (learnedLvUp) if (learnset2 && !learnset2[moveid] && poke.evoLevel && poke.evoLevel > levelLearned) levelLearned = poke.evoLevel;
+						if (learnedLvUp && learnset2) {
+							let prevoLearned = false;
+							if (learnset2[moveid]) {
+								for (const source of learnset2[moveid]) if (source.charAt(1) === 'L') prevoLearned = true;
+							}
+							if (prevoLearned === false && poke.evoLevel && poke.evoLevel > levelLearned) levelLearned = poke.evoLevel;
+						}
+					}
+					if (learnset2 && learnset2[moveid]) { // if it learns the move
+						learned = true;
+						for (const source of learnset2[moveid]) {
+							// include level-up and Egg moves from all Generations...
+							if (parseInt(source.charAt(0)) === 5 && (source.charAt(1) === 'T' || source.charAt(1) === 'M')) {
+								genVLearnedTmAlready = true;
+							}
+							if (source.charAt(1) === 'L') {
+								learnedLvUp = true;
+								if (parseInt(source.charAt(0)) < 8) if (source.substr(2) < levelLearned) levelLearned = source.substr(2);
+								// (but ignore levels for Gen VIII and on)
+								include = true;
+							}
+							if (source.charAt(1) === 'E') include = true;
+							// ... and then TM and tutor moves only if they were accessible TMs and tutors in Gen V, specifically
+							if (genVTms.includes(moveid)) {
+								include = true; // so I know if they're to be included at all
+								if (!postgameTms.includes(moveid)) learnedTm = true; // so I know if they need to be in level-up anyway
+							}
+						}
+					}
+					if (learnset3 && learnset3[moveid]) { // if it learns the move
+						learned = true;
+						for (const source of learnset3[moveid]) {
+							// include level-up and Egg moves from all Generations...
+							if (parseInt(source.charAt(0)) === 5 && (source.charAt(1) === 'T' || source.charAt(1) === 'M')) {
+								genVLearnedTmAlready = true;
+							}
+							if (source.charAt(1) === 'L') {
+								learnedLvUp = true;
+								if (parseInt(source.charAt(0)) < 8) if (source.substr(2) < levelLearned) levelLearned = source.substr(2);
+								// (but ignore levels for Gen VIII and on)
+								include = true;
+							}
+							if (source.charAt(1) === 'E') include = true;
+							// ... and then TM and tutor moves only if they were accessible TMs and tutors in Gen V, specifically
+							if (genVTms.includes(moveid)) {
+								include = true; // so I know if they're to be included at all
+								if (!postgameTms.includes(moveid)) learnedTm = true; // so I know if they need to be in level-up anyway
+							}
+						}
 					}
 					if (!learned || !include) continue;
-					// if (learnset2 && learnset2[moveid]) { // if it learns the move
 					// (copy the above when ready)
 					if (!learnedLvUp && ['grasspledge', 'firepledge', 'waterpledge', 'hydrocannon', 'frenzyplant', 'blastburn', 'dracometeor', 'gigaimpact'].includes(moveid)) continue;
 					if (learned && !learnedLvUp && !learnedTm) levelLearned = 101;
