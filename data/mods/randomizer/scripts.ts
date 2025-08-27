@@ -176,6 +176,9 @@ Other post-Gen V moves I probably *can* backport if it comes up
 					let prevo2LevelLearned = 999;
 					let genVLearnedTmAlready = false;
 					let guaranteeShowLv = false;
+					let lv1 = false;
+					let prevoLv1 = false;
+					let prevo2lv1 = false;
 					if (learnset[moveid]) { // if it learns the move
 						learned = true;
 						for (const source of learnset[moveid]) {
@@ -185,7 +188,13 @@ Other post-Gen V moves I probably *can* backport if it comes up
 							}
 							if (source.charAt(1) === 'L') {
 								learnedLvUp = true;
-								if (parseInt(source.charAt(0)) < 8) if (parseInt(source.substr(2)) < parseInt(levelLearned)) levelLearned = source.substr(2);
+								if (parseInt(source.charAt(0)) < 8) if (parseInt(source.substr(2)) < parseInt(levelLearned)) {
+									if (parseInt(source.substr(2)) === 1) {
+										lv1 = true;
+									} else {
+										levelLearned = source.substr(2);
+									}
+								}
 								// (but ignore levels for Gen VIII and on)
 								include = true;
 							}
@@ -217,7 +226,13 @@ Other post-Gen V moves I probably *can* backport if it comes up
 								learnedLvUp = true;
 								if (parseInt(source.charAt(0)) < 8) {
 									guaranteeShowLv = true;
-									if (parseInt(source.substr(2)) < parseInt(prevoLevelLearned)) prevoLevelLearned = source.substr(2);
+									if (parseInt(source.substr(2)) < parseInt(prevoLevelLearned) {
+										if (parseInt(source.substr(2)) === 1) {
+											prevoLv1 = true;
+										} else {
+											prevoLevelLearned = source.substr(2);
+										}
+									}
 								}
 								// (but ignore levels for Gen VIII and on)
 								include = true;
@@ -253,7 +268,13 @@ Other post-Gen V moves I probably *can* backport if it comes up
 								learnedLvUp = true;
 								if (parseInt(source.charAt(0)) < 8) {
 									guaranteeShowLv = true;
-									if (parseInt(source.substr(2)) < parseInt(prevo2LevelLearned)) prevo2LevelLearned = source.substr(2);
+									if (parseInt(source.substr(2)) < parseInt(prevo2LevelLearned)) {
+										if (parseInt(source.substr(2)) === 1) {
+											prevo2lv1 = true;
+										} else {
+											levelLearned = source.substr(2);
+										}
+									}
 								}
 								// (but ignore levels for Gen VIII and on)
 								include = true;
@@ -271,17 +292,20 @@ Other post-Gen V moves I probably *can* backport if it comes up
 					if (!learnedLvUp && ['grasspledge', 'firepledge', 'waterpledge', 'hydrocannon', 'frenzyplant', 'blastburn', 'dracometeor', 'gigaimpact'].includes(moveid)) continue;
 					if (learned && !learnedLvUp && !learnedTm) levelLearned = 101;
 					if (levelLearned == 999) levelLearned = 101;
+					if (lv1 || prevoLv1 || prevo2lv1) levelLearned = 1;
 					if (prevoLevelLearned == 999) {
 						if (guaranteeShowLv && prevo2LevelLearned && prevo2LevelLearned !== 999) {
 							prevoLevelLearned = prevo2LevelLearned;
 						} else {
 							prevoLevelLearned = `n/a`;
+							if (prevoLv1 || prevo2lv1) prevoLevelLearned = 1;
 						}
 					} else {
 						if (prevoLevelLearned > levelLearned && levelLearned > 1) prevoLevelLearned = levelLearned;
 					}
 					if (prevo2LevelLearned == 999) {
 						prevo2LevelLearned = `n/a`;
+						if (prevo2lv1) prevo2LevelLearned = 1;
 					} else {
 						if (prevo2LevelLearned > levelLearned && levelLearned > 1) prevo2LevelLearned = levelLearned;
 						if (prevo2LevelLearned > prevoLevelLearned && prevoLevelLearned > 1) prevo2LevelLearned = prevoLevelLearned;
