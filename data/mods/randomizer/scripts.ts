@@ -199,7 +199,11 @@ Other post-Gen V moves I probably *can* backport if it comes up
 						if (learnedLvUp && learnset2) {
 							let prevoLearned = false;
 							if (learnset2[moveid]) {
-								for (const source of learnset2[moveid]) if (source.charAt(1) === 'L' && parseInt(source.charAt(0)) < 8) prevoLearned = true;
+								for (const source of learnset2[moveid]) if (source.charAt(1) === 'L' && parseInt(source.charAt(0)) < 8) {
+									if (poke.evoLevel && !(source.substr(2) > poke.evoLevel)) prevoLearned = true;
+									// covers for edge cases like Pidgeot learning Hurricane at level 1 and Pidgeotto learning it well after it evolves
+									// otherwise, Pidgeot gets it moved to level 1 *and* misses the later level, so we at least want it to be level 36
+								}
 							}
 							if (prevoLearned === false && poke.evoLevel && poke.evoLevel > levelLearned) levelLearned = poke.evoLevel;
 						}
@@ -230,7 +234,11 @@ Other post-Gen V moves I probably *can* backport if it comes up
 							let poke2 = this.dataCache.Pokedex[this.toID(poke.prevo)];
 							if (poke2.evoLevel) evoLevel = poke2.evoLevel;
 							if (learnset3[moveid]) {
-								for (const source of learnset3[moveid]) if (source.charAt(1) === 'L' && parseInt(source.charAt(0)) < 8) prevoLearned = true;
+								for (const source of learnset3[moveid]) if (source.charAt(1) === 'L' && parseInt(source.charAt(0)) < 8) {
+									if (evoLevel && !(source.substr(2) > evoLevel)) prevoLearned = true;
+									// covers for edge cases like Pidgeot learning Hurricane at level 1 and Pidgey learning it well after it evolves
+									// otherwise, Pidgeot gets it moved to level 1 *and* misses the later level, so we at least want it to be level 36
+								}
 							}
 							if (prevoLearned === false && evoLevel && evoLevel > levelLearned) levelLearned = evoLevel;
 							if (prevoLearned === false && evoLevel && evoLevel > prevoLevelLearned) prevoLevelLearned = evoLevel;
@@ -273,11 +281,11 @@ Other post-Gen V moves I probably *can* backport if it comes up
 						if (prevo2LevelLearned > levelLearned && levelLearned > 1) prevo2LevelLearned = levelLearned;
 						if (prevo2LevelLearned > prevoLevelLearned && prevoLevelLearned > 1) prevo2LevelLearned = prevoLevelLearned;
 					}
+					let moveName: string[] = [move.name];
 					if (levelLearned == 101 && guaranteeShowLv1) {
 						levelLearned = 1;
 						moveName = `0` + moveName;
 					}
-					let moveName: string[] = [move.name];
 					if (genVTms.includes(moveid)) {
 						if (!genVLearnedTmAlready) poke.additionalTms.push(moveName); // make sure to identify TMs that need to be added manually
 						if (levelLearned === 101 && !postgameTms.includes(moveid)) continue; // skip level 0 moves if they're on the Gen V TM/tutor list
