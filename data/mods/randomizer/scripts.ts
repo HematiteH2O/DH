@@ -1,5 +1,36 @@
 const universal = ['doubleteam', 'facade', 'frustration', 'gigaimpact', 'hiddenpower', 'hyperbeam', 'protect', 'raindance', 'rest', 'return', 'round', 'sleeptalk', 'snore', 'substitute', 'sunnyday', 'swagger', 'toxic'];
+
 const universalFire = ['fireblast', 'flamecharge', 'flamethrower', 'heatwave', 'overheat', 'reflect', 'rocksmash', 'solarbeam', 'willowisp'];
+const universalWater = ['blizzard', 'dive', 'hail', 'icebeam', 'icywind', 'scald', 'surf', 'chillingwater'];
+const universalElectric = ['chargebeam', 'flash', 'lightscreen', 'reflect', 'signalbeam', 'thunder', 'thunderwave', 'thunderbolt', 'voltswitch', 'wildcharge', 'discharge', 'eerieimpulse'];
+const universalGrass = ['energyball', 'flash', 'gigadrain', 'grassknot', 'reflect', 'seedbomb', 'sludgebomb', 'solarbeam', 'synthesis', 'worryseed', 'bulletseed', 'poisonpowder', 'sleeppowder', 'stunspore', 'trailblaze'];
+const universalIce = ['blizzard', 'hail', 'icebeam', 'icywind', 'reflect', 'signalbeam'];
+const universalFighting = ['brickbreak', 'bulkup', 'earthquake', 'focusblast', 'helpinghand', 'poisonjab', 'retaliate', 'rockslide', 'rocksmash', 'rocktomb', 'stoneedge', 'strength', 'workup', 'coaching'];
+const universalPoison = ['gunkshot', 'sludgebomb', 'toxic', 'venoshock', 'acidspray'];
+const universalGround = ['bulldoze', 'dig', 'earthpower', 'earthquake', 'rockslide', 'rocksmash', 'rocktomb', 'sandstorm', 'stealthrock', 'stoneedge', 'strength'];
+const universalFlying = ['aerialace', 'fly', 'reflect', 'roost', 'tailwind'];
+const universalPsychic = ['calmmind', 'dreameater', 'flash', 'helpinghand', 'lightscreen', 'magiccoat', 'psychup', 'psychic', 'psyshock', 'reflect', 'shadowball', 'signalbeam', 'skillswap', 'telekinesis', 'trick', 'trickroom', 'zenheadbutt', 'teleport'];
+const universalBug = ['bugbite', 'roost', 'strugglebug', 'uturn', 'xscissor', 'pounce'];
+const universalRock = ['brickbreak', 'bulldoze', 'earthpower', 'earthquake', 'irondefense', 'rockpolish', 'rockslide', 'rocksmash', 'rocktomb', 'sandstorm', 'smackdown', 'stealthrock', 'stoneedge'];
+const universalGhost = ['shadowball', 'spite', 'hex'];
+const universalDragon = ['dracometeor', 'dragonclaw', 'dragonpulse', 'dragontail', 'honeclaws', 'outrage', 'rocksmash', 'strength'];
+const universalDark = ['darkpulse', 'payback', 'retaliate', 'snarl', 'spite', 'taunt', 'thief', 'torment'];
+const universalSteel = ['flashcannon', 'irondefense', 'ironhead', 'rocksmash', 'steelbeam'];
+const universalNormal = ['helpinghand', 'retaliate', 'workup'];
+
+const universalMonsterGroup = ['blizzard', 'bulldoze', 'earthquake', 'icebeam', 'irontail', 'outrage', 'rocksmash', 'strength'];
+const universalHumanlikeGroup = ['brickbreak', 'firepunch', 'fling', 'focusblast', 'helpinghand', 'icepunch', 'taunt', 'thunderpunch', 'focuspunch', 'poweruppunch'];
+const universalWater1Group = ['blizzard', 'dive', 'hail', 'icebeam', 'icywind', 'scald', 'surf', 'waterfall', 'chillingwater'];
+const universalWater3Group = ['blizzard', 'helpinghand', 'icebeam', 'reflect', 'rockslide', 'scald', 'surf', 'chillingwater'];
+const universalBugGroup = ['bugbite', 'roost', 'strugglebug', 'uturn', 'xscissor', 'pounce'];
+const universalFlyingGroup = ['aerialace', 'fly', 'heatwave', 'pluck', 'roost', 'skyattack', 'tailwind', 'uturn', 'aircutter', 'hurricane', 'quickattack'];
+const universalAmorphousGroup = ['darkpulse', 'flash', 'painsplit', 'shadowball', 'sludgebomb', 'taunt', 'hex'];
+const universalFieldGroup = ['dig', 'irontail'];
+const universalWater2Group = ['blizzard', 'bounce', 'dive', 'hail', 'icebeam', 'icywind', 'scald', 'surf', 'waterfall', 'chillingwater'];
+const universalFairyGroup = ['brickbreak', 'calmmind', 'dig', 'flash', 'helpinghand', 'irontail', 'lightscreen', 'psychic', 'reflect', 'thunderwave', 'growl', 'teleport'];
+const universalGrassGroup = ['bulletseed', 'energyball', 'flash', 'gigadrain', 'grassknot', 'reflect', 'seedbomb', 'sludgebomb', 'solarbeam', 'swordsdance', 'synthesis', 'worryseed', 'growth', 'leechseed', 'poisonpowder', 'sleeppowder', 'stunspore', 'trailblaze'];
+const universalDragonGroup = ['bulldoze', 'dragonpulse', 'dragontail', 'earthquake', 'irontail', 'outrage', 'rocksmash', 'strength', 'breakingswipe', 'leer'];
+
 /*
 // UNIVERSAL MOVES
 
@@ -434,7 +465,38 @@ export const Scripts: ModdedBattleScriptsData = {
 					let forceLearn = false;
 					if ((!(poke.gender && poke.gender === "N")) && moveid === 'attract') forceLearn = true;
 					if (universal.includes(moveid)) forceLearn = true;
+					// types
 					if ((poke.chosenType.type1 === 'Fire' || poke.chosenType.type2 === 'Fire') && universalFire.includes(moveid)) forceLearn = true;
+					if ((poke.chosenType.type1 === 'Water' || poke.chosenType.type2 === 'Water') && universalWater.includes(moveid)) forceLearn = true;
+					if ((poke.chosenType.type1 === 'Electric' || poke.chosenType.type2 === 'Electric') && universalElectric.includes(moveid)) forceLearn = true;
+					if ((poke.chosenType.type1 === 'Grass' || poke.chosenType.type2 === 'Grass') && universalGrass.includes(moveid)) forceLearn = true;
+					if ((poke.chosenType.type1 === 'Ice' || poke.chosenType.type2 === 'Ice') && universalIce.includes(moveid)) forceLearn = true;
+					if ((poke.chosenType.type1 === 'Fighting' || poke.chosenType.type2 === 'Fighting') && universalFighting.includes(moveid)) forceLearn = true;
+					if ((poke.chosenType.type1 === 'Poison' || poke.chosenType.type2 === 'Poison') && universalPoison.includes(moveid)) forceLearn = true;
+					if ((poke.chosenType.type1 === 'Ground' || poke.chosenType.type2 === 'Ground') && universalGround.includes(moveid)) forceLearn = true;
+					if ((poke.chosenType.type1 === 'Flying' || poke.chosenType.type2 === 'Flying') && universalFlying.includes(moveid)) forceLearn = true;
+					if ((poke.chosenType.type1 === 'Psychic' || poke.chosenType.type2 === 'Psychic') && universalPsychic.includes(moveid)) forceLearn = true;
+					if ((poke.chosenType.type1 === 'Bug' || poke.chosenType.type2 === 'Bug') && universalBug.includes(moveid)) forceLearn = true;
+					if ((poke.chosenType.type1 === 'Rock' || poke.chosenType.type2 === 'Rock') && universalRock.includes(moveid)) forceLearn = true;
+					if ((poke.chosenType.type1 === 'Ghost' || poke.chosenType.type2 === 'Ghost') && universalGhost.includes(moveid)) forceLearn = true;
+					if ((poke.chosenType.type1 === 'Dragon' || poke.chosenType.type2 === 'Dragon') && universalDragon.includes(moveid)) forceLearn = true;
+					if ((poke.chosenType.type1 === 'Dark' || poke.chosenType.type2 === 'Dark') && universalDark.includes(moveid)) forceLearn = true;
+					if ((poke.chosenType.type1 === 'Steel' || poke.chosenType.type2 === 'Steel') && universalSteel.includes(moveid)) forceLearn = true;
+					if ((poke.chosenType.type1 === 'Normal' || poke.chosenType.type2 === 'Normal') && universalNormal.includes(moveid)) forceLearn = true;
+					// Egg groups
+					if ((poke.eggGroups[0] === 'Monster' || (poke.eggGroups[1] && poke.eggGroups[1] === 'Monster')) && universalMonsterGroup.includes(moveid)) forceLearn = true;
+					if ((poke.eggGroups[0] === 'Human-Like' || (poke.eggGroups[1] && poke.eggGroups[1] === 'Human-Like')) && universalHumanlikeGroup.includes(moveid)) forceLearn = true;
+					if ((poke.eggGroups[0] === 'Water 1' || (poke.eggGroups[1] && poke.eggGroups[1] === 'Water 1')) && universalWater1Group.includes(moveid)) forceLearn = true;
+					if ((poke.eggGroups[0] === 'Water 3' || (poke.eggGroups[1] && poke.eggGroups[1] === 'Water 3')) && universalWater3Group.includes(moveid)) forceLearn = true;
+					if ((poke.eggGroups[0] === 'Bug' || (poke.eggGroups[1] && poke.eggGroups[1] === 'Bug')) && universalBugGroup.includes(moveid)) forceLearn = true;
+					if ((poke.eggGroups[0] === 'Flying' || (poke.eggGroups[1] && poke.eggGroups[1] === 'Flying')) && universalFlyingGroup.includes(moveid)) forceLearn = true;
+					if ((poke.eggGroups[0] === 'Amorphous' || (poke.eggGroups[1] && poke.eggGroups[1] === 'Amorphous')) && universalAmorphousGroup.includes(moveid)) forceLearn = true;
+					if ((poke.eggGroups[0] === 'Field' || (poke.eggGroups[1] && poke.eggGroups[1] === 'Field')) && universalFieldGroup.includes(moveid)) forceLearn = true;
+					if ((poke.eggGroups[0] === 'Water 2' || (poke.eggGroups[1] && poke.eggGroups[1] === 'Water 2')) && universalWater2Group.includes(moveid)) forceLearn = true;
+					if ((poke.eggGroups[0] === 'Fairy' || (poke.eggGroups[1] && poke.eggGroups[1] === 'Fairy')) && universalFairyGroup.includes(moveid)) forceLearn = true;
+					if ((poke.eggGroups[0] === 'Grass' || (poke.eggGroups[1] && poke.eggGroups[1] === 'Grass')) && universalGrassGroup.includes(moveid)) forceLearn = true;
+					if ((poke.eggGroups[0] === 'Dragon' || (poke.eggGroups[1] && poke.eggGroups[1] === 'Dragon')) && universalDragonGroup.includes(moveid)) forceLearn = true;
+					// (only some Egg groups have universal moves)
 
 					if (learnset[moveid]) { // if it learns the move
 						learned = true;
@@ -618,7 +680,7 @@ export const Scripts: ModdedBattleScriptsData = {
 				if (!poke || !poke.learnsetCumulative.learnset) return;
 				// finalize sheetOutput now.........
 				let sheetOutput: string[] = [
-					`\n\n` + (poke.evoLevel ? (poke.name + ` // ` + poke.evoLevel) : poke.name) + `\n`
+					`\n\n` + (poke.evoLevel ? (poke.name + ` // ` + poke.evoLevel) : poke.name) + ` // ` + poke.chosenType.type1 + (poke.chosenType.type2 === poke.chosenType.type1 ? `\n` : ` / `+ poke.chosenType.type2 + `\n`)
 				];
 				// TODO: other randomizer features (types, Abilities, stats)
 				for (const level in poke.learnsetCumulative.learnset) {
