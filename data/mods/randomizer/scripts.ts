@@ -207,8 +207,10 @@ Other post-Gen V moves I probably *can* backport if it comes up
 					}
 				}
 			}
-			if (poke.otherFormes) {
-				for (const form of poke.otherFormes) {
+			if (poke.otherFormes || poke.baseSpecies) {
+				let pokeCheck = poke;
+				if (poke.baseSpecies) pokeCheck = this.dataCache.Pokedex[this.toID(poke.baseSpecies)];
+				for (const form of pokeCheck.otherFormes) {
 					const poke4 = this.dataCache.Pokedex[this.toID(form)];
 					if (poke4.types) {
 						for (const type of poke4.types) {
