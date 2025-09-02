@@ -1,8 +1,8 @@
 // pasting Kalos for convenience
 export const Scripts: ModdedBattleScriptsData = {
 	init() {
-		const hms = [
-			'cut', 'surf', 'fly', 'strength', 'waterfall', 'dive', 'flash', 'dig',
+		const hms = [ // excludes Dig and Flash because those do require manual input
+			'cut', 'surf', 'fly', 'strength', 'waterfall', 'dive',
 		];
 		const genVTms = [
 			// TMs
@@ -331,8 +331,8 @@ export const Scripts: ModdedBattleScriptsData = {
 				const universalFire = ['fireblast', 'flamecharge', 'flamethrower', 'heatwave', 'overheat', 'reflect', 'rocksmash', 'solarbeam', 'willowisp'];
 
 				if (!(poke.gender && poke.gender === "N")) universalMoves.push('attract');
-				for (const moveid in universal) universalMoves.push(moveid);
-				if (poke.chosenType.type1 === 'Fire' || poke.chosenType.type2 === 'Fire') for (const moveid in universalFire) universalMoves.push(moveid);
+				for (const moveid of universal) universalMoves.push(moveid);
+				if (poke.chosenType.type1 === 'Fire' || poke.chosenType.type2 === 'Fire') for (const moveid of universalFire) universalMoves.push(moveid);
 
 /*
 // UNIVERSAL MOVES
@@ -547,10 +547,8 @@ Other post-Gen V moves I probably *can* backport if it comes up
 					}
 					if (universalMoves.includes(moveid)) {
 						learned = true;
-						if (genVTms.includes(moveid)) {
-							include = true; // so I know if they're to be included at all
-							if (!postgameTms.includes(moveid)) learnedTm = true; // so I know if they need to be in level-up anyway
-						}
+						include = true;
+						if (genVTms.includes(moveid) && !postgameTms.includes(moveid)) learnedTm = true;
 					}
 					if (!learned || !include) continue;
 					// (copy the above when ready)
