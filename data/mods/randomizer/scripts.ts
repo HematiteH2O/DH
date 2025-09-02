@@ -218,7 +218,7 @@ Other post-Gen V moves I probably *can* backport if it comes up
 				if (type === "Fairy") continue;
 				validTypes3.push(type);
 			}
-			if (validTypes.length) {
+			if (validTypes3.length) {
 				let random3 = Math.floor(Math.random() * validTypes3.length);
 				chosenTypes.push(validTypes3[random3]);
 			}
