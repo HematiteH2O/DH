@@ -334,7 +334,7 @@ Other post-Gen V moves I probably *can* backport if it comes up
 						if (lv1 && !prevoLv1 && !prevo2lv1 && poke.evoLevel) levelLearned = poke.evoLevel;
 					}
 					if (genVTms.includes(moveid)) {
-						if (!genVLearnedTmAlready) poke.additionalTms.push(move.tmid ? move.tmid : move.name); // make sure to identify TMs that need to be added manually
+						if (!genVLearnedTmAlready) poke.additionalTms.push(move.tmid ? move.tmid : `x ` + move.name); // make sure to identify TMs that need to be added manually
 						if (levelLearned === 101 && !postgameTms.includes(moveid)) continue; // skip level 0 moves if they're on the Gen V TM/tutor list
 					}
 					if (move.num && move.num > 559) moveName = moveName + `*`; // identify post-Gen V moves
