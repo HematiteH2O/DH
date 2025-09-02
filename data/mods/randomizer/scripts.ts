@@ -267,17 +267,17 @@ Other post-Gen V moves I probably *can* backport if it comes up
 						if (chosenCombinations[combo][type1] === type2 && chosenCombinations[combo][type2] === type1) continue;
 					}
 
-					// score for defensive matchups
-					let defScore = 0;
+					let score = 0;
+					// defensive:
+					// +1 for non-neutral defensive matchups
+					// +2 for double-weaknesses or immunities
+					// +3 if one type has an immunity and the other has a weakness
 
-					// score for offensive matchups
-					let offScore = 0;
+					// offensive:
+					// +1 if one type is resisted and the other is SE
+					// +3 if both types are resisted but one of the base types is SE
 
 					// Ability checks
-
-					// between offScore and defScore, whichever is higher is more valued, I guess?
-					let score = defScore;
-					if (offScore > score) score = offScore;
 
 					// reset all existing combinations if a higher-scoring one comes along
 					if (score > topScore) {
@@ -298,7 +298,16 @@ Other post-Gen V moves I probably *can* backport if it comes up
 
 			let randomType = Math.floor(Math.random() * chosenCombinations.length);
 			poke.chosenType = chosenCombinations[randomType];
-			console.log(poke.name + ` samples: ` + chosenCombinations[0][type1] + chosenCombinations[0][type2] + `; ` + chosenCombinations[1][type1] + chosenCombinations[1][type2] + `; ` + chosenCombinations[2][type1] + chosenCombinations[2][type2] + `; ` + chosenCombinations[3][type1] + chosenCombinations[3][type2] + `; chose `+ poke.chosenType[type1] + poke.chosenType[type2]); // just samples
+
+			// console.logging
+			let samples: string[] = [poke.name + ` samples: `];
+			if (chosenCombinations[0]) samples += chosenCombinations[0][type1] + `/` + chosenCombinations[0][type2] + `, `;
+			if (chosenCombinations[1]) samples += chosenCombinations[1][type1] + `/` + chosenCombinations[1][type2] + `, `;
+			if (chosenCombinations[2]) samples += chosenCombinations[2][type1] + `/` + chosenCombinations[2][type2] + `, `;
+			if (chosenCombinations[3]) samples += chosenCombinations[3][type1] + `/` + chosenCombinations[3][type2] + `, `;
+			if (chosenCombinations[4]) samples += chosenCombinations[4][type1] + `/` + chosenCombinations[4][type2] + `, `;
+			if (poke.chosenType) samples += `chosen: ` + poke.chosenType[type1] + `/` + poke.chosenType[type2];
+			console.log(samples);
 
 			// RANDOM MOVES
 			// todo:
