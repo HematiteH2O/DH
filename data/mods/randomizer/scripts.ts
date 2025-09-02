@@ -236,19 +236,21 @@ Other post-Gen V moves I probably *can* backport if it comes up
 					if (type1 === poke.types[0] && ((poke.types[1] && type2 === poke.types[1]) || (!poke.types[1] && type2 === type1))) continue;
 					if (type2 === poke.types[0] && ((poke.types[1] && type1 === poke.types[1]) || (!poke.types[1] && type2 === type1))) continue;
 
-					// and exact types already taken by other forms/variants
+					// reject exact types already taken by other forms/variants
 					if (poke.otherFormes) {
+						let formContinue = false;
 						for (const form of poke.otherFormes) {
 							const poke4 = this.dataCache.Pokedex[this.toID(form)];
 							if (poke4.types) {
-								if (type1 === poke4.types[0] && ((poke4.types[1] && type2 === poke4.types[1]) || (!poke4.types[1] && type2 === type1))) continue;
-								if (type2 === poke4.types[0] && ((poke4.types[1] && type1 === poke4.types[1]) || (!poke4.types[1] && type2 === type1))) continue;
+								if (type1 === poke4.types[0] && ((poke4.types[1] && type2 === poke4.types[1]) || (!poke4.types[1] && type2 === type1))) formContinue = true;
+								if (type2 === poke4.types[0] && ((poke4.types[1] && type1 === poke4.types[1]) || (!poke4.types[1] && type2 === type1))) formContinue = true;
 							}
 						}
+						if (formContinue) continue;
 					}
 
 					// skip identical combinations for now
-					for (const combo in chosenCombinations) if (chosenCombinations[combo] === [type2, type1]) continue;
+					for (const combo of chosenCombinations) if (combo === [type2, type1]) continue;
 
 					// score for defensive matchups
 					let defScore = 0;
@@ -273,8 +275,10 @@ Other post-Gen V moves I probably *can* backport if it comes up
 					loopCount++;
 				}
 			}
-			console.log(chosenCombinations[0] + chosenCombinations[1] + chosenCombinations[2]); // just samples
 
+			let randomType = Math.floor(Math.random() * chosenCombinations.length);
+			poke.chosenType = chosenCombinations[randomType];
+			console.log(chosenCombinations + `; chose `+ poke.chosenType); // just samples
 
 			// RANDOM MOVES
 			// todo:
