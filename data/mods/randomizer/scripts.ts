@@ -155,7 +155,7 @@ Other post-Gen V moves I probably *can* backport if it comes up
 			// - pick at random from the highest-scoring combinations
 			const chosenTypes: string[] = [];
 			if (poke.types) {
-				for (const type in poke.types) {
+				for (const type of poke.types) {
 					if (type === "Fairy") continue;
 					chosenTypes.push(this.dataCache.TypeChart[type]);
 				}
