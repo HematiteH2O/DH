@@ -173,7 +173,7 @@ Other post-Gen V moves I probably *can* backport if it comes up
 				chosenTypes.push(validTypes[random1]);
 				if (chosenTypes.length < 3) chosenTypes.push(validTypes[random2]);
 			}
-			console.log(validTypes[0] + validTypes[1] + validTypes[2]);
+			console.log(chosenTypes[0] + chosenTypes[1] + chosenTypes[2]);
 
 			// RANDOM MOVES
 			// todo:
