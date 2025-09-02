@@ -301,12 +301,12 @@ Other post-Gen V moves I probably *can* backport if it comes up
 
 			// console.logging
 			let samples: string[] = [poke.name + ` samples: `];
-			if (chosenCombinations[0]) samples += chosenCombinations[0].type1 + (chosenCombinations[0].type2 !== chosenCombinations[0].type1 ? `/` + chosenCombinations[0].type2) + `, `;
-			if (chosenCombinations[1]) samples += chosenCombinations[1].type1 + (chosenCombinations[1].type2 !== chosenCombinations[1].type1 ? `/` + chosenCombinations[1].type2) + `, `;
-			if (chosenCombinations[2]) samples += chosenCombinations[2].type1 + (chosenCombinations[2].type2 !== chosenCombinations[2].type1 ? `/` + chosenCombinations[2].type2) + `, `;
-			if (chosenCombinations[3]) samples += chosenCombinations[3].type1 + (chosenCombinations[3].type2 !== chosenCombinations[3].type1 ? `/` + chosenCombinations[3].type2) + `, `;
-			if (chosenCombinations[4]) samples += chosenCombinations[4].type1 + (chosenCombinations[4].type2 !== chosenCombinations[4].type1 ? `/` + chosenCombinations[4].type2) + `, `;
-			if (poke.chosenType) samples += `chosen: ` + poke.chosenType.type1 + (poke.chosenType.type2 !== poke.chosenType.type1 ? `/` + poke.chosenType.type2);
+			if (chosenCombinations[0]) samples += chosenCombinations[0].type1 + ((chosenCombinations[0].type2 !== chosenCombinations[0].type1) ? `/` + chosenCombinations[0].type2 + `, ` : `, `);
+			if (chosenCombinations[1]) samples += chosenCombinations[1].type1 + ((chosenCombinations[1].type2 !== chosenCombinations[1].type1) ? `/` + chosenCombinations[1].type2 + `, ` : `, `);
+			if (chosenCombinations[2]) samples += chosenCombinations[2].type1 + ((chosenCombinations[2].type2 !== chosenCombinations[2].type1) ? `/` + chosenCombinations[2].type2 + `, ` : `, `);
+			if (chosenCombinations[3]) samples += chosenCombinations[3].type1 + ((chosenCombinations[3].type2 !== chosenCombinations[3].type1) ? `/` + chosenCombinations[3].type2 + `, ` : `, `);
+			if (chosenCombinations[4]) samples += chosenCombinations[4].type1 + ((chosenCombinations[4].type2 !== chosenCombinations[4].type1) ? `/` + chosenCombinations[4].type2 + `, ` : `, `);
+			if (poke.chosenType) samples += `chosen: ` + poke.chosenType.type1 + ((poke.chosenType.type2 !== poke.chosenType.type1) ? `/` + poke.chosenType.type2 : ` `);
 			console.log(samples);
 
 			// RANDOM MOVES
