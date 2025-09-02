@@ -155,6 +155,7 @@ Other post-Gen V moves I probably *can* backport if it comes up
 			if (poke.types) {
 				for (const type of poke.types) {
 					if (type === "Fairy") continue;
+					if (poke.types === ["Normal", "Flying"] && type === "Normal") continue; // Normal/Flying-types should ignore Normal unless they randomize it
 					chosenTypes.push(type);
 				}
 			}
@@ -163,6 +164,7 @@ Other post-Gen V moves I probably *can* backport if it comes up
 				for (const type in this.dataCache.TypeChart) {
 					if (chosenTypes.includes(type)) continue;
 					if (type === "Fairy") continue;
+					if (poke.abilities && ["Overgrow", "Blaze", "Torrent"].includes(poke.abilities[0]) && ["Fire", "Water", "Grass"].includes(type)) continue;
 					validTypes1.push(type);
 				}
 				let random1 = Math.floor(Math.random() * validTypes1.length);
@@ -173,6 +175,7 @@ Other post-Gen V moves I probably *can* backport if it comes up
 				for (const type in this.dataCache.TypeChart) {
 					if (chosenTypes.includes(type)) continue;
 					if (type === "Fairy") continue;
+					if (poke.abilities && ["Overgrow", "Blaze", "Torrent"].includes(poke.abilities[0]) && ["Fire", "Water", "Grass"].includes(type)) continue;
 					validTypes2.push(type);
 				}
 				let random2 = Math.floor(Math.random() * validTypes2.length);
@@ -215,6 +218,7 @@ Other post-Gen V moves I probably *can* backport if it comes up
 			const validTypes3: string[] = [];
 			for (const type in this.dataCache.TypeChart) {
 				if (chosenTypes.includes(type)) continue;
+				if (poke.abilities && ["Overgrow", "Blaze", "Torrent"].includes(poke.abilities[0]) && ["Fire", "Water", "Grass"].includes(type)) continue;
 				if (type === "Fairy") continue;
 				validTypes3.push(type);
 			}
@@ -260,6 +264,11 @@ Other post-Gen V moves I probably *can* backport if it comes up
 							}
 						}
 						if (formContinue) continue;
+					}
+
+					if (poke.abilities && ["Overgrow", "Blaze", "Torrent"].includes(poke.abilities[0])) {
+						if (!["Fire", "Water", "Grass"].includes(type1) && !["Fire", "Water", "Grass"].includes(type2)) continue; // force starters' primary types
+						if (type2 === type1) continue; // force starters to be dual-types
 					}
 
 					// skip identical combinations for now
