@@ -236,6 +236,7 @@ Other post-Gen V moves I probably *can* backport if it comes up
 					// Ability checks
 
 					chosenCombinations[loopCount] = [type1, type2];
+					loopCount++;
 				}
 			}
 			console.log(chosenTypes[0] + chosenTypes[1] + chosenTypes[3]); // just samples
