@@ -158,7 +158,7 @@ Other post-Gen V moves I probably *can* backport if it comes up
 					chosenTypes.push(type);
 				}
 			}
-			if (chosenTypes.length && chosenTypes.length < 2) { // pad types to 2
+			if (chosenTypes.length < 2) { // first pad types to 2
 				const validTypes1: string[] = [];
 				for (const type in this.dataCache.TypeChart) {
 					if (chosenTypes.includes(type)) continue;
@@ -168,7 +168,7 @@ Other post-Gen V moves I probably *can* backport if it comes up
 				let random1 = Math.floor(Math.random() * validTypes1.length);
 				chosenTypes.push(validTypes1[random1]);
 			}
-			if (chosenTypes.length && chosenTypes.length < 2) { // pure Fairy-types need a second random type
+			if (chosenTypes.length < 2) { // pure Fairy-types need a second random type
 				const validTypes2: string[] = [];
 				for (const type in this.dataCache.TypeChart) {
 					if (chosenTypes.includes(type)) continue;
@@ -275,7 +275,7 @@ Other post-Gen V moves I probably *can* backport if it comes up
 
 					// offensive:
 					// +1 if one type is resisted and the other is SE
-					// +3 if both types are resisted but one of the base types is SE
+					// +3 if one type is resisted or worse and the other is neutral or worse, but one of the base types is SE
 
 					// Ability checks
 
@@ -301,12 +301,12 @@ Other post-Gen V moves I probably *can* backport if it comes up
 
 			// console.logging
 			let samples: string[] = [poke.name + ` samples: `];
-			if (chosenCombinations[0]) samples += chosenCombinations[0].type1 + `/` + chosenCombinations[0].type2 + `, `;
-			if (chosenCombinations[1]) samples += chosenCombinations[1].type1 + `/` + chosenCombinations[1].type2 + `, `;
-			if (chosenCombinations[2]) samples += chosenCombinations[2].type1 + `/` + chosenCombinations[2].type2 + `, `;
-			if (chosenCombinations[3]) samples += chosenCombinations[3].type1 + `/` + chosenCombinations[3].type2 + `, `;
-			if (chosenCombinations[4]) samples += chosenCombinations[4].type1 + `/` + chosenCombinations[4].type2 + `, `;
-			if (poke.chosenType) samples += `chosen: ` + poke.chosenType.type1 + `/` + poke.chosenType.type2;
+			if (chosenCombinations[0]) samples += chosenCombinations[0].type1 + (chosenCombinations[0].type2 !== chosenCombinations[0].type1 ? `/` + chosenCombinations[0].type2) + `, `;
+			if (chosenCombinations[1]) samples += chosenCombinations[1].type1 + (chosenCombinations[1].type2 !== chosenCombinations[1].type1 ? `/` + chosenCombinations[1].type2) + `, `;
+			if (chosenCombinations[2]) samples += chosenCombinations[2].type1 + (chosenCombinations[2].type2 !== chosenCombinations[2].type1 ? `/` + chosenCombinations[2].type2) + `, `;
+			if (chosenCombinations[3]) samples += chosenCombinations[3].type1 + (chosenCombinations[3].type2 !== chosenCombinations[3].type1 ? `/` + chosenCombinations[3].type2) + `, `;
+			if (chosenCombinations[4]) samples += chosenCombinations[4].type1 + (chosenCombinations[4].type2 !== chosenCombinations[4].type1 ? `/` + chosenCombinations[4].type2) + `, `;
+			if (poke.chosenType) samples += `chosen: ` + poke.chosenType.type1 + (poke.chosenType.type2 !== poke.chosenType.type1 ? `/` + poke.chosenType.type2);
 			console.log(samples);
 
 			// RANDOM MOVES
