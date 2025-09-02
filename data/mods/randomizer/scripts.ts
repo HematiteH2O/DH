@@ -662,6 +662,9 @@ export const Scripts: ModdedBattleScriptsData = {
 						if (asterisk) moveName += `*`;
 						if (!genVLearnedTmAlready) poke.additionalTms.push(moveName); // make sure to identify TMs that need to be added manually
 						if (levelLearned === 101 && !postgameTms.includes(moveid)) continue; // skip level 0 moves if they're on the Gen V TM/tutor list
+						// reset the tmid label (thanks Raticate)
+						moveName = move.name;
+						if (asterisk) moveName += `*`;
 					}
 					if (move.num && move.num > 559) moveName = moveName + ` (new)`; // identify post-Gen V moves
 					if (learnset3) moveName = prevo2LevelLearned + ` - ` + moveName; // add prevo2 levels
