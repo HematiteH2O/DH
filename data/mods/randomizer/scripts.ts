@@ -178,7 +178,7 @@ Other post-Gen V moves I probably *can* backport if it comes up
 					chosenTypes.push(validTypes2[random1]);
 				}
 			}
-			console.log(chosenTypes[0] + chosenTypes[1] + chosenTypes[2] + (chosenTypes[3] : "!" + chosenTypes[3] ? ""));
+			console.log(chosenTypes[0] + chosenTypes[1] + chosenTypes[2] + (chosenTypes[3] ? "!" + chosenTypes[3] : ` `));
 
 			// RANDOM MOVES
 			// todo:
