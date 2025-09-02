@@ -209,8 +209,9 @@ Other post-Gen V moves I probably *can* backport if it comes up
 			}
 			if (poke.otherFormes) {
 				for (const form of poke.otherFormes) {
-					if (form.types) {
-						for (const type of form.types) {
+					const poke4 = this.dataCache.Pokedex[this.toID(form)];
+					if (poke4.types) {
+						for (const type of poke4.types) {
 							if (chosenTypes.includes(type) || type === "Fairy") continue;
 							chosenTypes.push(type);
 						}
