@@ -224,12 +224,13 @@ Other post-Gen V moves I probably *can* backport if it comes up
 			// - clear the list of eligible combinations every time a higher scorer is found
 
 			let chosenCombinations = {};
-			loopCount = 0;
+			let loopCount = 0;
+			let topScore = 0;
 			for (const type1 of chosenTypes) {
 				for (const type2 of chosenTypes) {
 					// automatically reject the base type
-					if (type1 === poke.types[0] && ((poke.types[1] && type2 === poke.types[1] || (!poke.types[1] && type2 === type1)) continue;
-					if (type2 === poke.types[0] && (poke.types[1] && type1 === poke.types[1]) || (!poke.types[1] && type2 === type1) continue;
+					if (type1 === poke.types[0] && ((poke.types[1] && type2 === poke.types[1]) || (!poke.types[1] && type2 === type1))) continue;
+					if (type2 === poke.types[0] && ((poke.types[1] && type1 === poke.types[1]) || (!poke.types[1] && type2 === type1))) continue;
 
 					// score the chosen type based on matchups
 
