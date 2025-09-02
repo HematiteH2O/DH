@@ -316,7 +316,14 @@ Other post-Gen V moves I probably *can* backport if it comes up
 
 			let randomType = Math.floor(Math.random() * loopCount);
 			poke.chosenType = chosenCombinations[randomType];
-			if (poke.types[0] === poke.chosenType.type2 || (poke.types[1] && poke.types[1] === poke.chosenType.type1)) {
+			if (!chosenCombinations[randomType]) {
+				console.log(poke.name + ` failed; list of valid types: ` + chosenTypes);
+				poke.chosenType = {
+					type1: [poke.types[0]],
+					type2: [poke.types[1] ? poke.types[1] : poke.types[0]],
+				};
+			}
+			if ((poke.types[0] === poke.chosenType.type2) || (poke.types[1] && poke.types[1] === poke.chosenType.type1)) {
 				poke.chosenType.type1 = chosenCombinations[randomType].type2;
 				poke.chosenType.type2 = chosenCombinations[randomType].type1;
 			}
