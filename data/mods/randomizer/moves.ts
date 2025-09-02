@@ -118,6 +118,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		contestType: "Beautiful",
 	},
 	acrobatics: {
+		tmid: "TM62 Acrobatics",
 		num: 512,
 		accuracy: 100,
 		basePower: 55,
@@ -171,6 +172,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		contestType: "Tough",
 	},
 	aerialace: {
+		tmid: "TM40 Aerial Ace",
 		num: 332,
 		accuracy: true,
 		basePower: 60,
@@ -311,6 +313,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		type: "Fairy",
 	},
 	allyswitch: {
+		tmid: "TM51 Ally Switch",
 		num: 502,
 		accuracy: true,
 		basePower: 0,
@@ -721,6 +724,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		contestType: "Clever",
 	},
 	attract: {
+		tmid: "TM45 Attract",
 		num: 213,
 		accuracy: 100,
 		basePower: 0,
@@ -1530,6 +1534,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		type: "Flying",
 	},
 	blizzard: {
+		tmid: "TM14 Blizzard",
 		num: 59,
 		accuracy: 70,
 		basePower: 110,
@@ -1873,6 +1878,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		contestType: "Cool",
 	},
 	brickbreak: {
+		tmid: "TM31 Brick Break",
 		num: 280,
 		accuracy: 100,
 		basePower: 75,
@@ -2009,6 +2015,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		contestType: "Beautiful",
 	},
 	bulkup: {
+		tmid: "TM08 Bulk Up",
 		num: 339,
 		accuracy: true,
 		basePower: 0,
@@ -2028,6 +2035,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		contestType: "Cool",
 	},
 	bulldoze: {
+		tmid: "TM78 Bulldoze",
 		num: 523,
 		accuracy: 100,
 		basePower: 60,
@@ -2200,6 +2208,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		contestType: "Clever",
 	},
 	calmmind: {
+		tmid: "TM04 Calm Mind",
 		num: 347,
 		accuracy: true,
 		basePower: 0,
@@ -2388,6 +2397,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		contestType: "Clever",
 	},
 	chargebeam: {
+		tmid: "TM57 Charge Beam",
 		num: 451,
 		accuracy: 90,
 		basePower: 50,
@@ -3408,6 +3418,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		contestType: "Tough",
 	},
 	cut: {
+		tmid: "HM01 Cut",
 		num: 15,
 		accuracy: 95,
 		basePower: 50,
@@ -3698,6 +3709,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		contestType: "Beautiful",
 	},
 	dig: {
+		tmid: "TM28 Dig",
 		num: 91,
 		accuracy: 100,
 		basePower: 80,
@@ -3869,6 +3881,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		type: "Poison",
 	},
 	dive: {
+		tmid: "HM06 Dive",
 		num: 291,
 		accuracy: 100,
 		basePower: 80,
@@ -4116,6 +4129,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		contestType: "Cute",
 	},
 	doubleteam: {
+		tmid: "TM32 Double Team",
 		num: 104,
 		accuracy: true,
 		basePower: 0,
@@ -4221,6 +4235,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		type: "Dragon",
 	},
 	dragonclaw: {
+		tmid: "TM02 Dragon Claw",
 		num: 337,
 		accuracy: 100,
 		basePower: 80,
@@ -4349,6 +4364,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		contestType: "Tough",
 	},
 	dragontail: {
+		tmid: "TM82 Dragon Tail",
 		num: 525,
 		accuracy: 90,
 		basePower: 60,
@@ -4393,6 +4409,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		contestType: "Tough",
 	},
 	dreameater: {
+		tmid: "TM85 Dream Eater",
 		num: 138,
 		accuracy: 100,
 		basePower: 100,
@@ -4539,6 +4556,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		contestType: "Beautiful",
 	},
 	earthquake: {
+		tmid: "TM26 Earthquake",
 		num: 89,
 		accuracy: 100,
 		basePower: 100,
@@ -4553,6 +4571,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		contestType: "Tough",
 	},
 	echoedvoice: {
+		tmid: "TM49 Echoed Voice",
 		num: 497,
 		accuracy: 100,
 		basePower: 40,
@@ -4836,6 +4855,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		contestType: "Beautiful",
 	},
 	embargo: {
+		tmid: "TM63 Embargo",
 		num: 373,
 		accuracy: 100,
 		basePower: 0,
@@ -5000,6 +5020,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		contestType: "Tough",
 	},
 	energyball: {
+		tmid: "TM53 Energy Ball",
 		num: 412,
 		accuracy: 100,
 		basePower: 90,
@@ -5134,6 +5155,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		type: "Psychic",
 	},
 	explosion: {
+		tmid: "TM64 Explosion",
 		num: 153,
 		accuracy: 100,
 		basePower: 250,
@@ -5203,6 +5225,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		contestType: "Cool",
 	},
 	facade: {
+		tmid: "TM42 Facade",
 		num: 263,
 		accuracy: 100,
 		basePower: 70,
@@ -5315,6 +5338,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		type: "Dark",
 	},
 	falseswipe: {
+		tmid: "TM54 False Swipe",
 		num: 206,
 		accuracy: 100,
 		basePower: 40,
@@ -5505,6 +5529,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		contestType: "Tough",
 	},
 	fireblast: {
+		tmid: "TM38 Fire Blast",
 		num: 126,
 		accuracy: 85,
 		basePower: 110,
@@ -5778,6 +5803,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		contestType: "Beautiful",
 	},
 	flamecharge: {
+		tmid: "TM43 Flame Charge",
 		num: 488,
 		accuracy: 100,
 		basePower: 50,
@@ -5816,6 +5842,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		contestType: "Beautiful",
 	},
 	flamethrower: {
+		tmid: "TM35 Flamethrower",
 		num: 53,
 		accuracy: 100,
 		basePower: 90,
@@ -5851,6 +5878,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		contestType: "Cool",
 	},
 	flash: {
+		tmid: "TM70 Flash",
 		num: 148,
 		accuracy: 100,
 		basePower: 0,
@@ -5870,6 +5898,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		contestType: "Beautiful",
 	},
 	flashcannon: {
+		tmid: "TM91 Flash Cannon",
 		num: 430,
 		accuracy: 100,
 		basePower: 80,
@@ -5927,6 +5956,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		contestType: "Beautiful",
 	},
 	fling: {
+		tmid: "TM56 Fling",
 		num: 374,
 		accuracy: 100,
 		basePower: 0,
@@ -6090,6 +6120,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		type: "Grass",
 	},
 	fly: {
+		tmid: "HM02 Fly",
 		num: 19,
 		accuracy: 95,
 		basePower: 90,
@@ -6150,6 +6181,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		contestType: "Tough",
 	},
 	focusblast: {
+		tmid: "TM52 Focus Blast",
 		num: 411,
 		accuracy: 70,
 		basePower: 120,
@@ -6462,6 +6494,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		contestType: "Cool",
 	},
 	frostbreath: {
+		tmid: "TM79 Frost Breath",
 		num: 524,
 		accuracy: 90,
 		basePower: 60,
@@ -6477,6 +6510,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		contestType: "Beautiful",
 	},
 	frustration: {
+		tmid: "TM21 Frustration",
 		num: 218,
 		accuracy: 100,
 		basePower: 0,
@@ -6791,6 +6825,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		contestType: "Clever",
 	},
 	gigaimpact: {
+		tmid: "TM68 Giga Impact",
 		num: 416,
 		accuracy: 90,
 		basePower: 150,
@@ -7800,6 +7835,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		contestType: "Cool",
 	},
 	grassknot: {
+		tmid: "TM86 Grass Knot",
 		num: 447,
 		accuracy: 100,
 		basePower: 0,
@@ -8321,6 +8357,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		contestType: "Clever",
 	},
 	gyroball: {
+		tmid: "TM74 Gyro Ball",
 		num: 360,
 		accuracy: 100,
 		basePower: 0,
@@ -8344,6 +8381,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		contestType: "Cool",
 	},
 	hail: {
+		tmid: "TM07 Hail",
 		num: 258,
 		accuracy: true,
 		basePower: 0,
@@ -8903,6 +8941,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		contestType: "Clever",
 	},
 	hiddenpower: {
+		tmid: "TM10 Hidden Power",
 		num: 237,
 		accuracy: 100,
 		basePower: 60,
@@ -9244,6 +9283,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		contestType: "Cute",
 	},
 	honeclaws: {
+		tmid: "TM01 Hone Claws",
 		num: 468,
 		accuracy: true,
 		basePower: 0,
@@ -9418,6 +9458,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		contestType: "Cool",
 	},
 	hyperbeam: {
+		tmid: "TM15 Hyper Beam",
 		num: 63,
 		accuracy: 90,
 		basePower: 150,
@@ -9617,6 +9658,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		contestType: "Beautiful",
 	},
 	icebeam: {
+		tmid: "TM13 Ice Beam",
 		num: 58,
 		accuracy: 100,
 		basePower: 90,
@@ -9846,6 +9888,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		contestType: "Clever",
 	},
 	incinerate: {
+		tmid: "TM59 Incinerate",
 		num: 510,
 		accuracy: 100,
 		basePower: 60,
@@ -10674,6 +10717,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		contestType: "Beautiful",
 	},
 	lightscreen: {
+		tmid: "TM16 Light Screen",
 		num: 113,
 		accuracy: true,
 		basePower: 0,
@@ -10846,6 +10890,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		contestType: "Tough",
 	},
 	lowsweep: {
+		tmid: "TM47 Low Sweep",
 		num: 490,
 		accuracy: 100,
 		basePower: 65,
@@ -13545,6 +13590,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		type: "Electric",
 	},
 	overheat: {
+		tmid: "TM50 Overheat",
 		num: 315,
 		accuracy: 90,
 		basePower: 130,
@@ -13645,6 +13691,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		contestType: "Cool",
 	},
 	payback: {
+		tmid: "TM66 Payback",
 		num: 371,
 		accuracy: 100,
 		basePower: 50,
@@ -13915,6 +13962,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		contestType: "Cute",
 	},
 	pluck: {
+		tmid: "TM88 Pluck",
 		num: 365,
 		accuracy: 100,
 		basePower: 60,
@@ -13973,6 +14021,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		contestType: "Clever",
 	},
 	poisonjab: {
+		tmid: "TM84 Poison Jab",
 		num: 398,
 		accuracy: 100,
 		basePower: 80,
@@ -14461,6 +14510,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		contestType: "Cool",
 	},
 	protect: {
+		tmid: "TM17 Protect",
 		num: 182,
 		accuracy: true,
 		basePower: 0,
@@ -14547,6 +14597,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		type: "Psychic",
 	},
 	psychup: {
+		tmid: "TM77 Psych Up",
 		num: 244,
 		accuracy: true,
 		basePower: 0,
@@ -14579,6 +14630,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		contestType: "Clever",
 	},
 	psychic: {
+		tmid: "TM29 Psychic",
 		num: 94,
 		accuracy: 100,
 		basePower: 90,
@@ -14773,6 +14825,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		type: "Psychic",
 	},
 	psyshock: {
+		tmid: "TM03 Psyshock",
 		num: 473,
 		accuracy: 100,
 		basePower: 80,
@@ -14967,6 +15020,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		type: "Fire",
 	},
 	quash: {
+		tmid: "TM60 Quash",
 		num: 511,
 		accuracy: 100,
 		basePower: 0,
@@ -15210,6 +15264,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		type: "Fire",
 	},
 	raindance: {
+		tmid: "TM18 Rain Dance",
 		num: 240,
 		accuracy: true,
 		basePower: 0,
@@ -15378,6 +15433,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		contestType: "Clever",
 	},
 	reflect: {
+		tmid: "TM33 Reflect",
 		num: 115,
 		accuracy: true,
 		basePower: 0,
@@ -15501,6 +15557,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		contestType: "Beautiful",
 	},
 	rest: {
+		tmid: "TM44 Rest",
 		num: 156,
 		accuracy: true,
 		basePower: 0,
@@ -15535,6 +15592,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		contestType: "Cute",
 	},
 	retaliate: {
+		tmid: "TM67 Retaliate",
 		num: 514,
 		accuracy: 100,
 		basePower: 70,
@@ -15555,6 +15613,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		contestType: "Cool",
 	},
 	return: {
+		tmid: "TM27 Return",
 		num: 216,
 		accuracy: 100,
 		basePower: 0,
@@ -15704,6 +15763,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		maxMove: {basePower: 140},
 	},
 	roar: {
+		tmid: "TM05 Roar",
 		num: 46,
 		accuracy: true,
 		basePower: 0,
@@ -15772,6 +15832,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		contestType: "Tough",
 	},
 	rockpolish: {
+		tmid: "TM69 Rock Polish",
 		num: 397,
 		accuracy: true,
 		basePower: 0,
@@ -15790,6 +15851,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		contestType: "Tough",
 	},
 	rockslide: {
+		tmid: "TM80 Rock Slide",
 		num: 157,
 		accuracy: 90,
 		basePower: 75,
@@ -15807,6 +15869,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		contestType: "Tough",
 	},
 	rocksmash: {
+		tmid: "TM94 Rock Smash",
 		num: 249,
 		accuracy: 100,
 		basePower: 40,
@@ -15840,6 +15903,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		contestType: "Tough",
 	},
 	rocktomb: {
+		tmid: "TM39 Rock Tomb",
 		num: 317,
 		accuracy: 95,
 		basePower: 60,
@@ -16062,6 +16126,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		contestType: "Tough",
 	},
 	round: {
+		tmid: "TM48 Round",
 		num: 496,
 		accuracy: 100,
 		basePower: 60,
@@ -16142,6 +16207,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		contestType: "Cool",
 	},
 	safeguard: {
+		tmid: "TM20 Safeguard",
 		num: 219,
 		accuracy: true,
 		basePower: 0,
@@ -16268,6 +16334,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		type: "Ground",
 	},
 	sandstorm: {
+		tmid: "TM37 Sandstorm",
 		num: 201,
 		accuracy: true,
 		basePower: 0,
@@ -16334,6 +16401,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		contestType: "Cool",
 	},
 	scald: {
+		tmid: "TM55 Scald",
 		num: 503,
 		accuracy: 100,
 		basePower: 80,
@@ -16602,6 +16670,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		contestType: "Beautiful",
 	},
 	shadowball: {
+		tmid: "TM30 Shadow Ball",
 		num: 247,
 		accuracy: 100,
 		basePower: 80,
@@ -16641,6 +16710,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		contestType: "Cool",
 	},
 	shadowclaw: {
+		tmid: "TM65 Shadow Claw",
 		num: 421,
 		accuracy: 100,
 		basePower: 70,
@@ -17336,6 +17406,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		contestType: "Cool",
 	},
 	skydrop: {
+		tmid: "TM58 Sky Drop",
 		num: 507,
 		accuracy: 100,
 		basePower: 60,
@@ -17582,6 +17653,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		contestType: "Tough",
 	},
 	sludgebomb: {
+		tmid: "TM36 Sludge Bomb",
 		num: 188,
 		accuracy: 100,
 		basePower: 90,
@@ -17599,6 +17671,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		contestType: "Tough",
 	},
 	sludgewave: {
+		tmid: "TM34 Sludge Wave",
 		num: 482,
 		accuracy: 100,
 		basePower: 95,
@@ -17616,6 +17689,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		contestType: "Tough",
 	},
 	smackdown: {
+		tmid: "TM23 Smack Down",
 		num: 479,
 		accuracy: 100,
 		basePower: 50,
@@ -17752,6 +17826,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		type: "Grass",
 	},
 	snarl: {
+		tmid: "TM95 Snarl",
 		num: 555,
 		accuracy: 95,
 		basePower: 55,
@@ -17896,6 +17971,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		contestType: "Cute",
 	},
 	solarbeam: {
+		tmid: "TM22 Solar Beam",
 		num: 76,
 		accuracy: 100,
 		basePower: 120,
@@ -18795,6 +18871,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		type: "Rock",
 	},
 	stoneedge: {
+		tmid: "TM71 Stone Edge",
 		num: 444,
 		accuracy: 80,
 		basePower: 100,
@@ -18863,6 +18940,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		type: "Fairy",
 	},
 	strength: {
+		tmid: "HM04 Strength",
 		num: 70,
 		accuracy: 100,
 		basePower: 80,
@@ -18939,6 +19017,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		contestType: "Tough",
 	},
 	strugglebug: {
+		tmid: "TM76 Struggle Bug",
 		num: 522,
 		accuracy: 100,
 		basePower: 50,
@@ -19013,6 +19092,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		contestType: "Cool",
 	},
 	substitute: {
+		tmid: "TM90 Substitute",
 		num: 164,
 		accuracy: true,
 		basePower: 0,
@@ -19132,6 +19212,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		contestType: "Clever",
 	},
 	sunnyday: {
+		tmid: "TM11 Sunny Day",
 		num: 241,
 		accuracy: true,
 		basePower: 0,
@@ -19249,6 +19330,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		contestType: "Cool",
 	},
 	surf: {
+		tmid: "HM03 Surf",
 		num: 57,
 		accuracy: 100,
 		basePower: 90,
@@ -19280,6 +19362,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		maxMove: {basePower: 130},
 	},
 	swagger: {
+		tmid: "TM87 Swagger",
 		num: 207,
 		accuracy: 85,
 		basePower: 0,
@@ -19420,6 +19503,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		contestType: "Clever",
 	},
 	swordsdance: {
+		tmid: "TM75 Swords Dance",
 		num: 14,
 		accuracy: true,
 		basePower: 0,
@@ -19715,6 +19799,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		type: "Rock",
 	},
 	taunt: {
+		tmid: "TM12 Taunt",
 		num: 269,
 		accuracy: 100,
 		basePower: 0,
@@ -19861,6 +19946,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		contestType: "Cute",
 	},
 	telekinesis: {
+		tmid: "TM19 Telekinesis",
 		num: 477,
 		accuracy: true,
 		basePower: 0,
@@ -20055,6 +20141,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		maxMove: {basePower: 130},
 	},
 	thief: {
+		tmid: "TM46 Thief",
 		num: 168,
 		accuracy: 100,
 		basePower: 60,
@@ -20200,6 +20287,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		contestType: "Clever",
 	},
 	thunder: {
+		tmid: "TM25 Thunder",
 		num: 87,
 		accuracy: 70,
 		basePower: 110,
@@ -20229,6 +20317,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		contestType: "Cool",
 	},
 	thunderbolt: {
+		tmid: "TM24 Thunderbolt",
 		num: 85,
 		accuracy: 100,
 		basePower: 90,
@@ -20355,6 +20444,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		contestType: "Cool",
 	},
 	thunderwave: {
+		tmid: "TM73 Thunder Wave",
 		num: 86,
 		accuracy: 90,
 		basePower: 0,
@@ -20469,6 +20559,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		contestType: "Beautiful",
 	},
 	torment: {
+		tmid: "TM41 Torment",
 		num: 259,
 		accuracy: 100,
 		basePower: 0,
@@ -20502,6 +20593,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		contestType: "Tough",
 	},
 	toxic: {
+		tmid: "TM06 Toxic",
 		num: 92,
 		accuracy: 90,
 		basePower: 0,
@@ -20723,6 +20815,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		contestType: "Cute",
 	},
 	trickroom: {
+		tmid: "TM92 Trick Room",
 		num: 433,
 		accuracy: true,
 		basePower: 0,
@@ -20978,6 +21071,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		contestType: "Cool",
 	},
 	uturn: {
+		tmid: "TM89 U-turn",
 		num: 369,
 		accuracy: 100,
 		basePower: 70,
@@ -21154,6 +21248,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		contestType: "Clever",
 	},
 	venoshock: {
+		tmid: "TM09 Venoshock",
 		num: 474,
 		accuracy: 100,
 		basePower: 65,
@@ -21234,6 +21329,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		contestType: "Cool",
 	},
 	voltswitch: {
+		tmid: "TM72 Volt Switch",
 		num: 521,
 		accuracy: 100,
 		basePower: 70,
@@ -21292,6 +21388,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		contestType: "Tough",
 	},
 	waterfall: {
+		tmid: "HM05 Waterfall",
 		num: 127,
 		accuracy: 100,
 		basePower: 80,
@@ -21692,6 +21789,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		type: "Electric",
 	},
 	wildcharge: {
+		tmid: "TM93 Wild Charge",
 		num: 528,
 		accuracy: 100,
 		basePower: 90,
@@ -21707,6 +21805,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		contestType: "Tough",
 	},
 	willowisp: {
+		tmid: "TM61 Will-O-Wisp",
 		num: 261,
 		accuracy: 85,
 		basePower: 0,
@@ -21851,6 +21950,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		contestType: "Tough",
 	},
 	workup: {
+		tmid: "TM83 Work Up",
 		num: 526,
 		accuracy: true,
 		basePower: 0,
@@ -21947,6 +22047,7 @@ export const Moves: {[moveid: string]: ModdedMoveData} = {
 		contestType: "Tough",
 	},
 	xscissor: {
+		tmid: "TM81 X-Scissor",
 		num: 404,
 		accuracy: 100,
 		basePower: 80,
