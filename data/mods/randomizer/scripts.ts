@@ -228,7 +228,6 @@ Other post-Gen V moves I probably *can* backport if it comes up
 			// - clear the list of eligible combinations every time a higher scorer is found
 
 			let chosenCombinations = {};
-			let loopCount = 0;
 			let topScore = 0;
 			for (const type1 of chosenTypes) {
 				for (const type2 of chosenTypes) {
@@ -268,17 +267,15 @@ Other post-Gen V moves I probably *can* backport if it comes up
 					if (score > topScore) {
 						topScore = score;
 						chosenCombinations = {};
-						loopCount = 0;
 					}
 
-					chosenCombinations[loopCount] = [type1, type2];
-					loopCount++;
+					chosenCombinations.push([type1, type2]);
 				}
 			}
 
 			let randomType = Math.floor(Math.random() * chosenCombinations.length);
 			poke.chosenType = chosenCombinations[randomType];
-			console.log(chosenCombinations + `; chose `+ poke.chosenType); // just samples
+			console.log(chosenCombinations[0] + chosenCombinations[1] + chosenCombinations[2] + chosenCombinations[3] + `; chose `+ poke.chosenType); // just samples
 
 			// RANDOM MOVES
 			// todo:
