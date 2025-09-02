@@ -154,24 +154,29 @@ Other post-Gen V moves I probably *can* backport if it comes up
 			// - score different type combinations
 			// - pick at random from the highest-scoring combinations
 			const chosenTypes: string[] = [];
-			const validTypes: string[] = [];
 			if (poke.types) {
 				for (const type in poke.types) {
 					if (type === "Fairy") continue;
 					chosenTypes.push(this.dataCache.TypeChart[type]);
 				}
 			}
+			const validTypes1: string[] = [];
 			for (const type in this.dataCache.TypeChart) {
 				if (chosenTypes.includes(type)) continue;
 				if (type === "Fairy") continue;
 				validTypes.push(type);
-			}
-			if (chosenTypes.length) {
 				let random1 = Math.floor(Math.random() * validTypes.length);
-				let random2 = Math.floor(Math.random() * validTypes.length - 1);
-				if (random2 >= random1) random2 += 1;
 				chosenTypes.push(validTypes[random1]);
-				if (chosenTypes.length < 3) chosenTypes.push(validTypes[random2]);
+			}
+			if (chosenTypes.length && chosenTypes.length < 3) {
+				const validTypes2: string[] = [];
+				for (const type in this.dataCache.TypeChart) {
+					if (chosenTypes.includes(type)) continue;
+					if (type === "Fairy") continue;
+					validTypes.push(type);
+					let random = Math.floor(Math.random() * validTypes.length);
+					chosenTypes.push(validTypes[random1]);
+				}
 			}
 			console.log(chosenTypes[0] + chosenTypes[1] + chosenTypes[2]);
 
