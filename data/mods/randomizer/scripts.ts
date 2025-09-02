@@ -227,8 +227,22 @@ Other post-Gen V moves I probably *can* backport if it comes up
 			// - thinking... iterate through all possible type1s, then iterate through all possible type2s, then push to a list of eligible combinations
 			// - clear the list of eligible combinations every time a higher scorer is found
 
+/*
+
+				poke.learnsetCumulative = {
+							Moves: [],
+							learnset: [],
+				};
+				for (let i = 1; i < 102; i++) {
+					poke.learnsetCumulative.learnset[i] = {
+						movesLearned: [],
+					}
+				}
+*/
+
 			let chosenCombinations = {};
 			let topScore = 0;
+			let loopCount = 0;
 			for (const type1 of chosenTypes) {
 				for (const type2 of chosenTypes) {
 					// automatically reject the base type
@@ -263,19 +277,26 @@ Other post-Gen V moves I probably *can* backport if it comes up
 					let score = defScore;
 					if (offScore > score) score = offScore;
 
-					// clear all existing combinations if a better one comes along
+					// reset all existing combinations if a higher-scoring one comes along
 					if (score > topScore) {
+						loopCount = 0;
 						topScore = score;
 						chosenCombinations = {};
 					}
 
-					chosenCombinations.push([type1, type2]);
+					chosenCombinations[loopCount] = {
+							type1: [],
+							type2: [],
+					};
+					chosenCombinations[loopCount][type1] = type1;
+					chosenCombinations[loopCount][type2] = type2;
+					loopCount++;
 				}
 			}
 
 			let randomType = Math.floor(Math.random() * chosenCombinations.length);
 			poke.chosenType = chosenCombinations[randomType];
-			console.log(chosenCombinations[0] + chosenCombinations[1] + chosenCombinations[2] + chosenCombinations[3] + `; chose `+ poke.chosenType); // just samples
+			console.log(poke.name` samples: ` + chosenCombinations[0][type1] + chosenCombinations[0][type2] + `; ` + chosenCombinations[1][type1] + chosenCombinations[1][type2] + `; ` chosenCombinations[2][type1] + chosenCombinations[2][type2] + `; ` + chosenCombinations[3][type1] + chosenCombinations[3][type2] + `; chose `+ poke.chosenType[type1] + poke.chosenType[type2]); // just samples
 
 			// RANDOM MOVES
 			// todo:
