@@ -390,7 +390,10 @@ Other post-Gen V moves I probably *can* backport if it comes up
 					poke.additionalTms.sort();
 					// TODO: these should include (and be sorted by) TM numbers, ideally
 					sheetOutput += `\n~ Additional TMs and tutors\n`
-					for (const moveid of poke.additionalTms) sheetOutput += moveid + `, `;
+					for (const moveid of poke.additionalTms) {
+						if (moveid.charAt(0) === 'x') sheetOutput += moveid.substr(2) + `, `;
+						else sheetOutput += moveid + `, `;
+					}
 					sheetOutput += `~`;
 				}
 				poke.sheetOutput = sheetOutput;
