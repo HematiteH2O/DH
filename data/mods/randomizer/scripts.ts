@@ -155,7 +155,7 @@ Other post-Gen V moves I probably *can* backport if it comes up
 			if (poke.types) {
 				for (const type of poke.types) {
 					if (type === "Fairy") continue;
-					if (poke.abilities && ["Overgrow", "Blaze", "Torrent"].includes(poke.abilities[0]) && ["Fire", "Water", "Grass"].includes(type)) continue;
+					if (poke.abilities && ["Overgrow", "Blaze", "Torrent"].includes(poke.abilities[0]) && !["Fire", "Water", "Grass"].includes(type)) continue;
 					if (poke.types[0] === "Normal" && poke.types[1] && poke.types[1] === "Flying" && type === "Normal") continue; // skip Normal in Normal/Flying
 					chosenTypes.push(type);
 				}
@@ -190,7 +190,7 @@ Other post-Gen V moves I probably *can* backport if it comes up
 				if (poke2.types) {
 					for (const type of poke2.types) {
 						if (chosenTypes.includes(type) || type === "Fairy") continue;
-						if (poke.abilities && ["Overgrow", "Blaze", "Torrent"].includes(poke.abilities[0]) && ["Fire", "Water", "Grass"].includes(type)) continue;
+						if (poke.abilities && ["Overgrow", "Blaze", "Torrent"].includes(poke.abilities[0]) && !["Fire", "Water", "Grass"].includes(type)) continue;
 						if (poke2.types[0] === "Normal" && poke2.types[1] && poke2.types[1] === "Flying" && type === "Normal") continue;
 						chosenTypes.push(type);
 					}
@@ -200,7 +200,7 @@ Other post-Gen V moves I probably *can* backport if it comes up
 					if (poke3.types) {
 						for (const type of poke3.types) {
 							if (chosenTypes.includes(type) || type === "Fairy") continue;
-							if (poke.abilities && ["Overgrow", "Blaze", "Torrent"].includes(poke.abilities[0]) && ["Fire", "Water", "Grass"].includes(type)) continue;
+							if (poke.abilities && ["Overgrow", "Blaze", "Torrent"].includes(poke.abilities[0]) && !["Fire", "Water", "Grass"].includes(type)) continue;
 							if (poke3.types[0] === "Normal" && poke3.types[1] && poke3.types[1] === "Flying" && type === "Normal") continue;
 							chosenTypes.push(type);
 						}
@@ -213,8 +213,8 @@ Other post-Gen V moves I probably *can* backport if it comes up
 					if (poke4.types) {
 						for (const type of poke4.types) {
 							if (chosenTypes.includes(type) || type === "Fairy") continue;
-							if (poke.abilities && ["Overgrow", "Blaze", "Torrent"].includes(poke.abilities[0]) && ["Fire", "Water", "Grass"].includes(type)) continue;
-							if (poke3.types[0] === "Normal" && poke3.types[1] && poke3.types[1] === "Flying" && type === "Normal") continue;
+							if (poke.abilities && ["Overgrow", "Blaze", "Torrent"].includes(poke.abilities[0]) && !["Fire", "Water", "Grass"].includes(type)) continue;
+							if (poke4.types[0] === "Normal" && poke3.types[1] && poke4.types[1] === "Flying" && type === "Normal") continue;
 							chosenTypes.push(type);
 						}
 					}
@@ -226,6 +226,9 @@ Other post-Gen V moves I probably *can* backport if it comes up
 			for (const type in this.dataCache.TypeChart) {
 				if (chosenTypes.includes(type)) continue;
 				if (poke.abilities && ["Overgrow", "Blaze", "Torrent"].includes(poke.abilities[0]) && ["Fire", "Water", "Grass"].includes(type)) continue;
+				// hard-coding for starters because they have more constraints on valid combinations later
+				if (poke.name === "Charizard" && ["Fire", "Flying", "Dragon"].includes(type)) continue;
+				if (poke.name === "Decidueye" && ["Grass", "Ghost", "Fighting"].includes(type)) continue;
 				if (type === "Fairy") continue;
 				validTypes3.push(type);
 			}
