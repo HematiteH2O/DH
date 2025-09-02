@@ -164,21 +164,21 @@ Other post-Gen V moves I probably *can* backport if it comes up
 			for (const type in this.dataCache.TypeChart) {
 				if (chosenTypes.includes(type)) continue;
 				if (type === "Fairy") continue;
-				validTypes.push(type);
+				validTypes1.push(type);
 				let random1 = Math.floor(Math.random() * validTypes.length);
-				chosenTypes.push(validTypes[random1]);
+				chosenTypes.push(validTypes1[random1]);
 			}
 			if (chosenTypes.length && chosenTypes.length < 3) {
 				const validTypes2: string[] = [];
 				for (const type in this.dataCache.TypeChart) {
 					if (chosenTypes.includes(type)) continue;
 					if (type === "Fairy") continue;
-					validTypes.push(type);
+					validTypes2.push(type);
 					let random = Math.floor(Math.random() * validTypes.length);
-					chosenTypes.push(validTypes[random1]);
+					chosenTypes.push(validTypes2[random1]);
 				}
 			}
-			console.log(chosenTypes[0] + chosenTypes[1] + chosenTypes[2]);
+			console.log(chosenTypes[0] + chosenTypes[1] + chosenTypes[2] + (chosenTypes[3] : "!" + chosenTypes[3] ? ""));
 
 			// RANDOM MOVES
 			// todo:
