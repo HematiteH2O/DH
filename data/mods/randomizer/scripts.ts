@@ -259,14 +259,16 @@ Other post-Gen V moves I probably *can* backport if it comes up
 			let loopCount = 0;
 			for (const type1 of chosenTypes) {
 				for (const type2 of chosenTypes) {
+					let pokeCheck = poke;
+					if (poke.baseSpecies) pokeCheck = this.dataCache.Pokedex[this.toID(poke.baseSpecies)];
 					// automatically reject the base type
-					if (type1 === poke.types[0] && ((poke.types[1] && type2 === poke.types[1]) || (!poke.types[1] && type2 === type1))) continue;
-					if (type2 === poke.types[0] && ((poke.types[1] && type1 === poke.types[1]) || (!poke.types[1] && type2 === type1))) continue;
+					if (type1 === pokeCheck.types[0] && ((pokeCheck.types[1] && type2 === pokeCheck.types[1]) || (!pokeCheck.types[1] && type2 === type1))) continue;
+					if (type2 === pokeCheck.types[0] && ((pokeCheck.types[1] && type1 === pokeCheck.types[1]) || (!pokeCheck.types[1] && type2 === type1))) continue;
 
 					// reject exact types already taken by other forms/variants
-					if (poke.otherFormes) {
+					if (pokeCheck.otherFormes) {
 						let formContinue = false;
-						for (const form of poke.otherFormes) {
+						for (const form of pokeCheck.otherFormes) {
 							const poke4 = this.dataCache.Pokedex[this.toID(form)];
 							if (poke4.types) {
 								if (type1 === poke4.types[0] && ((poke4.types[1] && type2 === poke4.types[1]) || (!poke4.types[1] && type2 === type1))) formContinue = true;
