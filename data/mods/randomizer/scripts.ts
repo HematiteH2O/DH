@@ -209,7 +209,18 @@ Other post-Gen V moves I probably *can* backport if it comes up
 			}
 			if (poke.otherFormes || poke.baseSpecies) {
 				let pokeCheck = poke;
-				if (poke.baseSpecies) pokeCheck = this.dataCache.Pokedex[this.toID(poke.baseSpecies)];
+				if (poke.baseSpecies) {
+					const poke5 = this.dataCache.Pokedex[this.toID(poke.baseSpecies)];
+					if (poke5.types) {
+						for (const type of poke5.types) {
+							if (chosenTypes.includes(type) || type === "Fairy") continue;
+							if (poke.abilities && ["Overgrow", "Blaze", "Torrent"].includes(poke.abilities[0]) && !["Fire", "Water", "Grass"].includes(type)) continue;
+							if (poke5.types[0] === "Normal" && poke5.types[1] && poke5.types[1] === "Flying" && type === "Normal") continue;
+							chosenTypes.push(type);
+						}
+					}
+					pokeCheck = this.dataCache.Pokedex[this.toID(poke.baseSpecies)];
+				}
 				for (const form of pokeCheck.otherFormes) {
 					const poke4 = this.dataCache.Pokedex[this.toID(form)];
 					if (poke4.types) {
