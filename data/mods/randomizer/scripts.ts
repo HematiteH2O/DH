@@ -214,7 +214,7 @@ Other post-Gen V moves I probably *can* backport if it comes up
 						for (const type of poke4.types) {
 							if (chosenTypes.includes(type) || type === "Fairy") continue;
 							if (poke.abilities && ["Overgrow", "Blaze", "Torrent"].includes(poke.abilities[0]) && !["Fire", "Water", "Grass"].includes(type)) continue;
-							if (poke4.types[0] === "Normal" && poke3.types[1] && poke4.types[1] === "Flying" && type === "Normal") continue;
+							if (poke4.types[0] === "Normal" && poke4.types[1] && poke4.types[1] === "Flying" && type === "Normal") continue;
 							chosenTypes.push(type);
 						}
 					}
