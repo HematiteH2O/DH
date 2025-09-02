@@ -33,12 +33,8 @@ export const Scripts: ModdedBattleScriptsData = {
 			// 'hiddenpower', 'protect', 'doubleteam', 'round', 'swagger', 'substitute',
 		];
 
-// TODO LIST:
-// - add universal moves to learnsets when randomizing (based on the new type); obviously highlight where they're new since this is manual!
-// --- also highlight TMs that are learned now, but weren't already in Gen V, if they were TMs at the time (for my own convenience)
-// - go through move substitutions by type, but keep the old move listed in the same row just in case (ex. "15 - Icy Wind -> Struggle Bug")
-// - possible: filter out moves that are already TMs if the player gets the TM earlier than the level-up move (save on space)
-
+// todo:
+// - highlight TMs that are learned now, but weren't already in Gen V, if they were TMs at the time (for my own convenience) - done
 // - shift each move to the lowest level it's ever learned pre-Gen VIII - done
 // - delay early moves to evolution levels if the pre-evolution didn't have them - done
 // - list all (non-TM) Egg moves, post-Gen VIII Egg/level-up additions, and the above postgameTms section at the end ("moves that can be assigned levels if I want") - done
@@ -137,6 +133,51 @@ Other post-Gen V moves I probably *can* backport if it comes up
 			let future = false; // determine if something is Gen VIII or later
 			if (poke.num && poke.num > 809) future = true;
 			if (poke.forme && (poke.forme === "Galar" || poke.forme === "Hisui" || poke.baseSpecies === "Tauros")) future = true;
+
+			// RANDOM ABILITY
+			// todo:
+			// - list eligible Abilities (no form-change Abilities, Wonder Guard; do not randomize anything for Slaking, Regigigas, Archeops, etc.)
+
+			// - randomize 1 Ability and put it in slot 1
+			// - prioritize vanilla Abilities between slot 2 and HA (based on chosen rankings, random variance, excluding post-Gen V Abilities)
+			// - Legendaries and Mythicals have 1 Ability and starters only randomize HA
+
+			// - randomize a second Ability only for the crossgen output
+			// - overwrite all Abilities with lower priority than that Ability with it
+			// - if no Abilities have been overwritten, overwrite a random Ability with the same priority as it
+			// - otherwise, ignore it
+
+			// RANDOM TYPE
+			// todo:
+			// - randomize 2 types for single-types, 1 type for dual-types
+			// - pool together all types including randomized types, base types, pre-evolutions and forms
+			// - score different type combinations
+			// - pick at random from the highest-scoring combinations
+
+			// RANDOM MOVES
+			// todo:
+			// - add universal moves to learnsets when randomizing (based on the new type)
+			// - go through move substitutions by type, but keep the old move listed in the same row just in case (ex. "15 - Icy Wind -> Struggle Bug")
+			// - possible: filter out moves that are already TMs if the player gets the TM earlier than the level-up move (save on space)
+			// - possible: push one completely random (? within certain parameters?) extra move to the learnset
+
+			// MODDED STATS
+			// todo:
+			// - push mixed offenses; take out of Def, SpD or Spe, usually
+			// - a chance of a "randomizer stat spread moment" (crazy swing into or out of one stat; move points evenly into/from two others)
+			// - Ability stat checks
+			// - minor optimizations (HP-to-defense ratios, Speed)
+			// - go back and cap stat differences (differences should be multiples of 10, no more than +/- 40 to a stat, no more than +/- 60 overall)
+
+			// - then: translate stat differences to all pre-evolutions, but cut the differences in half first
+
+			// - then: unless there are 3 stages already, also generate a crossgen version of the stat spread
+			// - +10 to higher offense, then elevate higher offense to 100 if necessary
+			// - clamp Speed to specific ranges based on movepool/Ability properties
+			// - raise HP until bulk is 4/3 the original (but calculate as though +10 has already been given to each defense)
+			// or until BST is too high to keep boosting... cap should be 550
+			// - optional, if room: add the same amount to the highest unboosted stat between Atk/Def/SpA/SpD as to the higher offense
+			// - optional, if room: add +10 to remaining unboosted stats
 
 			if (this.dataCache.Learnsets[id] && this.dataCache.Learnsets[id].learnset) {
 				printno++;
