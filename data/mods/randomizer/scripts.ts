@@ -150,10 +150,7 @@ Other post-Gen V moves I probably *can* backport if it comes up
 
 			// RANDOM TYPE
 			// todo:
-			// - randomize 2 types for single-types, 1 type for dual-types
-			// - pool together all types including randomized types, base types, pre-evolutions and forms
-			// - score different type combinations
-			// - pick at random from the highest-scoring combinations
+			// - randomize 2 types for single-types, 1 type for dual-types - done
 			const chosenTypes: string[] = [];
 			if (poke.types) {
 				for (const type of poke.types) {
@@ -179,7 +176,52 @@ Other post-Gen V moves I probably *can* backport if it comes up
 				let random2 = Math.floor(Math.random() * validTypes2.length);
 				chosenTypes.push(validTypes2[random2]);
 			}
-			console.log(chosenTypes[0] + chosenTypes[1] + chosenTypes[2] + (chosenTypes[3] ? "!" + chosenTypes[3] : ` `));
+			if (chosenTypes.length && chosenTypes.length < 3) { // pure Fairy-types need a third random type
+				const validTypes3: string[] = [];
+				for (const type in this.dataCache.TypeChart) {
+					if (chosenTypes.includes(type)) continue;
+					if (type === "Fairy") continue;
+					validTypes3.push(type);
+				}
+				let random3 = Math.floor(Math.random() * validTypes3.length);
+				chosenTypes.push(validTypes3[random3]);
+			}
+
+			// - pool together all types including randomized types, base types, pre-evolutions and forms
+
+			if (poke.prevo) {
+				const poke2 = this.dataCache.Pokedex[this.toID(poke.prevo)];
+				if (poke2.types) {
+					for (const type of poke2.types) {
+						if (chosenTypes.includes(type) || type === "Fairy") continue;
+						chosenTypes.push(type);
+					}
+				}
+				if (poke2.prevo) {
+					const poke3 = this.dataCache.Pokedex[this.toID(poke2.prevo)];
+					if (poke3.types) {
+						for (const type of poke3.types) {
+							if (chosenTypes.includes(type) || type === "Fairy") continue;
+							chosenTypes.push(type);
+						}
+					}
+				}
+			}
+			if (poke.otherFormes) {
+				for (const form of poke.otherFormes) {
+					if (form.types) {
+						for (const type of form.types) {
+							if (chosenTypes.includes(type) || type === "Fairy") continue;
+							chosenTypes.push(type);
+						}
+					}
+				}
+			}
+			console.log(chosenTypes); // please work aksdfjg
+
+			// - score different type combinations
+			// - pick at random from the highest-scoring combinations
+
 
 			// RANDOM MOVES
 			// todo:
