@@ -240,7 +240,7 @@ Other post-Gen V moves I probably *can* backport if it comes up
 					loopCount++;
 				}
 			}
-			console.log(chosenTypes[0] + chosenTypes[1] + chosenTypes[3]); // just samples
+			console.log(chosenCombinations[0] + chosenCombinations[1] + chosenCombinations[2]); // just samples
 
 
 			// RANDOM MOVES
