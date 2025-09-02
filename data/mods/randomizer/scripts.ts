@@ -127,6 +127,7 @@ Other post-Gen V moves I probably *can* backport if it comes up
 		for (const id in this.dataCache.Pokedex) {
 			const poke = this.dataCache.Pokedex[id];
 			if (!poke || poke.evos) continue;
+			if (!(this.dataCache.Learnsets[id] && this.dataCache.Learnsets[id].learnset)) continue; // skip Megas and G-Maxes this time
 			if (poke.baseSpecies && (poke.baseSpecies === "Pikachu" || poke.baseSpecies === "Pichu" || poke.baseSpecies === "Eevee" || poke.baseSpecies === "Floette")) continue;
 			if (poke.forme && (poke.forme === "Totem" || poke.forme === "Alola-Totem")) continue;
 			if (poke.num && poke.num < 0) continue; // skip CAPs
@@ -175,8 +176,8 @@ Other post-Gen V moves I probably *can* backport if it comes up
 					if (type === "Fairy") continue;
 					validTypes2.push(type);
 				}
-				let random = Math.floor(Math.random() * validTypes2.length);
-				chosenTypes.push(validTypes2[random1]);
+				let random2 = Math.floor(Math.random() * validTypes2.length);
+				chosenTypes.push(validTypes2[random2]);
 			}
 			console.log(chosenTypes[0] + chosenTypes[1] + chosenTypes[2] + (chosenTypes[3] ? "!" + chosenTypes[3] : ` `));
 
