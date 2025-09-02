@@ -40,89 +40,6 @@ export const Scripts: ModdedBattleScriptsData = {
 // - list all (non-TM) Egg moves, post-Gen VIII Egg/level-up additions, and the above postgameTms section at the end ("moves that can be assigned levels if I want") - done
 // - forcibly remove all field move TMs and HMs from level-up!! - done
 
-/*
-// UNIVERSAL MOVES
-
-Universal	Attract, Double Team, Facade, Frustration, Giga Impact, Hidden Power, Hyper Beam, Protect, Rain Dance, Rest, Return, Round, Sleep Talk, Snore, Substitute, Sunny Day, Swagger, Toxic
-
-Fire			Fire Blast, Flame Charge, Flamethrower, Heat Wave, Overheat, Reflect, Rock Smash, Solar Beam, Will-O-Wisp
-Water			Blizzard, Dive, Hail, Ice Beam, Icy Wind, Scald, Surf
-* Chilling Water
-Electric		Charge Beam, Flash, Light Screen, Reflect, Signal Beam, Thunder, Thunder Wave, Thunderbolt, Volt Switch, Wild Charge
-* Discharge, Eerie Impulse
-Grass			Energy Ball, Flash, Giga Drain, Grass Knot, Reflect, Seed Bomb, Sludge Bomb, Solar Beam, Synthesis, Worry Seed
-* Bullet Seed, Poison Powder, Sleep Powder, Stun Spore, Trailblaze
-Ice			Blizzard, Hail, Ice Beam, Icy Wind, Reflect, Signal Beam, Snowscape
-Fighting		Brick Break, Bulk Up, Earthquake, Focus Blast, Helping Hand, Ice Punch, Poison Jab, Retaliate, Rock Slide, Rock Smash, Rock Tomb, Stone Edge, Strength, Work Up
-* Coaching
-Poison		Gunk Shot, Sludge Bomb, Toxic, Venoshock
-* Acid Spray
-Ground		Bulldoze, Dig, Earth Power, Earthquake, Rock Slide, Rock Smash, Rock Tomb, Sandstorm, Stealth Rock, Stone Edge, Strength
-Flying		Aerial Ace, Fly, Reflect, Roost, Tailwind
-Psychic		Calm Mind, Dream Eater, Flash, Helping Hand, Light Screen, Magic Coat, Psych Up, Psychic, Psyshock, Reflect, Shadow Ball, Signal Beam, Skill Swap, Telekinesis, Trick, Trick Room, Zen Headbutt
-* Teleport
-Bug			Bug Bite, Roost, Struggle Bug, U-turn, X-Scissor
-* Pounce
-Rock			Brick Break, Bulldoze, Earth Power, Earthquake, Iron Defense, Rock Polish, Rock Slide, Rock Smash, Rock Tomb, Sandstorm, Smack Down, Stealth Rock, Stone Edge
-Ghost			Shadow Ball, Spite
-* Hex
-Dragon		Draco Meteor, Dragon Claw, Dragon Pulse, Dragon Tail, Hone Claws, Outrage, Rock Smash, Strength
-Dark			Dark Pulse, Payback, Retaliate, Snarl, Spite, Taunt, Thief, Torment
-Steel			Flash Cannon, Iron Defense, Iron Head, Rock Smash
-* Steel Beam (maybe)
-Normal		Helping Hand, Retaliate, Work Up
-
-Monster		Blizzard, Bulldoze, Earthquake, Ice Beam, Iron Tail, Outrage, Rock Smash, Strength
-Human-Like	Brick Break, Fire Punch, Fling, Focus Blast, Helping Hand, Ice Punch, Taunt, Thunder Punch
-* Focus Punch, Power-Up Punch
-Water 1		Blizzard, Dive, Hail, Ice Beam, Icy Wind, Scald, Surf, Waterfall
-* Chilling Water
-Water 3		Blizzard, Helping Hand, Ice Beam, Reflect, Rock Slide, Scald, Surf
-* Chilling Water
-Bug			Bug Bite, Roost, Struggle Bug, U-turn, X-Scissor
-* Pounce
-Flying		Aerial Ace, Fly, Heat Wave, Pluck, Roost, Sky Attack, Tailwind, U-turn
-* Air Cutter, Hurricane, Quick Attack
-Amorphous	Dark Pulse, Flash, Pain Split, Shadow Ball, Sludge Bomb, Taunt
-* Hex
-Field			Dig, Iron Tail
-Water 2		Blizzard, Bounce, Dive, Hail, Ice Beam, Icy Wind, Scald, Surf, Waterfall
-* Chilling Water
-Fairy			Brick Break, Calm Mind, Dig, Flash, Helping Hand, Iron Tail, Light Screen, Psychic, Reflect, Thunder Wave
-* Growl, Teleport
-Grass			Bullet Seed, Energy Ball, Flash, Giga Drain, Grass Knot, Reflect, Seed Bomb, Sludge Bomb, Solar Beam, Swords Dance, Synthesis, Worry Seed
-* Bullet Seed, Growth, Leech Seed, Poison Powder, Sleep Powder, Stun Spore, Trailblaze
-Dragon		Bulldoze, Dragon Pulse, Dragon Tail, Earthquake, Iron Tail, Outrage, Rock Smash, Strength
-* Breaking Swipe, Leer
-
-Asterisks are moves that are not TMs, but that I want to be distributed widely anyway
-
-Post-Gen V moves I'm interested in backporting based on the above list
-- Chilling Water
-- Eerie Impulse
-- Trailblaze
-- Coaching
-- Pounce
-- Steel Beam (? is this possible? I could do special Head Smash at least)
-- Power-Up Punch
-- Breaking Swipe
-
-Other post-Gen V moves I probably *can* backport if it comes up
-	Phantom Force, Noble Roar, Parabolic Charge, Petal Blizzard, Boomburst, Play Nice, Confide, Diamond Storm, Steam Eruption, Hyperspace Hole, Water Shuriken, Aromatic Mist,
-	Baby-Doll Eyes, Nuzzle, Infestation, Power-Up Punch;
-
- 	First Impression (?), Spirit Shackle (?), Darkest Lariat, Ice Hammer, High Horsepower, Solar Blade, Leafage, Anchor Shot (?), Lunge, Fire Lash, Power Trip, Smart Strike, Trop Kick,
-  	Clanging Scales, Dragon Hammer, Brutal Swing, Psychic Fangs, Shadow Bone, Accelerock, Liquidation, Tearful Look, Zing Zap, Mind Blown (?);
-
-	Snipe Shot, Magic Powder (?), Decorate, Drum Beating, Snap Trap, Pyro Ball, Breaking Swipe, Branch Poke, Overdrive, Apple Acid, Life Dew (?), False Surrender, Meteor Assault,
- 	Scale Shot (?), Skitter Smack, Corrosive Gas (?), Coaching, Flip Turn, Triple Axel (?), Dual Wingbeat, Scorching Sands, Mystical Power, Raging Fury, Wave Crash, Chloroblast (?),
-  	Mountain Gale, Victory Dance, Headlong Rush, Barb Barrage (?), Esper Wing, Bitter Malice, Shelter, Infernal Parade (?), Bleakwind Storm, Wildbolt Storm, Sandsear Storm (?);
-
-	Axe Kick (?), Lumina Crash, Jet Punch, Spicy Extract, Spin Out, Population Bomb (?), Triple Dive, Kowtow Cleave, Flower Trick, Torch Song, Aqua Step, Make It Rain, Pounce,
- 	Trailblaze, Chilling Water, Hyper Drill, Twin Beam, Armor Cannon, Bitter Blade, Comeuppance, Aqua Cutter, Matcha Gotcha (?), Thunderclap, Mighty Cleave, Tachyon Cutter,
-  	Hard Press (?), Supercell Slam, Malignant Chain
-*/
-
 		let printno = 0;
 		for (const id in this.dataCache.Pokedex) {
 			const poke = this.dataCache.Pokedex[id];
@@ -408,6 +325,98 @@ Other post-Gen V moves I probably *can* backport if it comes up
 					}
 				}
 
+				const universalMoves: string[] = [];
+				// start pushing to universalMoves based on poke.chosenType.type1, poke.chosenType.type2, and poke.eggGroups
+				const universal = ['doubleteam', 'facade', 'frustration', 'gigaimpact', 'hiddenpower', 'hyperbeam', 'protect', 'raindance', 'rest', 'return', 'round', 'sleeptalk', 'snore', 'substitute', 'sunnyday', 'swagger', 'toxic'];
+				const universalFire = ['fireblast', 'flamecharge', 'flamethrower', 'heatwave', 'overheat', 'reflect', 'rocksmash', 'solarbeam', 'willowisp'];
+
+				if (!(poke.gender && poke.gender === "N")) universalMoves.push('attract');
+				for (const moveid in universal) universalMoves.push(moveid);
+				if (poke.chosenType.type1 === 'Fire' || poke.chosenType.type2 === 'Fire') for (const moveid in universalFire) universalMoves.push(moveid);
+
+/*
+// UNIVERSAL MOVES
+
+Universal	Attract, Double Team, Facade, Frustration, Giga Impact, Hidden Power, Hyper Beam, Protect, Rain Dance, Rest, Return, Round, Sleep Talk, Snore, Substitute, Sunny Day, Swagger, Toxic
+
+Fire			Fire Blast, Flame Charge, Flamethrower, Heat Wave, Overheat, Reflect, Rock Smash, Solar Beam, Will-O-Wisp
+Water			Blizzard, Dive, Hail, Ice Beam, Icy Wind, Scald, Surf
+* Chilling Water
+Electric		Charge Beam, Flash, Light Screen, Reflect, Signal Beam, Thunder, Thunder Wave, Thunderbolt, Volt Switch, Wild Charge
+* Discharge, Eerie Impulse
+Grass			Energy Ball, Flash, Giga Drain, Grass Knot, Reflect, Seed Bomb, Sludge Bomb, Solar Beam, Synthesis, Worry Seed
+* Bullet Seed, Poison Powder, Sleep Powder, Stun Spore, Trailblaze
+Ice			Blizzard, Hail, Ice Beam, Icy Wind, Reflect, Signal Beam, Snowscape
+Fighting		Brick Break, Bulk Up, Earthquake, Focus Blast, Helping Hand, Ice Punch, Poison Jab, Retaliate, Rock Slide, Rock Smash, Rock Tomb, Stone Edge, Strength, Work Up
+* Coaching
+Poison		Gunk Shot, Sludge Bomb, Toxic, Venoshock
+* Acid Spray
+Ground		Bulldoze, Dig, Earth Power, Earthquake, Rock Slide, Rock Smash, Rock Tomb, Sandstorm, Stealth Rock, Stone Edge, Strength
+Flying		Aerial Ace, Fly, Reflect, Roost, Tailwind
+Psychic		Calm Mind, Dream Eater, Flash, Helping Hand, Light Screen, Magic Coat, Psych Up, Psychic, Psyshock, Reflect, Shadow Ball, Signal Beam, Skill Swap, Telekinesis, Trick, Trick Room, Zen Headbutt
+* Teleport
+Bug			Bug Bite, Roost, Struggle Bug, U-turn, X-Scissor
+* Pounce
+Rock			Brick Break, Bulldoze, Earth Power, Earthquake, Iron Defense, Rock Polish, Rock Slide, Rock Smash, Rock Tomb, Sandstorm, Smack Down, Stealth Rock, Stone Edge
+Ghost			Shadow Ball, Spite
+* Hex
+Dragon		Draco Meteor, Dragon Claw, Dragon Pulse, Dragon Tail, Hone Claws, Outrage, Rock Smash, Strength
+Dark			Dark Pulse, Payback, Retaliate, Snarl, Spite, Taunt, Thief, Torment
+Steel			Flash Cannon, Iron Defense, Iron Head, Rock Smash
+* Steel Beam (maybe)
+Normal		Helping Hand, Retaliate, Work Up
+
+Monster		Blizzard, Bulldoze, Earthquake, Ice Beam, Iron Tail, Outrage, Rock Smash, Strength
+Human-Like	Brick Break, Fire Punch, Fling, Focus Blast, Helping Hand, Ice Punch, Taunt, Thunder Punch
+* Focus Punch, Power-Up Punch
+Water 1		Blizzard, Dive, Hail, Ice Beam, Icy Wind, Scald, Surf, Waterfall
+* Chilling Water
+Water 3		Blizzard, Helping Hand, Ice Beam, Reflect, Rock Slide, Scald, Surf
+* Chilling Water
+Bug			Bug Bite, Roost, Struggle Bug, U-turn, X-Scissor
+* Pounce
+Flying		Aerial Ace, Fly, Heat Wave, Pluck, Roost, Sky Attack, Tailwind, U-turn
+* Air Cutter, Hurricane, Quick Attack
+Amorphous	Dark Pulse, Flash, Pain Split, Shadow Ball, Sludge Bomb, Taunt
+* Hex
+Field			Dig, Iron Tail
+Water 2		Blizzard, Bounce, Dive, Hail, Ice Beam, Icy Wind, Scald, Surf, Waterfall
+* Chilling Water
+Fairy			Brick Break, Calm Mind, Dig, Flash, Helping Hand, Iron Tail, Light Screen, Psychic, Reflect, Thunder Wave
+* Growl, Teleport
+Grass			Bullet Seed, Energy Ball, Flash, Giga Drain, Grass Knot, Reflect, Seed Bomb, Sludge Bomb, Solar Beam, Swords Dance, Synthesis, Worry Seed
+* Bullet Seed, Growth, Leech Seed, Poison Powder, Sleep Powder, Stun Spore, Trailblaze
+Dragon		Bulldoze, Dragon Pulse, Dragon Tail, Earthquake, Iron Tail, Outrage, Rock Smash, Strength
+* Breaking Swipe, Leer
+
+Asterisks are moves that are not TMs, but that I want to be distributed widely anyway
+
+Post-Gen V moves I'm interested in backporting based on the above list
+- Chilling Water
+- Eerie Impulse
+- Trailblaze
+- Coaching
+- Pounce
+- Steel Beam (? is this possible? I could do special Head Smash at least)
+- Power-Up Punch
+- Breaking Swipe
+
+Other post-Gen V moves I probably *can* backport if it comes up
+	Phantom Force, Noble Roar, Parabolic Charge, Petal Blizzard, Boomburst, Play Nice, Confide, Diamond Storm, Steam Eruption, Hyperspace Hole, Water Shuriken, Aromatic Mist,
+	Baby-Doll Eyes, Nuzzle, Infestation, Power-Up Punch;
+
+ 	First Impression (?), Spirit Shackle (?), Darkest Lariat, Ice Hammer, High Horsepower, Solar Blade, Leafage, Anchor Shot (?), Lunge, Fire Lash, Power Trip, Smart Strike, Trop Kick,
+  	Clanging Scales, Dragon Hammer, Brutal Swing, Psychic Fangs, Shadow Bone, Accelerock, Liquidation, Tearful Look, Zing Zap, Mind Blown (?);
+
+	Snipe Shot, Magic Powder (?), Decorate, Drum Beating, Snap Trap, Pyro Ball, Breaking Swipe, Branch Poke, Overdrive, Apple Acid, Life Dew (?), False Surrender, Meteor Assault,
+ 	Scale Shot (?), Skitter Smack, Corrosive Gas (?), Coaching, Flip Turn, Triple Axel (?), Dual Wingbeat, Scorching Sands, Mystical Power, Raging Fury, Wave Crash, Chloroblast (?),
+  	Mountain Gale, Victory Dance, Headlong Rush, Barb Barrage (?), Esper Wing, Bitter Malice, Shelter, Infernal Parade (?), Bleakwind Storm, Wildbolt Storm, Sandsear Storm (?);
+
+	Axe Kick (?), Lumina Crash, Jet Punch, Spicy Extract, Spin Out, Population Bomb (?), Triple Dive, Kowtow Cleave, Flower Trick, Torch Song, Aqua Step, Make It Rain, Pounce,
+ 	Trailblaze, Chilling Water, Hyper Drill, Twin Beam, Armor Cannon, Bitter Blade, Comeuppance, Aqua Cutter, Matcha Gotcha (?), Thunderclap, Mighty Cleave, Tachyon Cutter,
+  	Hard Press (?), Supercell Slam, Malignant Chain
+*/
+
 				for (const moveid in this.dataCache.Moves) {
 					const move = this.dataCache.Moves[moveid];
 					if (!move) {
@@ -534,6 +543,13 @@ Other post-Gen V moves I probably *can* backport if it comes up
 								include = true; // so I know if they're to be included at all
 								if (!postgameTms.includes(moveid)) learnedTm = true; // so I know if they need to be in level-up anyway
 							}
+						}
+					}
+					if (universalMoves.includes(moveid)) {
+						learned = true;
+						if (genVTms.includes(moveid)) {
+							include = true; // so I know if they're to be included at all
+							if (!postgameTms.includes(moveid)) learnedTm = true; // so I know if they need to be in level-up anyway
 						}
 					}
 					if (!learned || !include) continue;
