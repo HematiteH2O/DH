@@ -296,7 +296,7 @@ Other post-Gen V moves I probably *can* backport if it comes up
 				}
 			}
 
-			let randomType = Math.floor(Math.random() * chosenCombinations.length);
+			let randomType = Math.floor(Math.random() * loopCount);
 			poke.chosenType = chosenCombinations[randomType];
 
 			// console.logging
