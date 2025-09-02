@@ -18,7 +18,7 @@ const universalDark = ['darkpulse', 'payback', 'retaliate', 'snarl', 'spite', 't
 const universalSteel = ['flashcannon', 'irondefense', 'ironhead', 'rocksmash', 'steelbeam'];
 const universalNormal = ['helpinghand', 'retaliate', 'workup'];
 
-const universalMonsterGroup = ['blizzard', 'bulldoze', 'earthquake', 'icebeam', 'irontail', 'outrage', 'rocksmash', 'strength'];
+const universalMonsterGroup = ['bulldoze', 'earthquake', 'irontail', 'outrage', 'rocksmash', 'strength'];
 const universalHumanlikeGroup = ['brickbreak', 'firepunch', 'fling', 'focusblast', 'helpinghand', 'icepunch', 'taunt', 'thunderpunch', 'focuspunch', 'poweruppunch'];
 const universalWater1Group = ['blizzard', 'dive', 'hail', 'icebeam', 'icywind', 'scald', 'surf', 'waterfall', 'chillingwater'];
 const universalWater3Group = ['blizzard', 'helpinghand', 'icebeam', 'reflect', 'rockslide', 'scald', 'surf', 'chillingwater'];
@@ -606,12 +606,17 @@ export const Scripts: ModdedBattleScriptsData = {
 							}
 						}
 					}
-					if (forceLearn) {
-						learned = true;
-						include = true;
-						if (genVTms.includes(moveid) && !postgameTms.includes(moveid)) learnedTm = true;
+					let asterisk = false;
+					if (!learned || !include) {
+						if (forceLearn) {
+							asterisk = true;
+							learned = true;
+							include = true;
+							if (genVTms.includes(moveid) && !postgameTms.includes(moveid)) learnedTm = true;
+						} else {
+							continue;
+						}
 					}
-					if (!learned || !include) continue;
 					// (copy the above when ready)
 					if (!learnedLvUp && ['grasspledge', 'firepledge', 'waterpledge', 'hydrocannon', 'frenzyplant', 'blastburn', 'dracometeor', 'gigaimpact'].includes(moveid)) continue;
 					if (learned && !learnedLvUp && !learnedTm) levelLearned = 101;
@@ -640,6 +645,7 @@ export const Scripts: ModdedBattleScriptsData = {
 						if (prevo2LevelLearned > prevoLevelLearned && prevoLevelLearned > 1) prevo2LevelLearned = prevoLevelLearned;
 					}
 					let moveName: string[] = [move.name];
+					if (asterisk) moveName += `*`;
 					if (levelLearned == 101 && guaranteeShowLv) {
 						levelLearned = prevoLevelLearned;
 					}
@@ -652,10 +658,12 @@ export const Scripts: ModdedBattleScriptsData = {
 						if (lv1 && !prevoLv1 && !prevo2lv1 && poke.evoLevel) levelLearned = poke.evoLevel;
 					}
 					if (genVTms.includes(moveid)) {
-						if (!genVLearnedTmAlready) poke.additionalTms.push(move.tmid ? move.tmid : `x ` + move.name); // make sure to identify TMs that need to be added manually
+						moveName = move.tmid ? move.tmid : `x ` + move.name;
+						if (asterisk) moveName += `*`;
+						if (!genVLearnedTmAlready) poke.additionalTms.push(moveName); // make sure to identify TMs that need to be added manually
 						if (levelLearned === 101 && !postgameTms.includes(moveid)) continue; // skip level 0 moves if they're on the Gen V TM/tutor list
 					}
-					if (move.num && move.num > 559) moveName = moveName + `*`; // identify post-Gen V moves
+					if (move.num && move.num > 559) moveName = moveName + ` (new)`; // identify post-Gen V moves
 					if (learnset3) moveName = prevo2LevelLearned + ` - ` + moveName; // add prevo2 levels
 					if (learnset2) moveName = prevoLevelLearned + ` - ` + moveName; // add prevo levels
 					if (levelLearned < 1 || levelLearned > 101) continue;
@@ -666,10 +674,11 @@ export const Scripts: ModdedBattleScriptsData = {
 					if (levelLearned == 101) {
 						// reset move name
 						moveName = move.name;
+						if (asterisk) moveName += `*`;
 						if (move.num && move.num > 559) {
 							poke.backports.push(moveName);
 						} else {
-							poke.learnsetCumulative.learnset[levelLearned].movesLearned.push(move.name);
+							poke.learnsetCumulative.learnset[levelLearned].movesLearned.push(moveName);
 						}
 					} else {
 						poke.learnsetCumulative.learnset[levelLearned].movesLearned.push(moveName);
