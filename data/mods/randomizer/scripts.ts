@@ -158,7 +158,7 @@ Other post-Gen V moves I probably *can* backport if it comes up
 			if (poke.types) {
 				for (const type in poke.types) {
 					if (type === "Fairy") continue;
-					chosenTypes.push(type);
+					chosenTypes.push(this.dataCache.TypeChart[type]);
 				}
 			}
 			for (const type in this.dataCache.TypeChart) {
