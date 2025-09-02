@@ -232,6 +232,9 @@ Other post-Gen V moves I probably *can* backport if it comes up
 					if (type1 === poke.types[0] && ((poke.types[1] && type2 === poke.types[1]) || (!poke.types[1] && type2 === type1))) continue;
 					if (type2 === poke.types[0] && ((poke.types[1] && type1 === poke.types[1]) || (!poke.types[1] && type2 === type1))) continue;
 
+					// skip identical combinations for now
+					for (const combo in chosenCombinations) if (chosenCombinations[combo] === [type2, type1]) continue;
+
 					// score the chosen type based on matchups
 
 					// Ability checks
