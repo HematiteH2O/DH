@@ -263,7 +263,9 @@ Other post-Gen V moves I probably *can* backport if it comes up
 					}
 
 					// skip identical combinations for now
-					for (const combo of chosenCombinations) if (chosenCombinations[combo] === [type2, type1]) continue;
+					for (const combo in chosenCombinations) {
+						if (chosenCombinations[combo][type1] === type2 && chosenCombinations[combo][type2] === type1) continue;
+					}
 
 					// score for defensive matchups
 					let defScore = 0;
