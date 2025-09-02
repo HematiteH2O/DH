@@ -158,15 +158,17 @@ Other post-Gen V moves I probably *can* backport if it comes up
 					chosenTypes.push(type);
 				}
 			}
-			const validTypes1: string[] = [];
-			for (const type in this.dataCache.TypeChart) {
-				if (chosenTypes.includes(type)) continue;
-				if (type === "Fairy") continue;
-				validTypes1.push(type);
+			if (chosenTypes.length && chosenTypes.length < 2) { // pad types to 2
+				const validTypes1: string[] = [];
+				for (const type in this.dataCache.TypeChart) {
+					if (chosenTypes.includes(type)) continue;
+					if (type === "Fairy") continue;
+					validTypes1.push(type);
+				}
+				let random1 = Math.floor(Math.random() * validTypes1.length);
+				chosenTypes.push(validTypes1[random1]);
 			}
-			let random1 = Math.floor(Math.random() * validTypes1.length);
-			chosenTypes.push(validTypes1[random1]);
-			if (chosenTypes.length && chosenTypes.length < 3) {
+			if (chosenTypes.length && chosenTypes.length < 2) { // pure Fairy-types need a second random type
 				const validTypes2: string[] = [];
 				for (const type in this.dataCache.TypeChart) {
 					if (chosenTypes.includes(type)) continue;
@@ -175,16 +177,6 @@ Other post-Gen V moves I probably *can* backport if it comes up
 				}
 				let random2 = Math.floor(Math.random() * validTypes2.length);
 				chosenTypes.push(validTypes2[random2]);
-			}
-			if (chosenTypes.length && chosenTypes.length < 3) { // pure Fairy-types need a third random type
-				const validTypes3: string[] = [];
-				for (const type in this.dataCache.TypeChart) {
-					if (chosenTypes.includes(type)) continue;
-					if (type === "Fairy") continue;
-					validTypes3.push(type);
-				}
-				let random3 = Math.floor(Math.random() * validTypes3.length);
-				chosenTypes.push(validTypes3[random3]);
 			}
 
 			// - pool together all types including randomized types, base types, pre-evolutions and forms
@@ -219,6 +211,18 @@ Other post-Gen V moves I probably *can* backport if it comes up
 				}
 			}
 
+			// generate 1 more random type to make absolutely sure there's at least 1 in the pool that isn't on another form already
+			const validTypes3: string[] = [];
+			for (const type in this.dataCache.TypeChart) {
+				if (chosenTypes.includes(type)) continue;
+				if (type === "Fairy") continue;
+				validTypes3.push(type);
+			}
+			if (validTypes.length) {
+				let random3 = Math.floor(Math.random() * validTypes3.length);
+				chosenTypes.push(validTypes3[random3]);
+			}
+
 			// - score different type combinations; pick at random from the highest-scoring combinations
 			// - thinking... iterate through all possible type1s, then iterate through all possible type2s, then push to a list of eligible combinations
 			// - clear the list of eligible combinations every time a higher scorer is found
@@ -232,12 +236,38 @@ Other post-Gen V moves I probably *can* backport if it comes up
 					if (type1 === poke.types[0] && ((poke.types[1] && type2 === poke.types[1]) || (!poke.types[1] && type2 === type1))) continue;
 					if (type2 === poke.types[0] && ((poke.types[1] && type1 === poke.types[1]) || (!poke.types[1] && type2 === type1))) continue;
 
+					// and exact types already taken by other forms/variants
+					if (poke.otherFormes) {
+						for (const form of poke.otherFormes) {
+							const poke4 = this.dataCache.Pokedex[this.toID(form)];
+							if (poke4.types) {
+								if (type1 === poke4.types[0] && ((poke4.types[1] && type2 === poke4.types[1]) || (!poke4.types[1] && type2 === type1))) continue;
+								if (type2 === poke4.types[0] && ((poke4.types[1] && type1 === poke4.types[1]) || (!poke4.types[1] && type2 === type1))) continue;
+							}
+						}
+					}
+
 					// skip identical combinations for now
 					for (const combo in chosenCombinations) if (chosenCombinations[combo] === [type2, type1]) continue;
 
-					// score the chosen type based on matchups
+					// score for defensive matchups
+					let defScore = 0;
+
+					// score for offensive matchups
+					let offScore = 0;
 
 					// Ability checks
+
+					// between offScore and defScore, whichever is higher is more valued, I guess?
+					let score = defScore;
+					if (offScore > score) score = offScore;
+
+					// clear all existing combinations if a better one comes along
+					if (score > topScore) {
+						topScore = score;
+						chosenCombinations = {};
+						loopCount = 0;
+					}
 
 					chosenCombinations[loopCount] = [type1, type2];
 					loopCount++;
