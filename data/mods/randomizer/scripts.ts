@@ -218,10 +218,27 @@ Other post-Gen V moves I probably *can* backport if it comes up
 					}
 				}
 			}
-			console.log(chosenTypes); // please work aksdfjg
 
-			// - score different type combinations
-			// - pick at random from the highest-scoring combinations
+			// - score different type combinations; pick at random from the highest-scoring combinations
+			// - thinking... iterate through all possible type1s, then iterate through all possible type2s, then push to a list of eligible combinations
+			// - clear the list of eligible combinations every time a higher scorer is found
+
+			let chosenCombinations = {};
+			loopCount = 0;
+			for (const type1 of chosenTypes) {
+				for (const type2 of chosenTypes) {
+					// automatically reject the base type
+					if (type1 === poke.types[0] && ((poke.types[1] && type2 === poke.types[1] || (!poke.types[1] && type2 === type1)) continue;
+					if (type2 === poke.types[0] && (poke.types[1] && type1 === poke.types[1]) || (!poke.types[1] && type2 === type1) continue;
+
+					// score the chosen type based on matchups
+
+					// Ability checks
+
+					chosenCombinations[loopCount] = [type1, type2];
+				}
+			}
+			console.log(chosenTypes[0] + chosenTypes[1] + chosenTypes[3]); // just samples
 
 
 			// RANDOM MOVES
