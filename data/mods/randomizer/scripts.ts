@@ -272,9 +272,11 @@ Other post-Gen V moves I probably *can* backport if it comes up
 					}
 
 					// skip identical combinations for now
+					let comboSkip = false;
 					for (const combo in chosenCombinations) {
-						if (chosenCombinations[combo].type1 === type2 && chosenCombinations[combo].type2 === type1) continue;
+						if (chosenCombinations[combo].type1 === type2 && chosenCombinations[combo].type2 === type1) comboSkip = true;
 					}
+					if (comboSkip) continue;
 
 					let score = 0;
 					// defensive:
@@ -307,6 +309,10 @@ Other post-Gen V moves I probably *can* backport if it comes up
 
 			let randomType = Math.floor(Math.random() * loopCount);
 			poke.chosenType = chosenCombinations[randomType];
+			if (poke.types[0] === poke.chosenType.type2 || (poke.types[1] && poke.types[1] === poke.chosenType.type1)) {
+				poke.chosenType.type1 = chosenCombinations[randomType].type2;
+				poke.chosenType.type2 = chosenCombinations[randomType].type1;
+			}
 
 			// console.logging
 			let samples: string[] = [poke.name + ` samples: `];
