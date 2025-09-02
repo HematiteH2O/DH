@@ -157,7 +157,7 @@ Other post-Gen V moves I probably *can* backport if it comes up
 			if (poke.types) {
 				for (const type of poke.types) {
 					if (type === "Fairy") continue;
-					chosenTypes.push(this.dataCache.TypeChart[type]);
+					chosenTypes.push(type);
 				}
 			}
 			const validTypes1: string[] = [];
@@ -166,8 +166,8 @@ Other post-Gen V moves I probably *can* backport if it comes up
 				if (type === "Fairy") continue;
 				validTypes1.push(type);
 				let random1 = Math.floor(Math.random() * validTypes1.length);
-				chosenTypes.push(validTypes1[random1]);
 			}
+			chosenTypes.push(validTypes1[random1]);
 			if (chosenTypes.length && chosenTypes.length < 3) {
 				const validTypes2: string[] = [];
 				for (const type in this.dataCache.TypeChart) {
@@ -175,8 +175,8 @@ Other post-Gen V moves I probably *can* backport if it comes up
 					if (type === "Fairy") continue;
 					validTypes2.push(type);
 					let random = Math.floor(Math.random() * validTypes2.length);
-					chosenTypes.push(validTypes2[random1]);
 				}
+				chosenTypes.push(validTypes2[random1]);
 			}
 			console.log(chosenTypes[0] + chosenTypes[1] + chosenTypes[2] + (chosenTypes[3] ? "!" + chosenTypes[3] : ` `));
 
