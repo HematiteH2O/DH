@@ -1137,15 +1137,15 @@ export const Scripts: ModdedBattleScriptsData = {
 					let secondMove = null;
 					if (levelLearned < 101) {
 						const eligibleMoves: string[] = [];
-
-						const moveGroup1 = ['skyuppercut', 'psychicfangs', 'dragonpulse', 'dragonhammer', 'aquatail', 'highhorsepower', 'return', 'frustration'];
-						const moveGroup2 = ['blazekick', 'snipeshot', 'attackorder', 'leafblade'];
-						const moveGroup3 = ['shadowbone', 'liquidation', 'nightdaze', 'playrough', 'meteormash', 'bugbuzz', 'energyball', 'earthpower', 'moonblast', 'psychic'];
-						const moveGroup4 = ['bodyslam', 'rockclimb', 'thunderbolt', 'strangesteam', 'flamethrower', 'icebeam', 'sludgebomb'];
-						const moveGroup5 = ['submission', 'wildcharge', 'takedown'];
-						const moveGroup6 = ['darkestlariat', 'sacredsword'];
-						const moveGroup7 = ['petalblizzard', 'hypervoice', 'muddywater', 'surf', 'heatwave', 'sludgewave', 'earthquake'];
-						const moveGroup8 = [
+						const moveGroups = {
+							1: ['skyuppercut', 'psychicfangs', 'dragonpulse', 'dragonhammer', 'aquatail', 'highhorsepower', 'return', 'frustration'],
+							2: ['blazekick', 'snipeshot', 'attackorder', 'leafblade'],
+							3: ['shadowbone', 'liquidation', 'nightdaze', 'playrough', 'meteormash', 'bugbuzz', 'energyball', 'earthpower', 'moonblast', 'psychic'],
+							4: ['bodyslam', 'rockclimb', 'thunderbolt', 'strangesteam', 'flamethrower', 'icebeam', 'sludgebomb'],
+							5: ['submission', 'wildcharge', 'takedown'],
+							6: ['darkestlariat', 'sacredsword'],
+							7: ['petalblizzard', 'hypervoice', 'muddywater', 'surf', 'heatwave', 'sludgewave', 'earthquake'],
+							8: [
 							'skyuppercut', 'psychicfangs', 'dragonpulse', 'dragonhammer', 'aquatail', 'highhorsepower', 'return', 'frustration',
 							'blazekick', 'snipeshot', 'attackorder', 'leafblade',
 							'shadowbone', 'liquidation', 'nightdaze', 'playrough', 'meteormash', 'bugbuzz', 'energyball', 'earthpower', 'moonblast', 'psychic',
@@ -1153,30 +1153,17 @@ export const Scripts: ModdedBattleScriptsData = {
 							'submission', 'wildcharge', 'takedown',
 							'darkestlariat', 'sacredsword',
 							'petalblizzard', 'hypervoice', 'muddywater', 'surf', 'heatwave', 'sludgewave', 'earthquake',
-						];
-						if (!eligibleMoves.length && moveGroup1.includes(moveid)) {
-							for (const moveid of moveGroup1) if (this.dataCache.Moves[moveid] && this.dataCache.Moves[moveid].type && learnsetTypes.includes(this.dataCache.Moves[moveid].type)) eligibleMoves.push(moveid);
-						}
-						if (!eligibleMoves.length && moveGroup2.includes(moveid)) {
-							for (const moveid of moveGroup2) if (this.dataCache.Moves[moveid] && this.dataCache.Moves[moveid].type && learnsetTypes.includes(this.dataCache.Moves[moveid].type)) eligibleMoves.push(moveid);
-						}
-						if (!eligibleMoves.length && moveGroup3.includes(moveid)) {
-							for (const moveid of moveGroup3) if (this.dataCache.Moves[moveid] && this.dataCache.Moves[moveid].type && learnsetTypes.includes(this.dataCache.Moves[moveid].type)) eligibleMoves.push(moveid);
-						}
-						if (!eligibleMoves.length && moveGroup4.includes(moveid)) {
-							for (const moveid of moveGroup4) if (this.dataCache.Moves[moveid] && this.dataCache.Moves[moveid].type && learnsetTypes.includes(this.dataCache.Moves[moveid].type)) eligibleMoves.push(moveid);
-						}
-						if (!eligibleMoves.length && moveGroup5.includes(moveid)) {
-							for (const moveid of moveGroup5) if (this.dataCache.Moves[moveid] && this.dataCache.Moves[moveid].type && learnsetTypes.includes(this.dataCache.Moves[moveid].type)) eligibleMoves.push(moveid);
-						}
-						if (!eligibleMoves.length && moveGroup6.includes(moveid)) {
-							for (const moveid of moveGroup6) if (this.dataCache.Moves[moveid] && this.dataCache.Moves[moveid].type && learnsetTypes.includes(this.dataCache.Moves[moveid].type)) eligibleMoves.push(moveid);
-						}
-						if (!eligibleMoves.length && moveGroup7.includes(moveid)) {
-							for (const moveid of moveGroup7) if (this.dataCache.Moves[moveid] && this.dataCache.Moves[moveid].type && learnsetTypes.includes(this.dataCache.Moves[moveid].type)) eligibleMoves.push(moveid);
-						}
-						if (!eligibleMoves.length && moveGroup8.includes(moveid)) {
-							for (const moveid of moveGroup8) if (this.dataCache.Moves[moveid] && this.dataCache.Moves[moveid].type && learnsetTypes.includes(this.dataCache.Moves[moveid].type)) eligibleMoves.push(moveid);
+							],
+						};
+
+						for (const section of moveGroups) {
+							if (eligibleMoves.length) continue;
+							for (const altmoveid of moveGroups[section]) {
+								if (moveid === altmoveid) continue;
+								if (
+									this.dataCache.Moves[altmoveid] && this.dataCache.Moves[altmoveid].type && learnsetTypes.includes(this.dataCache.Moves[altmoveid].type)
+								) eligibleMoves.push(altmoveid);
+							}
 						}
 
 						if (eligibleMoves.length) {
