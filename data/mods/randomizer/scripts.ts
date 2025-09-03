@@ -946,6 +946,14 @@ export const Scripts: ModdedBattleScriptsData = {
 					if ((poke.eggGroups[0] === 'Grass' || (poke.eggGroups[1] && poke.eggGroups[1] === 'Grass')) && universalGrassGroup.includes(moveid)) forceLearn = true;
 					if ((poke.eggGroups[0] === 'Dragon' || (poke.eggGroups[1] && poke.eggGroups[1] === 'Dragon')) && universalDragonGroup.includes(moveid)) forceLearn = true;
 					// (only some Egg groups have universal moves)
+					// Bonus learnsetTypes
+					if (poke.learnsetTypes.includes('Fire') && universalFire.includes(moveid) && move.type === "Fire" && move.category !== "Status") forceLearn = true;
+					if (poke.learnsetTypes.includes('Water') && universalWater.includes(moveid) && move.type === "Water" && move.category !== "Status") forceLearn = true;
+					if (poke.learnsetTypes.includes('Grass') && universalGrass.includes(moveid) && move.type === "Grass" && move.category !== "Status") forceLearn = true;
+					if (poke.learnsetTypes.includes('Bug') && universalBug.includes(moveid) && move.type === "Bug" && move.category !== "Status") forceLearn = true;
+					if (poke.learnsetTypes.includes('Rock') && universalRock.includes(moveid) && move.type === "Rock" && move.category !== "Status") forceLearn = true;
+					if (poke.learnsetTypes.includes('Ground') && universalGround.includes(moveid) && move.type === "Ground" && move.category !== "Status") forceLearn = true;
+					if (poke.learnsetTypes.includes('Steel') && universalSteel.includes(moveid) && move.type === "Steel" && move.category !== "Status") forceLearn = true;
 
 					if (learnset[moveid]) { // if it learns the move
 						learned = true;
