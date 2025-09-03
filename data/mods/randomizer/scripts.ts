@@ -119,6 +119,40 @@ Other post-Gen V moves I probably *can* backport if it comes up
   	Hard Press (?), Supercell Slam, Malignant Chain
 */
 
+const movesAfterGenV = {
+	'phantomforce', 'nobleroar', 'paraboliccharge', 'petalblizzard', 'boomburst', 'playnice', 'confide', 'diamondstorm', 'steameruption', 'hyperspacehole',
+	'watershuriken', 'aromaticmist', 'babydolleyes', 'nuzzle', 'infestation', 'poweruppunch',
+	'firstimpression', 'spiritshackle', 'darkestlariat', 'icehammer', 'highhorsepower', 'solarblade', 'leafage', 'anchorshot', 'lunge', 'firelash',
+	'powertrip', 'smartstrike', 'tropkick', 'clangingscales', 'dragonhammer', 'brutalswing', 'psychicfangs', 'shadowbone', 'accelerock', 'liquidation',
+	'tearfullook', 'zingzap', 'mindblown',
+	'snipeshot', 'decorate', 'drumbeating', 'snaptrap', 'pyroball', 'breakingswipe', 'branchpoke', 'overdrive', 'appleacid', 'lifedew', 'falsesurrender',
+	'meteorassault', 'skittersmack', 'coaching', 'flipturn', 'dualwingbeat', 'scorchingsands', 'mysticalpower', 'ragingfury', 'wavecrash', 'chloroblast',
+	'mountaingale', 'victorydance', 'headlongrush', 'barbbarrage', 'esperwing', 'bittermalice', 'shelter', 'infernalparade', 'bleakwindstorm',
+	'wildboltstorm', 'sandsearstorm',
+	'axekick', 'luminacrash', 'jetpunch', 'spicyextract', 'spinout', 'populationbomb', 'tripledive', 'kowtowcleave', 'flowertrick', 'torchsong',
+	'aquastep', 'makeitrain', 'pounce', 'trailblaze', 'chillingwater', 'hyperdrill', 'twinbeam', 'armorcannon', 'bitterblade', 'comeuppance', 'aquacutter',
+	'matchagotcha', 'thunderclap', 'mightycleave', 'tachyoncutter', 'hardpress', 'supercellslam', 'malignantchain',
+	'eerieimpulse', 'steelbeam',
+};
+const moveGroups = {
+	1: ['skyuppercut', 'psychicfangs', 'dragonpulse', 'dragonhammer', 'aquatail', 'highhorsepower', 'return', 'frustration'],
+	2: ['blazekick', 'snipeshot', 'attackorder', 'leafblade'],
+	3: ['shadowbone', 'liquidation', 'nightdaze', 'playrough', 'meteormash', 'bugbuzz', 'energyball', 'earthpower', 'moonblast', 'psychic'],
+	4: ['bodyslam', 'rockclimb', 'thunderbolt', 'strangesteam', 'flamethrower', 'icebeam', 'sludgebomb'],
+	5: ['submission', 'wildcharge', 'takedown'],
+	6: ['darkestlariat', 'sacredsword'],
+	7: ['petalblizzard', 'hypervoice', 'muddywater', 'surf', 'heatwave', 'sludgewave', 'earthquake'],
+	8: [
+		'skyuppercut', 'psychicfangs', 'dragonpulse', 'dragonhammer', 'aquatail', 'highhorsepower', 'return', 'frustration',
+		'blazekick', 'snipeshot', 'attackorder', 'leafblade',
+		'shadowbone', 'liquidation', 'nightdaze', 'playrough', 'meteormash', 'bugbuzz', 'energyball', 'earthpower', 'moonblast', 'psychic',
+		'bodyslam', 'rockclimb', 'thunderbolt', 'strangesteam', 'flamethrower', 'icebeam', 'sludgebomb',
+		'submission', 'wildcharge', 'takedown',
+		'darkestlariat', 'sacredsword',
+		'petalblizzard', 'hypervoice', 'muddywater', 'surf', 'heatwave', 'sludgewave', 'earthquake',
+	],
+};
+
 export const Scripts: ModdedBattleScriptsData = {
 	init() {
 		const abilityDex = this.dataCache.Abilities;
@@ -1142,29 +1176,12 @@ export const Scripts: ModdedBattleScriptsData = {
 					let secondMove = null;
 					if (levelLearned < 101) {
 						const eligibleMoves: string[] = [];
-						const moveGroups = {
-							1: ['skyuppercut', 'psychicfangs', 'dragonpulse', 'dragonhammer', 'aquatail', 'highhorsepower', 'return', 'frustration'],
-							2: ['blazekick', 'snipeshot', 'attackorder', 'leafblade'],
-							3: ['shadowbone', 'liquidation', 'nightdaze', 'playrough', 'meteormash', 'bugbuzz', 'energyball', 'earthpower', 'moonblast', 'psychic'],
-							4: ['bodyslam', 'rockclimb', 'thunderbolt', 'strangesteam', 'flamethrower', 'icebeam', 'sludgebomb'],
-							5: ['submission', 'wildcharge', 'takedown'],
-							6: ['darkestlariat', 'sacredsword'],
-							7: ['petalblizzard', 'hypervoice', 'muddywater', 'surf', 'heatwave', 'sludgewave', 'earthquake'],
-							8: [
-							'skyuppercut', 'psychicfangs', 'dragonpulse', 'dragonhammer', 'aquatail', 'highhorsepower', 'return', 'frustration',
-							'blazekick', 'snipeshot', 'attackorder', 'leafblade',
-							'shadowbone', 'liquidation', 'nightdaze', 'playrough', 'meteormash', 'bugbuzz', 'energyball', 'earthpower', 'moonblast', 'psychic',
-							'bodyslam', 'rockclimb', 'thunderbolt', 'strangesteam', 'flamethrower', 'icebeam', 'sludgebomb',
-							'submission', 'wildcharge', 'takedown',
-							'darkestlariat', 'sacredsword',
-							'petalblizzard', 'hypervoice', 'muddywater', 'surf', 'heatwave', 'sludgewave', 'earthquake',
-							],
-						};
-
 						for (const section in moveGroups) {
 							if (eligibleMoves.length) continue;
 							if (!moveGroups[section].includes(moveid)) continue;
 							for (const altmoveid of moveGroups[section]) {
+								// disallow post-Gen V moves that I don't think I can copy
+								if (this.dataCache.Moves[altmoveid].num && this.dataCache.Moves[altmoveid].num > 559 && !movesAfterGenV.includes(altmoveid)) continue;
 								// if (moveid === altmoveid) continue;
 								// it's okay to randomize to the same thing, but...
 								if (
@@ -1216,7 +1233,7 @@ export const Scripts: ModdedBattleScriptsData = {
 						moveName = move.name;
 						if (asterisk) moveName += `*`;
 						if (move.num && move.num > 559) {
-							poke.backports.push(moveName);
+							if (movesAfterGenV.includes(moveid)) poke.backports.push(moveName);
 						} else {
 							poke.learnsetCumulative.learnset[levelLearned].movesLearned.push(moveName);
 						}
