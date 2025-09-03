@@ -490,13 +490,11 @@ export const Scripts: ModdedBattleScriptsData = {
 					if (poke.baseSpecies) pokeCheck = this.dataCache.Pokedex[this.toID(poke.baseSpecies)];
 					// automatically reject the base type
 					let baseType = false;
-					if (type1 === pokeCheck.types[0]) {
-						if (pokeCheck.types[1] && type2 === pokeCheck.types[1]) baseType = true;
-						if (!pokeCheck.types[1] && type2 === type1) baseType = true;
-					}
-					if (type2 === pokeCheck.types[0]) {
-						if (pokeCheck.types[1] && type1 === pokeCheck.types[1]) baseType = true;
-						if (!pokeCheck.types[1] && type2 === type1) baseType = true;
+					if (pokeCheck.types[1]) {
+						if (type1 === pokeCheck.types[0] && type2 === pokeCheck.types[0]) baseType = true;
+					} else {
+						if (type1 === pokeCheck.types[0] && type2 === pokeCheck.types[1]) baseType = true;
+						if (type2 === pokeCheck.types[0] && type1 === pokeCheck.types[1]) baseType = true;
 					}
 
 					// reject exact types already taken by other forms/variants
@@ -669,10 +667,12 @@ export const Scripts: ModdedBattleScriptsData = {
 					type2: [poke.types[1] ? poke.types[1] : poke.types[0]],
 				};
 			}
+			if (poke.name === "Alolan Sandslash") console.log(poke.chosenType.score + poke.chosenType.type1 + ((poke.chosenType.type2 !== poke.chosenType.type1) ? `/` + poke.chosenType.type2 : ` `));
 			if ((poke.types[0] === poke.chosenType.type2) || (poke.types[1] && poke.types[1] === poke.chosenType.type1)) {
 				poke.chosenType.type1 = chosenCombinations[randomType].type2;
 				poke.chosenType.type2 = chosenCombinations[randomType].type1;
 			}
+			if (poke.name === "Alolan Sandslash") console.log(poke.chosenType.score + poke.chosenType.type1 + ((poke.chosenType.type2 !== poke.chosenType.type1) ? `/` + poke.chosenType.type2 : ` `));
 
 			// console.logging
 			let samples: string[] = [poke.name + ` samples: `];
