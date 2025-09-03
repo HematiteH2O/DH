@@ -867,7 +867,7 @@ export const Scripts: ModdedBattleScriptsData = {
 				];
 				//  // ` + )
 				sheetOutput += poke.chosenType.type1 + (poke.chosenType.type2 === poke.chosenType.type1 ? `\n` : ` / `+ poke.chosenType.type2 + `\n`);
-				sheetOutput += poke.randAbilities[0] + (poke.randAbilities[1] ? ` / `+ poke.randAbilities[1] + ` ` : ` `); + (poke.randAbilities[2] ? `// `+ poke.randAbilities[2] + `\n` : `\n`);
+				sheetOutput += poke.randAbilities[0] + (poke.randAbilities[1] ? ` / `+ poke.randAbilities[1] + ` ` : ` `) + (poke.randAbilities[2] ? `// `+ poke.randAbilities[2] + `\n` : `\n`);
 				// TODO: other randomizer features (types, Abilities, stats)
 				for (const level in poke.learnsetCumulative.learnset) {
 					if (poke.learnsetCumulative.learnset[level].movesLearned.length) {
