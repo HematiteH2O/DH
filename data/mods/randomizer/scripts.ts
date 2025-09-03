@@ -152,10 +152,10 @@ Other post-Gen V moves I probably *can* backport if it comes up
 const movesAfterGenV = [
 	'phantomforce', 'nobleroar', 'paraboliccharge', 'petalblizzard', 'boomburst', 'playnice', 'confide', 'diamondstorm', 'steameruption', 'hyperspacehole',
 	'watershuriken', 'aromaticmist', 'babydolleyes', 'nuzzle', 'infestation', 'poweruppunch',
-	'firstimpression', 'spiritshackle', 'darkestlariat', 'icehammer', 'highhorsepower', 'solarblade', 'leafage', 'anchorshot', 'lunge', 'firelash',
+	'firstimpression', 'spiritshackle', 'darkestlariat', 'icehammer', 'highhorsepower', 'solarblade', 'anchorshot', 'lunge', 'firelash',
 	'powertrip', 'smartstrike', 'tropkick', 'clangingscales', 'dragonhammer', 'brutalswing', 'psychicfangs', 'shadowbone', 'accelerock', 'liquidation',
 	'tearfullook', 'zingzap', 'mindblown',
-	'snipeshot', 'decorate', 'drumbeating', 'snaptrap', 'pyroball', 'breakingswipe', 'branchpoke', 'overdrive', 'appleacid', 'lifedew', 'falsesurrender',
+	'snipeshot', 'decorate', 'drumbeating', 'snaptrap', 'pyroball', 'breakingswipe', 'overdrive', 'appleacid', 'lifedew', 'falsesurrender',
 	'meteorassault', 'skittersmack', 'coaching', 'flipturn', 'dualwingbeat', 'scorchingsands', 'mysticalpower', 'ragingfury', 'wavecrash', 'chloroblast',
 	'mountaingale', 'victorydance', 'headlongrush', 'barbbarrage', 'esperwing', 'bittermalice', 'shelter', 'infernalparade', 'bleakwindstorm',
 	'wildboltstorm', 'sandsearstorm',
@@ -164,6 +164,7 @@ const movesAfterGenV = [
 	'matchagotcha', 'thunderclap', 'mightycleave', 'tachyoncutter', 'hardpress', 'supercellslam', 'malignantchain',
 	'eerieimpulse', 'steelbeam',
 	'noretreat', 'clangoroussoul', // worth a shot? modifying Charge and Belly Drum might make these doable
+	// 'leafage', 'branchpoke', // these moves are easy enough to copy over, but they're redundant so it's unhelpful to see them highlighted so often
 ];
 const moveGroups = {
 	// first should be clones/meaningfully related groups
