@@ -866,13 +866,13 @@ export const Scripts: ModdedBattleScriptsData = {
 
 				const learnsetTypes: string[] = [];
 				learnsetTypes.push(poke.chosenType.type1);
-				if (poke.chosenType.type2 !== poke.chosenType.type1) learnsetTypes.push(poke.chosenType.type1);
-				if (poke.chosenType.type2 !== poke.chosenType.type1) learnsetTypes.push(poke.chosenType.type1);
+				if (poke.chosenType.type2 !== poke.chosenType.type1) learnsetTypes.push(poke.chosenType.type2);
 
 				const moveAbilitySet: string[] = [];
 				moveAbilitySet.push(poke.randAbilities[0]);
 				if (poke.randAbilities[1]) moveAbilitySet.push(poke.randAbilities[1]);
-				// if (poke.randAbilities[2]) moveAbilitySet.push(poke.randAbilities[2]);
+				if (poke.randAbilities[2]) moveAbilitySet.push(poke.randAbilities[2]);
+
 				if (moveAbilitySet.includes("Drizzle") || moveAbilitySet.includes("Swift Swim") || moveAbilitySet.includes("Rain Dish") || moveAbilitySet.includes("Dry Skin") || moveAbilitySet.includes("Hydration") || moveAbilitySet.includes("Torrent")) learnsetTypes.push("Water");
 				if (moveAbilitySet.includes("Drought") || moveAbilitySet.includes("Chlorophyll") || moveAbilitySet.includes("Leaf Guard") || moveAbilitySet.includes("Solar Power") || moveAbilitySet.includes("Harvest") || moveAbilitySet.includes("Blaze") || moveAbilitySet.includes("Flash Fire")) learnsetTypes.push("Fire");
 				if (moveAbilitySet.includes("Overgrow")) learnsetTypes.push("Grass");
