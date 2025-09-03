@@ -535,6 +535,7 @@ export const Scripts: ModdedBattleScriptsData = {
 						// +2 for double-weaknesses or immunities
 						// +3 if one type has an immunity and the other has a weakness
 						for (const type in this.dataCache.TypeChart) {
+							if (type === "Fairy") continue;
 							if (this.dataCache.TypeChart[type1].damageTaken[type] === 1) { // weakness
 								score++;
 								weaknesses.push(type);
@@ -559,6 +560,7 @@ export const Scripts: ModdedBattleScriptsData = {
 						// +3 if one type has an immunity and the other has a weakness
 
 						for (const type in this.dataCache.TypeChart) {
+							if (type === "Fairy") continue;
 							if (this.dataCache.TypeChart[type1].damageTaken[type] === 1 || this.dataCache.TypeChart[type2].damageTaken[type] === 1) { // weakness
 								if (this.dataCache.TypeChart[type1].damageTaken[type] === 3 || this.dataCache.TypeChart[type2].damageTaken[type] === 3) { // immunity
 									score += 3; // weakness canceled by immunity
@@ -592,6 +594,7 @@ export const Scripts: ModdedBattleScriptsData = {
 						}
 
 					}
+
 					// Ability checks
 					// I already have abilitySet established earlier, so I can reference it
 
@@ -601,14 +604,13 @@ export const Scripts: ModdedBattleScriptsData = {
 					) {
 						
 					}
-
-poke.randAbilities[0] + (poke.randAbilities[1] ? ` / `+ poke.randAbilities[1] + ` ` : ` `) + (poke.randAbilities[2] ? `// `+ poke.randAbilities[2]
-*/
+					*/
 
 					// reset all existing combinations if a higher-scoring one comes along
 					if (score > topScore) {
 						loopCount = 0;
 						topScore = score;
+						chosenCombinations = null;
 						chosenCombinations = {};
 					}
 
