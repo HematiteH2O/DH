@@ -229,9 +229,6 @@ export const Scripts: ModdedBattleScriptsData = {
 			if (poke.num && poke.num > 809) future = true;
 			if (poke.forme && (poke.forme === "Galar" || poke.forme === "Hisui" || poke.baseSpecies === "Tauros")) future = true;
 
-			// UNDO LATER:
-			if (future) continue;
-
 			// RANDOM ABILITY
 			// todo:
 			// - list eligible Abilities (no form-change Abilities, Wonder Guard) - done
@@ -317,7 +314,7 @@ export const Scripts: ModdedBattleScriptsData = {
 				else if (abilityRank5.includes(id)) HArank5options.push(poke.abilities[idNo]);
 				else if (abilityRank6.includes(id)) HArank6options.push(poke.abilities[idNo]);
 				else if (badAbilities.includes(id)) HAbadOptions.push(poke.abilities[idNo]);
-				else neutralOptions.push(poke.abilities[idNo]);
+				else HAneutralOptions.push(poke.abilities[idNo]);
 			}
 			// pick the highest-priority remaining Ability
 			if (!poke.randAbilities['H']) {
@@ -332,7 +329,7 @@ export const Scripts: ModdedBattleScriptsData = {
 				if (HArank1options.length) chosenAbilities = HArank1options;
 				if (chosenAbilities.length) {
 					randomForAbility = Math.floor(Math.random() * chosenAbilities.length);
-					poke.randAbilities = {0: poke.randAbilities[0], 1: poke.randAbilities[1], H: chosenAbilities[randomForAbility]};
+					poke.randAbilities['H'] = chosenAbilities[randomForAbility];
 				}
 			}
 
