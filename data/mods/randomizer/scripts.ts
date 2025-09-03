@@ -584,10 +584,10 @@ export const Scripts: ModdedBattleScriptsData = {
 								}
 								score++;
 								resistances.push(type);
+							} else if (this.dataCache.TypeChart[type1].damageTaken[type] === 3 || this.dataCache.TypeChart[type2].damageTaken[type] === 3) { // immunity
+								score += 2;
+								immunities.push(type);
 							}
-						} else if (this.dataCache.TypeChart[type1].damageTaken[type] === 3 || this.dataCache.TypeChart[type2].damageTaken[type] === 3) { // immunity
-							score += 2;
-							immunities.push(type);
 						}
 
 					}
@@ -950,10 +950,10 @@ poke.randAbilities[0] + (poke.randAbilities[1] ? ` / `+ poke.randAbilities[1] + 
 				if (!poke || !poke.learnsetCumulative.learnset) return;
 				// finalize sheetOutput now.........
 				let sheetOutput: string[] = [
-					`\n\n` + (poke.evoLevel ? (poke.name + ` // ` + poke.evoLevel) : poke.name) + `\n`
+					`\n\n` + (poke.evoLevel ? (poke.name + ` // ` + poke.evoLevel) : poke.name) + ` ~ `
 				];
 				//  // ` + )
-				sheetOutput += poke.chosenType.type1 + (poke.chosenType.type2 === poke.chosenType.type1 ? `\n` : ` / `+ poke.chosenType.type2 + `\n`);
+				sheetOutput += poke.chosenType.type1 + (poke.chosenType.type2 === poke.chosenType.type1 ? ` ~ ` : ` / `+ poke.chosenType.type2 + ` ~ `);
 				sheetOutput += poke.randAbilities[0] + (poke.randAbilities[1] ? ` / `+ poke.randAbilities[1] + ` ` : ` `) + (poke.randAbilities[2] ? `// `+ poke.randAbilities[2] + `\n` : `\n`);
 				// TODO: other randomizer features (types, Abilities, stats)
 				for (const level in poke.learnsetCumulative.learnset) {
