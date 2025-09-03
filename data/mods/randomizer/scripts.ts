@@ -329,7 +329,7 @@ export const Scripts: ModdedBattleScriptsData = {
 				if (HArank1options.length) chosenAbilities = HArank1options;
 				if (chosenAbilities.length) {
 					randomForAbility = Math.floor(Math.random() * chosenAbilities.length);
-					poke.randAbilities[2] = chosenAbilities[randomForAbility];
+					poke.randAbilities = {0: poke.randAbilities[0], 1: poke.randAbilities[1], 2: chosenAbilities[randomForAbility]};
 				}
 			}
 
