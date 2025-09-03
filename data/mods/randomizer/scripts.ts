@@ -268,7 +268,7 @@ export const Scripts: ModdedBattleScriptsData = {
 			}
 			// pick the highest-priority remaining Ability
 			if (!poke.randAbilities[1]) {
-				const chosenAbilities: string[] = [];
+				let chosenAbilities: string[] = [];
 				if (badOptions.length) chosenAbilities = badOptions;
 				if (neutralOptions.length) chosenAbilities = neutralOptions;
 				if (rank6options.length) chosenAbilities = rank6options;
