@@ -1053,20 +1053,20 @@ export const Scripts: ModdedBattleScriptsData = {
 					}
 				}
 
-				for (const moveCheck of learnset) {
+				for (const moveCheck in learnset) {
 					for (const source of learnset[moveid]) {
 						if (source.charAt(1) === 'L' && (parseInt(source.charAt(0)) < 8 || future)) alreadyLvUpMoves.push(moveid);
 					}
 				}
 				if (learnset2) {
-					for (const moveCheck of learnset2) {
+					for (const moveCheck in learnset2) {
 						for (const source of learnset2[moveid]) {
 							if (source.charAt(1) === 'L' && (parseInt(source.charAt(0)) < 8 || future)) alreadyLvUpMoves.push(moveid);
 						}
 					}
 				}
 				if (learnset3) {
-					for (const moveCheck of learnset3) {
+					for (const moveCheck in learnset3) {
 						for (const source of learnset3[moveid]) {
 							if (source.charAt(1) === 'L' && (parseInt(source.charAt(0)) < 8 || future)) alreadyLvUpMoves.push(moveid);
 						}
