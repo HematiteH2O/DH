@@ -557,6 +557,7 @@ export const Scripts: ModdedBattleScriptsData = {
 						// +1 for non-neutral defensive matchups
 						// +2 for double-weaknesses or immunities
 						// +3 if one type has an immunity and the other has a weakness
+
 						for (const type in this.dataCache.TypeChart) {
 							if (this.dataCache.TypeChart[type1].damageTaken[type] === 1 || this.dataCache.TypeChart[type2].damageTaken[type] === 1) { // weakness
 								if (this.dataCache.TypeChart[type1].damageTaken[type] === 3 || this.dataCache.TypeChart[type2].damageTaken[type] === 3) { // immunity
@@ -617,6 +618,7 @@ poke.randAbilities[0] + (poke.randAbilities[1] ? ` / `+ poke.randAbilities[1] + 
 					};
 					chosenCombinations[loopCount].type1 = type1;
 					chosenCombinations[loopCount].type2 = type2;
+					chosenCombinations[loopCount].score = score;
 					loopCount++;
 				}
 			}
@@ -637,12 +639,12 @@ poke.randAbilities[0] + (poke.randAbilities[1] ? ` / `+ poke.randAbilities[1] + 
 
 			// console.logging
 			let samples: string[] = [poke.name + ` samples: `];
-			if (chosenCombinations[0]) samples += chosenCombinations[0].type1 + ((chosenCombinations[0].type2 !== chosenCombinations[0].type1) ? `/` + chosenCombinations[0].type2 + `, ` : `, `);
-			if (chosenCombinations[1]) samples += chosenCombinations[1].type1 + ((chosenCombinations[1].type2 !== chosenCombinations[1].type1) ? `/` + chosenCombinations[1].type2 + `, ` : `, `);
-			if (chosenCombinations[2]) samples += chosenCombinations[2].type1 + ((chosenCombinations[2].type2 !== chosenCombinations[2].type1) ? `/` + chosenCombinations[2].type2 + `, ` : `, `);
-			if (chosenCombinations[3]) samples += chosenCombinations[3].type1 + ((chosenCombinations[3].type2 !== chosenCombinations[3].type1) ? `/` + chosenCombinations[3].type2 + `, ` : `, `);
-			if (chosenCombinations[4]) samples += chosenCombinations[4].type1 + ((chosenCombinations[4].type2 !== chosenCombinations[4].type1) ? `/` + chosenCombinations[4].type2 + `, ` : `, `);
-			if (poke.chosenType) samples += `chosen: ` + poke.chosenType.type1 + ((poke.chosenType.type2 !== poke.chosenType.type1) ? `/` + poke.chosenType.type2 : ` `);
+			if (chosenCombinations[0]) samples += chosenCombinations[0].score + chosenCombinations[0].type1 + ((chosenCombinations[0].type2 !== chosenCombinations[0].type1) ? `/` + chosenCombinations[0].type2 + `, ` : `, `);
+			if (chosenCombinations[1]) samples += chosenCombinations[1].score + chosenCombinations[1].type1 + ((chosenCombinations[1].type2 !== chosenCombinations[1].type1) ? `/` + chosenCombinations[1].type2 + `, ` : `, `);
+			if (chosenCombinations[2]) samples += chosenCombinations[2].score + chosenCombinations[2].type1 + ((chosenCombinations[2].type2 !== chosenCombinations[2].type1) ? `/` + chosenCombinations[2].type2 + `, ` : `, `);
+			if (chosenCombinations[3]) samples += chosenCombinations[3].score + chosenCombinations[3].type1 + ((chosenCombinations[3].type2 !== chosenCombinations[3].type1) ? `/` + chosenCombinations[3].type2 + `, ` : `, `);
+			if (chosenCombinations[4]) samples += chosenCombinations[4].score + chosenCombinations[4].type1 + ((chosenCombinations[4].type2 !== chosenCombinations[4].type1) ? `/` + chosenCombinations[4].type2 + `, ` : `, `);
+			if (poke.chosenType) samples += `chosen: ` + poke.chosenType.score + poke.chosenType.type1 + ((poke.chosenType.type2 !== poke.chosenType.type1) ? `/` + poke.chosenType.type2 : ` `);
 			console.log(samples);
 
 			// RANDOM MOVES
