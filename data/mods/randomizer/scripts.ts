@@ -1146,12 +1146,12 @@ export const Scripts: ModdedBattleScriptsData = {
 						const moveGroup6 = ['darkestlariat', 'sacredsword'];
 						const moveGroup7 = ['petalblizzard', 'hypervoice', 'muddywater', 'surf', 'heatwave', 'sludgewave', 'earthquake'];
 						const moveGroup8 = [
-							'skyuppercut', 'psychicfangs', 'dragonpulse', 'dragonhammer', 'aquatail', 'highhorsepower', 'return', 'frustration'
-							'blazekick', 'snipeshot', 'attackorder', 'leafblade'
-							'shadowbone', 'liquidation', 'nightdaze', 'playrough', 'meteormash', 'bugbuzz', 'energyball', 'earthpower', 'moonblast', 'psychic'
-							'bodyslam', 'rockclimb', 'thunderbolt', 'strangesteam', 'flamethrower', 'icebeam', 'sludgebomb'
-							'submission', 'wildcharge', 'takedown'
-							'darkestlariat', 'sacredsword'
+							'skyuppercut', 'psychicfangs', 'dragonpulse', 'dragonhammer', 'aquatail', 'highhorsepower', 'return', 'frustration',
+							'blazekick', 'snipeshot', 'attackorder', 'leafblade',
+							'shadowbone', 'liquidation', 'nightdaze', 'playrough', 'meteormash', 'bugbuzz', 'energyball', 'earthpower', 'moonblast', 'psychic',
+							'bodyslam', 'rockclimb', 'thunderbolt', 'strangesteam', 'flamethrower', 'icebeam', 'sludgebomb',
+							'submission', 'wildcharge', 'takedown',
+							'darkestlariat', 'sacredsword',
 							'petalblizzard', 'hypervoice', 'muddywater', 'surf', 'heatwave', 'sludgewave', 'earthquake',
 						];
 						if (!eligibleMoves.length && moveGroup8.includes(moveid)) {
