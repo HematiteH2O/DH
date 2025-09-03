@@ -317,7 +317,7 @@ export const Scripts: ModdedBattleScriptsData = {
 				else HAneutralOptions.push(poke.abilities[idNo]);
 			}
 			// pick the highest-priority remaining Ability
-			if (!poke.randAbilities['H']) {
+			if (!poke.randAbilities[2]) {
 				let chosenAbilities: string[] = [];
 				if (HAbadOptions.length) chosenAbilities = HAbadOptions;
 				if (HAneutralOptions.length) chosenAbilities = HAneutralOptions;
@@ -329,7 +329,7 @@ export const Scripts: ModdedBattleScriptsData = {
 				if (HArank1options.length) chosenAbilities = HArank1options;
 				if (chosenAbilities.length) {
 					randomForAbility = Math.floor(Math.random() * chosenAbilities.length);
-					poke.randAbilities['H'] = chosenAbilities[randomForAbility];
+					poke.randAbilities[2] = chosenAbilities[randomForAbility];
 				}
 			}
 
@@ -867,7 +867,7 @@ export const Scripts: ModdedBattleScriptsData = {
 				];
 				//  // ` + )
 				sheetOutput += poke.chosenType.type1 + (poke.chosenType.type2 === poke.chosenType.type1 ? `\n` : ` / `+ poke.chosenType.type2 + `\n`);
-				sheetOutput += poke.randAbilities[0] + (poke.randAbilities[1] ? ` / `+ poke.randAbilities[1] + ` ` : ` `); + (poke.randAbilities['H'] ? `// `+ poke.randAbilities['H'] + `\n` : `\n`);
+				sheetOutput += poke.randAbilities[0] + (poke.randAbilities[1] ? ` / `+ poke.randAbilities[1] + ` ` : ` `); + (poke.randAbilities[2] ? `// `+ poke.randAbilities[2] + `\n` : `\n`);
 				// TODO: other randomizer features (types, Abilities, stats)
 				for (const level in poke.learnsetCumulative.learnset) {
 					if (poke.learnsetCumulative.learnset[level].movesLearned.length) {
