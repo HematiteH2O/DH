@@ -554,14 +554,16 @@ export const Scripts: ModdedBattleScriptsData = {
 	
 						// offensive:
 						// +1 if one type is resisted and the other is SE
-						// +3 if one type is resisted or worse and the other is neutral or worse, but one of the base types is SE
+						// +2 if one type is resisted or worse and the other is neutral or worse, but one of the base types is SE
 		 
 						for (const type in this.dataCache.TypeChart) {
 							if (type === "Fairy") continue;
 							if (this.dataCache.TypeChart[type].damageTaken[type1] > 1) { // STAB resisted
 								if (this.dataCache.TypeChart[type].damageTaken[poke.types[0]] === 1 || (poke.types[1] && this.dataCache.TypeChart[type].damageTaken[poke.types[1]] === 1)) {
 									// one of the base types is SE
-									score ++;
+									score += 2;
+								} else {
+									if (abilitySet.includes('Tinted Lens')) score += 2;
 								}
 							}
 						}
@@ -609,7 +611,7 @@ export const Scripts: ModdedBattleScriptsData = {
 
 						// offensive:
 						// +1 if one type is resisted and the other is SE
-						// +3 if one type is resisted or worse and the other is neutral or worse, but one of the base types is SE
+						// +2 if one type is resisted or worse and the other is neutral or worse, but one of the base types is SE
 
 						for (const type in this.dataCache.TypeChart) {
 							if (type === "Fairy") continue;
@@ -617,9 +619,10 @@ export const Scripts: ModdedBattleScriptsData = {
 								if (this.dataCache.TypeChart[type].damageTaken[type1] === 1 || this.dataCache.TypeChart[type].damageTaken[type2] === 1) { // other STAB is SE
 									score ++; // weakness canceled by immunity
 								} else { // neither STAB SE
+									if (abilitySet.includes('Tinted Lens')) score += 2;
 									if (this.dataCache.TypeChart[type].damageTaken[poke.types[0]] === 1 || (poke.types[1] && this.dataCache.TypeChart[type].damageTaken[poke.types[1]] === 1)) {
 										// one of the base types is SE
-										score ++;
+										score += 2;
 									}
 								}
 							}
@@ -633,8 +636,90 @@ export const Scripts: ModdedBattleScriptsData = {
 					if (
 						abilitySet.includes('Drizzle') || abilitySet.includes('Swift Swim') || abilitySet.includes('Rain Dish') || abilitySet.includes('Dry Skin') || abilitySet.includes('Hydration')
 					) {
-						if (weaknesses.includes("Fire") || types.includes("Water") || types.includes("Electric") || types.includes("Flying")) score += 3;
+						if (weaknesses.includes("Fire")) score += 3;
 					}
+					if (
+						abilitySet.includes('Drought') || abilitySet.includes('Chlorophyll') || abilitySet.includes('Leaf Guard') || abilitySet.includes('Solar Power') || abilitySet.includes('Harvest')
+					) {
+						if (weaknesses.includes("Water")) {
+							if (types.includes("Fire")) {
+								score += 2;
+							} else {
+								score += 3;
+							}
+						}
+					}
+					if (abilitySet.includes('Sand Stream')) {
+						if (types.includes("Rock") || types.includes("Ground") || types.includes("Steel")) score += 3;
+					}
+					if (abilitySet.includes('Flash Fire')) {
+						if (types.includes("Fire") || resistances.includes("Fire")) score += 3;
+					}
+					if (abilitySet.includes('Lightning Rod') || abilitySet.includes('Motor Drive') || abilitySet.includes('Volt Absorb')) {
+						if (types.includes("Electric") || resistances.includes("Electric")) score += 3;
+					}
+					if (abilitySet.includes('Storm Drain') || abilitySet.includes('Dry Skin') || abilitySet.includes('Water Absorb')) {
+						if (types.includes("Water") || resistances.includes("Water")) score += 3;
+					}
+					if (abilitySet.includes('Sap Sipper')) {
+						if (types.includes("Grass") || resistances.includes("Grass")) score += 3;
+					}
+
+					// discourage redundant immunities
+					if (abilitySet.includes('Levitate')) {
+						if (immunities.includes("Ground")) score -= 10;
+					}
+					if (abilitySet.includes('Water Veil')) {
+						if (types.includes("Fire")) score -= 10;
+					}
+					if (abilitySet.includes('Immunity')) {
+						if (types.includes("Steel") || types.includes("Poison")) score -= 10;
+					}
+					if (abilitySet.includes('Magma Armor')) {
+						if (types.includes("Ice")) score -= 10;
+					}
+					if (abilitySet.includes('Overcoat')) {
+						if (types.includes("Ice") && (types.includes("Rock") || types.includes("Ground") || types.includes("Steel"))) score -= 10;
+					}
+
+					if (abilitySet.includes('Justified')) {
+						if (weaknesses.includes("Dark") || resistances.includes("Dark")) score += 5;
+					}
+					if (abilitySet.includes('Rattled')) {
+						if (
+							weaknesses.includes("Dark") || resistances.includes("Dark") || weaknesses.includes("Bug") || resistances.includes("Bug") || weaknesses.includes("Ghost") || resistances.includes("Ghost")
+						) score += 5;
+					}
+
+					if (abilitySet.includes('Heatproof')) {
+						if (weaknesses.includes("Fire")) score += 5;
+						if (resistances.includes("Fire")) score -= 5;
+					}
+					if (abilitySet.includes('Thick Fat')) {
+						if (weaknesses.includes("Fire") || weaknesses.includes("Ice")) score += 5;
+						if (resistances.includes("Fire") && resistances.includes("Ice")) score -= 5;
+					}
+
+					if (abilitySet.includes('Filter') || abilitySet.includes('Solid Rock')) {
+						if (doubleweaknesses.length) score += 10;
+					}
+					if (abilitySet.includes('Adaptability')) {
+						if (type1 === type2) score += 6;
+					}
+					if (abilitySet.includes('Contrary')) {
+						if (types.includes("Fire") || types.includes("Dragon") || types.includes("Fighting")) score -= 5;
+					}
+
+					if (
+						abilitySet.includes('Poison Point') || abilitySet.includes('Flame Body') || abilitySet.includes('Static') || abilitySet.includes('Cursed Body') || abilitySet.includes('Effect Spore')
+					) {
+						if (resistances.includes("Fighting")) score += 2;
+						if (resistances.includes("Bug")) score += 2;
+						if (resistances.includes("Dragon")) score += 2;
+						if (resistances.includes("Dark")) score += 2;
+					}
+
+					if (abilitySet.includes("Wonder Guard")) score += (4 * weaknesses.length);
 
 					// reset all existing combinations if a higher-scoring one comes along
 					if (!baseType) {
