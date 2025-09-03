@@ -119,7 +119,7 @@ Other post-Gen V moves I probably *can* backport if it comes up
   	Hard Press (?), Supercell Slam, Malignant Chain
 */
 
-const movesAfterGenV = {
+const movesAfterGenV = [
 	'phantomforce', 'nobleroar', 'paraboliccharge', 'petalblizzard', 'boomburst', 'playnice', 'confide', 'diamondstorm', 'steameruption', 'hyperspacehole',
 	'watershuriken', 'aromaticmist', 'babydolleyes', 'nuzzle', 'infestation', 'poweruppunch',
 	'firstimpression', 'spiritshackle', 'darkestlariat', 'icehammer', 'highhorsepower', 'solarblade', 'leafage', 'anchorshot', 'lunge', 'firelash',
@@ -133,7 +133,7 @@ const movesAfterGenV = {
 	'aquastep', 'makeitrain', 'pounce', 'trailblaze', 'chillingwater', 'hyperdrill', 'twinbeam', 'armorcannon', 'bitterblade', 'comeuppance', 'aquacutter',
 	'matchagotcha', 'thunderclap', 'mightycleave', 'tachyoncutter', 'hardpress', 'supercellslam', 'malignantchain',
 	'eerieimpulse', 'steelbeam',
-};
+];
 const moveGroups = {
 	1: ['skyuppercut', 'psychicfangs', 'dragonpulse', 'dragonhammer', 'aquatail', 'highhorsepower', 'return', 'frustration'],
 	2: ['blazekick', 'snipeshot', 'attackorder', 'leafblade'],
@@ -950,11 +950,11 @@ export const Scripts: ModdedBattleScriptsData = {
 					if (moveAbilitySet.includes("Iron Fist") && learnsetTypes.includes(move.type) && (move.flags['punch'])) forceLearn = true;
 					if ((moveAbilitySet.includes("Rock Head") || moveAbilitySet.includes("Reckless")) && learnsetTypes.includes(move.type) && (move.recoil)) forceLearn = true;
 					if (moveAbilitySet.includes("Skill Link") && learnsetTypes.includes(move.type) && (move.multihit)) forceLearn = true;
-					if (moveAbilitySet.includes("Technician") && learnsetTypes.includes(move.type) && (move.bp && move.bp < 61 && move.bp > 10)) forceLearn = true;
+					if (moveAbilitySet.includes("Technician") && learnsetTypes.includes(move.type) && (move.basePower && move.basePower < 61 && move.basePower > 10)) forceLearn = true;
 					if ((moveAbilitySet.includes("Sniper") || moveAbilitySet.includes("Super Luck")) && learnsetTypes.includes(move.type) && (move.critRatio)) forceLearn = true;
 					if (moveAbilitySet.includes("Sniper") && learnsetTypes.includes(move.type) && (move.willCrit)) forceLearn = true;
-					if ((moveAbilitySet.includes("No Guard") || moveAbilitySet.includes("Compound Eyes")) && learnsetTypes.includes(move.type) && (move.acc && move.acc < 95 && move.acc > 60)) forceLearn = true;
-					if (moveAbilitySet.includes("No Guard") && learnsetTypes.includes(move.type) && (move.acc && move.acc === 50)) forceLearn = true;
+					if ((moveAbilitySet.includes("No Guard") || moveAbilitySet.includes("Compound Eyes")) && learnsetTypes.includes(move.type) && (move.accuracy && move.accuracy < 95 && move.accuracy > 60)) forceLearn = true;
+					if (moveAbilitySet.includes("No Guard") && learnsetTypes.includes(move.type) && (move.accuracy && move.accuracy === 50)) forceLearn = true;
 					if (moveAbilitySet.includes("Own Tempo") && learnsetTypes.includes(move.type) && (move.target === "randomNormal")) forceLearn = true;
 					if (moveid === "struggle") forceLearn = false;
 					// exclude Legendary signatures, too
