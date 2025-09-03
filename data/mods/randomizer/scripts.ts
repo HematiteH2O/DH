@@ -1013,6 +1013,7 @@ export const Scripts: ModdedBattleScriptsData = {
 				if (poke.chosenType.type2 !== poke.chosenType.type1) learnsetTypes.push(poke.chosenType.type2);
 
 				const usedSecondMoves: string[] = []; // to avoid pushing the same one twice
+				const alreadyLvUpMoves: string[] = []; // to avoid pushing the same one twice
 
 				const moveAbilitySet: string[] = [];
 				moveAbilitySet.push(poke.randAbilities[0]);
@@ -1049,6 +1050,26 @@ export const Scripts: ModdedBattleScriptsData = {
 					learnset2 = this.modData('Learnsets', this.toID(poke.prevo)).learnset;
 					if (poke2.prevo) {
 						learnset3 = this.modData('Learnsets', this.toID(poke2.prevo)).learnset;
+					}
+				}
+
+				for (const moveCheck of learnset) {
+					for (const source of learnset[moveid]) {
+						if (source.charAt(1) === 'L' && (parseInt(source.charAt(0)) < 8 || future)) alreadyLvUpMoves.push(moveid);
+					}
+				}
+				if (learnset2) {
+					for (const moveCheck of learnset2) {
+						for (const source of learnset2[moveid]) {
+							if (source.charAt(1) === 'L' && (parseInt(source.charAt(0)) < 8 || future)) alreadyLvUpMoves.push(moveid);
+						}
+					}
+				}
+				if (learnset3) {
+					for (const moveCheck of learnset3) {
+						for (const source of learnset3[moveid]) {
+							if (source.charAt(1) === 'L' && (parseInt(source.charAt(0)) < 8 || future)) alreadyLvUpMoves.push(moveid);
+						}
 					}
 				}
 
@@ -1327,7 +1348,7 @@ export const Scripts: ModdedBattleScriptsData = {
 							if (eligibleMoves.length) continue;
 							if (!moveGroups[section].includes(moveid)) continue;
 							for (const altmoveid of moveGroups[section]) {
-								if (usedSecondMoves.includes(altmoveid)) continue;
+								if (usedSecondMoves.includes(altmoveid) || alreadyLvUpMoves.includes(altmoveid)) continue;
 								// disallow post-Gen V moves that I don't think I can copy
 								if (!this.dataCache.Moves[altmoveid]) console.log(altmoveid);
 								if (this.dataCache.Moves[altmoveid] && this.dataCache.Moves[altmoveid].num && this.dataCache.Moves[altmoveid].num > 559 && !movesAfterGenV.includes(altmoveid)) continue;
@@ -1357,6 +1378,7 @@ export const Scripts: ModdedBattleScriptsData = {
 									else if (learnsetTypes.includes("Flying") && (altmoveid === "whirlwind" || altmoveid === "furyattack" || altmoveid === "uturn" || altmoveid === "drillrun" || altmoveid === "heatwave")) eligibleMoves.push(altmoveid);
 								}
 							}
+							if (eligibleMoves.length) continue;
 							for (const altmoveid of moveGroups[section]) {
 								if (usedSecondMoves.includes(altmoveid)) continue;
 								// disallow post-Gen V moves that I don't think I can copy
