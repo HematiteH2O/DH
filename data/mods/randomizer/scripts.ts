@@ -1,6 +1,7 @@
 // TODO:
 // - base stats
-// - automatic first pass of level-up changes
+// - improve move groups (the actual code works)
+// - possibly assign default levels to specific "additional moves" that I think I'm likely to prioritize often
 // - completing evolution lines, including correct Abilities and stats for crossgens
 
 const universal = ['doubleteam', 'facade', 'frustration', 'gigaimpact', 'hiddenpower', 'hyperbeam', 'protect', 'raindance', 'rest', 'return', 'round', 'sleeptalk', 'snore', 'substitute', 'sunnyday', 'swagger', 'toxic'];
@@ -1250,7 +1251,10 @@ export const Scripts: ModdedBattleScriptsData = {
 						moveName = move.name;
 						if (asterisk) moveName += `*`;
 					}
-					if (move.num && move.num > 559) moveName = moveName + ` (new)`; // identify post-Gen V moves
+					if (move.num && move.num > 559) {
+						if (movesAfterGenV.includes(moveid)) moveName = moveName + ` (new)`; // identify post-Gen V moves
+						else moveName = moveName + ` (x)`;
+					}
 					if (learnset3) moveName = prevo2LevelLearned + ` - ` + moveName; // add prevo2 levels
 					if (learnset2) moveName = prevoLevelLearned + ` - ` + moveName; // add prevo levels
 					if (levelLearned < 1 || levelLearned > 101) continue;
@@ -1270,7 +1274,10 @@ export const Scripts: ModdedBattleScriptsData = {
 					} else {
 						// if there's a second move
 						if (secondMove) moveName += ` -> ` + secondMove.name;
-						if (secondMove && secondMove.num && secondMove.num > 559) moveName = moveName + ` (new)`;
+						if (secondMove && secondMove.num && secondMove.num > 559) {
+							if (movesAfterGenV.includes(moveid)) moveName = moveName + ` (new)`; // identify post-Gen V moves
+							else moveName = moveName + ` (x)`;
+						}
 						// either way
 						poke.learnsetCumulative.learnset[levelLearned].movesLearned.push(moveName);
 					}
