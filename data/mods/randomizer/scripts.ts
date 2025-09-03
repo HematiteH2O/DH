@@ -205,7 +205,7 @@ export const Scripts: ModdedBattleScriptsData = {
 			'limber', 'insomnia', 'vitalspirit', 'immunity', 'waterveil', 'owntempo',
 			'honeygather', 'shedskin', 'gluttony',
 		];
-		const badAbilities = [[
+		const badAbilities = [
 			'stench', 'battlearmor', 'damp', 'suctioncups', 'runaway', 'keeneye', 'cutecharm', 'stickyhold', 'shellarmor', 'tangledfeet', 'rivalry', 'snowcloak', 'stall', 'anticipation', 'forewarn', 'unaware', 'heavymetal',
 			'lightmetal', 'overcoat', 'magmaarmor',
 		];
