@@ -667,12 +667,12 @@ export const Scripts: ModdedBattleScriptsData = {
 					type2: [poke.types[1] ? poke.types[1] : poke.types[0]],
 				};
 			}
-			if (poke.name === "Alolan Sandslash") console.log(poke.chosenType.score + poke.chosenType.type1 + ((poke.chosenType.type2 !== poke.chosenType.type1) ? `/` + poke.chosenType.type2 : ` `));
+			if (poke.name === "Sandslash-Alola") console.log(poke.chosenType.score + poke.chosenType.type1 + ((poke.chosenType.type2 !== poke.chosenType.type1) ? `/` + poke.chosenType.type2 : ` `));
 			if ((poke.types[0] === poke.chosenType.type2) || (poke.types[1] && poke.types[1] === poke.chosenType.type1)) {
 				poke.chosenType.type1 = chosenCombinations[randomType].type2;
 				poke.chosenType.type2 = chosenCombinations[randomType].type1;
 			}
-			if (poke.name === "Alolan Sandslash") console.log(poke.chosenType.score + poke.chosenType.type1 + ((poke.chosenType.type2 !== poke.chosenType.type1) ? `/` + poke.chosenType.type2 : ` `));
+			if (poke.name === "Sandslash-Alola") console.log(poke.chosenType.score + poke.chosenType.type1 + ((poke.chosenType.type2 !== poke.chosenType.type1) ? `/` + poke.chosenType.type2 : ` `));
 
 			// console.logging
 			let samples: string[] = [poke.name + ` samples: `];
