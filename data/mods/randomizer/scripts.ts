@@ -553,6 +553,7 @@ export const Scripts: ModdedBattleScriptsData = {
 						// +1 if one type is resisted and the other is SE
 						// +3 if one type is resisted or worse and the other is neutral or worse, but one of the base types is SE
 		 
+						if (poke.name === "Sandslash-Alola") console.log (type1 + `: scored` + score + ` before offense`);
 						for (const type in this.dataCache.TypeChart) {
 							if (type === "Fairy") continue;
 							if (this.dataCache.TypeChart[type].damageTaken[type1] > 1) { // STAB resisted
@@ -608,6 +609,7 @@ export const Scripts: ModdedBattleScriptsData = {
 						// +1 if one type is resisted and the other is SE
 						// +3 if one type is resisted or worse and the other is neutral or worse, but one of the base types is SE
 
+						if (poke.name === "Sandslash-Alola") console.log (type1 + `/` + type2 + `: scored` + score + ` before offense`);
 						for (const type in this.dataCache.TypeChart) {
 							if (type === "Fairy") continue;
 							if (this.dataCache.TypeChart[type].damageTaken[type1] > 1 || this.dataCache.TypeChart[type].damageTaken[type2] > 1) { // one STAB resisted
@@ -624,6 +626,7 @@ export const Scripts: ModdedBattleScriptsData = {
 
 					}
 
+					if (poke.name === "Sandslash-Alola") console.log (type1 + `/` + type2 + `: scored` + score + ` before Abilities`);
 					// Ability checks
 					// I already have abilitySet established earlier, so I can reference it
 
@@ -634,6 +637,7 @@ export const Scripts: ModdedBattleScriptsData = {
 					}
 
 					// reset all existing combinations if a higher-scoring one comes along
+					if (poke.name === "Sandslash-Alola") console.log (type1 + `/` + type2 + `: scored ` + score);
 					if (score > topScore) {
 						loopCount = 0;
 						topScore = score;
