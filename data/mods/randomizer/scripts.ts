@@ -254,7 +254,7 @@ export const Scripts: ModdedBattleScriptsData = {
 			const badOptions: string[] = [];
 
 			for (const idNo in poke.abilities) {
-				let id = this.toID(poke.abilities[idNo];
+				let id = this.toID(poke.abilities[idNo]);
 				if (abilities[id].num && abilities[id].num > 164) continue; // skip post-Gen V Abilities completely
 				if (poke.randAbilities[0] && poke.randAbilities[0] === poke.abilities[idNo]) continue; // skip repeat Abilities
 				if (abilityRank1.includes(id)) rank1options.push(poke.abilities[idNo]);
