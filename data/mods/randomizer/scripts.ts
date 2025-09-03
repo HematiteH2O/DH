@@ -1533,11 +1533,12 @@ export const Scripts: ModdedBattleScriptsData = {
 				sheetOutput += poke.chosenType.type1 + (poke.chosenType.type2 === poke.chosenType.type1 ? ` ~ ` : ` / `+ poke.chosenType.type2 + ` ~ `);
 				sheetOutput += poke.randAbilities[0] + (poke.randAbilities[1] ? ` / `+ poke.randAbilities[1] + ` ` : ` `) + (poke.randAbilities[2] ? `// `+ poke.randAbilities[2] + `\n` : `\n`);
 				// TODO: other randomizer features (types, Abilities, stats)
+				let levelUpMovesCount = 0;
 				for (const level in poke.learnsetCumulative.learnset) {
 					if (parseInt(level) > 99) {
 						if (poke.recommendedLvUp.length) {
 							poke.recommendedLvUp.sort();
-							sheetOutput += `\n~ Additional level-up candidates\n`
+							sheetOutput += `\n~ Additional level-up candidates (pick ` + (22 - levelUpMovesCount) + `)\n`
 							for (const moveid of poke.recommendedLvUp) {
 								if (usedSecondMoves.includes(moveid)) continue;
 								sheetOutput += moveid + `, `;
@@ -1569,6 +1570,7 @@ export const Scripts: ModdedBattleScriptsData = {
 						} else {
 							for (const moveid of poke.learnsetCumulative.learnset[level].movesLearned) {
 								sheetOutput += `\n` + (parseInt(level) + 1) + ` - ` + moveid;
+								levelUpMovesCount++;
 							}
 						}
 					}
