@@ -153,6 +153,9 @@ const moveGroups = {
 		'darkestlariat', 'sacredsword',
 		'petalblizzard', 'hypervoice', 'muddywater', 'surf', 'heatwave', 'sludgewave', 'earthquake',
 	],
+	9: ['fissure', 'guillotine', 'horndrill', 'sheercold'],
+	10: ['mistyexplosion', 'selfdestruct', 'finalgambit', 'healingwish', 'memento'],
+	11: ['mistyexplosion', 'explosion', 'finalgambit', 'healingwish', 'memento'],
 };
 
 export const Scripts: ModdedBattleScriptsData = {
@@ -1189,9 +1192,28 @@ export const Scripts: ModdedBattleScriptsData = {
 								if (this.dataCache.Moves[altmoveid].num && this.dataCache.Moves[altmoveid].num > 559 && !movesAfterGenV.includes(altmoveid)) continue;
 								// if (moveid === altmoveid) continue;
 								// it's okay to randomize to the same thing, but...
-								if (
-									this.dataCache.Moves[altmoveid] && this.dataCache.Moves[altmoveid].type && learnsetTypes.includes(this.dataCache.Moves[altmoveid].type)
-								) eligibleMoves.push(altmoveid);
+								if (this.dataCache.Moves[altmoveid] && this.dataCache.Moves[altmoveid].type) {
+									if (learnsetTypes.includes(this.dataCache.Moves[altmoveid].type)) eligibleMoves.push(altmoveid);
+									else if (learnsetTypes.includes("Fighting") && (altmoveid === "meditate" || altmoveid === "workup" || altmoveid === "wideguard" || altmoveid === "acupressure" || altmoveid === "foresight" || altmoveid === "headlongrush" || altmoveid === "payback" || altmoveid === "chipaway" || altmoveid === "firepunch" || altmoveid === "icepunch" || altmoveid === "thunderpunch" || altmoveid === "poisonjab" || altmoveid === "bounce")) eligibleMoves.push(altmoveid);
+									else if ((learnsetTypes.includes("Rock") || learnsetTypes.includes("Steel")) && (altmoveid === "sharpen" || altmoveid === "irondefense" || altmoveid === "selfdestruct" || altmoveid === "explosion" || altmoveid === "spikecannon" || altmoveid === "bulldoze" || altmoveid === "ironhead")) eligibleMoves.push(altmoveid);
+									else if (learnsetTypes.includes("Grass") && (altmoveid === "growth" || altmoveid === "sweetscent" || altmoveid === "ragepowder" || altmoveid === "sunnyday" || altmoveid === "poisonpowder" || altmoveid === "watersport" || altmoveid === "barrage" || altmoveid === "secretpower")) eligibleMoves.push(altmoveid);
+									else if (learnsetTypes.includes("Ground") && (altmoveid === "rocktomb" || altmoveid === "rockslide" || altmoveid === "lavaplume")) eligibleMoves.push(altmoveid);
+									else if (learnsetTypes.includes("Dark") && (altmoveid === "howl" || altmoveid === "mudslap")) eligibleMoves.push(altmoveid);
+									else if ((learnsetTypes.includes("Fire") || learnsetTypes.includes("Poison")) && altmoveid === "smokescreen") eligibleMoves.push(altmoveid);
+									else if (learnsetTypes.includes("Steel") && (altmoveid === "sonicboom" || altmoveid === "voltswitch" || altmoveid === "zapcannon" || altmoveid === "supercellslam" || altmoveid === "horndrill")) eligibleMoves.push(altmoveid);
+									else if ((learnsetTypes.includes("Poison") || learnsetTypes.includes("Ghost")) && (altmoveid === "memento" || altmoveid === "meanlook")) eligibleMoves.push(altmoveid);
+									else if ((learnsetTypes.includes("Flying") || learnsetTypes.includes("Electric")) && (altmoveid === "raindance")) eligibleMoves.push(altmoveid);
+									else if ((learnsetTypes.includes("Ground") || learnsetTypes.includes("Steel")) && (altmoveid === "sandstorm")) eligibleMoves.push(altmoveid);
+									else if (learnsetTypes.includes("Poison") && altmoveid === "glare") eligibleMoves.push(altmoveid);
+									else if (learnsetTypes.includes("Electric") && (altmoveid === "signalbeam" || altmoveid === "sonicboom")) eligibleMoves.push(altmoveid);
+									else if (learnsetTypes.includes("Fire") && altmoveid === "scorchingsands") eligibleMoves.push(altmoveid);
+									else if (learnsetTypes.includes("Normal") && altmoveid === "jumpkick") eligibleMoves.push(altmoveid);
+									else if (learnsetTypes.includes("Bug") && altmoveid === "Guillotine") eligibleMoves.push(altmoveid);
+									else if (learnsetTypes.includes("Ghost") && (altmoveid === "willowisp" || altmoveid === "skittersmack" || altmoveid === "suckerpunch")) eligibleMoves.push(altmoveid);
+									else if (learnsetTypes.includes("Water") && (altmoveid === "iciclespear" || altmoveid === "icywind")) eligibleMoves.push(altmoveid);
+									else if (learnsetTypes.includes("Psychic") && (altmoveid === "lovelykiss" || altmoveid === "mindreader" || altmoveid === "aurasphere")) eligibleMoves.push(altmoveid);
+									else if (learnsetTypes.includes("Flying") && (altmoveid === "whirlwind" || altmoveid === "furyattack" || altmoveid === "uturn" || altmoveid === "drillrun" || altmoveid === "heatwave")) eligibleMoves.push(altmoveid);
+								}
 							}
 						}
 
