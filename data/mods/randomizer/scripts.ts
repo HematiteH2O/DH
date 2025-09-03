@@ -490,22 +490,26 @@ export const Scripts: ModdedBattleScriptsData = {
 					if (poke.baseSpecies) pokeCheck = this.dataCache.Pokedex[this.toID(poke.baseSpecies)];
 					// automatically reject the base type
 					let baseType = false;
-					if (type1 === pokeCheck.types[0] && ((pokeCheck.types[1] && type2 === pokeCheck.types[1]) || (!pokeCheck.types[1] && type2 === type1))) baseType = true;
-					if (type2 === pokeCheck.types[0] && ((pokeCheck.types[1] && type1 === pokeCheck.types[1]) || (!pokeCheck.types[1] && type2 === type1))) baseType = true;
-					if (baseType) continue;
+					if (type1 === pokeCheck.types[0]) {
+						if (pokeCheck.types[1] && type2 === pokeCheck.types[1]) baseType = true;
+						if (!pokeCheck.types[1] && type2 === type1) baseType = true;
+					}
+					if (type2 === pokeCheck.types[0]) {
+						if (pokeCheck.types[1] && type1 === pokeCheck.types[1]) baseType = true;
+						if (!pokeCheck.types[1] && type2 === type1) baseType = true;
+					}
 
 					// reject exact types already taken by other forms/variants
 					if (pokeCheck.otherFormes) {
-						let formContinue = false;
 						for (const form of pokeCheck.otherFormes) {
 							const poke4 = this.dataCache.Pokedex[this.toID(form)];
 							if (poke4.types) {
-								if (type1 === poke4.types[0] && ((poke4.types[1] && type2 === poke4.types[1]) || (!poke4.types[1] && type2 === type1))) formContinue = true;
-								if (type2 === poke4.types[0] && ((poke4.types[1] && type1 === poke4.types[1]) || (!poke4.types[1] && type2 === type1))) formContinue = true;
+								if (type1 === poke4.types[0] && ((poke4.types[1] && type2 === poke4.types[1]) || (!poke4.types[1] && type2 === type1))) baseType = true;
+								if (type2 === poke4.types[0] && ((poke4.types[1] && type1 === poke4.types[1]) || (!poke4.types[1] && type2 === type1))) baseType = true;
 							}
 						}
-						if (formContinue) continue;
 					}
+					if (baseType) continue;
 
 					if (poke.abilities && ["Overgrow", "Blaze", "Torrent"].includes(poke.abilities[0])) {
 						if (!["Fire", "Water", "Grass"].includes(type1) && !["Fire", "Water", "Grass"].includes(type2)) continue; // force starters' primary types
@@ -635,22 +639,24 @@ export const Scripts: ModdedBattleScriptsData = {
 					}
 
 					// reset all existing combinations if a higher-scoring one comes along
-					if (score > topScore) {
-						loopCount = 0;
-						topScore = score;
-						chosenCombinations = {};
+					if (!baseType) {
+						if (score > topScore) {
+							loopCount = 0;
+							topScore = score;
+							chosenCombinations = {};
+						}
+						// skip if there was already a higher-scoring one
+						if (score < topScore) continue;
+	
+						chosenCombinations[loopCount] = {
+								type1: [],
+								type2: [],
+						};
+						chosenCombinations[loopCount].type1 = type1;
+						chosenCombinations[loopCount].type2 = type2;
+						chosenCombinations[loopCount].score = score;
+						loopCount++;
 					}
-					// skip if there was already a higher-scoring one
-					if (score < topScore) continue;
-
-					chosenCombinations[loopCount] = {
-							type1: [],
-							type2: [],
-					};
-					chosenCombinations[loopCount].type1 = type1;
-					chosenCombinations[loopCount].type2 = type2;
-					chosenCombinations[loopCount].score = score;
-					loopCount++;
 				}
 			}
 
