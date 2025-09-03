@@ -964,14 +964,15 @@ export const Scripts: ModdedBattleScriptsData = {
 					if ((poke.eggGroups[0] === 'Grass' || (poke.eggGroups[1] && poke.eggGroups[1] === 'Grass')) && universalGrassGroup.includes(moveid)) forceLearn = true;
 					if ((poke.eggGroups[0] === 'Dragon' || (poke.eggGroups[1] && poke.eggGroups[1] === 'Dragon')) && universalDragonGroup.includes(moveid)) forceLearn = true;
 					// (only some Egg groups have universal moves)
-					// Bonus learnsetTypes
-					if (learnsetTypes.includes('Fire') && universalFire.includes(moveid) && move.type === "Fire" && move.category !== "Status") forceLearn = true;
-					if (learnsetTypes.includes('Water') && universalWater.includes(moveid) && move.type === "Water" && move.category !== "Status") forceLearn = true;
-					if (learnsetTypes.includes('Grass') && universalGrass.includes(moveid) && move.type === "Grass" && move.category !== "Status") forceLearn = true;
-					if (learnsetTypes.includes('Bug') && universalBug.includes(moveid) && move.type === "Bug" && move.category !== "Status") forceLearn = true;
-					if (learnsetTypes.includes('Rock') && universalRock.includes(moveid) && move.type === "Rock" && move.category !== "Status") forceLearn = true;
-					if (learnsetTypes.includes('Ground') && universalGround.includes(moveid) && move.type === "Ground" && move.category !== "Status") forceLearn = true;
-					if (learnsetTypes.includes('Steel') && universalSteel.includes(moveid) && move.type === "Steel" && move.category !== "Status") forceLearn = true;
+
+					// Bonus learnsetTypes but only for the randomized Ability
+					if ((poke.randAbilities[0] === "Drought" || poke.randAbilities[0] === "Chlorophyll" || poke.randAbilities[0] === "Leaf Guard" || poke.randAbilities[0] === "Solar Power" || poke.randAbilities[0] === "Harvest" || poke.randAbilities[0] === "Blaze" || poke.randAbilities[0] === "Flash Fire") && universalFire.includes(moveid) && move.type === "Fire" && move.category !== "Status") forceLearn = true;
+					if ((poke.randAbilities[0] === "Drizzle" || poke.randAbilities[0] === "Swift Swim" || poke.randAbilities[0] === "Rain Dish" || poke.randAbilities[0] === "Dry Skin" || poke.randAbilities[0] === "Hydration" || poke.randAbilities[0] === "Torrent") && universalWater.includes(moveid) && move.type === "Water" && move.category !== "Status") forceLearn = true;
+					if ((poke.randAbilities[0] === "Overgrow") && universalGrass.includes(moveid) && move.type === "Grass" && move.category !== "Status") forceLearn = true;
+					if ((poke.randAbilities[0] === "Swarm") && universalBug.includes(moveid) && move.type === "Bug" && move.category !== "Status") forceLearn = true;
+					if ((poke.randAbilities[0] === "Sand Force") && universalRock.includes(moveid) && move.type === "Rock" && move.category !== "Status") forceLearn = true;
+					if ((poke.randAbilities[0] === "Sand Force") && universalGround.includes(moveid) && move.type === "Ground" && move.category !== "Status") forceLearn = true;
+					if ((poke.randAbilities[0] === "Sand Force") && universalSteel.includes(moveid) && move.type === "Steel" && move.category !== "Status") forceLearn = true;
 
 					if (learnset[moveid]) { // if it learns the move
 						learned = true;
@@ -1156,7 +1157,7 @@ export const Scripts: ModdedBattleScriptsData = {
 							],
 						};
 
-						for (const section of moveGroups) {
+						for (const section in moveGroups) {
 							if (eligibleMoves.length) continue;
 							for (const altmoveid of moveGroups[section]) {
 								if (moveid === altmoveid) continue;
