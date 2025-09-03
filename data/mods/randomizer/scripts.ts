@@ -165,8 +165,8 @@ export const Scripts: ModdedBattleScriptsData = {
 			'drizzle', 'drought', 'sandstream', 'snowwarning', 'intimidate', 'prankster',
 		];
 		const abilityRank2 = [
-			// immunities
-			'voltabsorb', 'waterabsorb', 'flashfire', 'lightningrod', 'stormdrain', 'motordrive', 'sapsipper', 'levitate', 'soundproof',
+			// major stat checks
+			'multiscale', 'hugepower', 'purepower', 'guts', 'download', 'adaptability', 'tintedlens', 'sheerforce', 'moody', 'simple',
 			// Speed control
 			'swiftswim', 'chlorophyll', 'sandrush', 'speedboost', 'unburden',
 			// anti-weather
@@ -177,8 +177,8 @@ export const Scripts: ModdedBattleScriptsData = {
 		const abilityRank3 = [
 			// anti-Intimidate
 			'clearbody', 'whitesmoke', 'hypercutter', 'defiant', 'contrary', 'trace',
-			// major stat checks
-			'multiscale', 'hugepower', 'purepower', 'guts', 'download', 'adaptability', 'tintedlens', 'sheerforce', 'moody', 'simple',
+			// immunities
+			'voltabsorb', 'waterabsorb', 'flashfire', 'lightningrod', 'stormdrain', 'motordrive', 'sapsipper', 'levitate', 'soundproof',
 			// weather Abilities except Sand Veil and Snow Cloak (not interesting)
 			'raindish', 'hydration', 'dryskin', 'solarpower', 'leafguard', 'harvest', 'sandforce', 'icebody',
 			// anti-flinching
