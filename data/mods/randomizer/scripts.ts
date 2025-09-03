@@ -1,20 +1,8 @@
 // TODO:
 // - base stats
-// - possibly assign default levels to specific "additional moves" that I think I'm likely to prioritize often, or at least separate them for convenience
-// --- that would be basically anything marked on my other Kalos utility sheet, incidentally
-// --- my ideal is about 1 move per stage until the final stage
-// --- make sure to put certain "forced moves" in level-up, too... they're important, right?
-/*
-- weak spread
-- Trick Room, Tailwind, Speed control
-- Helping Hand, Super Fang, Endeavor, Mirror Coat, Destiny Bond, Quick Guard, Wide Guard, Entrainment, Follow Me, Heal Pulse, After You, Disable, etc.
-- Gravity, Dream Eater, Foul Play, Knock Off, Signal Beam, Haze
-- status-inflicting moves including Yawn
-- hazards
-- draining
-- stuff with nice type matchups into Gym Leaders 
-*/
-// - completing evolution lines, including correct Abilities and stats for crossgens
+// - evolution lines (including correct Abilities and stats for crossgens)
+// - stop the same move from showing up twice in TM list (looks like secondMoves are showing up once with and once without an asterisk)
+
 const pushLevelUp = [
 	'accelerock', 'acid', 'acidspray', 'acupressure', 'afteryou', 'aircutter', 'allyswitch', 'appleacid', 'aquajet', 'aquastep', 'astralbarrage', 'aurawheel', 'babydolleyes', 'batonpass', 'bellydrum', 'bitterblade', 'bittermalice',
 	'bleakwindstorm', 'blizzard', 'boomburst', 'breakingswipe', 'brutalswing', 'bubble', 'bulkup', 'bulldoze', 'bulletpunch', 'burningjealousy', 'calmmind', 'captivate', 'chargebeam', 'charm', 'chillingwater', 'clangingscales',
