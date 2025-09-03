@@ -242,7 +242,7 @@ export const Scripts: ModdedBattleScriptsData = {
 			if (poke.name === "Shedinja") poke.randAbilities = {0: poke.randAbilities[0], 1: "Wonder Guard"};
 			if (poke.name === "Castform") poke.randAbilities = {0: poke.randAbilities[0], 1: "Forecast"};
 			if (poke.name === "Cherrim") poke.randAbilities = {0: poke.randAbilities[0], 1: "Flower Gift"};
-			if (poke.name === "Arceus") poke.randAbilities = {0: poke.randAbilities[0], 1: "Multitype"};
+			if (poke.name === "Arceus") poke.randAbilities = {0: "Multitype"};
 			if (poke.name === "Darmanitan") poke.randAbilities = {0: poke.randAbilities[0], 1: "Zen Mode"};
 
 			const rank1options: string[] = [];
@@ -354,7 +354,8 @@ export const Scripts: ModdedBattleScriptsData = {
 			const abilitySet: string[] = [];
 			abilitySet.push(poke.randAbilities[0]);
 			if (poke.randAbilities[1]) abilitySet.push(poke.randAbilities[1]);
-			if (poke.randAbilities[2]) abilitySet.push(poke.randAbilities[2]);
+			// if (poke.randAbilities[2]) abilitySet.push(poke.randAbilities[2]);
+			// actually, I don't want to account for HA since the player usually won't have access to it
 
 
 
@@ -652,20 +653,22 @@ export const Scripts: ModdedBattleScriptsData = {
 					if (abilitySet.includes('Sand Stream')) {
 						if (types.includes("Rock") || types.includes("Ground") || types.includes("Steel")) score += 3;
 					}
-					if (abilitySet.includes('Flash Fire')) {
-						if (types.includes("Fire") || resistances.includes("Fire")) score += 3;
+
+					// these should be valued a lot, but *only* if the immunity Ability was randomized
+					if (poke.randAbilities[0] === "Flash Fire") {
+						if (types.includes("Fire") || resistances.includes("Fire")) score += 7;
 					}
-					if (abilitySet.includes('Lightning Rod') || abilitySet.includes('Motor Drive') || abilitySet.includes('Volt Absorb')) {
-						if (types.includes("Electric") || resistances.includes("Electric")) score += 3;
+					if (poke.randAbilities[0] === "Lightning Rod" || poke.randAbilities[0] === "Motor Drive" || poke.randAbilities[0] === "Volt Absorb") {
+						if (types.includes("Electric") || resistances.includes("Electric")) score += 7;
 					}
-					if (abilitySet.includes('Storm Drain') || abilitySet.includes('Dry Skin') || abilitySet.includes('Water Absorb')) {
-						if (types.includes("Water") || resistances.includes("Water")) score += 3;
+					if (poke.randAbilities[0] === "Storm Drain" || poke.randAbilities[0] === "Dry Skin" || poke.randAbilities[0] === "Water Absorb") {
+						if (types.includes("Water") || resistances.includes("Water")) score += 7;
 					}
-					if (abilitySet.includes('Sap Sipper')) {
-						if (types.includes("Grass") || resistances.includes("Grass")) score += 3;
+					if (poke.randAbilities[0] === "Sap Sipper") {
+						if (types.includes("Grass") || resistances.includes("Grass")) score += 7;
 					}
 
-					// discourage redundant immunities
+					// always discourage redundant immunities
 					if (abilitySet.includes('Levitate')) {
 						if (immunities.includes("Ground")) score -= 10;
 					}
@@ -682,6 +685,7 @@ export const Scripts: ModdedBattleScriptsData = {
 						if (types.includes("Ice") && (types.includes("Rock") || types.includes("Ground") || types.includes("Steel"))) score -= 10;
 					}
 
+					// discourage neutralities for these
 					if (abilitySet.includes('Justified')) {
 						if (weaknesses.includes("Dark") || resistances.includes("Dark")) score += 5;
 					}
@@ -692,12 +696,12 @@ export const Scripts: ModdedBattleScriptsData = {
 					}
 
 					if (abilitySet.includes('Heatproof')) {
-						if (weaknesses.includes("Fire")) score += 5;
-						if (resistances.includes("Fire")) score -= 5;
+						if (weaknesses.includes("Fire")) score += 10;
+						if (resistances.includes("Fire")) score -= 10;
 					}
 					if (abilitySet.includes('Thick Fat')) {
-						if (weaknesses.includes("Fire") || weaknesses.includes("Ice")) score += 5;
-						if (resistances.includes("Fire") && resistances.includes("Ice")) score -= 5;
+						if (weaknesses.includes("Fire") || weaknesses.includes("Ice")) score += 10;
+						if (resistances.includes("Fire") && resistances.includes("Ice")) score -= 10;
 					}
 
 					if (abilitySet.includes('Filter') || abilitySet.includes('Solid Rock')) {
@@ -709,6 +713,9 @@ export const Scripts: ModdedBattleScriptsData = {
 					if (abilitySet.includes('Contrary')) {
 						if (types.includes("Fire") || types.includes("Dragon") || types.includes("Fighting")) score -= 5;
 					}
+					if (abilitySet.includes('Stall')) {
+						if (types.includes("Dark")) score += 5;
+					}
 
 					if (
 						abilitySet.includes('Poison Point') || abilitySet.includes('Flame Body') || abilitySet.includes('Static') || abilitySet.includes('Cursed Body') || abilitySet.includes('Effect Spore')
@@ -717,6 +724,24 @@ export const Scripts: ModdedBattleScriptsData = {
 						if (resistances.includes("Bug")) score += 2;
 						if (resistances.includes("Dragon")) score += 2;
 						if (resistances.includes("Dark")) score += 2;
+					}
+					if (abilitySet.includes('Flame Body')) {
+						if (types.includes("Water") || types.includes("Rock") || types.includes("Ground")) score += 3;
+					}
+					if (abilitySet.includes('Poison Point')) {
+						if (types.includes("Ground") || types.includes("Psychic")) score += 2;
+						if (types.includes("Ground") || types.includes("Fire") || types.includes("Fighting")) score += 2;
+					}
+					if (abilitySet.includes('Liquid Ooze')) {
+						if (resistances.includes("Grass")) score += 3; // extra points for Grass resist
+						if (resistances.includes("Grass") || resistances.includes("Fighting") || resistances.includes("Bug")) score += 2;
+					}
+					if (abilitySet.includes('Inner Focus') || abilitySet.includes('Shield Dust')) {
+						if (types.includes("Ghost")) score -= 4; // redundant
+					}
+					if (abilitySet.includes('Normalize')) {
+						if (types.includes("Normal")) score += 10;
+						if (types.includes("Ghost")) score -= 10; // danger
 					}
 
 					if (abilitySet.includes("Wonder Guard")) score += (4 * weaknesses.length);
@@ -797,6 +822,24 @@ export const Scripts: ModdedBattleScriptsData = {
 
 			if (this.dataCache.Learnsets[id] && this.dataCache.Learnsets[id].learnset) {
 				printno++;
+
+				const learnsetTypes: string[] = [];
+				learnsetTypes.push(poke.chosenType.type1);
+				if (poke.chosenType.type2 !== poke.chosenType.type1) learnsetTypes.push(poke.chosenType.type1);
+				if (poke.chosenType.type2 !== poke.chosenType.type1) learnsetTypes.push(poke.chosenType.type1);
+
+				const moveAbilitySet: string[] = [];
+				moveAbilitySet.push(poke.randAbilities[0]);
+				if (poke.randAbilities[1]) moveAbilitySet.push(poke.randAbilities[1]);
+				// if (poke.randAbilities[2]) moveAbilitySet.push(poke.randAbilities[2]);
+				if (moveAbilitySet.includes("Drizzle") || moveAbilitySet.includes("Swift Swim") || moveAbilitySet.includes("Rain Dish") || moveAbilitySet.includes("Dry Skin") || moveAbilitySet.includes("Hydration") || moveAbilitySet.includes("Torrent")) learnsetTypes.push("Water");
+				if (moveAbilitySet.includes("Drought") || moveAbilitySet.includes("Chlorophyll") || moveAbilitySet.includes("Leaf Guard") || moveAbilitySet.includes("Solar Power") || moveAbilitySet.includes("Harvest") || moveAbilitySet.includes("Blaze") || moveAbilitySet.includes("Flash Fire")) learnsetTypes.push("Fire");
+				if (moveAbilitySet.includes("Overgrow")) learnsetTypes.push("Grass");
+				if (moveAbilitySet.includes("Swarm")) learnsetTypes.push("Bug");
+				if (moveAbilitySet.includes("Sand Force")) learnsetTypes.push("Rock");
+				if (moveAbilitySet.includes("Sand Force")) learnsetTypes.push("Ground");
+				if (moveAbilitySet.includes("Sand Force")) learnsetTypes.push("Steel");
+
 				poke.learnsetCumulative = {
 							Moves: [],
 							learnset: [],
@@ -847,6 +890,30 @@ export const Scripts: ModdedBattleScriptsData = {
 					let forceLearn = false;
 					if ((!(poke.gender && poke.gender === "N")) && moveid === 'attract') forceLearn = true;
 					if (universal.includes(moveid)) forceLearn = true;
+					// Ability-based moves
+					if ((moveAbilitySet.includes("Drizzle") || moveAbilitySet.includes("Swift Swim") || moveAbilitySet.includes("Rain Dish") || moveAbilitySet.includes("Dry Skin") || moveAbilitySet.includes("Hydration")) && (moveid === 'thunder' || moveid === 'hurricane' || moveid === 'weatherball')) forceLearn = true;
+					if ((moveAbilitySet.includes("Drought") || moveAbilitySet.includes("Chlorophyll") || moveAbilitySet.includes("Leaf Guard") || moveAbilitySet.includes("Solar Power") || moveAbilitySet.includes("Harvest")) && (moveid === 'solarbeam' || moveid === 'solarblade' || moveid === 'weatherball')) forceLearn = true;
+					if ((moveAbilitySet.includes("Snow Warning") || moveAbilitySet.includes("Snow Cloak") || moveAbilitySet.includes("Ice Body")) && (moveid === 'blizzard' || moveid === 'weatherball')) forceLearn = true;
+					if ((moveAbilitySet.includes("Sand Stream") || moveAbilitySet.includes("Sand Rush") || moveAbilitySet.includes("Sand Force") || moveAbilitySet.includes("Sand Veil") || moveAbilitySet.includes("Normalize")) && moveid === 'weatherball') forceLearn = true;
+					if ((moveAbilitySet.includes("Truant") || moveAbilitySet.includes("Defeatist") || moveAbilitySet.includes("Slow Start") || moveAbilitySet.includes("Stall") || moveAbilitySet.includes("Klutz")) && poke.name !== "Slaking" && poke.name !== "Regigigas" && poke.name !== "Archeops" && (moveid == 'skillswap' || moveid == 'entrainment')) forceLearn = true;
+					if (moveAbilitySet.includes("Klutz") && moveid == 'trick') forceLearn = true;
+					if (moveAbilitySet.includes("Gluttony") && moveid == 'recycle') forceLearn = true;
+					if (moveAbilitySet.includes("Frisk") && (moveid == 'trick' || moveid == 'thief' || moveid == 'covet')) forceLearn = true;
+					if (moveAbilitySet.includes("Stall") && (moveid == 'payback' || moveid == 'assurance' || moveid == 'pursuit' || moveid == 'metalburst')) forceLearn = true;
+					if (moveAbilitySet.includes("Mold Breaker") && moveid == 'earthquake') forceLearn = true;
+					// Ability- and type-based moves
+					if (moveAbilitySet.includes("Serene Grace") && learnsetTypes.includes(move.type) && (move.secondary && move.secondary.chance && move.secondary.chance < 90 && move.secondary.chance > 10)) forceLearn = true;
+					if (moveAbilitySet.includes("Iron Fist") && learnsetTypes.includes(move.type) && (move.flags['punch'])) forceLearn = true;
+					if ((moveAbilitySet.includes("Rock Head") || moveAbilitySet.includes("Reckless")) && learnsetTypes.includes(move.type) && (move.recoil)) forceLearn = true;
+					if (moveAbilitySet.includes("Skill Link") && learnsetTypes.includes(move.type) && (move.multihit)) forceLearn = true;
+					if (moveAbilitySet.includes("Technician") && learnsetTypes.includes(move.type) && (move.bp && move.bp < 61 && move.bp > 10)) forceLearn = true;
+					if ((moveAbilitySet.includes("Sniper") || moveAbilitySet.includes("Super Luck")) && learnsetTypes.includes(move.type) && (move.critRatio)) forceLearn = true;
+					if (moveAbilitySet.includes("Sniper") && learnsetTypes.includes(move.type) && (move.willCrit)) forceLearn = true;
+					if ((moveAbilitySet.includes("No Guard") || moveAbilitySet.includes("Compound Eyes")) && learnsetTypes.includes(move.type) && (move.acc && move.acc < 95 && move.acc > 60)) forceLearn = true;
+					if (moveAbilitySet.includes("No Guard") && learnsetTypes.includes(move.type) && (move.acc && move.acc === 50)) forceLearn = true;
+					if (moveAbilitySet.includes("Own Tempo") && learnsetTypes.includes(move.type) && (move.target === "randomNormal")) forceLearn = true;
+					if (moveid === "struggle") forceLearn = false;
+
 					// types
 					if ((poke.chosenType.type1 === 'Fire' || poke.chosenType.type2 === 'Fire') && universalFire.includes(moveid)) forceLearn = true;
 					if ((poke.chosenType.type1 === 'Water' || poke.chosenType.type2 === 'Water') && universalWater.includes(moveid)) forceLearn = true;
@@ -1000,7 +1067,7 @@ export const Scripts: ModdedBattleScriptsData = {
 						}
 					}
 					// (copy the above when ready)
-					if (!learnedLvUp && ['grasspledge', 'firepledge', 'waterpledge', 'hydrocannon', 'frenzyplant', 'blastburn', 'dracometeor', 'gigaimpact'].includes(moveid)) continue;
+					if (!learnedLvUp && ['grasspledge', 'firepledge', 'waterpledge', 'hydrocannon', 'frenzyplant', 'blastburn'].includes(moveid)) continue;
 					if (learned && !learnedLvUp && !learnedTm) levelLearned = 101;
 					if (levelLearned == 999) levelLearned = 101;
 					if (prevoLevelLearned == 999) {
