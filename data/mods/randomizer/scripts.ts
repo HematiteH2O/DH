@@ -557,9 +557,10 @@ export const Scripts: ModdedBattleScriptsData = {
 						for (const type in this.dataCache.TypeChart) {
 							if (type === "Fairy") continue;
 							if (this.dataCache.TypeChart[type].damageTaken[type1] > 1) { // STAB resisted
+								if (poke.name === "Sandslash-Alola") console.log (type);
 								if (this.dataCache.TypeChart[type].damageTaken[poke.types[0]] === 1 || (poke.types[1] && this.dataCache.TypeChart[type].damageTaken[poke.types[1]] === 1)) {
 									// one of the base types is SE
-									score += 3;
+									score ++;
 								}
 							}
 						}
@@ -618,7 +619,7 @@ export const Scripts: ModdedBattleScriptsData = {
 								} else { // neither STAB SE
 									if (this.dataCache.TypeChart[type].damageTaken[poke.types[0]] === 1 || (poke.types[1] && this.dataCache.TypeChart[type].damageTaken[poke.types[1]] === 1)) {
 										// one of the base types is SE
-										score += 3;
+										score ++;
 									}
 								}
 							}
