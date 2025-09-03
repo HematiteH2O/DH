@@ -610,9 +610,10 @@ export const Scripts: ModdedBattleScriptsData = {
 					if (score > topScore) {
 						loopCount = 0;
 						topScore = score;
-						chosenCombinations = null;
 						chosenCombinations = {};
 					}
+					// skip if there was already a higher-scoring one
+					if (score < topScore) continue;
 
 					chosenCombinations[loopCount] = {
 							type1: [],
