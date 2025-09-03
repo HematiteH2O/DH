@@ -1154,10 +1154,29 @@ export const Scripts: ModdedBattleScriptsData = {
 							'darkestlariat', 'sacredsword',
 							'petalblizzard', 'hypervoice', 'muddywater', 'surf', 'heatwave', 'sludgewave', 'earthquake',
 						];
+						if (!eligibleMoves.length && moveGroup1.includes(moveid)) {
+							for (const moveid of moveGroup1) if (this.dataCache.Moves[moveid] && this.dataCache.Moves[moveid].type && learnsetTypes.includes(this.dataCache.Moves[moveid].type)) eligibleMoves.push(moveid);
+						}
+						if (!eligibleMoves.length && moveGroup2.includes(moveid)) {
+							for (const moveid of moveGroup2) if (this.dataCache.Moves[moveid] && this.dataCache.Moves[moveid].type && learnsetTypes.includes(this.dataCache.Moves[moveid].type)) eligibleMoves.push(moveid);
+						}
+						if (!eligibleMoves.length && moveGroup3.includes(moveid)) {
+							for (const moveid of moveGroup3) if (this.dataCache.Moves[moveid] && this.dataCache.Moves[moveid].type && learnsetTypes.includes(this.dataCache.Moves[moveid].type)) eligibleMoves.push(moveid);
+						}
+						if (!eligibleMoves.length && moveGroup4.includes(moveid)) {
+							for (const moveid of moveGroup4) if (this.dataCache.Moves[moveid] && this.dataCache.Moves[moveid].type && learnsetTypes.includes(this.dataCache.Moves[moveid].type)) eligibleMoves.push(moveid);
+						}
+						if (!eligibleMoves.length && moveGroup5.includes(moveid)) {
+							for (const moveid of moveGroup5) if (this.dataCache.Moves[moveid] && this.dataCache.Moves[moveid].type && learnsetTypes.includes(this.dataCache.Moves[moveid].type)) eligibleMoves.push(moveid);
+						}
+						if (!eligibleMoves.length && moveGroup6.includes(moveid)) {
+							for (const moveid of moveGroup6) if (this.dataCache.Moves[moveid] && this.dataCache.Moves[moveid].type && learnsetTypes.includes(this.dataCache.Moves[moveid].type)) eligibleMoves.push(moveid);
+						}
+						if (!eligibleMoves.length && moveGroup7.includes(moveid)) {
+							for (const moveid of moveGroup7) if (this.dataCache.Moves[moveid] && this.dataCache.Moves[moveid].type && learnsetTypes.includes(this.dataCache.Moves[moveid].type)) eligibleMoves.push(moveid);
+						}
 						if (!eligibleMoves.length && moveGroup8.includes(moveid)) {
-							for (const moveid of moveGroup8) {
-								if (this.dataCache.Moves[moveid] && this.dataCache.Moves[moveid].type && learnsetTypes.includes(this.dataCache.Moves[moveid].type)) eligibleMoves.push(moveid);
-							}
+							for (const moveid of moveGroup8) if (this.dataCache.Moves[moveid] && this.dataCache.Moves[moveid].type && learnsetTypes.includes(this.dataCache.Moves[moveid].type)) eligibleMoves.push(moveid);
 						}
 
 						if (eligibleMoves.length) {
@@ -1208,7 +1227,7 @@ export const Scripts: ModdedBattleScriptsData = {
 						}
 					} else {
 						// if there's a second move
-						if (secondMove) moveName += ` -> ` + secondMove;
+						if (secondMove) moveName += ` -> ` + secondMove.name;
 						if (secondMove && secondMove.num && secondMove.num > 559) moveName = moveName + ` (new)`;
 						// either way
 						poke.learnsetCumulative.learnset[levelLearned].movesLearned.push(moveName);
