@@ -552,12 +552,22 @@ export const Scripts: ModdedBattleScriptsData = {
 						// +1 if one type is resisted and the other is SE
 						// +3 if one type is resisted or worse and the other is neutral or worse, but one of the base types is SE
 		 
+						for (const type in this.dataCache.TypeChart) {
+							if (type === "Fairy") continue;
+							if (this.dataCache.TypeChart[type].damageTaken[type1] > 1) { // STAB resisted
+								if (this.dataCache.TypeChart[type].damageTaken[poke.types[0]] === 1 || (poke.types[1] && this.dataCache.TypeChart[type].damageTaken[poke.types[1]] === 1)) {
+									// one of the base types is SE
+									score += 3;
+								}
+							}
+						}
+
 					} else { // dual-type version
 
 						// defensive:
 						// +1 for non-neutral defensive matchups
-						// +2 for double-weaknesses or immunities
-						// +3 if one type has an immunity and the other has a weakness
+						// +2 for double-resistances or immunities
+						// +3 for double-weaknesses or if one type has an immunity and the other has a weakness
 
 						for (const type in this.dataCache.TypeChart) {
 							if (type === "Fairy") continue;
@@ -569,7 +579,7 @@ export const Scripts: ModdedBattleScriptsData = {
 								} else if (this.dataCache.TypeChart[type1].damageTaken[type] === 2 || this.dataCache.TypeChart[type2].damageTaken[type] === 2) { // neutrality
 									continue;
 								} else if (this.dataCache.TypeChart[type1].damageTaken[type] === 2 && this.dataCache.TypeChart[type2].damageTaken[type] === 2) { // double-weakness
-									score += 2;
+									score += 3;
 									doubleweaknesses.push(type);
 								} else { // regular weakness
 									score++;
@@ -593,18 +603,34 @@ export const Scripts: ModdedBattleScriptsData = {
 							}
 						}
 
+						// offensive:
+						// +1 if one type is resisted and the other is SE
+						// +3 if one type is resisted or worse and the other is neutral or worse, but one of the base types is SE
+
+						for (const type in this.dataCache.TypeChart) {
+							if (type === "Fairy") continue;
+							if (this.dataCache.TypeChart[type].damageTaken[type1] > 1 || this.dataCache.TypeChart[type].damageTaken[type2] > 1) { // one STAB resisted
+								if (this.dataCache.TypeChart[type].damageTaken[type1] === 1 || this.dataCache.TypeChart[type].damageTaken[type2] === 1) { // other STAB is SE
+									score ++; // weakness canceled by immunity
+								} else { // neither STAB SE
+									if (this.dataCache.TypeChart[type].damageTaken[poke.types[0]] === 1 || (poke.types[1] && this.dataCache.TypeChart[type].damageTaken[poke.types[1]] === 1)) {
+										// one of the base types is SE
+										score += 3;
+									}
+								}
+							}
+						}
+
 					}
 
 					// Ability checks
 					// I already have abilitySet established earlier, so I can reference it
 
-					/*
 					if (
 						abilitySet.includes('Drizzle') || abilitySet.includes('Swift Swim') || abilitySet.includes('Rain Dish') || abilitySet.includes('Dry Skin') || abilitySet.includes('Hydration')
 					) {
-						
+						if (weaknesses.includes("Fire") || types.includes("Water") || types.includes("Electric") || types.includes("Flying")) score += 3;
 					}
-					*/
 
 					// reset all existing combinations if a higher-scoring one comes along
 					if (score > topScore) {
@@ -641,6 +667,7 @@ export const Scripts: ModdedBattleScriptsData = {
 			}
 
 			// console.logging
+			/*
 			let samples: string[] = [poke.name + ` samples: `];
 			if (chosenCombinations[0]) samples += chosenCombinations[0].score + chosenCombinations[0].type1 + ((chosenCombinations[0].type2 !== chosenCombinations[0].type1) ? `/` + chosenCombinations[0].type2 + `, ` : `, `);
 			if (chosenCombinations[1]) samples += chosenCombinations[1].score + chosenCombinations[1].type1 + ((chosenCombinations[1].type2 !== chosenCombinations[1].type1) ? `/` + chosenCombinations[1].type2 + `, ` : `, `);
@@ -649,6 +676,7 @@ export const Scripts: ModdedBattleScriptsData = {
 			if (chosenCombinations[4]) samples += chosenCombinations[4].score + chosenCombinations[4].type1 + ((chosenCombinations[4].type2 !== chosenCombinations[4].type1) ? `/` + chosenCombinations[4].type2 + `, ` : `, `);
 			if (poke.chosenType) samples += `chosen: ` + poke.chosenType.score + poke.chosenType.type1 + ((poke.chosenType.type2 !== poke.chosenType.type1) ? `/` + poke.chosenType.type2 : ` `);
 			console.log(samples);
+			*/
 
 			// RANDOM MOVES
 			// todo:
