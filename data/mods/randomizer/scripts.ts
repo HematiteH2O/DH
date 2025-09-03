@@ -229,6 +229,9 @@ export const Scripts: ModdedBattleScriptsData = {
 			if (poke.num && poke.num > 809) future = true;
 			if (poke.forme && (poke.forme === "Galar" || poke.forme === "Hisui" || poke.baseSpecies === "Tauros")) future = true;
 
+			// UNDO LATER:
+			if (future) continue;
+
 			// RANDOM ABILITY
 			// todo:
 			// - list eligible Abilities (no form-change Abilities, Wonder Guard) - done
@@ -255,6 +258,10 @@ export const Scripts: ModdedBattleScriptsData = {
 
 			for (const idNo in poke.abilities) {
 				let id = this.toID(poke.abilities[idNo]);
+				if (!abilityDex[id]) {
+					console.log (id);
+					continue;
+				}
 				if (abilityDex[id].num && abilityDex[id].num > 164) continue; // skip post-Gen V Abilities completely
 				if (poke.randAbilities[0] && poke.randAbilities[0] === poke.abilities[idNo]) continue; // skip repeat Abilities
 				if (abilityRank1.includes(id)) rank1options.push(poke.abilities[idNo]);
