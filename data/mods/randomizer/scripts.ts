@@ -224,7 +224,7 @@ export const Scripts: ModdedBattleScriptsData = {
 			if (!(this.dataCache.Learnsets[id] && this.dataCache.Learnsets[id].learnset)) continue; // skip Megas and G-Maxes this time
 			if (poke.baseSpecies && (poke.baseSpecies === "Pikachu" || poke.baseSpecies === "Pichu" || poke.baseSpecies === "Eevee" || poke.baseSpecies === "Floette")) continue;
 			if (poke.forme && (poke.forme === "Totem" || poke.forme === "Alola-Totem")) continue;
-			if (poke.num && poke.num < 0) continue; // skip CAPs
+			if (poke.num && poke.num < 1) continue; // skip CAPs and Missingno.
 			let future = false; // determine if something is Gen VIII or later
 			if (poke.num && poke.num > 809) future = true;
 			if (poke.forme && (poke.forme === "Galar" || poke.forme === "Hisui" || poke.baseSpecies === "Tauros")) future = true;
