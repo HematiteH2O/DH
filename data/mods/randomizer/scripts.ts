@@ -669,8 +669,10 @@ export const Scripts: ModdedBattleScriptsData = {
 			}
 			if (poke.name === "Sandslash-Alola") console.log(poke.chosenType.score + poke.chosenType.type1 + ((poke.chosenType.type2 !== poke.chosenType.type1) ? `/` + poke.chosenType.type2 : ` `));
 			if ((poke.types[0] === poke.chosenType.type2) || (poke.types[1] && poke.types[1] === poke.chosenType.type1)) {
-				poke.chosenType.type1 = chosenCombinations[randomType].type2;
-				poke.chosenType.type2 = chosenCombinations[randomType].type1;
+				const secondType = poke.chosenType.type1;
+				const firstType = poke.chosenType.type2;
+				poke.chosenType.type1 = firstType;
+				poke.chosenType.type2 = secondType;
 			}
 			if (poke.name === "Sandslash-Alola") console.log(poke.chosenType.score + poke.chosenType.type1 + ((poke.chosenType.type2 !== poke.chosenType.type1) ? `/` + poke.chosenType.type2 : ` `));
 
