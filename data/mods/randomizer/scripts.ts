@@ -12,7 +12,7 @@ const universalFlying = ['aerialace', 'fly', 'reflect', 'roost', 'tailwind'];
 const universalPsychic = ['calmmind', 'dreameater', 'flash', 'helpinghand', 'lightscreen', 'magiccoat', 'psychup', 'psychic', 'psyshock', 'reflect', 'shadowball', 'signalbeam', 'skillswap', 'telekinesis', 'trick', 'trickroom', 'zenheadbutt', 'teleport'];
 const universalBug = ['bugbite', 'roost', 'strugglebug', 'uturn', 'xscissor', 'pounce'];
 const universalRock = ['brickbreak', 'bulldoze', 'earthpower', 'earthquake', 'irondefense', 'rockpolish', 'rockslide', 'rocksmash', 'rocktomb', 'sandstorm', 'smackdown', 'stealthrock', 'stoneedge'];
-const universalGhost = ['shadowball', 'spite', 'hex'];
+const universalGhost = ['shadowball', 'spite', 'willowisp', 'hex'];
 const universalDragon = ['dracometeor', 'dragonclaw', 'dragonpulse', 'dragontail', 'honeclaws', 'outrage', 'rocksmash', 'strength'];
 const universalDark = ['darkpulse', 'payback', 'retaliate', 'snarl', 'spite', 'taunt', 'thief', 'torment'];
 const universalSteel = ['flashcannon', 'irondefense', 'ironhead', 'rocksmash', 'steelbeam'];
@@ -344,9 +344,21 @@ export const Scripts: ModdedBattleScriptsData = {
 			randomForAbility = randAbilities[Math.floor(Math.random() * randAbilities.length)];
 			let crossgenAbility = {0: abilityDex[randomForAbility].name};
 			poke.crossgenAbilities = poke.randAbilities;
+
 			// - overwrite all Abilities with lower priority than that Ability with it
 			// - if no Abilities have been overwritten, overwrite a random Ability with the same priority as it
 			// - otherwise, ignore it
+
+			// for later reference
+			const abilitySet: string[] = [];
+			abilitySet.push(poke.randAbilities[0]);
+			if (poke.randAbilities[1]) abilitySet.push(poke.randAbilities[1]);
+			if (poke.randAbilities[2]) abilitySet.push(poke.randAbilities[2]);
+
+
+
+
+
 
 			// RANDOM TYPE
 			// todo:
@@ -503,17 +515,94 @@ export const Scripts: ModdedBattleScriptsData = {
 					}
 					if (comboSkip) continue;
 
+					const types: string[] = [];
+					types.push(type1);
+					if (type2 !== type1) types.push(type2);
+					// so I can just see if types includes something later (saves time)
+
+					const doubleweaknesses: string[] = [];
+					const weaknesses: string[] = [];
+					const resistances: string[] = [];
+					const immunities: string[] = [];
+
 					let score = 0;
-					// defensive:
-					// +1 for non-neutral defensive matchups
-					// +2 for double-weaknesses or immunities
-					// +3 if one type has an immunity and the other has a weakness
 
-					// offensive:
-					// +1 if one type is resisted and the other is SE
-					// +3 if one type is resisted or worse and the other is neutral or worse, but one of the base types is SE
+					// single-type version
+					if (type2 === type1) {
 
+						// defensive:
+						// +1 for non-neutral defensive matchups
+						// +2 for double-weaknesses or immunities
+						// +3 if one type has an immunity and the other has a weakness
+						for (const type in this.dataCache.TypeChart) {
+							if (this.dataCache.TypeChart[type1].damageTaken[type] === 1) { // weakness
+								score++;
+								weaknesses.push(type);
+							} else if (this.dataCache.TypeChart[type1].damageTaken[type] === 2) { // resistance
+								score++;
+								resistances.push(type);
+							} else if (this.dataCache.TypeChart[type1].damageTaken[type] === 3) { // immunity
+								score += 2;
+								immunities.push(type);
+							}
+						}
+	
+						// offensive:
+						// +1 if one type is resisted and the other is SE
+						// +3 if one type is resisted or worse and the other is neutral or worse, but one of the base types is SE
+		 
+					} else { // dual-type version
+
+						// defensive:
+						// +1 for non-neutral defensive matchups
+						// +2 for double-weaknesses or immunities
+						// +3 if one type has an immunity and the other has a weakness
+						for (const type in this.dataCache.TypeChart) {
+							if (this.dataCache.TypeChart[type1].damageTaken[type] === 1 || this.dataCache.TypeChart[type2].damageTaken[type] === 1) { // weakness
+								if (this.dataCache.TypeChart[type1].damageTaken[type] === 3 || this.dataCache.TypeChart[type2].damageTaken[type] === 3) { // immunity
+									score += 3; // weakness canceled by immunity
+									immunities.push(type);
+									continue;
+								} else if (this.dataCache.TypeChart[type1].damageTaken[type] === 2 || this.dataCache.TypeChart[type2].damageTaken[type] === 2) { // neutrality
+									continue;
+								} else if (this.dataCache.TypeChart[type1].damageTaken[type] === 2 && this.dataCache.TypeChart[type2].damageTaken[type] === 2) { // double-weakness
+									score += 2;
+									doubleweaknesses.push(type);
+								} else { // regular weakness
+									score++;
+								}
+								weaknesses.push(type);
+							} else if (this.dataCache.TypeChart[type1].damageTaken[type] === 2 || this.dataCache.TypeChart[type2].damageTaken[type] === 2) { // resistance
+								if (this.dataCache.TypeChart[type1].damageTaken[type] === 3 || this.dataCache.TypeChart[type2].damageTaken[type] === 3) { // immunity
+									score += 2; // regular immunity
+									immunities.push(type);
+									continue;
+								} else if (this.dataCache.TypeChart[type1].damageTaken[type] === 1 || this.dataCache.TypeChart[type2].damageTaken[type] === 1) { // neutrality
+									continue;
+								} else if (this.dataCache.TypeChart[type1].damageTaken[type] === 2 && this.dataCache.TypeChart[type2].damageTaken[type] === 2) { // double-resistance
+									score ++;
+								}
+								score++;
+								resistances.push(type);
+							}
+						} else if (this.dataCache.TypeChart[type1].damageTaken[type] === 3 || this.dataCache.TypeChart[type2].damageTaken[type] === 3) { // immunity
+							score += 2;
+							immunities.push(type);
+						}
+
+					}
 					// Ability checks
+					// I already have abilitySet established earlier, so I can reference it
+
+					/*
+					if (
+						abilitySet.includes('Drizzle') || abilitySet.includes('Swift Swim') || abilitySet.includes('Rain Dish') || abilitySet.includes('Dry Skin') || abilitySet.includes('Hydration')
+					) {
+						
+					}
+
+poke.randAbilities[0] + (poke.randAbilities[1] ? ` / `+ poke.randAbilities[1] + ` ` : ` `) + (poke.randAbilities[2] ? `// `+ poke.randAbilities[2]
+*/
 
 					// reset all existing combinations if a higher-scoring one comes along
 					if (score > topScore) {
@@ -547,7 +636,6 @@ export const Scripts: ModdedBattleScriptsData = {
 			}
 
 			// console.logging
-			/*
 			let samples: string[] = [poke.name + ` samples: `];
 			if (chosenCombinations[0]) samples += chosenCombinations[0].type1 + ((chosenCombinations[0].type2 !== chosenCombinations[0].type1) ? `/` + chosenCombinations[0].type2 + `, ` : `, `);
 			if (chosenCombinations[1]) samples += chosenCombinations[1].type1 + ((chosenCombinations[1].type2 !== chosenCombinations[1].type1) ? `/` + chosenCombinations[1].type2 + `, ` : `, `);
@@ -556,7 +644,6 @@ export const Scripts: ModdedBattleScriptsData = {
 			if (chosenCombinations[4]) samples += chosenCombinations[4].type1 + ((chosenCombinations[4].type2 !== chosenCombinations[4].type1) ? `/` + chosenCombinations[4].type2 + `, ` : `, `);
 			if (poke.chosenType) samples += `chosen: ` + poke.chosenType.type1 + ((poke.chosenType.type2 !== poke.chosenType.type1) ? `/` + poke.chosenType.type2 : ` `);
 			console.log(samples);
-			*/
 
 			// RANDOM MOVES
 			// todo:
