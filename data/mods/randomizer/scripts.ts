@@ -1111,8 +1111,10 @@ export const Scripts: ModdedBattleScriptsData = {
 
 					// universal moves
 					let forceLearn = false;
+					let synergyMove = 0;
 					if ((!(poke.gender && poke.gender === "N")) && moveid === 'attract') forceLearn = true;
 					if (universal.includes(moveid)) forceLearn = true;
+					if (forceLearn) synergyMove = -1;
 					// Ability-based moves
 					// these ones are only for the random Ability slot
 					if ((poke.randAbilities[0] === "Drizzle" || poke.randAbilities[0] === "Swift Swim" || poke.randAbilities[0] === "Rain Dish" || poke.randAbilities[0] === "Dry Skin" || poke.randAbilities[0] === "Hydration") && (moveid === 'thunder' || moveid === 'hurricane' || moveid === 'weatherball')) forceLearn = true;
@@ -1153,6 +1155,8 @@ export const Scripts: ModdedBattleScriptsData = {
 					].includes(moveid)) forceLearn = false;
 					// I might be missing some but it's not important (but also: I do want UB/Paradox signatures to be allowed - that's on purpose)
 
+					if (forceLearn && synergyMove === 0) synergyMove = 1;
+					if (synergyMove === 0) synergyMove = -1;
 					// types
 					if ((poke.chosenType.type1 === 'Fire' || poke.chosenType.type2 === 'Fire') && universalFire.includes(moveid)) forceLearn = true;
 					if ((poke.chosenType.type1 === 'Water' || poke.chosenType.type2 === 'Water') && universalWater.includes(moveid)) forceLearn = true;
@@ -1185,7 +1189,7 @@ export const Scripts: ModdedBattleScriptsData = {
 					if ((poke.eggGroups[0] === 'Grass' || (poke.eggGroups[1] && poke.eggGroups[1] === 'Grass')) && universalGrassGroup.includes(moveid)) forceLearn = true;
 					if ((poke.eggGroups[0] === 'Dragon' || (poke.eggGroups[1] && poke.eggGroups[1] === 'Dragon')) && universalDragonGroup.includes(moveid)) forceLearn = true;
 					// (only some Egg groups have universal moves)
-
+					if (forceLearn && synergyMove === -1) synergyMove = -2;
 					// Bonus learnsetTypes but only for the randomized Ability
 					if ((poke.randAbilities[0] === "Drought" || poke.randAbilities[0] === "Chlorophyll" || poke.randAbilities[0] === "Leaf Guard" || poke.randAbilities[0] === "Solar Power" || poke.randAbilities[0] === "Harvest" || poke.randAbilities[0] === "Blaze" || poke.randAbilities[0] === "Flash Fire") && universalFire.includes(moveid) && move.type === "Fire" && move.category !== "Status") forceLearn = true;
 					if ((poke.randAbilities[0] === "Drizzle" || poke.randAbilities[0] === "Swift Swim" || poke.randAbilities[0] === "Rain Dish" || poke.randAbilities[0] === "Dry Skin" || poke.randAbilities[0] === "Hydration" || poke.randAbilities[0] === "Torrent") && universalWater.includes(moveid) && move.type === "Water" && move.category !== "Status") forceLearn = true;
@@ -1194,6 +1198,7 @@ export const Scripts: ModdedBattleScriptsData = {
 					if ((poke.randAbilities[0] === "Sand Force") && universalRock.includes(moveid) && move.type === "Rock" && move.category !== "Status") forceLearn = true;
 					if ((poke.randAbilities[0] === "Sand Force") && universalGround.includes(moveid) && move.type === "Ground" && move.category !== "Status") forceLearn = true;
 					if ((poke.randAbilities[0] === "Sand Force") && universalSteel.includes(moveid) && move.type === "Steel" && move.category !== "Status") forceLearn = true;
+					if (forceLearn && synergyMove !== -1) synergyMove = 1;
 
 					if (learnset[moveid]) { // if it learns the move
 						learned = true;
@@ -1477,9 +1482,9 @@ export const Scripts: ModdedBattleScriptsData = {
 						} else {
 							if (pushLevelUp.includes(moveid)) {
 								poke.recommendedLvUp.push(moveName);
-							} else if (asterisk) {
+							} else if (synergyMove === 1) {
 								// forced moves
-								poke.forcedMoves.push(move.name); // not moveName because everything in this section would
+								poke.forcedMoves.push(move.name); // not moveName because everything in this section would have an asterisk anyway
 							} else {
 								poke.learnsetCumulative.learnset[levelLearned].movesLearned.push(moveName);
 							}
