@@ -896,18 +896,20 @@ export const Scripts: ModdedBattleScriptsData = {
 					if ((!(poke.gender && poke.gender === "N")) && moveid === 'attract') forceLearn = true;
 					if (universal.includes(moveid)) forceLearn = true;
 					// Ability-based moves
-					if ((moveAbilitySet.includes("Drizzle") || moveAbilitySet.includes("Swift Swim") || moveAbilitySet.includes("Rain Dish") || moveAbilitySet.includes("Dry Skin") || moveAbilitySet.includes("Hydration")) && (moveid === 'thunder' || moveid === 'hurricane' || moveid === 'weatherball')) forceLearn = true;
-					if ((moveAbilitySet.includes("Drought") || moveAbilitySet.includes("Chlorophyll") || moveAbilitySet.includes("Leaf Guard") || moveAbilitySet.includes("Solar Power") || moveAbilitySet.includes("Harvest")) && (moveid === 'solarbeam' || moveid === 'solarblade' || moveid === 'weatherball')) forceLearn = true;
-					if ((moveAbilitySet.includes("Snow Warning") || moveAbilitySet.includes("Snow Cloak") || moveAbilitySet.includes("Ice Body")) && (moveid === 'blizzard' || moveid === 'weatherball')) forceLearn = true;
-					if ((moveAbilitySet.includes("Sand Stream") || moveAbilitySet.includes("Sand Rush") || moveAbilitySet.includes("Sand Force") || moveAbilitySet.includes("Sand Veil") || moveAbilitySet.includes("Normalize")) && moveid === 'weatherball') forceLearn = true;
-					if ((moveAbilitySet.includes("Truant") || moveAbilitySet.includes("Defeatist") || moveAbilitySet.includes("Slow Start") || moveAbilitySet.includes("Stall") || moveAbilitySet.includes("Klutz")) && poke.name !== "Slaking" && poke.name !== "Regigigas" && poke.name !== "Archeops" && (moveid == 'skillswap' || moveid == 'entrainment')) forceLearn = true;
-					if (moveAbilitySet.includes("Klutz") && moveid == 'trick') forceLearn = true;
-					if (moveAbilitySet.includes("Gluttony") && moveid == 'recycle') forceLearn = true;
-					if (moveAbilitySet.includes("Frisk") && (moveid == 'trick' || moveid == 'thief' || moveid == 'covet')) forceLearn = true;
-					if (moveAbilitySet.includes("Stall") && (moveid == 'payback' || moveid == 'assurance' || moveid == 'pursuit' || moveid == 'metalburst')) forceLearn = true;
-					if (moveAbilitySet.includes("Mold Breaker") && moveid == 'earthquake') forceLearn = true;
-					if (moveAbilitySet.includes("Unburden") && moveid === 'acrobatics') forceLearn = true;
+					// these ones are only for the random Ability slot
+					if ((randAbilities[0] === "Drizzle" || randAbilities[0] === "Swift Swim" || randAbilities[0] === "Rain Dish" || randAbilities[0] === "Dry Skin" || randAbilities[0] === "Hydration") && (moveid === 'thunder' || moveid === 'hurricane' || moveid === 'weatherball')) forceLearn = true;
+					if ((randAbilities[0] === "Drought" || randAbilities[0] === "Chlorophyll" || randAbilities[0] === "Leaf Guard" || randAbilities[0] === "Solar Power" || randAbilities[0] === "Harvest") && (moveid === 'solarbeam' || moveid === 'solarblade' || moveid === 'weatherball')) forceLearn = true;
+					if ((randAbilities[0] === "Snow Warning" || randAbilities[0] === "Snow Cloak" || randAbilities[0] === "Ice Body") && (moveid === 'blizzard' || moveid === 'weatherball')) forceLearn = true;
+					if ((randAbilities[0] === "Sand Stream" || randAbilities[0] === "Sand Rush" || randAbilities[0] === "Sand Force" || randAbilities[0] === "Sand Veil" || randAbilities[0] === "Normalize") && moveid === 'weatherball') forceLearn = true;
+					if ((randAbilities[0] === "Truant" || randAbilities[0] === "Defeatist" || randAbilities[0] === "Slow Start" || randAbilities[0] === "Stall" || randAbilities[0] === "Klutz") && poke.name !== "Slaking" && poke.name !== "Regigigas" && poke.name !== "Archeops" && (moveid == 'skillswap' || moveid == 'entrainment')) forceLearn = true;
+					if (randAbilities[0] === "Klutz" && moveid == 'trick') forceLearn = true;
+					if (randAbilities[0] === "Gluttony" && moveid == 'recycle') forceLearn = true;
+					if (randAbilities[0] === "Frisk" && (moveid == 'trick' || moveid == 'thief' || moveid == 'covet')) forceLearn = true;
+					if (randAbilities[0] === "Stall" && (moveid == 'payback' || moveid == 'assurance' || moveid == 'pursuit' || moveid == 'metalburst')) forceLearn = true;
+					if (randAbilities[0] === "Mold Breaker" && moveid == 'earthquake') forceLearn = true;
+					if (randAbilities[0] === "Unburden" && moveid === 'acrobatics') forceLearn = true;
 					// Ability- and type-based moves
+					// these ones are for every Ability slot, because they care about the movepool types, too
 					if (moveAbilitySet.includes("Serene Grace") && learnsetTypes.includes(move.type) && (move.secondary && move.secondary.chance && move.secondary.chance < 90 && move.secondary.chance > 10)) forceLearn = true;
 					if (moveAbilitySet.includes("Iron Fist") && learnsetTypes.includes(move.type) && (move.flags['punch'])) forceLearn = true;
 					if ((moveAbilitySet.includes("Rock Head") || moveAbilitySet.includes("Reckless")) && learnsetTypes.includes(move.type) && (move.recoil)) forceLearn = true;
@@ -1159,6 +1161,7 @@ export const Scripts: ModdedBattleScriptsData = {
 
 						for (const section in moveGroups) {
 							if (eligibleMoves.length) continue;
+							if (!moveGroups[section].includes(moveid)) continue;
 							for (const altmoveid of moveGroups[section]) {
 								if (moveid === altmoveid) continue;
 								if (
