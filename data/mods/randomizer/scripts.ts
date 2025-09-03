@@ -116,7 +116,7 @@ Other post-Gen V moves I probably *can* backport if it comes up
 
 export const Scripts: ModdedBattleScriptsData = {
 	init() {
-		const abilities = this.dataCache.AbilityData;
+		const abilityDex = this.dataCache.Abilities;
 		const hms = [ // excludes Dig and Flash because those do require manual input
 			'cut', 'surf', 'fly', 'strength', 'waterfall', 'dive',
 		];
@@ -255,7 +255,7 @@ export const Scripts: ModdedBattleScriptsData = {
 
 			for (const idNo in poke.abilities) {
 				let id = this.toID(poke.abilities[idNo]);
-				if (abilities[id].num && abilities[id].num > 164) continue; // skip post-Gen V Abilities completely
+				if (abilityDex[id].num && abilityDex[id].num > 164) continue; // skip post-Gen V Abilities completely
 				if (poke.randAbilities[0] && poke.randAbilities[0] === poke.abilities[idNo]) continue; // skip repeat Abilities
 				if (abilityRank1.includes(id)) rank1options.push(poke.abilities[idNo]);
 				else if (abilityRank2.includes(id)) rank2options.push(poke.abilities[idNo]);
