@@ -1086,6 +1086,7 @@ export const Scripts: ModdedBattleScriptsData = {
 					if ((poke.randAbilities[0] === "Truant" || poke.randAbilities[0] === "Defeatist" || poke.randAbilities[0] === "Slow Start" || poke.randAbilities[0] === "Stall" || poke.randAbilities[0] === "Klutz") && poke.name !== "Slaking" && poke.name !== "Regigigas" && poke.name !== "Archeops" && (moveid == 'skillswap' || moveid == 'entrainment')) forceLearn = true;
 					if (poke.randAbilities[0] === "Klutz" && moveid == 'trick') forceLearn = true;
 					if (poke.randAbilities[0] === "Gluttony" && moveid == 'recycle') forceLearn = true;
+					if (poke.randAbilities[0] === "Contrary" && moveid == 'superpower') forceLearn = true; // feels disappointing without this
 					if (poke.randAbilities[0] === "Frisk" && (moveid == 'trick' || moveid == 'thief' || moveid == 'covet')) forceLearn = true;
 					if (poke.randAbilities[0] === "Stall" && (moveid == 'payback' || moveid == 'assurance' || moveid == 'pursuit' || moveid == 'metalburst')) forceLearn = true;
 					if (poke.randAbilities[0] === "Mold Breaker" && moveid == 'earthquake') forceLearn = true;
