@@ -790,6 +790,7 @@ export const Scripts: ModdedBattleScriptsData = {
 			}
 
 			// console.logging
+			/*
 			let samples: string[] = [poke.name + ` samples: `];
 			if (chosenCombinations[0]) samples += chosenCombinations[0].score + chosenCombinations[0].type1 + ((chosenCombinations[0].type2 !== chosenCombinations[0].type1) ? `/` + chosenCombinations[0].type2 + `, ` : `, `);
 			if (chosenCombinations[1]) samples += chosenCombinations[1].score + chosenCombinations[1].type1 + ((chosenCombinations[1].type2 !== chosenCombinations[1].type1) ? `/` + chosenCombinations[1].type2 + `, ` : `, `);
@@ -798,6 +799,7 @@ export const Scripts: ModdedBattleScriptsData = {
 			if (chosenCombinations[4]) samples += chosenCombinations[4].score + chosenCombinations[4].type1 + ((chosenCombinations[4].type2 !== chosenCombinations[4].type1) ? `/` + chosenCombinations[4].type2 + `, ` : `, `);
 			if (poke.chosenType) samples += `chosen: ` + poke.chosenType.score + poke.chosenType.type1 + ((poke.chosenType.type2 !== poke.chosenType.type1) ? `/` + poke.chosenType.type2 : ` `);
 			console.log(samples);
+			*/
 
 			// RANDOM MOVES
 			// todo:
@@ -897,17 +899,17 @@ export const Scripts: ModdedBattleScriptsData = {
 					if (universal.includes(moveid)) forceLearn = true;
 					// Ability-based moves
 					// these ones are only for the random Ability slot
-					if ((randAbilities[0] === "Drizzle" || randAbilities[0] === "Swift Swim" || randAbilities[0] === "Rain Dish" || randAbilities[0] === "Dry Skin" || randAbilities[0] === "Hydration") && (moveid === 'thunder' || moveid === 'hurricane' || moveid === 'weatherball')) forceLearn = true;
-					if ((randAbilities[0] === "Drought" || randAbilities[0] === "Chlorophyll" || randAbilities[0] === "Leaf Guard" || randAbilities[0] === "Solar Power" || randAbilities[0] === "Harvest") && (moveid === 'solarbeam' || moveid === 'solarblade' || moveid === 'weatherball')) forceLearn = true;
-					if ((randAbilities[0] === "Snow Warning" || randAbilities[0] === "Snow Cloak" || randAbilities[0] === "Ice Body") && (moveid === 'blizzard' || moveid === 'weatherball')) forceLearn = true;
-					if ((randAbilities[0] === "Sand Stream" || randAbilities[0] === "Sand Rush" || randAbilities[0] === "Sand Force" || randAbilities[0] === "Sand Veil" || randAbilities[0] === "Normalize") && moveid === 'weatherball') forceLearn = true;
-					if ((randAbilities[0] === "Truant" || randAbilities[0] === "Defeatist" || randAbilities[0] === "Slow Start" || randAbilities[0] === "Stall" || randAbilities[0] === "Klutz") && poke.name !== "Slaking" && poke.name !== "Regigigas" && poke.name !== "Archeops" && (moveid == 'skillswap' || moveid == 'entrainment')) forceLearn = true;
-					if (randAbilities[0] === "Klutz" && moveid == 'trick') forceLearn = true;
-					if (randAbilities[0] === "Gluttony" && moveid == 'recycle') forceLearn = true;
-					if (randAbilities[0] === "Frisk" && (moveid == 'trick' || moveid == 'thief' || moveid == 'covet')) forceLearn = true;
-					if (randAbilities[0] === "Stall" && (moveid == 'payback' || moveid == 'assurance' || moveid == 'pursuit' || moveid == 'metalburst')) forceLearn = true;
-					if (randAbilities[0] === "Mold Breaker" && moveid == 'earthquake') forceLearn = true;
-					if (randAbilities[0] === "Unburden" && moveid === 'acrobatics') forceLearn = true;
+					if ((poke.randAbilities[0] === "Drizzle" || poke.randAbilities[0] === "Swift Swim" || poke.randAbilities[0] === "Rain Dish" || poke.randAbilities[0] === "Dry Skin" || poke.randAbilities[0] === "Hydration") && (moveid === 'thunder' || moveid === 'hurricane' || moveid === 'weatherball')) forceLearn = true;
+					if ((poke.randAbilities[0] === "Drought" || poke.randAbilities[0] === "Chlorophyll" || poke.randAbilities[0] === "Leaf Guard" || poke.randAbilities[0] === "Solar Power" || poke.randAbilities[0] === "Harvest") && (moveid === 'solarbeam' || moveid === 'solarblade' || moveid === 'weatherball')) forceLearn = true;
+					if ((poke.randAbilities[0] === "Snow Warning" || poke.randAbilities[0] === "Snow Cloak" || poke.randAbilities[0] === "Ice Body") && (moveid === 'blizzard' || moveid === 'weatherball')) forceLearn = true;
+					if ((poke.randAbilities[0] === "Sand Stream" || poke.randAbilities[0] === "Sand Rush" || poke.randAbilities[0] === "Sand Force" || poke.randAbilities[0] === "Sand Veil" || poke.randAbilities[0] === "Normalize") && moveid === 'weatherball') forceLearn = true;
+					if ((poke.randAbilities[0] === "Truant" || poke.randAbilities[0] === "Defeatist" || poke.randAbilities[0] === "Slow Start" || poke.randAbilities[0] === "Stall" || poke.randAbilities[0] === "Klutz") && poke.name !== "Slaking" && poke.name !== "Regigigas" && poke.name !== "Archeops" && (moveid == 'skillswap' || moveid == 'entrainment')) forceLearn = true;
+					if (poke.randAbilities[0] === "Klutz" && moveid == 'trick') forceLearn = true;
+					if (poke.randAbilities[0] === "Gluttony" && moveid == 'recycle') forceLearn = true;
+					if (poke.randAbilities[0] === "Frisk" && (moveid == 'trick' || moveid == 'thief' || moveid == 'covet')) forceLearn = true;
+					if (poke.randAbilities[0] === "Stall" && (moveid == 'payback' || moveid == 'assurance' || moveid == 'pursuit' || moveid == 'metalburst')) forceLearn = true;
+					if (poke.randAbilities[0] === "Mold Breaker" && moveid == 'earthquake') forceLearn = true;
+					if (poke.randAbilities[0] === "Unburden" && moveid === 'acrobatics') forceLearn = true;
 					// Ability- and type-based moves
 					// these ones are for every Ability slot, because they care about the movepool types, too
 					if (moveAbilitySet.includes("Serene Grace") && learnsetTypes.includes(move.type) && (move.secondary && move.secondary.chance && move.secondary.chance < 90 && move.secondary.chance > 10)) forceLearn = true;
@@ -1163,7 +1165,8 @@ export const Scripts: ModdedBattleScriptsData = {
 							if (eligibleMoves.length) continue;
 							if (!moveGroups[section].includes(moveid)) continue;
 							for (const altmoveid of moveGroups[section]) {
-								if (moveid === altmoveid) continue;
+								// if (moveid === altmoveid) continue;
+								// it's okay to randomize to the same thing, but...
 								if (
 									this.dataCache.Moves[altmoveid] && this.dataCache.Moves[altmoveid].type && learnsetTypes.includes(this.dataCache.Moves[altmoveid].type)
 								) eligibleMoves.push(altmoveid);
@@ -1172,7 +1175,8 @@ export const Scripts: ModdedBattleScriptsData = {
 
 						if (eligibleMoves.length) {
 							let randomMove = eligibleMoves[Math.floor(Math.random() * eligibleMoves.length)];
-							secondMove = this.dataCache.Moves[randomMove];
+							// ... if you do randomize to the same thing, it doesn't count!
+							if (randomMove !== moveid) secondMove = this.dataCache.Moves[randomMove];
 						}
 					}
 
