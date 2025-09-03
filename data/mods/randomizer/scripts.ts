@@ -1328,7 +1328,8 @@ export const Scripts: ModdedBattleScriptsData = {
 							for (const altmoveid of moveGroups[section]) {
 								if (usedSecondMoves.includes(altmoveid)) continue;
 								// disallow post-Gen V moves that I don't think I can copy
-								if (this.dataCache.Moves[altmoveid].num && this.dataCache.Moves[altmoveid].num > 559 && !movesAfterGenV.includes(altmoveid)) continue;
+								if (!this.dataCache.Moves[altmoveid]) console.log(altmoveid);
+								if (this.dataCache.Moves[altmoveid] && this.dataCache.Moves[altmoveid].num && this.dataCache.Moves[altmoveid].num > 559 && !movesAfterGenV.includes(altmoveid)) continue;
 								// if (moveid === altmoveid) continue;
 								// it's okay to randomize to the same thing, but...
 								if (this.dataCache.Moves[altmoveid] && this.dataCache.Moves[altmoveid].type) {
