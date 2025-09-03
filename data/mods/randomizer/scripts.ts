@@ -1131,7 +1131,8 @@ export const Scripts: ModdedBattleScriptsData = {
 					let synergyMove = 0;
 					if ((!(poke.gender && poke.gender === "N")) && moveid === 'attract') forceLearn = true;
 					if (universal.includes(moveid)) forceLearn = true;
-					if (forceLearn) synergyMove = -1;
+					if (forceLearn) synergyMove = -1; // dismiss synergyMove if the move is universal; should be 0 now if not
+
 					// Ability-based moves
 					// these ones are only for the random Ability slot
 					if ((poke.randAbilities[0] === "Drizzle" || poke.randAbilities[0] === "Swift Swim" || poke.randAbilities[0] === "Rain Dish" || poke.randAbilities[0] === "Dry Skin" || poke.randAbilities[0] === "Hydration") && (moveid === 'thunder' || moveid === 'hurricane' || moveid === 'weatherball')) forceLearn = true;
@@ -1171,9 +1172,9 @@ export const Scripts: ModdedBattleScriptsData = {
 						'collisioncourse', 'electrodrift', 'ruination', 'malignantchain', 'terastarstorm', 'heartswap',
 					].includes(moveid)) forceLearn = false;
 					// I might be missing some but it's not important (but also: I do want UB/Paradox signatures to be allowed - that's on purpose)
+					if (forceLearn && synergyMove === 0) synergyMove = 1; // count synergyMove if the move is non-universal and Ability-related
+					// should be 0 now if not forced yet and -1 if universal
 
-					if (forceLearn && synergyMove === 0) synergyMove = 1;
-					if (synergyMove === 0) synergyMove = -1;
 					// types
 					if ((poke.chosenType.type1 === 'Fire' || poke.chosenType.type2 === 'Fire') && universalFire.includes(moveid)) forceLearn = true;
 					if ((poke.chosenType.type1 === 'Water' || poke.chosenType.type2 === 'Water') && universalWater.includes(moveid)) forceLearn = true;
@@ -1206,7 +1207,9 @@ export const Scripts: ModdedBattleScriptsData = {
 					if ((poke.eggGroups[0] === 'Grass' || (poke.eggGroups[1] && poke.eggGroups[1] === 'Grass')) && universalGrassGroup.includes(moveid)) forceLearn = true;
 					if ((poke.eggGroups[0] === 'Dragon' || (poke.eggGroups[1] && poke.eggGroups[1] === 'Dragon')) && universalDragonGroup.includes(moveid)) forceLearn = true;
 					// (only some Egg groups have universal moves)
-					if (forceLearn && synergyMove === -1) synergyMove = -2;
+					if (forceLearn && synergyMove !== 1) synergyMove = -1; // dismiss synergyMove if the move is not already highlighted and is universal by type
+					// should be 1 now if synergistic, 0 now if not forced yet, and -1 if universal
+
 					// Bonus learnsetTypes but only for the randomized Ability
 					if ((poke.randAbilities[0] === "Drought" || poke.randAbilities[0] === "Chlorophyll" || poke.randAbilities[0] === "Leaf Guard" || poke.randAbilities[0] === "Solar Power" || poke.randAbilities[0] === "Harvest" || poke.randAbilities[0] === "Blaze" || poke.randAbilities[0] === "Flash Fire") && universalFire.includes(moveid) && move.type === "Fire" && move.category !== "Status") forceLearn = true;
 					if ((poke.randAbilities[0] === "Drizzle" || poke.randAbilities[0] === "Swift Swim" || poke.randAbilities[0] === "Rain Dish" || poke.randAbilities[0] === "Dry Skin" || poke.randAbilities[0] === "Hydration" || poke.randAbilities[0] === "Torrent") && universalWater.includes(moveid) && move.type === "Water" && move.category !== "Status") forceLearn = true;
@@ -1216,6 +1219,7 @@ export const Scripts: ModdedBattleScriptsData = {
 					if ((poke.randAbilities[0] === "Sand Force") && universalGround.includes(moveid) && move.type === "Ground" && move.category !== "Status") forceLearn = true;
 					if ((poke.randAbilities[0] === "Sand Force") && universalSteel.includes(moveid) && move.type === "Steel" && move.category !== "Status") forceLearn = true;
 					if (forceLearn && synergyMove !== -1) synergyMove = 1;
+					// mark moves as synergistic only if non-universal
 
 					if (learnset[moveid]) { // if it learns the move
 						learned = true;
