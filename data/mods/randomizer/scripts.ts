@@ -236,16 +236,16 @@ export const Scripts: ModdedBattleScriptsData = {
 			// todo:
 			// - list eligible Abilities (no form-change Abilities, Wonder Guard) - done
 			// - randomize 1 Ability and put it in slot 1 - done
-			let randomForAbility = Math.floor(Math.random() * randAbilities.length);
-			poke.randAbilities = {0: randAbilities[randomForAbility]};
+			let randomForAbility = randAbilities[Math.floor(Math.random() * randAbilities.length)];
+			poke.randAbilities = {0: abilities[randomForAbility].name};
 
 			// decide slot 2 Ability
-			if (poke.name === "Ditto") poke.randAbilities = {0: randAbilities[randomForAbility], 1: "Imposter"};
-			if (poke.name === "Shedinja") poke.randAbilities = {0: randAbilities[randomForAbility], 1: "Wonder Guard"};
-			if (poke.name === "Castform") poke.randAbilities = {0: randAbilities[randomForAbility], 1: "Forecast"};
-			if (poke.name === "Cherrim") poke.randAbilities = {0: randAbilities[randomForAbility], 1: "Flower Gift"};
-			if (poke.name === "Arceus") poke.randAbilities = {0: randAbilities[randomForAbility], 1: "Multitype"};
-			if (poke.name === "Darmanitan") poke.randAbilities = {0: randAbilities[randomForAbility], 1: "Zen Mode"};
+			if (poke.name === "Ditto") poke.randAbilities = {0: poke.randAbilities[0], 1: "Imposter"};
+			if (poke.name === "Shedinja") poke.randAbilities = {0: poke.randAbilities[0], 1: "Wonder Guard"};
+			if (poke.name === "Castform") poke.randAbilities = {0: poke.randAbilities[0], 1: "Forecast"};
+			if (poke.name === "Cherrim") poke.randAbilities = {0: poke.randAbilities[0], 1: "Flower Gift"};
+			if (poke.name === "Arceus") poke.randAbilities = {0: poke.randAbilities[0], 1: "Multitype"};
+			if (poke.name === "Darmanitan") poke.randAbilities = {0: poke.randAbilities[0], 1: "Zen Mode"};
 
 			const rank1options: string[] = [];
 			const rank2options: string[] = [];
@@ -286,7 +286,7 @@ export const Scripts: ModdedBattleScriptsData = {
 				if (rank1options.length) chosenAbilities = rank1options;
 				if (chosenAbilities.length) {
 					randomForAbility = Math.floor(Math.random() * chosenAbilities.length);
-					poke.randAbilities = {0: randAbilities[randomForAbility], 1: chosenAbilities[randomForAbility]};
+					poke.randAbilities = {0: poke.randAbilities[0], 1: chosenAbilities[randomForAbility]};
 				}
 			}
 
@@ -301,8 +301,8 @@ export const Scripts: ModdedBattleScriptsData = {
 			// executive decision: starters randomize the primary slot only, since I don't have Ability Capsules or Patches
 
 			// - randomize a second Ability only for the crossgen output - done
-			randomForAbility = Math.floor(Math.random() * randAbilities.length);
-			let crossgenAbility = randAbilities[randomForAbility];
+			randomForAbility = randAbilities[Math.floor(Math.random() * randAbilities.length)];
+			let crossgenAbility = {0: abilities[randomForAbility].name};
 			poke.crossgenAbilities = poke.randAbilities;
 			// - overwrite all Abilities with lower priority than that Ability with it
 			// - if no Abilities have been overwritten, overwrite a random Ability with the same priority as it
