@@ -116,6 +116,7 @@ Other post-Gen V moves I probably *can* backport if it comes up
 
 export const Scripts: ModdedBattleScriptsData = {
 	init() {
+		const abilities = this.dataCache.AbilityData;
 		const hms = [ // excludes Dig and Flash because those do require manual input
 			'cut', 'surf', 'fly', 'strength', 'waterfall', 'dive',
 		];
@@ -149,16 +150,64 @@ export const Scripts: ModdedBattleScriptsData = {
 		];
 
 		const randAbilities = [
-			'stench', 'drizzle', 'speedboost', 'battlearmor', 'sturdy', 'damp', 'limber', 'sandveil', 'static', 'voltabsorb', 'waterabsorb', 'oblivious', 'cloudnine', 'compoundeyes', 'insomnia', 'colorchange', 'immunity', 'flashfire',
+			'stench', 'drizzle', 'speedboost', 'battlearmor', 'sturdy', 'damp', 'limber', 'sandveil', 'static', 'voltabsorb', 'waterabsorb', 'cloudnine', 'compoundeyes', 'insomnia', 'colorchange', 'immunity', 'flashfire',
 			'shielddust', 'owntempo', 'suctioncups', 'intimidate', 'shadowtag', 'roughskin', 'levitate', 'effectspore', 'synchronize', 'clearbody', 'naturalcure', 'lightningrod', 'serenegrace', 'swiftswim', 'chlorophyll',
-			'illuminate', 'trace', 'hugepower', 'poisonpoint', 'innerfocus', 'magmaarmor', 'waterveil', 'magnetpull', 'soundproof', 'raindish', 'sandstream', 'pressure', 'thickfat', 'earlybird', 'flamebody', 'runaway', 'keeneye',
+			'trace', 'hugepower', 'poisonpoint', 'innerfocus', 'magmaarmor', 'waterveil', 'magnetpull', 'soundproof', 'raindish', 'sandstream', 'pressure', 'thickfat', 'earlybird', 'flamebody', 'runaway', 'keeneye',
 			'hypercutter', 'pickup', 'truant', 'hustle', 'cutecharm', 'plus', 'minus', 'stickyhold', 'shedskin', 'guts', 'marvelscale', 'liquidooze', 'overgrow', 'blaze', 'torrent', 'swarm', 'rockhead', 'drought',
-			'arenatrap', 'vitalspirit', 'whitesmoke', 'purepower', 'shellarmor', 'airlock', 'tangledfeet', 'motordrive', 'rivalry', 'steadfast', 'snowcloak', 'gluttony', 'angerpoint', 'unburden', 'heatproof', 'simple', 'dryskin',
+			'arenatrap', 'vitalspirit', 'whitesmoke', 'purepower', 'shellarmor', 'tangledfeet', 'motordrive', 'rivalry', 'steadfast', 'snowcloak', 'gluttony', 'angerpoint', 'unburden', 'heatproof', 'simple', 'dryskin',
 			'download', 'ironfist', 'poisonheal', 'adaptability', 'skilllink', 'hydration', 'solarpower', 'quickfeet', 'normalize', 'sniper', 'magicguard', 'noguard', 'stall', 'technician', 'leafguard', 'klutz', 'moldbreaker',
 			'superluck', 'aftermath', 'anticipation', 'forewarn', 'unaware', 'tintedlens', 'filter', 'slowstart', 'scrappy', 'stormdrain', 'icebody', 'solidrock', 'snowwarning', 'honeygather', 'frisk', 'reckless',
 			'baddreams', 'pickpocket', 'sheerforce', 'contrary', 'unnerve', 'defiant', 'defeatist', 'cursedbody', 'healer', 'friendguard', 'weakarmor', 'heavymetal', 'lightmetal', 'multiscale', 'toxicboost', 'flareboost',
-			'harvest', 'telepathy', 'moody', 'overcoat', 'poisontouch', 'regenerator', 'bigpecks', 'sandrush', 'wonderskin', 'analytic', 'illusion', 'imposter', 'infiltrator', 'mummy', 'moxie', 'justified', 'rattled', 'magicbounce',
-			'sapsipper', 'prankster', 'sandforce', 'ironbarbs', 'victorystar', 'turboblaze', 'teravolt',
+			'harvest', 'telepathy', 'moody', 'overcoat', 'poisontouch', 'regenerator', 'bigpecks', 'sandrush', 'wonderskin', 'analytic', 'illusion', 'infiltrator', 'mummy', 'moxie', 'justified', 'rattled', 'magicbounce',
+			'sapsipper', 'prankster', 'sandforce', 'ironbarbs', 'victorystar',
+		];
+		const abilityRank1 = [
+			'drizzle', 'drought', 'sandstream', 'snowwarning', 'intimidate', 'prankster',
+		];
+		const abilityRank2 = [
+			// immunities
+			'voltabsorb', 'waterabsorb', 'flashfire', 'lightningrod', 'stormdrain', 'motordrive', 'sapsipper', 'levitate', 'soundproof',
+			// Speed control
+			'swiftswim', 'chlorophyll', 'sandrush', 'speedboost', 'unburden',
+			// anti-weather
+			'cloudnine', 'airlock',
+			// unique support
+			'friendguard', 'regenerator', 'healer', 'noguard', 'scrappy', 'unnerve', 'telepathy', 'justified', 'rattled', 'angerpoint',
+		];
+		const abilityRank3 = [
+			// anti-Intimidate
+			'clearbody', 'whitesmoke', 'hypercutter', 'defiant', 'contrary', 'trace',
+			// major stat checks
+			'multiscale', 'hugepower', 'purepower', 'guts', 'download', 'adaptability', 'tintedlens', 'sheerforce', 'moody', 'simple',
+			// weather Abilities except Sand Veil and Snow Cloak (not interesting)
+			'raindish', 'hydration', 'dryskin', 'solarpower', 'leafguard', 'harvest', 'sandforce', 'icebody',
+			// anti-flinching
+			'shielddust', 'innerfocus',
+		];
+		const abilityRank4 = [
+			'pickup', 'frisk', 'normalize', 'klutz',
+			'marvelscale', 'quickfeet', 'poisonheal', 'toxicboost', 'flareboost',
+			'ironfist', 'reckless', 'technician', 'skilllink',
+			'magicbounce', 'hustle', 'weakarmor', 'moldbreaker', 'pickpocket',
+			'analytic', 'moxie', 'bigpecks',
+			'plus', 'minus', 'steadfast',
+		];
+		const abilityRank5 = [
+			// contact punishing
+			'static', 'effectspore', 'poisonpoint', 'flamebody', 'cursedbody', 'poisontouch', 'aftermath',
+			// damage resistance
+			'thickfat', 'heatproof', 'filter', 'solidrock',
+			// other
+			'sturdy', 'compoundeyes', 'roughskin', 'synchronize', 'naturalcure', 'serenegrace', 'hustle',
+		];
+		const abilityRank6 = [
+			// status immunities
+			'limber', 'insomnia', 'vitalspirit', 'immunity', 'waterveil', 'owntempo',
+			'honeygather', 'shedskin', 'gluttony',
+		];
+		const badAbilities = [[
+			'stench', 'battlearmor', 'damp', 'suctioncups', 'runaway', 'keeneye', 'cutecharm', 'stickyhold', 'shellarmor', 'tangledfeet', 'rivalry', 'snowcloak', 'stall', 'anticipation', 'forewarn', 'unaware', 'heavymetal',
+			'lightmetal', 'overcoat', 'magmaarmor',
 		];
 
 // todo:
@@ -188,24 +237,54 @@ export const Scripts: ModdedBattleScriptsData = {
 			poke.randAbilities = {0: randAbilities[randomForAbility]};
 
 			// decide slot 2 Ability
+			if (poke.name === "Ditto") poke.randAbilities = {0: randAbilities[randomForAbility], 1: "Imposter"};
 			if (poke.name === "Shedinja") poke.randAbilities = {0: randAbilities[randomForAbility], 1: "Wonder Guard"};
 			if (poke.name === "Castform") poke.randAbilities = {0: randAbilities[randomForAbility], 1: "Forecast"};
 			if (poke.name === "Cherrim") poke.randAbilities = {0: randAbilities[randomForAbility], 1: "Flower Gift"};
 			if (poke.name === "Arceus") poke.randAbilities = {0: randAbilities[randomForAbility], 1: "Multitype"};
 			if (poke.name === "Darmanitan") poke.randAbilities = {0: randAbilities[randomForAbility], 1: "Zen Mode"};
+
+			const rank1options: string[] = [];
+			const rank2options: string[] = [];
+			const rank3options: string[] = [];
+			const rank4options: string[] = [];
+			const rank5options: string[] = [];
+			const rank6options: string[] = [];
+			const neutralOptions: string[] = [];
+			const badOptions: string[] = [];
+
+			for (const idNo in poke.abilities) {
+				let id = this.toID(poke.abilities[idNo];
+				if (abilities[id].num && abilities[id].num > 164) continue; // skip post-Gen V Abilities completely
+				if (poke.randAbilities[0] && poke.randAbilities[0] === poke.abilities[idNo]) continue; // skip repeat Abilities
+				if (abilityRank1.includes(id)) rank1options.push(poke.abilities[idNo]);
+				else if (abilityRank2.includes(id)) rank2options.push(poke.abilities[idNo]);
+				else if (abilityRank3.includes(id)) rank3options.push(poke.abilities[idNo]);
+				else if (abilityRank4.includes(id)) rank4options.push(poke.abilities[idNo]);
+				else if (abilityRank5.includes(id)) rank5options.push(poke.abilities[idNo]);
+				else if (abilityRank6.includes(id)) rank6options.push(poke.abilities[idNo]);
+				else if (badAbilities.includes(id)) badOptions.push(poke.abilities[idNo]);
+				else neutralOptions.push(poke.abilities[idNo]);
+			}
 			// pick the highest-priority remaining Ability
 			if (!poke.randAbilities[1]) {
 				const chosenAbilities: string[] = [];
-				// iterate through poke.abilities and see if any of them are on certain lists
-				// make sure Ability number is less than 165 (Teravolt is 164; Aroma Veil is 165) or reject it completely
+				if (badOptions.length) chosenAbilities = badOptions;
+				if (neutralOptions.length) chosenAbilities = neutralOptions;
+				if (rank6options.length) chosenAbilities = rank6options;
+				if (rank5options.length) chosenAbilities = rank5options;
+				if (rank4options.length) chosenAbilities = rank4options;
+				if (rank3options.length) chosenAbilities = rank3options;
+				if (rank2options.length) chosenAbilities = rank2options;
+				if (rank1options.length) chosenAbilities = rank1options;
 				if (chosenAbilities.length) {
 					let randomForAbility = Math.floor(Math.random() * chosenAbilities.length);
 					poke.randAbilities = {0: randAbilities[randomForAbility], 1: chosenAbilities[randomForAbility]};
 				}
 			}
 
-			// decide slot 3 Ability
-			// pick the highest-priority remaining Ability
+			// TODO: decide slot 3 Ability
+			// pick the highest-priority remaining Ability again
 
 			// do not randomize anything for Slaking, Regigigas, Archeops, etc. - done
 			if (["Slaking", "Archeops", "Regigigas"].includes(poke.name)) poke.randAbilities = poke.abilities;
@@ -213,8 +292,6 @@ export const Scripts: ModdedBattleScriptsData = {
 			// - Legendaries and Mythicals have 1 Ability and starters only randomize HA - done
 			if (["Overgrow", "Blaze", "Torrent"].includes(poke.abilities[0]) || poke.tags) poke.randAbilities = poke.randAbilities = {0: poke.randAbilities[0]};
 			// executive decision: starters randomize the primary slot only, since I don't have Ability Capsules or Patches
-
-			// - prioritize vanilla Abilities between slot 2 and HA (based on chosen rankings, random variance, excluding post-Gen V Abilities)
 
 			// - randomize a second Ability only for the crossgen output - done
 			let randomForAbility = Math.floor(Math.random() * randAbilities.length);
@@ -423,6 +500,7 @@ export const Scripts: ModdedBattleScriptsData = {
 			}
 
 			// console.logging
+			/*
 			let samples: string[] = [poke.name + ` samples: `];
 			if (chosenCombinations[0]) samples += chosenCombinations[0].type1 + ((chosenCombinations[0].type2 !== chosenCombinations[0].type1) ? `/` + chosenCombinations[0].type2 + `, ` : `, `);
 			if (chosenCombinations[1]) samples += chosenCombinations[1].type1 + ((chosenCombinations[1].type2 !== chosenCombinations[1].type1) ? `/` + chosenCombinations[1].type2 + `, ` : `, `);
@@ -431,10 +509,12 @@ export const Scripts: ModdedBattleScriptsData = {
 			if (chosenCombinations[4]) samples += chosenCombinations[4].type1 + ((chosenCombinations[4].type2 !== chosenCombinations[4].type1) ? `/` + chosenCombinations[4].type2 + `, ` : `, `);
 			if (poke.chosenType) samples += `chosen: ` + poke.chosenType.type1 + ((poke.chosenType.type2 !== poke.chosenType.type1) ? `/` + poke.chosenType.type2 : ` `);
 			console.log(samples);
+			*/
 
 			// RANDOM MOVES
 			// todo:
-			// - add universal moves to learnsets when randomizing (based on the new type)
+			// - add universal moves to learnsets when randomizing (based on the new type) - done
+
 			// - go through move substitutions by type, but keep the old move listed in the same row just in case (ex. "15 - Icy Wind -> Struggle Bug")
 			// - possible: filter out moves that are already TMs if the player gets the TM earlier than the level-up move (save on space)
 			// - possible: push one completely random (? within certain parameters?) extra move to the learnset
@@ -736,8 +816,11 @@ export const Scripts: ModdedBattleScriptsData = {
 				if (!poke || !poke.learnsetCumulative.learnset) return;
 				// finalize sheetOutput now.........
 				let sheetOutput: string[] = [
-					`\n\n` + (poke.evoLevel ? (poke.name + ` // ` + poke.evoLevel) : poke.name) + ` // ` + poke.chosenType.type1 + (poke.chosenType.type2 === poke.chosenType.type1 ? `\n` : ` / `+ poke.chosenType.type2 + `\n`)
+					`\n\n` + (poke.evoLevel ? (poke.name + ` // ` + poke.evoLevel) : poke.name) + `\n`
 				];
+				//  // ` + )
+				sheetOutput += poke.chosenType.type1 + (poke.chosenType.type2 === poke.chosenType.type1 ? `\n` : ` / `+ poke.chosenType.type2 + `\n`;
+				sheetOutput += poke.randAbilities[0] + (poke.randAbilities[1] ? ` / `+ poke.randAbilities[1] + `\n` : `\n`);
 				// TODO: other randomizer features (types, Abilities, stats)
 				for (const level in poke.learnsetCumulative.learnset) {
 					if (poke.learnsetCumulative.learnset[level].movesLearned.length) {
