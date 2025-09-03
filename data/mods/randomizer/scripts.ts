@@ -148,6 +148,19 @@ export const Scripts: ModdedBattleScriptsData = {
 			// 'hiddenpower', 'protect', 'doubleteam', 'round', 'swagger', 'substitute',
 		];
 
+		const randAbilities = [
+			'stench', 'drizzle', 'speedboost', 'battlearmor', 'sturdy', 'damp', 'limber', 'sandveil', 'static', 'voltabsorb', 'waterabsorb', 'oblivious', 'cloudnine', 'compoundeyes', 'insomnia', 'colorchange', 'immunity', 'flashfire',
+			'shielddust', 'owntempo', 'suctioncups', 'intimidate', 'shadowtag', 'roughskin', 'levitate', 'effectspore', 'synchronize', 'clearbody', 'naturalcure', 'lightningrod', 'serenegrace', 'swiftswim', 'chlorophyll',
+			'illuminate', 'trace', 'hugepower', 'poisonpoint', 'innerfocus', 'magmaarmor', 'waterveil', 'magnetpull', 'soundproof', 'raindish', 'sandstream', 'pressure', 'thickfat', 'earlybird', 'flamebody', 'runaway', 'keeneye',
+			'hypercutter', 'pickup', 'truant', 'hustle', 'cutecharm', 'plus', 'minus', 'stickyhold', 'shedskin', 'guts', 'marvelscale', 'liquidooze', 'overgrow', 'blaze', 'torrent', 'swarm', 'rockhead', 'drought',
+			'arenatrap', 'vitalspirit', 'whitesmoke', 'purepower', 'shellarmor', 'airlock', 'tangledfeet', 'motordrive', 'rivalry', 'steadfast', 'snowcloak', 'gluttony', 'angerpoint', 'unburden', 'heatproof', 'simple', 'dryskin',
+			'download', 'ironfist', 'poisonheal', 'adaptability', 'skilllink', 'hydration', 'solarpower', 'quickfeet', 'normalize', 'sniper', 'magicguard', 'noguard', 'stall', 'technician', 'leafguard', 'klutz', 'moldbreaker',
+			'superluck', 'aftermath', 'anticipation', 'forewarn', 'unaware', 'tintedlens', 'filter', 'slowstart', 'scrappy', 'stormdrain', 'icebody', 'solidrock', 'snowwarning', 'honeygather', 'frisk', 'reckless',
+			'baddreams', 'pickpocket', 'sheerforce', 'contrary', 'unnerve', 'defiant', 'defeatist', 'cursedbody', 'healer', 'friendguard', 'weakarmor', 'heavymetal', 'lightmetal', 'multiscale', 'toxicboost', 'flareboost',
+			'harvest', 'telepathy', 'moody', 'overcoat', 'poisontouch', 'regenerator', 'bigpecks', 'sandrush', 'wonderskin', 'analytic', 'illusion', 'imposter', 'infiltrator', 'mummy', 'moxie', 'justified', 'rattled', 'magicbounce',
+			'sapsipper', 'prankster', 'sandforce', 'ironbarbs', 'victorystar', 'turboblaze', 'teravolt',
+		];
+
 // todo:
 // - highlight TMs that are learned now, but weren't already in Gen V, if they were TMs at the time (for my own convenience) - done
 // - shift each move to the lowest level it's ever learned pre-Gen VIII - done
@@ -169,13 +182,44 @@ export const Scripts: ModdedBattleScriptsData = {
 
 			// RANDOM ABILITY
 			// todo:
-			// - list eligible Abilities (no form-change Abilities, Wonder Guard; do not randomize anything for Slaking, Regigigas, Archeops, etc.)
+			// - list eligible Abilities (no form-change Abilities, Wonder Guard) - done
+			// - randomize 1 Ability and put it in slot 1 - done
+			let randomForAbility = Math.floor(Math.random() * randAbilities.length);
+			poke.randAbilities = {0: randAbilities[randomForAbility]};
 
-			// - randomize 1 Ability and put it in slot 1
+			// decide slot 2 Ability
+			if (poke.name === "Shedinja") poke.randAbilities = {0: randAbilities[randomForAbility], 1: "Wonder Guard"};
+			if (poke.name === "Castform") poke.randAbilities = {0: randAbilities[randomForAbility], 1: "Forecast"};
+			if (poke.name === "Cherrim") poke.randAbilities = {0: randAbilities[randomForAbility], 1: "Flower Gift"};
+			if (poke.name === "Arceus") poke.randAbilities = {0: randAbilities[randomForAbility], 1: "Multitype"};
+			if (poke.name === "Darmanitan") poke.randAbilities = {0: randAbilities[randomForAbility], 1: "Zen Mode"};
+			// pick the highest-priority remaining Ability
+			if (!poke.randAbilities[1]) {
+				const chosenAbilities: string[] = [];
+				// iterate through poke.abilities and see if any of them are on certain lists
+				// make sure Ability number is less than 165 (Teravolt is 164; Aroma Veil is 165) or reject it completely
+				if (chosenAbilities.length) {
+					let randomForAbility = Math.floor(Math.random() * chosenAbilities.length);
+					poke.randAbilities = {0: randAbilities[randomForAbility], 1: chosenAbilities[randomForAbility]};
+				}
+			}
+
+			// decide slot 3 Ability
+			// pick the highest-priority remaining Ability
+
+			// do not randomize anything for Slaking, Regigigas, Archeops, etc. - done
+			if (["Slaking", "Archeops", "Regigigas"].includes(poke.name)) poke.randAbilities = poke.abilities;
+
+			// - Legendaries and Mythicals have 1 Ability and starters only randomize HA - done
+			if (["Overgrow", "Blaze", "Torrent"].includes(poke.abilities[0]) || poke.tags) poke.randAbilities = poke.randAbilities = {0: poke.randAbilities[0]};
+			// executive decision: starters randomize the primary slot only, since I don't have Ability Capsules or Patches
+
 			// - prioritize vanilla Abilities between slot 2 and HA (based on chosen rankings, random variance, excluding post-Gen V Abilities)
-			// - Legendaries and Mythicals have 1 Ability and starters only randomize HA
 
-			// - randomize a second Ability only for the crossgen output
+			// - randomize a second Ability only for the crossgen output - done
+			let randomForAbility = Math.floor(Math.random() * randAbilities.length);
+			let crossgenAbility = randAbilities[randomForAbility];
+			poke.crossgenAbilities = poke.randAbilities;
 			// - overwrite all Abilities with lower priority than that Ability with it
 			// - if no Abilities have been overwritten, overwrite a random Ability with the same priority as it
 			// - otherwise, ignore it
