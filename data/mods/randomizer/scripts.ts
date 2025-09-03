@@ -485,11 +485,14 @@ export const Scripts: ModdedBattleScriptsData = {
 			let loopCount = 0;
 			for (const type1 of chosenTypes) {
 				for (const type2 of chosenTypes) {
+					let score = 0;
 					let pokeCheck = poke;
 					if (poke.baseSpecies) pokeCheck = this.dataCache.Pokedex[this.toID(poke.baseSpecies)];
 					// automatically reject the base type
-					if (type1 === pokeCheck.types[0] && ((pokeCheck.types[1] && type2 === pokeCheck.types[1]) || (!pokeCheck.types[1] && type2 === type1))) continue;
-					if (type2 === pokeCheck.types[0] && ((pokeCheck.types[1] && type1 === pokeCheck.types[1]) || (!pokeCheck.types[1] && type2 === type1))) continue;
+					let baseType = false;
+					if (type1 === pokeCheck.types[0] && ((pokeCheck.types[1] && type2 === pokeCheck.types[1]) || (!pokeCheck.types[1] && type2 === type1))) baseType = true;
+					if (type2 === pokeCheck.types[0] && ((pokeCheck.types[1] && type1 === pokeCheck.types[1]) || (!pokeCheck.types[1] && type2 === type1))) baseType = true;
+					if (baseType) continue;
 
 					// reject exact types already taken by other forms/variants
 					if (pokeCheck.otherFormes) {
@@ -526,8 +529,6 @@ export const Scripts: ModdedBattleScriptsData = {
 					const resistances: string[] = [];
 					const immunities: string[] = [];
 
-					let score = 0;
-
 					// single-type version
 					if (type2 === type1) {
 
@@ -553,11 +554,9 @@ export const Scripts: ModdedBattleScriptsData = {
 						// +1 if one type is resisted and the other is SE
 						// +3 if one type is resisted or worse and the other is neutral or worse, but one of the base types is SE
 		 
-						if (poke.name === "Sandslash-Alola") console.log (type1 + `: scored` + score + ` before offense`);
 						for (const type in this.dataCache.TypeChart) {
 							if (type === "Fairy") continue;
 							if (this.dataCache.TypeChart[type].damageTaken[type1] > 1) { // STAB resisted
-								if (poke.name === "Sandslash-Alola") console.log (type);
 								if (this.dataCache.TypeChart[type].damageTaken[poke.types[0]] === 1 || (poke.types[1] && this.dataCache.TypeChart[type].damageTaken[poke.types[1]] === 1)) {
 									// one of the base types is SE
 									score ++;
@@ -610,7 +609,6 @@ export const Scripts: ModdedBattleScriptsData = {
 						// +1 if one type is resisted and the other is SE
 						// +3 if one type is resisted or worse and the other is neutral or worse, but one of the base types is SE
 
-						if (poke.name === "Sandslash-Alola") console.log (type1 + `/` + type2 + `: scored` + score + ` before offense`);
 						for (const type in this.dataCache.TypeChart) {
 							if (type === "Fairy") continue;
 							if (this.dataCache.TypeChart[type].damageTaken[type1] > 1 || this.dataCache.TypeChart[type].damageTaken[type2] > 1) { // one STAB resisted
@@ -627,7 +625,6 @@ export const Scripts: ModdedBattleScriptsData = {
 
 					}
 
-					if (poke.name === "Sandslash-Alola") console.log (type1 + `/` + type2 + `: scored` + score + ` before Abilities`);
 					// Ability checks
 					// I already have abilitySet established earlier, so I can reference it
 
@@ -638,7 +635,6 @@ export const Scripts: ModdedBattleScriptsData = {
 					}
 
 					// reset all existing combinations if a higher-scoring one comes along
-					if (poke.name === "Sandslash-Alola") console.log (type1 + `/` + type2 + `: scored ` + score);
 					if (score > topScore) {
 						loopCount = 0;
 						topScore = score;
