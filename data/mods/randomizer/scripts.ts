@@ -221,10 +221,11 @@ export const Scripts: ModdedBattleScriptsData = {
 		for (const id in this.dataCache.Pokedex) {
 			const poke = this.dataCache.Pokedex[id];
 			if (!poke || poke.evos) continue;
+			if (poke.types && poke.types[0] === "Bird") continue; // sorry Missingno.
 			if (!(this.dataCache.Learnsets[id] && this.dataCache.Learnsets[id].learnset)) continue; // skip Megas and G-Maxes this time
 			if (poke.baseSpecies && (poke.baseSpecies === "Pikachu" || poke.baseSpecies === "Pichu" || poke.baseSpecies === "Eevee" || poke.baseSpecies === "Floette")) continue;
 			if (poke.forme && (poke.forme === "Totem" || poke.forme === "Alola-Totem")) continue;
-			if (poke.num && poke.num < 1) continue; // skip CAPs and Missingno.
+			if (poke.num && poke.num < 0) continue; // skip CAPs
 			let future = false; // determine if something is Gen VIII or later
 			if (poke.num && poke.num > 809) future = true;
 			if (poke.forme && (poke.forme === "Galar" || poke.forme === "Hisui" || poke.baseSpecies === "Tauros")) future = true;
@@ -667,7 +668,6 @@ export const Scripts: ModdedBattleScriptsData = {
 			}
 
 			// console.logging
-			/*
 			let samples: string[] = [poke.name + ` samples: `];
 			if (chosenCombinations[0]) samples += chosenCombinations[0].score + chosenCombinations[0].type1 + ((chosenCombinations[0].type2 !== chosenCombinations[0].type1) ? `/` + chosenCombinations[0].type2 + `, ` : `, `);
 			if (chosenCombinations[1]) samples += chosenCombinations[1].score + chosenCombinations[1].type1 + ((chosenCombinations[1].type2 !== chosenCombinations[1].type1) ? `/` + chosenCombinations[1].type2 + `, ` : `, `);
@@ -676,7 +676,6 @@ export const Scripts: ModdedBattleScriptsData = {
 			if (chosenCombinations[4]) samples += chosenCombinations[4].score + chosenCombinations[4].type1 + ((chosenCombinations[4].type2 !== chosenCombinations[4].type1) ? `/` + chosenCombinations[4].type2 + `, ` : `, `);
 			if (poke.chosenType) samples += `chosen: ` + poke.chosenType.score + poke.chosenType.type1 + ((poke.chosenType.type2 !== poke.chosenType.type1) ? `/` + poke.chosenType.type2 : ` `);
 			console.log(samples);
-			*/
 
 			// RANDOM MOVES
 			// todo:
