@@ -165,7 +165,7 @@ const moveGroups = {
 	25: ['finalgambit', 'memento', 'healingwish', 'mistyexplosion', 'selfdestruct', 'explosion'],
 	26: ['ragepowder', 'followme'],
 	27: ['stickyweb', 'spikes', 'stealthrock', 'toxicspikes'],
-	28: ['silktrap', 'obstruct', 'kingsshield', 'burningbulwark', 'banefulbunker', 'spikyshield', 'craftyshield', 'matblock', 'quckguard', 'wideguard'],
+	28: ['silktrap', 'obstruct', 'kingsshield', 'burningbulwark', 'banefulbunker', 'spikyshield', 'craftyshield', 'matblock', 'quickguard', 'wideguard'],
 	29: ['spiderweb', 'fairylock', 'block', 'meanlook', 'octolock'],
 	30: ['flatter', 'swagger', 'sweetkiss', 'confuseray', 'supersonic'],
 	31: ['flatter', 'swagger', 'sweetkiss', 'confuseray', 'supersonic', 'teeterdance'],
