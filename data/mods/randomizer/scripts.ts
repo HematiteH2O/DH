@@ -913,6 +913,18 @@ export const Scripts: ModdedBattleScriptsData = {
 					if (moveAbilitySet.includes("No Guard") && learnsetTypes.includes(move.type) && (move.acc && move.acc === 50)) forceLearn = true;
 					if (moveAbilitySet.includes("Own Tempo") && learnsetTypes.includes(move.type) && (move.target === "randomNormal")) forceLearn = true;
 					if (moveid === "struggle") forceLearn = false;
+					// exclude Legendary signatures, too
+					if ([
+						'psystrike', 'aeroblast', 'sacredfire', 'lusterpurge', 'mistball', 'precipiceblades', 'originpulse', 'dragonascent', 'doomdesire', 'psychoboost',
+						'roaroftime', 'spacialrend', 'shadowforce', 'magmastorm', 'lunardance', 'lunarblessing', 'crushgrip', 'mysticalpower', 'darkvoid', 'seedflare',
+						'judgment', 'vcreate', 'searingshot', 'wildboltstorm', 'bleakwindstorm', 'sandsearstorm', 'fusionbolt', 'fusionflare', 'boltstrike', 'blueflare',
+						'iceburn', 'freezeshock', 'glaciate', 'technoblast', 'relicsong', 'secretsword', 'geomancy', 'oblivionwing', 'landswrath', 'hyperspacehole',
+						'hyperspacefury', 'diamondstorm', 'steameruption', 'sunsteelstrike', 'moongeistbeam', 'naturesmadness', 'prismaticlaser', 'photongeyser',
+						'fleurcannon', 'spectralthief', 'plasmafists', 'doubleironbash', 'behemothbash', 'behemothblade', 'dynamaxcannon', 'eternabeam', 'junglehealing',
+						'wickedblow', 'surgingstrikes', 'glaciallance', 'astralbarrage', 'freezingglare', 'thunderouskick', 'fierywrath', 'thundercage', 'dragonenergy',
+						'collisioncourse', 'electrodrift', 'ruination', 'malignantchain', 'terastarstorm',
+					].includes(moveid)) forceLearn = false;
+					// I might be missing some but it's not important
 
 					// types
 					if ((poke.chosenType.type1 === 'Fire' || poke.chosenType.type2 === 'Fire') && universalFire.includes(moveid)) forceLearn = true;
