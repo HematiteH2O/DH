@@ -491,10 +491,10 @@ export const Scripts: ModdedBattleScriptsData = {
 					// automatically reject the base type
 					let baseType = false;
 					if (pokeCheck.types[1]) {
-						if (type1 === pokeCheck.types[0] && type2 === pokeCheck.types[0]) baseType = true;
-					} else {
 						if (type1 === pokeCheck.types[0] && type2 === pokeCheck.types[1]) baseType = true;
 						if (type2 === pokeCheck.types[0] && type1 === pokeCheck.types[1]) baseType = true;
+					} else {
+						if (type1 === pokeCheck.types[0] && type2 === pokeCheck.types[0]) baseType = true;
 					}
 
 					// reject exact types already taken by other forms/variants
