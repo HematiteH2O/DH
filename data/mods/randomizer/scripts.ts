@@ -922,9 +922,9 @@ export const Scripts: ModdedBattleScriptsData = {
 						'hyperspacefury', 'diamondstorm', 'steameruption', 'sunsteelstrike', 'moongeistbeam', 'naturesmadness', 'prismaticlaser', 'photongeyser',
 						'fleurcannon', 'spectralthief', 'plasmafists', 'doubleironbash', 'behemothbash', 'behemothblade', 'dynamaxcannon', 'eternabeam', 'junglehealing',
 						'wickedblow', 'surgingstrikes', 'glaciallance', 'astralbarrage', 'freezingglare', 'thunderouskick', 'fierywrath', 'thundercage', 'dragonenergy',
-						'collisioncourse', 'electrodrift', 'ruination', 'malignantchain', 'terastarstorm',
+						'collisioncourse', 'electrodrift', 'ruination', 'malignantchain', 'terastarstorm', 'heartswap',
 					].includes(moveid)) forceLearn = false;
-					// I might be missing some but it's not important
+					// I might be missing some but it's not important (but also: I do want UB/Paradox signatures to be allowed - that's on purpose)
 
 					// types
 					if ((poke.chosenType.type1 === 'Fire' || poke.chosenType.type2 === 'Fire') && universalFire.includes(moveid)) forceLearn = true;
