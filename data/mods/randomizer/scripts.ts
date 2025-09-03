@@ -1466,7 +1466,7 @@ export const Scripts: ModdedBattleScriptsData = {
 						// if there's a second move
 						if (secondMove) moveName += ` -> ` + secondMove.name;
 						if (secondMove && secondMove.num && secondMove.num > 559) {
-							if (movesAfterGenV.includes(this.toID(poke.abilities[secondMove]))) moveName = moveName + ` (new)`; // identify post-Gen V moves
+							if (movesAfterGenV.includes(this.toID(secondMove))) moveName = moveName + ` (new)`; // identify post-Gen V moves
 							else moveName = moveName + ` (x)`;
 						}
 						// either way
@@ -1489,7 +1489,11 @@ export const Scripts: ModdedBattleScriptsData = {
 						poke.learnsetCumulative.learnset[level].movesLearned.sort();
 						if (parseInt(level) > 99) {
 							sheetOutput += `\n~ Additional moves\n`
-							for (const moveid of poke.learnsetCumulative.learnset[level].movesLearned) sheetOutput += moveid + `, `;
+							for (const moveid of poke.learnsetCumulative.learnset[level].movesLearned) {
+								if (usedSecondMoves.includes(moveid)) continue;
+								if (usedSecondMoves.includes(moveid + `*`)) continue;
+								sheetOutput += moveid + `, `;
+							}
 							sheetOutput += `~`;
 						} else {
 							for (const moveid of poke.learnsetCumulative.learnset[level].movesLearned) {
