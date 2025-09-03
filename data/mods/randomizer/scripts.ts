@@ -290,8 +290,51 @@ export const Scripts: ModdedBattleScriptsData = {
 				}
 			}
 
-			// TODO: decide slot 3 Ability
-			// pick the highest-priority remaining Ability again
+			// decide slot 3 Ability
+			// pick the highest-priority remaining Ability again - exactly the same as above
+			const HArank1options: string[] = [];
+			const HArank2options: string[] = [];
+			const HArank3options: string[] = [];
+			const HArank4options: string[] = [];
+			const HArank5options: string[] = [];
+			const HArank6options: string[] = [];
+			const HAneutralOptions: string[] = [];
+			const HAbadOptions: string[] = [];
+
+			for (const idNo in poke.abilities) {
+				let id = this.toID(poke.abilities[idNo]);
+				if (!abilityDex[id]) {
+					console.log (id);
+					continue;
+				}
+				if (abilityDex[id].num && abilityDex[id].num > 164) continue; // skip post-Gen V Abilities completely
+				if (poke.randAbilities[0] && poke.randAbilities[0] === poke.abilities[idNo]) continue; // skip repeat Abilities
+				if (poke.randAbilities[1] && poke.randAbilities[1] === poke.abilities[idNo]) continue; // skip repeat Abilities
+				if (abilityRank1.includes(id)) HArank1options.push(poke.abilities[idNo]);
+				else if (abilityRank2.includes(id)) HArank2options.push(poke.abilities[idNo]);
+				else if (abilityRank3.includes(id)) HArank3options.push(poke.abilities[idNo]);
+				else if (abilityRank4.includes(id)) HArank4options.push(poke.abilities[idNo]);
+				else if (abilityRank5.includes(id)) HArank5options.push(poke.abilities[idNo]);
+				else if (abilityRank6.includes(id)) HArank6options.push(poke.abilities[idNo]);
+				else if (badAbilities.includes(id)) HAbadOptions.push(poke.abilities[idNo]);
+				else neutralOptions.push(poke.abilities[idNo]);
+			}
+			// pick the highest-priority remaining Ability
+			if (!poke.randAbilities['H']) {
+				let chosenAbilities: string[] = [];
+				if (HAbadOptions.length) chosenAbilities = HAbadOptions;
+				if (HAneutralOptions.length) chosenAbilities = HAneutralOptions;
+				if (HArank6options.length) chosenAbilities = HArank6options;
+				if (HArank5options.length) chosenAbilities = HArank5options;
+				if (HArank4options.length) chosenAbilities = HArank4options;
+				if (HArank3options.length) chosenAbilities = HArank3options;
+				if (HArank2options.length) chosenAbilities = HArank2options;
+				if (HArank1options.length) chosenAbilities = HArank1options;
+				if (chosenAbilities.length) {
+					randomForAbility = Math.floor(Math.random() * chosenAbilities.length);
+					poke.randAbilities = {0: poke.randAbilities[0], 1: poke.randAbilities[1], 'H': chosenAbilities[randomForAbility]};
+				}
+			}
 
 			// do not randomize anything for Slaking, Regigigas, Archeops, etc. - done
 			if (["Slaking", "Archeops", "Regigigas"].includes(poke.name)) poke.randAbilities = poke.abilities;
@@ -827,7 +870,7 @@ export const Scripts: ModdedBattleScriptsData = {
 				];
 				//  // ` + )
 				sheetOutput += poke.chosenType.type1 + (poke.chosenType.type2 === poke.chosenType.type1 ? `\n` : ` / `+ poke.chosenType.type2 + `\n`);
-				sheetOutput += poke.randAbilities[0] + (poke.randAbilities[1] ? ` / `+ poke.randAbilities[1] + `\n` : `\n`);
+				sheetOutput += poke.randAbilities[0] + (poke.randAbilities[1] ? ` / `+ poke.randAbilities[1] + ` ` : ` `); + (poke.randAbilities['H'] ? `// `+ poke.randAbilities['H'] + `\n` : `\n`);
 				// TODO: other randomizer features (types, Abilities, stats)
 				for (const level in poke.learnsetCumulative.learnset) {
 					if (poke.learnsetCumulative.learnset[level].movesLearned.length) {
