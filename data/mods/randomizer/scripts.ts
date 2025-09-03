@@ -15,6 +15,7 @@
 - stuff with nice type matchups into Gym Leaders 
 */
 // - completing evolution lines, including correct Abilities and stats for crossgens
+const pushLevelUp = ['icywind'];
 
 const universal = ['doubleteam', 'facade', 'frustration', 'gigaimpact', 'hiddenpower', 'hyperbeam', 'protect', 'raindance', 'rest', 'return', 'round', 'sleeptalk', 'snore', 'substitute', 'sunnyday', 'swagger', 'toxic'];
 
@@ -1045,6 +1046,8 @@ export const Scripts: ModdedBattleScriptsData = {
 							learnset: [],
 				};
 				poke.additionalTms = [];
+				poke.recommendedLvUp = [];
+				poke.forcedMoves = [];
 				poke.backports = [];
 				for (let i = 1; i < 102; i++) {
 					poke.learnsetCumulative.learnset[i] = {
@@ -1472,7 +1475,14 @@ export const Scripts: ModdedBattleScriptsData = {
 						if (move.num && move.num > 559) {
 							if (movesAfterGenV.includes(moveid)) poke.backports.push(moveName);
 						} else {
-							poke.learnsetCumulative.learnset[levelLearned].movesLearned.push(moveName);
+							if (pushLevelUp.includes(moveid)) {
+								poke.recommendedLvUp.push(moveName);
+							} else if (asterisk) {
+								// forced moves
+								poke.forcedMoves.push(move.name); // not moveName because everything in this section would
+							} else {
+								poke.learnsetCumulative.learnset[levelLearned].movesLearned.push(moveName);
+							}
 						}
 					} else {
 						// if there's a second move
@@ -1497,6 +1507,28 @@ export const Scripts: ModdedBattleScriptsData = {
 				sheetOutput += poke.randAbilities[0] + (poke.randAbilities[1] ? ` / `+ poke.randAbilities[1] + ` ` : ` `) + (poke.randAbilities[2] ? `// `+ poke.randAbilities[2] + `\n` : `\n`);
 				// TODO: other randomizer features (types, Abilities, stats)
 				for (const level in poke.learnsetCumulative.learnset) {
+					if (parseInt(level) > 99) {
+						if (poke.recommendedLvUp.length) {
+							poke.recommendedLvUp.sort();
+							sheetOutput += `\n~ Additional level-up candidates\n`
+							for (const moveid of poke.recommendedLvUp) {
+								if (usedSecondMoves.includes(moveid)) continue;
+								sheetOutput += moveid + `, `;
+							}
+							sheetOutput += `~`;
+							poke.recommendedLvUp = {};
+						}
+						if (poke.forcedMoves.length) {
+							poke.forcedMoves.sort();
+							sheetOutput += `\n~ Possible synergistic moves\n`
+							for (const moveid of poke.forcedMoves) {
+								if (usedSecondMoves.includes(moveid)) continue;
+								sheetOutput += moveid + `, `;
+							}
+							sheetOutput += `~`;
+							poke.forcedMoves = {};
+						}
+					}
 					if (poke.learnsetCumulative.learnset[level].movesLearned.length) {
 						poke.learnsetCumulative.learnset[level].movesLearned.sort();
 						if (parseInt(level) > 99) {
