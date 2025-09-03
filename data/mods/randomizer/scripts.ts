@@ -1132,6 +1132,54 @@ export const Scripts: ModdedBattleScriptsData = {
 						}
 						if (lv1 && !prevoLv1 && !prevo2lv1 && poke.evoLevel) levelLearned = poke.evoLevel;
 					}
+
+					// NEW SECTION: "SECOND MOVE"
+					let secondMove = null;
+					if (levelLearned < 101) {
+						const eligibleMoves: string[] = [];
+
+						const moveGroup1 = ['skyuppercut', 'psychicfangs', 'dragonpulse', 'dragonhammer', 'aquatail', 'highhorsepower', 'return', 'frustration'];
+						const moveGroup2 = ['blazekick', 'snipeshot', 'attackorder', 'leafblade'];
+						const moveGroup3 = ['shadowbone', 'liquidation', 'nightdaze', 'playrough', 'meteormash', 'bugbuzz', 'energyball', 'earthpower', 'moonblast', 'psychic'];
+						const moveGroup4 = ['bodyslam', 'rockclimb', 'thunderbolt', 'strangesteam', 'flamethrower', 'icebeam', 'sludgebomb'];
+						const moveGroup5 = ['submission', 'wildcharge', 'takedown'];
+						const moveGroup6 = ['darkestlariat', 'sacredsword'];
+						const moveGroup7 = ['petalblizzard', 'hypervoice', 'muddywater', 'surf', 'heatwave', 'sludgewave', 'earthquake'];
+						const moveGroup8 = [
+							'skyuppercut', 'psychicfangs', 'dragonpulse', 'dragonhammer', 'aquatail', 'highhorsepower', 'return', 'frustration'
+							'blazekick', 'snipeshot', 'attackorder', 'leafblade'
+							'shadowbone', 'liquidation', 'nightdaze', 'playrough', 'meteormash', 'bugbuzz', 'energyball', 'earthpower', 'moonblast', 'psychic'
+							'bodyslam', 'rockclimb', 'thunderbolt', 'strangesteam', 'flamethrower', 'icebeam', 'sludgebomb'
+							'submission', 'wildcharge', 'takedown'
+							'darkestlariat', 'sacredsword'
+							'petalblizzard', 'hypervoice', 'muddywater', 'surf', 'heatwave', 'sludgewave', 'earthquake',
+						];
+						if (!eligibleMoves.length && moveGroup8.includes(moveid)) {
+							for (const moveid of moveGroup8) {
+								if (this.dataCache.Moves[moveid] && this.dataCache.Moves[moveid].type && learnsetTypes.includes(this.dataCache.Moves[moveid].type)) eligibleMoves.push(moveid);
+							}
+						}
+
+						if (eligibleMoves.length) {
+							let randomMove = eligibleMoves[Math.floor(Math.random() * eligibleMoves.length)];
+							secondMove = this.dataCache.Moves[randomMove];
+						}
+					}
+
+					if (secondMove && genVTms.includes(this.toID(secondMove))) {
+						let secondMoveName = secondMove.tmid ? secondMove.tmid : `x ` + secondMove.name;
+						let secondMoveLearnedByTmAlready = false;
+						if (learnset[this.toID(secondMove)]) {
+							for (const source of learnset[this.toID(secondMove)]) {
+								if (parseInt(source.charAt(0)) === 5 && (source.charAt(1) === 'T' || source.charAt(1) === 'M')) {
+									secondMoveLearnedByTmAlready = true;
+								}
+							}
+						}
+						if (!secondMoveLearnedByTmAlready) poke.additionalTms.push(secondMoveName);
+					}
+
+					// resume
 					if (genVTms.includes(moveid)) {
 						moveName = move.tmid ? move.tmid : `x ` + move.name;
 						if (asterisk) moveName += `*`;
@@ -1159,6 +1207,10 @@ export const Scripts: ModdedBattleScriptsData = {
 							poke.learnsetCumulative.learnset[levelLearned].movesLearned.push(moveName);
 						}
 					} else {
+						// if there's a second move
+						if (secondMove) moveName += ` -> ` + secondMove;
+						if (secondMove && secondMove.num && secondMove.num > 559) moveName = moveName + ` (new)`;
+						// either way
 						poke.learnsetCumulative.learnset[levelLearned].movesLearned.push(moveName);
 					}
 				}
