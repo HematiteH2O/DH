@@ -1,3 +1,8 @@
+// TODO:
+// - base stats
+// - automatic first pass of level-up changes
+// - completing evolution lines, including correct Abilities and stats for crossgens
+
 const universal = ['doubleteam', 'facade', 'frustration', 'gigaimpact', 'hiddenpower', 'hyperbeam', 'protect', 'raindance', 'rest', 'return', 'round', 'sleeptalk', 'snore', 'substitute', 'sunnyday', 'swagger', 'toxic'];
 
 const universalFire = ['fireblast', 'flamecharge', 'flamethrower', 'heatwave', 'overheat', 'reflect', 'rocksmash', 'solarbeam', 'willowisp'];
