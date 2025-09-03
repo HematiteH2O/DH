@@ -1055,20 +1055,20 @@ export const Scripts: ModdedBattleScriptsData = {
 
 				for (const moveCheck in learnset) {
 					for (const source of learnset[moveCheck]) {
-						if (source.charAt(1) === 'L' && (parseInt(source.charAt(0)) < 8 || future)) alreadyLvUpMoves.push(moveCheck);
+						if (source.charAt(1) === 'L') alreadyLvUpMoves.push(moveCheck);
 					}
 				}
 				if (learnset2) {
 					for (const moveCheck in learnset2) {
 						for (const source of learnset2[moveCheck]) {
-							if (source.charAt(1) === 'L' && (parseInt(source.charAt(0)) < 8 || future)) alreadyLvUpMoves.push(moveCheck);
+							if (source.charAt(1) === 'L') alreadyLvUpMoves.push(moveCheck);
 						}
 					}
 				}
 				if (learnset3) {
 					for (const moveCheck in learnset3) {
 						for (const source of learnset3[moveCheck]) {
-							if (source.charAt(1) === 'L' && (parseInt(source.charAt(0)) < 8 || future)) alreadyLvUpMoves.push(moveCheck);
+							if (source.charAt(1) === 'L') alreadyLvUpMoves.push(moveCheck);
 						}
 					}
 				}
@@ -1419,11 +1419,11 @@ export const Scripts: ModdedBattleScriptsData = {
 						}
 					}
 
-					if (secondMove && genVTms.includes(this.toID(secondMove))) {
+					if (secondMove && genVTms.includes(this.toID(secondMove.name))) {
 						let secondMoveName = secondMove.tmid ? secondMove.tmid : `x ` + secondMove.name;
 						let secondMoveLearnedByTmAlready = false;
-						if (learnset[this.toID(secondMove)]) {
-							for (const source of learnset[this.toID(secondMove)]) {
+						if (learnset[this.toID(secondMove.name)]) {
+							for (const source of learnset[this.toID(secondMove.name)]) {
 								if (parseInt(source.charAt(0)) === 5 && (source.charAt(1) === 'T' || source.charAt(1) === 'M')) {
 									secondMoveLearnedByTmAlready = true;
 								}
@@ -1466,7 +1466,7 @@ export const Scripts: ModdedBattleScriptsData = {
 						// if there's a second move
 						if (secondMove) moveName += ` -> ` + secondMove.name;
 						if (secondMove && secondMove.num && secondMove.num > 559) {
-							if (movesAfterGenV.includes(this.toID(secondMove))) moveName = moveName + ` (new)`; // identify post-Gen V moves
+							if (movesAfterGenV.includes(this.toID(secondMove.name))) moveName = moveName + ` (new)`; // identify post-Gen V moves
 							else moveName = moveName + ` (x)`;
 						}
 						// either way
