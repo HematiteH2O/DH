@@ -237,7 +237,7 @@ export const Scripts: ModdedBattleScriptsData = {
 			// - list eligible Abilities (no form-change Abilities, Wonder Guard) - done
 			// - randomize 1 Ability and put it in slot 1 - done
 			let randomForAbility = randAbilities[Math.floor(Math.random() * randAbilities.length)];
-			poke.randAbilities = {0: abilities[randomForAbility].name};
+			poke.randAbilities = {0: abilityDex[randomForAbility].name};
 
 			// decide slot 2 Ability
 			if (poke.name === "Ditto") poke.randAbilities = {0: poke.randAbilities[0], 1: "Imposter"};
@@ -302,7 +302,7 @@ export const Scripts: ModdedBattleScriptsData = {
 
 			// - randomize a second Ability only for the crossgen output - done
 			randomForAbility = randAbilities[Math.floor(Math.random() * randAbilities.length)];
-			let crossgenAbility = {0: abilities[randomForAbility].name};
+			let crossgenAbility = {0: abilityDex[randomForAbility].name};
 			poke.crossgenAbilities = poke.randAbilities;
 			// - overwrite all Abilities with lower priority than that Ability with it
 			// - if no Abilities have been overwritten, overwrite a random Ability with the same priority as it
