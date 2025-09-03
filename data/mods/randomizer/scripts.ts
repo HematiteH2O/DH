@@ -1348,7 +1348,7 @@ export const Scripts: ModdedBattleScriptsData = {
 							if (eligibleMoves.length) continue;
 							if (!moveGroups[section].includes(moveid)) continue;
 							for (const altmoveid of moveGroups[section]) {
-								if (usedSecondMoves.includes(altmoveid) || alreadyLvUpMoves.includes(altmoveid)) continue;
+								if (usedSecondMoves.includes(altmoveid)) continue;
 								// disallow post-Gen V moves that I don't think I can copy
 								if (!this.dataCache.Moves[altmoveid]) console.log(altmoveid);
 								if (this.dataCache.Moves[altmoveid] && this.dataCache.Moves[altmoveid].num && this.dataCache.Moves[altmoveid].num > 559 && !movesAfterGenV.includes(altmoveid)) continue;
@@ -1380,7 +1380,7 @@ export const Scripts: ModdedBattleScriptsData = {
 							}
 							if (eligibleMoves.length) continue;
 							for (const altmoveid of moveGroups[section]) {
-								if (usedSecondMoves.includes(altmoveid) || alreadyLvUpMoves.includes(altmoveid)) continue;
+								if (usedSecondMoves.includes(altmoveid)) continue;
 								// disallow post-Gen V moves that I don't think I can copy
 								if (!this.dataCache.Moves[altmoveid]) console.log(altmoveid);
 								if (this.dataCache.Moves[altmoveid] && this.dataCache.Moves[altmoveid].num && this.dataCache.Moves[altmoveid].num > 559 && !movesAfterGenV.includes(altmoveid)) continue;
@@ -1412,7 +1412,7 @@ export const Scripts: ModdedBattleScriptsData = {
 						if (eligibleMoves.length) {
 							let randomMove = eligibleMoves[Math.floor(Math.random() * eligibleMoves.length)];
 							// ... if you do randomize to the same thing, it doesn't count!
-							if (randomMove !== moveid) {
+							if (randomMove !== moveid && !alreadyLvUpMoves.includes(randomMove)) {
 								usedSecondMoves.push(randomMove);
 								secondMove = this.dataCache.Moves[randomMove];
 							}
