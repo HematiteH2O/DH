@@ -255,7 +255,7 @@ const moveGroups = {
 	115: ['dig', 'dive', 'bounce', 'fly', 'phantomforce'],
 	116: ['spiritshackle', 'anchorshot'],
 	117: ['blazekick', 'snipeshot', 'attackorder', 'leafblade'],
-	118: ['shadowbone', 'liquidation', 'nightdaze', 'playrough', 'meteormash', 'bugbuzz', 'energyball', 'earthpower', 'moonblast', 'psychic'],
+	118: ['shadowbone', 'shadowball', 'liquidation', 'nightdaze', 'playrough', 'meteormash', 'bugbuzz', 'energyball', 'earthpower', 'moonblast', 'psychic'],
 	119: ['bodyslam', 'rockclimb', 'thunderbolt', 'strangesteam', 'flamethrower', 'icebeam', 'sludgebomb'],
 	120: ['submission', 'wildcharge', 'takedown'],
 	121: ['darkestlariat', 'sacredsword'],
@@ -288,9 +288,9 @@ const moveGroups = {
 	147: ['headbutt', 'dizzypunch', 'secretpower', 'chipaway', 'steelwing', 'signalbeam', 'airslash', 'brickbreak', 'nightslash', 'shadowclaw', 'slash', 'crosspoison', 'psychocut', 'aquacutter', 'wakeupslap', 'smellingsalts', 'crushclaw', 'razorshell', 'thunderpunch', 'firepunch', 'icepunch', 'temperflare', 'stompingtantrum', 'psychicnoise'],
 	148: ['triattack', 'poisonjab', 'crunch', 'shadowball', 'flashcannon', 'zingzap', 'iciclecrash', 'hyperfang', 'zenheadbutt', 'ironhead', 'waterfall', 'darkpulse', 'extrasensory', 'xscissor', 'dragonclaw', 'drillpeck', 'seedbomb', 'slam', 'megapunch', 'strength', 'alluringvoice', 'aurasphere', 'powergem', 'falsesurrender', 'throatchop'],
 	149: ['triattack', 'poisonjab', 'crunch', 'shadowball', 'flashcannon', 'zingzap', 'iciclecrash', 'hyperfang', 'zenheadbutt', 'ironhead', 'waterfall', 'darkpulse', 'extrasensory', 'xscissor', 'dragonclaw', 'drillpeck', 'seedbomb', 'slam', 'megapunch', 'strength', 'alluringvoice', 'aurasphere', 'powergem', 'falsesurrender', 'kowtowcleave', 'overdrive', 'dazzlinggleam', 'scorchingsands', 'scald', 'bodypress', 'psyshock', 'dig', 'dive', 'spiritshackle', 'anchorshot', 'snipeshot', 'submission'],
-	150: ['skyuppercut', 'psychicfangs', 'dragonpulse', 'blazekick', 'shadowbone', 'liquidation', 'nightdaze', 'bodyslam', 'darkestlariat'],
+	150: ['skyuppercut', 'psychicfangs', 'dragonpulse', 'blazekick', 'shadowbone', 'shadowball', 'liquidation', 'nightdaze', 'bodyslam', 'darkestlariat'],
 	151: ['dragonhammer', 'aquatail', 'attackorder', 'leafblade', 'playrough', 'meteormash', 'bugbuzz', 'energyball', 'earthpower', 'rockclimb', 'thunderbolt', 'strangesteam', 'flamethrower', 'icebeam', 'sludgebomb', 'psychic', 'wildcharge', 'takedown', 'sacredsword', 'highhorsepower', 'moonblast'],
-	152: ['skyuppercut', 'psychicfangs', 'dragonpulse', 'blazekick', 'shadowbone', 'liquidation', 'nightdaze', 'bodyslam', 'darkestlariat', 'dragonhammer', 'aquatail', 'attackorder', 'leafblade', 'playrough', 'meteormash', 'bugbuzz', 'energyball', 'earthpower', 'rockclimb', 'thunderbolt', 'strangesteam', 'flamethrower', 'icebeam', 'sludgebomb', 'psychic', 'wildcharge', 'takedown', 'sacredsword', 'highhorsepower', 'moonblast', 'petalblizzard', 'hypervoice', 'muddywater', 'surf', 'heatwave', 'sludgewave', 'earthquake'],
+	152: ['skyuppercut', 'psychicfangs', 'dragonpulse', 'blazekick', 'shadowbone', 'shadowball', 'liquidation', 'nightdaze', 'bodyslam', 'darkestlariat', 'dragonhammer', 'aquatail', 'attackorder', 'leafblade', 'playrough', 'meteormash', 'bugbuzz', 'energyball', 'earthpower', 'rockclimb', 'thunderbolt', 'strangesteam', 'flamethrower', 'icebeam', 'sludgebomb', 'psychic', 'wildcharge', 'takedown', 'sacredsword', 'highhorsepower', 'moonblast', 'petalblizzard', 'hypervoice', 'muddywater', 'surf', 'heatwave', 'sludgewave', 'earthquake'],
 	153: ['dynamicpunch', 'inferno', 'zapcannon', 'supercellslam', 'jumpkick', 'hammerarm', 'icehammer', 'spinout', 'crosschop', 'stoneedge', 'crabhammer', 'dragonrush', 'mountaingale', 'irontail', 'focusblast', 'thunder', 'fireblast', 'hurricane', 'blizzard', 'gunkshot', 'hydropump', 'megahorn', 'powerwhip', 'megakick'],
 	154: ['dynamicpunch', 'inferno', 'zapcannon', 'supercellslam', 'jumpkick', 'hammerarm', 'icehammer', 'spinout', 'crosschop', 'stoneedge', 'crabhammer', 'dragonrush', 'mountaingale', 'irontail', 'focusblast', 'thunder', 'fireblast', 'hurricane', 'blizzard', 'gunkshot', 'hydropump', 'megahorn', 'powerwhip', 'megakick', 'eggbomb', 'pyroball'],
 	155: ['closecombat', 'headlongrush', 'armorcannon', 'glaiverush', 'superpower', 'outrage', 'ragingfury', 'thrash', 'petaldance', 'flareblitz', 'bravebird', 'woodhammer', 'doubleedge', 'headcharge', 'wavecrash', 'doubleshock', 'burnup', 'skyattack', 'solarbeam', 'solarblade', 'skullbash', 'meteorbeam', 'electroshot'],
@@ -1330,12 +1330,41 @@ export const Scripts: ModdedBattleScriptsData = {
 								// disallow post-Gen V moves that I don't think I can copy
 								if (!this.dataCache.Moves[altmoveid]) console.log(altmoveid);
 								if (this.dataCache.Moves[altmoveid] && this.dataCache.Moves[altmoveid].num && this.dataCache.Moves[altmoveid].num > 559 && !movesAfterGenV.includes(altmoveid)) continue;
+								if (move.category && this.dataCache.Moves[altmoveid].category !== move.category) continue;
 								// if (moveid === altmoveid) continue;
 								// it's okay to randomize to the same thing, but...
 								if (this.dataCache.Moves[altmoveid] && this.dataCache.Moves[altmoveid].type) {
 									if (learnsetTypes.includes(this.dataCache.Moves[altmoveid].type)) eligibleMoves.push(altmoveid);
 									else if (learnsetTypes.includes("Fighting") && (altmoveid === "meditate" || altmoveid === "workup" || altmoveid === "wideguard" || altmoveid === "acupressure" || altmoveid === "foresight" || altmoveid === "headlongrush" || altmoveid === "payback" || altmoveid === "chipaway" || altmoveid === "firepunch" || altmoveid === "icepunch" || altmoveid === "thunderpunch" || altmoveid === "poisonjab" || altmoveid === "bounce")) eligibleMoves.push(altmoveid);
-									else if ((learnsetTypes.includes("Rock") || learnsetTypes.includes("Steel")) && (altmoveid === "sharpen" || altmoveid === "irondefense" || altmoveid === "selfdestruct" || altmoveid === "explosion" || altmoveid === "spikecannon" || altmoveid === "bulldoze" || altmoveid === "ironhead")) eligibleMoves.push(altmoveid);
+									else if ((learnsetTypes.includes("Rock") || learnsetTypes.includes("Steel")) && (altmoveid === "sharpen" || altmoveid === "irondefense" || altmoveid === "selfdestruct" || altmoveid === "explosion" || altmoveid === "spikecannon" || altmoveid === "bulldoze")) eligibleMoves.push(altmoveid);
+									else if (learnsetTypes.includes("Grass") && (altmoveid === "growth" || altmoveid === "sweetscent" || altmoveid === "ragepowder" || altmoveid === "sunnyday" || altmoveid === "poisonpowder" || altmoveid === "watersport" || altmoveid === "barrage" || altmoveid === "swordsdance" || altmoveid === "secretpower")) eligibleMoves.push(altmoveid);
+									else if (learnsetTypes.includes("Ground") && (altmoveid === "rocktomb" || altmoveid === "rockslide" || altmoveid === "lavaplume")) eligibleMoves.push(altmoveid);
+									else if (learnsetTypes.includes("Dark") && (altmoveid === "howl" || altmoveid === "mudslap")) eligibleMoves.push(altmoveid);
+									else if ((learnsetTypes.includes("Fire") || learnsetTypes.includes("Poison")) && altmoveid === "smokescreen") eligibleMoves.push(altmoveid);
+									else if (learnsetTypes.includes("Steel") && (altmoveid === "sonicboom" || altmoveid === "voltswitch" || altmoveid === "zapcannon" || altmoveid === "supercellslam" || altmoveid === "horndrill")) eligibleMoves.push(altmoveid);
+									else if ((learnsetTypes.includes("Poison") || learnsetTypes.includes("Ghost")) && (altmoveid === "memento" || altmoveid === "meanlook")) eligibleMoves.push(altmoveid);
+									else if ((learnsetTypes.includes("Flying") || learnsetTypes.includes("Electric")) && (altmoveid === "raindance")) eligibleMoves.push(altmoveid);
+									else if ((learnsetTypes.includes("Ground") || learnsetTypes.includes("Steel")) && (altmoveid === "sandstorm")) eligibleMoves.push(altmoveid);
+									else if (learnsetTypes.includes("Poison") && altmoveid === "glare") eligibleMoves.push(altmoveid);
+									else if (learnsetTypes.includes("Electric") && (altmoveid === "signalbeam" || altmoveid === "sonicboom")) eligibleMoves.push(altmoveid);
+									else if (learnsetTypes.includes("Fire") && altmoveid === "scorchingsands") eligibleMoves.push(altmoveid);
+									else if (learnsetTypes.includes("Normal") && (altmoveid === "jumpkick" || altmoveid === "agility")) eligibleMoves.push(altmoveid);
+									else if (learnsetTypes.includes("Bug") && altmoveid === "Guillotine") eligibleMoves.push(altmoveid);
+									else if (learnsetTypes.includes("Ghost") && (altmoveid === "willowisp" || altmoveid === "skittersmack" || altmoveid === "suckerpunch")) eligibleMoves.push(altmoveid);
+									else if (learnsetTypes.includes("Water") && (altmoveid === "iciclespear" || altmoveid === "icywind")) eligibleMoves.push(altmoveid);
+									else if (learnsetTypes.includes("Psychic") && (altmoveid === "lovelykiss" || altmoveid === "mindreader" || altmoveid === "aurasphere")) eligibleMoves.push(altmoveid);
+									else if (learnsetTypes.includes("Flying") && (altmoveid === "whirlwind" || altmoveid === "furyattack" || altmoveid === "uturn" || altmoveid === "drillrun" || altmoveid === "heatwave")) eligibleMoves.push(altmoveid);
+								}
+							}
+							for (const altmoveid of moveGroups[section]) {
+								if (usedSecondMoves.includes(altmoveid)) continue;
+								// disallow post-Gen V moves that I don't think I can copy
+								if (!this.dataCache.Moves[altmoveid]) console.log(altmoveid);
+								if (this.dataCache.Moves[altmoveid] && this.dataCache.Moves[altmoveid].num && this.dataCache.Moves[altmoveid].num > 559 && !movesAfterGenV.includes(altmoveid)) continue;
+								if (this.dataCache.Moves[altmoveid] && this.dataCache.Moves[altmoveid].type) {
+									if (learnsetTypes.includes(this.dataCache.Moves[altmoveid].type)) eligibleMoves.push(altmoveid);
+									else if (learnsetTypes.includes("Fighting") && (altmoveid === "meditate" || altmoveid === "workup" || altmoveid === "wideguard" || altmoveid === "acupressure" || altmoveid === "foresight" || altmoveid === "headlongrush" || altmoveid === "payback" || altmoveid === "chipaway" || altmoveid === "firepunch" || altmoveid === "icepunch" || altmoveid === "thunderpunch" || altmoveid === "poisonjab" || altmoveid === "bounce")) eligibleMoves.push(altmoveid);
+									else if ((learnsetTypes.includes("Rock") || learnsetTypes.includes("Steel")) && (altmoveid === "sharpen" || altmoveid === "irondefense" || altmoveid === "selfdestruct" || altmoveid === "explosion" || altmoveid === "spikecannon" || altmoveid === "bulldoze")) eligibleMoves.push(altmoveid);
 									else if (learnsetTypes.includes("Grass") && (altmoveid === "growth" || altmoveid === "sweetscent" || altmoveid === "ragepowder" || altmoveid === "sunnyday" || altmoveid === "poisonpowder" || altmoveid === "watersport" || altmoveid === "barrage" || altmoveid === "swordsdance" || altmoveid === "secretpower")) eligibleMoves.push(altmoveid);
 									else if (learnsetTypes.includes("Ground") && (altmoveid === "rocktomb" || altmoveid === "rockslide" || altmoveid === "lavaplume")) eligibleMoves.push(altmoveid);
 									else if (learnsetTypes.includes("Dark") && (altmoveid === "howl" || altmoveid === "mudslap")) eligibleMoves.push(altmoveid);
@@ -1414,7 +1443,7 @@ export const Scripts: ModdedBattleScriptsData = {
 						// if there's a second move
 						if (secondMove) moveName += ` -> ` + secondMove.name;
 						if (secondMove && secondMove.num && secondMove.num > 559) {
-							if (movesAfterGenV.includes(moveid)) moveName = moveName + ` (new)`; // identify post-Gen V moves
+							if (movesAfterGenV.includes(this.toID(poke.abilities[secondMove]))) moveName = moveName + ` (new)`; // identify post-Gen V moves
 							else moveName = moveName + ` (x)`;
 						}
 						// either way
