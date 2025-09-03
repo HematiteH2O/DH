@@ -278,7 +278,7 @@ export const Scripts: ModdedBattleScriptsData = {
 				if (rank2options.length) chosenAbilities = rank2options;
 				if (rank1options.length) chosenAbilities = rank1options;
 				if (chosenAbilities.length) {
-					let randomForAbility = Math.floor(Math.random() * chosenAbilities.length);
+					randomForAbility = Math.floor(Math.random() * chosenAbilities.length);
 					poke.randAbilities = {0: randAbilities[randomForAbility], 1: chosenAbilities[randomForAbility]};
 				}
 			}
@@ -294,7 +294,7 @@ export const Scripts: ModdedBattleScriptsData = {
 			// executive decision: starters randomize the primary slot only, since I don't have Ability Capsules or Patches
 
 			// - randomize a second Ability only for the crossgen output - done
-			let randomForAbility = Math.floor(Math.random() * randAbilities.length);
+			randomForAbility = Math.floor(Math.random() * randAbilities.length);
 			let crossgenAbility = randAbilities[randomForAbility];
 			poke.crossgenAbilities = poke.randAbilities;
 			// - overwrite all Abilities with lower priority than that Ability with it
