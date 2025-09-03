@@ -901,6 +901,7 @@ export const Scripts: ModdedBattleScriptsData = {
 					if (moveAbilitySet.includes("Frisk") && (moveid == 'trick' || moveid == 'thief' || moveid == 'covet')) forceLearn = true;
 					if (moveAbilitySet.includes("Stall") && (moveid == 'payback' || moveid == 'assurance' || moveid == 'pursuit' || moveid == 'metalburst')) forceLearn = true;
 					if (moveAbilitySet.includes("Mold Breaker") && moveid == 'earthquake') forceLearn = true;
+					if (moveAbilitySet.includes("Unburden") && moveid === 'acrobatics') forceLearn = true;
 					// Ability- and type-based moves
 					if (moveAbilitySet.includes("Serene Grace") && learnsetTypes.includes(move.type) && (move.secondary && move.secondary.chance && move.secondary.chance < 90 && move.secondary.chance > 10)) forceLearn = true;
 					if (moveAbilitySet.includes("Iron Fist") && learnsetTypes.includes(move.type) && (move.flags['punch'])) forceLearn = true;
