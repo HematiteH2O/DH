@@ -552,6 +552,55 @@ export const Scripts: ModdedBattleScriptsData = {
 			// - if no Abilities have been overwritten, overwrite a random Ability with the same priority as it
 			// - otherwise, ignore it
 
+			// prevos now
+			let slot1 = -1;
+			let slotH = -1;
+			if (poke.randAbilities[1] && poke.abilities[0] && poke.randAbilities[1] === poke.abilities[0]) slot1 = 0;
+			if (poke.randAbilities[1] && poke.abilities[1] && poke.randAbilities[1] === poke.abilities[1]) slot1 = 1;
+			if (poke.randAbilities[1] && poke.abilities['H'] && poke.randAbilities[1] === poke.abilities['H']) slot1 = 'H';
+			if (poke.randAbilities[1] && poke.abilities['S'] && poke.randAbilities[1] === poke.abilities['S']) slot1 = 'S';
+			if (poke.randAbilities[2] && poke.abilities[0] && poke.randAbilities[2] === poke.abilities[0]) slotH = 0;
+			if (poke.randAbilities[2] && poke.abilities[1] && poke.randAbilities[2] === poke.abilities[1]) slotH = 1;
+			if (poke.randAbilities[2] && poke.abilities['H'] && poke.randAbilities[2] === poke.abilities['H']) slotH = 'H';
+			if (poke.randAbilities[2] && poke.abilities['S'] && poke.randAbilities[2] === poke.abilities['S']) slotH = 'S';
+
+			if (poke.prevo) {
+				const poke2 = this.dataCache.Pokedex[this.toID(poke.prevo)];
+				poke2.randAbilities = poke.randAbilities;
+				if (slot1 !== -1) {
+					if (poke2.abilities[slot1]) {
+						if (poke2.abilities[slot1] !== poke.abilities[slot1]) poke2.randAbilities[1] = poke2.abilities[slot1];
+					} else {
+						delete poke2.randAbilities[1];
+					}
+				}
+				if (slotH !== -1) {
+					if (poke2.abilities[slotH]) {
+						if (poke2.abilities[slotH] !== poke.abilities[slotH]) poke2.randAbilities[2] = poke2.abilities[slotH];
+					} else {
+						delete poke2.randAbilities[2];
+					}
+				}
+				if (poke2.prevo) {
+					const poke3 = this.dataCache.Pokedex[this.toID(poke.prevo)];
+					poke3.randAbilities = poke.randAbilities;
+					if (slot1 !== -1) {
+						if (poke3.abilities[slot1]) {
+							if (poke3.abilities[slot1] !== poke.abilities[slot1]) poke3.randAbilities[1] = poke3.abilities[slot1];
+						} else {
+							delete poke3.randAbilities[1];
+						}
+					}
+					if (slotH !== -1) {
+						if (poke3.abilities[slotH]) {
+							if (poke3.abilities[slotH] !== poke.abilities[slotH]) poke3.randAbilities[2] = poke3.abilities[slotH];
+						} else {
+							delete poke3.randAbilities[2];
+						}
+					}
+				}
+			}
+
 			// for later reference
 			const abilitySet: string[] = [];
 			abilitySet.push(poke.randAbilities[0]);
@@ -986,6 +1035,21 @@ export const Scripts: ModdedBattleScriptsData = {
 				poke.chosenType.type2 = secondType;
 			}
 
+			if (poke.prevo) {
+				const poke2 = this.dataCache.Pokedex[this.toID(poke.prevo)];
+				poke2.chosenType = poke.chosenType;
+				if (poke2.types[0] !== poke.types [0]) poke2.chosenType.type1 = poke2.types[0];
+				if (poke2.types[1] && poke.types[1] && poke2.types[1] !== poke.types [1]) poke2.chosenType.type2 = poke2.types[1];
+				if (!poke2.types[1] && poke.types[1]) poke2.chosenType.type2 = poke2.chosenType.type1;
+				if (poke2.prevo) {
+					const poke3 = this.dataCache.Pokedex[this.toID(poke.prevo)];
+					poke3.chosenType = poke.chosenType;
+					if (poke3.types[0] !== poke.types [0]) poke3.chosenType.type1 = poke3.types[0];
+					if (poke3.types[1] && poke.types[1] && poke3.types[1] !== poke.types [1]) poke3.chosenType.type2 = poke3.types[1];
+					if (!poke3.types[1] && poke.types[1]) poke3.chosenType.type2 = poke3.chosenType.type1;
+				}
+			}
+
 			// console.logging
 			/*
 			let samples: string[] = [poke.name + ` samples: `];
@@ -998,31 +1062,14 @@ export const Scripts: ModdedBattleScriptsData = {
 			console.log(samples);
 			*/
 
+
+
 			// RANDOM MOVES
 			// todo:
 			// - add universal moves to learnsets when randomizing (based on the new type) - done
-
 			// - go through move substitutions by type, but keep the old move listed in the same row just in case (ex. "15 - Icy Wind -> Struggle Bug")
 			// - possible: filter out moves that are already TMs if the player gets the TM earlier than the level-up move (save on space)
 			// - possible: push one completely random (? within certain parameters?) extra move to the learnset
-
-			// MODDED STATS
-			// todo:
-			// - push mixed offenses; take out of Def, SpD or Spe, usually
-			// - a chance of a "randomizer stat spread moment" (crazy swing into or out of one stat; move points evenly into/from two others)
-			// - Ability stat checks
-			// - minor optimizations (HP-to-defense ratios, Speed)
-			// - go back and cap stat differences (differences should be multiples of 10, no more than +/- 40 to a stat, no more than +/- 60 overall)
-
-			// - then: translate stat differences to all pre-evolutions, but cut the differences in half first
-
-			// - then: unless there are 3 stages already, also generate a crossgen version of the stat spread
-			// - +10 to higher offense, then elevate higher offense to 100 if necessary
-			// - clamp Speed to specific ranges based on movepool/Ability properties
-			// - raise HP until bulk is 4/3 the original (but calculate as though +10 has already been given to each defense)
-			// or until BST is too high to keep boosting... cap should be 550
-			// - optional, if room: add the same amount to the highest unboosted stat between Atk/Def/SpA/SpD as to the higher offense
-			// - optional, if room: add +10 to remaining unboosted stats
 
 			if (this.dataCache.Learnsets[id] && this.dataCache.Learnsets[id].learnset) {
 				printno++;
@@ -1147,7 +1194,7 @@ export const Scripts: ModdedBattleScriptsData = {
 					if (moveAbilitySet.includes("Sniper") && learnsetTypes.includes(move.type) && (move.willCrit)) forceLearn = true;
 					if ((moveAbilitySet.includes("No Guard") || moveAbilitySet.includes("Compound Eyes")) && learnsetTypes.includes(move.type) && (move.accuracy && move.accuracy < 95 && move.accuracy > 60)) forceLearn = true;
 					if (moveAbilitySet.includes("No Guard") && learnsetTypes.includes(move.type) && (move.accuracy && move.accuracy === 50)) forceLearn = true;
-					if (moveAbilitySet.includes("Own Tempo") && learnsetTypes.includes(move.type) && (move.target === "randomNormal")) forceLearn = true;
+					if ((moveAbilitySet.includes("Own Tempo") || moveAbilitySet.includes("Tangled Feet")) && learnsetTypes.includes(move.type) && (move.target === "randomNormal")) forceLearn = true;
 					if (moveid === "struggle") forceLearn = false;
 					// exclude Legendary signatures, too
 					if ([
@@ -1512,16 +1559,107 @@ export const Scripts: ModdedBattleScriptsData = {
 					}
 				}
 
+				// MODDED STATS
+				// todo:
+				// - push mixed offenses; take out of Def, SpD or Spe, usually
+				// - a chance of a "randomizer stat spread moment" (crazy swing into or out of one stat; move points evenly into/from two others)
+				// - Ability stat checks
+				// - minor optimizations (HP-to-defense ratios, Speed)
+				// - go back and cap stat differences (differences should be multiples of 10, no more than +/- 40 to a stat, no more than +/- 60 overall)
+	
+				// - then: translate stat differences to all pre-evolutions, but cut the differences in half first
+	
+				// - then: unless there are 3 stages already, also generate a crossgen version of the stat spread
+				// - +10 to higher offense, then elevate higher offense to 100 if necessary
+				// - clamp Speed to specific ranges based on movepool/Ability properties
+				// - raise HP until bulk is 4/3 the original (but calculate as though +10 has already been given to each defense)
+				// or until BST is too high to keep boosting... cap should be 550
+				// - optional, if room: add the same amount to the highest unboosted stat between Atk/Def/SpA/SpD as to the higher offense
+				// - optional, if room: add +10 to remaining unboosted stats
+
+				let hpDelta = 0;
+				let atkDelta = 0;
+				let defDelta = 0;
+				let spaDelta = 0;
+				let spdDelta = 0;
+				let speDelta = 0;
+
+				poke.randHp = poke.baseStats.hp + hpDelta;
+				poke.randAtk = poke.baseStats.atk + atkDelta;
+				poke.randDef = poke.baseStats.def + defDelta;
+				poke.randSpA = poke.baseStats.spa + spaDelta;
+				poke.randSpD = poke.baseStats.spd + spdDelta;
+				poke.randSpD = poke.baseStats.spe + speDelta;
+
+				if (poke.prevo) {
+					const poke2 = this.dataCache.Pokedex[this.toID(poke.prevo)];
+					poke2.randHp = poke2.baseStats.hp + (hpDelta / 2);
+					poke2.randAtk = poke2.baseStats.atk + (atkDelta / 2);
+					poke2.randDef = poke2.baseStats.def + (defDelta / 2);
+					poke2.randSpA = poke2.baseStats.spa + (spaDelta / 2);
+					poke2.randSpD = poke2.baseStats.spd + (spdDelta / 2);
+					poke2.randSpD = poke2.baseStats.spe + (speDelta / 2);
+					if (poke2.prevo) {
+						const poke3 = this.dataCache.Pokedex[this.toID(poke.prevo)];
+						poke3.randHp = poke3.baseStats.hp + (hpDelta / 2);
+						poke3.randAtk = poke3.baseStats.atk + (atkDelta / 2);
+						poke3.randDef = poke3.baseStats.def + (defDelta / 2);
+						poke3.randSpA = poke3.baseStats.spa + (spaDelta / 2);
+						poke3.randSpD = poke3.baseStats.spd + (spdDelta / 2);
+						poke3.randSpD = poke3.baseStats.spe + (speDelta / 2);
+					}
+				}
+
+
 				poke.learnsetCumulative.learnset.sort();
 				if (!poke || !poke.learnsetCumulative.learnset) return;
 				// finalize sheetOutput now.........
 				let sheetOutput: string[] = [
-					`\n\n` + (poke.evoLevel ? (poke.name + ` // ` + poke.evoLevel) : poke.name) + ` ~ `
+					`\n\n`
 				];
-				//  // ` + )
-				sheetOutput += poke.chosenType.type1 + (poke.chosenType.type2 === poke.chosenType.type1 ? ` ~ ` : ` / `+ poke.chosenType.type2 + ` ~ `);
+
+				let crossevo = true; // becomes false shortly if already a 3-stage line
+				// prevos when ready
+				if (poke.prevo) {
+					const poke2 = this.dataCache.Pokedex[this.toID(poke.prevo)];
+					if (poke2.prevo) {
+						const poke3 = this.dataCache.Pokedex[this.toID(poke.prevo)];
+						crossevo = false;
+						// name, evo level
+						sheetOutput += (poke3.evoLevel ? (poke3.name + ` // ` + poke3.evoLevel) : poke3.name) + ` ~ `;
+						// types
+						sheetOutput += poke3.chosenType.type1 + (poke3.chosenType.type2 === poke3.chosenType.type1 ? ` ~ ` : ` ~ `+ poke3.chosenType.type2 + ` ~  ~ `);
+						// base stats, skipped if none generated yet
+						if (poke3.randHp) sheetOutput += poke3.randHp + ` ~ ` + poke3.randAtk + ` ~ ` + poke3.randDef + ` ~ ` + poke3.randSpA + ` ~ ` + poke3.randSpD + ` ~ ` + poke3.randSpe + ` ~ ` + (poke3.randHp + poke3.randAtk + poke3.randDef + poke3.randSpA + poke3.randSpD + poke3.randSpe) + ` ~ `;
+						// abilities
+						sheetOutput += poke3.randAbilities[0] + (poke3.randAbilities[1] ? ` / `+ poke3.randAbilities[1] + ` ` : ` `) + (poke3.randAbilities[2] ? `// `+ poke3.randAbilities[2] + `\n` : `\n`);
+					}
+					// name, evo level
+					sheetOutput += (poke2.evoLevel ? (poke2.name + ` // ` + poke2.evoLevel) : poke2.name) + ` ~ `;
+					// types
+					sheetOutput += poke2.chosenType.type1 + (poke2.chosenType.type2 === poke2.chosenType.type1 ? ` ~ ` : ` ~ `+ poke2.chosenType.type2 + ` ~  ~ `);
+					// base stats, skipped if none generated yet
+					if (poke2.randHp) sheetOutput += poke2.randHp + ` ~ ` + poke2.randAtk + ` ~ ` + poke2.randDef + ` ~ ` + poke2.randSpA + ` ~ ` + poke2.randSpD + ` ~ ` + poke2.randSpe + ` ~ ` + (poke2.randHp + poke2.randAtk + poke2.randDef + poke2.randSpA + poke2.randSpD + poke2.randSpe) + ` ~ `;
+					// abilities
+					sheetOutput += poke2.randAbilities[0] + (poke2.randAbilities[1] ? ` / `+ poke2.randAbilities[1] + ` ` : ` `) + (poke2.randAbilities[2] ? `// `+ poke2.randAbilities[2] + `\n` : `\n`);
+				}
+
+				// name, evo level
+				sheetOutput += (poke.evoLevel ? (poke.name + ` // ` + poke.evoLevel) : poke.name) + ` ~ `;
+				// types
+				sheetOutput += poke.chosenType.type1 + (poke.chosenType.type2 === poke.chosenType.type1 ? ` ~ ` : ` ~ `+ poke.chosenType.type2 + ` ~  ~ `);
+				// base stats, skipped if none generated yet
+				if (poke.randHp) sheetOutput += poke.randHp + ` ~ ` + poke.randAtk + ` ~ ` + poke.randDef + ` ~ ` + poke.randSpA + ` ~ ` + poke.randSpD + ` ~ ` + poke.randSpe + ` ~ ` + (poke.randHp + poke.randAtk + poke.randDef + poke.randSpA + poke.randSpD + poke.randSpe) + ` ~ `;
+				// abilities
 				sheetOutput += poke.randAbilities[0] + (poke.randAbilities[1] ? ` / `+ poke.randAbilities[1] + ` ` : ` `) + (poke.randAbilities[2] ? `// `+ poke.randAbilities[2] + `\n` : `\n`);
-				// TODO: other randomizer features (types, Abilities, stats)
+
+				// be ready to add a crossevo here
+				/*
+				if (crossevo) {
+				}
+				*/
+
+				// learnset
 				let levelUpMovesCount = 0;
 				for (const level in poke.learnsetCumulative.learnset) {
 					if (parseInt(level) > 99) {
@@ -1566,6 +1704,7 @@ export const Scripts: ModdedBattleScriptsData = {
 				}
 				if (poke.backports.length) {
 					poke.backports.sort();
+					poke.backports.reduce();
 					// TODO: these should include (and be sorted by) TM numbers, ideally
 					sheetOutput += `\n~ Possible backports\n`
 					for (const moveid of poke.backports) sheetOutput += moveid + `, `;
@@ -1573,6 +1712,7 @@ export const Scripts: ModdedBattleScriptsData = {
 				}
 				if (poke.additionalTms.length) {
 					poke.additionalTms.sort();
+					poke.additionalTms.reduce();
 					// TODO: these should include (and be sorted by) TM numbers, ideally
 					sheetOutput += `\n~ Additional TMs and tutors\n`
 					for (const moveid of poke.additionalTms) {
