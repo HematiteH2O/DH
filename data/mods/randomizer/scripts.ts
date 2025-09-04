@@ -545,25 +545,43 @@ export const Scripts: ModdedBattleScriptsData = {
 
 			// - randomize a second Ability only for the crossgen output - done
 			randomForAbility = randAbilities[Math.floor(Math.random() * randAbilities.length)];
-			let crossgenAbility = {0: abilityDex[randomForAbility].name};
-			poke.crossgenAbilities = poke.randAbilities;
+			let crossgenAbility = abilityDex[randomForAbility].name;
+			let overrodeRanking = false;
+			poke.crossgenAbilities = {0: poke.randAbilities[0]};
+			if (poke.randAbilities[1]) poke.crossgenAbilities[1] = poke.randAbilities[1];
+			if (poke.randAbilities[2]) poke.crossgenAbilities[2] = poke.randAbilities[2];
+
+			let slot = 1;
+			let slot0rank = 0;
+			let slot1rank = 0;
+
+			// pick which slot to replace, but don't bother with the HA slot because this is for in-game
+			if (abilityRank1.includes(this.toID(poke.randAbilities[0]))) slot0rank = 1;
+			else if (abilityRank2.includes(this.toID(poke.randAbilities[0]))) slot0rank = 2;
+			else if (abilityRank3.includes(this.toID(poke.randAbilities[0]))) slot0rank = 3;
+			else if (abilityRank4.includes(this.toID(poke.randAbilities[0]))) slot0rank = 4;
+			else if (abilityRank5.includes(this.toID(poke.randAbilities[0]))) slot0rank = 5;
+			else if (abilityRank6.includes(this.toID(poke.randAbilities[0]))) slot0rank = 6;
+			else if (badAbilities.includes(this.toID(poke.randAbilities[0]))) slot0rank = 8;
+			else slot0rank = 7;
+			if (poke.randAbilities[1]) {
+				if (abilityRank1.includes(this.toID(poke.randAbilities[1]))) slot1rank = 1;
+				else if (abilityRank2.includes(this.toID(poke.randAbilities[1]))) slot1rank = 2;
+				else if (abilityRank3.includes(this.toID(poke.randAbilities[1]))) slot1rank = 3;
+				else if (abilityRank4.includes(this.toID(poke.randAbilities[1]))) slot1rank = 4;
+				else if (abilityRank5.includes(this.toID(poke.randAbilities[1]))) slot1rank = 5;
+				else if (abilityRank6.includes(this.toID(poke.randAbilities[1]))) slot1rank = 6;
+				else if (badAbilities.includes(this.toID(poke.randAbilities[1]))) slot1rank = 8;
+				else slot1rank = 7;
+				if (slot0rank > slot1rank) slot = 0;
+			}
+			poke.crossgenAbilities[slot] = abilityDex[randomForAbility].name;
 
 			// - overwrite all Abilities with lower priority than that Ability with it
 			// - if no Abilities have been overwritten, overwrite a random Ability with the same priority as it
 			// - otherwise, ignore it
 
 			// prevos now
-			let slot1 = -1;
-			let slotH = -1;
-			if (poke.randAbilities[1] && poke.abilities[0] && poke.randAbilities[1] === poke.abilities[0]) slot1 = 0;
-			if (poke.randAbilities[1] && poke.abilities[1] && poke.randAbilities[1] === poke.abilities[1]) slot1 = 1;
-			if (poke.randAbilities[1] && poke.abilities['H'] && poke.randAbilities[1] === poke.abilities['H']) slot1 = 'H';
-			if (poke.randAbilities[1] && poke.abilities['S'] && poke.randAbilities[1] === poke.abilities['S']) slot1 = 'S';
-			if (poke.randAbilities[2] && poke.abilities[0] && poke.randAbilities[2] === poke.abilities[0]) slotH = 0;
-			if (poke.randAbilities[2] && poke.abilities[1] && poke.randAbilities[2] === poke.abilities[1]) slotH = 1;
-			if (poke.randAbilities[2] && poke.abilities['H'] && poke.randAbilities[2] === poke.abilities['H']) slotH = 'H';
-			if (poke.randAbilities[2] && poke.abilities['S'] && poke.randAbilities[2] === poke.abilities['S']) slotH = 'S';
-
 			if (poke.prevo) {
 				const poke2 = this.dataCache.Pokedex[this.toID(poke.prevo)];
 				poke2.randAbilities = {0: poke.randAbilities[0]};
@@ -1646,6 +1664,14 @@ export const Scripts: ModdedBattleScriptsData = {
 				poke.randSpD = poke.baseStats.spd + spdDelta;
 				poke.randSpe = poke.baseStats.spe + speDelta;
 
+				// obviously filler
+				poke.randHp = poke.baseStats.hp + hpDelta + 10;
+				poke.randAtk = poke.baseStats.atk + atkDelta + 10;
+				poke.randDef = poke.baseStats.def + defDelta + 10;
+				poke.randSpA = poke.baseStats.spa + spaDelta + 10;
+				poke.randSpD = poke.baseStats.spd + spdDelta + 10;
+				poke.randSpe = poke.baseStats.spe + speDelta + 10;
+
 				if (poke.prevo) {
 					const poke2 = this.dataCache.Pokedex[this.toID(poke.prevo)];
 					poke2.randHp = poke2.baseStats.hp + (hpDelta / 2);
@@ -1709,10 +1735,16 @@ export const Scripts: ModdedBattleScriptsData = {
 				sheetOutput += poke.randAbilities[0] + (poke.randAbilities[1] ? ` / `+ poke.randAbilities[1] + ` ` : ` `) + (poke.randAbilities[2] ? `// `+ poke.randAbilities[2] + `\n` : `\n`);
 
 				// be ready to add a crossevo here
-				/*
-				if (crossevo) {
+				if (crossevo && poke.name !== "Shedinja") {
+					// name isn't randomly generated askdjfgh
+					sheetOutput += `Crossgen ~ `;
+					// types are the same
+					sheetOutput += poke.chosenType.type1 + (poke.chosenType.type2 === poke.chosenType.type1 ? ` ~  ~ ` : ` ~ `+ poke.chosenType.type2 + ` ~ `);
+					// base stats; skip if none generated yet
+					if (poke.crossHp) sheetOutput += poke.crossHp + ` ~ ` + poke.crossAtk + ` ~ ` + poke.crossDef + ` ~ ` + poke.crossSpA + ` ~ ` + poke.crossSpD + ` ~ ` + poke.crossSpe + ` ~ ` + (poke.crossHp + poke.crossAtk + poke.crossDef + poke.crossSpA + poke.crossSpD + poke.crossSpe) + ` ~ `;
+					// abilities
+					sheetOutput += poke.crossgenAbilities[0] + (poke.crossgenAbilities[1] ? ` / `+ poke.crossgenAbilities[1] + ` ` : ` `) + (poke.crossgenAbilities[2] ? `// `+ poke.crossgenAbilities[2] + `\n` : `\n`);
 				}
-				*/
 
 				// learnset
 				let levelUpMovesCount = 0;
