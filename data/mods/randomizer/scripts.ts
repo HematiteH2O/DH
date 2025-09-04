@@ -1670,7 +1670,7 @@ export const Scripts: ModdedBattleScriptsData = {
 				let maxbst = (poke.randHp + poke.randAtk + poke.randDef + poke.randSpA + poke.randSpD + poke.randSpe + 40);
 				if (550 > maxbst) maxbst = 550; // basically no relevant limit for the low-BST guys anyway
 				if (
-					poke.chosenTypes.type1 === "Dragon" || poke.chosenTypes.type2 === "Dragon" ||
+					poke.chosenType.type1 === "Dragon" || poke.chosenType.type2 === "Dragon" ||
 					poke.types[0] === "Dragon" || (poke.types[1] && poke.types[1] === "Dragon") ||
 					poke.eggGroups[0] === 'Dragon' || (poke.eggGroups[1] && poke.eggGroups[1] === 'Dragon')
 				) maxbst = 600; // okay? okay
@@ -1697,70 +1697,50 @@ export const Scripts: ModdedBattleScriptsData = {
 				// so far, we're ignoring maxbst
 
 				// next, set HP
-				if ((poke.crossHp + poke.crossAtk + poke.crossDef + poke.crossSpA + poke.crossSpD + poke.crossSpe) < maxbst) {
-					// only keep going if maxbst is okay with it
+				// only keep going if maxbst is okay with it
+				let sampleHp1 = (((poke.crossHp * 2 + 141) * (poke.crossDef * 2 + 36)) + ((poke.crossHp * 2 + 141) * (poke.crossSpD * 2 + 36)));
+				sampleHp1 *= 4/3;
+				let sampleHp2 = (((poke.crossHp * 2 + 141) * (poke.crossDef * 2 + 56)) + ((poke.crossHp * 2 + 141) * (poke.crossSpD * 2 + 56)));
+				sampleHp2 *= 4/3;
+				hpMod = Math.sqrt(sampleHp1 / sampleHp2);
+				let targetHp = (((poke.crossHp * 2 + 141) * hpMod) - 141) / 2;
+				for (let i = 1; i < 10; i++) {
+					if (poke.crossHp >= targetHp) break;
+					if (poke.crossHp >= 255) break;
+					if ((poke.crossHp + poke.crossAtk + poke.crossDef + poke.crossSpA + poke.crossSpD + poke.crossSpe + 10) > maxbst) break;
+					poke.crossHp += 10;
 				}
 
 				// then, boost a second stat
 				if ((poke.crossHp + poke.crossAtk + poke.crossDef + poke.crossSpA + poke.crossSpD + poke.crossSpe + bonusBoost) < (maxbst + 10)) {
-					let stat = crossSpD;
-					let statValue = poke.crossSpD;
-					if (poke.crossSpA === poke.randSpA && poke.crossSpA > statValue) {
-						stat = crossSpA;
-						statValue = poke.crossSpA;
+					const unmoddedStats: string[] = [];
+					if (poke.crossAtk === poke.randAtk) unmoddedStats.push['crossAtk'];
+					if (poke.crossDef === poke.randDef) unmoddedStats.push['crossDef'];
+					if (poke.crossSpA === poke.randSpA) unmoddedStats.push['crossSpA'];
+					if (poke.crossSpD === poke.randSpD) unmoddedStats.push['crossSpD'];
+					if (unmoddedStats.length) {
+						let chosenStat = unmoddedStats[Math.floor(Math.random() * unmoddedStats.length)];
+						poke[chosenStat] += bonusBoost - 10; // do 10 less first
+						if ((poke.crossHp + poke.crossAtk + poke.crossDef + poke.crossSpA + poke.crossSpD + poke.crossSpe + 10) < maxbst) poke[chosenStat] += 10; // go all the way if room
 					}
-					if (poke.crossDef === poke.randDef && poke.crossDef > statValue) {
-						stat = crossDef;
-						statValue = poke.crossDef;
-					}
-					if (poke.crossAtk === poke.randAtk && poke.crossAtk > statValue) {
-						stat = crossAtk;
-						statValue = poke.crossAtk;
-					}
-					poke[stat] += bonusBoost;
-					if ((poke.crossHp + poke.crossAtk + poke.crossDef + poke.crossSpA + poke.crossSpD + poke.crossSpe + bonusBoost) > maxbst) poke[stat] -= 10;
-					// (we already established that it was within 10, so that's the most you need)
 				}
 
-				// finally, boost the remaining stats by 10-20 if maxbst permits
-				// you cannot possibly need to do this more than 3 times
-				if ((poke.crossHp + poke.crossAtk + poke.crossDef + poke.crossSpA + poke.crossSpD + poke.crossSpe + 10) < maxbst) {
+				// then boost the rest at random
+				for (let i = 1; i < 4; i++) {
+					if ((poke.crossHp + poke.crossAtk + poke.crossDef + poke.crossSpA + poke.crossSpD + poke.crossSpe + 10) > maxbst) break;
 					const unmoddedStats: string[] = [];
 					if (poke.crossAtk === poke.randAtk) unmoddedStats.push['crossAtk'];
-					if (poke.crossDef === poke.randAtk) unmoddedStats.push['crossDef'];
-					if (poke.crossSpA === poke.randAtk) unmoddedStats.push['crossSpA'];
-					if (poke.crossSpD === poke.randAtk) unmoddedStats.push['crossSpD'];
+					if (poke.crossDef === poke.randDef) unmoddedStats.push['crossDef'];
+					if (poke.crossSpA === poke.randSpA) unmoddedStats.push['crossSpA'];
+					if (poke.crossSpD === poke.randSpD) unmoddedStats.push['crossSpD'];
 					if (unmoddedStats.length) {
 						let chosenStat = unmoddedStats[Math.floor(Math.random() * unmoddedStats.length)];
-						poke[chosenStat] += 10;
-						if ((poke.crossHp + poke.crossAtk + poke.crossDef + poke.crossSpA + poke.crossSpD + poke.crossSpe + 10) < maxbst) poke[chosenStat] += 10;
+						poke[chosenStat] += 10; // do 10 at first
+						if ((poke.crossHp + poke.crossAtk + poke.crossDef + poke.crossSpA + poke.crossSpD + poke.crossSpe + 10) < maxbst) poke[chosenStat] += 10; // go 20 if room
 					}
 				}
-				// same process two more times
-				if ((poke.crossHp + poke.crossAtk + poke.crossDef + poke.crossSpA + poke.crossSpD + poke.crossSpe + 10) < maxbst) {
-					const unmoddedStats: string[] = [];
-					if (poke.crossAtk === poke.randAtk) unmoddedStats.push['crossAtk'];
-					if (poke.crossDef === poke.randAtk) unmoddedStats.push['crossDef'];
-					if (poke.crossSpA === poke.randAtk) unmoddedStats.push['crossSpA'];
-					if (poke.crossSpD === poke.randAtk) unmoddedStats.push['crossSpD'];
-					if (unmoddedStats.length) {
-						let chosenStat = unmoddedStats[Math.floor(Math.random() * unmoddedStats.length)];
-						poke[chosenStat] += 10;
-						if ((poke.crossHp + poke.crossAtk + poke.crossDef + poke.crossSpA + poke.crossSpD + poke.crossSpe + 10) < maxbst) poke[chosenStat] += 10;
-					}
-				}
-				if ((poke.crossHp + poke.crossAtk + poke.crossDef + poke.crossSpA + poke.crossSpD + poke.crossSpe + 10) < maxbst) {
-					const unmoddedStats: string[] = [];
-					if (poke.crossAtk === poke.randAtk) unmoddedStats.push['crossAtk'];
-					if (poke.crossDef === poke.randAtk) unmoddedStats.push['crossDef'];
-					if (poke.crossSpA === poke.randAtk) unmoddedStats.push['crossSpA'];
-					if (poke.crossSpD === poke.randAtk) unmoddedStats.push['crossSpD'];
-					if (unmoddedStats.length) {
-						let chosenStat = unmoddedStats[Math.floor(Math.random() * unmoddedStats.length)];
-						poke[chosenStat] += 10;
-						if ((poke.crossHp + poke.crossAtk + poke.crossDef + poke.crossSpA + poke.crossSpD + poke.crossSpe + 10) < maxbst) poke[chosenStat] += 10;
-					}
-				}
+
+
 
 				// prevos are just the same changes scaled down
 				if (poke.prevo) {
