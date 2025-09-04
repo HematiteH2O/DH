@@ -247,7 +247,7 @@ const moveGroups = {
 	88: ['needlearm', 'heartstamp', 'steamroller', 'boneclub', 'stomp'],
 	89: ['swift', 'incinerate', 'razorleaf', 'aircutter', 'strugglebug', 'snarl', 'breakingswipe', 'electroweb', 'icywind', 'bulldoze'],
 	90: ['barbbarrage', 'infernalparade'],
-	91: ['partingshot', 'batonpass', 'flipturn', 'uturn', 'voltswitch'],
+	91: ['partingshot', 'batonpass', 'flipturn', 'uturn', 'voltswitch', 'teleport'],
 	92: ['silverwind', 'ominouswind', 'ancientpower'],
 	93: ['hex', 'venoshock', 'brine'],
 	94: ['tropkick', 'bittermalice', 'lunge', 'skittersmack', 'spiritbreak', 'mysticalfire'],
@@ -431,6 +431,9 @@ export const Scripts: ModdedBattleScriptsData = {
 			let future = false; // determine if something is Gen VIII or later
 			if (poke.num && poke.num > 809) future = true;
 			if (poke.forme && (poke.forme === "Galar" || poke.forme === "Hisui" || poke.baseSpecies === "Tauros")) future = true;
+
+			// just for sanity checks and tracking later
+			poke.listOfCertainMoves: string[] = [];
 
 			// RANDOM ABILITY
 			// todo:
@@ -800,6 +803,7 @@ export const Scripts: ModdedBattleScriptsData = {
 			for (const type1 of chosenTypes) {
 				for (const type2 of chosenTypes) {
 					let score = 0;
+					let lowSynergy = false; // for a later step about evaluating setup; true for single-types or dual-types walled by one type
 					let pokeCheck = poke;
 					if (poke.baseSpecies) pokeCheck = this.dataCache.Pokedex[this.toID(poke.baseSpecies)];
 					// automatically reject the base type
@@ -847,6 +851,7 @@ export const Scripts: ModdedBattleScriptsData = {
 
 					// single-type version
 					if (type2 === type1) {
+						lowSynergy = true;
 
 						// defensive:
 						// +1 for non-neutral defensive matchups
@@ -873,11 +878,10 @@ export const Scripts: ModdedBattleScriptsData = {
 						for (const type in this.dataCache.TypeChart) {
 							if (type === "Fairy") continue;
 							if (this.dataCache.TypeChart[type].damageTaken[type1] > 1) { // STAB resisted
+								if (abilitySet.includes('Tinted Lens')) score += 2;
 								if (this.dataCache.TypeChart[type].damageTaken[poke.types[0]] === 1 || (poke.types[1] && this.dataCache.TypeChart[type].damageTaken[poke.types[1]] === 1)) {
 									// one of the base types is SE
 									score += 2;
-								} else {
-									if (abilitySet.includes('Tinted Lens')) score += 2;
 								}
 							}
 						}
@@ -934,6 +938,7 @@ export const Scripts: ModdedBattleScriptsData = {
 									score ++; // weakness canceled by immunity
 								} else { // neither STAB SE
 									if (abilitySet.includes('Tinted Lens')) score += 2;
+									lowSynergy = true;
 									if (this.dataCache.TypeChart[type].damageTaken[poke.types[0]] === 1 || (poke.types[1] && this.dataCache.TypeChart[type].damageTaken[poke.types[1]] === 1)) {
 										// one of the base types is SE
 										score += 2;
@@ -1076,6 +1081,7 @@ export const Scripts: ModdedBattleScriptsData = {
 						chosenCombinations[loopCount].type1 = type1;
 						chosenCombinations[loopCount].type2 = type2;
 						chosenCombinations[loopCount].score = score;
+						if (lowSynergy) chosenCombinations[loopCount].lowSynergy = true;
 						loopCount++;
 					}
 				}
@@ -1580,6 +1586,7 @@ export const Scripts: ModdedBattleScriptsData = {
 
 					// resume
 					if (genVTms.includes(moveid)) {
+						poke.listOfCertainMoves.push(moveid);
 						moveName = move.tmid ? move.tmid : `x ` + move.name;
 						if (asterisk) moveName += `*`;
 						if (!genVLearnedTmAlready && !poke.additionalTms.includes(moveName)) poke.additionalTms.push(moveName); // make sure to identify TMs that need to be added manually
@@ -1623,9 +1630,11 @@ export const Scripts: ModdedBattleScriptsData = {
 							else moveName = moveName + ` (x)`;
 						}
 						if (secondMove) {
-							 moveName += ` ~ ` + secondMove.type;
+							moveName += ` ~ ` + secondMove.type;
+							poke.listOfCertainMoves.push(this.toID(secondMove.name));
 						} else {
-							 moveName += ` ~ ` + move.type;
+							moveName += ` ~ ` + move.type;
+							poke.listOfCertainMoves.push(moveid);
 						}
 						// either way
 						poke.learnsetCumulative.learnset[levelLearned].movesLearned.push(moveName);
@@ -1668,8 +1677,11 @@ export const Scripts: ModdedBattleScriptsData = {
 
 				// CROSSGEN STATS
 				// todo: Speed
+				const pokeTypes: string[] = [];
+				pokeTypes.push(poke.chosenType.type1);
+				if (poke.chosenType.type2 !== poke.chosenType.type1) pokeTypes.push(poke.chosenType.type2);
 
-				let maxbst = (poke.randHp + poke.randAtk + poke.randDef + poke.randSpA + poke.randSpD + poke.randSpe + 40);
+				let maxbst = (poke.randHp + poke.randAtk + poke.randDef + poke.randSpA + poke.randSpD + poke.randSpe + 30);
 				if (540 > maxbst) maxbst = 540;
 				if (
 					poke.chosenType.type1 === "Dragon" || poke.chosenType.type2 === "Dragon" ||
@@ -1700,18 +1712,224 @@ export const Scripts: ModdedBattleScriptsData = {
 				// set poke.crossSpe to a specific value, but I haven't determined how yet
 				// so far, we're ignoring maxbst
 				// ignore concerns about setup for either offense if the offense in question is less than ~80
+				// check poke.listOfCertainMoves for convenience
 
 				// uhh... default to 120 or the prior stage's Speed (whichever is greater), but almost nothing is gonna stay there
 				let targetSpe = 120;
 				if (poke.randSpe > 120) targetSpe = poke.randSpe;
+
 				// nerf to 110 if any usable offensive setup
 				// nerf to 100 if setup and dual-typed (with decent synergy?)
+				if (poke.crossAtk > 79) {
+					const setup = ['bulkup', 'clangoroussoul', 'coil', 'dragondance', 'growth', 'howl', 'noretreat', 'shiftgear', 'tidyup', 'victorydance'];
+					let hasMove = false;
+					for (const moveCheck of setup) if (poke.listOfCertainMoves.includes(moveCheck)) hasMove = true;
+					if (hasMove) {
+						targetSpe = 110;
+						if (!poke.chosenType.lowSynergy) targetSpe = 100;
+					}
+				}
+				if (poke.crossSpA > 79) {
+					const setup = ['calmmind', 'clangoroussoul', 'growth', 'noretreat', 'torchsong', 'quiverdance'];
+					let hasMove = false;
+					for (const moveCheck of setup) if (poke.listOfCertainMoves.includes(moveCheck)) hasMove = true;
+					if (hasMove) {
+						targetSpe = 110;
+						if (!poke.chosenType.lowSynergy) targetSpe = 100;
+					}
+				}
+
 				// nerf to 90 if setup and the offensive setup is +2
-				// nerf to 85 if an offense is ~130+ or there's a matching physical STAB of 120 BP+
+				if (poke.crossAtk > 79) {
+					const setup = ['swordsdance', 'bellydrum'];
+					let hasMove = false;
+					for (const moveCheck of setup) if (poke.listOfCertainMoves.includes(moveCheck)) hasMove = true;
+					if (hasMove) targetSpe = 90;
+				}
+				if (poke.crossSpA > 79) {
+					const setup = ['nastyplot', 'tailglow'];
+					let hasMove = false;
+					for (const moveCheck of setup) if (poke.listOfCertainMoves.includes(moveCheck)) hasMove = true;
+					if (hasMove) targetSpe = 90;
+				}
+
+				// nerf to 85 if an offense is ~130+
+				if (poke.crossAtk > 129 || poke.crossSpA > 129) targetSpe = 85;
+				// or if there's a matching physical STAB of 120 BP+
+				if (poke.crossAtk > 99) {
+					const setup = ['headsmash', 'highjumpkick', 'boltstrike', 'woodhammer', 'wavecrash', 'volttackle', 'thrash', 'outrage', 'ragingfury', 'shadowforce', 'pyroball', 'precipiceblades', 'powerwhip', 'megahorn', 'megakick', 'headlongrush', 'headcharge', 'gunkshot', 'glaiverush', 'glaciallance', 'flareblitz', 'dragonascent', 'doubleedge', 'closecombat', 'bravebird', 'axekick'];
+					let hasMove = false;
+					for (const moveCheck of setup) if (poke.listOfCertainMoves.includes(moveCheck) && this.dataCache.Moves[moveCheck].type && pokeTypes.includes(this.dataCache.Moves[moveCheck].type)) hasMove = true;
+					if (hasMove) targetSpe = 85;
+				}
+				if (poke.crossSpA > 99) {
+					const setup = ['waterspout', 'eruption', 'dragonenergy', 'chloroblast', 'mindblown', 'steelbeam', 'blueflare', 'petaldance', 'seedflare', 'makeitrain', 'astralbarrage', 'armorcannon'];
+					let hasMove = false;
+					for (const moveCheck of setup) if (poke.listOfCertainMoves.includes(moveCheck) && this.dataCache.Moves[moveCheck].type && pokeTypes.includes(this.dataCache.Moves[moveCheck].type)) hasMove = true;
+					if (hasMove) targetSpe = 85;
+				}
+				if (poke.targetSpe > 85 && (poke.crossAtk > 99 || poke.crossSpA > 99)) {
+					for (const abilCheck of poke.crossgenAbilities) {
+						if (poke.crossgenAbilities[abilCheck] === "Drought") {
+							if (pokeTypes.includes("Fire")) targetSpe = 85;
+							else if (pokeTypes.includes("Grass") && poke.crossSpA > 99 && poke.listOfCertainMoves.includes('solarbeam')) targetSpe = 85;
+							else if (pokeTypes.includes("Grass") && poke.crossAtk > 99 && poke.listOfCertainMoves.includes('solarblade')) targetSpe = 85;
+						} else if (poke.crossgenAbilities[abilCheck] === "Drizzle") {
+							if (pokeTypes.includes("Water")) targetSpe = 85;
+							else if (pokeTypes.includes("Electric") && poke.crossSpA > 99 && poke.listOfCertainMoves.includes('thunder')) targetSpe = 85;
+							else if (pokeTypes.includes("Flying") && poke.crossSpA > 99 && poke.listOfCertainMoves.includes('hurricane')) targetSpe = 85;
+						}
+					}
+				}
+
 				// nerf to 85ish if it has extremely strong priority and offensive setup that it can use together
+				if (poke.crossAtk > 99 && targetSpe > 85) {
+					const booster = ['adaptability', 'angerpoint', 'defiant', 'guts', 'hugepower', 'hustle', 'purepower', 'technician'];
+					const setup = ['bulkup', 'clangoroussoul', 'coil', 'dragondance', 'growth', 'howl', 'noretreat', 'shiftgear', 'tidyup', 'victorydance'];
+					const strongPrio = ['extremespeed', 'suckerpunch', 'jetpunch'];
+					const prio = ['accelerock', 'aquajet', 'bulletpunch', 'iceshard', 'machpunch', 'quickattack', 'shadowsneak'];
+					let hasBooster = false;
+					let hasSetup = false;
+					let hasPrio = false;
+
+					for (const abilCheck of poke.crossgenAbilities) if (booster.includes(poke.crossgenAbilities[abilCheck])) hasBooster = true;
+					for (const moveCheck of setup) if (poke.listOfCertainMoves.includes(moveCheck)) hasSetup = true;
+					for (const moveCheck of strongPrio) if (poke.listOfCertainMoves.includes(moveCheck)) hasPrio = true;
+					if (hasBooster) for (const moveCheck of prio) if (poke.listOfCertainMoves.includes(moveCheck) && this.dataCache.Moves[moveCheck].type && pokeTypes.includes(this.dataCache.Moves[moveCheck].type)) hasPrio = true;
+
+					if (hasSetup && hasPrio) targetSpe = 85;
+				}
+				if (poke.crossSpA > 99 && targetSpe > 85) {
+					const booster = ['adaptability', 'technician'];
+					const setup = ['calmmind', 'clangoroussoul', 'growth', 'noretreat', 'torchsong', 'quiverdance'];
+					const strongPrio = ['thunderclap'];
+					const prio = ['vacuumwave', 'watershuriken'];
+					let hasBooster = false;
+					let hasSetup = false;
+					let hasPrio = false;
+
+					for (const abilCheck of poke.crossgenAbilities) if (booster.includes(poke.crossgenAbilities[abilCheck])) hasBooster = true;
+					for (const moveCheck of setup) if (poke.listOfCertainMoves.includes(moveCheck)) hasSetup = true;
+					for (const moveCheck of strongPrio) if (poke.listOfCertainMoves.includes(moveCheck)) hasPrio = true;
+					if (hasBooster) for (const moveCheck of prio) if (poke.listOfCertainMoves.includes(moveCheck) && this.dataCache.Moves[moveCheck].type && pokeTypes.includes(this.dataCache.Moves[moveCheck].type)) hasPrio = true;
+
+					if (hasSetup && hasPrio) targetSpe = 85;
+				}
+
+				// 85ish is established to be a good range for weatherspeed, too
+				const weatherspeed = ['swiftswim', 'chlorophyll', 'sandrush'];
+				let hasWeatherspeed = false;
+				for (const abilCheck of poke.crossgenAbilities) if (weatherspeed.includes(poke.crossgenAbilities[abilCheck])) hasWeatherspeed = true;
+				if (hasWeatherspeed) {
+					let speedCheck = Math.floor(Math.random() * 30) + 80; // it's okay this is a randomizer
+					if (speedCheck < targetSpe) targetSpe = speedCheck;
+				}
+
 				// nerf to 80 if the offensive setup includes +1 Spe
-				// nerf to 75 if setup *and also* a solid offense *and also* multiple unique, noteworthy tools (stallbreaking, pivoting, recovery, etc.)
+				if (poke.crossAtk > 79) {
+					const setup = ['clangoroussoul', 'dragondance', 'noretreat', 'tidyup', 'victorydance'];
+					let hasMove = false;
+					for (const moveCheck of setup) if (poke.listOfCertainMoves.includes(moveCheck)) hasMove = true;
+					if (hasMove) targetSpe = 80;
+				}
+				if (poke.crossSpA > 79) {
+					const setup = ['clangoroussoul', 'noretreat', 'quiverdance'];
+					let hasMove = false;
+					for (const moveCheck of setup) if (poke.listOfCertainMoves.includes(moveCheck)) hasMove = true;
+					if (hasMove) targetSpe = 80;
+				}
+
+				// nerf to 75 if setup *and also* a solid offense *and also* multiple unique, noteworthy tools
+				// thinking like a crazy hodgepodge of relevant tools:
+				// strong priority (or Fake Out / First Impression this time), spread, some kind of healing, pivoting?
+				// hitting 3 of the 4 categories at least
+				if (poke.crossAtk > 99) {
+					const setup = ['bulkup', 'clangoroussoul', 'coil', 'dragondance', 'growth', 'howl', 'noretreat', 'shiftgear', 'tidyup', 'victorydance'];
+					const strongPrio = ['extremespeed', 'suckerpunch', 'jetpunch', 'firstimpression', 'fakeout']; // don't care if STAB
+					const prio = ['accelerock', 'aquajet', 'bulletpunch', 'iceshard', 'machpunch', 'quickattack', 'shadowsneak'];
+					const spread = ['earthquake', 'petalblizzard', 'bulldoze', 'brutalswing', 'magnitude', 'precipiceblades', 'glaciallance', 'diamondstorm', 'thousandarrows', 'thousandwaves', 'landswrath', 'rockslide', 'breakingswipe', 'razorleaf'];
+					// heal... include self and ally, I guess? and like STAB draining?
+					const pivot = ['uturn', 'voltswitch', 'flipturn', 'batonpass', 'partingshot', 'teleport'];
+
+					let hasSetup = false;
+					let hasPrio = false;
+					let hasSpread = false;
+					let hasHeal = false;
+					let hasPivot = false;
+					let hodgepodgeScore = 0;
+
+					for (const moveCheck of setup) if (poke.listOfCertainMoves.includes(moveCheck)) hasSetup = true;
+					for (const moveCheck of strongPrio) if (poke.listOfCertainMoves.includes(moveCheck)) hasPrio = true;
+					for (const moveCheck of prio) if (poke.listOfCertainMoves.includes(moveCheck) && this.dataCache.Moves[moveCheck].type && pokeTypes.includes(this.dataCache.Moves[moveCheck].type)) hasPrio = true;
+					for (const moveCheck of spread) if (poke.listOfCertainMoves.includes(moveCheck) && this.dataCache.Moves[moveCheck].type && pokeTypes.includes(this.dataCache.Moves[moveCheck].type)) hasPrio = true;
+					// for (const moveCheck of heal) if (poke.listOfCertainMoves.includes(moveCheck)) hasHeal = true;
+					for (const moveCheck of pivot) if (poke.listOfCertainMoves.includes(moveCheck)) hasPivot = true;
+
+					if (hasSetup) {
+						if (hasPrio) hodgepodgeScore++;
+						if (hasSpread) hodgepodgeScore++;
+						if (hasHeal) hodgepodgeScore++;
+						if (hasPivot) hodgepodgeScore++;
+					}
+					if (hodgepodgeScore > 2) {
+						targetSpe = 75;
+						poke.crossgenGoldStar = true;
+					}
+				}
+				if (poke.crossSpA > 99) {
+					const setup = ['calmmind', 'clangoroussoul', 'growth', 'noretreat', 'torchsong', 'quiverdance'];
+					const strongPrio = ['thunderclap'];
+					const prio = ['vacuumwave', 'watershuriken'];
+					const spread = ['boomburst', 'searingshot', 'sludgewave', 'surf', 'sparklingaria', 'lavaplume', 'discharge', 'paraboliccharge', 'waterspout', 'eruption', 'dragonenergy', 'makeitrain', 'astralbarrage', 'originpulse', 'clangingscales', 'blizzaard', 'wildboltstorm', 'springtidestorm', 'sandsearstorm', 'coreenforcer', 'bleakwindstorm', 'heatwave', 'muddywater', 'hypervoice', 'fierywrath', 'overdrive', 'matchagotcha', 'relicsong', 'glaciate', 'swift', 'incinerate', 'aircutter', 'snarl', 'icywind', 'electroweb', 'strugglebug'];
+					// heal... include self and ally, I guess? and like STAB draining?
+					const pivot = ['uturn', 'voltswitch', 'flipturn', 'batonpass', 'partingshot', 'teleport'];
+
+					let hasSetup = false;
+					let hasPrio = false;
+					let hasSpread = false;
+					let hasHeal = false;
+					let hasPivot = false;
+					let hodgepodgeScore = 0;
+
+					for (const moveCheck of setup) if (poke.listOfCertainMoves.includes(moveCheck)) hasSetup = true;
+					for (const moveCheck of strongPrio) if (poke.listOfCertainMoves.includes(moveCheck)) hasPrio = true;
+					for (const moveCheck of prio) if (poke.listOfCertainMoves.includes(moveCheck) && this.dataCache.Moves[moveCheck].type && pokeTypes.includes(this.dataCache.Moves[moveCheck].type)) hasPrio = true;
+					for (const moveCheck of spread) if (poke.listOfCertainMoves.includes(moveCheck) && this.dataCache.Moves[moveCheck].type && pokeTypes.includes(this.dataCache.Moves[moveCheck].type)) hasPrio = true;
+					// for (const moveCheck of heal) if (poke.listOfCertainMoves.includes(moveCheck)) hasHeal = true;
+					for (const moveCheck of pivot) if (poke.listOfCertainMoves.includes(moveCheck)) hasPivot = true;
+
+					if (hasSetup) {
+						if (hasPrio) hodgepodgeScore++;
+						if (hasSpread) hodgepodgeScore++;
+						if (hasHeal) hodgepodgeScore++;
+						if (hasPivot) hodgepodgeScore++;
+					}
+					if (hodgepodgeScore > 2) {
+						targetSpe = 75;
+						poke.crossgenGoldStar = true;
+					}
+				}
+
 				// nerf to 65 if setup that includes +2 Speed and (a) also boosts an offense or (b) Attack is ~135+
+				if (poke.crossAtk > 135 || poke.crossSpA > 135) {
+					const setup = ['agility', 'autotomize', 'rockpolish', 'shiftgear'];
+					let hasMove = false;
+					for (const moveCheck of setup) if (poke.listOfCertainMoves.includes(moveCheck)) hasMove = true;
+					if (hasMove) targetSpe = 65;
+				}
+				if (poke.crossAtk > 79) {
+					const setup = ['shiftgear', 'filletaway', 'shellsmash';
+					let hasMove = false;
+					for (const moveCheck of setup) if (poke.listOfCertainMoves.includes(moveCheck)) hasMove = true;
+					if (hasMove) targetSpe = 65;
+				}
+				if (poke.crossSpA > 79) {
+					const setup = ['geomancy', 'filletaway', 'shellsmash'];
+					let hasMove = false;
+					for (const moveCheck of setup) if (poke.listOfCertainMoves.includes(moveCheck)) hasMove = true;
+					if (hasMove) targetSpe = 65;
+				}
+
 				// nerf to 50 if it seems like a wall type and has reliable recovery (???)
 				// lower to sub-30 if it seems like it would be better for Trick Room anyway (list ways to tell?)
 				// maybe I should actually lowball all of these by at least 5 because the final step might randomize it further
@@ -1738,6 +1956,7 @@ export const Scripts: ModdedBattleScriptsData = {
 // 120+ BP moves that matter... IF they have STAB
 					['headsmash', 'highjumpkick', 'boltstrike', 'woodhammer', 'wavecrash', 'volttackle', 'thrash', 'outrage', 'ragingfury', 'shadowforce', 'pyroball', 'precipiceblades', 'powerwhip', 'megahorn', 'megakick', 'headlongrush', 'headcharge', 'gunkshot', 'glaiverush', 'glaciallance', 'flareblitz', 'dragonascent', 'doubleedge', 'closecombat', 'bravebird', 'axekick']
 					['waterspout', 'eruption', 'dragonenergy', 'chloroblast', 'mindblown', 'steelbeam', 'blueflare', 'petaldance', 'seedflare', 'makeitrain', 'astralbarrage', 'armorcannon']
+					// oh I definitely need to account for Drizzle or Drought + STAB on those types, or Drought + STAB Solar Beam/Blade specifically
 // edge cases...
 					// uhh... Curse and Spore come to mind? but I think Trick Room will be more about damage-boosting Abilities than anything
 	  				['adaptability', 'analytic', 'ironfist', 'reckless', 'sheerforce', 'toxicboost', 'angerpoint', 'defiant', 'guts', 'hugepower', 'hustle', 'moxie', 'purepower']
@@ -1857,6 +2076,7 @@ export const Scripts: ModdedBattleScriptsData = {
 				// be ready to add a crossevo here
 				if (crossevo && poke.name !== "Shedinja") {
 					// name isn't randomly generated askdjfgh
+					if (poke.crossgenGoldStar) sheetOutput += `Cool `; // I will forget I did this and be amused by it
 					sheetOutput += `Crossgen ~ `;
 					// types are the same
 					sheetOutput += poke.chosenType.type1 + (poke.chosenType.type2 === poke.chosenType.type1 ? ` ~  ~ ` : ` ~ `+ poke.chosenType.type2 + ` ~ `);
