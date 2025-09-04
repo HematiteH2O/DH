@@ -1848,7 +1848,8 @@ export const Scripts: ModdedBattleScriptsData = {
 					const strongPrio = ['extremespeed', 'suckerpunch', 'jetpunch', 'firstimpression', 'fakeout']; // don't care if STAB
 					const prio = ['accelerock', 'aquajet', 'bulletpunch', 'iceshard', 'machpunch', 'quickattack', 'shadowsneak'];
 					const spread = ['earthquake', 'petalblizzard', 'bulldoze', 'brutalswing', 'magnitude', 'precipiceblades', 'glaciallance', 'diamondstorm', 'thousandarrows', 'thousandwaves', 'landswrath', 'rockslide', 'breakingswipe', 'razorleaf'];
-					// heal... include self and ally, I guess? and like STAB draining?
+					const heal = ['healorder', 'roost', 'recover', 'softboiled', 'milkdrink', 'slackoff', 'floralhealing', 'healpulse', 'lifedew'],
+					const drain = ['drainpunch', 'hornleech', 'leechlife', 'bitterblade'];
 					const pivot = ['uturn', 'voltswitch', 'flipturn', 'batonpass', 'partingshot', 'teleport'];
 
 					let hasSetup = false;
@@ -1861,8 +1862,9 @@ export const Scripts: ModdedBattleScriptsData = {
 					for (const moveCheck of setup) if (poke.listOfCertainMoves.includes(moveCheck)) hasSetup = true;
 					for (const moveCheck of strongPrio) if (poke.listOfCertainMoves.includes(moveCheck)) hasPrio = true;
 					for (const moveCheck of prio) if (poke.listOfCertainMoves.includes(moveCheck) && this.dataCache.Moves[moveCheck].type && pokeTypes.includes(this.dataCache.Moves[moveCheck].type)) hasPrio = true;
-					for (const moveCheck of spread) if (poke.listOfCertainMoves.includes(moveCheck) && this.dataCache.Moves[moveCheck].type && pokeTypes.includes(this.dataCache.Moves[moveCheck].type)) hasPrio = true;
-					// for (const moveCheck of heal) if (poke.listOfCertainMoves.includes(moveCheck)) hasHeal = true;
+					for (const moveCheck of spread) if (poke.listOfCertainMoves.includes(moveCheck) && this.dataCache.Moves[moveCheck].type && pokeTypes.includes(this.dataCache.Moves[moveCheck].type)) hasSpread = true;
+					for (const moveCheck of heal) if (poke.listOfCertainMoves.includes(moveCheck)) hasHeal = true;
+					for (const moveCheck of drain) if (poke.listOfCertainMoves.includes(moveCheck) && this.dataCache.Moves[moveCheck].type && pokeTypes.includes(this.dataCache.Moves[moveCheck].type)) hasHeal = true;
 					for (const moveCheck of pivot) if (poke.listOfCertainMoves.includes(moveCheck)) hasPivot = true;
 
 					if (hasSetup) {
@@ -1881,7 +1883,8 @@ export const Scripts: ModdedBattleScriptsData = {
 					const strongPrio = ['thunderclap'];
 					const prio = ['vacuumwave', 'watershuriken'];
 					const spread = ['boomburst', 'searingshot', 'sludgewave', 'surf', 'sparklingaria', 'lavaplume', 'discharge', 'paraboliccharge', 'waterspout', 'eruption', 'dragonenergy', 'makeitrain', 'astralbarrage', 'originpulse', 'clangingscales', 'blizzaard', 'wildboltstorm', 'springtidestorm', 'sandsearstorm', 'coreenforcer', 'bleakwindstorm', 'heatwave', 'muddywater', 'hypervoice', 'fierywrath', 'overdrive', 'matchagotcha', 'relicsong', 'glaciate', 'swift', 'incinerate', 'aircutter', 'snarl', 'icywind', 'electroweb', 'strugglebug'];
-					// heal... include self and ally, I guess? and like STAB draining?
+					const heal = ['healorder', 'roost', 'recover', 'softboiled', 'milkdrink', 'slackoff', 'floralhealing', 'healpulse', 'lifedew'],
+					const drain = ['paraboliccharge', 'gigadrain', 'matchagotcha'];
 					const pivot = ['uturn', 'voltswitch', 'flipturn', 'batonpass', 'partingshot', 'teleport'];
 
 					let hasSetup = false;
@@ -1894,8 +1897,9 @@ export const Scripts: ModdedBattleScriptsData = {
 					for (const moveCheck of setup) if (poke.listOfCertainMoves.includes(moveCheck)) hasSetup = true;
 					for (const moveCheck of strongPrio) if (poke.listOfCertainMoves.includes(moveCheck)) hasPrio = true;
 					for (const moveCheck of prio) if (poke.listOfCertainMoves.includes(moveCheck) && this.dataCache.Moves[moveCheck].type && pokeTypes.includes(this.dataCache.Moves[moveCheck].type)) hasPrio = true;
-					for (const moveCheck of spread) if (poke.listOfCertainMoves.includes(moveCheck) && this.dataCache.Moves[moveCheck].type && pokeTypes.includes(this.dataCache.Moves[moveCheck].type)) hasPrio = true;
-					// for (const moveCheck of heal) if (poke.listOfCertainMoves.includes(moveCheck)) hasHeal = true;
+					for (const moveCheck of spread) if (poke.listOfCertainMoves.includes(moveCheck) && this.dataCache.Moves[moveCheck].type && pokeTypes.includes(this.dataCache.Moves[moveCheck].type)) hasSpread = true;
+					for (const moveCheck of heal) if (poke.listOfCertainMoves.includes(moveCheck)) hasHeal = true;
+					for (const moveCheck of drain) if (poke.listOfCertainMoves.includes(moveCheck) && this.dataCache.Moves[moveCheck].type && pokeTypes.includes(this.dataCache.Moves[moveCheck].type)) hasHeal = true;
 					for (const moveCheck of pivot) if (poke.listOfCertainMoves.includes(moveCheck)) hasPivot = true;
 
 					if (hasSetup) {
@@ -1933,6 +1937,8 @@ export const Scripts: ModdedBattleScriptsData = {
 				// nerf to 50 if it seems like a wall type and has reliable recovery (???)
 				// lower to sub-30 if it seems like it would be better for Trick Room anyway (list ways to tell?)
 				// maybe I should actually lowball all of these by at least 5 because the final step might randomize it further
+
+				poke.crossSpe = targetSpe; // temporary measure I just want to see what it puts out
 
 /*
 // offensive setup:
