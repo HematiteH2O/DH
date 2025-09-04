@@ -1667,8 +1667,10 @@ export const Scripts: ModdedBattleScriptsData = {
 
 
 				// CROSSGEN STATS
+				// todo: Speed
+
 				let maxbst = (poke.randHp + poke.randAtk + poke.randDef + poke.randSpA + poke.randSpD + poke.randSpe + 40);
-				if (550 > maxbst) maxbst = 550; // basically no relevant limit for the low-BST guys anyway
+				if (540 > maxbst) maxbst = 540;
 				if (
 					poke.chosenType.type1 === "Dragon" || poke.chosenType.type2 === "Dragon" ||
 					poke.types[0] === "Dragon" || (poke.types[1] && poke.types[1] === "Dragon") ||
@@ -1676,7 +1678,7 @@ export const Scripts: ModdedBattleScriptsData = {
 				) maxbst = 600; // okay? okay
 				// hey Iris is the Champion anyway
 				
-				maxbst -= 20; // actually I want a completely random +20 at the end so
+				maxbst -= 20; // ... but actually I want a completely random +20 at the end so
 
 				let bonusBoost = 0;
 				if (poke.crossSpA > poke.crossAtk) { // if it's special
@@ -1697,15 +1699,48 @@ export const Scripts: ModdedBattleScriptsData = {
 
 				// set poke.crossSpe to a specific value, but I haven't determined how yet
 				// so far, we're ignoring maxbst
+				// ignore concerns about setup for either offense if the offense in question is less than ~80
+
+				// uhh... default to 120 or the prior stage's Speed (whichever is greater), but almost nothing is gonna stay there
+				// nerf to 110 if any offensive setup
+				// nerf to 100 if setup and dual-typed (with decent synergy?)
+				// nerf to 90 if setup and the offensive setup is +2
+				// nerf to 85 if an offense is ~130+ or there's a matching physical STAB of 120 BP+
+				// nerf to 85ish if it has extremely strong priority and offensive setup that it can use together
+				// nerf to 80 if the offensive setup includes +1 Spe
+				// nerf to 75 if setup *and also* a solid offense *and also* multiple unique, noteworthy tools (stallbreaking, pivoting, recovery, etc.)
+				// nerf to 65 if setup that includes +2 Speed and (a) also boosts an offense or (b) Attack is ~135+
+				// nerf to 50 if it seems like a wall type and has reliable recovery (???)
+				// lower to sub-30 if it seems like it would be better for Trick Room anyway (list ways to tell?)
+				// maybe I should actually lowball all of these by at least 5 because the final step might randomize it further
+
+/*
+const pushLevelUp = [
+	'accelerock', 'acid', 'acidspray', 'acupressure', 'afteryou', 'aircutter', 'allyswitch', 'appleacid', 'aquajet', 'aquastep', 'astralbarrage', 'aurawheel', 'babydolleyes', 'batonpass', 'bellydrum', 'bitterblade', 'bittermalice',
+	'bleakwindstorm', 'blizzard', 'boomburst', 'breakingswipe', 'brutalswing', 'bubble', 'bulkup', 'bulldoze', 'bulletpunch', 'burningjealousy', 'calmmind', 'captivate', 'chargebeam', 'charm', 'chillingwater', 'clangingscales',
+	'clangoroussoul', 'coil', 'coreenforcer', 'cottonspore', 'counter', 'curse', 'darkvoid', 'dazzlinggleam', 'decorate', 'destinybond', 'diamondstorm', 'disable', 'disarmingvoice', 'discharge', 'dragondance', 'dragonenergy',
+	'drainpunch', 'dreameater', 'drumbeating', 'earthquake', 'eerieimpulse', 'electroweb', 'encore', 'endeavor', 'entrainment', 'eruption', 'esperwing', 'expandingforce', 'explosion', 'extremespeed', 'fakeout', 'faketears',
+	'featherdance', 'feint', 'fierydance', 'fierywrath', 'firstimpression', 'flamecharge', 'flipturn', 'followme', 'foulplay', 'geomancy', 'gigadrain', 'glaciallance', 'glaciate', 'glare', 'grasswhistle', 'gravapple', 'gravity',
+	'growl', 'growth', 'haze', 'healpulse', 'heatwave', 'helpinghand', 'hornleech', 'howl', 'hurricane', 'hypervoice', 'hypnosis', 'iceshard', 'icywind', 'incinerate', 'inferno', 'jetpunch', 'knockoff', 'landswrath', 'lavaplume',
+	'leechlife', 'leechseed', 'leer', 'lightscreen', 'lovelykiss', 'lowsweep', 'luminacrash', 'lunge', 'machpunch', 'makeitrain', 'matchagotcha', 'memento', 'metalburst', 'metalsound', 'mindblown', 'mirrorcoat', 'moonlight',
+	'morningsun', 'mortalspin', 'mudshot', 'mudsport', 'muddywater', 'mysticalfire', 'nastyplot', 'noretreat', 'nobleroar', 'nuzzle', 'oblivionwing', 'originpulse', 'overdrive', 'paraboliccharge', 'partingshot', 'perishsong',
+	'petalblizzard', 'poisongas', 'pounce', 'powdersnow', 'poweruppunch', 'precipiceblades', 'quickattack', 'quickguard', 'quiverdance', 'ragepowder', 'razorleaf', 'razorwind', 'reflect', 'relicsong', 'rockslide', 'rocktomb',
+	'sacredfire', 'sandsearstorm', 'scaryface', 'screech', 'searingshot', 'selfdestruct', 'shadowsneak', 'shellsmash', 'shelltrap', 'shiftgear', 'shoreup', 'signalbeam', 'silktrap', 'simplebeam', 'sing', 'skillswap', 'skittersmack',
+	'skydrop', 'sleeppowder', 'sludgewave', 'snarl', 'soak', 'solarbeam', 'solarblade', 'sparklingaria', 'spicyextract', 'spikes', 'spore', 'springtidestorm', 'stealthrock', 'stickyweb', 'stringshot', 'strugglebug', 'stunspore',
+	'suckerpunch', 'superfang', 'surf', 'swift', 'swordsdance', 'synchronoise', 'synthesis', 'syrupbomb', 'tailwhip', 'tailwind', 'tarshot', 'taunt', 'tearfullook', 'thousandarrows', 'thousandwaves', 'thunder', 'thunderwave',
+	'thunderclap', 'thunderouskick', 'tickle', 'tidyup', 'torchsong', 'torment', 'toxicspikes', 'toxicthread', 'trailblaze', 'trickroom', 'tropkick', 'twister', 'uturn', 'vacuumwave', 'victorydance', 'voltswitch', 'watershuriken',
+	'watersport', 'waterspout', 'weatherball', 'wideguard', 'wildboltstorm', 'willowisp', 'worryseed', 'yawn', 'zapcannon'
+];
+*/
 
 				// next, set HP
-				// only keep going if maxbst is okay with it
 				let sampleHp1 = (((poke.crossHp * 2 + 141) * (poke.crossDef * 2 + 36)) + ((poke.crossHp * 2 + 141) * (poke.crossSpD * 2 + 36))) * 4/3;
 				let sampleHp2 = (((poke.crossHp * 2 + 141) * (poke.crossDef * 2 + 56)) + ((poke.crossHp * 2 + 141) * (poke.crossSpD * 2 + 56)));
 				let targetHp = (((poke.crossHp * 2 + 141) * Math.sqrt(sampleHp1 / sampleHp2)) - 141) / 2;
 				for (let i = 1; i < 20; i++) {
 					if (poke.crossHp >= targetHp) break;
 					if (poke.crossHp >= 250) break;
+					// only keep going for as long as maxbst is okay with it
 					if ((poke.crossHp + poke.crossAtk + poke.crossDef + poke.crossSpA + poke.crossSpD + poke.crossSpe + 5) > maxbst) break;
 					poke.crossHp += 5;
 				}
@@ -1719,12 +1754,11 @@ export const Scripts: ModdedBattleScriptsData = {
 					if (poke.crossSpD === poke.randSpD) unmoddedStats.push('crossSpD');
 					if (unmoddedStats.length) {
 						let chosenStat = unmoddedStats[Math.floor(Math.random() * unmoddedStats.length)];
-						poke[chosenStat] += bonusBoost - 10; // do 10 less first
-						if (['crossSpA', 'crossAtk'].includes(chosenStat) && ((poke.crossHp + poke.crossAtk + poke.crossDef + poke.crossSpA + poke.crossSpD + poke.crossSpe + 10) < maxbst)) poke[chosenStat] += 10; // go all the way if room
+						poke[chosenStat] += bonusBoost;
 					}
 				}
 
-				// then boost the rest at random
+				// boost the middle 4 stats in a random order until all of them have been touched once (the order being random is just in case they hit the BST limit early)
 				for (let i = 1; i < 4; i++) {
 					if ((poke.crossHp + poke.crossAtk + poke.crossDef + poke.crossSpA + poke.crossSpD + poke.crossSpe + 10) > maxbst) break;
 					const unmoddedStats: string[] = [];
@@ -1734,19 +1768,19 @@ export const Scripts: ModdedBattleScriptsData = {
 					if (poke.crossSpD === poke.randSpD) unmoddedStats.push('crossSpD');
 					if (unmoddedStats.length) {
 						let chosenStat = unmoddedStats[Math.floor(Math.random() * unmoddedStats.length)];
-						poke[chosenStat] += 10; // do 10 at first
-						if (['crossSpA', 'crossAtk'].includes(chosenStat) && ((poke.crossHp + poke.crossAtk + poke.crossDef + poke.crossSpA + poke.crossSpD + poke.crossSpe + 10) < maxbst)) poke[chosenStat] += 10; // go 20 if room
+						poke[chosenStat] += 10;
 					}
 				}
 
-				// two more fully random +10s
-				const allStats: string[] = ['crossHp', 'crossAtk', 'crossDef', 'crossSpA', 'crossSpD', 'crossSpe'];
+				// finish off with two more fully random +10s
+				const allStats: string[] = ['crossHp', 'crossAtk', 'crossDef', 'crossSpA', 'crossSpD'];
+				if (!(poke.crossSpe < poke.randSpe)) allStats.push('crossSpe'); // only if it didn't already go down on purpose in an earlier step
 				poke[allStats[Math.floor(Math.random() * allStats.length)]] += 10;
 				poke[allStats[Math.floor(Math.random() * allStats.length)]] += 10;
 
 
 
-				// prevos are just the same changes scaled down
+				// prevos are just the same changes as the final stage scaled down
 				if (poke.prevo) {
 					const poke2 = this.dataCache.Pokedex[this.toID(poke.prevo)];
 					poke2.randHp = poke2.baseStats.hp + (hpDelta / 2);
