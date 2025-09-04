@@ -433,7 +433,7 @@ export const Scripts: ModdedBattleScriptsData = {
 			if (poke.forme && (poke.forme === "Galar" || poke.forme === "Hisui" || poke.baseSpecies === "Tauros")) future = true;
 
 			// just for sanity checks and tracking later
-			poke.listOfCertainMoves: string[] = [];
+			poke.listOfCertainMoves = [];
 
 			// RANDOM ABILITY
 			// todo:
