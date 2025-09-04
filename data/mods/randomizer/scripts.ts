@@ -1672,7 +1672,7 @@ export const Scripts: ModdedBattleScriptsData = {
 				if (
 					poke.chosenTypes.type1 === "Dragon" || poke.chosenTypes.type2 === "Dragon" ||
 					poke.types[0] === "Dragon" || (poke.types[1] && poke.types[1] === "Dragon") ||
-					poke.eggGroups[0] === 'Dragon' || (poke.eggGroups[1] && poke.eggGroups[1] === 'Dragon'
+					poke.eggGroups[0] === 'Dragon' || (poke.eggGroups[1] && poke.eggGroups[1] === 'Dragon')
 				) maxbst = 600; // okay? okay
 				// hey Iris is the Champion anyway
 
