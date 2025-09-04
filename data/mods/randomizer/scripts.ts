@@ -1718,7 +1718,7 @@ export const Scripts: ModdedBattleScriptsData = {
 					if (unmoddedStats.length) {
 						let chosenStat = unmoddedStats[Math.floor(Math.random() * unmoddedStats.length)];
 						poke[chosenStat] += bonusBoost - 10; // do 10 less first
-						if ((poke.crossHp + poke.crossAtk + poke.crossDef + poke.crossSpA + poke.crossSpD + poke.crossSpe + 10) < maxbst) poke[chosenStat] += 10; // go all the way if room
+						if (['crossSpA', 'crossAtk'].includes(chosenStat) && ((poke.crossHp + poke.crossAtk + poke.crossDef + poke.crossSpA + poke.crossSpD + poke.crossSpe + 10) < maxbst)) poke[chosenStat] += 10; // go all the way if room
 					}
 				}
 
@@ -1733,7 +1733,7 @@ export const Scripts: ModdedBattleScriptsData = {
 					if (unmoddedStats.length) {
 						let chosenStat = unmoddedStats[Math.floor(Math.random() * unmoddedStats.length)];
 						poke[chosenStat] += 10; // do 10 at first
-						if ((poke.crossHp + poke.crossAtk + poke.crossDef + poke.crossSpA + poke.crossSpD + poke.crossSpe + 10) < maxbst) poke[chosenStat] += 10; // go 20 if room
+						if (['crossSpA', 'crossAtk'].includes(chosenStat) && ((poke.crossHp + poke.crossAtk + poke.crossDef + poke.crossSpA + poke.crossSpD + poke.crossSpe + 10) < maxbst)) poke[chosenStat] += 10; // go 20 if room
 					}
 				}
 
