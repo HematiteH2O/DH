@@ -1675,6 +1675,8 @@ export const Scripts: ModdedBattleScriptsData = {
 					poke.eggGroups[0] === 'Dragon' || (poke.eggGroups[1] && poke.eggGroups[1] === 'Dragon')
 				) maxbst = 600; // okay? okay
 				// hey Iris is the Champion anyway
+				
+				maxbst -= 20; // actually I want a completely random +20 at the end so
 
 				let bonusBoost = 0;
 				if (poke.crossSpA > poke.crossAtk) { // if it's special
@@ -1736,6 +1738,11 @@ export const Scripts: ModdedBattleScriptsData = {
 						if (['crossSpA', 'crossAtk'].includes(chosenStat) && ((poke.crossHp + poke.crossAtk + poke.crossDef + poke.crossSpA + poke.crossSpD + poke.crossSpe + 10) < maxbst)) poke[chosenStat] += 10; // go 20 if room
 					}
 				}
+
+				// two more fully random +10s
+				const allStats: string[] = ['crossHp', 'crossAtk', 'crossDef', 'crossSpA', 'crossSpD', 'crossSpe'];
+				poke[allStats[Math.floor(Math.random() * allStats.length)]] += 10;
+				poke[allStats[Math.floor(Math.random() * allStats.length)]] += 10;
 
 
 
