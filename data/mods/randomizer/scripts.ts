@@ -1507,14 +1507,14 @@ export const Scripts: ModdedBattleScriptsData = {
 							}
 						}
 						secondMoveName += `*`; // all of them are asterisks and missing it causes them to appear twice
-						if (!secondMoveLearnedByTmAlready) poke.additionalTms.push(secondMoveName);
+						if (!secondMoveLearnedByTmAlready && !poke.additionalTms.includes(secondMoveName)) poke.additionalTms.push(secondMoveName);
 					}
 
 					// resume
 					if (genVTms.includes(moveid)) {
 						moveName = move.tmid ? move.tmid : `x ` + move.name;
 						if (asterisk) moveName += `*`;
-						if (!genVLearnedTmAlready) poke.additionalTms.push(moveName); // make sure to identify TMs that need to be added manually
+						if (!genVLearnedTmAlready && !poke.additionalTms.includes(moveName)) poke.additionalTms.push(moveName); // make sure to identify TMs that need to be added manually
 						if (levelLearned === 101 && !postgameTms.includes(moveid)) continue; // skip level 0 moves if they're on the Gen V TM/tutor list
 						// reset the tmid label (thanks Raticate)
 						moveName = move.name;
@@ -1704,7 +1704,6 @@ export const Scripts: ModdedBattleScriptsData = {
 				}
 				if (poke.backports.length) {
 					poke.backports.sort();
-					poke.backports.reduce();
 					// TODO: these should include (and be sorted by) TM numbers, ideally
 					sheetOutput += `\n~ Possible backports\n`
 					for (const moveid of poke.backports) sheetOutput += moveid + `, `;
@@ -1712,7 +1711,6 @@ export const Scripts: ModdedBattleScriptsData = {
 				}
 				if (poke.additionalTms.length) {
 					poke.additionalTms.sort();
-					poke.additionalTms.reduce();
 					// TODO: these should include (and be sorted by) TM numbers, ideally
 					sheetOutput += `\n~ Additional TMs and tutors\n`
 					for (const moveid of poke.additionalTms) {
