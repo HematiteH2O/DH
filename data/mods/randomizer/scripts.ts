@@ -1848,7 +1848,7 @@ export const Scripts: ModdedBattleScriptsData = {
 					const strongPrio = ['extremespeed', 'suckerpunch', 'jetpunch', 'firstimpression', 'fakeout']; // don't care if STAB
 					const prio = ['accelerock', 'aquajet', 'bulletpunch', 'iceshard', 'machpunch', 'quickattack', 'shadowsneak'];
 					const spread = ['earthquake', 'petalblizzard', 'bulldoze', 'brutalswing', 'magnitude', 'precipiceblades', 'glaciallance', 'diamondstorm', 'thousandarrows', 'thousandwaves', 'landswrath', 'rockslide', 'breakingswipe', 'razorleaf'];
-					const heal = ['healorder', 'roost', 'recover', 'softboiled', 'milkdrink', 'slackoff', 'floralhealing', 'healpulse', 'lifedew'],
+					const heal = ['healorder', 'roost', 'recover', 'softboiled', 'milkdrink', 'slackoff', 'floralhealing', 'healpulse', 'lifedew'];
 					const drain = ['drainpunch', 'hornleech', 'leechlife', 'bitterblade'];
 					const pivot = ['uturn', 'voltswitch', 'flipturn', 'batonpass', 'partingshot', 'teleport'];
 
@@ -1883,7 +1883,7 @@ export const Scripts: ModdedBattleScriptsData = {
 					const strongPrio = ['thunderclap'];
 					const prio = ['vacuumwave', 'watershuriken'];
 					const spread = ['boomburst', 'searingshot', 'sludgewave', 'surf', 'sparklingaria', 'lavaplume', 'discharge', 'paraboliccharge', 'waterspout', 'eruption', 'dragonenergy', 'makeitrain', 'astralbarrage', 'originpulse', 'clangingscales', 'blizzaard', 'wildboltstorm', 'springtidestorm', 'sandsearstorm', 'coreenforcer', 'bleakwindstorm', 'heatwave', 'muddywater', 'hypervoice', 'fierywrath', 'overdrive', 'matchagotcha', 'relicsong', 'glaciate', 'swift', 'incinerate', 'aircutter', 'snarl', 'icywind', 'electroweb', 'strugglebug'];
-					const heal = ['healorder', 'roost', 'recover', 'softboiled', 'milkdrink', 'slackoff', 'floralhealing', 'healpulse', 'lifedew'],
+					const heal = ['healorder', 'roost', 'recover', 'softboiled', 'milkdrink', 'slackoff', 'floralhealing', 'healpulse', 'lifedew'];
 					const drain = ['paraboliccharge', 'gigadrain', 'matchagotcha'];
 					const pivot = ['uturn', 'voltswitch', 'flipturn', 'batonpass', 'partingshot', 'teleport'];
 
