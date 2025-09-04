@@ -1604,6 +1604,11 @@ export const Scripts: ModdedBattleScriptsData = {
 							if (movesAfterGenV.includes(this.toID(secondMove.name))) moveName = moveName + ` (new)`; // identify post-Gen V moves
 							else moveName = moveName + ` (x)`;
 						}
+						if (secondMove) {
+							 moveName += ` ~ ` + secondMove.type;
+						} else {
+							 moveName += ` ~ ` + move.type;
+						}
 						// either way
 						poke.learnsetCumulative.learnset[levelLearned].movesLearned.push(moveName);
 					}
