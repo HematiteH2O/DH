@@ -1,7 +1,7 @@
 // TODO:
-// - base stats
-// - evolution lines (including correct Abilities and stats for crossgens)
-// - stop the same move from showing up twice in TM list (looks like secondMoves are showing up once with and once without an asterisk)
+// - finish crossgen stat refinement (only thing left should be the Abilities listed at the bottom of Speed)
+// - do the non-crossgen stat randomizer... with probably somewhat similar steps, but hopefully less complicated Speed checks, and also potential for a drastic stat swing
+// - list out some kinds of utility for convenience before exporting for a sheet
 
 const pushLevelUp = [
 	'accelerock', 'acid', 'acidspray', 'acupressure', 'afteryou', 'aircutter', 'allyswitch', 'appleacid', 'aquajet', 'aquastep', 'astralbarrage', 'aurawheel', 'babydolleyes', 'batonpass', 'bellydrum', 'bitterblade', 'bittermalice',
@@ -1784,7 +1784,7 @@ export const Scripts: ModdedBattleScriptsData = {
 
 				// nerf to 85ish if it has extremely strong priority and offensive setup that it can use together
 				if (poke.crossAtk > 99 && targetSpe > 85) {
-					const booster = ['adaptability', 'angerpoint', 'defiant', 'guts', 'hugepower', 'hustle', 'purepower', 'technician'];
+					const booster = ['Adaptability', 'Anger Point', 'Defiant', 'Guts', 'Huge Power', 'Hustle', 'Pure Power', 'Technician'];
 					const setup = ['bulkup', 'clangoroussoul', 'coil', 'dragondance', 'growth', 'howl', 'noretreat', 'shiftgear', 'tidyup', 'victorydance'];
 					const strongPrio = ['extremespeed', 'suckerpunch', 'jetpunch'];
 					const prio = ['accelerock', 'aquajet', 'bulletpunch', 'iceshard', 'machpunch', 'quickattack', 'shadowsneak'];
@@ -1800,7 +1800,7 @@ export const Scripts: ModdedBattleScriptsData = {
 					if (hasSetup && hasPrio) targetSpe = 85;
 				}
 				if (poke.crossSpA > 99 && targetSpe > 85) {
-					const booster = ['adaptability', 'technician'];
+					const booster = ['Adaptability', 'Technician'];
 					const setup = ['calmmind', 'clangoroussoul', 'growth', 'noretreat', 'torchsong', 'quiverdance'];
 					const strongPrio = ['thunderclap'];
 					const prio = ['vacuumwave', 'watershuriken'];
@@ -1817,7 +1817,7 @@ export const Scripts: ModdedBattleScriptsData = {
 				}
 
 				// 85ish is established to be a good range for weatherspeed, too
-				const weatherspeed = ['swiftswim', 'chlorophyll', 'sandrush'];
+				const weatherspeed = ['Swift Swim', 'Chlorophyll', 'Sand Rush'];
 				let hasWeatherspeed = false;
 				for (const abilCheck in poke.crossgenAbilities) if (weatherspeed.includes(poke.crossgenAbilities[abilCheck])) hasWeatherspeed = true;
 				if (hasWeatherspeed) {
@@ -1847,7 +1847,7 @@ export const Scripts: ModdedBattleScriptsData = {
 					const setup = ['bulkup', 'clangoroussoul', 'coil', 'dragondance', 'growth', 'howl', 'noretreat', 'shiftgear', 'tidyup', 'victorydance'];
 					const strongPrio = ['extremespeed', 'suckerpunch', 'jetpunch', 'firstimpression', 'fakeout']; // don't care if STAB
 					const prio = ['accelerock', 'aquajet', 'bulletpunch', 'iceshard', 'machpunch', 'quickattack', 'shadowsneak'];
-					const spread = ['earthquake', 'petalblizzard', 'bulldoze', 'brutalswing', 'magnitude', 'precipiceblades', 'glaciallance', 'diamondstorm', 'thousandarrows', 'thousandwaves', 'landswrath', 'rockslide', 'breakingswipe', 'razorleaf'];
+					const spread = ['earthquake', 'petalblizzard', 'brutalswing', 'precipiceblades', 'glaciallance', 'diamondstorm', 'thousandarrows', 'thousandwaves', 'landswrath', 'rockslide', 'breakingswipe'];
 					const heal = ['healorder', 'roost', 'recover', 'softboiled', 'milkdrink', 'slackoff', 'floralhealing', 'healpulse', 'lifedew', 'followme', 'ragepowder'];
 					const drain = ['drainpunch', 'hornleech', 'leechlife', 'bitterblade'];
 					const pivot = ['uturn', 'voltswitch', 'flipturn', 'batonpass', 'partingshot', 'teleport'];
@@ -1882,7 +1882,7 @@ export const Scripts: ModdedBattleScriptsData = {
 					const setup = ['calmmind', 'clangoroussoul', 'growth', 'noretreat', 'torchsong', 'quiverdance'];
 					const strongPrio = ['thunderclap'];
 					const prio = ['vacuumwave', 'watershuriken'];
-					const spread = ['boomburst', 'searingshot', 'sludgewave', 'surf', 'sparklingaria', 'lavaplume', 'discharge', 'paraboliccharge', 'waterspout', 'eruption', 'dragonenergy', 'makeitrain', 'astralbarrage', 'originpulse', 'clangingscales', 'blizzaard', 'wildboltstorm', 'springtidestorm', 'sandsearstorm', 'coreenforcer', 'bleakwindstorm', 'heatwave', 'muddywater', 'hypervoice', 'fierywrath', 'overdrive', 'matchagotcha', 'relicsong', 'glaciate', 'swift', 'incinerate', 'aircutter', 'snarl', 'icywind', 'electroweb', 'strugglebug'];
+					const spread = ['boomburst', 'searingshot', 'sludgewave', 'surf', 'sparklingaria', 'lavaplume', 'discharge', 'paraboliccharge', 'waterspout', 'eruption', 'dragonenergy', 'makeitrain', 'astralbarrage', 'originpulse', 'clangingscales', 'blizzaard', 'wildboltstorm', 'springtidestorm', 'sandsearstorm', 'coreenforcer', 'bleakwindstorm', 'heatwave', 'muddywater', 'hypervoice', 'fierywrath', 'overdrive', 'matchagotcha', 'relicsong', 'glaciate', 'snarl', 'icywind', 'electroweb', 'strugglebug'];
 					const heal = ['healorder', 'roost', 'recover', 'softboiled', 'milkdrink', 'slackoff', 'floralhealing', 'healpulse', 'lifedew', 'followme', 'ragepowder'];
 					const drain = ['paraboliccharge', 'gigadrain', 'matchagotcha'];
 					const pivot = ['uturn', 'voltswitch', 'flipturn', 'batonpass', 'partingshot', 'teleport'];
@@ -1934,11 +1934,38 @@ export const Scripts: ModdedBattleScriptsData = {
 					if (hasMove) targetSpe = 65;
 				}
 
-				// nerf to 50 if it seems like a wall type and has reliable recovery (???)
-				// lower to sub-30 if it seems like it would be better for Trick Room anyway (list ways to tell?)
-				// maybe I should actually lowball all of these by at least 5 because the final step might randomize it further
+				if (poke.listOfCertainMoves.includes('spore')) {
+					if (targetSpe > poke.crossSpe) {
+						if (55 > poke.crossSpe) targetSpe = 55;
+						else targetSpe = poke.crossSpe;
+					}
+				}
 
-				poke.crossSpe = targetSpe; // temporary measure I just want to see what it puts out
+				// nerf to 50 if it seems like a wall type and has reliable recovery (???)
+
+				// lower to sub-30 if it seems like it would be better for Trick Room anyway (list ways to tell?)
+// ['adaptability', 'analytic', 'ironfist', 'reckless', 'sheerforce', 'toxicboost', 'flareboost', 'angerpoint', 'defiant', 'guts', 'hugepower', 'hustle', 'moxie', 'purepower']
+// actually Ability checks should be capitalized (name, not ID)
+// but realistically these have their own individual stat limits and concerns... I'll also want to handle offenses I think
+
+				// maybe I should actually lowball all of these by at least 5 because the final step might randomize it further
+				targetSpe -= 5;
+
+				if (poke.crossSpe < targetSpe) {
+					for (let i = 1; i < 20; i++) {
+						if (poke.crossSpe >= targetSpe - 4) break;
+						poke.crossSpe += 5;
+					}
+				} else {
+					for (let i = 1; i < 20; i++) {
+						if (poke.crossSpe <= targetSpe + 4) break;
+						poke.crossSpe -= 5;
+					}
+				}
+
+				// the fun thing is that...
+				// I have no idea how much some of this works because there's so much randomization,
+				// but never knowing what's gonna come out is half the fun anyway P:
 
 /*
 // offensive setup:
