@@ -1702,7 +1702,9 @@ export const Scripts: ModdedBattleScriptsData = {
 				// ignore concerns about setup for either offense if the offense in question is less than ~80
 
 				// uhh... default to 120 or the prior stage's Speed (whichever is greater), but almost nothing is gonna stay there
-				// nerf to 110 if any offensive setup
+				let targetSpe = 120;
+				if (poke.randSpe > 120) targetSpe = poke.randSpe;
+				// nerf to 110 if any usable offensive setup
 				// nerf to 100 if setup and dual-typed (with decent synergy?)
 				// nerf to 90 if setup and the offensive setup is +2
 				// nerf to 85 if an offense is ~130+ or there's a matching physical STAB of 120 BP+
@@ -1715,22 +1717,30 @@ export const Scripts: ModdedBattleScriptsData = {
 				// maybe I should actually lowball all of these by at least 5 because the final step might randomize it further
 
 /*
-const pushLevelUp = [
-	'accelerock', 'acid', 'acidspray', 'acupressure', 'afteryou', 'aircutter', 'allyswitch', 'appleacid', 'aquajet', 'aquastep', 'astralbarrage', 'aurawheel', 'babydolleyes', 'batonpass', 'bellydrum', 'bitterblade', 'bittermalice',
-	'bleakwindstorm', 'blizzard', 'boomburst', 'breakingswipe', 'brutalswing', 'bubble', 'bulkup', 'bulldoze', 'bulletpunch', 'burningjealousy', 'calmmind', 'captivate', 'chargebeam', 'charm', 'chillingwater', 'clangingscales',
-	'clangoroussoul', 'coil', 'coreenforcer', 'cottonspore', 'counter', 'curse', 'darkvoid', 'dazzlinggleam', 'decorate', 'destinybond', 'diamondstorm', 'disable', 'disarmingvoice', 'discharge', 'dragondance', 'dragonenergy',
-	'drainpunch', 'dreameater', 'drumbeating', 'earthquake', 'eerieimpulse', 'electroweb', 'encore', 'endeavor', 'entrainment', 'eruption', 'esperwing', 'expandingforce', 'explosion', 'extremespeed', 'fakeout', 'faketears',
-	'featherdance', 'feint', 'fierydance', 'fierywrath', 'firstimpression', 'flamecharge', 'flipturn', 'followme', 'foulplay', 'geomancy', 'gigadrain', 'glaciallance', 'glaciate', 'glare', 'grasswhistle', 'gravapple', 'gravity',
-	'growl', 'growth', 'haze', 'healpulse', 'heatwave', 'helpinghand', 'hornleech', 'howl', 'hurricane', 'hypervoice', 'hypnosis', 'iceshard', 'icywind', 'incinerate', 'inferno', 'jetpunch', 'knockoff', 'landswrath', 'lavaplume',
-	'leechlife', 'leechseed', 'leer', 'lightscreen', 'lovelykiss', 'lowsweep', 'luminacrash', 'lunge', 'machpunch', 'makeitrain', 'matchagotcha', 'memento', 'metalburst', 'metalsound', 'mindblown', 'mirrorcoat', 'moonlight',
-	'morningsun', 'mortalspin', 'mudshot', 'mudsport', 'muddywater', 'mysticalfire', 'nastyplot', 'noretreat', 'nobleroar', 'nuzzle', 'oblivionwing', 'originpulse', 'overdrive', 'paraboliccharge', 'partingshot', 'perishsong',
-	'petalblizzard', 'poisongas', 'pounce', 'powdersnow', 'poweruppunch', 'precipiceblades', 'quickattack', 'quickguard', 'quiverdance', 'ragepowder', 'razorleaf', 'razorwind', 'reflect', 'relicsong', 'rockslide', 'rocktomb',
-	'sacredfire', 'sandsearstorm', 'scaryface', 'screech', 'searingshot', 'selfdestruct', 'shadowsneak', 'shellsmash', 'shelltrap', 'shiftgear', 'shoreup', 'signalbeam', 'silktrap', 'simplebeam', 'sing', 'skillswap', 'skittersmack',
-	'skydrop', 'sleeppowder', 'sludgewave', 'snarl', 'soak', 'solarbeam', 'solarblade', 'sparklingaria', 'spicyextract', 'spikes', 'spore', 'springtidestorm', 'stealthrock', 'stickyweb', 'stringshot', 'strugglebug', 'stunspore',
-	'suckerpunch', 'superfang', 'surf', 'swift', 'swordsdance', 'synchronoise', 'synthesis', 'syrupbomb', 'tailwhip', 'tailwind', 'tarshot', 'taunt', 'tearfullook', 'thousandarrows', 'thousandwaves', 'thunder', 'thunderwave',
-	'thunderclap', 'thunderouskick', 'tickle', 'tidyup', 'torchsong', 'torment', 'toxicspikes', 'toxicthread', 'trailblaze', 'trickroom', 'tropkick', 'twister', 'uturn', 'vacuumwave', 'victorydance', 'voltswitch', 'watershuriken',
-	'watersport', 'waterspout', 'weatherball', 'wideguard', 'wildboltstorm', 'willowisp', 'worryseed', 'yawn', 'zapcannon'
-];
+// offensive setup:
+					['bulkup', 'clangoroussoul', 'coil', 'dragondance', 'growth', 'howl', 'noretreat', 'shiftgear', 'tidyup', 'victorydance']
+					['calmmind', 'clangoroussoul', 'growth', 'noretreat', 'torchsong', 'quiverdance']
+// offensive setup +2:
+					['swordsdance', 'bellydrum']
+					['nastyplot', 'tailglow']
+// offensive setup +1 Speed:
+					['clangoroussoul', 'dragondance', 'noretreat', 'tidyup', 'victorydance']
+					['clangoroussoul', 'noretreat', 'quiverdance']
+// setup +2 Speed:
+					['shiftgear', 'filletaway', 'shellsmash']
+					['geomancy', 'filletaway', 'shellsmash']
+					['agility', 'autotomize', 'rockpolish', 'shiftgear'] and 135+ offense
+// strong priority conditions
+					['extremespeed', 'suckerpunch', 'thunderclap', 'jetpunch']
+					['accelerock', 'aquajet', 'bulletpunch', 'iceshard', 'machpunch', 'quickattack', 'shadowsneak', 'vacuumwave', 'watershuriken'] + STAB and a passive damage boost
+// noteworthy utility tools that I care about for 75 Speed range...
+					thinking like a crazy hodgepodge of relevant tools: strong priority (or Fake Out / First Impression this time), spread, some kind of healing, pivoting? hitting 3 of the 4 categories at leaast
+// 120+ BP moves that matter... IF they have STAB
+					['headsmash', 'highjumpkick', 'boltstrike', 'woodhammer', 'wavecrash', 'volttackle', 'thrash', 'outrage', 'ragingfury', 'shadowforce', 'pyroball', 'precipiceblades', 'powerwhip', 'megahorn', 'megakick', 'headlongrush', 'headcharge', 'gunkshot', 'glaiverush', 'glaciallance', 'flareblitz', 'dragonascent', 'doubleedge', 'closecombat', 'bravebird', 'axekick']
+					['waterspout', 'eruption', 'dragonenergy', 'chloroblast', 'mindblown', 'steelbeam', 'blueflare', 'petaldance', 'seedflare', 'makeitrain', 'astralbarrage', 'armorcannon']
+// edge cases...
+					// uhh... Curse and Spore come to mind? but I think Trick Room will be more about damage-boosting Abilities than anything
+	  				['adaptability', 'analytic', 'ironfist', 'reckless', 'sheerforce', 'toxicboost', 'angerpoint', 'defiant', 'guts', 'hugepower', 'hustle', 'moxie', 'purepower']
 */
 
 				// next, set HP
