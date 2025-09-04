@@ -1922,7 +1922,7 @@ export const Scripts: ModdedBattleScriptsData = {
 					if (hasMove) targetSpe = 65;
 				}
 				if (poke.crossAtk > 79) {
-					const setup = ['shiftgear', 'filletaway', 'shellsmash';
+					const setup = ['shiftgear', 'filletaway', 'shellsmash'];
 					let hasMove = false;
 					for (const moveCheck of setup) if (poke.listOfCertainMoves.includes(moveCheck)) hasMove = true;
 					if (hasMove) targetSpe = 65;
