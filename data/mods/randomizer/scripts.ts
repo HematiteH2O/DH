@@ -374,7 +374,7 @@ export const Scripts: ModdedBattleScriptsData = {
 			// anti-weather
 			'cloudnine', 'airlock',
 			// unique support
-			'friendguard', 'regenerator', 'healer', 'noguard', 'scrappy', 'unnerve', 'telepathy', 'justified', 'rattled', 'angerpoint',
+			'friendguard', 'regenerator', 'healer', 'noguard', 'scrappy', 'unnerve', 'telepathy', 'justified', 'rattled', 'angerpoint', 'illusion',
 		];
 		const abilityRank3 = [
 			// anti-Intimidate
