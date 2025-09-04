@@ -1698,12 +1698,9 @@ export const Scripts: ModdedBattleScriptsData = {
 
 				// next, set HP
 				// only keep going if maxbst is okay with it
-				let sampleHp1 = (((poke.crossHp * 2 + 141) * (poke.crossDef * 2 + 36)) + ((poke.crossHp * 2 + 141) * (poke.crossSpD * 2 + 36)));
-				sampleHp1 *= 4/3;
+				let sampleHp1 = (((poke.crossHp * 2 + 141) * (poke.crossDef * 2 + 36)) + ((poke.crossHp * 2 + 141) * (poke.crossSpD * 2 + 36))) * 4/3;
 				let sampleHp2 = (((poke.crossHp * 2 + 141) * (poke.crossDef * 2 + 56)) + ((poke.crossHp * 2 + 141) * (poke.crossSpD * 2 + 56)));
-				sampleHp2 *= 4/3;
-				hpMod = Math.sqrt(sampleHp1 / sampleHp2);
-				let targetHp = (((poke.crossHp * 2 + 141) * hpMod) - 141) / 2;
+				let targetHp = (((poke.crossHp * 2 + 141) * Math.sqrt(sampleHp1 / sampleHp2)) - 141) / 2;
 				for (let i = 1; i < 10; i++) {
 					if (poke.crossHp >= targetHp) break;
 					if (poke.crossHp >= 255) break;
