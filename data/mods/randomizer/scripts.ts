@@ -1459,6 +1459,7 @@ export const Scripts: ModdedBattleScriptsData = {
 								}
 							}
 						}
+						secondMoveName += `*`; // all of them are asterisks and missing it causes them to appear twice
 						if (!secondMoveLearnedByTmAlready) poke.additionalTms.push(secondMoveName);
 					}
 
