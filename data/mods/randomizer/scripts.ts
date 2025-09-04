@@ -12,7 +12,7 @@ const pushLevelUp = [
 	'growl', 'growth', 'haze', 'healpulse', 'heatwave', 'helpinghand', 'hornleech', 'howl', 'hurricane', 'hypervoice', 'hypnosis', 'iceshard', 'icywind', 'incinerate', 'inferno', 'jetpunch', 'knockoff', 'landswrath', 'lavaplume',
 	'leechlife', 'leechseed', 'leer', 'lightscreen', 'lovelykiss', 'lowsweep', 'luminacrash', 'lunge', 'machpunch', 'makeitrain', 'matchagotcha', 'memento', 'metalburst', 'metalsound', 'mindblown', 'mirrorcoat', 'moonlight',
 	'morningsun', 'mortalspin', 'mudshot', 'mudsport', 'muddywater', 'mysticalfire', 'nastyplot', 'noretreat', 'nobleroar', 'nuzzle', 'oblivionwing', 'originpulse', 'overdrive', 'paraboliccharge', 'partingshot', 'perishsong',
-	'petalblizzard', 'poisongas', 'pounce', 'powdersnow', 'poweruppunch', 'precipiceblades', 'quickattack', 'quickguard', 'quiverdance', 'ragepowder', 'razorleaf', 'razorwind', 'reflect', 'relicsong', 'rockslide', 'rocktomb',
+	'petalblizzard', 'poisongas', 'pounce', 'powdersnow', 'poweruppunch', 'precipiceblades', 'psychicnoise', 'quickattack', 'quickguard', 'quiverdance', 'ragepowder', 'razorleaf', 'razorwind', 'reflect', 'relicsong', 'rockslide', 'rocktomb',
 	'sacredfire', 'sandsearstorm', 'scaryface', 'screech', 'searingshot', 'selfdestruct', 'shadowsneak', 'shellsmash', 'shelltrap', 'shiftgear', 'shoreup', 'signalbeam', 'silktrap', 'simplebeam', 'sing', 'skillswap', 'skittersmack',
 	'skydrop', 'sleeppowder', 'sludgewave', 'snarl', 'soak', 'solarbeam', 'solarblade', 'sparklingaria', 'spicyextract', 'spikes', 'spore', 'springtidestorm', 'stealthrock', 'stickyweb', 'stringshot', 'strugglebug', 'stunspore',
 	'suckerpunch', 'superfang', 'surf', 'swift', 'swordsdance', 'synchronoise', 'synthesis', 'syrupbomb', 'tailwhip', 'tailwind', 'tarshot', 'taunt', 'tearfullook', 'thousandarrows', 'thousandwaves', 'thunder', 'thunderwave',
@@ -140,7 +140,7 @@ Other post-Gen V moves I probably *can* backport if it comes up
 const movesAfterGenV = [
 	'phantomforce', 'nobleroar', 'paraboliccharge', 'petalblizzard', 'boomburst', 'playnice', 'confide', 'diamondstorm', 'steameruption', 'hyperspacehole',
 	'watershuriken', 'aromaticmist', 'babydolleyes', 'nuzzle', 'infestation', 'poweruppunch',
-	'firstimpression', 'spiritshackle', 'darkestlariat', 'icehammer', 'highhorsepower', 'solarblade', 'anchorshot', 'lunge', 'firelash',
+	'firstimpression', 'darkestlariat', 'icehammer', 'highhorsepower', 'solarblade', 'lunge', 'firelash',
 	'powertrip', 'smartstrike', 'tropkick', 'clangingscales', 'dragonhammer', 'brutalswing', 'psychicfangs', 'shadowbone', 'accelerock', 'liquidation',
 	'tearfullook', 'zingzap', 'mindblown',
 	'snipeshot', 'decorate', 'drumbeating', 'snaptrap', 'pyroball', 'breakingswipe', 'overdrive', 'appleacid', 'lifedew', 'falsesurrender',
@@ -149,9 +149,8 @@ const movesAfterGenV = [
 	'wildboltstorm', 'sandsearstorm',
 	'axekick', 'luminacrash', 'jetpunch', 'spicyextract', 'spinout', 'populationbomb', 'tripledive', 'kowtowcleave', 'flowertrick', 'torchsong',
 	'aquastep', 'makeitrain', 'pounce', 'trailblaze', 'chillingwater', 'hyperdrill', 'twinbeam', 'armorcannon', 'bitterblade', 'comeuppance', 'aquacutter',
-	'matchagotcha', 'thunderclap', 'mightycleave', 'tachyoncutter', 'hardpress', 'supercellslam', 'malignantchain',
-	'eerieimpulse', 'steelbeam',
-	'noretreat', 'clangoroussoul', // worth a shot? modifying Charge and Belly Drum might make these doable
+	'thunderclap', 'mightycleave', 'tachyoncutter', 'hardpress', 'supercellslam', 'malignantchain',
+	'eerieimpulse', 'steelbeam', 'toxicthread', 'psychicnoise', // NEAT
 	// 'leafage', 'branchpoke', // these moves are easy enough to copy over, but they're redundant so it's unhelpful to see them highlighted so often
 ];
 const moveGroups = {
