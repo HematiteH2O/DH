@@ -1769,7 +1769,7 @@ export const Scripts: ModdedBattleScriptsData = {
 					if (hasMove) targetSpe = 85;
 				}
 				if (poke.targetSpe > 85 && (poke.crossAtk > 99 || poke.crossSpA > 99)) {
-					for (const abilCheck of poke.crossgenAbilities) {
+					for (const abilCheck in poke.crossgenAbilities) {
 						if (poke.crossgenAbilities[abilCheck] === "Drought") {
 							if (pokeTypes.includes("Fire")) targetSpe = 85;
 							else if (pokeTypes.includes("Grass") && poke.crossSpA > 99 && poke.listOfCertainMoves.includes('solarbeam')) targetSpe = 85;
@@ -1792,7 +1792,7 @@ export const Scripts: ModdedBattleScriptsData = {
 					let hasSetup = false;
 					let hasPrio = false;
 
-					for (const abilCheck of poke.crossgenAbilities) if (booster.includes(poke.crossgenAbilities[abilCheck])) hasBooster = true;
+					for (const abilCheck in poke.crossgenAbilities) if (booster.includes(poke.crossgenAbilities[abilCheck])) hasBooster = true;
 					for (const moveCheck of setup) if (poke.listOfCertainMoves.includes(moveCheck)) hasSetup = true;
 					for (const moveCheck of strongPrio) if (poke.listOfCertainMoves.includes(moveCheck)) hasPrio = true;
 					if (hasBooster) for (const moveCheck of prio) if (poke.listOfCertainMoves.includes(moveCheck) && this.dataCache.Moves[moveCheck].type && pokeTypes.includes(this.dataCache.Moves[moveCheck].type)) hasPrio = true;
@@ -1808,7 +1808,7 @@ export const Scripts: ModdedBattleScriptsData = {
 					let hasSetup = false;
 					let hasPrio = false;
 
-					for (const abilCheck of poke.crossgenAbilities) if (booster.includes(poke.crossgenAbilities[abilCheck])) hasBooster = true;
+					for (const abilCheck in poke.crossgenAbilities) if (booster.includes(poke.crossgenAbilities[abilCheck])) hasBooster = true;
 					for (const moveCheck of setup) if (poke.listOfCertainMoves.includes(moveCheck)) hasSetup = true;
 					for (const moveCheck of strongPrio) if (poke.listOfCertainMoves.includes(moveCheck)) hasPrio = true;
 					if (hasBooster) for (const moveCheck of prio) if (poke.listOfCertainMoves.includes(moveCheck) && this.dataCache.Moves[moveCheck].type && pokeTypes.includes(this.dataCache.Moves[moveCheck].type)) hasPrio = true;
@@ -1819,7 +1819,7 @@ export const Scripts: ModdedBattleScriptsData = {
 				// 85ish is established to be a good range for weatherspeed, too
 				const weatherspeed = ['swiftswim', 'chlorophyll', 'sandrush'];
 				let hasWeatherspeed = false;
-				for (const abilCheck of poke.crossgenAbilities) if (weatherspeed.includes(poke.crossgenAbilities[abilCheck])) hasWeatherspeed = true;
+				for (const abilCheck in poke.crossgenAbilities) if (weatherspeed.includes(poke.crossgenAbilities[abilCheck])) hasWeatherspeed = true;
 				if (hasWeatherspeed) {
 					let speedCheck = Math.floor(Math.random() * 30) + 80; // it's okay this is a randomizer
 					if (speedCheck < targetSpe) targetSpe = speedCheck;
