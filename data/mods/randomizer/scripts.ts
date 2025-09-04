@@ -988,7 +988,7 @@ export const Scripts: ModdedBattleScriptsData = {
 					if (abilitySet.includes('Water Veil') || abilitySet.includes('Flare Boost')) {
 						if (types.includes("Fire")) score -= 10;
 					}
-					if (abilitySet.includes('Immunity') || abilitySet.includes('Toxic Boost')) {
+					if (abilitySet.includes('Immunity') || abilitySet.includes('Toxic Boost') || abilitySet.includes('Poison Heal')) {
 						if (types.includes("Steel") || types.includes("Poison")) score -= 10;
 					}
 					if (abilitySet.includes('Magma Armor')) {
@@ -1665,12 +1665,12 @@ export const Scripts: ModdedBattleScriptsData = {
 				poke.randSpe = poke.baseStats.spe + speDelta;
 
 				// obviously filler
-				poke.randHp = poke.baseStats.hp + hpDelta + 10;
-				poke.randAtk = poke.baseStats.atk + atkDelta + 10;
-				poke.randDef = poke.baseStats.def + defDelta + 10;
-				poke.randSpA = poke.baseStats.spa + spaDelta + 10;
-				poke.randSpD = poke.baseStats.spd + spdDelta + 10;
-				poke.randSpe = poke.baseStats.spe + speDelta + 10;
+				poke.crossHp = poke.baseStats.hp + hpDelta + 10;
+				poke.crossAtk = poke.baseStats.atk + atkDelta + 10;
+				poke.crossDef = poke.baseStats.def + defDelta + 10;
+				poke.crossSpA = poke.baseStats.spa + spaDelta + 10;
+				poke.crossSpD = poke.baseStats.spd + spdDelta + 10;
+				poke.crossSpe = poke.baseStats.spe + speDelta + 10;
 
 				if (poke.prevo) {
 					const poke2 = this.dataCache.Pokedex[this.toID(poke.prevo)];
