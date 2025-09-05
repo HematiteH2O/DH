@@ -1960,12 +1960,12 @@ export const Scripts: ModdedBattleScriptsData = {
 
 				for (let i = 0; i < 12; i++) { // repeat until +60 or until all stats have hit their targets
 					let eligibleStats: string[] = [];
-					if (poke.name !== "Shedinja" && poke.hpDelta < 40 && (poke.randHp + poke.hpDelta + 5 < poke.hpTarget + 1) && (poke.randHp + poke.hpDelta < 251)) eligibleStats.push('hpDelta');
-					if (poke.atkDelta < 40 && (poke.randAtk + poke.atkDelta + 5 < poke.atkTarget + 1) && (poke.randAtk + poke.atkDelta < 243)) eligibleStats.push('atkDelta');
-					if (poke.defDelta < 40 && (poke.randDef + poke.defDelta + 5 < poke.defTarget + 1) && (poke.randDef + poke.defDelta < 243)) eligibleStats.push('defDelta');
-					if (poke.spaDelta < 40 && (poke.randSpA + poke.spaDelta + 5 < poke.spaTarget + 1) && (poke.randSpA + poke.spaDelta < 243)) eligibleStats.push('spaDelta');
-					if (poke.spdDelta < 40 && (poke.randSpD + poke.spdDelta + 5 < poke.spdTarget + 1) && (poke.randSpD + poke.spdDelta < 243)) eligibleStats.push('spdDelta');
-					if (poke.speDelta < 40 && (poke.randSpe + poke.speDelta + 5 < poke.speTarget + 1) && (poke.randSpe + poke.speDelta < 243)) eligibleStats.push('speDelta');
+					if (poke.name !== "Shedinja" && poke.hpDelta < 40 && (poke.randHp + poke.hpDelta + 5 < poke.hpTarget + 3) && (poke.randHp + poke.hpDelta < 251)) eligibleStats.push('hpDelta');
+					if (poke.atkDelta < 40 && (poke.randAtk + poke.atkDelta + 5 < poke.atkTarget + 3) && (poke.randAtk + poke.atkDelta < 243)) eligibleStats.push('atkDelta');
+					if (poke.defDelta < 40 && (poke.randDef + poke.defDelta + 5 < poke.defTarget + 3) && (poke.randDef + poke.defDelta < 243)) eligibleStats.push('defDelta');
+					if (poke.spaDelta < 40 && (poke.randSpA + poke.spaDelta + 5 < poke.spaTarget + 3) && (poke.randSpA + poke.spaDelta < 243)) eligibleStats.push('spaDelta');
+					if (poke.spdDelta < 40 && (poke.randSpD + poke.spdDelta + 5 < poke.spdTarget + 3) && (poke.randSpD + poke.spdDelta < 243)) eligibleStats.push('spdDelta');
+					if (poke.speDelta < 40 && (poke.randSpe + poke.speDelta + 5 < poke.speTarget + 3) && (poke.randSpe + poke.speDelta < 243)) eligibleStats.push('speDelta');
 
 					if (!eligibleStats.length) break;
 					poke[eligibleStats[Math.floor(Math.random() * eligibleStats.length)]] += 5;
@@ -1989,12 +1989,12 @@ export const Scripts: ModdedBattleScriptsData = {
 					poke.diffSpD = poke.spdTarget - (poke.randSpD + poke.spdDelta);
 					poke.diffSpe = poke.speTarget - (poke.randSpe + poke.speDelta);
 
-					if (poke.name !== "Shedinja" && poke.hpDelta > -40 && (poke.randHp + poke.hpDelta < poke.hpTarget + 1) && (poke.randHp + poke.hpDelta > 30)) eligibleStats.push('diffHp');
-					if (poke.atkDelta > -40 && (poke.randAtk + poke.atkDelta > 0)) eligibleStats.push('diffAtk');
-					if (poke.defDelta > -40 && (poke.randDef + poke.defDelta > 0)) eligibleStats.push('diffDef');
-					if (poke.spaDelta > -40 && (poke.randSpA + poke.spaDelta > 0)) eligibleStats.push('diffSpA');
-					if (poke.spdDelta > -40 && (poke.randSpD + poke.spdDelta > 0)) eligibleStats.push('diffSpD');
-					if (poke.speDelta > -40 && (poke.randSpe + poke.speDelta > 0)) eligibleStats.push('diffSpe');
+					if (poke.name !== "Shedinja" && poke.hpDelta > -40 && (poke.randHp + poke.hpDelta > 30)) eligibleStats.push('diffHp');
+					if (poke.atkDelta > -40 && (poke.randAtk + poke.atkDelta > 5)) eligibleStats.push('diffAtk');
+					if (poke.defDelta > -40 && (poke.randDef + poke.defDelta > 5)) eligibleStats.push('diffDef');
+					if (poke.spaDelta > -40 && (poke.randSpA + poke.spaDelta > 5)) eligibleStats.push('diffSpA');
+					if (poke.spdDelta > -40 && (poke.randSpD + poke.spdDelta > 5)) eligibleStats.push('diffSpD');
+					if (poke.speDelta > -40 && (poke.randSpe + poke.speDelta > 5)) eligibleStats.push('diffSpe');
 
 					if (!eligibleStats.length) {
 						console.log(`something has no eligible stats to lower`);
