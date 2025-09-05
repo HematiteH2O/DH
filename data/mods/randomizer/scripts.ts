@@ -1828,7 +1828,7 @@ export const Scripts: ModdedBattleScriptsData = {
 				if (['skilllink'].includes(poke.randAbilities[0]) && !poke.listOfCertainMoves.includes('watershuriken')) bias = "Atk";
 				if (['owntempo'].includes(poke.randAbilities[0]) && !poke.listOfCertainMoves.includes('petaldance')) bias = "Atk";
 				if (['lightningrod', 'stormdrain', 'flareboost', 'solarpower', 'plus', 'minus'].includes(poke.randAbilities[0])) bias = "SpA";
-				if ((bias === "Atk" && poke.atkTarget > poke.spaTarget) || (bias === "SpA" && poke.atkTarget < poke.spaTarget)) {
+				if ((bias === "Atk" && poke.atkTarget < poke.spaTarget) || (bias === "SpA" && poke.atkTarget > poke.spaTarget)) { // I HAD THIS BACKWARDS sjdfhgdmfngbh
 					let newAtk = poke.spaTarget;
 					let newSpA = poke.atkTarget;
 					poke.atkTarget = newAtk;
@@ -2001,9 +2001,12 @@ export const Scripts: ModdedBattleScriptsData = {
 						break; // this... should never happen? I think?
 					}
 					let min = null;
+					if (poke.name === "Venusaur") console.log(`Starting a new loop of stat checks`);
 					for (const statCheck of eligibleStats) {
+						if (poke.name === "Venusaur") console.log(`statCheck: ` + statCheck + `; poke[statCheck]: ` + poke[statCheck]);
 						if (min && (min < poke[statCheck])) continue; // skip if it's not at least tied with min
 						if (!min || min > poke[statCheck]) { // if this is a new minimum, replace the set
+							if (poke.name === "Venusaur") console.log(`That's a new minimum`);
 							min = poke[statCheck];
 							minStat = [];
 						}
@@ -2064,7 +2067,7 @@ export const Scripts: ModdedBattleScriptsData = {
 					let max = null;
 					for (const statCheck of eligibleStats) {
 						if (max && (max > poke[statCheck])) continue; // skip if it's not at least tied with max
-						if (!max || max > poke[statCheck]) { // if this is a new minimum, replace the set
+						if (!max || poke[statCheck] > max) { // if this is a new maximum, replace the set
 							max = poke[statCheck];
 							maxStat = [];
 						}
