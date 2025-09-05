@@ -1980,9 +1980,15 @@ export const Scripts: ModdedBattleScriptsData = {
 					let diffSpA = poke.spaTarget - (poke.randSpA + poke.spaDelta);
 					let diffSpD = poke.spdTarget - (poke.randSpD + poke.spdDelta);
 					let diffSpe = poke.speTarget - (poke.randSpe + poke.speDelta);
-					let min = Math.min([diffHp, diffAtk, diffDef, diffSpA, diffSpD, diffSpe]);
 
-					if (min === diffHp && poke.name !== "Shedinja" && poke.hpDelta > -40 && (poke.randHp + poke.hpDelta < poke.hpTarget + 1) && (poke.randHp + poke.hpDelta > 10)) eligibleStats.push('hpDelta');
+					let min = diffHp;
+					if (diffAtk < min) min = diffAtk;
+					if (diffDef < min) min = diffDef;
+					if (diffSpA < min) min = diffSpA;
+					if (diffSpD < min) min = diffSpD;
+					if (diffSpe < min) min = diffSpe;
+
+					if (min === diffHp && poke.name !== "Shedinja" && poke.hpDelta > -40 && (poke.randHp + poke.hpDelta < poke.hpTarget + 1) && (poke.randHp + poke.hpDelta > 30)) eligibleStats.push('hpDelta');
 					if (min === diffAtk && poke.atkDelta > -40 && (poke.randAtk + poke.atkDelta > 0)) eligibleStats.push('atkDelta');
 					if (min === diffDef && poke.defDelta > -40 && (poke.randDef + poke.defDelta > 0)) eligibleStats.push('defDelta');
 					if (min === diffSpA && poke.spaDelta > -40 && (poke.randSpA + poke.spaDelta > 0)) eligibleStats.push('spaDelta');
@@ -2012,7 +2018,13 @@ export const Scripts: ModdedBattleScriptsData = {
 					let diffSpA = poke.spaTarget - (poke.randSpA + poke.spaDelta);
 					let diffSpD = poke.spdTarget - (poke.randSpD + poke.spdDelta);
 					let diffSpe = poke.speTarget - (poke.randSpe + poke.speDelta);
-					let max = Math.max([diffHp, diffAtk, diffDef, diffSpA, diffSpD, diffSpe]);
+
+					let max = diffHp;
+					if (diffAtk > max) max = diffAtk;
+					if (diffDef > max) max = diffDef;
+					if (diffSpA > max) max = diffSpA;
+					if (diffSpD > max) max = diffSpD;
+					if (diffSpe > max) max = diffSpe;
 					if (max < 5) skipMaxCheck = true; // all targets met
 					if (skipMaxCheck) { // this should persist through loops
 						max = diffHp = diffAtk = diffDef = diffSpA = diffSpD = diffSpe = 0; // 0 = 0 = 0... this should free the loop from caring about the initial targets
