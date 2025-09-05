@@ -2275,35 +2275,6 @@ export const Scripts: ModdedBattleScriptsData = {
 				// the fun thing is that...
 				// I have no idea how much some of this works because there's so much randomization,
 				// but never knowing what's gonna come out is half the fun anyway P:
-*/
-
-/*
-// offensive setup:
-					['bulkup', 'clangoroussoul', 'coil', 'dragondance', 'growth', 'howl', 'noretreat', 'shiftgear', 'tidyup', 'victorydance']
-					['calmmind', 'clangoroussoul', 'growth', 'noretreat', 'torchsong', 'quiverdance']
-// offensive setup +2:
-					['swordsdance', 'bellydrum']
-					['nastyplot', 'tailglow']
-// offensive setup +1 Speed:
-					['clangoroussoul', 'dragondance', 'noretreat', 'tidyup', 'victorydance']
-					['clangoroussoul', 'noretreat', 'quiverdance']
-// setup +2 Speed:
-					['shiftgear', 'filletaway', 'shellsmash']
-					['geomancy', 'filletaway', 'shellsmash']
-					['agility', 'autotomize', 'rockpolish', 'shiftgear'] and 135+ offense
-// strong priority conditions
-					['extremespeed', 'suckerpunch', 'thunderclap', 'jetpunch']
-					['accelerock', 'aquajet', 'bulletpunch', 'iceshard', 'machpunch', 'quickattack', 'shadowsneak', 'vacuumwave', 'watershuriken'] + STAB and a passive damage boost
-// noteworthy utility tools that I care about for 75 Speed range...
-					thinking like a crazy hodgepodge of relevant tools: strong priority (or Fake Out / First Impression this time), spread, some kind of healing, pivoting? hitting 3 of the 4 categories at leaast
-// 120+ BP moves that matter... IF they have STAB
-					['headsmash', 'highjumpkick', 'boltstrike', 'woodhammer', 'wavecrash', 'volttackle', 'thrash', 'outrage', 'ragingfury', 'shadowforce', 'pyroball', 'precipiceblades', 'powerwhip', 'megahorn', 'megakick', 'headlongrush', 'headcharge', 'gunkshot', 'glaiverush', 'glaciallance', 'flareblitz', 'dragonascent', 'doubleedge', 'closecombat', 'bravebird', 'axekick']
-					['waterspout', 'eruption', 'dragonenergy', 'chloroblast', 'mindblown', 'steelbeam', 'blueflare', 'petaldance', 'seedflare', 'makeitrain', 'astralbarrage', 'armorcannon']
-					// oh I definitely need to account for Drizzle or Drought + STAB on those types, or Drought + STAB Solar Beam/Blade specifically
-// edge cases...
-					// uhh... Curse and Spore come to mind? but I think Trick Room will be more about damage-boosting Abilities than anything
-	  				['adaptability', 'analytic', 'ironfist', 'reckless', 'sheerforce', 'toxicboost', 'angerpoint', 'defiant', 'guts', 'hugepower', 'hustle', 'moxie', 'purepower']
-*/
 
 				// next, set HP
 				let sampleHp1 = (((poke.crossHp * 2 + 141) * (poke.crossDef * 2 + 36)) + ((poke.crossHp * 2 + 141) * (poke.crossSpD * 2 + 36))) * 4/3;
@@ -2350,25 +2321,26 @@ export const Scripts: ModdedBattleScriptsData = {
 				poke[allStats[Math.floor(Math.random() * allStats.length)]] += 10;
 				poke[allStats[Math.floor(Math.random() * allStats.length)]] += 10;
 
+*/
 
 
 				// prevos are just the same changes as the final stage scaled down
 				if (poke.prevo) {
 					const poke2 = this.dataCache.Pokedex[this.toID(poke.prevo)];
-					poke2.randHp = poke2.baseStats.hp + (hpDelta / 2);
-					poke2.randAtk = poke2.baseStats.atk + (atkDelta / 2);
-					poke2.randDef = poke2.baseStats.def + (defDelta / 2);
-					poke2.randSpA = poke2.baseStats.spa + (spaDelta / 2);
-					poke2.randSpD = poke2.baseStats.spd + (spdDelta / 2);
-					poke2.randSpe = poke2.baseStats.spe + (speDelta / 2);
+					poke2.randHp = poke2.baseStats.hp + (hpDelta * 0.6);
+					poke2.randAtk = poke2.baseStats.atk + (atkDelta * 0.6);
+					poke2.randDef = poke2.baseStats.def + (defDelta * 0.6);
+					poke2.randSpA = poke2.baseStats.spa + (spaDelta * 0.6);
+					poke2.randSpD = poke2.baseStats.spd + (spdDelta * 0.6);
+					poke2.randSpe = poke2.baseStats.spe + (speDelta * 0.6);
 					if (poke2.prevo) {
 						const poke3 = this.dataCache.Pokedex[this.toID(poke2.prevo)];
-						poke3.randHp = poke3.baseStats.hp + (hpDelta / 2);
-						poke3.randAtk = poke3.baseStats.atk + (atkDelta / 2);
-						poke3.randDef = poke3.baseStats.def + (defDelta / 2);
-						poke3.randSpA = poke3.baseStats.spa + (spaDelta / 2);
-						poke3.randSpD = poke3.baseStats.spd + (spdDelta / 2);
-						poke3.randSpe = poke3.baseStats.spe + (speDelta / 2);
+						poke3.randHp = poke3.baseStats.hp + (hpDelta * 0.4);
+						poke3.randAtk = poke3.baseStats.atk + (atkDelta * 0.4);
+						poke3.randDef = poke3.baseStats.def + (defDelta * 0.4);
+						poke3.randSpA = poke3.baseStats.spa + (spaDelta * 0.4);
+						poke3.randSpD = poke3.baseStats.spd + (spdDelta * 0.4);
+						poke3.randSpe = poke3.baseStats.spe + (speDelta * 0.4);
 					}
 				}
 
