@@ -1993,7 +1993,7 @@ export const Scripts: ModdedBattleScriptsData = {
 						console.log(`something has no eligible stats to lower`);
 						break; // this... should never happen? I think?
 					}
-					let min = null;;
+					let min = null;
 					for (const statCheck in eligibleStats) {
 						if (min && (min < poke[statCheck])) continue; // skip if it's not at least tied with min
 						if (!min || min > poke[statCheck]) { // if this is a new minimum, replace the set
@@ -2008,18 +2008,19 @@ export const Scripts: ModdedBattleScriptsData = {
 						break;
 					}
 					if (chosenStat === 'diffHp') poke.hpDelta -=5;
-					if (chosenStat === 'diffAtk') poke.atkDelta -=5;
-					if (chosenStat === 'diffDef') poke.defDelta -=5;
-					if (chosenStat === 'diffSpA') poke.spaDelta -=5;
-					if (chosenStat === 'diffSpD') poke.spdDelta -=5;
-					if (chosenStat === 'diffSpe') poke.speDelta -=5;
+					else if (chosenStat === 'diffAtk') poke.atkDelta -=5;
+					else if (chosenStat === 'diffDef') poke.defDelta -=5;
+					else if (chosenStat === 'diffSpA') poke.spaDelta -=5;
+					else if (chosenStat === 'diffSpD') poke.spdDelta -=5;
+					else if (chosenStat === 'diffSpe') poke.speDelta -=5;
+					else console.log(chosenStat);
 				}
 
 				// step 7: BST correction final pass (mostly guided)
 				let skipMaxCheck = false; // (at this point, it becomes random)
 				for (let i = 0; i < 12; i++) { // repeat until +60 or until all stats have hit their targets
-					if (poke.hpDelta + poke.atkDelta + poke.defDelta + poke.spaDelta + poke.spdDelta + poke.speDelta < 0) {
-						console.log(`something didn't lower stats as much as it raised them`);
+					if ((poke.hpDelta + poke.atkDelta + poke.defDelta + poke.spaDelta + poke.spdDelta + poke.speDelta) > 0) {
+						console.log(poke.name + ` didn't lower stats as much as it raised them`);
 						break;
 					}
 					if (poke.hpDelta + poke.atkDelta + poke.defDelta + poke.spaDelta + poke.spdDelta + poke.speDelta === 0) break; // ideal end state
@@ -2046,7 +2047,7 @@ export const Scripts: ModdedBattleScriptsData = {
 						console.log(`something has no eligible stats to raise`);
 						break; // this... should never happen? I think?
 					}
-					let max = null;;
+					let max = null;
 					for (const statCheck in eligibleStats) {
 						if (max && (max > poke[statCheck])) continue; // skip if it's not at least tied with max
 						if (!max || max > poke[statCheck]) { // if this is a new minimum, replace the set
