@@ -1159,15 +1159,17 @@ export const Scripts: ModdedBattleScriptsData = {
 				const moveAbilitySet: string[] = [];
 				moveAbilitySet.push(poke.randAbilities[0]);
 				if (poke.randAbilities[1]) moveAbilitySet.push(poke.randAbilities[1]);
-				if (poke.randAbilities[2]) moveAbilitySet.push(poke.randAbilities[2]);
+				if (poke.randAbilities[2]) moveAbilitySet.push(poke.randAbilities[2]); // happy to account for HAs here because they can only make movepools even more diverse
 
 				if (moveAbilitySet.includes("Drizzle") || moveAbilitySet.includes("Swift Swim") || moveAbilitySet.includes("Rain Dish") || moveAbilitySet.includes("Dry Skin") || moveAbilitySet.includes("Hydration") || moveAbilitySet.includes("Torrent")) learnsetTypes.push("Water");
 				if (moveAbilitySet.includes("Drought") || moveAbilitySet.includes("Blaze") || moveAbilitySet.includes("Flash Fire")) learnsetTypes.push("Fire");
 				if (moveAbilitySet.includes("Overgrow")) learnsetTypes.push("Grass");
 				if (moveAbilitySet.includes("Swarm")) learnsetTypes.push("Bug");
-				if (moveAbilitySet.includes("Sand Force")) learnsetTypes.push("Rock");
-				if (moveAbilitySet.includes("Sand Force")) learnsetTypes.push("Ground");
-				if (moveAbilitySet.includes("Sand Force")) learnsetTypes.push("Steel");
+				if (moveAbilitySet.includes("Sand Force")) {
+					learnsetTypes.push("Rock");
+					learnsetTypes.push("Ground");
+					learnsetTypes.push("Steel");
+				}
 
 				poke.learnsetCumulative = {
 							Moves: [],
