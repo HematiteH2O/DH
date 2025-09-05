@@ -1932,6 +1932,7 @@ export const Scripts: ModdedBattleScriptsData = {
 						if (maxSpe > 50) maxSpe = 50;
 					}
 					const spaContrary = ['dracometeor', 'overheat', 'leafstorm', 'makeitrain'];
+					let hasMove = false;
 					for (const moveCheck of spaContrary) if (poke.listOfCertainMoves.includes(moveCheck) && this.dataCache.Moves[moveCheck].type && pokeTypes.includes(this.dataCache.Moves[moveCheck].type)) hasMove = true;
 					if (hasMove) {
 						if (maxSpa > 75) maxSpa = 75;
