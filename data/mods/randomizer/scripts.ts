@@ -2007,12 +2007,12 @@ export const Scripts: ModdedBattleScriptsData = {
 						console.log(`no chosen stat to lower`);
 						break;
 					}
-					if (chosenStat === diffHp) poke.hpDelta -=5;
-					if (chosenStat === diffAtk) poke.atkDelta -=5;
-					if (chosenStat === diffDef) poke.defDelta -=5;
-					if (chosenStat === diffSpA) poke.spaDelta -=5;
-					if (chosenStat === diffSpD) poke.spdDelta -=5;
-					if (chosenStat === diffSpe) poke.speDelta -=5;
+					if (chosenStat === 'diffHp') poke.hpDelta -=5;
+					if (chosenStat === 'diffAtk') poke.atkDelta -=5;
+					if (chosenStat === 'diffDef') poke.defDelta -=5;
+					if (chosenStat === 'diffSpA') poke.spaDelta -=5;
+					if (chosenStat === 'diffSpD') poke.spdDelta -=5;
+					if (chosenStat === 'diffSpe') poke.speDelta -=5;
 				}
 
 				// step 7: BST correction final pass (mostly guided)
@@ -2063,12 +2063,12 @@ export const Scripts: ModdedBattleScriptsData = {
 						console.log(`no chosen stat to raise`);
 						break;
 					}
-					if (chosenStat === diffHp) poke.hpDelta +=5;
-					if (chosenStat === diffAtk) poke.atkDelta +=5;
-					if (chosenStat === diffDef) poke.defDelta +=5;
-					if (chosenStat === diffSpA) poke.spaDelta +=5;
-					if (chosenStat === diffSpD) poke.spdDelta +=5;
-					if (chosenStat === diffSpe) poke.speDelta +=5;
+					if (chosenStat === 'diffHp') poke.hpDelta +=5;
+					if (chosenStat === 'diffAtk') poke.atkDelta +=5;
+					if (chosenStat === 'diffDef') poke.defDelta +=5;
+					if (chosenStat === 'diffSpA') poke.spaDelta +=5;
+					if (chosenStat === 'diffSpD') poke.spdDelta +=5;
+					if (chosenStat === 'diffSpe') poke.speDelta +=5;
 				}
 
 				if (poke.hpDelta + poke.atkDelta + poke.defDelta + poke.spaDelta + poke.spdDelta + poke.speDelta !== 0) console.log(poke.name + ` somehow didn't get the right BST`);
