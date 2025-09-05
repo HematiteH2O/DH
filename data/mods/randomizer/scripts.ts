@@ -1154,7 +1154,7 @@ export const Scripts: ModdedBattleScriptsData = {
 
 				const usedSecondMoves: string[] = []; // to avoid pushing the same one twice
 				const alreadyLvUpMoves: string[] = []; // to avoid pushing the same one twice
-				const earlyForcedMovesOptions: string[] = []; // to make sure you have at least *one* move with Ability synergy, since you can't do that while evaluating every move in order
+				let earlyForcedMovesOptions: string[] = []; // to make sure you have at least *one* move with Ability synergy, since you can't do that while evaluating every move in order
 
 				const moveAbilitySet: string[] = [];
 				moveAbilitySet.push(poke.randAbilities[0]);
@@ -1234,7 +1234,7 @@ export const Scripts: ModdedBattleScriptsData = {
 
 				if (earlyForcedMovesOptions.length && !getsForcedMoveAlready) {
 					// now pick one of them
-					const earlyForcedMoveCandidates: string[] = [];
+					let earlyForcedMoveCandidates: string[] = [];
 					// prioritize matching type
 					for (const moveCheck in earlyForcedMoveCandidates) {
 						if (!this.dataCache.Moves[moveid]) {
@@ -1723,6 +1723,13 @@ export const Scripts: ModdedBattleScriptsData = {
 				let spaDelta = 0;
 				let spdDelta = 0;
 				let speDelta = 0;
+
+				let hpTarget = 0;
+				let atkTarget = 0;
+				let defTarget = 0;
+				let spaTarget = 0;
+				let spdTarget = 0;
+				let speTarget = 0;
 
 				poke.crossHp = poke.randHp = poke.baseStats.hp + hpDelta;
 				poke.crossAtk = poke.randAtk = poke.baseStats.atk + atkDelta;
