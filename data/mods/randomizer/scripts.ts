@@ -1961,11 +1961,11 @@ export const Scripts: ModdedBattleScriptsData = {
 				for (let i = 0; i < 12; i++) { // repeat until +60 or until all stats have hit their targets
 					let eligibleStats: string[] = [];
 					if (poke.name !== "Shedinja" && hpDelta < 40 && (poke.randHp + hpDelta < poke.hpTarget + 1) && (poke.randHp + hpDelta < 251)) eligibleStats.push('hpDelta');
-					if (atkDelta < 40 && (poke.randAtk + atkDelta < poke.atkTarget + 6) && (poke.randAtk + atkDelta < 245)) eligibleStats.push('atkDelta');
-					if (defDelta < 40 && (poke.randDef + defDelta < poke.defTarget + 6) && (poke.randDef + defDelta < 245)) eligibleStats.push('defDelta');
-					if (spaDelta < 40 && (poke.randSpA + spaDelta < poke.spaTarget + 6) && (poke.randSpA + spaDelta < 245)) eligibleStats.push('spaDelta');
-					if (spdDelta < 40 && (poke.randSpD + spdDelta < poke.spdTarget + 6) && (poke.randSpD + spdDelta < 245)) eligibleStats.push('spdDelta');
-					if (speDelta < 40 && (poke.randSpe + speDelta < poke.speTarget + 6) && (poke.randSpe + speDelta < 245)) eligibleStats.push('speDelta');
+					if (atkDelta < 40 && (poke.randAtk + atkDelta < poke.atkTarget + 6) && (poke.randAtk + atkDelta < 243)) eligibleStats.push('atkDelta');
+					if (defDelta < 40 && (poke.randDef + defDelta < poke.defTarget + 6) && (poke.randDef + defDelta < 243)) eligibleStats.push('defDelta');
+					if (spaDelta < 40 && (poke.randSpA + spaDelta < poke.spaTarget + 6) && (poke.randSpA + spaDelta < 243)) eligibleStats.push('spaDelta');
+					if (spdDelta < 40 && (poke.randSpD + spdDelta < poke.spdTarget + 6) && (poke.randSpD + spdDelta < 243)) eligibleStats.push('spdDelta');
+					if (speDelta < 40 && (poke.randSpe + speDelta < poke.speTarget + 6) && (poke.randSpe + speDelta < 243)) eligibleStats.push('speDelta');
 
 					if (!eligibleStats.length) break;
 					poke[eligibleStats[Math.floor(Math.random() * eligibleStats.length)]] += 5;
@@ -1990,7 +1990,7 @@ export const Scripts: ModdedBattleScriptsData = {
 					if (min === diffSpe && speDelta > -40 && (poke.randSpe + speDelta > 0)) eligibleStats.push('speDelta');
 
 					if (!eligibleStats.length) {
-						console.log(`something has no eligible stats`);
+						console.log(`something has no eligible stats to lower`);
 						break; // this... should never happen? I think?
 					}
 					poke[eligibleStats[Math.floor(Math.random() * eligibleStats.length)]] -= 5;
@@ -2015,20 +2015,20 @@ export const Scripts: ModdedBattleScriptsData = {
 					let max = Math.max([diffHp, diffAtk, diffDef, diffSpA, diffSpD, diffSpe]);
 					if (max < 5) skipMaxCheck = true; // all targets met
 					if (skipMaxCheck) { // this should persist through loops
-						diffHp = diffAtk = diffDef = diffSpA = diffSpD = diffSpe = 0; // 0 = 0 = 0... this should free the loop from caring about the initial targets
+						max = diffHp = diffAtk = diffDef = diffSpA = diffSpD = diffSpe = 0; // 0 = 0 = 0... this should free the loop from caring about the initial targets
 					}
 
 					if (max === diffHp && poke.name !== "Shedinja" && hpDelta < 40 && (poke.randHp + hpDelta < 251)) eligibleStats.push('hpDelta');
-					if (max === diffDef && defDelta < 40 && (poke.randDef + defDelta > 0)) eligibleStats.push('defDelta');
-					if (max === diffSpD && spdDelta < 40 && (poke.randSpD + spdDelta > 0)) eligibleStats.push('spdDelta');
+					if (max === diffDef && defDelta < 40 && (poke.randDef + defDelta < 243)) eligibleStats.push('defDelta');
+					if (max === diffSpD && spdDelta < 40 && (poke.randSpD + spdDelta < 243)) eligibleStats.push('spdDelta');
 					// continue to respect max stats: if Speed is over its threshold, don't raise Attack or SpA more, and...
-					if (max === diffAtk && atkDelta < 40 && (poke.randAtk + atkDelta > 0) && (poke.randSpe + speDelta < maxSpe + 1)) eligibleStats.push('atkDelta');
-					if (max === diffSpA && spaDelta < 40 && (poke.randSpA + spaDelta > 0) && (poke.randSpe + speDelta < maxSpe + 1)) eligibleStats.push('spaDelta');
+					if (max === diffAtk && atkDelta < 40 && (poke.randAtk + atkDelta < 243) && (poke.randSpe + speDelta < maxSpe + 1)) eligibleStats.push('atkDelta');
+					if (max === diffSpA && spaDelta < 40 && (poke.randSpA + spaDelta < 243) && (poke.randSpe + speDelta < maxSpe + 1)) eligibleStats.push('spaDelta');
 					// ... if Attack or SpA is over its threshold, don't raise Speed more
-					if (max === diffSpe && speDelta < 40 && (poke.randSpe + speDelta > 0) && (poke.randAtk + atkDelta < maxAtk + 1) && (poke.randSpA + spaDelta < maxSpa + 1)) eligibleStats.push('speDelta');
+					if (max === diffSpe && speDelta < 40 && (poke.randSpe + speDelta < 243) && (poke.randAtk + atkDelta < maxAtk + 1) && (poke.randSpA + spaDelta < maxSpa + 1)) eligibleStats.push('speDelta');
 
 					if (!eligibleStats.length) {
-						console.log(`something has no eligible stats`);
+						console.log(`something has no eligible stats to raise`);
 						break; // this... should never happen? I think?
 					}
 					poke[eligibleStats[Math.floor(Math.random() * eligibleStats.length)]] += 5;
