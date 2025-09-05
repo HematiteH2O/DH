@@ -1824,10 +1824,10 @@ export const Scripts: ModdedBattleScriptsData = {
 				// physical/special bias
 				// this bit is a buff, not a nerf, so it values the random Ability only
 				let bias = null;
-				if (['waterveil', 'hypercutter', 'clearbody', 'whitesmoke', 'defiant', 'moxie', 'justified', 'sapsipper', 'angerpoint', 'guts', 'toxicboost', 'hustle', 'reckless', 'ironfist'].includes(poke.randAbilities[0])) bias = "Atk";
-				if (['skilllink'].includes(poke.randAbilities[0]) && !poke.listOfCertainMoves.includes('watershuriken')) bias = "Atk";
-				if (['owntempo'].includes(poke.randAbilities[0]) && !poke.listOfCertainMoves.includes('petaldance')) bias = "Atk";
-				if (['lightningrod', 'stormdrain', 'flareboost', 'solarpower', 'plus', 'minus'].includes(poke.randAbilities[0])) bias = "SpA";
+				if (['Water Veil', 'Hyper Cutter', 'Clear Body', 'White Smoke', 'Defiant', 'Moxie', 'Justified', 'Sap Sipper', 'Anger Point', 'Guts', 'Toxic Boost', 'Hustle', 'Reckless', 'Iron Fist'].includes(poke.randAbilities[0])) bias = "Atk";
+				if (['Skill Link'].includes(poke.randAbilities[0]) && !poke.listOfCertainMoves.includes('watershuriken')) bias = "Atk";
+				if (['Own Tempo'].includes(poke.randAbilities[0]) && !poke.listOfCertainMoves.includes('petaldance')) bias = "Atk";
+				if (['Lightning Rod', 'Storm Drain', 'Flare Boost', 'Solar Power', 'Plus', 'Minus'].includes(poke.randAbilities[0])) bias = "SpA";
 				if ((bias === "Atk" && poke.atkTarget < poke.spaTarget) || (bias === "SpA" && poke.atkTarget > poke.spaTarget)) { // I HAD THIS BACKWARDS sjdfhgdmfngbh
 					let newAtk = poke.spaTarget;
 					let newSpA = poke.atkTarget;
@@ -1970,13 +1970,6 @@ export const Scripts: ModdedBattleScriptsData = {
 					if (!eligibleStats.length) break;
 					poke[eligibleStats[Math.floor(Math.random() * eligibleStats.length)]] += 5;
 				}
-				if (poke.name === "Venusaur") console.log (`Step 5`);
-				if (poke.name === "Venusaur") console.log (poke.name + `: HP ` + poke.randHp + ` + ` + poke.hpDelta + ` -> ` + poke.hpTarget);
-				if (poke.name === "Venusaur") console.log (poke.name + `: Attack ` + poke.randAtk + ` + ` + poke.atkDelta + ` -> ` + poke.atkTarget);
-				if (poke.name === "Venusaur") console.log (poke.name + `: Defense ` + poke.randDef + ` + ` + poke.defDelta + ` -> ` + poke.defTarget);
-				if (poke.name === "Venusaur") console.log (poke.name + `: Sp. Atk ` + poke.randSpA + ` + ` + poke.spaDelta + ` -> ` + poke.spaTarget);
-				if (poke.name === "Venusaur") console.log (poke.name + `: Sp. Def ` + poke.randSpD + ` + ` + poke.spdDelta + ` -> ` + poke.spdTarget);
-				if (poke.name === "Venusaur") console.log (poke.name + `: Speed ` + poke.randSpe + ` + ` + poke.speDelta + ` -> ` + poke.speTarget);
 
 				// step 6: stat decrease assignment (mostly guided)
 				for (let i = 0; i < 12; i++) { // repeat until -60 unconditionally
@@ -2001,12 +1994,9 @@ export const Scripts: ModdedBattleScriptsData = {
 						break; // this... should never happen? I think?
 					}
 					let min = 1000;
-					if (poke.name === "Venusaur") console.log(`Starting a new loop of stat checks`);
 					for (const statCheck of eligibleStats) {
-						if (poke.name === "Venusaur") console.log(`statCheck: ` + statCheck + `; poke[statCheck]: ` + poke[statCheck]);
 						if (min && (min < poke[statCheck])) continue; // skip if it's not at least tied with min
 						if (min > poke[statCheck]) { // if this is a new minimum, replace the set
-							if (poke.name === "Venusaur") console.log(`That's a new minimum`);
 							min = poke[statCheck];
 							minStat = [];
 						}
@@ -2025,13 +2015,6 @@ export const Scripts: ModdedBattleScriptsData = {
 					else if (chosenStat === 'diffSpe') poke.speDelta -=5;
 					else console.log(chosenStat);
 				}
-				if (poke.name === "Venusaur") console.log (`Step 6`);
-				if (poke.name === "Venusaur") console.log (poke.name + `: HP ` + poke.randHp + ` + ` + poke.hpDelta + ` -> ` + poke.hpTarget);
-				if (poke.name === "Venusaur") console.log (poke.name + `: Attack ` + poke.randAtk + ` + ` + poke.atkDelta + ` -> ` + poke.atkTarget);
-				if (poke.name === "Venusaur") console.log (poke.name + `: Defense ` + poke.randDef + ` + ` + poke.defDelta + ` -> ` + poke.defTarget);
-				if (poke.name === "Venusaur") console.log (poke.name + `: Sp. Atk ` + poke.randSpA + ` + ` + poke.spaDelta + ` -> ` + poke.spaTarget);
-				if (poke.name === "Venusaur") console.log (poke.name + `: Sp. Def ` + poke.randSpD + ` + ` + poke.spdDelta + ` -> ` + poke.spdTarget);
-				if (poke.name === "Venusaur") console.log (poke.name + `: Speed ` + poke.randSpe + ` + ` + poke.speDelta + ` -> ` + poke.speTarget);
 
 				// step 7: BST correction final pass (mostly guided)
 				let skipMaxCheck = false; // (at this point, it becomes random)
@@ -2088,13 +2071,6 @@ export const Scripts: ModdedBattleScriptsData = {
 					if (chosenStat === 'diffSpD') poke.spdDelta +=5;
 					if (chosenStat === 'diffSpe') poke.speDelta +=5;
 				}
-				if (poke.name === "Venusaur") console.log (`Step 7`);
-				if (poke.name === "Venusaur") console.log (poke.name + `: HP ` + poke.randHp + ` + ` + poke.hpDelta + ` -> ` + poke.hpTarget);
-				if (poke.name === "Venusaur") console.log (poke.name + `: Attack ` + poke.randAtk + ` + ` + poke.atkDelta + ` -> ` + poke.atkTarget);
-				if (poke.name === "Venusaur") console.log (poke.name + `: Defense ` + poke.randDef + ` + ` + poke.defDelta + ` -> ` + poke.defTarget);
-				if (poke.name === "Venusaur") console.log (poke.name + `: Sp. Atk ` + poke.randSpA + ` + ` + poke.spaDelta + ` -> ` + poke.spaTarget);
-				if (poke.name === "Venusaur") console.log (poke.name + `: Sp. Def ` + poke.randSpD + ` + ` + poke.spdDelta + ` -> ` + poke.spdTarget);
-				if (poke.name === "Venusaur") console.log (poke.name + `: Speed ` + poke.randSpe + ` + ` + poke.speDelta + ` -> ` + poke.speTarget);
 
 				if (poke.hpDelta + poke.atkDelta + poke.defDelta + poke.spaDelta + poke.spdDelta + poke.speDelta !== 0) console.log(poke.name + ` somehow didn't get the right BST`);
 				poke.randHp = poke.baseStats.hp + poke.hpDelta;
