@@ -1762,61 +1762,45 @@ export const Scripts: ModdedBattleScriptsData = {
 
 				// step 1: surface-level type themes (optional but as many as I like)
 				// there's plenty more randomization later, so these don't need a fixed total at all
+				// actually, I think the less I do here, the more random the results get, which is probably more fun to be honest
+				if (pokeTypes.includes("Fire")) {
+					poke.defTarget += 10;
+				}
 				if (pokeTypes.includes("Water")) {
-					poke.hpTarget += 20;
+					poke.hpTarget += 10;
 				}
 				if (pokeTypes.includes("Electric") || pokeTypes.includes("Flying")) {
-					poke.speTarget += 20;
-				}
-				if (pokeTypes.includes("Ice")) {
-					poke.atkTarget += 20;
-					poke.spaTarget += 20;
-					poke.speTarget -= 10;
-					if (poke.speTarget > 75 && (Math.random() > 0.5)) poke.speTarget = 75;
+					poke.speTarget += 10;
 				}
 				if (pokeTypes.includes("Fighting")) {
-					poke.atkTarget += 20;
-					poke.defTarget += 20;
-					poke.spaTarget -= 20;
-					poke.spdTarget -= 20;
+					poke.atkTarget += 10;
+					poke.defTarget += 10;
+					poke.spaTarget -= 10;
+					poke.spdTarget -= 10;
+				}
+				if (pokeTypes.includes("Poison")) {
+					poke.defTarget += 10;
 				}
 				if (pokeTypes.includes("Ground")) {
 					if (poke.spdTarget > 75 && (Math.random() > 0.5)) poke.spdTarget = 75;
 				}
 				if (pokeTypes.includes("Psychic")) {
-					poke.atkTarget -= 20;
-					poke.defTarget -= 20;
-					poke.spaTarget += 20;
-					poke.spdTarget += 20;
-				}
-				if (pokeTypes.includes("Bug")) {
-					if (poke.atkTarget > poke.spaTarget) poke.atkTarget += 20;
+					poke.atkTarget -= 10;
+					poke.defTarget -= 10;
+					poke.spaTarget += 10;
+					poke.spdTarget += 10;
 				}
 				if (pokeTypes.includes("Rock")) {
-					poke.defTarget += 40;
-					poke.spdTarget -= 20;
-					poke.speTarget -= 20;
+					poke.defTarget += 20;
+					poke.spdTarget -= 10;
+					poke.speTarget -= 10;
 				}
 				if (pokeTypes.includes("Ghost")) {
-					poke.hpTarget -= 20;
-					if (poke.spaTarget > poke.atkTarget) poke.spaTarget += 20;
-					else poke.atkTarget += 20;
-				}
-				if (pokeTypes.includes("Dragon")) {
-					poke.hpTarget += 20;
-					poke.defTarget -= 10;
-					poke.spdTarget -= 10;
-				}
-				if (pokeTypes.includes("Dark")) {
-					poke.atkTarget += 20;
+					poke.hpTarget -= 10;
 				}
 				if (pokeTypes.includes("Steel")) {
-					poke.defTarget += 40;
-					poke.spdTarget += 20;
-				}
-				if (pokeTypes.includes("Grass")) {
-					if (poke.atkTarget > 105) poke.atkTarget = 105;
-					if (poke.spaTarget > 105) poke.spaTarget = 105;
+					poke.defTarget += 10;
+					poke.spdTarget += 10;
 				}
 				if (poke.chosenType.type1 === poke.chosenType.type2) poke.speTarget += 10;
 				// these are basically just random examples to see what it looks like; they don't matter yet
@@ -1832,7 +1816,7 @@ export const Scripts: ModdedBattleScriptsData = {
 
 				// step 3: randomizer stat moment
 				const randomizerStatMoment: string[] = ['hpTarget', 'atkTarget', 'defTarget', 'spaTarget', 'spdTarget', 'speTarget'];
-				poke[Math.floor(Math.random() * randomizerStatMoment.length)] = [Math.floor(Math.random() * 240)] + 5;
+				poke[Math.floor(Math.random() * randomizerStatMoment.length)] = (Math.floor(Math.random() * 240) + 5);
 
 				// step 4: mechanics/balance pass
 				if (poke.name === "Shedinja") poke.hpTarget = 1;
@@ -1967,25 +1951,99 @@ export const Scripts: ModdedBattleScriptsData = {
 				poke.randSpD = poke.baseStats.spd;
 				poke.randSpe = poke.baseStats.spe;
 
+				let hpDelta = 0;
+				let atkDelta = 0;
+				let defDelta = 0;
+				let spaDelta = 0;
+				let spdDelta = 0;
+				let speDelta = 0;
+
+				for (let i = 0; i < 12; i++) { // repeat until +60 or until all stats have hit their targets
+					let eligibleStats: string[] = [];
+					if (poke.name !== "Shedinja" && hpDelta < 40 && (poke.randHp + hpDelta < poke.hpTarget + 1) && (poke.randHp + hpDelta < 251)) eligibleStats.push('hpDelta');
+					if (atkDelta < 40 && (poke.randAtk + atkDelta < poke.atkTarget + 6) && (poke.randAtk + atkDelta < 245)) eligibleStats.push('atkDelta');
+					if (defDelta < 40 && (poke.randDef + defDelta < poke.defTarget + 6) && (poke.randDef + defDelta < 245)) eligibleStats.push('defDelta');
+					if (spaDelta < 40 && (poke.randSpA + spaDelta < poke.spaTarget + 6) && (poke.randSpA + spaDelta < 245)) eligibleStats.push('spaDelta');
+					if (spdDelta < 40 && (poke.randSpD + spdDelta < poke.spdTarget + 6) && (poke.randSpD + spdDelta < 245)) eligibleStats.push('spdDelta');
+					if (speDelta < 40 && (poke.randSpe + speDelta < poke.speTarget + 6) && (poke.randSpe + speDelta < 245)) eligibleStats.push('speDelta');
+
+					if (!eligibleStats.length) break;
+					poke[eligibleStats[Math.floor(Math.random() * eligibleStats.length)]] += 5;
+				}
+
 				// step 6: stat decrease assignment (mostly guided)
+				for (let i = 0; i < 12; i++) { // repeat until -60 unconditionally
+					let eligibleStats: string[] = [];
+					let diffHp = poke.hpTarget - (poke.randHp + hpDelta);
+					let diffAtk = poke.atkTarget - (poke.randAtk + atkDelta);
+					let diffDef = poke.defTarget - (poke.randDef + defDelta);
+					let diffSpA = poke.spaTarget - (poke.randSpA + spaDelta);
+					let diffSpD = poke.spdTarget - (poke.randSpD + spdDelta);
+					let diffSpe = poke.speTarget - (poke.randSpe + speDelta);
+					let min = Math.min([diffHp, diffAtk, diffDef, diffSpA, diffSpD, diffSpe]);
+
+					if (min === diffHp && poke.name !== "Shedinja" && hpDelta > -40 && (poke.randHp + hpDelta < poke.hpTarget + 1) && (poke.randHp + hpDelta > 10)) eligibleStats.push('hpDelta');
+					if (min === diffAtk && atkDelta > -40 && (poke.randAtk + atkDelta > 0)) eligibleStats.push('atkDelta');
+					if (min === diffDef && defDelta > -40 && (poke.randDef + defDelta > 0)) eligibleStats.push('defDelta');
+					if (min === diffSpA && spaDelta > -40 && (poke.randSpA + spaDelta > 0)) eligibleStats.push('spaDelta');
+					if (min === diffSpD && spdDelta > -40 && (poke.randSpD + spdDelta > 0)) eligibleStats.push('spdDelta');
+					if (min === diffSpe && speDelta > -40 && (poke.randSpe + speDelta > 0)) eligibleStats.push('speDelta');
+
+					if (!eligibleStats.length) {
+						console.log(`something has no eligible stats`);
+						break; // this... should never happen? I think?
+					}
+					poke[eligibleStats[Math.floor(Math.random() * eligibleStats.length)]] -= 5;
+				}
 
 				// step 7: BST correction final pass (mostly guided)
+				for (let i = 0; i < 12; i++) { // repeat until +60 or until all stats have hit their targets
+					if (hpDelta + atkDelta + defDelta + spaDelta + spdDelta + speDelta < 0) {
+						console.log(`something didn't lower stats as much as it raised them`);
+						break;
+					}
+					if (hpDelta + atkDelta + defDelta + spaDelta + spdDelta + speDelta = 0) break; // ideal end state
 
-				// don't lose track of these variables but I'm not using them yet
-				let hpDelta = poke.baseStats.hp - poke.randHp;
-				let atkDelta = poke.baseStats.atk - poke.randAtk;
-				let defDelta = poke.baseStats.atk - poke.randDef;
-				let spaDelta = poke.baseStats.atk - poke.randSpA;
-				let spdDelta = poke.baseStats.atk - poke.randSpD;
-				let speDelta = poke.baseStats.atk - poke.randSpe;
+					let eligibleStats: string[] = [];
+					let diffHp = poke.hpTarget - (poke.randHp + hpDelta);
+					let diffAtk = poke.atkTarget - (poke.randAtk + atkDelta);
+					let diffDef = poke.defTarget - (poke.randDef + defDelta);
+					let diffSpA = poke.spaTarget - (poke.randSpA + spaDelta);
+					let diffSpD = poke.spdTarget - (poke.randSpD + spdDelta);
+					let diffSpe = poke.speTarget - (poke.randSpe + speDelta);
+					let max = Math.max([diffHp, diffAtk, diffDef, diffSpA, diffSpD, diffSpe]);
 
+					if (max === diffHp && poke.name !== "Shedinja" && hpDelta < 40 && (poke.randHp + hpDelta < 251)) eligibleStats.push('hpDelta');
+					if (max === diffDef && defDelta < 40 && (poke.randDef + defDelta > 0)) eligibleStats.push('defDelta');
+					if (max === diffSpD && spdDelta < 40 && (poke.randSpD + spdDelta > 0)) eligibleStats.push('spdDelta');
+					// continue to respect max stats: if Speed is over its threshold, don't raise Attack or SpA more, and...
+					if (max === diffAtk && atkDelta < 40 && (poke.randAtk + atkDelta > 0) && (poke.randSpe + speDelta < maxSpe + 1)) eligibleStats.push('atkDelta');
+					if (max === diffSpA && spaDelta < 40 && (poke.randSpA + spaDelta > 0) && (poke.randSpe + speDelta < maxSpe + 1)) eligibleStats.push('spaDelta');
+					// ... if Attack or SpA is over its threshold, don't raise Speed more
+					if (max === diffSpe && speDelta < 40 && (poke.randSpe + speDelta > 0) && (poke.randAtk + atkDelta < maxAtk + 1) && (poke.randSpA + spaDelta < maxSpa + 1)) eligibleStats.push('speDelta');
+
+					if (!eligibleStats.length) {
+						console.log(`something has no eligible stats`);
+						break; // this... should never happen? I think?
+					}
+					poke[eligibleStats[Math.floor(Math.random() * eligibleStats.length)]] += 5;
+				}
+
+				if (hpDelta + atkDelta + defDelta + spaDelta + spdDelta + speDelta !== 0) console.log(poke.name + ` somehow didn't get the right BST`);
+				poke.randHp = poke.baseStats.hp + hpDelta;
+				poke.randAtk = poke.baseStats.atk + atkDelta;
+				poke.randDef = poke.baseStats.def + defDelta;
+				poke.randSpA = poke.baseStats.spa + spaDelta;
+				poke.randSpD = poke.baseStats.spd + spdDelta;
+				poke.randSpe = poke.baseStats.spe + speDelta;
+
+				// just for point of comparison right now
 				poke.crossHp = poke.hpTarget;
 				poke.crossAtk = poke.atkTarget;
 				poke.crossDef = poke.defTarget;
 				poke.crossSpA = poke.spaTarget;
 				poke.crossSpD = poke.spdTarget;
 				poke.crossSpe = poke.speTarget;
-
 
 /*
 				// CROSSGEN STATS
