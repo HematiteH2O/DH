@@ -1994,7 +1994,7 @@ export const Scripts: ModdedBattleScriptsData = {
 						break; // this... should never happen? I think?
 					}
 					let min = null;
-					for (const statCheck in eligibleStats) {
+					for (const statCheck of eligibleStats) {
 						if (min && (min < poke[statCheck])) continue; // skip if it's not at least tied with min
 						if (!min || min > poke[statCheck]) { // if this is a new minimum, replace the set
 							min = poke[statCheck];
@@ -2048,7 +2048,7 @@ export const Scripts: ModdedBattleScriptsData = {
 						break; // this... should never happen? I think?
 					}
 					let max = null;
-					for (const statCheck in eligibleStats) {
+					for (const statCheck of eligibleStats) {
 						if (max && (max > poke[statCheck])) continue; // skip if it's not at least tied with max
 						if (!max || max > poke[statCheck]) { // if this is a new minimum, replace the set
 							max = poke[statCheck];
