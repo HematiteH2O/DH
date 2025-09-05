@@ -1974,34 +1974,45 @@ export const Scripts: ModdedBattleScriptsData = {
 				// step 6: stat decrease assignment (mostly guided)
 				for (let i = 0; i < 12; i++) { // repeat until -60 unconditionally
 					let eligibleStats: string[] = [];
-					let diffHp = poke.hpTarget - (poke.randHp + poke.hpDelta);
-					let diffAtk = poke.atkTarget - (poke.randAtk + poke.atkDelta);
-					let diffDef = poke.defTarget - (poke.randDef + poke.defDelta);
-					let diffSpA = poke.spaTarget - (poke.randSpA + poke.spaDelta);
-					let diffSpD = poke.spdTarget - (poke.randSpD + poke.spdDelta);
-					let diffSpe = poke.speTarget - (poke.randSpe + poke.speDelta);
+					let minStat: string[] = [];
+					poke.diffHp = poke.hpTarget - (poke.randHp + poke.hpDelta);
+					poke.diffAtk = poke.atkTarget - (poke.randAtk + poke.atkDelta);
+					poke.diffDef = poke.defTarget - (poke.randDef + poke.defDelta);
+					poke.diffSpA = poke.spaTarget - (poke.randSpA + poke.spaDelta);
+					poke.diffSpD = poke.spdTarget - (poke.randSpD + poke.spdDelta);
+					poke.diffSpe = poke.speTarget - (poke.randSpe + poke.speDelta);
 
-					// ignore anything that can't be lowered further when determining the min
-					let min = 255;
-					if (poke.hpDelta > -40) min = diffHp;
-					if (poke.atkDelta > -40 && diffAtk < min) min = diffAtk;
-					if (poke.defDelta > -40 && diffDef < min) min = diffDef;
-					if (poke.spaDelta > -40 && diffSpA < min) min = diffSpA;
-					if (poke.spdDelta > -40 && diffSpD < min) min = diffSpD;
-					if (poke.speDelta > -40 && diffSpe < min) min = diffSpe;
-
-					if (min === diffHp && poke.name !== "Shedinja" && poke.hpDelta > -40 && (poke.randHp + poke.hpDelta < poke.hpTarget + 1) && (poke.randHp + poke.hpDelta > 30)) eligibleStats.push('hpDelta');
-					if (min === diffAtk && poke.atkDelta > -40 && (poke.randAtk + poke.atkDelta > 0)) eligibleStats.push('atkDelta');
-					if (min === diffDef && poke.defDelta > -40 && (poke.randDef + poke.defDelta > 0)) eligibleStats.push('defDelta');
-					if (min === diffSpA && poke.spaDelta > -40 && (poke.randSpA + poke.spaDelta > 0)) eligibleStats.push('spaDelta');
-					if (min === diffSpD && poke.spdDelta > -40 && (poke.randSpD + poke.spdDelta > 0)) eligibleStats.push('spdDelta');
-					if (min === diffSpe && poke.speDelta > -40 && (poke.randSpe + poke.speDelta > 0)) eligibleStats.push('speDelta');
+					if (poke.name !== "Shedinja" && poke.hpDelta > -40 && (poke.randHp + poke.hpDelta < poke.hpTarget + 1) && (poke.randHp + poke.hpDelta > 30)) eligibleStats.push('diffHp');
+					if (poke.atkDelta > -40 && (poke.randAtk + poke.atkDelta > 0)) eligibleStats.push('diffAtk');
+					if (poke.defDelta > -40 && (poke.randDef + poke.defDelta > 0)) eligibleStats.push('diffDef');
+					if (poke.spaDelta > -40 && (poke.randSpA + poke.spaDelta > 0)) eligibleStats.push('diffSpA');
+					if (poke.spdDelta > -40 && (poke.randSpD + poke.spdDelta > 0)) eligibleStats.push('diffSpD');
+					if (poke.speDelta > -40 && (poke.randSpe + poke.speDelta > 0)) eligibleStats.push('diffSpe');
 
 					if (!eligibleStats.length) {
 						console.log(`something has no eligible stats to lower`);
 						break; // this... should never happen? I think?
 					}
-					poke[eligibleStats[Math.floor(Math.random() * eligibleStats.length)]] -= 5;
+					let min = null;;
+					for (const statCheck in eligibleStats) {
+						if (min && (min < poke[statCheck]) continue; // skip if it's not at least tied with min
+						if (!min || min > poke[statCheck]) { // if this is a new minimum, replace the set
+							min = poke[statCheck];
+							minStat = [];
+						}
+						minStat.push(statCheck);
+					}
+					let chosenStat = minStat[Math.floor(Math.random() * minStat.length)];
+					if (!chosenStat) {
+						console.log(`no chosen stat to lower`);
+						break;
+					}
+					if (chosenStat === diffHp) poke.hpDelta -=5;
+					if (chosenStat === diffAtk) poke.atkDelta -=5;
+					if (chosenStat === diffDef) poke.defDelta -=5;
+					if (chosenStat === diffSpA) poke.spaDelta -=5;
+					if (chosenStat === diffSpD) poke.spdDelta -=5;
+					if (chosenStat === diffSpe) poke.speDelta -=5;
 				}
 
 				// step 7: BST correction final pass (mostly guided)
@@ -2014,6 +2025,7 @@ export const Scripts: ModdedBattleScriptsData = {
 					if (poke.hpDelta + poke.atkDelta + poke.defDelta + poke.spaDelta + poke.spdDelta + poke.speDelta === 0) break; // ideal end state
 
 					let eligibleStats: string[] = [];
+					let maxStat: string[] = [];
 					let diffHp = poke.hpTarget - (poke.randHp + poke.hpDelta);
 					let diffAtk = poke.atkTarget - (poke.randAtk + poke.atkDelta);
 					let diffDef = poke.defTarget - (poke.randDef + poke.defDelta);
@@ -2021,33 +2033,42 @@ export const Scripts: ModdedBattleScriptsData = {
 					let diffSpD = poke.spdTarget - (poke.randSpD + poke.spdDelta);
 					let diffSpe = poke.speTarget - (poke.randSpe + poke.speDelta);
 
-					// ignore anything that can't be raised further when determining the max
-					let max = -255;
-					if (poke.hpDelta < 40) min = diffHp;
-					if (poke.atkDelta < 40 && diffAtk > max) max = diffAtk;
-					if (poke.defDelta < 40 && diffDef > max) max = diffDef;
-					if (poke.spaDelta < 40 && diffSpA > max) max = diffSpA;
-					if (poke.spdDelta < 40 && diffSpD > max) max = diffSpD;
-					if (poke.speDelta < 40 && diffSpe > max) max = diffSpe;
-					if (max < 5) skipMaxCheck = true; // all targets met
-					if (skipMaxCheck) { // this should persist through loops
-						max = diffHp = diffAtk = diffDef = diffSpA = diffSpD = diffSpe = 0; // 0 = 0 = 0... this should free the loop from caring about the initial targets
-					}
-
-					if (max === diffHp && poke.name !== "Shedinja" && poke.hpDelta < 40 && (poke.randHp + poke.hpDelta < 251)) eligibleStats.push('hpDelta');
-					if (max === diffDef && poke.defDelta < 40 && (poke.randDef + poke.defDelta < 243)) eligibleStats.push('defDelta');
-					if (max === diffSpD && poke.spdDelta < 40 && (poke.randSpD + poke.spdDelta < 243)) eligibleStats.push('spdDelta');
+					if (poke.name !== "Shedinja" && poke.hpDelta < 40 && (poke.randHp + poke.hpDelta < 251)) eligibleStats.push('diffHp');
+					if (poke.defDelta < 40 && (poke.randDef + poke.defDelta < 243)) eligibleStats.push('diffDef');
+					if (poke.spdDelta < 40 && (poke.randSpD + poke.spdDelta < 243)) eligibleStats.push('diffSpD');
 					// continue to respect max stats: if Speed is over its threshold, don't raise Attack or SpA more, and...
-					if (max === diffAtk && poke.atkDelta < 40 && (poke.randAtk + poke.atkDelta < 243) && (poke.randSpe + poke.speDelta < maxSpe + 1)) eligibleStats.push('atkDelta');
-					if (max === diffSpA && poke.spaDelta < 40 && (poke.randSpA + poke.spaDelta < 243) && (poke.randSpe + poke.speDelta < maxSpe + 1)) eligibleStats.push('spaDelta');
+					if (poke.atkDelta < 40 && (poke.randAtk + poke.atkDelta < 243) && (poke.randSpe + poke.speDelta < maxSpe + 1)) eligibleStats.push('diffAtk');
+					if (poke.spaDelta < 40 && (poke.randSpA + poke.spaDelta < 243) && (poke.randSpe + poke.speDelta < maxSpe + 1)) eligibleStats.push('diffSpA');
 					// ... if Attack or SpA is over its threshold, don't raise Speed more
-					if (max === diffSpe && poke.speDelta < 40 && (poke.randSpe + poke.speDelta < 243) && (poke.randAtk + poke.atkDelta < maxAtk + 1) && (poke.randSpA + poke.spaDelta < maxSpa + 1)) eligibleStats.push('speDelta');
+					if (poke.speDelta < 40 && (poke.randSpe + poke.speDelta < 243) && (poke.randAtk + poke.atkDelta < maxAtk + 1) && (poke.randSpA + poke.spaDelta < maxSpa + 1)) eligibleStats.push('diffSpe');
 
 					if (!eligibleStats.length) {
 						console.log(`something has no eligible stats to raise`);
 						break; // this... should never happen? I think?
 					}
-					poke[eligibleStats[Math.floor(Math.random() * eligibleStats.length)]] += 5;
+					let max = null;;
+					for (const statCheck in eligibleStats) {
+						if (max && (max > poke[statCheck]) continue; // skip if it's not at least tied with max
+						if (!max || max > poke[statCheck]) { // if this is a new minimum, replace the set
+							max = poke[statCheck];
+							maxStat = [];
+						}
+						maxStat.push(statCheck);
+					}
+					if (max < 5) skipMaxCheck = true; // all targets met
+
+					let chosenStat = eligibleStats[Math.floor(Math.random() * eligibleStats.length)];
+					if (!skipMaxCheck) chosenStat = maxStat[Math.floor(Math.random() * maxStat.length)];
+					if (!chosenStat) {
+						console.log(`no chosen stat to raise`);
+						break;
+					}
+					if (chosenStat === diffHp) poke.hpDelta +=5;
+					if (chosenStat === diffAtk) poke.atkDelta +=5;
+					if (chosenStat === diffDef) poke.defDelta +=5;
+					if (chosenStat === diffSpA) poke.spaDelta +=5;
+					if (chosenStat === diffSpD) poke.spdDelta +=5;
+					if (chosenStat === diffSpe) poke.speDelta +=5;
 				}
 
 				if (poke.hpDelta + poke.atkDelta + poke.defDelta + poke.spaDelta + poke.spdDelta + poke.speDelta !== 0) console.log(poke.name + ` somehow didn't get the right BST`);
