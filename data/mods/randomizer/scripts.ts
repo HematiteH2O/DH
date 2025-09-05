@@ -1960,12 +1960,12 @@ export const Scripts: ModdedBattleScriptsData = {
 
 				for (let i = 0; i < 12; i++) { // repeat until +60 or until all stats have hit their targets
 					let eligibleStats: string[] = [];
-					if (poke.name !== "Shedinja" && poke.hpDelta < 40 && (poke.randHp + poke.hpDelta < poke.hpTarget + 1) && (poke.randHp + poke.hpDelta < 251)) eligibleStats.push('hpDelta');
-					if (poke.atkDelta < 40 && (poke.randAtk + poke.atkDelta < poke.atkTarget + 6) && (poke.randAtk + poke.atkDelta < 243)) eligibleStats.push('atkDelta');
-					if (poke.defDelta < 40 && (poke.randDef + poke.defDelta < poke.defTarget + 6) && (poke.randDef + poke.defDelta < 243)) eligibleStats.push('defDelta');
-					if (poke.spaDelta < 40 && (poke.randSpA + poke.spaDelta < poke.spaTarget + 6) && (poke.randSpA + poke.spaDelta < 243)) eligibleStats.push('spaDelta');
-					if (poke.spdDelta < 40 && (poke.randSpD + poke.spdDelta < poke.spdTarget + 6) && (poke.randSpD + poke.spdDelta < 243)) eligibleStats.push('spdDelta');
-					if (poke.speDelta < 40 && (poke.randSpe + poke.speDelta < poke.speTarget + 6) && (poke.randSpe + poke.speDelta < 243)) eligibleStats.push('speDelta');
+					if (poke.name !== "Shedinja" && poke.hpDelta < 40 && (poke.randHp + poke.hpDelta + 5 < poke.hpTarget + 1) && (poke.randHp + poke.hpDelta < 251)) eligibleStats.push('hpDelta');
+					if (poke.atkDelta < 40 && (poke.randAtk + poke.atkDelta + 5 < poke.atkTarget + 1) && (poke.randAtk + poke.atkDelta < 243)) eligibleStats.push('atkDelta');
+					if (poke.defDelta < 40 && (poke.randDef + poke.defDelta + 5 < poke.defTarget + 1) && (poke.randDef + poke.defDelta < 243)) eligibleStats.push('defDelta');
+					if (poke.spaDelta < 40 && (poke.randSpA + poke.spaDelta + 5 < poke.spaTarget + 1) && (poke.randSpA + poke.spaDelta < 243)) eligibleStats.push('spaDelta');
+					if (poke.spdDelta < 40 && (poke.randSpD + poke.spdDelta + 5 < poke.spdTarget + 1) && (poke.randSpD + poke.spdDelta < 243)) eligibleStats.push('spdDelta');
+					if (poke.speDelta < 40 && (poke.randSpe + poke.speDelta + 5 < poke.speTarget + 1) && (poke.randSpe + poke.speDelta < 243)) eligibleStats.push('speDelta');
 
 					if (!eligibleStats.length) break;
 					poke[eligibleStats[Math.floor(Math.random() * eligibleStats.length)]] += 5;
