@@ -1981,12 +1981,14 @@ export const Scripts: ModdedBattleScriptsData = {
 					let diffSpD = poke.spdTarget - (poke.randSpD + poke.spdDelta);
 					let diffSpe = poke.speTarget - (poke.randSpe + poke.speDelta);
 
-					let min = diffHp;
-					if (diffAtk < min) min = diffAtk;
-					if (diffDef < min) min = diffDef;
-					if (diffSpA < min) min = diffSpA;
-					if (diffSpD < min) min = diffSpD;
-					if (diffSpe < min) min = diffSpe;
+					// ignore anything that can't be lowered further when determining the min
+					let min = 255;
+					if (poke.hpDelta > -40) min = diffHp;
+					if (poke.atkDelta > -40 && diffAtk < min) min = diffAtk;
+					if (poke.defDelta > -40 && diffDef < min) min = diffDef;
+					if (poke.spaDelta > -40 && diffSpA < min) min = diffSpA;
+					if (poke.spdDelta > -40 && diffSpD < min) min = diffSpD;
+					if (poke.speDelta > -40 && diffSpe < min) min = diffSpe;
 
 					if (min === diffHp && poke.name !== "Shedinja" && poke.hpDelta > -40 && (poke.randHp + poke.hpDelta < poke.hpTarget + 1) && (poke.randHp + poke.hpDelta > 30)) eligibleStats.push('hpDelta');
 					if (min === diffAtk && poke.atkDelta > -40 && (poke.randAtk + poke.atkDelta > 0)) eligibleStats.push('atkDelta');
@@ -2019,12 +2021,14 @@ export const Scripts: ModdedBattleScriptsData = {
 					let diffSpD = poke.spdTarget - (poke.randSpD + poke.spdDelta);
 					let diffSpe = poke.speTarget - (poke.randSpe + poke.speDelta);
 
-					let max = diffHp;
-					if (diffAtk > max) max = diffAtk;
-					if (diffDef > max) max = diffDef;
-					if (diffSpA > max) max = diffSpA;
-					if (diffSpD > max) max = diffSpD;
-					if (diffSpe > max) max = diffSpe;
+					// ignore anything that can't be raised further when determining the max
+					let max = -255;
+					if (poke.hpDelta < 40) min = diffHp;
+					if (poke.atkDelta < 40 && diffAtk > max) max = diffAtk;
+					if (poke.defDelta < 40 && diffDef > max) max = diffDef;
+					if (poke.spaDelta < 40 && diffSpA > max) max = diffSpA;
+					if (poke.spdDelta < 40 && diffSpD > max) max = diffSpD;
+					if (poke.speDelta < 40 && diffSpe > max) max = diffSpe;
 					if (max < 5) skipMaxCheck = true; // all targets met
 					if (skipMaxCheck) { // this should persist through loops
 						max = diffHp = diffAtk = diffDef = diffSpA = diffSpD = diffSpe = 0; // 0 = 0 = 0... this should free the loop from caring about the initial targets
