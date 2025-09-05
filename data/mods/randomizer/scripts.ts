@@ -1216,16 +1216,16 @@ export const Scripts: ModdedBattleScriptsData = {
 					}
 				}
 				if (learnset2) {
-					if (earlyForcedMovesOptions.includes(moveCheck)) getsForcedMoveAlready = true;
 					for (const moveCheck in learnset2) {
+						if (earlyForcedMovesOptions.includes(moveCheck)) getsForcedMoveAlready = true;
 						for (const source of learnset2[moveCheck]) {
 							if (source.charAt(1) === 'L') alreadyLvUpMoves.push(moveCheck);
 						}
 					}
 				}
 				if (learnset3) {
-					if (earlyForcedMovesOptions.includes(moveCheck)) getsForcedMoveAlready = true;
 					for (const moveCheck in learnset3) {
+						if (earlyForcedMovesOptions.includes(moveCheck)) getsForcedMoveAlready = true;
 						for (const source of learnset3[moveCheck]) {
 							if (source.charAt(1) === 'L') alreadyLvUpMoves.push(moveCheck);
 						}
