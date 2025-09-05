@@ -1997,12 +1997,13 @@ export const Scripts: ModdedBattleScriptsData = {
 				}
 
 				// step 7: BST correction final pass (mostly guided)
+				let skipMaxCheck = false; // (at this point, it becomes random)
 				for (let i = 0; i < 12; i++) { // repeat until +60 or until all stats have hit their targets
 					if (hpDelta + atkDelta + defDelta + spaDelta + spdDelta + speDelta < 0) {
 						console.log(`something didn't lower stats as much as it raised them`);
 						break;
 					}
-					if (hpDelta + atkDelta + defDelta + spaDelta + spdDelta + speDelta = 0) break; // ideal end state
+					if (hpDelta + atkDelta + defDelta + spaDelta + spdDelta + speDelta === 0) break; // ideal end state
 
 					let eligibleStats: string[] = [];
 					let diffHp = poke.hpTarget - (poke.randHp + hpDelta);
@@ -2012,6 +2013,10 @@ export const Scripts: ModdedBattleScriptsData = {
 					let diffSpD = poke.spdTarget - (poke.randSpD + spdDelta);
 					let diffSpe = poke.speTarget - (poke.randSpe + speDelta);
 					let max = Math.max([diffHp, diffAtk, diffDef, diffSpA, diffSpD, diffSpe]);
+					if (max < 5) skipMaxCheck = true; // all targets met
+					if (skipMaxCheck) { // this should persist through loops
+						diffHp = diffAtk = diffDef = diffSpA = diffSpD = diffSpe = 0; // 0 = 0 = 0... this should free the loop from caring about the initial targets
+					}
 
 					if (max === diffHp && poke.name !== "Shedinja" && hpDelta < 40 && (poke.randHp + hpDelta < 251)) eligibleStats.push('hpDelta');
 					if (max === diffDef && defDelta < 40 && (poke.randDef + defDelta > 0)) eligibleStats.push('defDelta');
