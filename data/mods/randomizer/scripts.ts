@@ -1970,6 +1970,13 @@ export const Scripts: ModdedBattleScriptsData = {
 					if (!eligibleStats.length) break;
 					poke[eligibleStats[Math.floor(Math.random() * eligibleStats.length)]] += 5;
 				}
+				if (poke.name === "Venusaur") console.log (`Step 5`);
+				if (poke.name === "Venusaur") console.log (poke.name + `: HP ` + poke.randHp + ` + ` + poke.hpDelta + ` -> ` + poke.hpTarget);
+				if (poke.name === "Venusaur") console.log (poke.name + `: Attack ` + poke.randAtk + ` + ` + poke.atkDelta + ` -> ` + poke.atkTarget);
+				if (poke.name === "Venusaur") console.log (poke.name + `: Defense ` + poke.randDef + ` + ` + poke.defDelta + ` -> ` + poke.defTarget);
+				if (poke.name === "Venusaur") console.log (poke.name + `: Sp. Atk ` + poke.randSpA + ` + ` + poke.spaDelta + ` -> ` + poke.spaTarget);
+				if (poke.name === "Venusaur") console.log (poke.name + `: Sp. Def ` + poke.randSpD + ` + ` + poke.spdDelta + ` -> ` + poke.spdTarget);
+				if (poke.name === "Venusaur") console.log (poke.name + `: Speed ` + poke.randSpe + ` + ` + poke.speDelta + ` -> ` + poke.speTarget);
 
 				// step 6: stat decrease assignment (mostly guided)
 				for (let i = 0; i < 12; i++) { // repeat until -60 unconditionally
@@ -2015,6 +2022,13 @@ export const Scripts: ModdedBattleScriptsData = {
 					else if (chosenStat === 'diffSpe') poke.speDelta -=5;
 					else console.log(chosenStat);
 				}
+				if (poke.name === "Venusaur") console.log (`Step 6`);
+				if (poke.name === "Venusaur") console.log (poke.name + `: HP ` + poke.randHp + ` + ` + poke.hpDelta + ` -> ` + poke.hpTarget);
+				if (poke.name === "Venusaur") console.log (poke.name + `: Attack ` + poke.randAtk + ` + ` + poke.atkDelta + ` -> ` + poke.atkTarget);
+				if (poke.name === "Venusaur") console.log (poke.name + `: Defense ` + poke.randDef + ` + ` + poke.defDelta + ` -> ` + poke.defTarget);
+				if (poke.name === "Venusaur") console.log (poke.name + `: Sp. Atk ` + poke.randSpA + ` + ` + poke.spaDelta + ` -> ` + poke.spaTarget);
+				if (poke.name === "Venusaur") console.log (poke.name + `: Sp. Def ` + poke.randSpD + ` + ` + poke.spdDelta + ` -> ` + poke.spdTarget);
+				if (poke.name === "Venusaur") console.log (poke.name + `: Speed ` + poke.randSpe + ` + ` + poke.speDelta + ` -> ` + poke.speTarget);
 
 				// step 7: BST correction final pass (mostly guided)
 				let skipMaxCheck = false; // (at this point, it becomes random)
@@ -2071,6 +2085,13 @@ export const Scripts: ModdedBattleScriptsData = {
 					if (chosenStat === 'diffSpD') poke.spdDelta +=5;
 					if (chosenStat === 'diffSpe') poke.speDelta +=5;
 				}
+				if (poke.name === "Venusaur") console.log (`Step 7`);
+				if (poke.name === "Venusaur") console.log (poke.name + `: HP ` + poke.randHp + ` + ` + poke.hpDelta + ` -> ` + poke.hpTarget);
+				if (poke.name === "Venusaur") console.log (poke.name + `: Attack ` + poke.randAtk + ` + ` + poke.atkDelta + ` -> ` + poke.atkTarget);
+				if (poke.name === "Venusaur") console.log (poke.name + `: Defense ` + poke.randDef + ` + ` + poke.defDelta + ` -> ` + poke.defTarget);
+				if (poke.name === "Venusaur") console.log (poke.name + `: Sp. Atk ` + poke.randSpA + ` + ` + poke.spaDelta + ` -> ` + poke.spaTarget);
+				if (poke.name === "Venusaur") console.log (poke.name + `: Sp. Def ` + poke.randSpD + ` + ` + poke.spdDelta + ` -> ` + poke.spdTarget);
+				if (poke.name === "Venusaur") console.log (poke.name + `: Speed ` + poke.randSpe + ` + ` + poke.speDelta + ` -> ` + poke.speTarget);
 
 				if (poke.hpDelta + poke.atkDelta + poke.defDelta + poke.spaDelta + poke.spdDelta + poke.speDelta !== 0) console.log(poke.name + ` somehow didn't get the right BST`);
 				poke.randHp = poke.baseStats.hp + poke.hpDelta;
