@@ -2000,12 +2000,12 @@ export const Scripts: ModdedBattleScriptsData = {
 						console.log(`something has no eligible stats to lower`);
 						break; // this... should never happen? I think?
 					}
-					let min = null;
+					let min = 1000;
 					if (poke.name === "Venusaur") console.log(`Starting a new loop of stat checks`);
 					for (const statCheck of eligibleStats) {
 						if (poke.name === "Venusaur") console.log(`statCheck: ` + statCheck + `; poke[statCheck]: ` + poke[statCheck]);
 						if (min && (min < poke[statCheck])) continue; // skip if it's not at least tied with min
-						if (!min || min > poke[statCheck]) { // if this is a new minimum, replace the set
+						if (min > poke[statCheck]) { // if this is a new minimum, replace the set
 							if (poke.name === "Venusaur") console.log(`That's a new minimum`);
 							min = poke[statCheck];
 							minStat = [];
@@ -2064,10 +2064,10 @@ export const Scripts: ModdedBattleScriptsData = {
 						console.log(`something has no eligible stats to raise`);
 						break; // this... should never happen? I think?
 					}
-					let max = null;
+					let max = -1000;
 					for (const statCheck of eligibleStats) {
 						if (max && (max > poke[statCheck])) continue; // skip if it's not at least tied with max
-						if (!max || poke[statCheck] > max) { // if this is a new maximum, replace the set
+						if (poke[statCheck] > max) { // if this is a new maximum, replace the set
 							max = poke[statCheck];
 							maxStat = [];
 						}
