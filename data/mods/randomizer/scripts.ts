@@ -1291,15 +1291,15 @@ export const Scripts: ModdedBattleScriptsData = {
 					let prevoLv1 = false;
 					let prevo2lv1 = false;
 
-					// early forced moves
-					if (poke.earlyForcedMove && poke.earlyForcedMove === moveid) forceLearn = true;
-
 					// universal moves
 					let forceLearn = false;
 					let synergyMove = 0;
 					if ((!(poke.gender && poke.gender === "N")) && moveid === 'attract') forceLearn = true;
 					if (universal.includes(moveid)) forceLearn = true;
 					if (forceLearn) synergyMove = -1; // dismiss synergyMove if the move is universal; should be 0 now if not
+
+					// early forced moves
+					if (poke.earlyForcedMove && poke.earlyForcedMove === moveid) forceLearn = true;
 
 					// Ability-based moves
 					// these ones are only for the random Ability slot
@@ -1717,19 +1717,20 @@ export const Scripts: ModdedBattleScriptsData = {
 				// - optional, if room: add the same amount to the highest unboosted stat between Atk/Def/SpA/SpD as to the higher offense
 				// - optional, if room: add +10 to remaining unboosted stats
 
-				let hpDelta = 0;
-				let atkDelta = 0;
-				let defDelta = 0;
-				let spaDelta = 0;
-				let spdDelta = 0;
-				let speDelta = 0;
-
 				let hpTarget = 0;
 				let atkTarget = 0;
 				let defTarget = 0;
 				let spaTarget = 0;
 				let spdTarget = 0;
 				let speTarget = 0;
+
+				// don't lose track of these variables but I'm not using them yet
+				let hpDelta = 0;
+				let atkDelta = 0;
+				let defDelta = 0;
+				let spaDelta = 0;
+				let spdDelta = 0;
+				let speDelta = 0;
 
 				poke.crossHp = poke.randHp = poke.baseStats.hp + hpDelta;
 				poke.crossAtk = poke.randAtk = poke.baseStats.atk + atkDelta;
