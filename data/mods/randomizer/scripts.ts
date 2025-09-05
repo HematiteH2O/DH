@@ -1960,7 +1960,7 @@ export const Scripts: ModdedBattleScriptsData = {
 
 				for (let i = 0; i < 12; i++) { // repeat until +60 or until all stats have hit their targets
 					let eligibleStats: string[] = [];
-					if (poke.name !== "Shedinja" && hpDelta < 40 && (poke.randHp + poke.hpDelta < poke.hpTarget + 1) && (poke.randHp + poke.hpDelta < 251)) eligibleStats.push('hpDelta');
+					if (poke.name !== "Shedinja" && poke.hpDelta < 40 && (poke.randHp + poke.hpDelta < poke.hpTarget + 1) && (poke.randHp + poke.hpDelta < 251)) eligibleStats.push('hpDelta');
 					if (atkDelta < 40 && (poke.randAtk + poke.atkDelta < poke.atkTarget + 6) && (poke.randAtk + poke.atkDelta < 243)) eligibleStats.push('atkDelta');
 					if (defDelta < 40 && (poke.randDef + poke.defDelta < poke.defTarget + 6) && (poke.randDef + poke.defDelta < 243)) eligibleStats.push('defDelta');
 					if (spaDelta < 40 && (poke.randSpA + poke.spaDelta < poke.spaTarget + 6) && (poke.randSpA + poke.spaDelta < 243)) eligibleStats.push('spaDelta');
@@ -2034,7 +2034,7 @@ export const Scripts: ModdedBattleScriptsData = {
 					poke[eligibleStats[Math.floor(Math.random() * eligibleStats.length)]] += 5;
 				}
 
-				if (hpDelta + atkDelta + defDelta + spaDelta + spdDelta + speDelta !== 0) console.log(poke.name + ` somehow didn't get the right BST`);
+				if (poke.hpDelta + poke.atkDelta + poke.defDelta + poke.spaDelta + poke.spdDelta + poke.speDelta !== 0) console.log(poke.name + ` somehow didn't get the right BST`);
 				poke.randHp = poke.baseStats.hp + poke.hpDelta;
 				poke.randAtk = poke.baseStats.atk + poke.atkDelta;
 				poke.randDef = poke.baseStats.def + poke.defDelta;
