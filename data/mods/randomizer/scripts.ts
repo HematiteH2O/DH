@@ -991,16 +991,26 @@ export const Scripts: ModdedBattleScriptsData = {
 						if (immunities.includes("Ground")) score -= 10;
 					}
 					if (abilitySet.includes('Water Veil') || abilitySet.includes('Flare Boost')) {
-						if (types.includes("Fire")) score -= 10;
+						if (resistances.includes("Water")) score += 4;
+						if (resistances.includes("Fire")) score += 2;
+						if (resistances.includes("Ground")) score += 1; // Scorching Sands is probably rare, but...
+						if (types.includes("Fire")) score -= 20;
 					}
 					if (abilitySet.includes('Immunity') || abilitySet.includes('Toxic Boost') || abilitySet.includes('Poison Heal')) {
-						if (types.includes("Steel") || types.includes("Poison")) score -= 10;
+						if (resistances.includes("Poison") && !immunities.includes("Poison")) score += 5;
+						if (types.includes("Steel") || types.includes("Poison")) score -= 20;
+					}
+					if (abilitySet.includes('Limber')) {
+						if (resistances.includes("Electric")) score += 4; // the main one
+						if (resistances.includes("Normal") && !immunities.includes("Normal")) score += 1; // Body Slam I guess
+						// no type rejects this because nothing is immune to paralysis this Gen
 					}
 					if (abilitySet.includes('Magma Armor')) {
-						if (types.includes("Ice")) score -= 10;
+						if (resistances.includes("Ice")) score += 5;
+						if (types.includes("Ice")) score -= 20;
 					}
 					if (abilitySet.includes('Overcoat')) {
-						if (types.includes("Ice") && (types.includes("Rock") || types.includes("Ground") || types.includes("Steel"))) score -= 10;
+						if (types.includes("Ice") && (types.includes("Rock") || types.includes("Ground") || types.includes("Steel"))) score -= 20;
 					}
 
 					// discourage neutralities for these
@@ -1054,12 +1064,26 @@ export const Scripts: ModdedBattleScriptsData = {
 						if (resistances.includes("Grass")) score += 3; // extra points for Grass resist
 						if (resistances.includes("Grass") || resistances.includes("Fighting") || resistances.includes("Bug")) score += 2;
 					}
-					if (abilitySet.includes('Inner Focus') || abilitySet.includes('Shield Dust')) {
-						if (types.includes("Ghost")) score -= 4; // redundant
+					if (abilitySet.includes('Shield Dust')) { // maximize the number of other relevant resistances
+						if (resistances.includes("Poison")) score += 3;
+						if (resistances.includes("Water")) score += 3;
+						if (resistances.includes("Rock")) score += 3;
+						if (resistances.includes("Electric")) score += 2;
+						if (resistances.includes("Ice")) score += 2;
+						if (resistances.includes("Bug")) score += 2;
+						if (resistances.includes("Dark")) score += 2;
+						if (resistances.includes("Fire")) score += 1;
+						if (resistances.includes("Ground")) score += 1;
+						if (resistances.includes("Normal")) score += 1;
+						if (types.includes("Ghost")) score -= 5; // redundant but not useless
+					}
+					if (abilitySet.includes('Inner Focus') || abilitySet.includes('Steadfast')) {
+						if (resistances.includes("Rock")) score += 5; // Rock Slideee
+						if (types.includes("Ghost")) score -= 10; // very redundant
 					}
 					if (abilitySet.includes('Normalize')) {
-						if (types.includes("Normal")) score += 10;
-						if (types.includes("Ghost")) score -= 10; // danger
+						if (types.includes("Normal")) score += 10; // STAB
+						if (types.includes("Ghost")) score -= 10; // danger of Skill Swap mostly
 					}
 
 					if (abilitySet.includes("Wonder Guard")) score += (4 * weaknesses.length);
@@ -1699,6 +1723,10 @@ export const Scripts: ModdedBattleScriptsData = {
 					}
 				}
 
+
+
+
+
 				// MODDED STATS
 				// todo:
 				// - push mixed offenses; take out of Def, SpD or Spe, usually
@@ -1717,35 +1745,250 @@ export const Scripts: ModdedBattleScriptsData = {
 				// - optional, if room: add the same amount to the highest unboosted stat between Atk/Def/SpA/SpD as to the higher offense
 				// - optional, if room: add +10 to remaining unboosted stats
 
-				let hpTarget = 0;
-				let atkTarget = 0;
-				let defTarget = 0;
-				let spaTarget = 0;
-				let spdTarget = 0;
-				let speTarget = 0;
+				const pokeTypes: string[] = [];
+				pokeTypes.push(poke.chosenType.type1);
+				if (poke.chosenType.type2 !== poke.chosenType.type1) pokeTypes.push(poke.chosenType.type2);
+
+				const abilityCheck: string[] = [];
+				abilityCheck.push(poke.randAbilities[0]);
+				if (poke.randAbilities[0]) abilityCheck.push(poke.randAbilities[1]);
+
+				poke.hpTarget = poke.baseStats.hp;
+				poke.atkTarget = poke.baseStats.atk;
+				poke.defTarget = poke.baseStats.def;
+				poke.spaTarget = poke.baseStats.spa;
+				poke.spdTarget = poke.baseStats.spd;
+				poke.speTarget = poke.baseStats.spe;
+
+				// step 1: surface-level type themes (optional but as many as I like)
+				// there's plenty more randomization later, so these don't need a fixed total at all
+				if (pokeTypes.includes("Water")) {
+					poke.hpTarget += 20;
+				}
+				if (pokeTypes.includes("Electric") || pokeTypes.includes("Flying")) {
+					poke.speTarget += 20;
+				}
+				if (pokeTypes.includes("Ice")) {
+					poke.atkTarget += 20;
+					poke.spaTarget += 20;
+					poke.speTarget -= 10;
+					if (poke.speTarget > 75 && (Math.random() > 0.5)) poke.speTarget = 75;
+				}
+				if (pokeTypes.includes("Fighting")) {
+					poke.atkTarget += 20;
+					poke.defTarget += 20;
+					poke.spaTarget -= 20;
+					poke.spdTarget -= 20;
+				}
+				if (pokeTypes.includes("Ground")) {
+					if (poke.spdTarget > 75 && (Math.random() > 0.5)) poke.spdTarget = 75;
+				}
+				if (pokeTypes.includes("Psychic")) {
+					poke.atkTarget -= 20;
+					poke.defTarget -= 20;
+					poke.spaTarget += 20;
+					poke.spdTarget += 20;
+				}
+				if (pokeTypes.includes("Bug")) {
+					if (poke.atkTarget > poke.spaTarget) poke.atkTarget += 20;
+				}
+				if (pokeTypes.includes("Rock")) {
+					poke.defTarget += 40;
+					poke.spdTarget -= 20;
+					poke.speTarget -= 20;
+				}
+				if (pokeTypes.includes("Ghost")) {
+					poke.hpTarget -= 20;
+					if (poke.spaTarget > poke.atkTarget) poke.spaTarget += 20;
+					else poke.atkTarget += 20;
+				}
+				if (pokeTypes.includes("Dragon")) {
+					poke.hpTarget += 20;
+					poke.defTarget -= 10;
+					poke.spdTarget -= 10;
+				}
+				if (pokeTypes.includes("Dark")) {
+					poke.atkTarget += 20;
+				}
+				if (pokeTypes.includes("Steel")) {
+					poke.defTarget += 40;
+					poke.spdTarget += 20;
+				}
+				if (pokeTypes.includes("Grass")) {
+					if (poke.atkTarget > 105) poke.atkTarget = 105;
+					if (poke.spaTarget > 105) poke.spaTarget = 105;
+				}
+				if (poke.chosenType.type1 === poke.chosenType.type2) poke.speTarget += 10;
+				// these are basically just random examples to see what it looks like; they don't matter yet
+
+				// step 2: mixed attacker-ification
+				if (!(poke.eggGroups[0] === 'Bug' || (poke.eggGroups[1] && poke.eggGroups[1] === 'Bug'))) { // these guys can minmax I guess
+					if (poke.atkTarget + 20 < poke.spaTarget) {
+						poke.atkTarget = poke.spaTarget - 20;
+					} else if (poke.spaTarget + 20 < poke.atkTarget) {
+						poke.spaTarget = poke.atkTarget - 20;
+					}
+				}
+
+				// step 3: randomizer stat moment
+				const randomizerStatMoment: string[] = ['hpTarget', 'atkTarget', 'defTarget', 'spaTarget', 'spdTarget', 'speTarget'];
+				poke.[Math.floor(Math.random() * randomizerStatMoment.length)] = [Math.floor(Math.random() * 240)] + 5;
+
+				// step 4: mechanics/balance pass
+				if (poke.name === "Shedinja") poke.hpTarget = 1;
+
+				// physical/special bias
+				// this bit is a buff, not a nerf, so it values the random Ability only
+				let bias = null;
+				if (['waterveil', 'hypercutter', 'clearbody', 'whitesmoke', 'defiant', 'moxie', 'justified', 'sapsipper', 'angerpoint', 'guts', 'toxicboost', 'hustle', 'reckless', 'ironfist'].includes(poke.randAbility[0])) bias = "Atk";
+				if (['skilllink'].includes(poke.randAbility[0]) && !poke.listOfCertainMoves.includes('watershuriken')) bias = "Atk";
+				if (['owntempo'].includes(poke.randAbility[0]) && !poke.listOfCertainMoves.includes('petaldance')) bias = "Atk";
+				if (['lightningrod', 'stormdrain', 'flareboost', 'solarpower', 'plus', 'minus'].includes(poke.randAbility[0])) bias = "SpA";
+				if ((bias === "Atk" && poke.atkTarget > poke.spaTarget) || (bias === "SpA" && poke.atkTarget < poke.spaTarget)) {
+					let newAtk = poke.spaTarget;
+					let newSpA = poke.atkTarget;
+					poke.atkTarget = newAtk;
+					poke.spaTarget = newSpA;
+				}
+
+				if (pokeTypes.includes("Dragon") && poke.spaTarget < poke.atkTarget && poke.spaTarget < 80) poke.spaTarget = 80;
+				if (pokeTypes.includes("Electric") && poke.spaTarget < poke.atkTarget && poke.spaTarget < 95) poke.spaTarget = 95;
+				if (poke.randAbilities[0] === "Defeatist" && poke.speTarget < 115) poke.speTarget = 115;
+				if (poke.randAbility[0] === "Analytic" && poke.speTarget > 40) poke.speTarget = 40;
+
+				// offense limits
+				// only either Speed or offense has to adhere to the limits, not necessarily both
+				let maxAtk = 250;
+				let maxSpa = 250;
+				let maxSpe = 250;
+				if (!poke.chosenType.lowSynergy) {
+					if (maxAtk > 109) maxAtk = 109;
+					if (maxSpa > 109) maxSpa = 109;
+					if (maxSpe > 109) maxSpe = 109;
+				}
+				if (abilityCheck.includes("Hustle")) {
+					if (!poke.chosenType.lowSynergy) {
+						if (maxAtk > 75) maxAtk = 75;
+						if (maxSpe > 75) maxSpe = 75;
+					} else {
+						if (maxAtk > 109) maxAtk = 109;
+						if (maxSpe > 109) maxSpe = 109;
+					}
+				}
+				if (abilityCheck.includes("Guts") || abilityCheck.includes("Toxic Boost")) {
+					if (!poke.chosenType.lowSynergy) {
+						if (maxAtk > 90) maxAtk = 90;
+						if (maxSpe > 60) maxSpe = 60;
+					} else {
+						if (maxAtk > 100) maxAtk = 100;
+						if (maxSpe > 70) maxSpe = 70;
+					}
+				}
+				if (abilityCheck.includes("Flare Boost") || abilityCheck.includes("Sheer Force")) {
+					if (!poke.chosenType.lowSynergy) {
+						if (maxSpa > 90) maxSpa = 90;
+						if (maxSpe > 60) maxSpe = 60;
+					} else {
+						if (maxSpa > 100) maxSpa = 100;
+						if (maxSpe > 70) maxSpe = 70;
+					}
+				}
+				if (abilityCheck.includes("Adaptability")) {
+					if (!poke.chosenType.lowSynergy) {
+						if (maxAtk > 90) maxAtk = 90;
+						if (maxSpa > 90) maxSpa = 90;
+						if (maxSpe > 50) maxSpe = 50;
+					} else {
+						if (maxAtk > 95) maxAtk = 95;
+						if (maxSpa > 95) maxSpa = 95;
+						if (maxSpe > 90) maxSpe = 90;
+					}
+				}
+				if (abilityCheck.includes("Simple")) {
+					if (maxAtk > 90) maxAtk = 90;
+					if (maxSpa > 90) maxSpa = 90;
+					if (maxSpe > 90) maxSpe = 90;
+					if (poke.listOfCertainMoves.includes('bulkup') || poke.listOfCertainMoves.includes('coil') || poke.listOfCertainMoves.includes('howl') || poke.listOfCertainMoves.includes('poweruppunch')) {
+						if (poke.atkTarget > 90) poke.atkTarget = 90;
+					}
+					if (poke.listOfCertainMoves.includes('calmmind') || poke.listOfCertainMoves.includes('torchsong')) {
+						if (poke.atkTarget > 90) poke.atkTarget = 90;
+					}
+					if (poke.listOfCertainMoves.includes('dragondance') || poke.listOfCertainMoves.includes('shiftgear') || poke.listOfCertainMoves.includes('tidyup') || poke.listOfCertainMoves.includes('victorydance')) {
+						if (poke.atkTarget > 90) poke.atkTarget = 90;
+						if (maxAtk > 50) maxAtk = 50;
+						if (maxSpe > 50) maxSpe = 50;
+					}
+					if (poke.listOfCertainMoves.includes('quiverdance') || poke.listOfCertainMoves.includes('geomancy')) {
+						if (poke.spaTarget > 90) poke.spaTarget = 90;
+						if (maxSpa > 50) maxSpa = 50;
+						if (maxSpe > 50) maxSpe = 50;
+					}
+				}
+				if (abilityCheck.includes("Contrary")) {
+					// Superpower is universal for this
+					if (pokeTypes.includes("Fighting")) {
+						if (maxAtk > 80) maxAtk = 80;
+						if (maxSpe > 50) maxSpe = 50;
+					}
+					const spaContrary = ['dracometeor', 'overheat', 'leafstorm', 'makeitrain'];
+					for (const moveCheck of spaContrary) if (poke.listOfCertainMoves.includes(moveCheck) && this.dataCache.Moves[moveCheck].type && pokeTypes.includes(this.dataCache.Moves[moveCheck].type)) hasMove = true;
+					if (hasMove) {
+						if (maxSpa > 75) maxSpa = 75;
+						if (maxSpe > 45) maxSpe = 45;
+					}
+				}
+				if (poke.speTarget > maxSpe && (poke.atkTarget > maxAtk || poke.spaTarget > maxSpa)) {
+					if ((poke.speTarget - maxSpe > poke.atkTarget - maxAtk) && (poke.speTarget - maxSpe > poke.spaTarget - maxSpa)) {
+						if (poke.atkTarget > maxAtk) poke.atkTarget = maxAtk;
+						if (poke.spaTarget > maxSpa) poke.spaTarget = maxSpa;
+					} else {
+						poke.speTarget = maxSpe;
+					}
+				}
+
+				if (abilityCheck.includes("Huge Power") || abilityCheck.includes("Pure Power")) {
+					if (poke.spaTarget > poke.atkTarget) poke.atkTarget = poke.spaTarget; // didn't want to swap at the earlier opportunity because having SpA intact is cool
+					poke.atkTarget /= 2; // this does *not* cancel out Huge Power completely, but that's on purpose
+					if (50 > poke.atkTarget > 24.5) poke.atkTarget = 50; // if it was at least 50 before but isn't now, elevate to 50
+				}
+
+				// this bit is a buff, not a nerf, so it values the random Ability only
+				if (['Speed Boost', 'Steadfast', 'Rattled', 'Motor Drive', 'Quick Feet', 'Weak Armor'].includes(poke.randAbility[0]) && poke.speTarget < 85) poke.speTarget = 85; // +1 Abilities
+				if (['Unburden', 'Chlorophyll', 'Swift Swim', 'Sand Rush'].includes(poke.randAbility[0]) && poke.speTarget < 75) poke.speTarget = 75; // +2 Abilities
+				if (poke.randAbility[0] === "Weak Armor") poke.defTarget = poke.baseStats.def + 50; // and just for fun, let it max this out
+
+				// step 5: stat increase assignment (mostly random)
+				let poke.randHp = poke.baseStats.hp;
+				let poke.randAtk = poke.baseStats.atk;
+				let poke.randDef = poke.baseStats.def;
+				let poke.randSpA = poke.baseStats.spa;
+				let poke.randSpD = poke.baseStats.spd;
+				let poke.randSpe = poke.baseStats.spe;
+
+				// step 6: stat decrease assignment (mostly guided)
+
+				// step 7: BST correction final pass (mostly guided)
 
 				// don't lose track of these variables but I'm not using them yet
-				let hpDelta = 0;
-				let atkDelta = 0;
-				let defDelta = 0;
-				let spaDelta = 0;
-				let spdDelta = 0;
-				let speDelta = 0;
+				let hpDelta = poke.baseStats.hp - poke.randHp;
+				let atkDelta = poke.baseStats.atk - poke.randAtk;
+				let defDelta = poke.baseStats.atk - poke.randDef;
+				let spaDelta = poke.baseStats.atk - poke.randSpA;
+				let spdDelta = poke.baseStats.atk - poke.randSpD;
+				let speDelta = poke.baseStats.atk - poke.randSpe;
 
-				poke.crossHp = poke.randHp = poke.baseStats.hp + hpDelta;
-				poke.crossAtk = poke.randAtk = poke.baseStats.atk + atkDelta;
-				poke.crossDef = poke.randDef = poke.baseStats.def + defDelta;
-				poke.crossSpA = poke.randSpA = poke.baseStats.spa + spaDelta;
-				poke.crossSpD = poke.randSpD = poke.baseStats.spd + spdDelta;
-				poke.crossSpe = poke.randSpe = poke.baseStats.spe + speDelta;
+				poke.crossHp = poke.hpTarget;
+				poke.crossAtk = poke.atkTarget;
+				poke.crossDef = poke.defTarget;
+				poke.crossSpA = poke.spaTarget;
+				poke.crossSpD = poke.spdTarget;
+				poke.crossSpe = poke.speTarget;
 
 
 
 				// CROSSGEN STATS
 				// todo: Speed
-				const pokeTypes: string[] = [];
-				pokeTypes.push(poke.chosenType.type1);
-				if (poke.chosenType.type2 !== poke.chosenType.type1) pokeTypes.push(poke.chosenType.type2);
 
 				let maxbst = (poke.randHp + poke.randAtk + poke.randDef + poke.randSpA + poke.randSpD + poke.randSpe + 30);
 				if (540 > maxbst) maxbst = 540;
