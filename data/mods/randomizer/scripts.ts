@@ -1840,10 +1840,10 @@ export const Scripts: ModdedBattleScriptsData = {
 				// physical/special bias
 				// this bit is a buff, not a nerf, so it values the random Ability only
 				let bias = null;
-				if (['waterveil', 'hypercutter', 'clearbody', 'whitesmoke', 'defiant', 'moxie', 'justified', 'sapsipper', 'angerpoint', 'guts', 'toxicboost', 'hustle', 'reckless', 'ironfist'].includes(poke.randAbility[0])) bias = "Atk";
-				if (['skilllink'].includes(poke.randAbility[0]) && !poke.listOfCertainMoves.includes('watershuriken')) bias = "Atk";
-				if (['owntempo'].includes(poke.randAbility[0]) && !poke.listOfCertainMoves.includes('petaldance')) bias = "Atk";
-				if (['lightningrod', 'stormdrain', 'flareboost', 'solarpower', 'plus', 'minus'].includes(poke.randAbility[0])) bias = "SpA";
+				if (['waterveil', 'hypercutter', 'clearbody', 'whitesmoke', 'defiant', 'moxie', 'justified', 'sapsipper', 'angerpoint', 'guts', 'toxicboost', 'hustle', 'reckless', 'ironfist'].includes(poke.randAbilities[0])) bias = "Atk";
+				if (['skilllink'].includes(poke.randAbilities[0]) && !poke.listOfCertainMoves.includes('watershuriken')) bias = "Atk";
+				if (['owntempo'].includes(poke.randAbilities[0]) && !poke.listOfCertainMoves.includes('petaldance')) bias = "Atk";
+				if (['lightningrod', 'stormdrain', 'flareboost', 'solarpower', 'plus', 'minus'].includes(poke.randAbilities[0])) bias = "SpA";
 				if ((bias === "Atk" && poke.atkTarget > poke.spaTarget) || (bias === "SpA" && poke.atkTarget < poke.spaTarget)) {
 					let newAtk = poke.spaTarget;
 					let newSpA = poke.atkTarget;
@@ -1854,7 +1854,7 @@ export const Scripts: ModdedBattleScriptsData = {
 				if (pokeTypes.includes("Dragon") && poke.spaTarget < poke.atkTarget && poke.spaTarget < 80) poke.spaTarget = 80;
 				if (pokeTypes.includes("Electric") && poke.spaTarget < poke.atkTarget && poke.spaTarget < 95) poke.spaTarget = 95;
 				if (poke.randAbilities[0] === "Defeatist" && poke.speTarget < 115) poke.speTarget = 115;
-				if (poke.randAbility[0] === "Analytic" && poke.speTarget > 40) poke.speTarget = 40;
+				if (poke.randAbilities[0] === "Analytic" && poke.speTarget > 40) poke.speTarget = 40;
 
 				// offense limits
 				// only either Speed or offense has to adhere to the limits, not necessarily both
@@ -1954,9 +1954,9 @@ export const Scripts: ModdedBattleScriptsData = {
 				}
 
 				// this bit is a buff, not a nerf, so it values the random Ability only
-				if (['Speed Boost', 'Steadfast', 'Rattled', 'Motor Drive', 'Quick Feet', 'Weak Armor'].includes(poke.randAbility[0]) && poke.speTarget < 85) poke.speTarget = 85; // +1 Abilities
-				if (['Unburden', 'Chlorophyll', 'Swift Swim', 'Sand Rush'].includes(poke.randAbility[0]) && poke.speTarget < 75) poke.speTarget = 75; // +2 Abilities
-				if (poke.randAbility[0] === "Weak Armor") poke.defTarget = poke.baseStats.def + 50; // and just for fun, let it max this out
+				if (['Speed Boost', 'Steadfast', 'Rattled', 'Motor Drive', 'Quick Feet', 'Weak Armor'].includes(poke.randAbilities[0]) && poke.speTarget < 85) poke.speTarget = 85; // +1 Abilities
+				if (['Unburden', 'Chlorophyll', 'Swift Swim', 'Sand Rush'].includes(poke.randAbilities[0]) && poke.speTarget < 75) poke.speTarget = 75; // +2 Abilities
+				if (poke.randAbilities[0] === "Weak Armor") poke.defTarget = poke.baseStats.def + 50; // and just for fun, let it max this out
 
 				// step 5: stat increase assignment (mostly random)
 				poke.randHp = poke.baseStats.hp;
