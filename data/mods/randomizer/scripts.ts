@@ -1959,12 +1959,12 @@ export const Scripts: ModdedBattleScriptsData = {
 				if (poke.randAbility[0] === "Weak Armor") poke.defTarget = poke.baseStats.def + 50; // and just for fun, let it max this out
 
 				// step 5: stat increase assignment (mostly random)
-				let poke.randHp = poke.baseStats.hp;
-				let poke.randAtk = poke.baseStats.atk;
-				let poke.randDef = poke.baseStats.def;
-				let poke.randSpA = poke.baseStats.spa;
-				let poke.randSpD = poke.baseStats.spd;
-				let poke.randSpe = poke.baseStats.spe;
+				poke.randHp = poke.baseStats.hp;
+				poke.randAtk = poke.baseStats.atk;
+				poke.randDef = poke.baseStats.def;
+				poke.randSpA = poke.baseStats.spa;
+				poke.randSpD = poke.baseStats.spd;
+				poke.randSpe = poke.baseStats.spe;
 
 				// step 6: stat decrease assignment (mostly guided)
 
