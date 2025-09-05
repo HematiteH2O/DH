@@ -150,7 +150,7 @@ const movesAfterGenV = [
 	'axekick', 'luminacrash', 'jetpunch', 'spicyextract', 'spinout', 'populationbomb', 'tripledive', 'kowtowcleave', 'flowertrick', 'torchsong',
 	'aquastep', 'makeitrain', 'pounce', 'trailblaze', 'chillingwater', 'hyperdrill', 'twinbeam', 'armorcannon', 'bitterblade', 'comeuppance', 'aquacutter',
 	'thunderclap', 'mightycleave', 'tachyoncutter', 'hardpress', 'supercellslam', 'malignantchain',
-	'eerieimpulse', 'steelbeam', 'toxicthread', 'psychicnoise', // NEAT
+	'eerieimpulse', 'steelbeam', 'toxicthread', 'psychicnoise', 'triplearrows',
 	// 'leafage', 'branchpoke', // these moves are easy enough to copy over, but they're redundant so it's unhelpful to see them highlighted so often
 ];
 const moveGroups = {
@@ -932,12 +932,13 @@ export const Scripts: ModdedBattleScriptsData = {
 
 						for (const type in this.dataCache.TypeChart) {
 							if (type === "Fairy") continue;
+							if (this.dataCache.TypeChart[type].damageTaken[type1] > 1 && this.dataCache.TypeChart[type].damageTaken[type2] > 1) lowSynergy = true;
+							// lowSynergy doesn't affect score, but if this type is picked, it opens more options for the stats stage later
+							if (this.dataCache.TypeChart[type].damageTaken[type1] === 2 && this.dataCache.TypeChart[type].damageTaken[type2] === 2 && abilitySet.includes('Tinted Lens')) score += 2;
 							if (this.dataCache.TypeChart[type].damageTaken[type1] > 1 || this.dataCache.TypeChart[type].damageTaken[type2] > 1) { // one STAB resisted
 								if (this.dataCache.TypeChart[type].damageTaken[type1] === 1 || this.dataCache.TypeChart[type].damageTaken[type2] === 1) { // other STAB is SE
 									score ++; // weakness canceled by immunity
 								} else { // neither STAB SE
-									if (abilitySet.includes('Tinted Lens')) score += 2;
-									lowSynergy = true;
 									if (this.dataCache.TypeChart[type].damageTaken[poke.types[0]] === 1 || (poke.types[1] && this.dataCache.TypeChart[type].damageTaken[poke.types[1]] === 1)) {
 										// one of the base types is SE
 										score += 2;
@@ -1153,6 +1154,7 @@ export const Scripts: ModdedBattleScriptsData = {
 
 				const usedSecondMoves: string[] = []; // to avoid pushing the same one twice
 				const alreadyLvUpMoves: string[] = []; // to avoid pushing the same one twice
+				const earlyForcedMovesOptions: string[] = []; // to make sure you have at least *one* move with Ability synergy, since you can't do that while evaluating every move in order
 
 				const moveAbilitySet: string[] = [];
 				moveAbilitySet.push(poke.randAbilities[0]);
@@ -1160,7 +1162,7 @@ export const Scripts: ModdedBattleScriptsData = {
 				if (poke.randAbilities[2]) moveAbilitySet.push(poke.randAbilities[2]);
 
 				if (moveAbilitySet.includes("Drizzle") || moveAbilitySet.includes("Swift Swim") || moveAbilitySet.includes("Rain Dish") || moveAbilitySet.includes("Dry Skin") || moveAbilitySet.includes("Hydration") || moveAbilitySet.includes("Torrent")) learnsetTypes.push("Water");
-				if (moveAbilitySet.includes("Drought") || moveAbilitySet.includes("Chlorophyll") || moveAbilitySet.includes("Leaf Guard") || moveAbilitySet.includes("Solar Power") || moveAbilitySet.includes("Harvest") || moveAbilitySet.includes("Blaze") || moveAbilitySet.includes("Flash Fire")) learnsetTypes.push("Fire");
+				if (moveAbilitySet.includes("Drought") || moveAbilitySet.includes("Blaze") || moveAbilitySet.includes("Flash Fire")) learnsetTypes.push("Fire");
 				if (moveAbilitySet.includes("Overgrow")) learnsetTypes.push("Grass");
 				if (moveAbilitySet.includes("Swarm")) learnsetTypes.push("Bug");
 				if (moveAbilitySet.includes("Sand Force")) learnsetTypes.push("Rock");
@@ -1194,12 +1196,25 @@ export const Scripts: ModdedBattleScriptsData = {
 					}
 				}
 
+				// early forced move time
+				let getsForcedMoveAlready = false;
+				if (poke.randAbilities[0] === "Defeatist") earlyForcedMovesOptions = ['healorder', 'roost', 'recover', 'softboiled', 'milkdrink', 'slackoff', 'moonlight', 'synthesis', 'morningsun', 'wish'];
+				if (poke.randAbilities[0] === "Bad Dreams") earlyForcedMovesOptions = ['grasswhistle', 'sleeppowder', 'sing', 'lovelykiss', 'hypnosis', 'yawn'];
+				if (poke.randAbilities[0] === "Chlorophyll" || poke.randAbilities[0] === "Leaf Guard" || poke.randAbilities[0] === "Solar Power" || poke.randAbilities[0] === "Harvest") earlyForcedMovesOptions = ['growth', 'synthesis', 'morningsun', 'moonlight'];
+				if (poke.randAbilities[0] === "Iron Fist") earlyForcedMovesOptions = ['bulletpunch', 'cometpunch', 'dizzypunch', 'drainpunch', 'firepunch', 'focuspunch', 'hammerarm', 'icehammer', 'icepunch', 'machpunch', 'megapunch', 'poweruppunch', 'shadowpunch', 'skyuppercut', 'thunderpunch', 'jetpunch', 'meteormash'];
+				if (poke.randAbilities[0] === "Rock Head" || poke.randAbilities[0] === "Reckless") earlyForcedMovesOptions = ['doubleedge', 'flareblitz', 'headsmash', 'submission', 'woodhammer', 'wavecrash', 'wildcharge', 'bravebird', 'headcharge'];
+				if (poke.randAbilities[0] === "Skill Link") earlyForcedMovesOptions = ['armthrust', 'bulletseed', 'iciclespear', 'pinmissile', 'rockblast', 'spikecannon', 'tailslap', 'bonerush', 'watershuriken'];
+				if (poke.randAbilities[0] === "Sniper" || poke.randAbilities[0] === "Super Luck") earlyForcedMovesOptions = ['aircutter', 'aquacutter', 'attackorder', 'blazekick', 'crabhammer', 'crosschop', 'crosspoison', 'drillrun', 'esperwing', 'leafblade', 'nightslash', 'psychocut', 'shadowclaw', 'slash', 'snipeshot', 'stoneedge', 'triplearrows'];
+
+				// first check if it already gets one of them
 				for (const moveCheck in learnset) {
+					if (earlyForcedMovesOptions.includes(moveCheck)) getsForcedMoveAlready = true;
 					for (const source of learnset[moveCheck]) {
 						if (source.charAt(1) === 'L') alreadyLvUpMoves.push(moveCheck);
 					}
 				}
 				if (learnset2) {
+					if (earlyForcedMovesOptions.includes(moveCheck)) getsForcedMoveAlready = true;
 					for (const moveCheck in learnset2) {
 						for (const source of learnset2[moveCheck]) {
 							if (source.charAt(1) === 'L') alreadyLvUpMoves.push(moveCheck);
@@ -1207,12 +1222,51 @@ export const Scripts: ModdedBattleScriptsData = {
 					}
 				}
 				if (learnset3) {
+					if (earlyForcedMovesOptions.includes(moveCheck)) getsForcedMoveAlready = true;
 					for (const moveCheck in learnset3) {
 						for (const source of learnset3[moveCheck]) {
 							if (source.charAt(1) === 'L') alreadyLvUpMoves.push(moveCheck);
 						}
 					}
 				}
+
+				if (earlyForcedMovesOptions.length && !getsForcedMoveAlready) {
+					// now pick one of them
+					const earlyForcedMoveCandidates: string[] = [];
+					// prioritize matching type
+					for (const moveCheck in earlyForcedMoveCandidates) {
+						if (!this.dataCache.Moves[moveid]) {
+							console.log(moveid);
+							continue;
+						}
+						const types: string[] = [];
+						types.push(this.dataCache.Moves[moveid].type);
+						if (moveid === 'recover') {
+							types.push("Psychic");
+							types.push("Water");
+						} else if (moveid === 'moonlight') {
+							types.push("Dark");
+							types.push("Ghost");
+						} else if (moveid === 'morningsun') {
+							types.push("Psychic");
+							types.push("Fire");
+						} else if (moveid === 'lovelykiss') {
+							types.push("Dark");
+						} else if (moveid === 'hypnosis' || moveid === 'bonerush') {
+							types.push("Ghost");
+						} else if (moveid === 'iciclespear') {
+							types.push("Water");
+						} else if (moveid === 'spikecannon') {
+							types.push("Steel");
+						}
+						if (types.includes(poke.chosenType.type1) || types.includes(poke.chosenType.type2)) earlyForcedMoveCandidates.push(moveid);
+					}
+					// if no type-themed options are available, pick at complete random - all of the listed options are on the table
+					if (!earlyForcedMoveCandidates.length) earlyForcedMoveCandidates = earlyForcedMovesOptions;
+					if (earlyForcedMoveCandidates.length) poke.earlyForcedMove = earlyForcedMoveCandidates[Math.floor(Math.random() * earlyForcedMoveCandidates.length)];
+				}
+
+				// okay, now the real learnset work starts
 
 				for (const moveid in this.dataCache.Moves) {
 					const move = this.dataCache.Moves[moveid];
@@ -1234,6 +1288,9 @@ export const Scripts: ModdedBattleScriptsData = {
 					let lv1 = false;
 					let prevoLv1 = false;
 					let prevo2lv1 = false;
+
+					// early forced moves
+					if (poke.earlyForcedMove && poke.earlyForcedMove === moveid) forceLearn = true;
 
 					// universal moves
 					let forceLearn = false;
@@ -1320,7 +1377,7 @@ export const Scripts: ModdedBattleScriptsData = {
 					// should be 1 now if synergistic, 0 now if not forced yet, and -1 if universal
 
 					// Bonus learnsetTypes but only for the randomized Ability
-					if ((poke.randAbilities[0] === "Drought" || poke.randAbilities[0] === "Chlorophyll" || poke.randAbilities[0] === "Leaf Guard" || poke.randAbilities[0] === "Solar Power" || poke.randAbilities[0] === "Harvest" || poke.randAbilities[0] === "Blaze" || poke.randAbilities[0] === "Flash Fire") && universalFire.includes(moveid) && move.type === "Fire" && move.category !== "Status") forceLearn = true;
+					if ((poke.randAbilities[0] === "Drought" || poke.randAbilities[0] === "Blaze" || poke.randAbilities[0] === "Flash Fire") && universalFire.includes(moveid) && move.type === "Fire" && move.category !== "Status") forceLearn = true;
 					if ((poke.randAbilities[0] === "Drizzle" || poke.randAbilities[0] === "Swift Swim" || poke.randAbilities[0] === "Rain Dish" || poke.randAbilities[0] === "Dry Skin" || poke.randAbilities[0] === "Hydration" || poke.randAbilities[0] === "Torrent") && universalWater.includes(moveid) && move.type === "Water" && move.category !== "Status") forceLearn = true;
 					if ((poke.randAbilities[0] === "Overgrow") && universalGrass.includes(moveid) && move.type === "Grass" && move.category !== "Status") forceLearn = true;
 					if ((poke.randAbilities[0] === "Swarm") && universalBug.includes(moveid) && move.type === "Bug" && move.category !== "Status") forceLearn = true;
