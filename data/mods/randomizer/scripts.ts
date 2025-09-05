@@ -797,7 +797,7 @@ export const Scripts: ModdedBattleScriptsData = {
 */
 
 			let chosenCombinations = {};
-			let topScore = 0;
+			let topScore = -500; // oh this is why starters keep failing aksfjgh
 			let loopCount = 0;
 			for (const type1 of chosenTypes) {
 				for (const type2 of chosenTypes) {
