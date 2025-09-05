@@ -1832,7 +1832,7 @@ export const Scripts: ModdedBattleScriptsData = {
 
 				// step 3: randomizer stat moment
 				const randomizerStatMoment: string[] = ['hpTarget', 'atkTarget', 'defTarget', 'spaTarget', 'spdTarget', 'speTarget'];
-				poke.[Math.floor(Math.random() * randomizerStatMoment.length)] = [Math.floor(Math.random() * 240)] + 5;
+				poke[Math.floor(Math.random() * randomizerStatMoment.length)] = [Math.floor(Math.random() * 240)] + 5;
 
 				// step 4: mechanics/balance pass
 				if (poke.name === "Shedinja") poke.hpTarget = 1;
@@ -1986,7 +1986,7 @@ export const Scripts: ModdedBattleScriptsData = {
 				poke.crossSpe = poke.speTarget;
 
 
-
+/*
 				// CROSSGEN STATS
 				// todo: Speed
 
@@ -2275,6 +2275,7 @@ export const Scripts: ModdedBattleScriptsData = {
 				// the fun thing is that...
 				// I have no idea how much some of this works because there's so much randomization,
 				// but never knowing what's gonna come out is half the fun anyway P:
+*/
 
 /*
 // offensive setup:
