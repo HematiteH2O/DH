@@ -1786,7 +1786,7 @@ export const Scripts: ModdedBattleScriptsData = {
 					} else {
 						// if there's a second move
 						if (secondMove) moveName += ` ->~~` + secondMove.name;
-						else moveName += `~~`;
+						else moveName = `~~` + moveName;
 						if (secondMove && secondMove.num && secondMove.num > 559) {
 							if (movesAfterGenV.includes(this.toID(secondMove.name))) moveName = moveName + ` (new)`; // identify post-Gen V moves
 							else {
@@ -2773,7 +2773,7 @@ export const Scripts: ModdedBattleScriptsData = {
 						// base stats
 						sheetOutput += poke3.randHp + `~` + poke3.randAtk + `~` + poke3.randDef + `~` + poke3.randSpA + `~` + poke3.randSpD + `~` + poke3.randSpe + `~` + (poke3.randHp + poke3.randAtk + poke3.randDef + poke3.randSpA + poke3.randSpD + poke3.randSpe) + `\n`;
 						// abilities
-						sheetOutput += poke3.randAbilities[0] + (poke3.randAbilities[1] ? ` / `+ poke3.randAbilities[1] + ` ` : ` `) + (poke3.randAbilities[2] ? `// `+ poke3.randAbilities[2] + `~~~~` : `~~~~`);
+						sheetOutput += poke3.randAbilities[0] + (poke3.randAbilities[1] ? ` / `+ poke3.randAbilities[1] + ` ` : ` `) + (poke3.randAbilities[2] ? `// `+ poke3.randAbilities[2] + `~~~~~~` : `~~~~~~`);
 						// stat deltas
 						sheetOutput += ((poke3.randHp - poke3.baseStats.hp) !== 0 ? (poke3.randHp - poke3.baseStats.hp) : ` `) + `~` + ((poke3.randAtk - poke3.baseStats.atk) !== 0 ? (poke3.randAtk - poke3.baseStats.atk) : ` `) + `~` + ((poke3.randDef - poke3.baseStats.def) !== 0 ? (poke3.randDef - poke3.baseStats.def) : ` `) + `~` + ((poke3.randSpA - poke3.baseStats.spa) !== 0 ? (poke3.randSpA - poke3.baseStats.spa) : ` `) + `~` + ((poke3.randSpD - poke3.baseStats.spd) !== 0 ? (poke3.randSpD - poke3.baseStats.spd) : ` `) + `~` + ((poke3.randSpe - poke3.baseStats.spe) !== 0 ? (poke3.randSpe - poke3.baseStats.spe) : ` `) + `\n`;
 					}
@@ -2786,7 +2786,7 @@ export const Scripts: ModdedBattleScriptsData = {
 					// base stats
 					sheetOutput += poke2.randHp + `~` + poke2.randAtk + `~` + poke2.randDef + `~` + poke2.randSpA + `~` + poke2.randSpD + `~` + poke2.randSpe + `~` + (poke2.randHp + poke2.randAtk + poke2.randDef + poke2.randSpA + poke2.randSpD + poke2.randSpe) + `\n`;
 					// abilities
-					sheetOutput += poke2.randAbilities[0] + (poke2.randAbilities[1] ? ` / `+ poke2.randAbilities[1] + ` ` : ` `) + (poke2.randAbilities[2] ? `// `+ poke2.randAbilities[2] + `~~~~` : `~~~~`);
+					sheetOutput += poke2.randAbilities[0] + (poke2.randAbilities[1] ? ` / `+ poke2.randAbilities[1] + ` ` : ` `) + (poke2.randAbilities[2] ? `// `+ poke2.randAbilities[2] + `~~~~~~` : `~~~~~~`);
 					// stat deltas
 					sheetOutput += ((poke2.randHp - poke2.baseStats.hp) !== 0 ? (poke2.randHp - poke2.baseStats.hp) : ` `) + `~` + ((poke2.randAtk - poke2.baseStats.atk) !== 0 ? (poke2.randAtk - poke2.baseStats.atk) : ` `) + `~` + ((poke2.randDef - poke2.baseStats.def) !== 0 ? (poke2.randDef - poke2.baseStats.def) : ` `) + `~` + ((poke2.randSpA - poke2.baseStats.spa) !== 0 ? (poke2.randSpA - poke2.baseStats.spa) : ` `) + `~` + ((poke2.randSpD - poke2.baseStats.spd) !== 0 ? (poke2.randSpD - poke2.baseStats.spd) : ` `) + `~` + ((poke2.randSpe - poke2.baseStats.spe) !== 0 ? (poke2.randSpe - poke2.baseStats.spe) : ` `) + `\n`;
 				}
@@ -2800,7 +2800,7 @@ export const Scripts: ModdedBattleScriptsData = {
 				// base stats
 				sheetOutput += poke.randHp + `~` + poke.randAtk + `~` + poke.randDef + `~` + poke.randSpA + `~` + poke.randSpD + `~` + poke.randSpe + `~` + (poke.randHp + poke.randAtk + poke.randDef + poke.randSpA + poke.randSpD + poke.randSpe) + `\n`;
 				// abilities
-				sheetOutput += poke.randAbilities[0] + (poke.randAbilities[1] ? ` / `+ poke.randAbilities[1] + ` ` : ` `) + (poke.randAbilities[2] ? `// `+ poke.randAbilities[2] + `~~~~` : `~~~~`);
+				sheetOutput += poke.randAbilities[0] + (poke.randAbilities[1] ? ` / `+ poke.randAbilities[1] + ` ` : ` `) + (poke.randAbilities[2] ? `// `+ poke.randAbilities[2] + `~~~~~~` : `~~~~~~`);
 				// stat deltas
 				sheetOutput += ((poke.randHp - poke.baseStats.hp) !== 0 ? (poke.randHp - poke.baseStats.hp) : ` `) + `~` + ((poke.randAtk - poke.baseStats.atk) !== 0 ? (poke.randAtk - poke.baseStats.atk) : ` `) + `~` + ((poke.randDef - poke.baseStats.def) !== 0 ? (poke.randDef - poke.baseStats.def) : ` `) + `~` + ((poke.randSpA - poke.baseStats.spa) !== 0 ? (poke.randSpA - poke.baseStats.spa) : ` `) + `~` + ((poke.randSpD - poke.baseStats.spd) !== 0 ? (poke.randSpD - poke.baseStats.spd) : ` `) + `~` + ((poke.randSpe - poke.baseStats.spe) !== 0 ? (poke.randSpe - poke.baseStats.spe) : ` `) + `\n`;
 
@@ -2812,14 +2812,14 @@ export const Scripts: ModdedBattleScriptsData = {
 					// base stats
 					sheetOutput += poke.randHp + `~` + poke.randAtk + `~` + poke.randDef + `~` + poke.randSpA + `~` + poke.randSpD + `~` + poke.randSpe + `~` + (poke.randHp + poke.randAtk + poke.randDef + poke.randSpA + poke.randSpD + poke.randSpe) + `\n`;
 					// abilities
-					sheetOutput += poke.randAbilities[3] + (poke.randAbilities[1] ? ` / `+ poke.randAbilities[1] + ` ` : ` `) + (poke.randAbilities[2] ? `// `+ poke.randAbilities[2] + `~~~~` : `~~~~`);
+					sheetOutput += poke.randAbilities[3] + (poke.randAbilities[1] ? ` / `+ poke.randAbilities[1] + ` ` : ` `) + (poke.randAbilities[2] ? `// `+ poke.randAbilities[2] + `~~~~~~` : `~~~~~~`);
 					// stat deltas
 					sheetOutput += ((poke.randHp - poke.baseStats.hp) !== 0 ? (poke.randHp - poke.baseStats.hp) : ` `) + `~` + ((poke.randAtk - poke.baseStats.atk) !== 0 ? (poke.randAtk - poke.baseStats.atk) : ` `) + `~` + ((poke.randDef - poke.baseStats.def) !== 0 ? (poke.randDef - poke.baseStats.def) : ` `) + `~` + ((poke.randSpA - poke.baseStats.spa) !== 0 ? (poke.randSpA - poke.baseStats.spa) : ` `) + `~` + ((poke.randSpD - poke.baseStats.spd) !== 0 ? (poke.randSpD - poke.baseStats.spd) : ` `) + `~` + ((poke.randSpe - poke.baseStats.spe) !== 0 ? (poke.randSpe - poke.baseStats.spe) : ` `) + `\n`;
 				}
 
 				// be ready to add a crossevo here
 				if (crossevo && poke.name !== "Shedinja" && poke.crossgenAbilities) {
-					sheetOutput += `~`; // no icon, so you need an indent to keep aligned with other rows
+					sheetOutput += `~~~`; // no icon, so you need an indent to keep aligned with other rows
 					// name isn't randomly generated askdjfgh
 					if (poke.crossgenGoldStar) sheetOutput += `Cool `; // I will forget I did this and be amused by it
 					sheetOutput += `Crossgen~`;
@@ -2828,12 +2828,12 @@ export const Scripts: ModdedBattleScriptsData = {
 					// base stats
 					sheetOutput += poke.crossHp + `~` + poke.crossAtk + `~` + poke.crossDef + `~` + poke.crossSpA + `~` + poke.crossSpD + `~` + poke.crossSpe + `~` + (poke.crossHp + poke.crossAtk + poke.crossDef + poke.crossSpA + poke.crossSpD + poke.crossSpe) + `\n`;
 					// abilities
-					sheetOutput += poke.crossgenAbilities[0] + (poke.crossgenAbilities[1] ? ` / `+ poke.crossgenAbilities[1] + ` ` : ` `) + (poke.crossgenAbilities[2] ? `// `+ poke.crossgenAbilities[2] + `~~~~` : `~~~~`);
+					sheetOutput += poke.crossgenAbilities[0] + (poke.crossgenAbilities[1] ? ` / `+ poke.crossgenAbilities[1] + ` ` : ` `) + (poke.crossgenAbilities[2] ? `// `+ poke.crossgenAbilities[2] + `~~~~~~` : `~~~~~~`);
 					// stat deltas
-					sheetOutput += ((poke.crossHp - poke.randHp) !== 0 ? (poke.crossHp - poke.randHp) : ` `) + `~` + ((poke.crossAtk - poke.randAtk) !== 0 ? (poke.crossAtk - poke.randAtk) : ` `) + `~` + ((poke.crossDef - poke.randDef) !== 0 ? (poke.crossDef - poke.randDef) : ` `) + `~` + ((poke.crossSpA - poke.randSpA) !== 0 ? (poke.crossSpA - poke.randSpA) : ` `) + `~` + ((poke.crossSpD - poke.randSpD) !== 0 ? (poke.crossSpD - poke.randSpD) : ` `) + `~` + ((poke.crossSpe - poke.randSpe) !== 0 ? (poke.crossSpe - poke.randSpe) : ` `) + `\n`;
+					sheetOutput += ((poke.crossHp - poke.randHp) !== 0 ? (poke.crossHp - poke.randHp) : ` `) + `~` + ((poke.crossAtk - poke.randAtk) !== 0 ? (poke.crossAtk - poke.randAtk) : ` `) + `~` + ((poke.crossDef - poke.randDef) !== 0 ? (poke.crossDef - poke.randDef) : ` `) + `~` + ((poke.crossSpA - poke.randSpA) !== 0 ? (poke.crossSpA - poke.randSpA) : ` `) + `~` + ((poke.crossSpD - poke.randSpD) !== 0 ? (poke.crossSpD - poke.randSpD) : ` `) + `~` + ((poke.crossSpe - poke.randSpe) !== 0 ? (poke.crossSpe - poke.randSpe) : ` `) + `~` + (poke.crossHp + poke.crossAtk + poke.crossDef + poke.crossSpA + poke.crossSpD + poke.crossSpe - poke.randHp - poke.randAtk - poke.randDef - poke.randSpA - poke.randSpD - poke.randSpe) + `\n`;
 
 					if (poke.name === "Basculin" && poke.randAbilities[3]) {
-						sheetOutput += `~`; // no icon, so you need an indent to keep aligned with other rows
+						sheetOutput += `~~~`; // no icon, so you need an indent to keep aligned with other rows
 						if (poke.crossgenGoldStar) sheetOutput += `Cool `; // I will forget I did this and be amused by it
 						sheetOutput += `Crossgen (Blue-Striped)~`;
 						// types are the same
@@ -2841,7 +2841,7 @@ export const Scripts: ModdedBattleScriptsData = {
 						// base stats
 						sheetOutput += poke.crossHp + `~` + poke.crossAtk + `~` + poke.crossDef + `~` + poke.crossSpA + `~` + poke.crossSpD + `~` + poke.crossSpe + `~` + (poke.crossHp + poke.crossAtk + poke.crossDef + poke.crossSpA + poke.crossSpD + poke.crossSpe) + `\n`;
 						// abilities
-						sheetOutput += poke.crossgenAbilities[3] + (poke.crossgenAbilities[1] ? ` / `+ poke.crossgenAbilities[1] + ` ` : ` `) + (poke.crossgenAbilities[2] ? `// `+ poke.crossgenAbilities[2] + `~~~~` : `~~~~`);
+						sheetOutput += poke.crossgenAbilities[3] + (poke.crossgenAbilities[1] ? ` / `+ poke.crossgenAbilities[1] + ` ` : ` `) + (poke.crossgenAbilities[2] ? `// `+ poke.crossgenAbilities[2] + `~~~~~~` : `~~~~~~`);
 						// stat deltas
 						sheetOutput += ((poke.crossHp - poke.randHp) !== 0 ? (poke.crossHp - poke.randHp) : ` `) + `~` + ((poke.crossAtk - poke.randAtk) !== 0 ? (poke.crossAtk - poke.randAtk) : ` `) + `~` + ((poke.crossDef - poke.randDef) !== 0 ? (poke.crossDef - poke.randDef) : ` `) + `~` + ((poke.crossSpA - poke.randSpA) !== 0 ? (poke.crossSpA - poke.randSpA) : ` `) + `~` + ((poke.crossSpD - poke.randSpD) !== 0 ? (poke.crossSpD - poke.randSpD) : ` `) + `~` + ((poke.crossSpe - poke.randSpe) !== 0 ? (poke.crossSpe - poke.randSpe) : ` `) + `\n`;
 					}
