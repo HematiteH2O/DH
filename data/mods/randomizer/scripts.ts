@@ -7,14 +7,14 @@ const pushLevelUp = [
 	'accelerock', 'acid', 'acidspray', 'acupressure', 'afteryou', 'aircutter', 'allyswitch', 'appleacid', 'aquajet', 'aquastep', 'astralbarrage', 'aurawheel', 'babydolleyes', 'batonpass', 'bellydrum', 'bitterblade', 'bittermalice',
 	'bleakwindstorm', 'blizzard', 'boomburst', 'breakingswipe', 'brutalswing', 'bubble', 'bulkup', 'bulldoze', 'bulletpunch', 'burningjealousy', 'calmmind', 'captivate', 'chargebeam', 'charm', 'chillingwater', 'clangingscales',
 	'clangoroussoul', 'coil', 'coreenforcer', 'cottonspore', 'counter', 'curse', 'darkvoid', 'dazzlinggleam', 'decorate', 'destinybond', 'diamondstorm', 'disable', 'disarmingvoice', 'discharge', 'dragondance', 'dragonenergy',
-	'drainpunch', 'dreameater', 'drumbeating', 'earthquake', 'eerieimpulse', 'electroweb', 'encore', 'endeavor', 'entrainment', 'eruption', 'esperwing', 'expandingforce', 'explosion', 'extremespeed', 'fakeout', 'faketears',
+	'drainingkiss', 'drainpunch', 'dreameater', 'drumbeating', 'earthquake', 'eerieimpulse', 'electroweb', 'encore', 'endeavor', 'entrainment', 'eruption', 'esperwing', 'expandingforce', 'explosion', 'extremespeed', 'fakeout', 'faketears',
 	'featherdance', 'feint', 'fierydance', 'fierywrath', 'firstimpression', 'flamecharge', 'flipturn', 'followme', 'foulplay', 'geomancy', 'gigadrain', 'glaciallance', 'glaciate', 'glare', 'grasswhistle', 'gravapple', 'gravity',
 	'growl', 'growth', 'haze', 'healpulse', 'heatwave', 'helpinghand', 'hex', 'hornleech', 'howl', 'hurricane', 'hypervoice', 'hypnosis', 'iceshard', 'icywind', 'incinerate', 'inferno', 'jetpunch', 'knockoff', 'landswrath', 'lavaplume',
 	'leechlife', 'leechseed', 'leer', 'lightscreen', 'lovelykiss', 'lowsweep', 'luminacrash', 'lunge', 'machpunch', 'makeitrain', 'matchagotcha', 'memento', 'metalburst', 'metalsound', 'mindblown', 'mirrorcoat', 'moonlight',
 	'morningsun', 'mortalspin', 'mudshot', 'mudsport', 'muddywater', 'mysticalfire', 'nastyplot', 'noretreat', 'nobleroar', 'nuzzle', 'oblivionwing', 'originpulse', 'overdrive', 'paraboliccharge', 'partingshot', 'perishsong',
 	'petalblizzard', 'poisongas', 'pounce', 'powdersnow', 'poweruppunch', 'precipiceblades', 'psychicnoise', 'quickattack', 'quickguard', 'quiverdance', 'ragepowder', 'razorleaf', 'razorwind', 'reflect', 'relicsong', 'rockslide', 'rocktomb',
 	'sacredfire', 'sandsearstorm', 'scaryface', 'screech', 'searingshot', 'selfdestruct', 'shadowsneak', 'shellsmash', 'shelltrap', 'shiftgear', 'shoreup', 'signalbeam', 'silktrap', 'simplebeam', 'sing', 'skillswap', 'skittersmack',
-	'skydrop', 'sleeppowder', 'sludgewave', 'snarl', 'soak', 'solarbeam', 'solarblade', 'sparklingaria', 'spicyextract', 'spikes', 'spore', 'springtidestorm', 'stealthrock', 'stickyweb', 'stringshot', 'strugglebug', 'stunspore',
+	'skydrop', 'sleeppowder', 'sludgewave', 'snarl', 'soak', 'solarbeam', 'solarblade', 'sparklingaria', 'spicyextract', 'spikes', 'spiritbreak', 'spore', 'springtidestorm', 'stealthrock', 'stickyweb', 'stringshot', 'strugglebug', 'stunspore',
 	'suckerpunch', 'superfang', 'surf', 'swift', 'swordsdance', 'synchronoise', 'synthesis', 'syrupbomb', 'tailwhip', 'tailwind', 'tarshot', 'taunt', 'tearfullook', 'thousandarrows', 'thousandwaves', 'thunder', 'thunderwave',
 	'thunderclap', 'thunderouskick', 'tickle', 'tidyup', 'torchsong', 'torment', 'toxicspikes', 'toxicthread', 'trailblaze', 'trickroom', 'tropkick', 'twister', 'uturn', 'vacuumwave', 'victorydance', 'voltswitch', 'watershuriken',
 	'watersport', 'waterspout', 'weatherball', 'wideguard', 'wildboltstorm', 'willowisp', 'worryseed', 'yawn', 'zapcannon'
@@ -39,6 +39,7 @@ const universalGhost = ['shadowball', 'spite', 'willowisp', 'hex'];
 const universalDragon = ['dracometeor', 'dragonclaw', 'dragonpulse', 'dragontail', 'honeclaws', 'outrage', 'rocksmash', 'strength'];
 const universalDark = ['darkpulse', 'payback', 'retaliate', 'snarl', 'spite', 'taunt', 'thief', 'torment'];
 const universalSteel = ['flashcannon', 'irondefense', 'ironhead', 'rocksmash', 'steelbeam'];
+const universalFairy = ['charm', 'dazzlinggleam', 'drainingkiss', 'fling', 'lightscreen', 'reflect', 'shadowball'];
 const universalNormal = ['helpinghand', 'retaliate', 'workup'];
 
 const universalMonsterGroup = ['bulldoze', 'earthquake', 'irontail', 'outrage', 'rocksmash', 'strength'];
@@ -152,6 +153,10 @@ const movesAfterGenV = [
 	'thunderclap', 'mightycleave', 'tachyoncutter', 'hardpress', 'supercellslam', 'malignantchain',
 	'eerieimpulse', 'steelbeam', 'toxicthread', 'psychicnoise', 'triplearrows',
 	// 'leafage', 'branchpoke', // these moves are easy enough to copy over, but they're redundant so it's unhelpful to see them highlighted so often
+
+	// hey
+	// wanna see something crazy?
+	'fairywind', 'strangesteam', 'playrough', 'moonblast', 'fleurcannon', 'lightofruin', 'disarmingvoice', 'drainingkiss', 'spiritbreak', 'dazzlinggleam', 'springtidestorm',
 ];
 const moveGroups = {
 	// first should be clones/meaningfully related groups
@@ -265,7 +270,7 @@ const moveGroups = {
 	107: ['discharge', 'lavaplume'],
 	108: ['scorchingsands', 'scald', 'discharge', 'lavaplume'],
 	109: ['thunderpunch', 'firepunch', 'icepunch'],
-	110: ['drainpunch', 'hornleech', 'gigadrain', 'leechlife', 'bitterblade'],
+	110: ['drainingkiss', 'drainpunch', 'hornleech', 'gigadrain', 'leechlife', 'bitterblade'],
 	111: ['triattack', 'poisonjab'],
 	112: ['crunch', 'shadowball', 'flashcannon'],
 	113: ['zingzap', 'iciclecrash', 'hyperfang', 'zenheadbutt', 'ironhead', 'waterfall', 'darkpulse', 'extrasensory'],
@@ -704,7 +709,6 @@ export const Scripts: ModdedBattleScriptsData = {
 			const chosenTypes: string[] = [];
 			if (poke.types) {
 				for (const type of poke.types) {
-					if (type === "Fairy") continue;
 					if (poke.abilities && ["Overgrow", "Blaze", "Torrent"].includes(poke.abilities[0]) && !["Fire", "Water", "Grass"].includes(type)) continue;
 					if (poke.types[0] === "Normal" && poke.types[1] && poke.types[1] === "Flying" && type === "Normal") continue; // skip Normal in Normal/Flying
 					chosenTypes.push(type);
@@ -714,24 +718,24 @@ export const Scripts: ModdedBattleScriptsData = {
 				const validTypes1: string[] = [];
 				for (const type in this.dataCache.TypeChart) {
 					if (chosenTypes.includes(type)) continue;
-					if (type === "Fairy") continue;
 					if (poke.abilities && ["Overgrow", "Blaze", "Torrent"].includes(poke.abilities[0]) && ["Fire", "Water", "Grass"].includes(type)) continue;
 					validTypes1.push(type);
 				}
 				let random1 = Math.floor(Math.random() * validTypes1.length);
 				chosenTypes.push(validTypes1[random1]);
 			}
-			if (chosenTypes.length < 2) { // pure Fairy-types need a second random type
+			/*
+			if (chosenTypes.length < 2) { // this was only possible when Fairy wasn't included
 				const validTypes2: string[] = [];
 				for (const type in this.dataCache.TypeChart) {
 					if (chosenTypes.includes(type)) continue;
-					if (type === "Fairy") continue;
 					if (poke.abilities && ["Overgrow", "Blaze", "Torrent"].includes(poke.abilities[0]) && ["Fire", "Water", "Grass"].includes(type)) continue;
 					validTypes2.push(type);
 				}
 				let random2 = Math.floor(Math.random() * validTypes2.length);
 				chosenTypes.push(validTypes2[random2]);
 			}
+	*/
 
 			// - pool together all types including randomized types, base types, pre-evolutions and forms
 
@@ -739,7 +743,7 @@ export const Scripts: ModdedBattleScriptsData = {
 				const poke2 = this.dataCache.Pokedex[this.toID(poke.prevo)];
 				if (poke2.types) {
 					for (const type of poke2.types) {
-						if (chosenTypes.includes(type) || type === "Fairy") continue;
+						if (chosenTypes.includes(type)) continue;
 						if (poke.abilities && ["Overgrow", "Blaze", "Torrent"].includes(poke.abilities[0]) && !["Fire", "Water", "Grass"].includes(type)) continue;
 						if (poke2.types[0] === "Normal" && poke2.types[1] && poke2.types[1] === "Flying" && type === "Normal") continue;
 						chosenTypes.push(type);
@@ -749,7 +753,7 @@ export const Scripts: ModdedBattleScriptsData = {
 					const poke3 = this.dataCache.Pokedex[this.toID(poke2.prevo)];
 					if (poke3.types) {
 						for (const type of poke3.types) {
-							if (chosenTypes.includes(type) || type === "Fairy") continue;
+							if (chosenTypes.includes(type)) continue;
 							if (poke.abilities && ["Overgrow", "Blaze", "Torrent"].includes(poke.abilities[0]) && !["Fire", "Water", "Grass"].includes(type)) continue;
 							if (poke3.types[0] === "Normal" && poke3.types[1] && poke3.types[1] === "Flying" && type === "Normal") continue;
 							chosenTypes.push(type);
@@ -763,7 +767,7 @@ export const Scripts: ModdedBattleScriptsData = {
 					const poke5 = this.dataCache.Pokedex[this.toID(poke.baseSpecies)];
 					if (poke5.types) {
 						for (const type of poke5.types) {
-							if (chosenTypes.includes(type) || type === "Fairy") continue;
+							if (chosenTypes.includes(type)) continue;
 							if (poke.abilities && ["Overgrow", "Blaze", "Torrent"].includes(poke.abilities[0]) && !["Fire", "Water", "Grass"].includes(type)) continue;
 							if (poke5.types[0] === "Normal" && poke5.types[1] && poke5.types[1] === "Flying" && type === "Normal") continue;
 							chosenTypes.push(type);
@@ -775,7 +779,7 @@ export const Scripts: ModdedBattleScriptsData = {
 					const poke4 = this.dataCache.Pokedex[this.toID(form)];
 					if (poke4.types) {
 						for (const type of poke4.types) {
-							if (chosenTypes.includes(type) || type === "Fairy") continue;
+							if (chosenTypes.includes(type)) continue;
 							if (poke.abilities && ["Overgrow", "Blaze", "Torrent"].includes(poke.abilities[0]) && !["Fire", "Water", "Grass"].includes(type)) continue;
 							if (poke4.types[0] === "Normal" && poke4.types[1] && poke4.types[1] === "Flying" && type === "Normal") continue;
 							chosenTypes.push(type);
@@ -792,7 +796,6 @@ export const Scripts: ModdedBattleScriptsData = {
 				// hard-coding for starters because they have more constraints on valid combinations later
 				if (poke.name === "Charizard" && ["Fire", "Flying", "Dragon"].includes(type)) continue;
 				if (poke.name === "Decidueye" && ["Grass", "Ghost", "Fighting"].includes(type)) continue;
-				if (type === "Fairy") continue;
 				validTypes3.push(type);
 			}
 			if (validTypes3.length) {
@@ -878,7 +881,6 @@ export const Scripts: ModdedBattleScriptsData = {
 						// +2 for double-weaknesses or immunities
 						// +3 if one type has an immunity and the other has a weakness
 						for (const type in this.dataCache.TypeChart) {
-							if (type === "Fairy") continue;
 							if (this.dataCache.TypeChart[type1].damageTaken[type] === 1) { // weakness
 								score++;
 								weaknesses.push(type);
@@ -896,7 +898,6 @@ export const Scripts: ModdedBattleScriptsData = {
 						// +2 if one type is resisted or worse and the other is neutral or worse, but one of the base types is SE
 		 
 						for (const type in this.dataCache.TypeChart) {
-							if (type === "Fairy") continue;
 							if (this.dataCache.TypeChart[type].damageTaken[type1] > 1) { // STAB resisted
 								if (abilitySet.includes('Tinted Lens')) score += 2;
 								if (this.dataCache.TypeChart[type].damageTaken[poke.types[0]] === 1 || (poke.types[1] && this.dataCache.TypeChart[type].damageTaken[poke.types[1]] === 1)) {
@@ -914,7 +915,6 @@ export const Scripts: ModdedBattleScriptsData = {
 						// +3 for double-weaknesses or if one type has an immunity and the other has a weakness
 
 						for (const type in this.dataCache.TypeChart) {
-							if (type === "Fairy") continue;
 							if (this.dataCache.TypeChart[type1].damageTaken[type] === 1 || this.dataCache.TypeChart[type2].damageTaken[type] === 1) { // weakness
 								if (this.dataCache.TypeChart[type1].damageTaken[type] === 3 || this.dataCache.TypeChart[type2].damageTaken[type] === 3) { // immunity
 									score += 3; // weakness canceled by immunity
@@ -952,7 +952,6 @@ export const Scripts: ModdedBattleScriptsData = {
 						// +2 if one type is resisted or worse and the other is neutral or worse, but one of the base types is SE
 
 						for (const type in this.dataCache.TypeChart) {
-							if (type === "Fairy") continue;
 							if (this.dataCache.TypeChart[type].damageTaken[type1] > 1 && this.dataCache.TypeChart[type].damageTaken[type2] > 1) lowSynergy = true;
 							// lowSynergy doesn't affect score, but if this type is picked, it opens more options for the stats stage later
 							if (this.dataCache.TypeChart[type].damageTaken[type1] === 2 && this.dataCache.TypeChart[type].damageTaken[type2] === 2 && abilitySet.includes('Tinted Lens')) score += 2;
@@ -1390,7 +1389,7 @@ export const Scripts: ModdedBattleScriptsData = {
 						'hyperspacefury', 'diamondstorm', 'steameruption', 'sunsteelstrike', 'moongeistbeam', 'naturesmadness', 'prismaticlaser', 'photongeyser',
 						'fleurcannon', 'spectralthief', 'plasmafists', 'doubleironbash', 'behemothbash', 'behemothblade', 'dynamaxcannon', 'eternabeam', 'junglehealing',
 						'wickedblow', 'surgingstrikes', 'glaciallance', 'astralbarrage', 'freezingglare', 'thunderouskick', 'fierywrath', 'thundercage', 'dragonenergy',
-						'collisioncourse', 'electrodrift', 'ruination', 'malignantchain', 'terastarstorm', 'heartswap',
+						'collisioncourse', 'electrodrift', 'ruination', 'malignantchain', 'terastarstorm', 'heartswap', 'lightofruin', 'springtidestorm',
 					].includes(moveid)) forceLearn = false;
 					// I might be missing some but it's not important (but also: I do want UB/Paradox signatures to be allowed - that's on purpose)
 					if (forceLearn && synergyMove === 0) synergyMove = 1; // count synergyMove if the move is non-universal and Ability-related
@@ -1413,6 +1412,7 @@ export const Scripts: ModdedBattleScriptsData = {
 					if ((poke.chosenType.type1 === 'Dragon' || poke.chosenType.type2 === 'Dragon') && universalDragon.includes(moveid)) forceLearn = true;
 					if ((poke.chosenType.type1 === 'Dark' || poke.chosenType.type2 === 'Dark') && universalDark.includes(moveid)) forceLearn = true;
 					if ((poke.chosenType.type1 === 'Steel' || poke.chosenType.type2 === 'Steel') && universalSteel.includes(moveid)) forceLearn = true;
+					if ((poke.chosenType.type1 === 'Fairy' || poke.chosenType.type2 === 'Fairy') && universalFairy.includes(moveid)) forceLearn = true;
 					if ((poke.chosenType.type1 === 'Normal' || poke.chosenType.type2 === 'Normal') && universalNormal.includes(moveid)) forceLearn = true;
 					// Egg groups
 					if ((poke.eggGroups[0] === 'Monster' || (poke.eggGroups[1] && poke.eggGroups[1] === 'Monster')) && universalMonsterGroup.includes(moveid)) forceLearn = true;
@@ -2390,7 +2390,7 @@ export const Scripts: ModdedBattleScriptsData = {
 					const prio = ['vacuumwave', 'watershuriken'];
 					const spread = ['boomburst', 'searingshot', 'sludgewave', 'surf', 'sparklingaria', 'lavaplume', 'discharge', 'paraboliccharge', 'waterspout', 'eruption', 'dragonenergy', 'makeitrain', 'astralbarrage', 'originpulse', 'clangingscales', 'blizzaard', 'wildboltstorm', 'springtidestorm', 'sandsearstorm', 'coreenforcer', 'bleakwindstorm', 'heatwave', 'muddywater', 'hypervoice', 'fierywrath', 'overdrive', 'matchagotcha', 'relicsong', 'glaciate', 'snarl', 'icywind', 'electroweb', 'strugglebug'];
 					const heal = ['healorder', 'roost', 'recover', 'softboiled', 'milkdrink', 'slackoff', 'floralhealing', 'healpulse', 'lifedew', 'followme', 'ragepowder'];
-					const drain = ['paraboliccharge', 'gigadrain', 'matchagotcha'];
+					const drain = ['paraboliccharge', 'gigadrain', 'matchagotcha', 'drainingkiss'];
 					const pivot = ['uturn', 'voltswitch', 'flipturn', 'batonpass', 'partingshot', 'teleport'];
 
 					let hasSetup = false;
