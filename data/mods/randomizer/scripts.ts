@@ -698,7 +698,7 @@ export const Scripts: ModdedBattleScriptsData = {
 			const abilitySet: string[] = [];
 			abilitySet.push(poke.randAbilities[0]);
 			for (const idNo in poke.randAbilities) {
-				if (idNo !== 2) abilitySet.push(randAbilities[idNo]);
+				if (idNo !== 2) abilitySet.push(poke.randAbilities[idNo]);
 				// I don't want this to account for HA, since the player usually won't have access to it and it's just from vanilla anyway
 			}
 
@@ -1206,7 +1206,7 @@ export const Scripts: ModdedBattleScriptsData = {
 				let earlyForcedMovesOptions: string[] = []; // to make sure you have at least *one* move with Ability synergy, since you can't do that while evaluating every move in order
 
 				const moveAbilitySet: string[] = [];
-				for (const idNo in poke.randAbilities) moveAbilitySet.push(randAbilities[idNo]);
+				for (const idNo in poke.randAbilities) moveAbilitySet.push(poke.randAbilities[idNo]);
 				// this can only make movepools bigger, so including HAs is fine, and this covers alternate forms as well
 
 				if (moveAbilitySet.includes("Drizzle") || moveAbilitySet.includes("Swift Swim") || moveAbilitySet.includes("Rain Dish") || moveAbilitySet.includes("Dry Skin") || moveAbilitySet.includes("Hydration") || moveAbilitySet.includes("Torrent")) learnsetTypes.push("Water");
@@ -1855,7 +1855,7 @@ export const Scripts: ModdedBattleScriptsData = {
 				if (poke.chosenType.type2 !== poke.chosenType.type1) pokeTypes.push(poke.chosenType.type2);
 
 				const abilityCheck: string[] = [];
-				for (const idNo in poke.randAbilities) abilityCheck.push(randAbilities[idNo]);
+				for (const idNo in poke.randAbilities) abilityCheck.push(poke.randAbilities[idNo]);
 
 				poke.hpTarget = poke.baseStats.hp;
 				poke.atkTarget = poke.baseStats.atk;
@@ -2182,24 +2182,23 @@ export const Scripts: ModdedBattleScriptsData = {
 				}
 
 				if (poke.hpDelta + poke.atkDelta + poke.defDelta + poke.spaDelta + poke.spdDelta + poke.speDelta !== 0) console.log(poke.name + ` somehow didn't get the right BST`);
-				poke.randHp = poke.baseStats.hp + poke.hpDelta;
-				poke.randAtk = poke.baseStats.atk + poke.atkDelta;
-				poke.randDef = poke.baseStats.def + poke.defDelta;
-				poke.randSpA = poke.baseStats.spa + poke.spaDelta;
-				poke.randSpD = poke.baseStats.spd + poke.spdDelta;
-				poke.randSpe = poke.baseStats.spe + poke.speDelta;
+				poke.crossHp = poke.randHp = poke.baseStats.hp + poke.hpDelta;
+				poke.crossAtk = poke.randAtk = poke.baseStats.atk + poke.atkDelta;
+				poke.crossDef = poke.randDef = poke.baseStats.def + poke.defDelta;
+				poke.crossSpA = poke.randSpA = poke.baseStats.spa + poke.spaDelta;
+				poke.crossSpD = poke.randSpD = poke.baseStats.spd + poke.spdDelta;
+				poke.crossSpe = poke.randSpe = poke.baseStats.spe + poke.speDelta;
 
-				// just for point of comparison right now
-				poke.crossHp = poke.hpTarget;
-				poke.crossAtk = poke.atkTarget;
-				poke.crossDef = poke.defTarget;
-				poke.crossSpA = poke.spaTarget;
-				poke.crossSpD = poke.spdTarget;
-				poke.crossSpe = poke.speTarget;
-
-/*
 				// CROSSGEN STATS
 				// todo: Speed
+
+				const crossAbilityCheck: string[] = [];
+				for (const idNo in poke.crossgenAbilities) crossAbilityCheck.push(poke.crossgenAbilities[idNo]);
+
+				// now check if the prior stage already had Huge Power
+				hugePower = false;
+				for (const idNo in poke.randAbilities) if (["Huge Power", "Pure Power"].includes(poke.randAbilities[idNo])) hugePower = true;
+				if (hugePower) poke.atkTarget *= 2; // will be halved again later
 
 				let maxbst = (poke.randHp + poke.randAtk + poke.randDef + poke.randSpA + poke.randSpD + poke.randSpe + 30);
 				if (540 > maxbst) maxbst = 540;
@@ -2209,8 +2208,6 @@ export const Scripts: ModdedBattleScriptsData = {
 					poke.eggGroups[0] === 'Dragon' || (poke.eggGroups[1] && poke.eggGroups[1] === 'Dragon')
 				) maxbst = 600; // okay? okay
 				// hey Iris is the Champion anyway
-				
-				maxbst -= 20; // ... but actually I want a completely random +20 at the end so
 
 				let bonusBoost = 0;
 				if (poke.crossSpA > poke.crossAtk) { // if it's special
@@ -2221,13 +2218,122 @@ export const Scripts: ModdedBattleScriptsData = {
 					if (poke.crossSpA < 100) poke.crossSpA += 10; // do this 3 times for a max of +40
 					bonusBoost = poke.crossSpA - poke.randSpA;
 				} else { // if it's physical (or mixed)
-					if (poke.baseStats.atk > poke.crossAtk) poke.crossAtk = poke.baseStats.atk;
-					poke.crossAtk += 10; // do this regardless of how high it is beforehand
-					if (poke.crossAtk < 100) poke.crossAtk += 10;
-					if (poke.crossAtk < 100) poke.crossAtk += 10;
-					if (poke.crossAtk < 100) poke.crossAtk += 10; // do this 3 times for a max of +40
-					bonusBoost = poke.crossAtk - poke.randAtk;
+					let crossHuge = false;
+					for (const abilCheck in poke.crossgenAbilities) if (["Huge Power", "Pure Power"].includes(poke.crossgenAbilities[abilCheck])) crossHuge = true;
+					if (crossHuge) {
+						poke.crossAtk += 5;
+					} else {
+						if (poke.baseStats.atk > poke.crossAtk) poke.crossAtk = poke.baseStats.atk;
+						poke.crossAtk += 10; // do this regardless of how high it is beforehand
+						if (poke.crossAtk < 100) poke.crossAtk += 10;
+						if (poke.crossAtk < 100) poke.crossAtk += 10;
+						if (poke.crossAtk < 100) poke.crossAtk += 10; // do this 3 times for a max of +40
+					}
 				}
+
+				// literally just copying the earlier offense limits, but how I use them will be different, I guess?
+				let crossMaxAtk = 250;
+				let crossMaxSpa = 250;
+				let crossMaxSpe = 250;
+				if (!poke.chosenType.lowSynergy) {
+					if (crossMaxAtk > 109) crossMaxAtk = 109;
+					if (crossMaxSpa > 109) crossMaxSpa = 109;
+					if (crossMaxSpe > 109) crossMaxSpe = 109;
+				}
+				if (crossAbilityCheck.includes("Hustle")) {
+					if (!poke.chosenType.lowSynergy) {
+						if (crossMaxAtk > 75) crossMaxAtk = 75;
+						if (crossMaxSpe > 75) crossMaxSpe = 75;
+					} else {
+						if (crossMaxAtk > 109) crossMaxAtk = 109;
+						if (crossMaxSpe > 109) crossMaxSpe = 109;
+					}
+				}
+				if (crossAbilityCheck.includes("Guts") || crossAbilityCheck.includes("Toxic Boost")) {
+					if (!poke.chosenType.lowSynergy) {
+						if (crossMaxAtk > 90) crossMaxAtk = 90;
+						if (crossMaxSpe > 60) crossMaxSpe = 60;
+					} else {
+						if (crossMaxAtk > 100) crossMaxAtk = 100;
+						if (crossMaxSpe > 70) crossMaxSpe = 70;
+					}
+				}
+				if (crossAbilityCheck.includes("Flare Boost") || crossAbilityCheck.includes("Sheer Force")) {
+					if (!poke.chosenType.lowSynergy) {
+						if (crossMaxSpa > 90) crossMaxSpa = 90;
+						if (crossMaxSpe > 60) crossMaxSpe = 60;
+					} else {
+						if (crossMaxSpa > 100) crossMaxSpa = 100;
+						if (crossMaxSpe > 70) crossMaxSpe = 70;
+					}
+				}
+				if (crossAbilityCheck.includes("Adaptability")) {
+					if (!poke.chosenType.lowSynergy) {
+						if (crossMaxAtk > 90) crossMaxAtk = 90;
+						if (crossMaxSpa > 90) crossMaxSpa = 90;
+						if (crossMaxSpe > 50) crossMaxSpe = 50;
+					} else {
+						if (crossMaxAtk > 95) crossMaxAtk = 95;
+						if (crossMaxSpa > 95) crossMaxSpa = 95;
+						if (crossMaxSpe > 90) crossMaxSpe = 90;
+					}
+				}
+				if (crossAbilityCheck.includes("Simple")) {
+					if (crossMaxAtk > 90) crossMaxAtk = 90;
+					if (crossMaxSpa > 90) crossMaxSpa = 90;
+					if (crossMaxSpe > 90) crossMaxSpe = 90;
+					if (poke.listOfCertainMoves.includes('bulkup') || poke.listOfCertainMoves.includes('coil') || poke.listOfCertainMoves.includes('howl') || poke.listOfCertainMoves.includes('poweruppunch')) {
+						if (poke.atkTarget > 90) poke.atkTarget = 90;
+					}
+					if (poke.listOfCertainMoves.includes('calmmind') || poke.listOfCertainMoves.includes('torchsong')) {
+						if (poke.atkTarget > 90) poke.atkTarget = 90;
+					}
+					if (poke.listOfCertainMoves.includes('dragondance') || poke.listOfCertainMoves.includes('shiftgear') || poke.listOfCertainMoves.includes('tidyup') || poke.listOfCertainMoves.includes('victorydance')) {
+						if (poke.atkTarget > 90) poke.atkTarget = 90;
+						if (crossMaxAtk > 50) crossMaxAtk = 50;
+						if (crossMaxSpe > 50) crossMaxSpe = 50;
+					}
+					if (poke.listOfCertainMoves.includes('quiverdance') || poke.listOfCertainMoves.includes('geomancy')) {
+						if (poke.spaTarget > 90) poke.spaTarget = 90;
+						if (crossMaxSpa > 50) crossMaxSpa = 50;
+						if (crossMaxSpe > 50) crossMaxSpe = 50;
+					}
+				}
+				if (crossAbilityCheck.includes("Contrary")) {
+					// Superpower is universal for this
+					if (pokeTypes.includes("Fighting")) {
+						if (crossMaxAtk > 80) crossMaxAtk = 80;
+						if (crossMaxSpe > 50) crossMaxSpe = 50;
+					}
+					const spaContrary = ['dracometeor', 'overheat', 'leafstorm', 'makeitrain'];
+					let hasMove = false;
+					for (const moveCheck of spaContrary) if (poke.listOfCertainMoves.includes(moveCheck) && this.dataCache.Moves[moveCheck].type && pokeTypes.includes(this.dataCache.Moves[moveCheck].type)) hasMove = true;
+					if (hasMove) {
+						if (crossMaxSpa > 75) crossMaxSpa = 75;
+						if (crossMaxSpe > 45) crossMaxSpe = 45;
+					}
+				}
+				if (poke.speTarget > crossMaxSpe && (poke.atkTarget > crossMaxAtk || poke.spaTarget > crossMaxSpa)) {
+					if ((poke.speTarget - crossMaxSpe > poke.atkTarget - crossMaxAtk) && (poke.speTarget - crossMaxSpe > poke.spaTarget - crossMaxSpa)) {
+						if (poke.atkTarget > crossMaxAtk) poke.atkTarget = crossMaxAtk;
+						if (poke.spaTarget > crossMaxSpa) poke.spaTarget = crossMaxSpa;
+					} else {
+						poke.speTarget = crossMaxSpe;
+					}
+				}
+
+				if (crossAbilityCheck.includes("Huge Power") || crossAbilityCheck.includes("Pure Power")) {
+					if (poke.spaTarget > poke.atkTarget) poke.atkTarget = poke.spaTarget; // didn't want to swap at the earlier opportunity because having SpA intact is cool
+					poke.atkTarget /= 2; // this does *not* cancel out Huge Power completely, but that's on purpose
+					if (50 > poke.atkTarget > 24.5) poke.atkTarget = 50; // if it was at least 50 before but isn't now, elevate to 50
+					crossMaxAtk /= 2;
+					if (50 > crossMaxAtk) crossMaxAtk = 50;
+				}
+
+				// this bit is a buff, not a nerf, so it values the random Ability only
+				if (['Speed Boost', 'Steadfast', 'Rattled', 'Motor Drive', 'Quick Feet', 'Weak Armor'].includes(poke.crossgenAbilities[0]) && poke.speTarget < 85) poke.speTarget = 85; // +1 Abilities
+				if (['Unburden', 'Chlorophyll', 'Swift Swim', 'Sand Rush'].includes(poke.crossgenAbilities[0]) && poke.speTarget < 75) poke.speTarget = 75; // +2 Abilities
+				if (poke.crossgenAbilities[0] === "Weak Armor") poke.defTarget = poke.baseStats.def + 50; // and just for fun, let it max this out
 
 				// set poke.crossSpe to a specific value, but I haven't determined how yet
 				// so far, we're ignoring maxbst
@@ -2461,31 +2567,33 @@ export const Scripts: ModdedBattleScriptsData = {
 					}
 				}
 
-				// nerf to 50 if it seems like a wall type and has reliable recovery (???)
-
-				// lower to sub-30 if it seems like it would be better for Trick Room anyway (list ways to tell?)
-// ['adaptability', 'analytic', 'ironfist', 'reckless', 'sheerforce', 'toxicboost', 'flareboost', 'angerpoint', 'defiant', 'guts', 'hugepower', 'hustle', 'moxie', 'purepower']
-// actually Ability checks should be capitalized (name, not ID)
-// but realistically these have their own individual stat limits and concerns... I'll also want to handle offenses I think
-
-				// maybe I should actually lowball all of these by at least 5 because the final step might randomize it further
-				targetSpe -= 5;
-
+				// okay, mess with Speed to get it as close as possible to targetSpe - but without going over maxSpe, since you can't lower Attack and Sp. Atk any more
+				let maxSpeIsConcern = false;
+				if (poke.crossAtk > crossMaxAtk || poke.crossSpA > crossMaxSpa) maxSpeIsConcern = true;
+				if (maxSpeIsConcern) {
+					if (poke.crossSpe > maxSpe) {
+						poke.crossSpe -= 5* [Math.floor((poke.crossSpe - maxSpe) / 5)];
+					}
+					if (poke.crossSpe > maxSpe) poke.crossSpe -= 5;
+				}
+				if (maxSpeIsConcern && targetSpe > maxSpe) targetSpe = maxSpe;
+				if (targetSpe < 60) {
+					if (targetSpe > 15) targetSpe -= 5;
+					if (targetSpe > 15) targetSpe -= 5;
+					if (targetSpe > 15) targetSpe -= 5;
+					if (targetSpe > 15) targetSpe -= 5;
+				}
 				if (poke.crossSpe < targetSpe) {
-					for (let i = 1; i < 20; i++) {
+					for (let i = 0; i < 20; i++) {
 						if (poke.crossSpe >= targetSpe - 4) break;
 						poke.crossSpe += 5;
 					}
 				} else {
-					for (let i = 1; i < 20; i++) {
+					for (let i = 0; i < 20; i++) {
 						if (poke.crossSpe <= targetSpe + 4) break;
 						poke.crossSpe -= 5;
 					}
 				}
-
-				// the fun thing is that...
-				// I have no idea how much some of this works because there's so much randomization,
-				// but never knowing what's gonna come out is half the fun anyway P:
 
 				// next, set HP
 				let sampleHp1 = (((poke.crossHp * 2 + 141) * (poke.crossDef * 2 + 36)) + ((poke.crossHp * 2 + 141) * (poke.crossSpD * 2 + 36))) * 4/3;
@@ -2499,41 +2607,57 @@ export const Scripts: ModdedBattleScriptsData = {
 					poke.crossHp += 5;
 				}
 
-				// then, boost a second stat
-				if ((poke.crossHp + poke.crossAtk + poke.crossDef + poke.crossSpA + poke.crossSpD + poke.crossSpe + bonusBoost) < (maxbst + 10)) {
-					const unmoddedStats: string[] = [];
-					if (poke.crossAtk === poke.randAtk) unmoddedStats.push('crossAtk');
-					if (poke.crossDef === poke.randDef) unmoddedStats.push('crossDef');
-					if (poke.crossSpA === poke.randSpA) unmoddedStats.push('crossSpA');
-					if (poke.crossSpD === poke.randSpD) unmoddedStats.push('crossSpD');
-					if (unmoddedStats.length) {
-						let chosenStat = unmoddedStats[Math.floor(Math.random() * unmoddedStats.length)];
-						poke[chosenStat] += bonusBoost;
+				// then check if any targetStats aren't accounted for, and if not, get random...!
+				let skipMaxCheck = false; // (at this point, it becomes random)
+				for (let i = 0; i < 20; i++) { // repeat until another +100 at most
+					if (poke.crossHp + poke.crossAtk + poke.crossDef + poke.crossSpA + poke.crossSpD + poke.crossSpe + 5 > maxbst) break;
+
+					let eligibleStats: string[] = [];
+					let maxStat: string[] = [];
+					let diffHp = poke.hpTarget - poke.crossHp;
+					let diffAtk = poke.atkTarget - poke.crossAtk;
+					let diffDef = poke.defTarget - poke.crossDef;
+					let diffSpA = poke.spaTarget - poke.crossSpA;
+					let diffSpD = poke.spdTarget - poke.crossSpD;
+					let diffSpe = poke.speTarget - poke.crossSpe;
+
+					if ((poke.crossHp - poke.randHp < 50) && (poke.crossHp + 10 < 246)) eligibleStats.push('diffHp');
+					if ((poke.crossDef - poke.randDef < 50) && (poke.crossDef + 10 < 238)) eligibleStats.push('diffDef');
+					if ((poke.crossSpD - poke.randSpD < 50) && (poke.crossSpD + 10 < 238)) eligibleStats.push('diffSpD');
+					// continue to respect max stats: if Speed is over its threshold, don't raise Attack or SpA more, and...
+					if ((poke.crossAtk - poke.randAtk < 50) && (poke.crossAtk + 10 < 238) && (poke.crossSpe < maxSpe + 1)) eligibleStats.push('diffAtk');
+					if ((poke.crossSpA - poke.randSpA < 50) && (poke.crossSpA + 10 < 238) && (poke.crossSpe < maxSpe + 1)) eligibleStats.push('diffSpA');
+					// ... if Attack or SpA is over its threshold, don't raise Speed more
+					if ((poke.crossSpe - poke.randSpe < 50) && (poke.crossSpe + 10 < 238) && (poke.crossAtk < crossMaxAtk + 1) && (poke.crossSpA < crossMaxSpa + 1) && poke.crossSpe < maxSpe) eligibleStats.push('diffSpe');
+
+					if (!eligibleStats.length) {
+						console.log(`something has no eligible stats to raise`);
+						break; // this... should never happen? I think?
 					}
-				}
-
-				// boost the middle 4 stats in a random order until all of them have been touched once (the order being random is just in case they hit the BST limit early)
-				for (let i = 1; i < 4; i++) {
-					if ((poke.crossHp + poke.crossAtk + poke.crossDef + poke.crossSpA + poke.crossSpD + poke.crossSpe + 10) > maxbst) break;
-					const unmoddedStats: string[] = [];
-					if (poke.crossAtk === poke.randAtk) unmoddedStats.push('crossAtk');
-					if (poke.crossDef === poke.randDef) unmoddedStats.push('crossDef');
-					if (poke.crossSpA === poke.randSpA) unmoddedStats.push('crossSpA');
-					if (poke.crossSpD === poke.randSpD) unmoddedStats.push('crossSpD');
-					if (unmoddedStats.length) {
-						let chosenStat = unmoddedStats[Math.floor(Math.random() * unmoddedStats.length)];
-						poke[chosenStat] += 10;
+					let max = -1000;
+					for (const statCheck of eligibleStats) {
+						if (max && (max > poke[statCheck])) continue; // skip if it's not at least tied with max
+						if (poke[statCheck] > max) { // if this is a new maximum, replace the set
+							max = poke[statCheck];
+							maxStat = [];
+						}
+						maxStat.push(statCheck);
 					}
+					if (max < 10) skipMaxCheck = true; // all targets met
+
+					let chosenStat = eligibleStats[Math.floor(Math.random() * eligibleStats.length)];
+					if (!skipMaxCheck) chosenStat = maxStat[Math.floor(Math.random() * maxStat.length)];
+					if (!chosenStat) {
+						console.log(`no chosen stat to raise`);
+						break;
+					}
+					if (chosenStat === 'diffHp') poke.crossHp +=10;
+					if (chosenStat === 'diffAtk') poke.crossAtk +=10;
+					if (chosenStat === 'diffDef') poke.crossDef +=10;
+					if (chosenStat === 'diffSpA') poke.crossSpA +=10;
+					if (chosenStat === 'diffSpD') poke.crossSpD +=10;
+					if (chosenStat === 'diffSpe') poke.crossSpe +=10;
 				}
-
-				// finish off with two more fully random +10s
-				const allStats: string[] = ['crossHp', 'crossAtk', 'crossDef', 'crossSpA', 'crossSpD'];
-				if (!(poke.crossSpe < poke.randSpe)) allStats.push('crossSpe'); // only if it didn't already go down on purpose in an earlier step
-				poke[allStats[Math.floor(Math.random() * allStats.length)]] += 10;
-				poke[allStats[Math.floor(Math.random() * allStats.length)]] += 10;
-
-*/
-
 
 				// prevos are just the same changes as the final stage scaled down
 				if (poke.prevo) {
