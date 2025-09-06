@@ -142,11 +142,11 @@ export const Formats: FormatList = [
 		onBegin() {
 			for (const id in this.dex.data.Pokedex) { // Gen V starters
 				const poke = this.dex.data.Pokedex[id];
-				if (poke && (650 > poke.num && poke.num > 493) && ["Overgrow", "Blaze", "Torrent"].includes(poke.abilities[0]) && poke.sheetOutput) this.add('-message', `${poke.sheetOutput}`);
+				if (poke && ["Serperior", "Emboar", "Samurott"].includes(poke.name) && poke.sheetOutput) this.add('-message', `${poke.sheetOutput}`);
 			}
 			for (const id in this.dex.data.Pokedex) { // other starters
 				const poke = this.dex.data.Pokedex[id];
-				if (poke && !(650 > poke.num && poke.num > 493) && ["Overgrow", "Blaze", "Torrent"].includes(poke.abilities[0]) && poke.sheetOutput) this.add('-message', `${poke.sheetOutput}`);
+				if (poke && !(["Serperior", "Emboar", "Samurott"].includes(poke.name)) && ["Overgrow", "Blaze", "Torrent"].includes(poke.abilities[0]) && poke.sheetOutput) this.add('-message', `${poke.sheetOutput}`);
 			}
 			for (const id in this.dex.data.Pokedex) { // regular
 				const poke = this.dex.data.Pokedex[id];
