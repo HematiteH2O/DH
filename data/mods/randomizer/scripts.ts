@@ -1,7 +1,7 @@
 // TODO:
-// - finish crossgen stat refinement (only thing left should be the Abilities listed at the bottom of Speed)
-// - do the non-crossgen stat randomizer... with probably somewhat similar steps, but hopefully less complicated Speed checks, and also potential for a drastic stat swing
-// - list out some kinds of utility for convenience before exporting for a sheet
+// - evolution lines, including pre-evolutions and crossgens
+// - forms
+// - additional details for export, like menu icons, stat deltas and any utility I want highlighted
 
 const pushLevelUp = [
 	'accelerock', 'acid', 'acidspray', 'acupressure', 'afteryou', 'aircutter', 'allyswitch', 'appleacid', 'aquajet', 'aquastep', 'astralbarrage', 'aurawheel', 'babydolleyes', 'batonpass', 'bellydrum', 'bitterblade', 'bittermalice',
@@ -1714,6 +1714,12 @@ export const Scripts: ModdedBattleScriptsData = {
 						}
 
 						if (eligibleMoves.length) {
+							// form change move security
+							if (["Kyurem", "Kyurem-Black", "Kyurem-White"].includes(poke.name) && ["scaryface", "glaciate", "fusionflare", "fusionbolt", "iceburn", "freezeshock"].includes(moveid)) continue;
+							if (["Hoopa", "Hoopa-Unbound"].includes(poke.name) && ["hyperspacehole", "hyperspacefury"].includes(moveid)) continue;
+							if (["Calyrex", "Necrozma"].includes(poke.name) && moveid === "confusion") continue;
+							if (poke.name === "Rotom" && moveid === "thundershock") continue;
+
 							let randomMove = eligibleMoves[Math.floor(Math.random() * eligibleMoves.length)];
 							// ... if you do randomize to the same thing, it doesn't count!
 							if (randomMove !== moveid && !alreadyLvUpMoves.includes(randomMove)) {
