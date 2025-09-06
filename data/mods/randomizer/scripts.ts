@@ -1760,6 +1760,7 @@ export const Scripts: ModdedBattleScriptsData = {
 							if (!secondMove) levelUpSpaces = true;
 						}
 					}
+					if (!secondMove) moveName = `~~` + moveName;
 					if (learnset3) moveName = prevo2LevelLearned + ` - ` + moveName; // add prevo2 levels
 					if (learnset2) moveName = prevoLevelLearned + ` - ` + moveName; // add prevo levels
 					if (levelLearned < 1 || levelLearned > 101) continue;
@@ -1786,7 +1787,6 @@ export const Scripts: ModdedBattleScriptsData = {
 					} else {
 						// if there's a second move
 						if (secondMove) moveName += ` ->~~` + secondMove.name;
-						else moveName = `~~` + moveName;
 						if (secondMove && secondMove.num && secondMove.num > 559) {
 							if (movesAfterGenV.includes(this.toID(secondMove.name))) moveName = moveName + ` (new)`; // identify post-Gen V moves
 							else {
