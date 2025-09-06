@@ -438,7 +438,7 @@ export const Scripts: ModdedBattleScriptsData = {
 			if (!(this.dataCache.Learnsets[id] && this.dataCache.Learnsets[id].learnset)) {
 				if (!(poke.baseSpecies && (["Hoopa", "Shaymin", "Deoxys"].includes(poke.baseSpecies)))) continue; // skip Megas and G-Maxes this time
 			}
-			if (poke.baseSpecies && ["Pikachu", "Pichu", "Eevee", "Floette", "Greninja", "Magearna", "Poltchageist", "Calyrex"].includes(poke.baseSpecies)) continue; // can do special handling for Calyrex in a later section
+			if (poke.baseSpecies && ["Pikachu", "Pichu", "Eevee", "Floette", "Greninja", "Magearna", "Sinistcha", "Calyrex"].includes(poke.baseSpecies)) continue; // can do special handling for Calyrex in a later section
 			if (poke.forme && (poke.forme === "Totem" || poke.forme === "Alola-Totem")) continue;
 			if (poke.num && poke.num < 0) continue; // skip CAPs
 			let future = false; // determine if something is Gen VIII or later
@@ -556,12 +556,16 @@ export const Scripts: ModdedBattleScriptsData = {
 			// do not randomize anything for Slaking, Regigigas, Archeops, etc. - done
 			if (["Slaking", "Archeops", "Regigigas"].includes(poke.name)) poke.randAbilities = poke.abilities;
 
+			// setting aside this section to randomize extra Abilities for forms
+			if (["Basculin"].includes(poke.name)) poke.randAbilities[3] = abilityDex[randAbilities[Math.floor(Math.random() * randAbilities.length)]].name;
+
 			// - Legendaries and Mythicals have 1 Ability and starters only randomize HA - done
 			if (["Overgrow", "Blaze", "Torrent"].includes(poke.abilities[0]) || poke.tags || (poke.baseSpecies && this.dataCache.Pokedex[this.toID(poke.baseSpecies)].tags)) poke.randAbilities = poke.randAbilities = {0: poke.randAbilities[0]};
 			// executive decision: starters randomize the primary slot only, since I don't have Ability Capsules or Patches
 
 			// - randomize a second Ability only for the crossgen output - done
 			randomForAbility = randAbilities[Math.floor(Math.random() * randAbilities.length)];
+			if (!(poke.gender && poke.gender === "N")) randomForAbility = randAbilitiesGenderless[Math.floor(Math.random() * randAbilitiesGenderless.length)];
 			let crossgenAbility = abilityDex[randomForAbility].name;
 			let overrodeRanking = false;
 			poke.crossgenAbilities = {0: poke.randAbilities[0]};
@@ -592,6 +596,7 @@ export const Scripts: ModdedBattleScriptsData = {
 				else slot1rank = 7;
 				if (slot0rank > slot1rank) slot = 0;
 			}
+			if (poke.name === "Basculin") slot = 1; // forcing this because 0 is the slot that differentiates the forms
 			poke.crossgenAbilities[slot] = abilityDex[randomForAbility].name;
 
 			// - overwrite all Abilities with lower priority than that Ability with it
@@ -686,6 +691,7 @@ export const Scripts: ModdedBattleScriptsData = {
 			if (poke.randAbilities[1]) abilitySet.push(poke.randAbilities[1]);
 			// if (poke.randAbilities[2]) abilitySet.push(poke.randAbilities[2]);
 			// actually, I don't want to account for HA since the player usually won't have access to it
+			if (poke.randAbilities[3]) abilitySet.push(poke.randAbilities[3]);
 
 
 
@@ -1199,6 +1205,7 @@ export const Scripts: ModdedBattleScriptsData = {
 				moveAbilitySet.push(poke.randAbilities[0]);
 				if (poke.randAbilities[1]) moveAbilitySet.push(poke.randAbilities[1]);
 				if (poke.randAbilities[2]) moveAbilitySet.push(poke.randAbilities[2]); // happy to account for HAs here because they can only make movepools even more diverse
+				if (poke.randAbilities[3]) moveAbilitySet.push(poke.randAbilities[3]); // Basculin
 
 				if (moveAbilitySet.includes("Drizzle") || moveAbilitySet.includes("Swift Swim") || moveAbilitySet.includes("Rain Dish") || moveAbilitySet.includes("Dry Skin") || moveAbilitySet.includes("Hydration") || moveAbilitySet.includes("Torrent")) learnsetTypes.push("Water");
 				if (moveAbilitySet.includes("Drought") || moveAbilitySet.includes("Blaze") || moveAbilitySet.includes("Flash Fire")) learnsetTypes.push("Fire");
@@ -1836,7 +1843,8 @@ export const Scripts: ModdedBattleScriptsData = {
 
 				const abilityCheck: string[] = [];
 				abilityCheck.push(poke.randAbilities[0]);
-				if (poke.randAbilities[0]) abilityCheck.push(poke.randAbilities[1]);
+				if (poke.randAbilities[1]) abilityCheck.push(poke.randAbilities[1]);
+				if (poke.randAbilities[3]) moveAbilitySet.push(poke.randAbilities[3]);
 
 				poke.hpTarget = poke.baseStats.hp;
 				poke.atkTarget = poke.baseStats.atk;
@@ -2577,6 +2585,17 @@ export const Scripts: ModdedBattleScriptsData = {
 				// abilities
 				sheetOutput += poke.randAbilities[0] + (poke.randAbilities[1] ? ` / `+ poke.randAbilities[1] + ` ` : ` `) + (poke.randAbilities[2] ? `// `+ poke.randAbilities[2] + `\n` : `\n`);
 
+				// Basculin moment
+				if (poke.name === "Basculin" && poke.randAbilities[3]) {
+					sheetOutput += (poke.evoLevel ? (poke.name + ` // ` + poke.evoLevel) : poke.name) + ` (Blue-Striped) ~ `;
+					// types
+					sheetOutput += poke.chosenType.type1 + (poke.chosenType.type2 === poke.chosenType.type1 ? ` ~  ~ ` : ` ~ `+ poke.chosenType.type2 + ` ~ `);
+					// base stats, skipped if none generated yet
+					if (poke.randHp) sheetOutput += poke.randHp + ` ~ ` + poke.randAtk + ` ~ ` + poke.randDef + ` ~ ` + poke.randSpA + ` ~ ` + poke.randSpD + ` ~ ` + poke.randSpe + ` ~ ` + (poke.randHp + poke.randAtk + poke.randDef + poke.randSpA + poke.randSpD + poke.randSpe) + ` ~ `;
+					// abilities
+					sheetOutput += poke.randAbilities[3] + (poke.randAbilities[1] ? ` / `+ poke.randAbilities[1] + ` ` : ` `) + (poke.randAbilities[2] ? `// `+ poke.randAbilities[2] + `\n` : `\n`);
+				}
+
 				// be ready to add a crossevo here
 				if (crossevo && poke.name !== "Shedinja") {
 					// name isn't randomly generated askdjfgh
@@ -2588,6 +2607,17 @@ export const Scripts: ModdedBattleScriptsData = {
 					if (poke.crossHp) sheetOutput += poke.crossHp + ` ~ ` + poke.crossAtk + ` ~ ` + poke.crossDef + ` ~ ` + poke.crossSpA + ` ~ ` + poke.crossSpD + ` ~ ` + poke.crossSpe + ` ~ ` + (poke.crossHp + poke.crossAtk + poke.crossDef + poke.crossSpA + poke.crossSpD + poke.crossSpe) + ` ~ `;
 					// abilities
 					sheetOutput += poke.crossgenAbilities[0] + (poke.crossgenAbilities[1] ? ` / `+ poke.crossgenAbilities[1] + ` ` : ` `) + (poke.crossgenAbilities[2] ? `// `+ poke.crossgenAbilities[2] + `\n` : `\n`);
+
+					if (poke.name === "Basculin" && poke.randAbilities[3]) {
+						if (poke.crossgenGoldStar) sheetOutput += `Cool `; // I will forget I did this and be amused by it
+						sheetOutput += `Crossgen (Blue-Striped) ~ `;
+						// types are the same
+						sheetOutput += poke.chosenType.type1 + (poke.chosenType.type2 === poke.chosenType.type1 ? ` ~  ~ ` : ` ~ `+ poke.chosenType.type2 + ` ~ `);
+						// base stats; skip if none generated yet
+						if (poke.crossHp) sheetOutput += poke.crossHp + ` ~ ` + poke.crossAtk + ` ~ ` + poke.crossDef + ` ~ ` + poke.crossSpA + ` ~ ` + poke.crossSpD + ` ~ ` + poke.crossSpe + ` ~ ` + (poke.crossHp + poke.crossAtk + poke.crossDef + poke.crossSpA + poke.crossSpD + poke.crossSpe) + ` ~ `;
+						// abilities
+						sheetOutput += poke.crossgenAbilities[3] + (poke.crossgenAbilities[1] ? ` / `+ poke.crossgenAbilities[1] + ` ` : ` `) + (poke.crossgenAbilities[2] ? `// `+ poke.crossgenAbilities[2] + `\n` : `\n`);
+					}
 				}
 
 				// learnset
