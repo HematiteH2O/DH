@@ -127,15 +127,15 @@ Other post-Gen V moves I probably *can* backport if it comes up
 	Baby-Doll Eyes, Nuzzle, Infestation, Power-Up Punch;
 
  	First Impression (?), Spirit Shackle (?), Darkest Lariat, Ice Hammer, High Horsepower, Solar Blade, Leafage, Anchor Shot (?), Lunge, Fire Lash, Power Trip, Smart Strike, Trop Kick,
-  	Clanging Scales, Dragon Hammer, Brutal Swing, Psychic Fangs, Shadow Bone, Accelerock, Liquidation, Tearful Look, Zing Zap, Mind Blown (?);
+ 	Clanging Scales, Dragon Hammer, Brutal Swing, Psychic Fangs, Shadow Bone, Accelerock, Liquidation, Tearful Look, Zing Zap, Mind Blown (?);
 
 	Snipe Shot, Magic Powder (?), Decorate, Drum Beating, Snap Trap, Pyro Ball, Breaking Swipe, Branch Poke, Overdrive, Apple Acid, Life Dew (?), False Surrender, Meteor Assault,
  	Scale Shot (?), Skitter Smack, Corrosive Gas (?), Coaching, Flip Turn, Triple Axel (?), Dual Wingbeat, Scorching Sands, Mystical Power, Raging Fury, Wave Crash, Chloroblast (?),
-  	Mountain Gale, Victory Dance, Headlong Rush, Barb Barrage (?), Esper Wing, Bitter Malice, Shelter, Infernal Parade (?), Bleakwind Storm, Wildbolt Storm, Sandsear Storm (?);
+ 	Mountain Gale, Victory Dance, Headlong Rush, Barb Barrage (?), Esper Wing, Bitter Malice, Shelter, Infernal Parade (?), Bleakwind Storm, Wildbolt Storm, Sandsear Storm (?);
 
 	Axe Kick (?), Lumina Crash, Jet Punch, Spicy Extract, Spin Out, Population Bomb (?), Triple Dive, Kowtow Cleave, Flower Trick, Torch Song, Aqua Step, Make It Rain, Pounce,
  	Trailblaze, Chilling Water, Hyper Drill, Twin Beam, Armor Cannon, Bitter Blade, Comeuppance, Aqua Cutter, Matcha Gotcha (?), Thunderclap, Mighty Cleave, Tachyon Cutter,
-  	Hard Press (?), Supercell Slam, Malignant Chain
+ 	Hard Press (?), Supercell Slam, Malignant Chain
 */
 
 const movesAfterGenV = [
@@ -1785,7 +1785,8 @@ export const Scripts: ModdedBattleScriptsData = {
 						}
 					} else {
 						// if there's a second move
-						if (secondMove) moveName += ` -> ` + secondMove.name;
+						if (secondMove) moveName += ` ->~~` + secondMove.name;
+						else moveName += `~~`;
 						if (secondMove && secondMove.num && secondMove.num > 559) {
 							if (movesAfterGenV.includes(this.toID(secondMove.name))) moveName = moveName + ` (new)`; // identify post-Gen V moves
 							else {
@@ -1814,10 +1815,10 @@ export const Scripts: ModdedBattleScriptsData = {
 						}
 
 						if (secondMove) {
-							moveName += ` ~ ` + secondMove.type;
+							moveName += `~~~~~~~` + secondMove.type;
 							poke.listOfCertainMoves.push(this.toID(secondMove.name));
 						} else {
-							moveName += ` ~ ` + move.type;
+							moveName += `~~~~~~~` + move.type;
 							poke.listOfCertainMoves.push(moveid);
 						}
 
@@ -2230,7 +2231,7 @@ export const Scripts: ModdedBattleScriptsData = {
 
 				// set poke.crossSpe to a specific value, but I haven't determined how yet
 				// so far, we're ignoring maxbst
-				// ignore concerns about setup for either offense if the offense in question is less than ~80
+				// ignore concerns about setup for either offense if the offense in question is less than~80
 				// check poke.listOfCertainMoves for convenience
 
 				// uhh... default to 120 or the prior stage's Speed (whichever is greater), but almost nothing is gonna stay there
@@ -2272,7 +2273,7 @@ export const Scripts: ModdedBattleScriptsData = {
 					if (hasMove) targetSpe = 90;
 				}
 
-				// nerf to 85 if an offense is ~130+
+				// nerf to 85 if an offense is~130+
 				if (poke.crossAtk > 129 || poke.crossSpA > 129) targetSpe = 85;
 				// or if there's a matching physical STAB of 120 BP+
 				if (poke.crossAtk > 99) {
@@ -2433,7 +2434,7 @@ export const Scripts: ModdedBattleScriptsData = {
 					}
 				}
 
-				// nerf to 65 if setup that includes +2 Speed and (a) also boosts an offense or (b) Attack is ~135+
+				// nerf to 65 if setup that includes +2 Speed and (a) also boosts an offense or (b) Attack is~135+
 				if (poke.crossAtk > 135 || poke.crossSpA > 135) {
 					const setup = ['agility', 'autotomize', 'rockpolish', 'shiftgear'];
 					let hasMove = false;
@@ -2762,58 +2763,58 @@ export const Scripts: ModdedBattleScriptsData = {
 					if (poke2.prevo) {
 						const poke3 = this.dataCache.Pokedex[this.toID(poke2.prevo)];
 						var poke3id = (poke3.name.toLowerCase()).replace(" ", `-`).replace(`.`, ``).replace(`:`, ``).replace(`\u2019`, ``); // to get rid of spaces and periods
-						sheetOutput += `=IMAGE("https://www.smogon.com/forums//media/minisprites/` + poke3id + `.png",3)~`;
+						sheetOutput += `=IMAGE("https://www.smogon.com/forums//media/minisprites/` + poke3id + `.png",3)~~~`;
 
 						crossevo = false;
 						// name, evo level
-						sheetOutput += (poke3.evoLevel ? (poke3.name + ` // ` + poke3.evoLevel) : poke3.name) + ` ~ `;
+						sheetOutput += (poke3.evoLevel ? (poke3.name + ` // ` + poke3.evoLevel) : poke3.name) + `~`;
 						// types
-						sheetOutput += poke3.chosenType.type1 + (poke3.chosenType.type2 === poke3.chosenType.type1 ? ` ~  ~ ` : ` ~ `+ poke3.chosenType.type2 + ` ~ `);
+						sheetOutput += poke3.chosenType.type1 + (poke3.chosenType.type2 === poke3.chosenType.type1 ? `~~` : `~`+ poke3.chosenType.type2 + `~`);
 						// base stats
-						sheetOutput += poke3.randHp + ` ~ ` + poke3.randAtk + ` ~ ` + poke3.randDef + ` ~ ` + poke3.randSpA + ` ~ ` + poke3.randSpD + ` ~ ` + poke3.randSpe + ` ~ ` + (poke3.randHp + poke3.randAtk + poke3.randDef + poke3.randSpA + poke3.randSpD + poke3.randSpe) + `\n`;
+						sheetOutput += poke3.randHp + `~` + poke3.randAtk + `~` + poke3.randDef + `~` + poke3.randSpA + `~` + poke3.randSpD + `~` + poke3.randSpe + `~` + (poke3.randHp + poke3.randAtk + poke3.randDef + poke3.randSpA + poke3.randSpD + poke3.randSpe) + `\n`;
 						// abilities
-						sheetOutput += poke3.randAbilities[0] + (poke3.randAbilities[1] ? ` / `+ poke3.randAbilities[1] + ` ` : ` `) + (poke3.randAbilities[2] ? `// `+ poke3.randAbilities[2] + ` ~  ~  ~  ~ ` : ` ~  ~  ~  ~ `);
+						sheetOutput += poke3.randAbilities[0] + (poke3.randAbilities[1] ? ` / `+ poke3.randAbilities[1] + ` ` : ` `) + (poke3.randAbilities[2] ? `// `+ poke3.randAbilities[2] + `~~~~` : `~~~~`);
 						// stat deltas
-						sheetOutput += ((poke3.randHp - poke3.baseStats.hp) !== 0 ? (poke3.randHp - poke3.baseStats.hp) : ` `) + ` ~ ` + ((poke3.randAtk - poke3.baseStats.atk) !== 0 ? (poke3.randAtk - poke3.baseStats.atk) : ` `) + ` ~ ` + ((poke3.randDef - poke3.baseStats.def) !== 0 ? (poke3.randDef - poke3.baseStats.def) : ` `) + ` ~ ` + ((poke3.randSpA - poke3.baseStats.spa) !== 0 ? (poke3.randSpA - poke3.baseStats.spa) : ` `) + ` ~ ` + ((poke3.randSpD - poke3.baseStats.spd) !== 0 ? (poke3.randSpD - poke3.baseStats.spd) : ` `) + ` ~ ` + ((poke3.randSpe - poke3.baseStats.spe) !== 0 ? (poke3.randSpe - poke3.baseStats.spe) : ` `) + `\n`;
+						sheetOutput += ((poke3.randHp - poke3.baseStats.hp) !== 0 ? (poke3.randHp - poke3.baseStats.hp) : ` `) + `~` + ((poke3.randAtk - poke3.baseStats.atk) !== 0 ? (poke3.randAtk - poke3.baseStats.atk) : ` `) + `~` + ((poke3.randDef - poke3.baseStats.def) !== 0 ? (poke3.randDef - poke3.baseStats.def) : ` `) + `~` + ((poke3.randSpA - poke3.baseStats.spa) !== 0 ? (poke3.randSpA - poke3.baseStats.spa) : ` `) + `~` + ((poke3.randSpD - poke3.baseStats.spd) !== 0 ? (poke3.randSpD - poke3.baseStats.spd) : ` `) + `~` + ((poke3.randSpe - poke3.baseStats.spe) !== 0 ? (poke3.randSpe - poke3.baseStats.spe) : ` `) + `\n`;
 					}
 					var poke2id = (poke2.name.toLowerCase()).replace(" ", `-`).replace(`.`, ``).replace(`:`, ``).replace(`\u2019`, ``); // to get rid of spaces and periods
-					sheetOutput += `=IMAGE("https://www.smogon.com/forums//media/minisprites/` + poke2id + `.png",3)~`;
+					sheetOutput += `=IMAGE("https://www.smogon.com/forums//media/minisprites/` + poke2id + `.png",3)~~~`;
 					// name, evo level
-					sheetOutput += (poke2.evoLevel ? (poke2.name + ` // ` + poke2.evoLevel) : poke2.name) + ` ~ `;
+					sheetOutput += (poke2.evoLevel ? (poke2.name + ` // ` + poke2.evoLevel) : poke2.name) + `~`;
 					// types
-					sheetOutput += poke2.chosenType.type1 + (poke2.chosenType.type2 === poke2.chosenType.type1 ? ` ~  ~ ` : ` ~ `+ poke2.chosenType.type2 + ` ~ `);
+					sheetOutput += poke2.chosenType.type1 + (poke2.chosenType.type2 === poke2.chosenType.type1 ? `~~` : `~`+ poke2.chosenType.type2 + `~`);
 					// base stats
-					sheetOutput += poke2.randHp + ` ~ ` + poke2.randAtk + ` ~ ` + poke2.randDef + ` ~ ` + poke2.randSpA + ` ~ ` + poke2.randSpD + ` ~ ` + poke2.randSpe + ` ~ ` + (poke2.randHp + poke2.randAtk + poke2.randDef + poke2.randSpA + poke2.randSpD + poke2.randSpe) + `\n`;
+					sheetOutput += poke2.randHp + `~` + poke2.randAtk + `~` + poke2.randDef + `~` + poke2.randSpA + `~` + poke2.randSpD + `~` + poke2.randSpe + `~` + (poke2.randHp + poke2.randAtk + poke2.randDef + poke2.randSpA + poke2.randSpD + poke2.randSpe) + `\n`;
 					// abilities
-					sheetOutput += poke2.randAbilities[0] + (poke2.randAbilities[1] ? ` / `+ poke2.randAbilities[1] + ` ` : ` `) + (poke2.randAbilities[2] ? `// `+ poke2.randAbilities[2] + ` ~  ~  ~  ~ ` : ` ~  ~  ~  ~ `);
+					sheetOutput += poke2.randAbilities[0] + (poke2.randAbilities[1] ? ` / `+ poke2.randAbilities[1] + ` ` : ` `) + (poke2.randAbilities[2] ? `// `+ poke2.randAbilities[2] + `~~~~` : `~~~~`);
 					// stat deltas
-					sheetOutput += ((poke2.randHp - poke2.baseStats.hp) !== 0 ? (poke2.randHp - poke2.baseStats.hp) : ` `) + ` ~ ` + ((poke2.randAtk - poke2.baseStats.atk) !== 0 ? (poke2.randAtk - poke2.baseStats.atk) : ` `) + ` ~ ` + ((poke2.randDef - poke2.baseStats.def) !== 0 ? (poke2.randDef - poke2.baseStats.def) : ` `) + ` ~ ` + ((poke2.randSpA - poke2.baseStats.spa) !== 0 ? (poke2.randSpA - poke2.baseStats.spa) : ` `) + ` ~ ` + ((poke2.randSpD - poke2.baseStats.spd) !== 0 ? (poke2.randSpD - poke2.baseStats.spd) : ` `) + ` ~ ` + ((poke2.randSpe - poke2.baseStats.spe) !== 0 ? (poke2.randSpe - poke2.baseStats.spe) : ` `) + `\n`;
+					sheetOutput += ((poke2.randHp - poke2.baseStats.hp) !== 0 ? (poke2.randHp - poke2.baseStats.hp) : ` `) + `~` + ((poke2.randAtk - poke2.baseStats.atk) !== 0 ? (poke2.randAtk - poke2.baseStats.atk) : ` `) + `~` + ((poke2.randDef - poke2.baseStats.def) !== 0 ? (poke2.randDef - poke2.baseStats.def) : ` `) + `~` + ((poke2.randSpA - poke2.baseStats.spa) !== 0 ? (poke2.randSpA - poke2.baseStats.spa) : ` `) + `~` + ((poke2.randSpD - poke2.baseStats.spd) !== 0 ? (poke2.randSpD - poke2.baseStats.spd) : ` `) + `~` + ((poke2.randSpe - poke2.baseStats.spe) !== 0 ? (poke2.randSpe - poke2.baseStats.spe) : ` `) + `\n`;
 				}
 				var pokeid = (poke.name.toLowerCase()).replace(" ", `-`).replace(`.`, ``).replace(`:`, ``).replace(`\u2019`, ``); // to get rid of spaces and periods
-				sheetOutput += `=IMAGE("https://www.smogon.com/forums//media/minisprites/` + pokeid + `.png",3)~`;
+				sheetOutput += `=IMAGE("https://www.smogon.com/forums//media/minisprites/` + pokeid + `.png",3)~~~`;
 
 				// name, evo level
-				sheetOutput += (poke.evoLevel ? (poke.name + ` // ` + poke.evoLevel) : poke.name) + ` ~ `;
+				sheetOutput += (poke.evoLevel ? (poke.name + ` // ` + poke.evoLevel) : poke.name) + `~`;
 				// types
-				sheetOutput += poke.chosenType.type1 + (poke.chosenType.type2 === poke.chosenType.type1 ? ` ~  ~ ` : ` ~ `+ poke.chosenType.type2 + ` ~ `);
+				sheetOutput += poke.chosenType.type1 + (poke.chosenType.type2 === poke.chosenType.type1 ? `~~` : `~`+ poke.chosenType.type2 + `~`);
 				// base stats
-				sheetOutput += poke.randHp + ` ~ ` + poke.randAtk + ` ~ ` + poke.randDef + ` ~ ` + poke.randSpA + ` ~ ` + poke.randSpD + ` ~ ` + poke.randSpe + ` ~ ` + (poke.randHp + poke.randAtk + poke.randDef + poke.randSpA + poke.randSpD + poke.randSpe) + `\n`;
+				sheetOutput += poke.randHp + `~` + poke.randAtk + `~` + poke.randDef + `~` + poke.randSpA + `~` + poke.randSpD + `~` + poke.randSpe + `~` + (poke.randHp + poke.randAtk + poke.randDef + poke.randSpA + poke.randSpD + poke.randSpe) + `\n`;
 				// abilities
-				sheetOutput += poke.randAbilities[0] + (poke.randAbilities[1] ? ` / `+ poke.randAbilities[1] + ` ` : ` `) + (poke.randAbilities[2] ? `// `+ poke.randAbilities[2] + ` ~  ~  ~  ~ ` : ` ~  ~  ~  ~ `);
+				sheetOutput += poke.randAbilities[0] + (poke.randAbilities[1] ? ` / `+ poke.randAbilities[1] + ` ` : ` `) + (poke.randAbilities[2] ? `// `+ poke.randAbilities[2] + `~~~~` : `~~~~`);
 				// stat deltas
-				sheetOutput += ((poke.randHp - poke.baseStats.hp) !== 0 ? (poke.randHp - poke.baseStats.hp) : ` `) + ` ~ ` + ((poke.randAtk - poke.baseStats.atk) !== 0 ? (poke.randAtk - poke.baseStats.atk) : ` `) + ` ~ ` + ((poke.randDef - poke.baseStats.def) !== 0 ? (poke.randDef - poke.baseStats.def) : ` `) + ` ~ ` + ((poke.randSpA - poke.baseStats.spa) !== 0 ? (poke.randSpA - poke.baseStats.spa) : ` `) + ` ~ ` + ((poke.randSpD - poke.baseStats.spd) !== 0 ? (poke.randSpD - poke.baseStats.spd) : ` `) + ` ~ ` + ((poke.randSpe - poke.baseStats.spe) !== 0 ? (poke.randSpe - poke.baseStats.spe) : ` `) + `\n`;
+				sheetOutput += ((poke.randHp - poke.baseStats.hp) !== 0 ? (poke.randHp - poke.baseStats.hp) : ` `) + `~` + ((poke.randAtk - poke.baseStats.atk) !== 0 ? (poke.randAtk - poke.baseStats.atk) : ` `) + `~` + ((poke.randDef - poke.baseStats.def) !== 0 ? (poke.randDef - poke.baseStats.def) : ` `) + `~` + ((poke.randSpA - poke.baseStats.spa) !== 0 ? (poke.randSpA - poke.baseStats.spa) : ` `) + `~` + ((poke.randSpD - poke.baseStats.spd) !== 0 ? (poke.randSpD - poke.baseStats.spd) : ` `) + `~` + ((poke.randSpe - poke.baseStats.spe) !== 0 ? (poke.randSpe - poke.baseStats.spe) : ` `) + `\n`;
 
 				// Basculin moment
 				if (poke.name === "Basculin" && poke.randAbilities[3]) {
 					sheetOutput += `=IMAGE("https://www.smogon.com/forums//media/minisprites/basculinbluestriped.png",3)~`;
 					// types
-					sheetOutput += poke.chosenType.type1 + (poke.chosenType.type2 === poke.chosenType.type1 ? ` ~  ~ ` : ` ~ `+ poke.chosenType.type2 + ` ~ `);
+					sheetOutput += poke.chosenType.type1 + (poke.chosenType.type2 === poke.chosenType.type1 ? `~~` : `~`+ poke.chosenType.type2 + `~`);
 					// base stats
-					sheetOutput += poke.randHp + ` ~ ` + poke.randAtk + ` ~ ` + poke.randDef + ` ~ ` + poke.randSpA + ` ~ ` + poke.randSpD + ` ~ ` + poke.randSpe + ` ~ ` + (poke.randHp + poke.randAtk + poke.randDef + poke.randSpA + poke.randSpD + poke.randSpe) + `\n`;
+					sheetOutput += poke.randHp + `~` + poke.randAtk + `~` + poke.randDef + `~` + poke.randSpA + `~` + poke.randSpD + `~` + poke.randSpe + `~` + (poke.randHp + poke.randAtk + poke.randDef + poke.randSpA + poke.randSpD + poke.randSpe) + `\n`;
 					// abilities
-					sheetOutput += poke.randAbilities[3] + (poke.randAbilities[1] ? ` / `+ poke.randAbilities[1] + ` ` : ` `) + (poke.randAbilities[2] ? `// `+ poke.randAbilities[2] + ` ~  ~  ~  ~ ` : ` ~  ~  ~  ~ `);
+					sheetOutput += poke.randAbilities[3] + (poke.randAbilities[1] ? ` / `+ poke.randAbilities[1] + ` ` : ` `) + (poke.randAbilities[2] ? `// `+ poke.randAbilities[2] + `~~~~` : `~~~~`);
 					// stat deltas
-					sheetOutput += ((poke.randHp - poke.baseStats.hp) !== 0 ? (poke.randHp - poke.baseStats.hp) : ` `) + ` ~ ` + ((poke.randAtk - poke.baseStats.atk) !== 0 ? (poke.randAtk - poke.baseStats.atk) : ` `) + ` ~ ` + ((poke.randDef - poke.baseStats.def) !== 0 ? (poke.randDef - poke.baseStats.def) : ` `) + ` ~ ` + ((poke.randSpA - poke.baseStats.spa) !== 0 ? (poke.randSpA - poke.baseStats.spa) : ` `) + ` ~ ` + ((poke.randSpD - poke.baseStats.spd) !== 0 ? (poke.randSpD - poke.baseStats.spd) : ` `) + ` ~ ` + ((poke.randSpe - poke.baseStats.spe) !== 0 ? (poke.randSpe - poke.baseStats.spe) : ` `) + `\n`;
+					sheetOutput += ((poke.randHp - poke.baseStats.hp) !== 0 ? (poke.randHp - poke.baseStats.hp) : ` `) + `~` + ((poke.randAtk - poke.baseStats.atk) !== 0 ? (poke.randAtk - poke.baseStats.atk) : ` `) + `~` + ((poke.randDef - poke.baseStats.def) !== 0 ? (poke.randDef - poke.baseStats.def) : ` `) + `~` + ((poke.randSpA - poke.baseStats.spa) !== 0 ? (poke.randSpA - poke.baseStats.spa) : ` `) + `~` + ((poke.randSpD - poke.baseStats.spd) !== 0 ? (poke.randSpD - poke.baseStats.spd) : ` `) + `~` + ((poke.randSpe - poke.baseStats.spe) !== 0 ? (poke.randSpe - poke.baseStats.spe) : ` `) + `\n`;
 				}
 
 				// be ready to add a crossevo here
@@ -2821,28 +2822,28 @@ export const Scripts: ModdedBattleScriptsData = {
 					sheetOutput += `~`; // no icon, so you need an indent to keep aligned with other rows
 					// name isn't randomly generated askdjfgh
 					if (poke.crossgenGoldStar) sheetOutput += `Cool `; // I will forget I did this and be amused by it
-					sheetOutput += `Crossgen ~ `;
+					sheetOutput += `Crossgen~`;
 					// types are the same
-					sheetOutput += poke.chosenType.type1 + (poke.chosenType.type2 === poke.chosenType.type1 ? ` ~  ~ ` : ` ~ `+ poke.chosenType.type2 + ` ~ `);
+					sheetOutput += poke.chosenType.type1 + (poke.chosenType.type2 === poke.chosenType.type1 ? `~~` : `~`+ poke.chosenType.type2 + `~`);
 					// base stats
-					sheetOutput += poke.crossHp + ` ~ ` + poke.crossAtk + ` ~ ` + poke.crossDef + ` ~ ` + poke.crossSpA + ` ~ ` + poke.crossSpD + ` ~ ` + poke.crossSpe + ` ~ ` + (poke.crossHp + poke.crossAtk + poke.crossDef + poke.crossSpA + poke.crossSpD + poke.crossSpe) + `\n`;
+					sheetOutput += poke.crossHp + `~` + poke.crossAtk + `~` + poke.crossDef + `~` + poke.crossSpA + `~` + poke.crossSpD + `~` + poke.crossSpe + `~` + (poke.crossHp + poke.crossAtk + poke.crossDef + poke.crossSpA + poke.crossSpD + poke.crossSpe) + `\n`;
 					// abilities
-					sheetOutput += poke.crossgenAbilities[0] + (poke.crossgenAbilities[1] ? ` / `+ poke.crossgenAbilities[1] + ` ` : ` `) + (poke.crossgenAbilities[2] ? `// `+ poke.crossgenAbilities[2] + ` ~  ~  ~  ~ ` : ` ~  ~  ~  ~ `);
+					sheetOutput += poke.crossgenAbilities[0] + (poke.crossgenAbilities[1] ? ` / `+ poke.crossgenAbilities[1] + ` ` : ` `) + (poke.crossgenAbilities[2] ? `// `+ poke.crossgenAbilities[2] + `~~~~` : `~~~~`);
 					// stat deltas
-					sheetOutput += ((poke.crossHp - poke.randHp) !== 0 ? (poke.crossHp - poke.randHp) : ` `) + ` ~ ` + ((poke.crossAtk - poke.randAtk) !== 0 ? (poke.crossAtk - poke.randAtk) : ` `) + ` ~ ` + ((poke.crossDef - poke.randDef) !== 0 ? (poke.crossDef - poke.randDef) : ` `) + ` ~ ` + ((poke.crossSpA - poke.randSpA) !== 0 ? (poke.crossSpA - poke.randSpA) : ` `) + ` ~ ` + ((poke.crossSpD - poke.randSpD) !== 0 ? (poke.crossSpD - poke.randSpD) : ` `) + ` ~ ` + ((poke.crossSpe - poke.randSpe) !== 0 ? (poke.crossSpe - poke.randSpe) : ` `) + `\n`;
+					sheetOutput += ((poke.crossHp - poke.randHp) !== 0 ? (poke.crossHp - poke.randHp) : ` `) + `~` + ((poke.crossAtk - poke.randAtk) !== 0 ? (poke.crossAtk - poke.randAtk) : ` `) + `~` + ((poke.crossDef - poke.randDef) !== 0 ? (poke.crossDef - poke.randDef) : ` `) + `~` + ((poke.crossSpA - poke.randSpA) !== 0 ? (poke.crossSpA - poke.randSpA) : ` `) + `~` + ((poke.crossSpD - poke.randSpD) !== 0 ? (poke.crossSpD - poke.randSpD) : ` `) + `~` + ((poke.crossSpe - poke.randSpe) !== 0 ? (poke.crossSpe - poke.randSpe) : ` `) + `\n`;
 
 					if (poke.name === "Basculin" && poke.randAbilities[3]) {
 						sheetOutput += `~`; // no icon, so you need an indent to keep aligned with other rows
 						if (poke.crossgenGoldStar) sheetOutput += `Cool `; // I will forget I did this and be amused by it
-						sheetOutput += `Crossgen (Blue-Striped) ~ `;
+						sheetOutput += `Crossgen (Blue-Striped)~`;
 						// types are the same
-						sheetOutput += poke.chosenType.type1 + (poke.chosenType.type2 === poke.chosenType.type1 ? ` ~  ~ ` : ` ~ `+ poke.chosenType.type2 + ` ~ `);
+						sheetOutput += poke.chosenType.type1 + (poke.chosenType.type2 === poke.chosenType.type1 ? `~~` : `~`+ poke.chosenType.type2 + `~`);
 						// base stats
-						sheetOutput += poke.crossHp + ` ~ ` + poke.crossAtk + ` ~ ` + poke.crossDef + ` ~ ` + poke.crossSpA + ` ~ ` + poke.crossSpD + ` ~ ` + poke.crossSpe + ` ~ ` + (poke.crossHp + poke.crossAtk + poke.crossDef + poke.crossSpA + poke.crossSpD + poke.crossSpe) + `\n`;
+						sheetOutput += poke.crossHp + `~` + poke.crossAtk + `~` + poke.crossDef + `~` + poke.crossSpA + `~` + poke.crossSpD + `~` + poke.crossSpe + `~` + (poke.crossHp + poke.crossAtk + poke.crossDef + poke.crossSpA + poke.crossSpD + poke.crossSpe) + `\n`;
 						// abilities
-						sheetOutput += poke.crossgenAbilities[3] + (poke.crossgenAbilities[1] ? ` / `+ poke.crossgenAbilities[1] + ` ` : ` `) + (poke.crossgenAbilities[2] ? `// `+ poke.crossgenAbilities[2] + ` ~  ~  ~  ~ ` : ` ~  ~  ~  ~ `);
+						sheetOutput += poke.crossgenAbilities[3] + (poke.crossgenAbilities[1] ? ` / `+ poke.crossgenAbilities[1] + ` ` : ` `) + (poke.crossgenAbilities[2] ? `// `+ poke.crossgenAbilities[2] + `~~~~` : `~~~~`);
 						// stat deltas
-						sheetOutput += ((poke.crossHp - poke.randHp) !== 0 ? (poke.crossHp - poke.randHp) : ` `) + ` ~ ` + ((poke.crossAtk - poke.randAtk) !== 0 ? (poke.crossAtk - poke.randAtk) : ` `) + ` ~ ` + ((poke.crossDef - poke.randDef) !== 0 ? (poke.crossDef - poke.randDef) : ` `) + ` ~ ` + ((poke.crossSpA - poke.randSpA) !== 0 ? (poke.crossSpA - poke.randSpA) : ` `) + ` ~ ` + ((poke.crossSpD - poke.randSpD) !== 0 ? (poke.crossSpD - poke.randSpD) : ` `) + ` ~ ` + ((poke.crossSpe - poke.randSpe) !== 0 ? (poke.crossSpe - poke.randSpe) : ` `) + `\n`;
+						sheetOutput += ((poke.crossHp - poke.randHp) !== 0 ? (poke.crossHp - poke.randHp) : ` `) + `~` + ((poke.crossAtk - poke.randAtk) !== 0 ? (poke.crossAtk - poke.randAtk) : ` `) + `~` + ((poke.crossDef - poke.randDef) !== 0 ? (poke.crossDef - poke.randDef) : ` `) + `~` + ((poke.crossSpA - poke.randSpA) !== 0 ? (poke.crossSpA - poke.randSpA) : ` `) + `~` + ((poke.crossSpD - poke.randSpD) !== 0 ? (poke.crossSpD - poke.randSpD) : ` `) + `~` + ((poke.crossSpe - poke.randSpe) !== 0 ? (poke.crossSpe - poke.randSpe) : ` `) + `\n`;
 					}
 				}
 
@@ -2852,7 +2853,7 @@ export const Scripts: ModdedBattleScriptsData = {
 					if (parseInt(level) > 99) {
 						if (poke.recommendedLvUp.length) {
 							poke.recommendedLvUp.sort();
-							sheetOutput += `\n~ Additional level-up candidates (pick up to ` + (22 - levelUpMovesCount + poke.extraLevelUpSpaces) + `)\n`
+							sheetOutput += `\n~Additional level-up candidates (pick up to ` + (22 - levelUpMovesCount + poke.extraLevelUpSpaces) + `)\n`
 							for (const moveid of poke.recommendedLvUp) {
 								if (usedSecondMoves.includes(moveid)) continue;
 								sheetOutput += moveid + `, `;
@@ -2862,7 +2863,7 @@ export const Scripts: ModdedBattleScriptsData = {
 						}
 						if (poke.forcedMoves.length) {
 							poke.forcedMoves.sort();
-							sheetOutput += `\n~ Possible synergistic moves\n`
+							sheetOutput += `\n~Possible synergistic moves\n`
 							for (const moveid of poke.forcedMoves) {
 								if (usedSecondMoves.includes(moveid)) continue;
 								sheetOutput += moveid + `, `;
@@ -2874,7 +2875,7 @@ export const Scripts: ModdedBattleScriptsData = {
 					if (poke.learnsetCumulative.learnset[level].movesLearned.length) {
 						poke.learnsetCumulative.learnset[level].movesLearned.sort();
 						if (parseInt(level) > 99) {
-							sheetOutput += `\n~ Additional moves\n`
+							sheetOutput += `\n~Additional moves\n`
 							for (const moveid of poke.learnsetCumulative.learnset[level].movesLearned) {
 								if (usedSecondMoves.includes(moveid)) continue;
 								if (usedSecondMoves.includes(moveid + `*`)) continue;
@@ -2883,7 +2884,7 @@ export const Scripts: ModdedBattleScriptsData = {
 							sheetOutput += `~`;
 						} else {
 							for (const moveid of poke.learnsetCumulative.learnset[level].movesLearned) {
-								sheetOutput += `\n` + (parseInt(level) + 1) + ` - ` + moveid;
+								sheetOutput += `\n` + (poke.prevo ? ` ` : `~`) + ((poke.prevo && this.dataCache.Pokedex[this.toID(poke.prevo)].prevo) ? ` ` : `~`) + (parseInt(level) + 1) + ` - ` + moveid;
 								levelUpMovesCount++;
 							}
 						}
@@ -2892,14 +2893,14 @@ export const Scripts: ModdedBattleScriptsData = {
 				if (poke.backports.length) {
 					poke.backports.sort();
 					// TODO: these should include (and be sorted by) TM numbers, ideally
-					sheetOutput += `\n~ Possible backports\n`
+					sheetOutput += `\n~Possible backports\n`
 					for (const moveid of poke.backports) sheetOutput += moveid + `, `;
 					sheetOutput += `~`;
 				}
 				if (poke.additionalTms.length) {
 					poke.additionalTms.sort();
 					// TODO: these should include (and be sorted by) TM numbers, ideally
-					sheetOutput += `\n~ Additional TMs and tutors\n`
+					sheetOutput += `\n~Additional TMs and tutors\n`
 					for (const moveid of poke.additionalTms) {
 						if (moveid.charAt(0) === 'x') sheetOutput += moveid.substr(2) + `, `;
 						else sheetOutput += moveid + `, `;
