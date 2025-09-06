@@ -2608,8 +2608,8 @@ export const Scripts: ModdedBattleScriptsData = {
 				}
 
 				// then check if any targetStats aren't accounted for, and if not, get random...!
-				let skipMaxCheck = false; // (at this point, it becomes random)
-				for (let i = 0; i < 20; i++) { // repeat until another +100 at most
+				skipMaxCheck = false; // (at this point, it becomes random)
+				for (let i = 0; i < 8; i++) { // repeat until another +80 at most
 					if (poke.crossHp + poke.crossAtk + poke.crossDef + poke.crossSpA + poke.crossSpD + poke.crossSpe + 5 > maxbst) break;
 
 					let eligibleStats: string[] = [];
