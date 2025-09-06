@@ -1,7 +1,7 @@
 // TODO:
 // - evolution lines, including pre-evolutions and crossgens
 // - forms
-// - additional details for export, like menu icons, stat deltas and any utility I want highlighted
+// - any additional details for export, like organized utility highlights
 
 const pushLevelUp = [
 	'accelerock', 'acid', 'acidspray', 'acupressure', 'afteryou', 'aircutter', 'allyswitch', 'appleacid', 'aquajet', 'aquastep', 'astralbarrage', 'aurawheel', 'babydolleyes', 'batonpass', 'bellydrum', 'bitterblade', 'bittermalice',
@@ -2537,22 +2537,222 @@ export const Scripts: ModdedBattleScriptsData = {
 				// prevos are just the same changes as the final stage scaled down
 				if (poke.prevo) {
 					const poke2 = this.dataCache.Pokedex[this.toID(poke.prevo)];
-					poke2.randHp = poke2.baseStats.hp + (poke.hpDelta * 0.6);
-					poke2.randAtk = poke2.baseStats.atk + (poke.atkDelta * 0.6);
-					poke2.randDef = poke2.baseStats.def + (poke.defDelta * 0.6);
-					poke2.randSpA = poke2.baseStats.spa + (poke.spaDelta * 0.6);
-					poke2.randSpD = poke2.baseStats.spd + (poke.spdDelta * 0.6);
-					poke2.randSpe = poke2.baseStats.spe + (poke.speDelta * 0.6);
+					poke2.hpDelta = 0;
+					poke2.atkDelta = 0;
+					poke2.defDelta = 0;
+					poke2.spaDelta = 0;
+					poke2.spdDelta = 0;
+					poke2.speDelta = 0;
+	
+					for (let i = 0; i < 6; i++) {
+						let eligibleStats: string[] = [];
+						let minStat: string[] = [];
+						poke2.diffHp = poke.hpDelta - poke2.hpDelta;
+						poke2.diffAtk = poke.atkDelta - poke2.atkDelta;
+						poke2.diffDef = poke.defDelta - poke2.defDelta;
+						poke2.diffSpA = poke.spaDelta - poke2.spaDelta;
+						poke2.diffSpD = poke.spdDelta - poke2.spdDelta;
+						poke2.diffSpe = poke.speDelta - poke2.speDelta;
+	
+						if (poke2.hpDelta > -20 && (poke2.baseStats.hp + poke2.hpDelta > 5)) eligibleStats.push('diffHp');
+						if (poke2.atkDelta > -20 && (poke2.baseStats.atk + poke2.atkDelta > 5)) eligibleStats.push('diffAtk');
+						if (poke2.defDelta > -20 && (poke2.baseStats.def + poke2.defDelta > 5)) eligibleStats.push('diffDef');
+						if (poke2.spaDelta > -20 && (poke2.baseStats.spa + poke2.spaDelta > 5)) eligibleStats.push('diffSpA');
+						if (poke2.spdDelta > -20 && (poke2.baseStats.spd + poke2.spdDelta > 5)) eligibleStats.push('diffSpD');
+						if (poke2.speDelta > -20 && (poke2.baseStats.spe + poke2.speDelta > 5)) eligibleStats.push('diffSpe');
+	
+						if (!eligibleStats.length) break; // this can definitely happen for pre-evolutions
+						let min = 1000;
+						for (const statCheck of eligibleStats) {
+							if (min && (min < poke[statCheck])) continue; // skip if it's not at least tied with min
+							if (min > poke[statCheck]) { // if this is a new minimum, replace the set
+								min = poke[statCheck];
+								minStat = [];
+							}
+							minStat.push(statCheck);
+						}
+						let chosenStat = minStat[Math.floor(Math.random() * minStat.length)];
+						if (!chosenStat) {
+							console.log(`no chosen stat to lower`);
+							break;
+						}
+						if (chosenStat === 'diffHp') poke.hpDelta -=5;
+						else if (chosenStat === 'diffAtk') poke.atkDelta -=5;
+						else if (chosenStat === 'diffDef') poke.defDelta -=5;
+						else if (chosenStat === 'diffSpA') poke.spaDelta -=5;
+						else if (chosenStat === 'diffSpD') poke.spdDelta -=5;
+						else if (chosenStat === 'diffSpe') poke.speDelta -=5;
+						else console.log(chosenStat);
+					}
+	
+					for (let i = 0; i < 6; i++) { // repeat until +60 or until all stats have hit their targets
+						if ((poke.hpDelta + poke.atkDelta + poke.defDelta + poke.spaDelta + poke.spdDelta + poke.speDelta) > 0) {
+							console.log(poke.name + ` didn't lower stats as much as it raised them`);
+							break;
+						}
+						if (poke.hpDelta + poke.atkDelta + poke.defDelta + poke.spaDelta + poke.spdDelta + poke.speDelta === 0) break; // ideal end state
+	
+						let eligibleStats: string[] = [];
+						let maxStat: string[] = [];
+						poke2.diffHp = poke.hpDelta - poke2.hpDelta;
+						poke2.diffAtk = poke.atkDelta - poke2.atkDelta;
+						poke2.diffDef = poke.defDelta - poke2.defDelta;
+						poke2.diffSpA = poke.spaDelta - poke2.spaDelta;
+						poke2.diffSpD = poke.spdDelta - poke2.spdDelta;
+						poke2.diffSpe = poke.speDelta - poke2.speDelta;
+	
+						if (poke.hpDelta < 40 && ((poke2.baseStats.hp + poke2.hpDelta < poke.randHp) || (poke2.baseStats.hp > poke.baseStats.hp))) eligibleStats.push('diffHp');
+						if (poke.atkDelta < 40 && ((poke2.baseStats.atk + poke2.atkDelta < poke.randAtk) || (poke2.baseStats.atk > poke.baseStats.atk))) eligibleStats.push('diffAtk');
+						if (poke.defDelta < 40 && ((poke2.baseStats.def + poke2.defDelta < poke.randDef) || (poke2.baseStats.def > poke.baseStats.def))) eligibleStats.push('diffDef');
+						if (poke.spaDelta < 40 && ((poke2.baseStats.spa + poke2.spaDelta < poke.randSpA) || (poke2.baseStats.spa > poke.baseStats.spa))) eligibleStats.push('diffSpA');
+						if (poke.spdDelta < 40 && ((poke2.baseStats.spd + poke2.spdDelta < poke.randSpD) || (poke2.baseStats.spd > poke.baseStats.spd))) eligibleStats.push('diffSpD');
+						if (poke.speDelta < 40 && ((poke2.baseStats.spe + poke2.speDelta < poke.randSpe) || (poke2.baseStats.spe > poke.baseStats.spe))) eligibleStats.push('diffSpe');
+	
+						if (!eligibleStats.length) {
+							console.log(`something has no eligible stats to raise`);
+							break; // hope we're fine this time--
+						}
+						let max = -1000;
+						for (const statCheck of eligibleStats) {
+							if (max && (max > poke[statCheck])) continue; // skip if it's not at least tied with max
+							if (poke[statCheck] > max) { // if this is a new maximum, replace the set
+								max = poke[statCheck];
+								maxStat = [];
+							}
+							maxStat.push(statCheck);
+						}
+	
+						let chosenStat = maxStat[Math.floor(Math.random() * maxStat.length)];
+						if (!chosenStat) {
+							console.log(`no chosen stat to raise`);
+							break;
+						}
+						if (chosenStat === 'diffHp') poke2.hpDelta +=5;
+						if (chosenStat === 'diffAtk') poke2.atkDelta +=5;
+						if (chosenStat === 'diffDef') poke2.defDelta +=5;
+						if (chosenStat === 'diffSpA') poke2.spaDelta +=5;
+						if (chosenStat === 'diffSpD') poke2.spdDelta +=5;
+						if (chosenStat === 'diffSpe') poke2.speDelta +=5;
+					}
+	
+					if (poke2.hpDelta + poke2.atkDelta + poke2.defDelta + poke2.spaDelta + poke2.spdDelta + poke2.speDelta !== 0) console.log(poke2.name + ` somehow didn't get the right BST`);
+					poke2.randHp = poke2.baseStats.hp + poke2.hpDelta;
+					poke2.randAtk = poke2.baseStats.atk + poke2.atkDelta;
+					poke2.randDef = poke2.baseStats.def + poke2.defDelta;
+					poke2.randSpA = poke2.baseStats.spa + poke2.spaDelta;
+					poke2.randSpD = poke2.baseStats.spd + poke2.spdDelta;
+					poke2.randSpe = poke2.baseStats.spe + poke2.speDelta;
+
 					if (poke2.prevo) {
 						const poke3 = this.dataCache.Pokedex[this.toID(poke2.prevo)];
-						poke3.randHp = poke3.baseStats.hp + (poke.hpDelta * 0.4);
-						poke3.randAtk = poke3.baseStats.atk + (poke.atkDelta * 0.4);
-						poke3.randDef = poke3.baseStats.def + (poke.defDelta * 0.4);
-						poke3.randSpA = poke3.baseStats.spa + (poke.spaDelta * 0.4);
-						poke3.randSpD = poke3.baseStats.spd + (poke.spdDelta * 0.4);
-						poke3.randSpe = poke3.baseStats.spe + (poke.speDelta * 0.4);
+						poke3.hpDelta = 0;
+						poke3.atkDelta = 0;
+						poke3.defDelta = 0;
+						poke3.spaDelta = 0;
+						poke3.spdDelta = 0;
+						poke3.speDelta = 0;
+		
+						for (let i = 0; i < 6; i++) {
+							let eligibleStats: string[] = [];
+							let minStat: string[] = [];
+							poke3.diffHp = poke.hpDelta - poke3.hpDelta;
+							poke3.diffAtk = poke.atkDelta - poke3.atkDelta;
+							poke3.diffDef = poke.defDelta - poke3.defDelta;
+							poke3.diffSpA = poke.spaDelta - poke3.spaDelta;
+							poke3.diffSpD = poke.spdDelta - poke3.spdDelta;
+							poke3.diffSpe = poke.speDelta - poke3.speDelta;
+		
+							if (poke3.hpDelta > -20 && (poke3.baseStats.hp + poke3.hpDelta > 5)) eligibleStats.push('diffHp');
+							if (poke3.atkDelta > -20 && (poke3.baseStats.atk + poke3.atkDelta > 5)) eligibleStats.push('diffAtk');
+							if (poke3.defDelta > -20 && (poke3.baseStats.def + poke3.defDelta > 5)) eligibleStats.push('diffDef');
+							if (poke3.spaDelta > -20 && (poke3.baseStats.spa + poke3.spaDelta > 5)) eligibleStats.push('diffSpA');
+							if (poke3.spdDelta > -20 && (poke3.baseStats.spd + poke3.spdDelta > 5)) eligibleStats.push('diffSpD');
+							if (poke3.speDelta > -20 && (poke3.baseStats.spe + poke3.speDelta > 5)) eligibleStats.push('diffSpe');
+		
+							if (!eligibleStats.length) break; // this can definitely happen for pre-evolutions
+							let min = 1000;
+							for (const statCheck of eligibleStats) {
+								if (min && (min < poke[statCheck])) continue; // skip if it's not at least tied with min
+								if (min > poke[statCheck]) { // if this is a new minimum, replace the set
+									min = poke[statCheck];
+									minStat = [];
+								}
+								minStat.push(statCheck);
+							}
+							let chosenStat = minStat[Math.floor(Math.random() * minStat.length)];
+							if (!chosenStat) {
+								console.log(`no chosen stat to lower`);
+								break;
+							}
+							if (chosenStat === 'diffHp') poke.hpDelta -=5;
+							else if (chosenStat === 'diffAtk') poke.atkDelta -=5;
+							else if (chosenStat === 'diffDef') poke.defDelta -=5;
+							else if (chosenStat === 'diffSpA') poke.spaDelta -=5;
+							else if (chosenStat === 'diffSpD') poke.spdDelta -=5;
+							else if (chosenStat === 'diffSpe') poke.speDelta -=5;
+							else console.log(chosenStat);
+						}
+		
+						for (let i = 0; i < 6; i++) { // repeat until +60 or until all stats have hit their targets
+							if ((poke.hpDelta + poke.atkDelta + poke.defDelta + poke.spaDelta + poke.spdDelta + poke.speDelta) > 0) {
+								console.log(poke.name + ` didn't lower stats as much as it raised them`);
+								break;
+							}
+							if (poke.hpDelta + poke.atkDelta + poke.defDelta + poke.spaDelta + poke.spdDelta + poke.speDelta === 0) break; // ideal end state
+		
+							let eligibleStats: string[] = [];
+							let maxStat: string[] = [];
+							poke3.diffHp = poke.hpDelta - poke3.hpDelta;
+							poke3.diffAtk = poke.atkDelta - poke3.atkDelta;
+							poke3.diffDef = poke.defDelta - poke3.defDelta;
+							poke3.diffSpA = poke.spaDelta - poke3.spaDelta;
+							poke3.diffSpD = poke.spdDelta - poke3.spdDelta;
+							poke3.diffSpe = poke.speDelta - poke3.speDelta;
+		
+							if (poke.hpDelta < 40 && ((poke3.baseStats.hp + poke3.hpDelta < poke.randHp) || (poke3.baseStats.hp > poke.baseStats.hp))) eligibleStats.push('diffHp');
+							if (poke.atkDelta < 40 && ((poke3.baseStats.atk + poke3.atkDelta < poke.randAtk) || (poke3.baseStats.atk > poke.baseStats.atk))) eligibleStats.push('diffAtk');
+							if (poke.defDelta < 40 && ((poke3.baseStats.def + poke3.defDelta < poke.randDef) || (poke3.baseStats.def > poke.baseStats.def))) eligibleStats.push('diffDef');
+							if (poke.spaDelta < 40 && ((poke3.baseStats.spa + poke3.spaDelta < poke.randSpA) || (poke3.baseStats.spa > poke.baseStats.spa))) eligibleStats.push('diffSpA');
+							if (poke.spdDelta < 40 && ((poke3.baseStats.spd + poke3.spdDelta < poke.randSpD) || (poke3.baseStats.spd > poke.baseStats.spd))) eligibleStats.push('diffSpD');
+							if (poke.speDelta < 40 && ((poke3.baseStats.spe + poke3.speDelta < poke.randSpe) || (poke3.baseStats.spe > poke.baseStats.spe))) eligibleStats.push('diffSpe');
+		
+							if (!eligibleStats.length) {
+								console.log(`something has no eligible stats to raise`);
+								break; // hope we're fine this time--
+							}
+							let max = -1000;
+							for (const statCheck of eligibleStats) {
+								if (max && (max > poke[statCheck])) continue; // skip if it's not at least tied with max
+								if (poke[statCheck] > max) { // if this is a new maximum, replace the set
+									max = poke[statCheck];
+									maxStat = [];
+								}
+								maxStat.push(statCheck);
+							}
+		
+							let chosenStat = maxStat[Math.floor(Math.random() * maxStat.length)];
+							if (!chosenStat) {
+								console.log(`no chosen stat to raise`);
+								break;
+							}
+							if (chosenStat === 'diffHp') poke3.hpDelta +=5;
+							if (chosenStat === 'diffAtk') poke3.atkDelta +=5;
+							if (chosenStat === 'diffDef') poke3.defDelta +=5;
+							if (chosenStat === 'diffSpA') poke3.spaDelta +=5;
+							if (chosenStat === 'diffSpD') poke3.spdDelta +=5;
+							if (chosenStat === 'diffSpe') poke3.speDelta +=5;
+						}
+		
+						if (poke3.hpDelta + poke3.atkDelta + poke3.defDelta + poke3.spaDelta + poke3.spdDelta + poke3.speDelta !== 0) console.log(poke3.name + ` somehow didn't get the right BST`);
+						poke3.randHp = poke3.baseStats.hp + poke3.hpDelta;
+						poke3.randAtk = poke3.baseStats.atk + poke3.atkDelta;
+						poke3.randDef = poke3.baseStats.def + poke3.defDelta;
+						poke3.randSpA = poke3.baseStats.spa + poke3.spaDelta;
+						poke3.randSpD = poke3.baseStats.spd + poke3.spdDelta;
+						poke3.randSpe = poke3.baseStats.spe + poke3.speDelta;
 					}
 				}
+
 
 
 				poke.learnsetCumulative.learnset.sort();
