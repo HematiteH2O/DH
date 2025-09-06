@@ -2817,7 +2817,7 @@ export const Scripts: ModdedBattleScriptsData = {
 				}
 
 				// be ready to add a crossevo here
-				if (crossevo && poke.name !== "Shedinja") {
+				if (crossevo && poke.name !== "Shedinja" && poke.crossgenAbilities) {
 					sheetOutput += `~`; // no icon, so you need an indent to keep aligned with other rows
 					// name isn't randomly generated askdjfgh
 					if (poke.crossgenGoldStar) sheetOutput += `Cool `; // I will forget I did this and be amused by it
@@ -2827,7 +2827,7 @@ export const Scripts: ModdedBattleScriptsData = {
 					// base stats
 					sheetOutput += poke.crossHp + ` ~ ` + poke.crossAtk + ` ~ ` + poke.crossDef + ` ~ ` + poke.crossSpA + ` ~ ` + poke.crossSpD + ` ~ ` + poke.crossSpe + ` ~ ` + (poke.crossHp + poke.crossAtk + poke.crossDef + poke.crossSpA + poke.crossSpD + poke.crossSpe) + `\n`;
 					// abilities
-					sheetOutput += poke.crossAbilities[0] + (poke.crossAbilities[1] ? ` / `+ poke.crossAbilities[1] + ` ` : ` `) + (poke.crossAbilities[2] ? `// `+ poke.crossAbilities[2] + ` ~  ~  ~  ~ ` : ` ~  ~  ~  ~ `);
+					sheetOutput += poke.crossgenAbilities[0] + (poke.crossgenAbilities[1] ? ` / `+ poke.crossgenAbilities[1] + ` ` : ` `) + (poke.crossgenAbilities[2] ? `// `+ poke.crossgenAbilities[2] + ` ~  ~  ~  ~ ` : ` ~  ~  ~  ~ `);
 					// stat deltas
 					sheetOutput += ((poke.crossHp - poke.randHp) !== 0 ? (poke.crossHp - poke.randHp) : ` `) + ` ~ ` + ((poke.crossAtk - poke.randAtk) !== 0 ? (poke.crossAtk - poke.randAtk) : ` `) + ` ~ ` + ((poke.crossDef - poke.randDef) !== 0 ? (poke.crossDef - poke.randDef) : ` `) + ` ~ ` + ((poke.crossSpA - poke.randSpA) !== 0 ? (poke.crossSpA - poke.randSpA) : ` `) + ` ~ ` + ((poke.crossSpD - poke.randSpD) !== 0 ? (poke.crossSpD - poke.randSpD) : ` `) + ` ~ ` + ((poke.crossSpe - poke.randSpe) !== 0 ? (poke.crossSpe - poke.randSpe) : ` `) + ` ~ `;
 
@@ -2840,7 +2840,7 @@ export const Scripts: ModdedBattleScriptsData = {
 						// base stats
 						sheetOutput += poke.crossHp + ` ~ ` + poke.crossAtk + ` ~ ` + poke.crossDef + ` ~ ` + poke.crossSpA + ` ~ ` + poke.crossSpD + ` ~ ` + poke.crossSpe + ` ~ ` + (poke.crossHp + poke.crossAtk + poke.crossDef + poke.crossSpA + poke.crossSpD + poke.crossSpe) + `\n`;
 						// abilities
-						sheetOutput += poke.crossAbilities[3] + (poke.crossAbilities[1] ? ` / `+ poke.crossAbilities[1] + ` ` : ` `) + (poke.crossAbilities[2] ? `// `+ poke.crossAbilities[2] + ` ~  ~  ~  ~ ` : ` ~  ~  ~  ~ `);
+						sheetOutput += poke.crossgenAbilities[3] + (poke.crossgenAbilities[1] ? ` / `+ poke.crossgenAbilities[1] + ` ` : ` `) + (poke.crossgenAbilities[2] ? `// `+ poke.crossgenAbilities[2] + ` ~  ~  ~  ~ ` : ` ~  ~  ~  ~ `);
 						// stat deltas
 						sheetOutput += ((poke.crossHp - poke.randHp) !== 0 ? (poke.crossHp - poke.randHp) : ` `) + ` ~ ` + ((poke.crossAtk - poke.randAtk) !== 0 ? (poke.crossAtk - poke.randAtk) : ` `) + ` ~ ` + ((poke.crossDef - poke.randDef) !== 0 ? (poke.crossDef - poke.randDef) : ` `) + ` ~ ` + ((poke.crossSpA - poke.randSpA) !== 0 ? (poke.crossSpA - poke.randSpA) : ` `) + ` ~ ` + ((poke.crossSpD - poke.randSpD) !== 0 ? (poke.crossSpD - poke.randSpD) : ` `) + ` ~ ` + ((poke.crossSpe - poke.randSpe) !== 0 ? (poke.crossSpe - poke.randSpe) : ` `) + ` ~ `;
 					}
