@@ -151,12 +151,15 @@ const movesAfterGenV = [
 	'axekick', 'luminacrash', 'jetpunch', 'spicyextract', 'spinout', 'populationbomb', 'tripledive', 'kowtowcleave', 'flowertrick', 'torchsong',
 	'aquastep', 'makeitrain', 'pounce', 'trailblaze', 'chillingwater', 'hyperdrill', 'twinbeam', 'armorcannon', 'bitterblade', 'comeuppance', 'aquacutter',
 	'thunderclap', 'mightycleave', 'tachyoncutter', 'hardpress', 'supercellslam', 'malignantchain',
-	'eerieimpulse', 'steelbeam', 'toxicthread', 'psychicnoise', 'triplearrows',
-	// 'leafage', 'branchpoke', // these moves are easy enough to copy over, but they're redundant so it's unhelpful to see them highlighted so often
+	'eerieimpulse', 'steelbeam', 'toxicthread', 'psychicnoise', 'triplearrows', 'mysticalfire', 'spotlight', 'psyshieldbash', 'tidyup', 'mortalspin',
+	'precipiceblades', 'originpulse', 'oblivionwing', 'landswrath', 'hyperspacefury', 'prismaticlaser', 'doubleironbash', 'freezingglare', 'thunderouskick',
+	'fierywrath', 'thundercage', 'dragonenergy', 'eternabeam', 'wickedblow', 'surgingstrikes', 'ruination',
+	'leafage', 'branchpoke', // I commented these out because they weren't worth trading anything for, but turns out there's no move limit!
 
 	// hey
 	// wanna see something crazy?
-	'fairywind', 'strangesteam', 'playrough', 'moonblast', 'fleurcannon', 'lightofruin', 'disarmingvoice', 'drainingkiss', 'spiritbreak', 'dazzlinggleam', 'springtidestorm',
+	'fairywind', 'strangesteam', 'playrough', 'moonblast', 'fleurcannon', 'lightofruin', 'disarmingvoice', 'drainingkiss', 'spiritbreak', 'dazzlinggleam',
+	'springtidestorm', 'naturesmadness',
 ];
 const moveGroups = {
 	// first should be clones/meaningfully related groups
@@ -443,7 +446,8 @@ export const Scripts: ModdedBattleScriptsData = {
 			if (!(this.dataCache.Learnsets[id] && this.dataCache.Learnsets[id].learnset)) {
 				if (!(poke.baseSpecies && (["Hoopa", "Shaymin", "Deoxys"].includes(poke.baseSpecies)))) continue; // skip Megas and G-Maxes this time
 			}
-			if (poke.baseSpecies && ["Pikachu", "Pichu", "Eevee", "Floette", "Greninja", "Magearna", "Sinistcha", "Calyrex"].includes(poke.baseSpecies)) continue; // can do special handling for Calyrex in a later section
+			if (poke.baseSpecies && ["Pikachu", "Pichu", "Eevee", "Greninja", "Vivillon", "Floette", "Magearna", "Calyrex", "Sinistcha"].includes(poke.baseSpecies)) continue;
+			// I can do special handling for Calyrex in a later section
 			if (poke.forme && (poke.forme === "Totem" || poke.forme === "Alola-Totem")) continue;
 			if (poke.num && poke.num < 0) continue; // skip CAPs
 			let future = false; // determine if something is Gen VIII or later
