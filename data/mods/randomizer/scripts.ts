@@ -2200,14 +2200,14 @@ export const Scripts: ModdedBattleScriptsData = {
 				for (const idNo in poke.randAbilities) if (["Huge Power", "Pure Power"].includes(poke.randAbilities[idNo])) hugePower = true;
 				if (hugePower) poke.atkTarget *= 2; // will be halved again later
 
-				let maxbst = (poke.randHp + poke.randAtk + poke.randDef + poke.randSpA + poke.randSpD + poke.randSpe + 30);
-				if (540 > maxbst) maxbst = 540;
+				let maxbst = (poke.randHp + poke.randAtk + poke.randDef + poke.randSpA + poke.randSpD + poke.randSpe + 50);
+				if (525 > maxbst) maxbst = 525;
+				if (555 < maxbst) maxbst = 555;
 				if (
 					poke.chosenType.type1 === "Dragon" || poke.chosenType.type2 === "Dragon" ||
 					poke.types[0] === "Dragon" || (poke.types[1] && poke.types[1] === "Dragon") ||
 					poke.eggGroups[0] === 'Dragon' || (poke.eggGroups[1] && poke.eggGroups[1] === 'Dragon')
-				) maxbst = 600; // okay? okay
-				// hey Iris is the Champion anyway
+				) maxbst += 20; // this feels right
 
 				let bonusBoost = 0;
 				if (poke.crossSpA > poke.crossAtk) { // if it's special
@@ -2561,9 +2561,13 @@ export const Scripts: ModdedBattleScriptsData = {
 				}
 
 				if (poke.listOfCertainMoves.includes('spore')) {
-					if (targetSpe > poke.crossSpe) {
-						if (55 > poke.crossSpe) targetSpe = 55;
-						else targetSpe = poke.crossSpe;
+					if (targetSpe > poke.baseStats.spe) {
+						if (55 > poke.baseStats.spe) targetSpe = 55;
+						else targetSpe = poke.baseStats.spe;
+					}
+					if (maxSpe > poke.baseStats.spe) {
+						if (55 > poke.baseStats.spe) maxSpe = 55;
+						else maxSpe = poke.baseStats.spe;
 					}
 				}
 
@@ -2610,7 +2614,7 @@ export const Scripts: ModdedBattleScriptsData = {
 				// then check if any targetStats aren't accounted for, and if not, get random...!
 				skipMaxCheck = false; // (at this point, it becomes random)
 				for (let i = 0; i < 8; i++) { // repeat until another +80 at most
-					if (poke.crossHp + poke.crossAtk + poke.crossDef + poke.crossSpA + poke.crossSpD + poke.crossSpe + 5 > maxbst) break;
+					if (poke.crossHp + poke.crossAtk + poke.crossDef + poke.crossSpA + poke.crossSpD + poke.crossSpe + 10 > maxbst) break;
 
 					let eligibleStats: string[] = [];
 					let maxStat: string[] = [];
