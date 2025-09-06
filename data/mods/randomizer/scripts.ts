@@ -710,6 +710,7 @@ export const Scripts: ModdedBattleScriptsData = {
 			if (poke.types) {
 				for (const type of poke.types) {
 					if (poke.abilities && ["Overgrow", "Blaze", "Torrent"].includes(poke.abilities[0]) && !["Fire", "Water", "Grass"].includes(type)) continue;
+					if ((poke.name === "Azumarill" || poke.name === "Whimsicott") && type === "Fairy") continue; // just a tiny bit of sleight of hand: on the small chance these lines get variants, it would be waaay funnier if it meant keeping Fairy a secret even longer
 					if (poke.types[0] === "Normal" && poke.types[1] && poke.types[1] === "Flying" && type === "Normal") continue; // skip Normal in Normal/Flying
 					chosenTypes.push(type);
 				}
