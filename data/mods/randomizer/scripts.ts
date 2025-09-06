@@ -435,7 +435,9 @@ export const Scripts: ModdedBattleScriptsData = {
 			const poke = this.dataCache.Pokedex[id];
 			if (!poke || poke.evos) continue;
 			if (poke.types && poke.types[0] === "Bird") continue; // sorry Missingno.
-			if (!(this.dataCache.Learnsets[id] && this.dataCache.Learnsets[id].learnset)) continue; // skip Megas and G-Maxes this time
+			if (!(this.dataCache.Learnsets[id] && this.dataCache.Learnsets[id].learnset)) {
+				if (!(poke.baseSpecies && (["Hoopa", "Shaymin", "Deoxys"].includes(poke.baseSpecies)))) continue; // skip Megas and G-Maxes this time
+			}
 			if (poke.baseSpecies && (["Pikachu", "Pichu", "Eevee", "Floette", "Greninja", "Magearna", "Poltchageist", "Calyrex"].includes(poke.baseSpecies)) continue; // can do special handling for Calyrex in a later section
 			if (poke.forme && (poke.forme === "Totem" || poke.forme === "Alola-Totem")) continue;
 			if (poke.num && poke.num < 0) continue; // skip CAPs
@@ -1182,7 +1184,7 @@ export const Scripts: ModdedBattleScriptsData = {
 			// - possible: filter out moves that are already TMs if the player gets the TM earlier than the level-up move (save on space)
 			// - possible: push one completely random (? within certain parameters?) extra move to the learnset
 
-			if (this.dataCache.Learnsets[id] && this.dataCache.Learnsets[id].learnset) {
+			if ((this.dataCache.Learnsets[id] && this.dataCache.Learnsets[id].learnset) || (poke.baseSpecies && (["Hoopa", "Shaymin", "Deoxys"].includes(poke.baseSpecies)))) {
 				printno++;
 
 				const learnsetTypes: string[] = [];
@@ -1224,7 +1226,12 @@ export const Scripts: ModdedBattleScriptsData = {
 					}
 				}
 				// start with the vanilla learnset
-				const learnset = this.modData('Learnsets', this.toID(id)).learnset;
+				let learnset = null;
+				if ((this.dataCache.Learnsets[id] && this.dataCache.Learnsets[id].learnset)) {
+					learnset = this.modData('Learnsets', this.toID(id)).learnset;
+				} else if ((poke.baseSpecies && (["Hoopa", "Shaymin", "Deoxys"].includes(poke.baseSpecies)))) {
+					learnset = this.modData('Learnsets', this.toID(poke.baseSpecies)).learnset;
+				}
 				let learnset2 = null;
 				let learnset3 = null;
 
