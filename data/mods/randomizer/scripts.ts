@@ -2547,12 +2547,12 @@ export const Scripts: ModdedBattleScriptsData = {
 					for (let i = 0; i < 6; i++) {
 						let eligibleStats: string[] = [];
 						let minStat: string[] = [];
-						poke2.diffHp = poke.hpDelta - (2 * poke2.hpDelta);
-						poke2.diffAtk = poke.atkDelta - (2 * poke2.atkDelta);
-						poke2.diffDef = poke.defDelta - (2 * poke2.defDelta);
-						poke2.diffSpA = poke.spaDelta - (2 * poke2.spaDelta);
-						poke2.diffSpD = poke.spdDelta - (2 * poke2.spdDelta);
-						poke2.diffSpe = poke.speDelta - (2 * poke2.speDelta);
+						poke2.diffHp = (2 * poke2.hpDelta) - poke.hpDelta;
+						poke2.diffAtk = (2 * poke2.atkDelta) - poke.atkDelta;
+						poke2.diffDef = (2 * poke2.defDelta) - poke.defDelta;
+						poke2.diffSpA = (2 * poke2.spaDelta) - poke.spaDelta;
+						poke2.diffSpD = (2 * poke2.spdDelta) - poke.spdDelta;
+						poke2.diffSpe = (2 * poke2.speDelta) - poke.speDelta;
 	
 						if (poke2.hpDelta > -20 && (poke2.baseStats.hp + poke2.hpDelta > 5)) eligibleStats.push('diffHp');
 						if (poke2.atkDelta > -20 && (poke2.baseStats.atk + poke2.atkDelta > 5)) eligibleStats.push('diffAtk');
@@ -2576,12 +2576,12 @@ export const Scripts: ModdedBattleScriptsData = {
 							console.log(`no chosen stat to lower`);
 							break;
 						}
-						if (chosenStat === 'diffHp') poke.hpDelta -=5;
-						else if (chosenStat === 'diffAtk') poke.atkDelta -=5;
-						else if (chosenStat === 'diffDef') poke.defDelta -=5;
-						else if (chosenStat === 'diffSpA') poke.spaDelta -=5;
-						else if (chosenStat === 'diffSpD') poke.spdDelta -=5;
-						else if (chosenStat === 'diffSpe') poke.speDelta -=5;
+						if (chosenStat === 'diffHp') poke2.hpDelta -=5;
+						else if (chosenStat === 'diffAtk') poke2.atkDelta -=5;
+						else if (chosenStat === 'diffDef') poke2.defDelta -=5;
+						else if (chosenStat === 'diffSpA') poke2.spaDelta -=5;
+						else if (chosenStat === 'diffSpD') poke2.spdDelta -=5;
+						else if (chosenStat === 'diffSpe') poke2.speDelta -=5;
 						else console.log(chosenStat);
 					}
 	
@@ -2594,12 +2594,12 @@ export const Scripts: ModdedBattleScriptsData = {
 	
 						let eligibleStats: string[] = [];
 						let maxStat: string[] = [];
-						poke2.diffHp = poke.hpDelta - (2 * poke2.hpDelta);
-						poke2.diffAtk = poke.atkDelta - (2 * poke2.atkDelta);
-						poke2.diffDef = poke.defDelta - (2 * poke2.defDelta);
-						poke2.diffSpA = poke.spaDelta - (2 * poke2.spaDelta);
-						poke2.diffSpD = poke.spdDelta - (2 * poke2.spdDelta);
-						poke2.diffSpe = poke.speDelta - (2 * poke2.speDelta);
+						poke2.diffHp = (2 * poke2.hpDelta) - poke.hpDelta;
+						poke2.diffAtk = (2 * poke2.atkDelta) - poke.atkDelta;
+						poke2.diffDef = (2 * poke2.defDelta) - poke.defDelta;
+						poke2.diffSpA = (2 * poke2.spaDelta) - poke.spaDelta;
+						poke2.diffSpD = (2 * poke2.spdDelta) - poke.spdDelta;
+						poke2.diffSpe = (2 * poke2.speDelta) - poke.speDelta;
 	
 						if (poke.hpDelta < 40 && ((poke2.baseStats.hp + poke2.hpDelta < poke.randHp) || (poke2.baseStats.hp > poke.baseStats.hp))) eligibleStats.push('diffHp');
 						if (poke.atkDelta < 40 && ((poke2.baseStats.atk + poke2.atkDelta < poke.randAtk) || (poke2.baseStats.atk > poke.baseStats.atk))) eligibleStats.push('diffAtk');
@@ -2655,12 +2655,12 @@ export const Scripts: ModdedBattleScriptsData = {
 						for (let i = 0; i < 6; i++) {
 							let eligibleStats: string[] = [];
 							let minStat: string[] = [];
-							poke3.diffHp = poke.hpDelta - (2 * poke3.hpDelta);
-							poke3.diffAtk = poke.atkDelta - (2 * poke3.atkDelta);
-							poke3.diffDef = poke.defDelta - (2 * poke3.defDelta);
-							poke3.diffSpA = poke.spaDelta - (2 * poke3.spaDelta);
-							poke3.diffSpD = poke.spdDelta - (2 * poke3.spdDelta);
-							poke3.diffSpe = poke.speDelta - (2 * poke3.speDelta);
+							poke3.diffHp = (2 * poke3.hpDelta) - poke.hpDelta;
+							poke3.diffAtk = (2 * poke3.atkDelta) - poke.atkDelta;
+							poke3.diffDef = (2 * poke3.defDelta) - poke.defDelta;
+							poke3.diffSpA = (2 * poke3.spaDelta) - poke.spaDelta;
+							poke3.diffSpD = (2 * poke3.spdDelta) - poke.spdDelta;
+							poke3.diffSpe = (2 * poke3.speDelta) - poke.speDelta;
 		
 							if (poke3.hpDelta > -20 && (poke3.baseStats.hp + poke3.hpDelta > 5)) eligibleStats.push('diffHp');
 							if (poke3.atkDelta > -20 && (poke3.baseStats.atk + poke3.atkDelta > 5)) eligibleStats.push('diffAtk');
@@ -2684,12 +2684,12 @@ export const Scripts: ModdedBattleScriptsData = {
 								console.log(`no chosen stat to lower`);
 								break;
 							}
-							if (chosenStat === 'diffHp') poke.hpDelta -=5;
-							else if (chosenStat === 'diffAtk') poke.atkDelta -=5;
-							else if (chosenStat === 'diffDef') poke.defDelta -=5;
-							else if (chosenStat === 'diffSpA') poke.spaDelta -=5;
-							else if (chosenStat === 'diffSpD') poke.spdDelta -=5;
-							else if (chosenStat === 'diffSpe') poke.speDelta -=5;
+							if (chosenStat === 'diffHp') poke3.hpDelta -=5;
+							else if (chosenStat === 'diffAtk') poke3.atkDelta -=5;
+							else if (chosenStat === 'diffDef') poke3.defDelta -=5;
+							else if (chosenStat === 'diffSpA') poke3.spaDelta -=5;
+							else if (chosenStat === 'diffSpD') poke3.spdDelta -=5;
+							else if (chosenStat === 'diffSpe') poke3.speDelta -=5;
 							else console.log(chosenStat);
 						}
 		
@@ -2702,12 +2702,12 @@ export const Scripts: ModdedBattleScriptsData = {
 		
 							let eligibleStats: string[] = [];
 							let maxStat: string[] = [];
-							poke3.diffHp = poke.hpDelta - (2 * poke3.hpDelta);
-							poke3.diffAtk = poke.atkDelta - (2 * poke3.atkDelta);
-							poke3.diffDef = poke.defDelta - (2 * poke3.defDelta);
-							poke3.diffSpA = poke.spaDelta - (2 * poke3.spaDelta);
-							poke3.diffSpD = poke.spdDelta - (2 * poke3.spdDelta);
-							poke3.diffSpe = poke.speDelta - (2 * poke3.speDelta);
+							poke3.diffHp = (2 * poke3.hpDelta) - poke.hpDelta;
+							poke3.diffAtk = (2 * poke3.atkDelta) - poke.atkDelta;
+							poke3.diffDef = (2 * poke3.defDelta) - poke.defDelta;
+							poke3.diffSpA = (2 * poke3.spaDelta) - poke.spaDelta;
+							poke3.diffSpD = (2 * poke3.spdDelta) - poke.spdDelta;
+							poke3.diffSpe = (2 * poke3.speDelta) - poke.speDelta;
 		
 							if (poke.hpDelta < 40 && ((poke3.baseStats.hp + poke3.hpDelta < poke.randHp) || (poke3.baseStats.hp > poke.baseStats.hp))) eligibleStats.push('diffHp');
 							if (poke.atkDelta < 40 && ((poke3.baseStats.atk + poke3.atkDelta < poke.randAtk) || (poke3.baseStats.atk > poke.baseStats.atk))) eligibleStats.push('diffAtk');
