@@ -8019,6 +8019,7 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 		weightkg: 3.1,
 		color: "Blue",
 		tags: ["Mythical"],
+		evos: ["Manaphy"], // not true but I want them together on the sheet
 		eggGroups: ["Water 1", "Fairy"],
 	},
 	manaphy: {
@@ -8032,6 +8033,7 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 		weightkg: 1.4,
 		color: "Blue",
 		tags: ["Mythical"],
+		prevo: "Phione", // not true but I want them together on the sheet
 		eggGroups: ["Water 1", "Fairy"],
 	},
 	darkrai: {
