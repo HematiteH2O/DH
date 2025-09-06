@@ -9,7 +9,7 @@ const pushLevelUp = [
 	'clangoroussoul', 'coil', 'coreenforcer', 'cottonspore', 'counter', 'curse', 'darkvoid', 'dazzlinggleam', 'decorate', 'destinybond', 'diamondstorm', 'disable', 'disarmingvoice', 'discharge', 'dragondance', 'dragonenergy',
 	'drainpunch', 'dreameater', 'drumbeating', 'earthquake', 'eerieimpulse', 'electroweb', 'encore', 'endeavor', 'entrainment', 'eruption', 'esperwing', 'expandingforce', 'explosion', 'extremespeed', 'fakeout', 'faketears',
 	'featherdance', 'feint', 'fierydance', 'fierywrath', 'firstimpression', 'flamecharge', 'flipturn', 'followme', 'foulplay', 'geomancy', 'gigadrain', 'glaciallance', 'glaciate', 'glare', 'grasswhistle', 'gravapple', 'gravity',
-	'growl', 'growth', 'haze', 'healpulse', 'heatwave', 'helpinghand', 'hornleech', 'howl', 'hurricane', 'hypervoice', 'hypnosis', 'iceshard', 'icywind', 'incinerate', 'inferno', 'jetpunch', 'knockoff', 'landswrath', 'lavaplume',
+	'growl', 'growth', 'haze', 'healpulse', 'heatwave', 'helpinghand', 'hex', 'hornleech', 'howl', 'hurricane', 'hypervoice', 'hypnosis', 'iceshard', 'icywind', 'incinerate', 'inferno', 'jetpunch', 'knockoff', 'landswrath', 'lavaplume',
 	'leechlife', 'leechseed', 'leer', 'lightscreen', 'lovelykiss', 'lowsweep', 'luminacrash', 'lunge', 'machpunch', 'makeitrain', 'matchagotcha', 'memento', 'metalburst', 'metalsound', 'mindblown', 'mirrorcoat', 'moonlight',
 	'morningsun', 'mortalspin', 'mudshot', 'mudsport', 'muddywater', 'mysticalfire', 'nastyplot', 'noretreat', 'nobleroar', 'nuzzle', 'oblivionwing', 'originpulse', 'overdrive', 'paraboliccharge', 'partingshot', 'perishsong',
 	'petalblizzard', 'poisongas', 'pounce', 'powdersnow', 'poweruppunch', 'precipiceblades', 'psychicnoise', 'quickattack', 'quickguard', 'quiverdance', 'ragepowder', 'razorleaf', 'razorwind', 'reflect', 'relicsong', 'rockslide', 'rocktomb',
@@ -234,8 +234,8 @@ const moveGroups = {
 	76: ['strugglebug', 'snarl', 'breakingswipe', 'electroweb', 'icywind', 'bulldoze'],
 	77: ['mudslap', 'acidspray', 'chillingwater', 'pounce', 'mudshot', 'rocktomb', 'lowsweep', 'knockoff', 'strugglebug', 'snarl', 'breakingswipe', 'electroweb', 'icywind', 'bulldoze'],
 	78: ['razorleaf', 'aircutter'],
-	79: ['incinerate', 'razorleaf', 'aircutter'],
-	80: ['bugbite', 'pluck'],
+	79: ['incinerate', 'razorleaf', 'aircutter', 'brutalswing'],
+	80: ['bugbite', 'pluck', 'incinerate'],
 	81: ['thief', 'covet'],
 	82: ['feintattack', 'aerialace', 'shadowpunch', 'magnetbomb', 'shockwave', 'magicalleaf', 'swift'],
 	83: ['feintattack', 'aerialace', 'shadowpunch', 'magnetbomb', 'shockwave', 'magicalleaf', 'swift', 'smartstrike'],
@@ -244,7 +244,7 @@ const moveGroups = {
 	86: ['stormthrow', 'frostbreath', 'flowertrick'],
 	87: ['forcepalm', 'flamewheel', 'dragonbreath', 'waterpulse', 'spark', 'sludge'],
 	88: ['needlearm', 'heartstamp', 'steamroller', 'boneclub', 'stomp'],
-	89: ['swift', 'incinerate', 'razorleaf', 'aircutter', 'strugglebug', 'snarl', 'breakingswipe', 'electroweb', 'icywind', 'bulldoze'],
+	89: ['swift', 'incinerate', 'razorleaf', 'aircutter', 'strugglebug', 'snarl', 'breakingswipe', 'electroweb', 'icywind', 'bulldoze', 'brutalswing'],
 	90: ['barbbarrage', 'infernalparade'],
 	91: ['partingshot', 'batonpass', 'flipturn', 'uturn', 'voltswitch', 'teleport'],
 	92: ['silverwind', 'ominouswind', 'ancientpower'],
@@ -302,7 +302,7 @@ const moveGroups = {
 	143: ['poisonsting', 'lick', 'astonish', 'smog', 'peck', 'leafage', 'branchpoke', 'rocksmash', 'pound', 'scratch', 'twister', 'thundershock', 'fairywind', 'ember', 'gust', 'watergun', 'vinewhip', 'cut', 'tackle', 'karatechop', 'poisontail', 'rockthrow', 'metalclaw', 'confusion', 'disarmingvoice', 'powdersnow', 'acid', 'bubble'],
 	144: ['poisonsting', 'lick', 'astonish', 'smog', 'peck', 'leafage', 'branchpoke', 'rocksmash', 'pound', 'scratch', 'twister', 'thundershock', 'fairywind', 'ember', 'gust', 'watergun', 'vinewhip', 'cut', 'tackle', 'karatechop', 'poisontail', 'rockthrow', 'metalclaw', 'confusion', 'disarmingvoice', 'powdersnow', 'acid', 'bubble', 'bite'],
 	145: ['leaftornado', 'mudbomb', 'aurorabeam', 'psybeam', 'mirrorshot', 'octazooka', 'bubblebeam', 'forcepalm', 'flamewheel', 'dragonbreath', 'waterpulse', 'spark', 'sludge', 'needlearm', 'heartstamp', 'steamroller', 'boneclub', 'stomp', 'leaftornado', 'mudbomb', 'aurorabeam', 'psybeam', 'mirrorshot', 'octazooka', 'bubblebeam', 'wingattack', 'hornattack', 'feintattack', 'aerialace', 'shadowpunch', 'magnetbomb', 'shockwave', 'magicalleaf'],
-	146: ['leaftornado', 'mudbomb', 'aurorabeam', 'psybeam', 'mirrorshot', 'octazooka', 'bubblebeam', 'forcepalm', 'flamewheel', 'dragonbreath', 'waterpulse', 'spark', 'sludge', 'needlearm', 'heartstamp', 'steamroller', 'boneclub', 'stomp', 'leaftornado', 'mudbomb', 'aurorabeam', 'psybeam', 'mirrorshot', 'octazooka', 'bubblebeam', 'wingattack', 'hornattack', 'feintattack', 'aerialace', 'shadowpunch', 'magnetbomb', 'shockwave', 'magicalleaf', 'swift', 'incinerate', 'razorleaf', 'aircutter', 'strugglebug', 'snarl', 'breakingswipe', 'electroweb', 'icywind', 'bulldoze', 'acidspray', 'chillingwater', 'pounce', 'mudshot', 'rocktomb', 'lowsweep', 'knockoff', 'silverwind', 'ominouswind', 'ancientpower'],
+	146: ['leaftornado', 'mudbomb', 'aurorabeam', 'psybeam', 'mirrorshot', 'octazooka', 'bubblebeam', 'forcepalm', 'flamewheel', 'dragonbreath', 'waterpulse', 'spark', 'sludge', 'needlearm', 'heartstamp', 'steamroller', 'boneclub', 'stomp', 'leaftornado', 'mudbomb', 'aurorabeam', 'psybeam', 'mirrorshot', 'octazooka', 'bubblebeam', 'wingattack', 'hornattack', 'feintattack', 'aerialace', 'shadowpunch', 'magnetbomb', 'shockwave', 'magicalleaf', 'swift', 'incinerate', 'razorleaf', 'aircutter', 'strugglebug', 'snarl', 'breakingswipe', 'electroweb', 'icywind', 'bulldoze', 'brutalswing', 'acidspray', 'chillingwater', 'pounce', 'mudshot', 'rocktomb', 'lowsweep', 'knockoff', 'silverwind', 'ominouswind', 'ancientpower'],
 	147: ['headbutt', 'dizzypunch', 'secretpower', 'chipaway', 'steelwing', 'signalbeam', 'airslash', 'brickbreak', 'nightslash', 'shadowclaw', 'slash', 'crosspoison', 'psychocut', 'aquacutter', 'wakeupslap', 'smellingsalts', 'crushclaw', 'razorshell', 'thunderpunch', 'firepunch', 'icepunch', 'temperflare', 'stompingtantrum', 'psychicnoise'],
 	148: ['triattack', 'poisonjab', 'crunch', 'shadowball', 'flashcannon', 'zingzap', 'iciclecrash', 'hyperfang', 'zenheadbutt', 'ironhead', 'waterfall', 'darkpulse', 'extrasensory', 'xscissor', 'dragonclaw', 'drillpeck', 'seedbomb', 'slam', 'megapunch', 'strength', 'alluringvoice', 'aurasphere', 'powergem', 'falsesurrender', 'throatchop'],
 	149: ['triattack', 'poisonjab', 'crunch', 'shadowball', 'flashcannon', 'zingzap', 'iciclecrash', 'hyperfang', 'zenheadbutt', 'ironhead', 'waterfall', 'darkpulse', 'extrasensory', 'xscissor', 'dragonclaw', 'drillpeck', 'seedbomb', 'slam', 'megapunch', 'strength', 'alluringvoice', 'aurasphere', 'powergem', 'falsesurrender', 'kowtowcleave', 'overdrive', 'dazzlinggleam', 'scorchingsands', 'scald', 'bodypress', 'psyshock', 'dig', 'dive', 'spiritshackle', 'anchorshot', 'snipeshot', 'submission'],
@@ -356,6 +356,18 @@ export const Scripts: ModdedBattleScriptsData = {
 			'trace', 'hugepower', 'poisonpoint', 'innerfocus', 'magmaarmor', 'waterveil', 'magnetpull', 'soundproof', 'raindish', 'sandstream', 'pressure', 'thickfat', 'earlybird', 'flamebody', 'runaway', 'keeneye',
 			'hypercutter', 'pickup', 'truant', 'hustle', 'cutecharm', 'plus', 'minus', 'stickyhold', 'shedskin', 'guts', 'marvelscale', 'liquidooze', 'overgrow', 'blaze', 'torrent', 'swarm', 'rockhead', 'drought',
 			'arenatrap', 'vitalspirit', 'whitesmoke', 'purepower', 'shellarmor', 'tangledfeet', 'motordrive', 'rivalry', 'steadfast', 'snowcloak', 'gluttony', 'angerpoint', 'unburden', 'heatproof', 'simple', 'dryskin',
+			'download', 'ironfist', 'poisonheal', 'adaptability', 'skilllink', 'hydration', 'solarpower', 'quickfeet', 'normalize', 'sniper', 'magicguard', 'noguard', 'stall', 'technician', 'leafguard', 'klutz', 'moldbreaker',
+			'superluck', 'aftermath', 'anticipation', 'forewarn', 'unaware', 'tintedlens', 'filter', 'slowstart', 'scrappy', 'stormdrain', 'icebody', 'solidrock', 'snowwarning', 'honeygather', 'frisk', 'reckless',
+			'baddreams', 'pickpocket', 'sheerforce', 'contrary', 'unnerve', 'defiant', 'defeatist', 'cursedbody', 'healer', 'friendguard', 'weakarmor', 'heavymetal', 'lightmetal', 'multiscale', 'toxicboost', 'flareboost',
+			'harvest', 'telepathy', 'moody', 'overcoat', 'poisontouch', 'regenerator', 'bigpecks', 'sandrush', 'wonderskin', 'analytic', 'illusion', 'infiltrator', 'mummy', 'moxie', 'justified', 'rattled', 'magicbounce',
+			'sapsipper', 'prankster', 'sandforce', 'ironbarbs', 'victorystar',
+		];
+		const randAbilitiesGenderless = [
+			'stench', 'drizzle', 'speedboost', 'battlearmor', 'sturdy', 'damp', 'limber', 'sandveil', 'static', 'voltabsorb', 'waterabsorb', 'cloudnine', 'compoundeyes', 'insomnia', 'colorchange', 'immunity', 'flashfire',
+			'shielddust', 'owntempo', 'suctioncups', 'intimidate', 'shadowtag', 'roughskin', 'levitate', 'effectspore', 'synchronize', 'clearbody', 'naturalcure', 'lightningrod', 'serenegrace', 'swiftswim', 'chlorophyll',
+			'trace', 'hugepower', 'poisonpoint', 'innerfocus', 'magmaarmor', 'waterveil', 'magnetpull', 'soundproof', 'raindish', 'sandstream', 'pressure', 'thickfat', 'earlybird', 'flamebody', 'runaway', 'keeneye',
+			'hypercutter', 'pickup', 'truant', 'hustle', 'plus', 'minus', 'stickyhold', 'shedskin', 'guts', 'marvelscale', 'liquidooze', 'overgrow', 'blaze', 'torrent', 'swarm', 'rockhead', 'drought',
+			'arenatrap', 'vitalspirit', 'whitesmoke', 'purepower', 'shellarmor', 'tangledfeet', 'motordrive', 'steadfast', 'snowcloak', 'gluttony', 'angerpoint', 'unburden', 'heatproof', 'simple', 'dryskin',
 			'download', 'ironfist', 'poisonheal', 'adaptability', 'skilllink', 'hydration', 'solarpower', 'quickfeet', 'normalize', 'sniper', 'magicguard', 'noguard', 'stall', 'technician', 'leafguard', 'klutz', 'moldbreaker',
 			'superluck', 'aftermath', 'anticipation', 'forewarn', 'unaware', 'tintedlens', 'filter', 'slowstart', 'scrappy', 'stormdrain', 'icebody', 'solidrock', 'snowwarning', 'honeygather', 'frisk', 'reckless',
 			'baddreams', 'pickpocket', 'sheerforce', 'contrary', 'unnerve', 'defiant', 'defeatist', 'cursedbody', 'healer', 'friendguard', 'weakarmor', 'heavymetal', 'lightmetal', 'multiscale', 'toxicboost', 'flareboost',
@@ -439,6 +451,7 @@ export const Scripts: ModdedBattleScriptsData = {
 			// - list eligible Abilities (no form-change Abilities, Wonder Guard) - done
 			// - randomize 1 Ability and put it in slot 1 - done
 			let randomForAbility = randAbilities[Math.floor(Math.random() * randAbilities.length)];
+			if (!(poke.gender && poke.gender === "N")) randomForAbility = randAbilitiesGenderless[Math.floor(Math.random() * randAbilitiesGenderless.length)];
 			poke.randAbilities = {0: abilityDex[randomForAbility].name};
 
 			// decide slot 2 Ability
@@ -1968,6 +1981,8 @@ export const Scripts: ModdedBattleScriptsData = {
 					if (poke.spaTarget > poke.atkTarget) poke.atkTarget = poke.spaTarget; // didn't want to swap at the earlier opportunity because having SpA intact is cool
 					poke.atkTarget /= 2; // this does *not* cancel out Huge Power completely, but that's on purpose
 					if (50 > poke.atkTarget > 24.5) poke.atkTarget = 50; // if it was at least 50 before but isn't now, elevate to 50
+					maxAtk /= 2;
+					if (50 > maxAtk) maxAtk = 50;
 				}
 
 				// this bit is a buff, not a nerf, so it values the random Ability only
