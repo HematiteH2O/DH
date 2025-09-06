@@ -1206,7 +1206,7 @@ export const Scripts: ModdedBattleScriptsData = {
 				let earlyForcedMovesOptions: string[] = []; // to make sure you have at least *one* move with Ability synergy, since you can't do that while evaluating every move in order
 
 				const moveAbilitySet: string[] = [];
-				for (const idNo in poke.randAbilities) abilityCheck.push(randAbilities[idNo]);
+				for (const idNo in poke.randAbilities) moveAbilitySet.push(randAbilities[idNo]);
 				// this can only make movepools bigger, so including HAs is fine, and this covers alternate forms as well
 
 				if (moveAbilitySet.includes("Drizzle") || moveAbilitySet.includes("Swift Swim") || moveAbilitySet.includes("Rain Dish") || moveAbilitySet.includes("Dry Skin") || moveAbilitySet.includes("Hydration") || moveAbilitySet.includes("Torrent")) learnsetTypes.push("Water");
@@ -2547,12 +2547,12 @@ export const Scripts: ModdedBattleScriptsData = {
 					for (let i = 0; i < 6; i++) {
 						let eligibleStats: string[] = [];
 						let minStat: string[] = [];
-						poke2.diffHp = poke.hpDelta - poke2.hpDelta;
-						poke2.diffAtk = poke.atkDelta - poke2.atkDelta;
-						poke2.diffDef = poke.defDelta - poke2.defDelta;
-						poke2.diffSpA = poke.spaDelta - poke2.spaDelta;
-						poke2.diffSpD = poke.spdDelta - poke2.spdDelta;
-						poke2.diffSpe = poke.speDelta - poke2.speDelta;
+						poke2.diffHp = poke.hpDelta - (2 * poke2.hpDelta);
+						poke2.diffAtk = poke.atkDelta - (2 * poke2.atkDelta);
+						poke2.diffDef = poke.defDelta - (2 * poke2.defDelta);
+						poke2.diffSpA = poke.spaDelta - (2 * poke2.spaDelta);
+						poke2.diffSpD = poke.spdDelta - (2 * poke2.spdDelta);
+						poke2.diffSpe = poke.speDelta - (2 * poke2.speDelta);
 	
 						if (poke2.hpDelta > -20 && (poke2.baseStats.hp + poke2.hpDelta > 5)) eligibleStats.push('diffHp');
 						if (poke2.atkDelta > -20 && (poke2.baseStats.atk + poke2.atkDelta > 5)) eligibleStats.push('diffAtk');
@@ -2594,12 +2594,12 @@ export const Scripts: ModdedBattleScriptsData = {
 	
 						let eligibleStats: string[] = [];
 						let maxStat: string[] = [];
-						poke2.diffHp = poke.hpDelta - poke2.hpDelta;
-						poke2.diffAtk = poke.atkDelta - poke2.atkDelta;
-						poke2.diffDef = poke.defDelta - poke2.defDelta;
-						poke2.diffSpA = poke.spaDelta - poke2.spaDelta;
-						poke2.diffSpD = poke.spdDelta - poke2.spdDelta;
-						poke2.diffSpe = poke.speDelta - poke2.speDelta;
+						poke2.diffHp = poke.hpDelta - (2 * poke2.hpDelta);
+						poke2.diffAtk = poke.atkDelta - (2 * poke2.atkDelta);
+						poke2.diffDef = poke.defDelta - (2 * poke2.defDelta);
+						poke2.diffSpA = poke.spaDelta - (2 * poke2.spaDelta);
+						poke2.diffSpD = poke.spdDelta - (2 * poke2.spdDelta);
+						poke2.diffSpe = poke.speDelta - (2 * poke2.speDelta);
 	
 						if (poke.hpDelta < 40 && ((poke2.baseStats.hp + poke2.hpDelta < poke.randHp) || (poke2.baseStats.hp > poke.baseStats.hp))) eligibleStats.push('diffHp');
 						if (poke.atkDelta < 40 && ((poke2.baseStats.atk + poke2.atkDelta < poke.randAtk) || (poke2.baseStats.atk > poke.baseStats.atk))) eligibleStats.push('diffAtk');
@@ -2655,12 +2655,12 @@ export const Scripts: ModdedBattleScriptsData = {
 						for (let i = 0; i < 6; i++) {
 							let eligibleStats: string[] = [];
 							let minStat: string[] = [];
-							poke3.diffHp = poke.hpDelta - poke3.hpDelta;
-							poke3.diffAtk = poke.atkDelta - poke3.atkDelta;
-							poke3.diffDef = poke.defDelta - poke3.defDelta;
-							poke3.diffSpA = poke.spaDelta - poke3.spaDelta;
-							poke3.diffSpD = poke.spdDelta - poke3.spdDelta;
-							poke3.diffSpe = poke.speDelta - poke3.speDelta;
+							poke3.diffHp = poke.hpDelta - (2 * poke3.hpDelta);
+							poke3.diffAtk = poke.atkDelta - (2 * poke3.atkDelta);
+							poke3.diffDef = poke.defDelta - (2 * poke3.defDelta);
+							poke3.diffSpA = poke.spaDelta - (2 * poke3.spaDelta);
+							poke3.diffSpD = poke.spdDelta - (2 * poke3.spdDelta);
+							poke3.diffSpe = poke.speDelta - (2 * poke3.speDelta);
 		
 							if (poke3.hpDelta > -20 && (poke3.baseStats.hp + poke3.hpDelta > 5)) eligibleStats.push('diffHp');
 							if (poke3.atkDelta > -20 && (poke3.baseStats.atk + poke3.atkDelta > 5)) eligibleStats.push('diffAtk');
@@ -2702,12 +2702,12 @@ export const Scripts: ModdedBattleScriptsData = {
 		
 							let eligibleStats: string[] = [];
 							let maxStat: string[] = [];
-							poke3.diffHp = poke.hpDelta - poke3.hpDelta;
-							poke3.diffAtk = poke.atkDelta - poke3.atkDelta;
-							poke3.diffDef = poke.defDelta - poke3.defDelta;
-							poke3.diffSpA = poke.spaDelta - poke3.spaDelta;
-							poke3.diffSpD = poke.spdDelta - poke3.spdDelta;
-							poke3.diffSpe = poke.speDelta - poke3.speDelta;
+							poke3.diffHp = poke.hpDelta - (2 * poke3.hpDelta);
+							poke3.diffAtk = poke.atkDelta - (2 * poke3.atkDelta);
+							poke3.diffDef = poke.defDelta - (2 * poke3.defDelta);
+							poke3.diffSpA = poke.spaDelta - (2 * poke3.spaDelta);
+							poke3.diffSpD = poke.spdDelta - (2 * poke3.spdDelta);
+							poke3.diffSpe = poke.speDelta - (2 * poke3.speDelta);
 		
 							if (poke.hpDelta < 40 && ((poke3.baseStats.hp + poke3.hpDelta < poke.randHp) || (poke3.baseStats.hp > poke.baseStats.hp))) eligibleStats.push('diffHp');
 							if (poke.atkDelta < 40 && ((poke3.baseStats.atk + poke3.atkDelta < poke.randAtk) || (poke3.baseStats.atk > poke.baseStats.atk))) eligibleStats.push('diffAtk');
