@@ -1313,6 +1313,8 @@ export const Scripts: ModdedBattleScriptsData = {
 							types.push("Water");
 						} else if (moveid === 'spikecannon') {
 							types.push("Steel");
+						} else if (moveid === 'wish') {
+							types.push("Fairy");
 						}
 						if (types.includes(poke.chosenType.type1) || types.includes(poke.chosenType.type2)) earlyForcedMoveCandidates.push(moveid);
 					}
@@ -1641,7 +1643,7 @@ export const Scripts: ModdedBattleScriptsData = {
 									else if ((learnsetTypes.includes("Rock") || learnsetTypes.includes("Steel")) && (altmoveid === "sharpen" || altmoveid === "irondefense" || altmoveid === "selfdestruct" || altmoveid === "explosion" || altmoveid === "spikecannon" || altmoveid === "bulldoze")) eligibleMoves.push(altmoveid);
 									else if (learnsetTypes.includes("Grass") && (altmoveid === "growth" || altmoveid === "sweetscent" || altmoveid === "ragepowder" || altmoveid === "sunnyday" || altmoveid === "poisonpowder" || altmoveid === "watersport" || altmoveid === "barrage" || altmoveid === "swordsdance" || altmoveid === "secretpower")) eligibleMoves.push(altmoveid);
 									else if (learnsetTypes.includes("Ground") && (altmoveid === "rocktomb" || altmoveid === "rockslide" || altmoveid === "lavaplume")) eligibleMoves.push(altmoveid);
-									else if (learnsetTypes.includes("Dark") && (altmoveid === "howl" || altmoveid === "mudslap")) eligibleMoves.push(altmoveid);
+									else if (learnsetTypes.includes("Dark") && (altmoveid === "howl" || altmoveid === "mudslap") || altmoveid === "spiritbreak") eligibleMoves.push(altmoveid);
 									else if ((learnsetTypes.includes("Fire") || learnsetTypes.includes("Poison")) && altmoveid === "smokescreen") eligibleMoves.push(altmoveid);
 									else if (learnsetTypes.includes("Steel") && (altmoveid === "sonicboom" || altmoveid === "voltswitch" || altmoveid === "zapcannon" || altmoveid === "supercellslam" || altmoveid === "horndrill")) eligibleMoves.push(altmoveid);
 									else if ((learnsetTypes.includes("Poison") || learnsetTypes.includes("Ghost")) && (altmoveid === "memento" || altmoveid === "meanlook")) eligibleMoves.push(altmoveid);
@@ -1656,6 +1658,7 @@ export const Scripts: ModdedBattleScriptsData = {
 									else if (learnsetTypes.includes("Water") && (altmoveid === "iciclespear" || altmoveid === "icywind")) eligibleMoves.push(altmoveid);
 									else if (learnsetTypes.includes("Psychic") && (altmoveid === "lovelykiss" || altmoveid === "mindreader" || altmoveid === "aurasphere")) eligibleMoves.push(altmoveid);
 									else if (learnsetTypes.includes("Flying") && (altmoveid === "whirlwind" || altmoveid === "furyattack" || altmoveid === "uturn" || altmoveid === "drillrun" || altmoveid === "heatwave")) eligibleMoves.push(altmoveid);
+									else if (learnsetTypes.includes("Fairy") && (altmoveid === "wish" || altmoveid === "captivate" || altmoveid === "healingwish" || altmoveid === "sing" || altmoveid === "healpulse" || altmoveid === "aromatherapy" || altmoveid === "present" || altmoveid === "covet" || altmoveid === "psyshock")) eligibleMoves.push(altmoveid);
 								}
 							}
 							if (eligibleMoves.length) continue;
@@ -2617,7 +2620,7 @@ export const Scripts: ModdedBattleScriptsData = {
 						// base stats; skip if none generated yet
 						if (poke.crossHp) sheetOutput += poke.crossHp + ` ~ ` + poke.crossAtk + ` ~ ` + poke.crossDef + ` ~ ` + poke.crossSpA + ` ~ ` + poke.crossSpD + ` ~ ` + poke.crossSpe + ` ~ ` + (poke.crossHp + poke.crossAtk + poke.crossDef + poke.crossSpA + poke.crossSpD + poke.crossSpe) + ` ~ `;
 						// abilities
-						sheetOutput += poke.crossgenAbilities[3] + (poke.crossgenAbilities[1] ? ` / `+ poke.crossgenAbilities[1] + ` ` : ` `) + (poke.crossgenAbilities[2] ? `// `+ poke.crossgenAbilities[2] + `\n` : `\n`);
+						sheetOutput += poke.randAbilities[3] + (poke.crossgenAbilities[1] ? ` / `+ poke.crossgenAbilities[1] + ` ` : ` `) + (poke.crossgenAbilities[2] ? `// `+ poke.crossgenAbilities[2] + `\n` : `\n`);
 					}
 				}
 
