@@ -2585,12 +2585,8 @@ export const Scripts: ModdedBattleScriptsData = {
 						else console.log(chosenStat);
 					}
 	
-					for (let i = 0; i < 6; i++) { // repeat until +60 or until all stats have hit their targets
-						if ((poke.hpDelta + poke.atkDelta + poke.defDelta + poke.spaDelta + poke.spdDelta + poke.speDelta) > 0) {
-							console.log(poke.name + ` didn't lower stats as much as it raised them`);
-							break;
-						}
-						if (poke.hpDelta + poke.atkDelta + poke.defDelta + poke.spaDelta + poke.spdDelta + poke.speDelta === 0) break; // ideal end state
+					for (let i = 0; i < 6; i++) {
+						if (poke2.hpDelta + poke2.atkDelta + poke2.defDelta + poke2.spaDelta + poke2.spdDelta + poke2.speDelta === 0) break; // ideal end state
 	
 						let eligibleStats: string[] = [];
 						let maxStat: string[] = [];
@@ -2694,11 +2690,7 @@ export const Scripts: ModdedBattleScriptsData = {
 						}
 		
 						for (let i = 0; i < 6; i++) { // repeat until +60 or until all stats have hit their targets
-							if ((poke.hpDelta + poke.atkDelta + poke.defDelta + poke.spaDelta + poke.spdDelta + poke.speDelta) > 0) {
-								console.log(poke.name + ` didn't lower stats as much as it raised them`);
-								break;
-							}
-							if (poke.hpDelta + poke.atkDelta + poke.defDelta + poke.spaDelta + poke.spdDelta + poke.speDelta === 0) break; // ideal end state
+							if (poke3.hpDelta + poke3.atkDelta + poke3.defDelta + poke3.spaDelta + poke3.spdDelta + poke3.speDelta === 0) break; // ideal end state
 		
 							let eligibleStats: string[] = [];
 							let maxStat: string[] = [];
