@@ -438,7 +438,7 @@ export const Scripts: ModdedBattleScriptsData = {
 			if (!(this.dataCache.Learnsets[id] && this.dataCache.Learnsets[id].learnset)) {
 				if (!(poke.baseSpecies && (["Hoopa", "Shaymin", "Deoxys"].includes(poke.baseSpecies)))) continue; // skip Megas and G-Maxes this time
 			}
-			if (poke.baseSpecies && (["Pikachu", "Pichu", "Eevee", "Floette", "Greninja", "Magearna", "Poltchageist", "Calyrex"].includes(poke.baseSpecies)) continue; // can do special handling for Calyrex in a later section
+			if (poke.baseSpecies && ["Pikachu", "Pichu", "Eevee", "Floette", "Greninja", "Magearna", "Poltchageist", "Calyrex"].includes(poke.baseSpecies)) continue; // can do special handling for Calyrex in a later section
 			if (poke.forme && (poke.forme === "Totem" || poke.forme === "Alola-Totem")) continue;
 			if (poke.num && poke.num < 0) continue; // skip CAPs
 			let future = false; // determine if something is Gen VIII or later
