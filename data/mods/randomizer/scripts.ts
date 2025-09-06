@@ -1602,8 +1602,8 @@ export const Scripts: ModdedBattleScriptsData = {
 						for (const section in moveGroups) {
 							if (eligibleMoves.length) continue;
 							if (!moveGroups[section].includes(moveid)) continue;
-							if (hms.includes(moveid)) continue; // never add these to level-up
 							for (const altmoveid of moveGroups[section]) {
+								if (hms.includes(altmoveid)) continue; // never add these to level-up
 								if (usedSecondMoves.includes(altmoveid)) continue;
 								// disallow post-Gen V moves that I don't think I can copy
 								if (!this.dataCache.Moves[altmoveid]) console.log(altmoveid);
