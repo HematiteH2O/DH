@@ -1860,6 +1860,9 @@ export const Scripts: ModdedBattleScriptsData = {
 				poke.spaTarget = poke.baseStats.spa;
 				poke.spdTarget = poke.baseStats.spd;
 				poke.speTarget = poke.baseStats.spe;
+				let hugePower = false;
+				for (const idNo in poke.abilities) if (["Huge Power", "Pure Power"].includes(poke.abilities[idNo])) hugePower = true;
+				if (hugePower) poke.atkTarget *= 2; // will be halved again later
 
 				// step 1: surface-level type themes (optional but as many as I like)
 				// there's plenty more randomization later, so these don't need a fixed total at all
