@@ -1203,6 +1203,8 @@ export const Scripts: ModdedBattleScriptsData = {
 				poke.recommendedLvUp = [];
 				poke.forcedMoves = [];
 				poke.backports = [];
+				poke.extraLevelUpSpaces = 0; // add 1 to this every time a skippable move is included
+
 				for (let i = 1; i < 102; i++) {
 					poke.learnsetCumulative.learnset[i] = {
 						movesLearned: [],
@@ -1580,6 +1582,7 @@ export const Scripts: ModdedBattleScriptsData = {
 						for (const section in moveGroups) {
 							if (eligibleMoves.length) continue;
 							if (!moveGroups[section].includes(moveid)) continue;
+							if (hms.includes(moveid)) continue; // never add these to level-up
 							for (const altmoveid of moveGroups[section]) {
 								if (usedSecondMoves.includes(altmoveid)) continue;
 								// disallow post-Gen V moves that I don't think I can copy
@@ -1667,6 +1670,7 @@ export const Scripts: ModdedBattleScriptsData = {
 					}
 
 					// resume
+					let levelUpSpaces = false;
 					if (genVTms.includes(moveid)) {
 						poke.listOfCertainMoves.push(moveid);
 						moveName = move.tmid ? move.tmid : `x ` + move.name;
@@ -1679,7 +1683,10 @@ export const Scripts: ModdedBattleScriptsData = {
 					}
 					if (move.num && move.num > 559) {
 						if (movesAfterGenV.includes(moveid)) moveName = moveName + ` (new)`; // identify post-Gen V moves
-						else moveName = moveName + ` (x)`;
+						else {
+							moveName = moveName + ` (x)`;
+							if (!secondMove) levelUpSpaces = true;
+						}
 					}
 					if (learnset3) moveName = prevo2LevelLearned + ` - ` + moveName; // add prevo2 levels
 					if (learnset2) moveName = prevoLevelLearned + ` - ` + moveName; // add prevo levels
@@ -1709,8 +1716,31 @@ export const Scripts: ModdedBattleScriptsData = {
 						if (secondMove) moveName += ` -> ` + secondMove.name;
 						if (secondMove && secondMove.num && secondMove.num > 559) {
 							if (movesAfterGenV.includes(this.toID(secondMove.name))) moveName = moveName + ` (new)`; // identify post-Gen V moves
-							else moveName = moveName + ` (x)`;
+							else {
+								moveName = moveName + ` (x)`;
+								levelUpSpaces = true;
+							}
 						}
+
+						let skip = false;
+						let skipMove = moveid;
+						if (secondMove) skipMove = this.toID(secondMove.name);
+						if (levelLearned > 14 && ['frustration', 'workup'].includes(skipMove)) skip = true;
+						if (levelLearned > 20 && ['return', 'thief', 'rocksmash', 'venoshock'].includes(skipMove)) skip = true;
+						if (levelLearned > 27 && ['attract', 'rest', 'flash', 'strugglebug'].includes(skipMove)) skip = true;
+						if (levelLearned > 34 && ['dig', 'rocktomb', 'echoedvoice', 'thunderwave', 'gyroball', 'lightscreen', 'reflect', 'payback', 'snarl', 'voltswitch'].includes(skipMove)) skip = true;
+						if (levelLearned > 37 && ['embargo', 'covet', 'bugbite', 'drillrun', 'bounce', 'signalbeam', 'ironhead', 'superfang', 'uproar', 'seedbomb', 'dualchop', 'lowkick', 'gunkshot', 'thunderpunch', 'firepunch', 'icepunch', 'bulldoze'].includes(skipMove)) skip = true;
+						if (levelLearned > 44 && ['energyball', 'fling', 'torment', 'rockslide', 'hail', 'sunnyday', 'raindance', 'sandstorm', 'skydrop', 'xscissor', 'willowisp', 'shadowclaw', 'acrobatics'].includes(skipMove)) skip = true;
+						if (levelLearned > 55 && ['aerialace', 'chargebeam', 'shadowball', 'rockpolish', 'falseswipe', 'psychic', 'blizzard', 'thunder', 'fireblast', 'hyperbeam', 'gigaimpact', 'lastresort', 'irondefense', 'magnetrise', 'magiccoat', 'block', 'hypervoice', 'electroweb', 'icywind', 'aquatail', 'earthpower', 'zenheadbutt', 'foulplay', 'superpower', 'gravity', 'dragonpulse', 'darkpulse', 'dragontail'].includes(skipMove)) skip = true;
+						if (levelLearned > 58 && ['facade', 'bind', 'snore', 'healbell', 'knockoff', 'synthesis', 'roost', 'skyattack', 'roleplay', 'heatwave', 'gigadrain', 'drainpunch', 'painsplit', 'tailwind', 'scald'].includes(skipMove)) skip = true;
+						if (levelLearned > 66 && ['toxic', 'retaliate', 'icebeam', 'psyshock', 'flamethrower', 'roar', 'taunt', 'trickroom', 'honeclaws', 'wildcharge', 'thunderbolt'].includes(skipMove)) skip = true;
+						if (levelLearned > 70 && genVTms.includes(skipMove)) skip = true;
+						if (hms.includes(skipMove)) skip = true;
+						if (skip) {
+							moveName += ` (skip)`; // don't, like, *actually* skip it, but this is useful information for the spreadsheet
+							levelUpSpaces = true;
+						}
+
 						if (secondMove) {
 							moveName += ` ~ ` + secondMove.type;
 							poke.listOfCertainMoves.push(this.toID(secondMove.name));
@@ -1718,7 +1748,9 @@ export const Scripts: ModdedBattleScriptsData = {
 							moveName += ` ~ ` + move.type;
 							poke.listOfCertainMoves.push(moveid);
 						}
+
 						// either way
+						if (levelUpSpaces) poke.extraLevelUpSpaces++;
 						poke.learnsetCumulative.learnset[levelLearned].movesLearned.push(moveName);
 					}
 				}
@@ -2509,7 +2541,7 @@ export const Scripts: ModdedBattleScriptsData = {
 					if (parseInt(level) > 99) {
 						if (poke.recommendedLvUp.length) {
 							poke.recommendedLvUp.sort();
-							sheetOutput += `\n~ Additional level-up candidates (pick ` + (22 - levelUpMovesCount) + `)\n`
+							sheetOutput += `\n~ Additional level-up candidates (pick up to ` + (22 - levelUpMovesCount + poke.extraLevelUpSpaces) + `)\n`
 							for (const moveid of poke.recommendedLvUp) {
 								if (usedSecondMoves.includes(moveid)) continue;
 								sheetOutput += moveid + `, `;
