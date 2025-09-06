@@ -555,7 +555,7 @@ export const Scripts: ModdedBattleScriptsData = {
 			if (["Slaking", "Archeops", "Regigigas"].includes(poke.name)) poke.randAbilities = poke.abilities;
 
 			// - Legendaries and Mythicals have 1 Ability and starters only randomize HA - done
-			if (["Overgrow", "Blaze", "Torrent"].includes(poke.abilities[0]) || poke.tags) poke.randAbilities = poke.randAbilities = {0: poke.randAbilities[0]};
+			if (["Overgrow", "Blaze", "Torrent"].includes(poke.abilities[0]) || poke.tags || (poke.baseSpecies && this.dataCache.Pokedex[this.toID(poke.baseSpecies)].tags)) poke.randAbilities = poke.randAbilities = {0: poke.randAbilities[0]};
 			// executive decision: starters randomize the primary slot only, since I don't have Ability Capsules or Patches
 
 			// - randomize a second Ability only for the crossgen output - done
@@ -2502,7 +2502,7 @@ export const Scripts: ModdedBattleScriptsData = {
 				];
 
 				let crossevo = true; // becomes false shortly if already a 3-stage line
-				if (poke.tags) crossevo = false;
+				if (poke.tags || (poke.baseSpecies && this.dataCache.Pokedex[this.toID(poke.baseSpecies)].tags)) crossevo = false;
 				// prevos when ready
 				if (poke.prevo) {
 					const poke2 = this.dataCache.Pokedex[this.toID(poke.prevo)];
