@@ -697,10 +697,10 @@ export const Scripts: ModdedBattleScriptsData = {
 			// for later reference
 			const abilitySet: string[] = [];
 			abilitySet.push(poke.randAbilities[0]);
-			if (poke.randAbilities[1]) abilitySet.push(poke.randAbilities[1]);
-			// if (poke.randAbilities[2]) abilitySet.push(poke.randAbilities[2]);
-			// actually, I don't want to account for HA since the player usually won't have access to it
-			if (poke.randAbilities[3]) abilitySet.push(poke.randAbilities[3]);
+			for (const idNo in poke.randAbilities) {
+				if (idNo !== 2) abilitySet.push(randAbilities[idNo]);
+				// I don't want this to account for HA, since the player usually won't have access to it and it's just from vanilla anyway
+			}
 
 
 
@@ -1206,10 +1206,8 @@ export const Scripts: ModdedBattleScriptsData = {
 				let earlyForcedMovesOptions: string[] = []; // to make sure you have at least *one* move with Ability synergy, since you can't do that while evaluating every move in order
 
 				const moveAbilitySet: string[] = [];
-				moveAbilitySet.push(poke.randAbilities[0]);
-				if (poke.randAbilities[1]) moveAbilitySet.push(poke.randAbilities[1]);
-				if (poke.randAbilities[2]) moveAbilitySet.push(poke.randAbilities[2]); // happy to account for HAs here because they can only make movepools even more diverse
-				if (poke.randAbilities[3]) moveAbilitySet.push(poke.randAbilities[3]); // Basculin
+				for (const idNo in poke.randAbilities) abilityCheck.push(randAbilities[idNo]);
+				// this can only make movepools bigger, so including HAs is fine, and this covers alternate forms as well
 
 				if (moveAbilitySet.includes("Drizzle") || moveAbilitySet.includes("Swift Swim") || moveAbilitySet.includes("Rain Dish") || moveAbilitySet.includes("Dry Skin") || moveAbilitySet.includes("Hydration") || moveAbilitySet.includes("Torrent")) learnsetTypes.push("Water");
 				if (moveAbilitySet.includes("Drought") || moveAbilitySet.includes("Blaze") || moveAbilitySet.includes("Flash Fire")) learnsetTypes.push("Fire");
@@ -1856,9 +1854,7 @@ export const Scripts: ModdedBattleScriptsData = {
 				if (poke.chosenType.type2 !== poke.chosenType.type1) pokeTypes.push(poke.chosenType.type2);
 
 				const abilityCheck: string[] = [];
-				abilityCheck.push(poke.randAbilities[0]);
-				if (poke.randAbilities[1]) abilityCheck.push(poke.randAbilities[1]);
-				if (poke.randAbilities[3]) moveAbilitySet.push(poke.randAbilities[3]);
+				for (const idNo in poke.randAbilities) abilityCheck.push(randAbilities[idNo]);
 
 				poke.hpTarget = poke.baseStats.hp;
 				poke.atkTarget = poke.baseStats.atk;
@@ -2573,65 +2569,90 @@ export const Scripts: ModdedBattleScriptsData = {
 					const poke2 = this.dataCache.Pokedex[this.toID(poke.prevo)];
 					if (poke2.prevo) {
 						const poke3 = this.dataCache.Pokedex[this.toID(poke2.prevo)];
+						var poke3id = poke3.name.toLowerCase();
+						var poke3id = iconname.replace(" ", `-`).replace(`.`, ``).replace(`:`, ``).replace(`\u2019`, ``); // to get rid of spaces and periods
+						sheetOutput += `=IMAGE("https://www.smogon.com/forums//media/minisprites/` + poke3id + `.png",3)~`;
+
 						crossevo = false;
 						// name, evo level
 						sheetOutput += (poke3.evoLevel ? (poke3.name + ` // ` + poke3.evoLevel) : poke3.name) + ` ~ `;
 						// types
 						sheetOutput += poke3.chosenType.type1 + (poke3.chosenType.type2 === poke3.chosenType.type1 ? ` ~  ~ ` : ` ~ `+ poke3.chosenType.type2 + ` ~ `);
-						// base stats, skipped if none generated yet
-						if (poke3.randHp) sheetOutput += poke3.randHp + ` ~ ` + poke3.randAtk + ` ~ ` + poke3.randDef + ` ~ ` + poke3.randSpA + ` ~ ` + poke3.randSpD + ` ~ ` + poke3.randSpe + ` ~ ` + (poke3.randHp + poke3.randAtk + poke3.randDef + poke3.randSpA + poke3.randSpD + poke3.randSpe) + ` ~ `;
+						// base stats
+						sheetOutput += poke3.randHp + ` ~ ` + poke3.randAtk + ` ~ ` + poke3.randDef + ` ~ ` + poke3.randSpA + ` ~ ` + poke3.randSpD + ` ~ ` + poke3.randSpe + ` ~ ` + (poke3.randHp + poke3.randAtk + poke3.randDef + poke3.randSpA + poke3.randSpD + poke3.randSpe) + ` ~ `;
+						// deltas
+						sheetOutput += (poke3.randHp - poke3.baseStats.hp) + ` ~ ` + (poke3.randAtk - poke3.baseStats.atk) + ` ~ ` + (poke3.randDef - poke3.baseStats.def) + ` ~ ` + (poke3.randSpA - poke3.baseStats.spa) + ` ~ ` + (poke3.randSpD - poke3.baseStats.spd) + ` ~ ` + (poke3.randSpe - poke3.baseStats.spe) + ` ~ `;
 						// abilities
 						sheetOutput += poke3.randAbilities[0] + (poke3.randAbilities[1] ? ` / `+ poke3.randAbilities[1] + ` ` : ` `) + (poke3.randAbilities[2] ? `// `+ poke3.randAbilities[2] + `\n` : `\n`);
 					}
+					var poke2id = poke2.name.toLowerCase();
+					var poke2id = iconname.replace(" ", `-`).replace(`.`, ``).replace(`:`, ``).replace(`\u2019`, ``); // to get rid of spaces and periods
+					sheetOutput += `=IMAGE("https://www.smogon.com/forums//media/minisprites/` + poke2id + `.png",3)~`;
 					// name, evo level
 					sheetOutput += (poke2.evoLevel ? (poke2.name + ` // ` + poke2.evoLevel) : poke2.name) + ` ~ `;
 					// types
 					sheetOutput += poke2.chosenType.type1 + (poke2.chosenType.type2 === poke2.chosenType.type1 ? ` ~  ~ ` : ` ~ `+ poke2.chosenType.type2 + ` ~ `);
-					// base stats, skipped if none generated yet
-					if (poke2.randHp) sheetOutput += poke2.randHp + ` ~ ` + poke2.randAtk + ` ~ ` + poke2.randDef + ` ~ ` + poke2.randSpA + ` ~ ` + poke2.randSpD + ` ~ ` + poke2.randSpe + ` ~ ` + (poke2.randHp + poke2.randAtk + poke2.randDef + poke2.randSpA + poke2.randSpD + poke2.randSpe) + ` ~ `;
+					// base stats
+					sheetOutput += poke2.randHp + ` ~ ` + poke2.randAtk + ` ~ ` + poke2.randDef + ` ~ ` + poke2.randSpA + ` ~ ` + poke2.randSpD + ` ~ ` + poke2.randSpe + ` ~ ` + (poke2.randHp + poke2.randAtk + poke2.randDef + poke2.randSpA + poke2.randSpD + poke2.randSpe) + ` ~ `;
+					// deltas
+					sheetOutput += (poke2.randHp - poke2.baseStats.hp) + ` ~ ` + (poke2.randAtk - poke2.baseStats.atk) + ` ~ ` + (poke2.randDef - poke2.baseStats.def) + ` ~ ` + (poke2.randSpA - poke2.baseStats.spa) + ` ~ ` + (poke2.randSpD - poke2.baseStats.spd) + ` ~ ` + (poke2.randSpe - poke2.baseStats.spe) + ` ~ `;
 					// abilities
 					sheetOutput += poke2.randAbilities[0] + (poke2.randAbilities[1] ? ` / `+ poke2.randAbilities[1] + ` ` : ` `) + (poke2.randAbilities[2] ? `// `+ poke2.randAbilities[2] + `\n` : `\n`);
 				}
+				var pokeid = poke.name.toLowerCase();
+				var pokeid = iconname.replace(" ", `-`).replace(`.`, ``).replace(`:`, ``).replace(`\u2019`, ``); // to get rid of spaces and periods
+				sheetOutput += `=IMAGE("https://www.smogon.com/forums//media/minisprites/` + pokeid + `.png",3)~`;
 
 				// name, evo level
 				sheetOutput += (poke.evoLevel ? (poke.name + ` // ` + poke.evoLevel) : poke.name) + ` ~ `;
 				// types
 				sheetOutput += poke.chosenType.type1 + (poke.chosenType.type2 === poke.chosenType.type1 ? ` ~  ~ ` : ` ~ `+ poke.chosenType.type2 + ` ~ `);
-				// base stats, skipped if none generated yet
-				if (poke.randHp) sheetOutput += poke.randHp + ` ~ ` + poke.randAtk + ` ~ ` + poke.randDef + ` ~ ` + poke.randSpA + ` ~ ` + poke.randSpD + ` ~ ` + poke.randSpe + ` ~ ` + (poke.randHp + poke.randAtk + poke.randDef + poke.randSpA + poke.randSpD + poke.randSpe) + ` ~ `;
+				// base stats
+				sheetOutput += poke.randHp + ` ~ ` + poke.randAtk + ` ~ ` + poke.randDef + ` ~ ` + poke.randSpA + ` ~ ` + poke.randSpD + ` ~ ` + poke.randSpe + ` ~ ` + (poke.randHp + poke.randAtk + poke.randDef + poke.randSpA + poke.randSpD + poke.randSpe) + ` ~ `;
+				// deltas
+				sheetOutput += (poke.randHp - poke.baseStats.hp) + ` ~ ` + (poke.randAtk - poke.baseStats.atk) + ` ~ ` + (poke.randDef - poke.baseStats.def) + ` ~ ` + (poke.randSpA - poke.baseStats.spa) + ` ~ ` + (poke.randSpD - poke.baseStats.spd) + ` ~ ` + (poke.randSpe - poke.baseStats.spe) + ` ~ `;
 				// abilities
 				sheetOutput += poke.randAbilities[0] + (poke.randAbilities[1] ? ` / `+ poke.randAbilities[1] + ` ` : ` `) + (poke.randAbilities[2] ? `// `+ poke.randAbilities[2] + `\n` : `\n`);
 
 				// Basculin moment
 				if (poke.name === "Basculin" && poke.randAbilities[3]) {
+					sheetOutput += `=IMAGE("https://www.smogon.com/forums//media/minisprites/basculinbluestriped.png",3)~`;
 					sheetOutput += (poke.evoLevel ? (poke.name + ` // ` + poke.evoLevel) : poke.name) + ` (Blue-Striped) ~ `;
 					// types
 					sheetOutput += poke.chosenType.type1 + (poke.chosenType.type2 === poke.chosenType.type1 ? ` ~  ~ ` : ` ~ `+ poke.chosenType.type2 + ` ~ `);
-					// base stats, skipped if none generated yet
-					if (poke.randHp) sheetOutput += poke.randHp + ` ~ ` + poke.randAtk + ` ~ ` + poke.randDef + ` ~ ` + poke.randSpA + ` ~ ` + poke.randSpD + ` ~ ` + poke.randSpe + ` ~ ` + (poke.randHp + poke.randAtk + poke.randDef + poke.randSpA + poke.randSpD + poke.randSpe) + ` ~ `;
+					// base stats
+					sheetOutput += poke.randHp + ` ~ ` + poke.randAtk + ` ~ ` + poke.randDef + ` ~ ` + poke.randSpA + ` ~ ` + poke.randSpD + ` ~ ` + poke.randSpe + ` ~ ` + (poke.randHp + poke.randAtk + poke.randDef + poke.randSpA + poke.randSpD + poke.randSpe) + ` ~ `;
+					// deltas
+					sheetOutput += (poke.randHp - poke.baseStats.hp) + ` ~ ` + (poke.randAtk - poke.baseStats.atk) + ` ~ ` + (poke.randDef - poke.baseStats.def) + ` ~ ` + (poke.randSpA - poke.baseStats.spa) + ` ~ ` + (poke.randSpD - poke.baseStats.spd) + ` ~ ` + (poke.randSpe - poke.baseStats.spe) + ` ~ `;
 					// abilities
 					sheetOutput += poke.randAbilities[3] + (poke.randAbilities[1] ? ` / `+ poke.randAbilities[1] + ` ` : ` `) + (poke.randAbilities[2] ? `// `+ poke.randAbilities[2] + `\n` : `\n`);
 				}
 
 				// be ready to add a crossevo here
 				if (crossevo && poke.name !== "Shedinja") {
+					sheetOutput += `~`; // no icon, so you need an indent to keep aligned with other rows
 					// name isn't randomly generated askdjfgh
 					if (poke.crossgenGoldStar) sheetOutput += `Cool `; // I will forget I did this and be amused by it
 					sheetOutput += `Crossgen ~ `;
 					// types are the same
 					sheetOutput += poke.chosenType.type1 + (poke.chosenType.type2 === poke.chosenType.type1 ? ` ~  ~ ` : ` ~ `+ poke.chosenType.type2 + ` ~ `);
-					// base stats; skip if none generated yet
-					if (poke.crossHp) sheetOutput += poke.crossHp + ` ~ ` + poke.crossAtk + ` ~ ` + poke.crossDef + ` ~ ` + poke.crossSpA + ` ~ ` + poke.crossSpD + ` ~ ` + poke.crossSpe + ` ~ ` + (poke.crossHp + poke.crossAtk + poke.crossDef + poke.crossSpA + poke.crossSpD + poke.crossSpe) + ` ~ `;
+					// base stats
+					sheetOutput += poke.crossHp + ` ~ ` + poke.crossAtk + ` ~ ` + poke.crossDef + ` ~ ` + poke.crossSpA + ` ~ ` + poke.crossSpD + ` ~ ` + poke.crossSpe + ` ~ ` + (poke.crossHp + poke.crossAtk + poke.crossDef + poke.crossSpA + poke.crossSpD + poke.crossSpe) + ` ~ `;
+					// deltas
+					sheetOutput += (poke.crossHp - poke.randHp) + ` ~ ` + (poke.crossAtk - poke.randAtk) + ` ~ ` + (poke.crossDef - poke.randDef) + ` ~ ` + (poke.crossSpA - poke.randSpA) + ` ~ ` + (poke.crossSpD - poke.randSpD) + ` ~ ` + (poke.crossSpe - poke.randSpe) + ` ~ `;
 					// abilities
 					sheetOutput += poke.crossgenAbilities[0] + (poke.crossgenAbilities[1] ? ` / `+ poke.crossgenAbilities[1] + ` ` : ` `) + (poke.crossgenAbilities[2] ? `// `+ poke.crossgenAbilities[2] + `\n` : `\n`);
 
 					if (poke.name === "Basculin" && poke.randAbilities[3]) {
+						sheetOutput += `~`; // no icon, so you need an indent to keep aligned with other rows
 						if (poke.crossgenGoldStar) sheetOutput += `Cool `; // I will forget I did this and be amused by it
 						sheetOutput += `Crossgen (Blue-Striped) ~ `;
 						// types are the same
 						sheetOutput += poke.chosenType.type1 + (poke.chosenType.type2 === poke.chosenType.type1 ? ` ~  ~ ` : ` ~ `+ poke.chosenType.type2 + ` ~ `);
-						// base stats; skip if none generated yet
-						if (poke.crossHp) sheetOutput += poke.crossHp + ` ~ ` + poke.crossAtk + ` ~ ` + poke.crossDef + ` ~ ` + poke.crossSpA + ` ~ ` + poke.crossSpD + ` ~ ` + poke.crossSpe + ` ~ ` + (poke.crossHp + poke.crossAtk + poke.crossDef + poke.crossSpA + poke.crossSpD + poke.crossSpe) + ` ~ `;
+						// base stats
+						sheetOutput += poke.crossHp + ` ~ ` + poke.crossAtk + ` ~ ` + poke.crossDef + ` ~ ` + poke.crossSpA + ` ~ ` + poke.crossSpD + ` ~ ` + poke.crossSpe + ` ~ ` + (poke.crossHp + poke.crossAtk + poke.crossDef + poke.crossSpA + poke.crossSpD + poke.crossSpe) + ` ~ `;
+						// deltas
+						sheetOutput += (poke.crossHp - poke.randHp) + ` ~ ` + (poke.crossAtk - poke.randAtk) + ` ~ ` + (poke.crossDef - poke.randDef) + ` ~ ` + (poke.crossSpA - poke.randSpA) + ` ~ ` + (poke.crossSpD - poke.randSpD) + ` ~ ` + (poke.crossSpe - poke.randSpe) + ` ~ `;
 						// abilities
 						sheetOutput += poke.randAbilities[3] + (poke.crossgenAbilities[1] ? ` / `+ poke.crossgenAbilities[1] + ` ` : ` `) + (poke.crossgenAbilities[2] ? `// `+ poke.crossgenAbilities[2] + `\n` : `\n`);
 					}
