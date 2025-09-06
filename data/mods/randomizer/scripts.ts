@@ -2769,8 +2769,7 @@ export const Scripts: ModdedBattleScriptsData = {
 					const poke2 = this.dataCache.Pokedex[this.toID(poke.prevo)];
 					if (poke2.prevo) {
 						const poke3 = this.dataCache.Pokedex[this.toID(poke2.prevo)];
-						var poke3id = poke3.name.toLowerCase();
-						var poke3id = iconname.replace(" ", `-`).replace(`.`, ``).replace(`:`, ``).replace(`\u2019`, ``); // to get rid of spaces and periods
+						var poke3id = (poke3.name.toLowerCase()).replace(" ", `-`).replace(`.`, ``).replace(`:`, ``).replace(`\u2019`, ``); // to get rid of spaces and periods
 						sheetOutput += `=IMAGE("https://www.smogon.com/forums//media/minisprites/` + poke3id + `.png",3)~`;
 
 						crossevo = false;
@@ -2785,8 +2784,7 @@ export const Scripts: ModdedBattleScriptsData = {
 						// abilities
 						sheetOutput += poke3.randAbilities[0] + (poke3.randAbilities[1] ? ` / `+ poke3.randAbilities[1] + ` ` : ` `) + (poke3.randAbilities[2] ? `// `+ poke3.randAbilities[2] + `\n` : `\n`);
 					}
-					var poke2id = poke2.name.toLowerCase();
-					var poke2id = iconname.replace(" ", `-`).replace(`.`, ``).replace(`:`, ``).replace(`\u2019`, ``); // to get rid of spaces and periods
+					var poke2id = (poke2.name.toLowerCase()).replace(" ", `-`).replace(`.`, ``).replace(`:`, ``).replace(`\u2019`, ``); // to get rid of spaces and periods
 					sheetOutput += `=IMAGE("https://www.smogon.com/forums//media/minisprites/` + poke2id + `.png",3)~`;
 					// name, evo level
 					sheetOutput += (poke2.evoLevel ? (poke2.name + ` // ` + poke2.evoLevel) : poke2.name) + ` ~ `;
@@ -2799,8 +2797,7 @@ export const Scripts: ModdedBattleScriptsData = {
 					// abilities
 					sheetOutput += poke2.randAbilities[0] + (poke2.randAbilities[1] ? ` / `+ poke2.randAbilities[1] + ` ` : ` `) + (poke2.randAbilities[2] ? `// `+ poke2.randAbilities[2] + `\n` : `\n`);
 				}
-				var pokeid = poke.name.toLowerCase();
-				var pokeid = iconname.replace(" ", `-`).replace(`.`, ``).replace(`:`, ``).replace(`\u2019`, ``); // to get rid of spaces and periods
+				var pokeid = (poke.name.toLowerCase()).replace(" ", `-`).replace(`.`, ``).replace(`:`, ``).replace(`\u2019`, ``); // to get rid of spaces and periods
 				sheetOutput += `=IMAGE("https://www.smogon.com/forums//media/minisprites/` + pokeid + `.png",3)~`;
 
 				// name, evo level
