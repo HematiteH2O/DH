@@ -1,7 +1,7 @@
 // TODO:
-// - evolution lines, including pre-evolutions and crossgens
-// - forms
-// - any additional details for export, like organized utility highlights
+// - form corrections
+// - organized movepool highlights for export
+// - making a sheet : D
 
 const pushLevelUp = [
 	'accelerock', 'acid', 'acidspray', 'acupressure', 'afteryou', 'aircutter', 'allyswitch', 'appleacid', 'aquajet', 'aquastep', 'astralbarrage', 'aurawheel', 'babydolleyes', 'batonpass', 'bellydrum', 'bitterblade', 'bittermalice',
@@ -2891,11 +2891,11 @@ export const Scripts: ModdedBattleScriptsData = {
 					if (poke2.prevo) {
 						const poke3 = this.dataCache.Pokedex[this.toID(poke2.prevo)];
 						var poke3id = (poke3.name.toLowerCase()).replace(" ", `-`).replace(`.`, ``).replace(`:`, ``).replace(`\u2019`, ``); // to get rid of spaces and periods
-						sheetOutput += `=IMAGE("https://www.smogon.com/forums//media/minisprites/` + poke3id + `.png",3)~~~`;
+						sheetOutput += `=IMAGE("https://www.smogon.com/forums//media/minisprites/` + poke3id + `.png",3)~`;
 
 						crossevo = false;
 						// name, evo level
-						sheetOutput += (poke3.evoLevel ? (poke3.name + ` // ` + poke3.evoLevel) : poke3.name) + `~`;
+						sheetOutput += (poke3.evoLevel ? (poke3.name + ` // ` + poke3.evoLevel) : poke3.name) + `~~~`;
 						// types
 						sheetOutput += poke3.chosenType.type1 + (poke3.chosenType.type2 === poke3.chosenType.type1 ? `~~` : `~`+ poke3.chosenType.type2 + `~`);
 						// base stats
@@ -2906,9 +2906,9 @@ export const Scripts: ModdedBattleScriptsData = {
 						sheetOutput += ((poke3.randHp - poke3.baseStats.hp) !== 0 ? (poke3.randHp - poke3.baseStats.hp) : ` `) + `~` + ((poke3.randAtk - poke3.baseStats.atk) !== 0 ? (poke3.randAtk - poke3.baseStats.atk) : ` `) + `~` + ((poke3.randDef - poke3.baseStats.def) !== 0 ? (poke3.randDef - poke3.baseStats.def) : ` `) + `~` + ((poke3.randSpA - poke3.baseStats.spa) !== 0 ? (poke3.randSpA - poke3.baseStats.spa) : ` `) + `~` + ((poke3.randSpD - poke3.baseStats.spd) !== 0 ? (poke3.randSpD - poke3.baseStats.spd) : ` `) + `~` + ((poke3.randSpe - poke3.baseStats.spe) !== 0 ? (poke3.randSpe - poke3.baseStats.spe) : ` `) + `\n`;
 					}
 					var poke2id = (poke2.name.toLowerCase()).replace(" ", `-`).replace(`.`, ``).replace(`:`, ``).replace(`\u2019`, ``); // to get rid of spaces and periods
-					sheetOutput += `=IMAGE("https://www.smogon.com/forums//media/minisprites/` + poke2id + `.png",3)~~~`;
+					sheetOutput += `=IMAGE("https://www.smogon.com/forums//media/minisprites/` + poke2id + `.png",3)~`;
 					// name, evo level
-					sheetOutput += (poke2.evoLevel ? (poke2.name + ` // ` + poke2.evoLevel) : poke2.name) + `~`;
+					sheetOutput += (poke2.evoLevel ? (poke2.name + ` // ` + poke2.evoLevel) : poke2.name) + `~~~`;
 					// types
 					sheetOutput += poke2.chosenType.type1 + (poke2.chosenType.type2 === poke2.chosenType.type1 ? `~~` : `~`+ poke2.chosenType.type2 + `~`);
 					// base stats
@@ -2919,10 +2919,10 @@ export const Scripts: ModdedBattleScriptsData = {
 					sheetOutput += ((poke2.randHp - poke2.baseStats.hp) !== 0 ? (poke2.randHp - poke2.baseStats.hp) : ` `) + `~` + ((poke2.randAtk - poke2.baseStats.atk) !== 0 ? (poke2.randAtk - poke2.baseStats.atk) : ` `) + `~` + ((poke2.randDef - poke2.baseStats.def) !== 0 ? (poke2.randDef - poke2.baseStats.def) : ` `) + `~` + ((poke2.randSpA - poke2.baseStats.spa) !== 0 ? (poke2.randSpA - poke2.baseStats.spa) : ` `) + `~` + ((poke2.randSpD - poke2.baseStats.spd) !== 0 ? (poke2.randSpD - poke2.baseStats.spd) : ` `) + `~` + ((poke2.randSpe - poke2.baseStats.spe) !== 0 ? (poke2.randSpe - poke2.baseStats.spe) : ` `) + `\n`;
 				}
 				var pokeid = (poke.name.toLowerCase()).replace(" ", `-`).replace(`.`, ``).replace(`:`, ``).replace(`\u2019`, ``); // to get rid of spaces and periods
-				sheetOutput += `=IMAGE("https://www.smogon.com/forums//media/minisprites/` + pokeid + `.png",3)~~~`;
+				sheetOutput += `=IMAGE("https://www.smogon.com/forums//media/minisprites/` + pokeid + `.png",3)~`;
 
 				// name, evo level
-				sheetOutput += (poke.evoLevel ? (poke.name + ` // ` + poke.evoLevel) : poke.name) + `~`;
+				sheetOutput += (poke.evoLevel ? (poke.name + ` // ` + poke.evoLevel) : poke.name) + `~~~`;
 				// types
 				sheetOutput += poke.chosenType.type1 + (poke.chosenType.type2 === poke.chosenType.type1 ? `~~` : `~`+ poke.chosenType.type2 + `~`);
 				// base stats
@@ -2935,6 +2935,7 @@ export const Scripts: ModdedBattleScriptsData = {
 				// Basculin moment
 				if (poke.name === "Basculin" && poke.randAbilities[3]) {
 					sheetOutput += `=IMAGE("https://www.smogon.com/forums//media/minisprites/basculinbluestriped.png",3)~`;
+					sheetOutput += (poke.evoLevel ? (poke.name + ` // ` + poke.evoLevel) : poke.name) + ` (Blue-Striped)~~~`;
 					// types
 					sheetOutput += poke.chosenType.type1 + (poke.chosenType.type2 === poke.chosenType.type1 ? `~~` : `~`+ poke.chosenType.type2 + `~`);
 					// base stats
