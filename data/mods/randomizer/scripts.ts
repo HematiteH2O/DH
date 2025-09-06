@@ -1605,6 +1605,22 @@ export const Scripts: ModdedBattleScriptsData = {
 							for (const altmoveid of moveGroups[section]) {
 								if (hms.includes(altmoveid)) continue; // never add these to level-up
 								if (usedSecondMoves.includes(altmoveid)) continue;
+
+								/*
+								// don't consider a move if you're just going to skip it later anyway
+								if (levelLearned > 14 && ['frustration', 'workup'].includes(altmoveid)) continue;
+								if (levelLearned > 20 && ['return', 'thief', 'rocksmash', 'venoshock'].includes(altmoveid)) continue;
+								if (levelLearned > 27 && ['attract', 'rest', 'flash', 'strugglebug'].includes(altmoveid)) continue;
+								if (levelLearned > 34 && ['dig', 'rocktomb', 'echoedvoice', 'thunderwave', 'gyroball', 'lightscreen', 'reflect', 'payback', 'snarl', 'voltswitch'].includes(altmoveid)) continue;
+								if (levelLearned > 37 && ['embargo', 'covet', 'bugbite', 'drillrun', 'bounce', 'signalbeam', 'ironhead', 'superfang', 'uproar', 'seedbomb', 'dualchop', 'lowkick', 'gunkshot', 'thunderpunch', 'firepunch', 'icepunch', 'bulldoze'].includes(altmoveid)) continue;
+								if (levelLearned > 44 && ['energyball', 'fling', 'torment', 'rockslide', 'hail', 'sunnyday', 'raindance', 'sandstorm', 'skydrop', 'xscissor', 'willowisp', 'shadowclaw', 'acrobatics'].includes(altmoveid)) continue;
+								if (levelLearned > 55 && ['aerialace', 'chargebeam', 'shadowball', 'rockpolish', 'falseswipe', 'psychic', 'blizzard', 'thunder', 'fireblast', 'hyperbeam', 'gigaimpact', 'lastresort', 'irondefense', 'magnetrise', 'magiccoat', 'block', 'hypervoice', 'electroweb', 'icywind', 'aquatail', 'earthpower', 'zenheadbutt', 'foulplay', 'superpower', 'gravity', 'dragonpulse', 'darkpulse', 'dragontail'].includes(altmoveid)) continue;
+								if (levelLearned > 58 && ['facade', 'bind', 'snore', 'healbell', 'knockoff', 'synthesis', 'roost', 'skyattack', 'roleplay', 'heatwave', 'gigadrain', 'drainpunch', 'painsplit', 'tailwind', 'scald'].includes(altmoveid)) continue;
+								if (levelLearned > 66 && ['toxic', 'retaliate', 'icebeam', 'psyshock', 'flamethrower', 'roar', 'taunt', 'trickroom', 'honeclaws', 'wildcharge', 'thunderbolt'].includes(altmoveid)) continue;
+								if (levelLearned > 70 && genVTms.includes(altmoveid)) continue;
+								*/
+								// actually, I don't want to enforce this because they can be good flavor - I prefer just marking them with the option to skip if I need more space
+
 								// disallow post-Gen V moves that I don't think I can copy
 								if (!this.dataCache.Moves[altmoveid]) console.log(altmoveid);
 								if (this.dataCache.Moves[altmoveid] && this.dataCache.Moves[altmoveid].num && this.dataCache.Moves[altmoveid].num > 559 && !movesAfterGenV.includes(altmoveid)) continue;
@@ -1636,7 +1652,24 @@ export const Scripts: ModdedBattleScriptsData = {
 							}
 							if (eligibleMoves.length) continue;
 							for (const altmoveid of moveGroups[section]) {
+								if (hms.includes(altmoveid)) continue; // never add these to level-up
 								if (usedSecondMoves.includes(altmoveid)) continue;
+
+								/*
+								// don't consider a move if you're just going to skip it later anyway
+								if (levelLearned > 14 && ['frustration', 'workup'].includes(altmoveid)) continue;
+								if (levelLearned > 20 && ['return', 'thief', 'rocksmash', 'venoshock'].includes(altmoveid)) continue;
+								if (levelLearned > 27 && ['attract', 'rest', 'flash', 'strugglebug'].includes(altmoveid)) continue;
+								if (levelLearned > 34 && ['dig', 'rocktomb', 'echoedvoice', 'thunderwave', 'gyroball', 'lightscreen', 'reflect', 'payback', 'snarl', 'voltswitch'].includes(altmoveid)) continue;
+								if (levelLearned > 37 && ['embargo', 'covet', 'bugbite', 'drillrun', 'bounce', 'signalbeam', 'ironhead', 'superfang', 'uproar', 'seedbomb', 'dualchop', 'lowkick', 'gunkshot', 'thunderpunch', 'firepunch', 'icepunch', 'bulldoze'].includes(altmoveid)) continue;
+								if (levelLearned > 44 && ['energyball', 'fling', 'torment', 'rockslide', 'hail', 'sunnyday', 'raindance', 'sandstorm', 'skydrop', 'xscissor', 'willowisp', 'shadowclaw', 'acrobatics'].includes(altmoveid)) continue;
+								if (levelLearned > 55 && ['aerialace', 'chargebeam', 'shadowball', 'rockpolish', 'falseswipe', 'psychic', 'blizzard', 'thunder', 'fireblast', 'hyperbeam', 'gigaimpact', 'lastresort', 'irondefense', 'magnetrise', 'magiccoat', 'block', 'hypervoice', 'electroweb', 'icywind', 'aquatail', 'earthpower', 'zenheadbutt', 'foulplay', 'superpower', 'gravity', 'dragonpulse', 'darkpulse', 'dragontail'].includes(altmoveid)) continue;
+								if (levelLearned > 58 && ['facade', 'bind', 'snore', 'healbell', 'knockoff', 'synthesis', 'roost', 'skyattack', 'roleplay', 'heatwave', 'gigadrain', 'drainpunch', 'painsplit', 'tailwind', 'scald'].includes(altmoveid)) continue;
+								if (levelLearned > 66 && ['toxic', 'retaliate', 'icebeam', 'psyshock', 'flamethrower', 'roar', 'taunt', 'trickroom', 'honeclaws', 'wildcharge', 'thunderbolt'].includes(altmoveid)) continue;
+								if (levelLearned > 70 && genVTms.includes(altmoveid)) continue;
+								*/
+								// actually, I don't want to enforce this because they can be good flavor - I prefer just marking them with the option to skip if I need more space
+
 								// disallow post-Gen V moves that I don't think I can copy
 								if (!this.dataCache.Moves[altmoveid]) console.log(altmoveid);
 								if (this.dataCache.Moves[altmoveid] && this.dataCache.Moves[altmoveid].num && this.dataCache.Moves[altmoveid].num > 559 && !movesAfterGenV.includes(altmoveid)) continue;
@@ -1757,7 +1790,7 @@ export const Scripts: ModdedBattleScriptsData = {
 						if (levelLearned > 70 && genVTms.includes(skipMove)) skip = true;
 						if (hms.includes(skipMove)) skip = true;
 						if (skip) {
-							moveName += ` (skip)`; // don't, like, *actually* skip it, but this is useful information for the spreadsheet
+							moveName += ` (can skip)`; // don't interfere with randomizing to it, but this is useful information for the spreadsheet
 							levelUpSpaces = true;
 						}
 
