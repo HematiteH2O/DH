@@ -150,15 +150,15 @@ export const Formats: FormatList = [
 			}
 			for (const id in this.dex.data.Pokedex) { // regular
 				const poke = this.dex.data.Pokedex[id];
-				if (poke && !(["Overgrow", "Blaze", "Torrent"].includes(poke.abilities[0]) || poke.tags || (poke.baseSpecies && this.dataCache.Pokedex[this.toID(poke.baseSpecies)].tags)) && poke.sheetOutput) this.add('-message', `${poke.sheetOutput}`);
+				if (poke && !(["Overgrow", "Blaze", "Torrent"].includes(poke.abilities[0]) || poke.tags || (poke.baseSpecies && this.dex.data.Pokedex[this.toID(poke.baseSpecies)].tags)) && poke.sheetOutput) this.add('-message', `${poke.sheetOutput}`);
 			}
 			for (const id in this.dex.data.Pokedex) { // Gen V Legendaries and stuff
 				const poke = this.dex.data.Pokedex[id];
-				if (poke && 493 < poke.num < 650 && (poke.tags || (poke.baseSpecies && this.dataCache.Pokedex[this.toID(poke.baseSpecies)].tags)) && poke.sheetOutput) this.add('-message', `${poke.sheetOutput}`);
+				if (poke && 493 < poke.num < 650 && (poke.tags || (poke.baseSpecies && this.dex.data.Pokedex[this.toID(poke.baseSpecies)].tags)) && poke.sheetOutput) this.add('-message', `${poke.sheetOutput}`);
 			}
 			for (const id in this.dex.data.Pokedex) { // other Legendaries and stuff
 				const poke = this.dex.data.Pokedex[id];
-				if (poke && !(493 < poke.num < 650) && (poke.tags || (poke.baseSpecies && this.dataCache.Pokedex[this.toID(poke.baseSpecies)].tags)) && poke.sheetOutput) this.add('-message', `${poke.sheetOutput}`);
+				if (poke && !(493 < poke.num < 650) && (poke.tags || (poke.baseSpecies && this.dex.data.Pokedex[this.toID(poke.baseSpecies)].tags)) && poke.sheetOutput) this.add('-message', `${poke.sheetOutput}`);
 			}
 		},
 		mod: 'randomizer',
