@@ -436,7 +436,7 @@ export const Scripts: ModdedBattleScriptsData = {
 			if (!poke || poke.evos) continue;
 			if (poke.types && poke.types[0] === "Bird") continue; // sorry Missingno.
 			if (!(this.dataCache.Learnsets[id] && this.dataCache.Learnsets[id].learnset)) continue; // skip Megas and G-Maxes this time
-			if (poke.baseSpecies && (poke.baseSpecies === "Pikachu" || poke.baseSpecies === "Pichu" || poke.baseSpecies === "Eevee" || poke.baseSpecies === "Floette")) continue;
+			if (poke.baseSpecies && (["Pikachu", "Pichu", "Eevee", "Floette", "Greninja", "Magearna", "Poltchageist", "Calyrex"].includes(poke.baseSpecies)) continue; // can do special handling for Calyrex in a later section
 			if (poke.forme && (poke.forme === "Totem" || poke.forme === "Alola-Totem")) continue;
 			if (poke.num && poke.num < 0) continue; // skip CAPs
 			let future = false; // determine if something is Gen VIII or later
