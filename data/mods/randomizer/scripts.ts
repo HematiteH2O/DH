@@ -454,7 +454,7 @@ export const Scripts: ModdedBattleScriptsData = {
 				if (!(poke.baseSpecies && (exceptionalForms.includes(poke.baseSpecies)))) continue; // skip Megas and G-Maxes this time
 			}
 			if (poke.baseSpecies && ["Pikachu", "Pichu", "Eevee", "Greninja", "Vivillon", "Floette", "Magearna", "Zarude", "Calyrex", "Sinistcha"].includes(poke.baseSpecies)) continue;
-			if (poke.forme && (poke.forme === "Totem" || poke.forme === "Alola-Totem") continue;
+			if (poke.forme && (poke.forme === "Totem" || poke.forme === "Alola-Totem")) continue;
 			if (poke.baseSpecies && ["Necrozma", "Ogerpon"].includes(poke.baseSpecies) && poke.battleOnly) continue;
 			if (poke.num && poke.num < 0) continue; // skip CAPs
 			let future = false; // determine if something is Gen VIII or later
@@ -1208,11 +1208,10 @@ export const Scripts: ModdedBattleScriptsData = {
 			let randomType = Math.floor(Math.random() * loopCount);
 			poke.chosenType = chosenCombinations[randomType];
 			if (!chosenCombinations[randomType]) {
-				console.log(poke.name + ` failed; list of valid types: ` + chosenTypes);
 				if (chosenTypes) {
 					poke.chosenType = {
-						type1: [chosenTypes[0]],
-						type2: [chosenTypes[1] ? chosenTypes[1] : chosenTypes[0]],
+						type1: [chosenTypes[chosenTypes.length]],
+						type2: [chosenTypes.length ? chosenTypes[chosenTypes.length-1] : chosenTypes[chosenTypes.length]],
 					};
 				} else {
 					poke.chosenType = {
@@ -1220,6 +1219,15 @@ export const Scripts: ModdedBattleScriptsData = {
 						type2: [poke.types[1] ? poke.types[1] : poke.types[0]],
 					};
 				}
+				if (poke.forceType) poke.chosenType.type2 = poke.forceType;
+				if (poke.name === "Necrozma-Dusk-Mane" && this.dataCache.Pokedex.solgaleo.chosenType) poke.chosenType = this.dataCache.Pokedex.solgaleo.chosenType;
+				if (poke.name === "Necrozma-Dawn-Wings" && this.dataCache.Pokedex.lunala.chosenType) poke.chosenType = this.dataCache.Pokedex.lunala.chosenType;
+				if ((poke.name === "Kyurem-Black" || poke.name === "Kyurem-White") && this.dataCache.Pokedex.kyurem.chosenType) poke.chosenType = this.dataCache.Pokedex.kyurem.chosenType;
+				// then, if it *still* failed...
+				if (
+					(poke.chosenType.type1 === poke.types[0] && ((poke.types[1] && poke.chosenType.type2 === poke.types[1]) || (!poke.types[1] && poke.chosenType.type2 === poke.types[0]))) ||
+					(poke.chosenType.type2 === poke.types[0] && ((poke.types[1] && poke.chosenType.type1 === poke.types[1]) || (!poke.types[1] && poke.chosenType.type1 === poke.types[0])))
+				) console.log(poke.name + ` failed; list of valid types: ` + chosenTypes);
 			}
 			if ((poke.types[0] === poke.chosenType.type2) || (poke.types[1] && poke.types[1] === poke.chosenType.type1)) {
 				const secondType = poke.chosenType.type1;
