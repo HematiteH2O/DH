@@ -1760,7 +1760,7 @@ export const Scripts: ModdedBattleScriptsData = {
 					// UTILITY SECTIONS
 					let moveIdBeingChecked = moveid;
 					if (secondMove) moveIdBeingChecked = this.toID(secondMove.name);
-					let moveBeingChecked = this.dataCache.Moves[moveBeingChecked];
+					let moveBeingChecked = this.dataCache.Moves[moveIdBeingChecked];
 
 					let belongsInOther = false;
 					if (pushLvUp.includes(moveIdBeingChecked)) belongsInOther = true; // will set this to false if it gets sorted anywhere else first
