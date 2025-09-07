@@ -2092,7 +2092,7 @@ export const Scripts: ModdedBattleScriptsData = {
 						if (move.num && move.num > 559) {
 							if (movesAfterGenV.includes(moveid)) poke.backports.push(moveName);
 						} else {
-							if (!genVLearnedEggAlready && ((secondMove && additional!genVTms.includes(this.toID(secondMove.name))) || (!secondMove && additional!genVTms.includes(moveid))) poke.additionalEggMoves.push(moveName); // helps for inputting movepools
+							if (!genVLearnedEggAlready && !genVTms.includes(moveid)) poke.additionalEggMoves.push(moveName); // helps for inputting movepools
 							if (pushLevelUp.includes(moveid) || (pushLevelUpPrankster.includes(moveid) && moveAbilitySet.includes("Prankster"))) {
 								poke.recommendedLvUp.push(moveName);
 							} else if (synergyMove === 1) {
