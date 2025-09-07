@@ -2,6 +2,12 @@
 // - form corrections
 // - organized movepool highlights for export
 // - making a sheet : D
+const exceptionalForms = [
+	'Deoxys', 'Giratina', 'Shaymin', 'Darmanitan', 'Tornadus', 'Thundurus', 'Landorus', 'Meloetta', 'Hoopa', 'Enamorus',
+];
+const formsSkipMovepools = [
+	'Rotom', 'Giratina', 'Darmanitan', 'Tornadus', 'Thundurus', 'Landorus', 'Kyurem', 'Meloetta', 'Enamorus', 'Necrozma', 'Zacian', 'Zamazenta', 'Ogerpon',
+];
 
 const pushLevelUp = [
 	'accelerock', 'acid', 'acidspray', 'acupressure', 'afteryou', 'aircutter', 'allyswitch', 'appleacid', 'aquajet', 'aquastep', 'astralbarrage', 'aurawheel', 'babydolleyes', 'batonpass', 'bellydrum', 'bitterblade', 'bittermalice',
@@ -445,11 +451,11 @@ export const Scripts: ModdedBattleScriptsData = {
 			if (!poke || poke.evos) continue;
 			if (poke.types && poke.types[0] === "Bird") continue; // sorry Missingno.
 			if (!(this.dataCache.Learnsets[id] && this.dataCache.Learnsets[id].learnset)) {
-				if (!(poke.baseSpecies && (["Hoopa", "Shaymin", "Deoxys"].includes(poke.baseSpecies)))) continue; // skip Megas and G-Maxes this time
+				if (!(poke.baseSpecies && (exceptionalForms.includes(poke.baseSpecies)))) continue; // skip Megas and G-Maxes this time
 			}
 			if (poke.baseSpecies && ["Pikachu", "Pichu", "Eevee", "Greninja", "Vivillon", "Floette", "Magearna", "Zarude", "Calyrex", "Sinistcha"].includes(poke.baseSpecies)) continue;
-			// I can do special handling for Calyrex in a later section
-			if (poke.forme && (poke.forme === "Totem" || poke.forme === "Alola-Totem")) continue;
+			if (poke.forme && (poke.forme === "Totem" || poke.forme === "Alola-Totem") continue;
+			if (poke.baseSpecies && ["Necrozma", "Ogerpon"].includes(poke.baseSpecies) && poke.battleOnly) continue;
 			if (poke.num && poke.num < 0) continue; // skip CAPs
 			let future = false; // determine if something is Gen VIII or later
 			if (poke.num && poke.num > 809) future = true;
@@ -473,7 +479,7 @@ export const Scripts: ModdedBattleScriptsData = {
 			// - list eligible Abilities (no form-change Abilities, Wonder Guard) - done
 			// - randomize 1 Ability and put it in slot 1 - done
 			let randomForAbility = randAbilities[Math.floor(Math.random() * randAbilities.length)];
-			if (!(poke.gender && poke.gender === "N")) randomForAbility = randAbilitiesGenderless[Math.floor(Math.random() * randAbilitiesGenderless.length)];
+			if (poke.gender && poke.gender === "N") randomForAbility = randAbilitiesGenderless[Math.floor(Math.random() * randAbilitiesGenderless.length)];
 			poke.randAbilities = {0: abilityDex[randomForAbility].name};
 
 			// decide slot 2 Ability
@@ -573,8 +579,26 @@ export const Scripts: ModdedBattleScriptsData = {
 				}
 			}
 
-			// do not randomize anything for Slaking, Regigigas, Archeops, etc. - done
-			if (["Slaking", "Archeops", "Regigigas"].includes(poke.name)) poke.randAbilities = poke.abilities;
+			// do not randomize anything for Slaking, Regigigas, Archeops, etc.
+			if (["Slaking", "Archeops", "Regigigas", "Darmanitan-Zen", "Darmanitan-Galar-Zen"].includes(poke.name)) poke.randAbilities = poke.abilities;
+
+			// fusions
+			if (poke.name === "Kyurem-Black") poke.randAbilities = this.dataCache.Pokedex.zekrom.randAbilities;
+			if (poke.name === "Kyurem-White") poke.randAbilities = this.dataCache.Pokedex.reshiram.randAbilities;
+			if (poke.name === "Necrozma-Dusk-Mane") poke.randAbilities = this.dataCache.Pokedex.necrozma.randAbilities;
+			if (poke.name === "Necrozma-Dawn-Wings") poke.randAbilities = this.dataCache.Pokedex.necrozma.randAbilities;
+
+			// other forms - some of these normally don't change Ability, but I think it's more fun if they're allowed in the randomizer!
+			if (['rotom', 'giratina', 'tornadus', 'thundurus', 'landorus', 'meloetta', 'enamorus', 'zacian', 'zamazenta', 'ogerpon']).includes(id) {
+				for (const form of poke.otherFormes) {
+					const pokeForme = this.dataCache.Pokedex[this.toID(form)];
+					if (id === 'ogerpon' && pokeForme.battleOnly) continue;
+					pokeForme.forceAbility = randAbilities[Math.floor(Math.random() * randAbilities.length)];
+					if (pokeForme.gender && pokeForme.gender === "N") pokeForme.forceAbility = randAbilitiesGenderless[Math.floor(Math.random() * randAbilitiesGenderless.length)];
+				}
+			}
+
+			if (poke.forceAbility) poke.randAbilities = {0: poke.forceAbility};
 
 			// setting aside this section to randomize extra Abilities for forms
 			if (["Basculin"].includes(poke.name)) poke.randAbilities[3] = abilityDex[randAbilities[Math.floor(Math.random() * randAbilities.length)]].name;
@@ -585,7 +609,7 @@ export const Scripts: ModdedBattleScriptsData = {
 
 			// - randomize a second Ability only for the crossgen output - done
 			randomForAbility = randAbilities[Math.floor(Math.random() * randAbilities.length)];
-			if (!(poke.gender && poke.gender === "N")) randomForAbility = randAbilitiesGenderless[Math.floor(Math.random() * randAbilitiesGenderless.length)];
+			if (poke.gender && poke.gender === "N") randomForAbility = randAbilitiesGenderless[Math.floor(Math.random() * randAbilitiesGenderless.length)];
 			let crossgenAbility = abilityDex[randomForAbility].name;
 			let overrodeRanking = false;
 			poke.crossgenAbilities = {0: poke.randAbilities[0]};
@@ -824,6 +848,34 @@ export const Scripts: ModdedBattleScriptsData = {
 				chosenTypes.push(validTypes3[random3]);
 			}
 
+			// let's overrule that for some of these
+			if (poke.baseSpecies && [
+				"Rotom", "Darmanitan", "Kyurem", "Necrozma", "Zacian", "Zamazenta", "Ogerpon"
+			].includes(poke.baseSpecies) && poke.name !== "Darmanitan-Galar") {
+				if (this.dataCache.Pokedex[this.toID(poke.baseSpecies)].chosenType) {
+					chosenTypes = [];
+					chosenTypes.push(this.dataCache.Pokedex[this.toID(poke.baseSpecies)].chosenType.type1);
+					chosenTypes.push(this.dataCache.Pokedex[this.toID(poke.baseSpecies)].chosenType.type2);
+				}
+				if (poke.name === "Kyurem-Black" && this.dataCache.Pokedex.zekrom.chosenType) {
+					chosenTypes.push(this.dataCache.Pokedex.zekrom.chosenType.type1);
+					chosenTypes.push(this.dataCache.Pokedex.zekrom.chosenType.type2);
+				}
+				if (poke.name === "Kyurem-White" && this.dataCache.Pokedex.reshiram.chosenType) {
+					chosenTypes.push(this.dataCache.Pokedex.reshiram.chosenType.type1);
+					chosenTypes.push(this.dataCache.Pokedex.reshiram.chosenType.type2);
+				}
+				if (poke.name === "Necrozma-Dusk-Mane" && this.dataCache.Pokedex.solgaleo.chosenType) {
+					chosenTypes.push(this.dataCache.Pokedex.solgaleo.chosenType.type1);
+					chosenTypes.push(this.dataCache.Pokedex.solgaleo.chosenType.type2);
+				}
+				if (poke.name === "Necrozma-Dawn-Wings" && this.dataCache.Pokedex.lunala.chosenType) {
+					chosenTypes.push(this.dataCache.Pokedex.lunala.chosenType.type1);
+					chosenTypes.push(this.dataCache.Pokedex.lunala.chosenType.type2);
+				}
+			}
+			if (poke.forceType) chosenTypes.push(poke.forceType);
+
 			// - score different type combinations; pick at random from the highest-scoring combinations
 			// - thinking... iterate through all possible type1s, then iterate through all possible type2s, then push to a list of eligible combinations
 			// - clear the list of eligible combinations every time a higher scorer is found
@@ -846,6 +898,7 @@ export const Scripts: ModdedBattleScriptsData = {
 			let loopCount = 0;
 			for (const type1 of chosenTypes) {
 				for (const type2 of chosenTypes) {
+					if (poke.forceType && ![type1, type2].includes(forceType)) continue;
 					let score = 0;
 					let lowSynergy = false; // for a later step about evaluating setup; true for single-types or dual-types walled by one type
 					let pokeCheck = poke;
@@ -1156,10 +1209,17 @@ export const Scripts: ModdedBattleScriptsData = {
 			poke.chosenType = chosenCombinations[randomType];
 			if (!chosenCombinations[randomType]) {
 				console.log(poke.name + ` failed; list of valid types: ` + chosenTypes);
-				poke.chosenType = {
-					type1: [poke.types[0]],
-					type2: [poke.types[1] ? poke.types[1] : poke.types[0]],
-				};
+				if (chosenTypes) {
+					poke.chosenType = {
+						type1: [chosenTypes[0]],
+						type2: [chosenTypes[1] ? chosenTypes[1] : chosenTypes[0]],
+					};
+				} else {
+					poke.chosenType = {
+						type1: [poke.types[0]],
+						type2: [poke.types[1] ? poke.types[1] : poke.types[0]],
+					};
+				}
 			}
 			if ((poke.types[0] === poke.chosenType.type2) || (poke.types[1] && poke.types[1] === poke.chosenType.type1)) {
 				const secondType = poke.chosenType.type1;
@@ -1189,6 +1249,28 @@ export const Scripts: ModdedBattleScriptsData = {
 				}
 			}
 
+			// form prep
+			if ([
+				"Rotom", "Darmanitan", "Darmanitan-Galar", "Meloetta", "Zacian", "Zamazenta", "Ogerpon"
+			].includes(poke.name)) {
+				let alreadyForced = [];
+				for (const form of poke.otherFormes) {
+					const pokeForme = this.dataCache.Pokedex[this.toID(form)];
+					if (id === 'ogerpon' && pokeForme.battleOnly) continue;
+					const validTypes4: string[] = [];
+					for (const type in this.dataCache.TypeChart) {
+						if (type === poke.chosenType.type1) continue;
+						if (type === poke.chosenType.type2) continue;
+						if (alreadyForced.includes(type)) continue;
+						validTypes4.push(type);
+					}
+					if (validTypes4.length) {
+						pokeForme.forceType = (validTypes4[Math.floor(Math.random() * validTypes4.length)]);
+						alreadyForced.push(pokeForme.forceType);
+					}
+				}
+			}
+
 			// console.logging
 			/*
 			let samples: string[] = [poke.name + ` samples: `];
@@ -1206,11 +1288,11 @@ export const Scripts: ModdedBattleScriptsData = {
 			// RANDOM MOVES
 			// todo:
 			// - add universal moves to learnsets when randomizing (based on the new type) - done
-			// - go through move substitutions by type, but keep the old move listed in the same row just in case (ex. "15 - Icy Wind -> Struggle Bug")
-			// - possible: filter out moves that are already TMs if the player gets the TM earlier than the level-up move (save on space)
-			// - possible: push one completely random (? within certain parameters?) extra move to the learnset
+			// - go through move substitutions by type, but keep the old move listed in the same row just in case (ex. "15 - Icy Wind -> Struggle Bug") - done
+			// - possible: filter out moves that are already TMs if the player gets the TM earlier than the level-up move (save on space) - done
+			// - possible: push one completely random (? within certain parameters?) extra move to the learnset - decided against I guess
 
-			if ((this.dataCache.Learnsets[id] && this.dataCache.Learnsets[id].learnset) || (poke.baseSpecies && (["Hoopa", "Shaymin", "Deoxys"].includes(poke.baseSpecies)))) {
+			if ((this.dataCache.Learnsets[id] && this.dataCache.Learnsets[id].learnset) || (poke.baseSpecies && (exceptionalForms.includes(poke.baseSpecies)))) {
 				printno++;
 
 				const learnsetTypes: string[] = [];
@@ -1225,6 +1307,13 @@ export const Scripts: ModdedBattleScriptsData = {
 				for (const idNo in poke.randAbilities) moveAbilitySet.push(poke.randAbilities[idNo]);
 				// this can only make movepools bigger, so including HAs is fine, and this covers alternate forms as well
 
+				if (['rotom', 'giratina', 'tornadus', 'thundurus', 'landorus', 'meloetta', 'enamorus', 'zacian', 'zamazenta', 'ogerpon']).includes(id) {
+					for (const form of poke.otherFormes) {
+						const pokeForme = this.dataCache.Pokedex[this.toID(form)];
+						if (pokeForme.forceAbility) moveAbilitySet.push(pokeForme.forceAbility);
+					}
+				}
+
 				if (moveAbilitySet.includes("Drizzle") || moveAbilitySet.includes("Swift Swim") || moveAbilitySet.includes("Rain Dish") || moveAbilitySet.includes("Dry Skin") || moveAbilitySet.includes("Hydration") || moveAbilitySet.includes("Torrent")) learnsetTypes.push("Water");
 				if (moveAbilitySet.includes("Drought") || moveAbilitySet.includes("Blaze") || moveAbilitySet.includes("Flash Fire")) learnsetTypes.push("Fire");
 				if (moveAbilitySet.includes("Overgrow")) learnsetTypes.push("Grass");
@@ -1234,6 +1323,13 @@ export const Scripts: ModdedBattleScriptsData = {
 					learnsetTypes.push("Ground");
 					learnsetTypes.push("Steel");
 				}
+
+				let formeForcedType = null;
+				if (poke.name === "Darmanitan" && this.dataCache.Pokedex.darmanitanzen.forceType) formeForcedType = this.dataCache.Pokedex.darmanitanzen.forceType;
+				if (poke.name === "Darmanitan-Galar" && this.dataCache.Pokedex.darmanitangalarzen.forceType) formeForcedType = this.dataCache.Pokedex.darmanitangalarzen.forceType;
+				if (poke.name === "Meloetta" && this.dataCache.Pokedex.meloettapirouette.forceType) formeForcedType = this.dataCache.Pokedex.meloettapirouette.forceType;
+				if (poke.name === "Zacian" && this.dataCache.Pokedex.zaciancrowned.forceType) formeForcedType = this.dataCache.Pokedex.zaciancrowned.forceType;
+				if (poke.name === "Zamazenta" && this.dataCache.Pokedex.zamazentacrowned.forceType) formeForcedType = this.dataCache.Pokedex.zamazentacrowned.forceType;
 
 				poke.learnsetCumulative = {
 							Moves: [],
@@ -1255,7 +1351,7 @@ export const Scripts: ModdedBattleScriptsData = {
 				let learnset = null;
 				if ((this.dataCache.Learnsets[id] && this.dataCache.Learnsets[id].learnset)) {
 					learnset = this.modData('Learnsets', this.toID(id)).learnset;
-				} else if ((poke.baseSpecies && (["Hoopa", "Shaymin", "Deoxys"].includes(poke.baseSpecies)))) {
+				} else if ((poke.baseSpecies && (exceptionalForms.includes(poke.baseSpecies)))) {
 					learnset = this.modData('Learnsets', this.toID(poke.baseSpecies)).learnset;
 				}
 				let learnset2 = null;
@@ -1419,24 +1515,24 @@ export const Scripts: ModdedBattleScriptsData = {
 					// should be 0 now if not forced yet and -1 if universal
 
 					// types
-					if ((poke.chosenType.type1 === 'Fire' || poke.chosenType.type2 === 'Fire') && universalFire.includes(moveid)) forceLearn = true;
-					if ((poke.chosenType.type1 === 'Water' || poke.chosenType.type2 === 'Water') && universalWater.includes(moveid)) forceLearn = true;
-					if ((poke.chosenType.type1 === 'Electric' || poke.chosenType.type2 === 'Electric') && universalElectric.includes(moveid)) forceLearn = true;
-					if ((poke.chosenType.type1 === 'Grass' || poke.chosenType.type2 === 'Grass') && universalGrass.includes(moveid)) forceLearn = true;
-					if ((poke.chosenType.type1 === 'Ice' || poke.chosenType.type2 === 'Ice') && universalIce.includes(moveid)) forceLearn = true;
-					if ((poke.chosenType.type1 === 'Fighting' || poke.chosenType.type2 === 'Fighting') && universalFighting.includes(moveid)) forceLearn = true;
-					if ((poke.chosenType.type1 === 'Poison' || poke.chosenType.type2 === 'Poison') && universalPoison.includes(moveid)) forceLearn = true;
-					if ((poke.chosenType.type1 === 'Ground' || poke.chosenType.type2 === 'Ground') && universalGround.includes(moveid)) forceLearn = true;
-					if ((poke.chosenType.type1 === 'Flying' || poke.chosenType.type2 === 'Flying') && universalFlying.includes(moveid)) forceLearn = true;
-					if ((poke.chosenType.type1 === 'Psychic' || poke.chosenType.type2 === 'Psychic') && universalPsychic.includes(moveid)) forceLearn = true;
-					if ((poke.chosenType.type1 === 'Bug' || poke.chosenType.type2 === 'Bug') && universalBug.includes(moveid)) forceLearn = true;
-					if ((poke.chosenType.type1 === 'Rock' || poke.chosenType.type2 === 'Rock') && universalRock.includes(moveid)) forceLearn = true;
-					if ((poke.chosenType.type1 === 'Ghost' || poke.chosenType.type2 === 'Ghost') && universalGhost.includes(moveid)) forceLearn = true;
-					if ((poke.chosenType.type1 === 'Dragon' || poke.chosenType.type2 === 'Dragon') && universalDragon.includes(moveid)) forceLearn = true;
-					if ((poke.chosenType.type1 === 'Dark' || poke.chosenType.type2 === 'Dark') && universalDark.includes(moveid)) forceLearn = true;
-					if ((poke.chosenType.type1 === 'Steel' || poke.chosenType.type2 === 'Steel') && universalSteel.includes(moveid)) forceLearn = true;
-					if ((poke.chosenType.type1 === 'Fairy' || poke.chosenType.type2 === 'Fairy') && universalFairy.includes(moveid)) forceLearn = true;
-					if ((poke.chosenType.type1 === 'Normal' || poke.chosenType.type2 === 'Normal') && universalNormal.includes(moveid)) forceLearn = true;
+					if ((poke.chosenType.type1 === 'Fire' || poke.chosenType.type2 === 'Fire' || (formeForcedType && formeForcedType === 'Fire')) && universalFire.includes(moveid)) forceLearn = true;
+					if ((poke.chosenType.type1 === 'Water' || poke.chosenType.type2 === 'Water' || (formeForcedType && formeForcedType === 'Water')) && universalWater.includes(moveid)) forceLearn = true;
+					if ((poke.chosenType.type1 === 'Electric' || poke.chosenType.type2 === 'Electric' || (formeForcedType && formeForcedType === 'Electric')) && universalElectric.includes(moveid)) forceLearn = true;
+					if ((poke.chosenType.type1 === 'Grass' || poke.chosenType.type2 === 'Grass' || (formeForcedType && formeForcedType === 'Grass')) && universalGrass.includes(moveid)) forceLearn = true;
+					if ((poke.chosenType.type1 === 'Ice' || poke.chosenType.type2 === 'Ice' || (formeForcedType && formeForcedType === 'Ice')) && universalIce.includes(moveid)) forceLearn = true;
+					if ((poke.chosenType.type1 === 'Fighting' || poke.chosenType.type2 === 'Fighting' || (formeForcedType && formeForcedType === 'Fighting')) && universalFighting.includes(moveid)) forceLearn = true;
+					if ((poke.chosenType.type1 === 'Poison' || poke.chosenType.type2 === 'Poison' || (formeForcedType && formeForcedType === 'Poison')) && universalPoison.includes(moveid)) forceLearn = true;
+					if ((poke.chosenType.type1 === 'Ground' || poke.chosenType.type2 === 'Ground' || (formeForcedType && formeForcedType === 'Ground')) && universalGround.includes(moveid)) forceLearn = true;
+					if ((poke.chosenType.type1 === 'Flying' || poke.chosenType.type2 === 'Flying' || (formeForcedType && formeForcedType === 'Flying')) && universalFlying.includes(moveid)) forceLearn = true;
+					if ((poke.chosenType.type1 === 'Psychic' || poke.chosenType.type2 === 'Psychic' || (formeForcedType && formeForcedType === 'Psychic')) && universalPsychic.includes(moveid)) forceLearn = true;
+					if ((poke.chosenType.type1 === 'Bug' || poke.chosenType.type2 === 'Bug' || (formeForcedType && formeForcedType === 'Bug')) && universalBug.includes(moveid)) forceLearn = true;
+					if ((poke.chosenType.type1 === 'Rock' || poke.chosenType.type2 === 'Rock' || (formeForcedType && formeForcedType === 'Rock')) && universalRock.includes(moveid)) forceLearn = true;
+					if ((poke.chosenType.type1 === 'Ghost' || poke.chosenType.type2 === 'Ghost' || (formeForcedType && formeForcedType === 'Ghost')) && universalGhost.includes(moveid)) forceLearn = true;
+					if ((poke.chosenType.type1 === 'Dragon' || poke.chosenType.type2 === 'Dragon' || (formeForcedType && formeForcedType === 'Dragon')) && universalDragon.includes(moveid)) forceLearn = true;
+					if ((poke.chosenType.type1 === 'Dark' || poke.chosenType.type2 === 'Dark' || (formeForcedType && formeForcedType === 'Dark')) && universalDark.includes(moveid)) forceLearn = true;
+					if ((poke.chosenType.type1 === 'Steel' || poke.chosenType.type2 === 'Steel' || (formeForcedType && formeForcedType === 'Steel')) && universalSteel.includes(moveid)) forceLearn = true;
+					if ((poke.chosenType.type1 === 'Fairy' || poke.chosenType.type2 === 'Fairy' || (formeForcedType && formeForcedType === 'Fairy')) && universalFairy.includes(moveid)) forceLearn = true;
+					if ((poke.chosenType.type1 === 'Normal' || poke.chosenType.type2 === 'Normal' || (formeForcedType && formeForcedType === 'Normal')) && universalNormal.includes(moveid)) forceLearn = true;
 					// Egg groups
 					if ((poke.eggGroups[0] === 'Monster' || (poke.eggGroups[1] && poke.eggGroups[1] === 'Monster')) && universalMonsterGroup.includes(moveid)) forceLearn = true;
 					if ((poke.eggGroups[0] === 'Human-Like' || (poke.eggGroups[1] && poke.eggGroups[1] === 'Human-Like')) && universalHumanlikeGroup.includes(moveid)) forceLearn = true;
@@ -1758,7 +1854,8 @@ export const Scripts: ModdedBattleScriptsData = {
 							// form change move security
 							if (["Kyurem", "Kyurem-Black", "Kyurem-White"].includes(poke.name) && ["scaryface", "glaciate", "fusionflare", "fusionbolt", "iceburn", "freezeshock"].includes(moveid)) continue;
 							if (["Hoopa", "Hoopa-Unbound"].includes(poke.name) && ["hyperspacehole", "hyperspacefury"].includes(moveid)) continue;
-							if (["Calyrex", "Necrozma"].includes(poke.name) && moveid === "confusion") continue;
+							if (["Necrozma", "Calyrex"].includes(poke.name) && moveid === "confusion") continue;
+							if (["Zacian", "Zamazenta"].includes(poke.name) && moveid === "ironhead") continue;
 							if (poke.name === "Rotom" && moveid === "thundershock") continue;
 
 							let randomMove = eligibleMoves[Math.floor(Math.random() * eligibleMoves.length)];
@@ -2021,6 +2118,11 @@ export const Scripts: ModdedBattleScriptsData = {
 						if (levelUpSpaces) poke.extraLevelUpSpaces++;
 						poke.learnsetCumulative.learnset[levelLearned].movesLearned.push(moveName);
 					}
+				}
+
+				if (poke.baseSpecies && formsSkipMovepools.includes(poke.baseSpecies) && poke.name !== "Darmanitan-Galar") {
+					poke.listOfCertainMoves = this.dataCache.Pokedex[this.toID(poke.baseSpecies)].listOfCertainMoves;
+					if (poke.name !== "Darmanitan-Galar-Zen") poke.listOfCertainMoves = this.dataCache.Pokedex.darmanitangalar.listOfCertainMoves;
 				}
 
 
@@ -3185,6 +3287,11 @@ export const Scripts: ModdedBattleScriptsData = {
 						// stat deltas
 						sheetOutput += ((poke.crossHp - poke.randHp) !== 0 ? (poke.crossHp - poke.randHp) : ` `) + `~` + ((poke.crossAtk - poke.randAtk) !== 0 ? (poke.crossAtk - poke.randAtk) : ` `) + `~` + ((poke.crossDef - poke.randDef) !== 0 ? (poke.crossDef - poke.randDef) : ` `) + `~` + ((poke.crossSpA - poke.randSpA) !== 0 ? (poke.crossSpA - poke.randSpA) : ` `) + `~` + ((poke.crossSpD - poke.randSpD) !== 0 ? (poke.crossSpD - poke.randSpD) : ` `) + `~` + ((poke.crossSpe - poke.randSpe) !== 0 ? (poke.crossSpe - poke.randSpe) : ` `) + `\n`;
 					}
+				}
+
+				if (poke.baseSpecies && formsSkipMovepools.includes(poke.baseSpecies) && poke.name !== "Darmanitan-Galar") {
+					poke.sheetOutput = sheetOutput;
+					continue;
 				}
 
 				// learnset
