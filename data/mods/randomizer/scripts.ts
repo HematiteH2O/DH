@@ -455,8 +455,16 @@ export const Scripts: ModdedBattleScriptsData = {
 			if (poke.num && poke.num > 809) future = true;
 			if (poke.forme && (poke.forme === "Galar" || poke.forme === "Hisui" || poke.baseSpecies === "Tauros")) future = true;
 
-			// just for sanity checks and tracking later
+			// for sanity checks and tracking later
 			poke.listOfCertainMoves = [];
+			poke.movepool.stab1 = [];
+			poke.movepool.stab2 = [];
+			poke.movepool.speedControl = [];
+			poke.movepool.priority = [];
+			poke.movepool.spread = [];
+			poke.movepool.fieldEffect = [];
+			poke.movepool.damageMitigation = [];
+			poke.movepool.other = [];
 
 			// RANDOM ABILITY
 			// todo:
@@ -1378,8 +1386,8 @@ export const Scripts: ModdedBattleScriptsData = {
 					if (moveAbilitySet.includes("Serene Grace") && learnsetTypes.includes(move.type) && (move.secondary && move.secondary.chance && move.secondary.chance < 90 && move.secondary.chance > 10)) forceLearn = true;
 					if (moveAbilitySet.includes("Iron Fist") && learnsetTypes.includes(move.type) && (move.flags['punch'])) forceLearn = true;
 					if ((moveAbilitySet.includes("Rock Head") || moveAbilitySet.includes("Reckless")) && learnsetTypes.includes(move.type) && (move.recoil)) forceLearn = true;
-					if (moveAbilitySet.includes("Skill Link") && learnsetTypes.includes(move.type) && (move.multihit)) forceLearn = true;
-					if (moveAbilitySet.includes("Technician") && learnsetTypes.includes(move.type) && (move.basePower && move.basePower < 61 && move.basePower > 10) && !move.realMove) forceLearn = true; // "move.realMove" is a field used for Hidden Power
+					if (moveAbilitySet.includes("Skill Link") && learnsetTypes.includes(move.type) && (move.multihit && move.multihit !== 2 && move.multihit !== 3)) forceLearn = true;
+					if (moveAbilitySet.includes("Technician") && learnsetTypes.includes(move.type) && (move.basePower && move.basePower < 61 && (move.basePower > 39 || move.multihit) && !move.realMove)) forceLearn = true; // "move.realMove" is a field used for Hidden Power
 					if ((moveAbilitySet.includes("Sniper") || moveAbilitySet.includes("Super Luck")) && learnsetTypes.includes(move.type) && (move.critRatio)) forceLearn = true;
 					if (moveAbilitySet.includes("Sniper") && learnsetTypes.includes(move.type) && (move.willCrit)) forceLearn = true;
 					if ((moveAbilitySet.includes("No Guard") || moveAbilitySet.includes("Compound Eyes")) && learnsetTypes.includes(move.type) && (move.accuracy && move.accuracy < 95 && move.accuracy > 60)) forceLearn = true;
@@ -1747,7 +1755,87 @@ export const Scripts: ModdedBattleScriptsData = {
 						if (!secondMoveLearnedByTmAlready && !poke.additionalTms.includes(secondMoveName)) poke.additionalTms.push(secondMoveName);
 					}
 
-					// resume
+					// resume: at this point, you have determined exactly what move it is and what level it's going to be learned
+					// UTILITY SECTIONS
+					let moveIdBeingChecked = moveid;
+					if (secondMove) moveIdBeingChecked = this.toID(secondMove.name);
+					let moveBeingChecked = this.dataCache.Moves[moveBeingChecked];
+
+					let belongsInOther = false;
+					if (pushLvUp.includes(moveIdBeingChecked)) belongsInOther = true; // will set this to false if it gets sorted anywhere else first
+
+					let learnedMoveBeingChecked = false;
+					// - if it's a TM
+					if (genVTms.includes(moveIdBeingChecked)) learnedMoveBeingChecked = true;
+					// - if it's in recommendedLvUp
+					if (pushLvUp.includes(moveIdBeingChecked)) learnedMoveBeingChecked = true;
+					// - if it's in level-up...
+					// - or if it's in additional moves (level 101 / Egg, breeding) but *not* because it's a synergyMove
+					if (levelLearned && (levelLearned < 101 || synergyMove !== 1)) learnedMoveBeingChecked = true;
+
+					if (moveBeingChecked.num && moveBeingChecked.num > 559) {
+						if (!movesAfterGenV.includes(moveIdBeingChecked)) learnedMoveBeingChecked = false;
+					}
+
+					if (learnedMoveBeingChecked) {
+						let moveBeingCheckedName = moveBeingChecked.name;
+						if (levelLearned && levelLearned < 101) {
+							moveBeingCheckedName = levelLearned + `) ` + moveBeingCheckedName;
+							if (levelLearned < 10) moveBeingCheckedName = `0` + moveBeingCheckedName; // pad with a leading 0 for alphabetization
+							moveBeingCheckedName = `(` + moveBeingCheckedName;
+						}
+						if ((moveBeingChecked.basePower && moveBeingChecked.basePower > 0) {
+							// STABs
+							if (moveBeingChecked.type === poke.chosenType.type1) {
+								poke.movepool.stab1.push(moveBeingCheckedName);
+								belongsInOther = false;
+							}
+							if ((poke.chosenType.type2 !== poke.chosenType.type1) && moveBeingChecked.type === poke.chosenType.type2) {
+								poke.movepool.stab2.push(moveBeingCheckedName);
+								belongsInOther = false;
+							}
+							// priority
+							if ((moveBeingChecked.priority && moveBeingChecked.priority > 0) || (pushLevelUpPrankster.includes(moveIdBeingChecked) && moveAbilitySet.includes("Prankster"))) {
+								poke.movepool.priority.push(moveBeingCheckedName);
+								belongsInOther = false;
+							}
+							// spread
+							if (moveBeingChecked.target && ["allAdjacent","allAdjacentFoes"].includes(moveBeingChecked.target)) {
+								poke.movepool.spread.push(moveBeingCheckedName);
+								belongsInOther = false;
+							}
+						}
+						// Speed control
+						if ([
+							'tailwind', 'trickroom',
+							'thunderwave', 'glare', 'stunspore', 'nuzzle', 'afteryou',
+							'bulldoze', 'cottonspore', 'drumbeating', 'electroweb', 'glaciate', 'icywind', 'lowsweep', 'mudshot', 'pounce', 'rocktomb', 'scaryface', 'silktrap', 'stickyweb', 'stringshot', 'syrupbomb', 'tarshot', 'toxicthread',
+						].includes(moveIdBeingChecked)) {
+							poke.movepool.speedControl.push(moveBeingCheckedName);
+							belongsInOther = false;
+						}
+						// field effects
+						if ([
+							'sunnyday', 'raindance', 'sandstorm', 'hail', 'gravity', 'trickroom', 'stealthrock', 'spikes', 'toxicspikes', 'stickyweb',
+						].includes(moveIdBeingChecked)) {
+							poke.movepool.fieldEffect.push(moveBeingCheckedName);
+							belongsInOther = false;
+						}
+						// damage mitigation
+						if ([
+							'reflect', 'lightscreen', 'quickguard', 'wideguard', 'followme', 'ragepowder', 'watersport', 'mudsport',
+							'babydolleyes', 'breakingswipe', 'chillingwater', 'growl', 'lunge', 'nobleroar', 'tearfullook', 'tickle', 'tropkick', 'charm', 'featherdance', 'memento', 'bittermalice', 'mysticalfire', 'skittersmack', 'snarl', 'strugglebug', 'eerieimpulse', 'captivate',
+							'willowisp', 'inferno', 'sacredfire',
+							'grasswhistle', 'hypnosis', 'lovelykiss', 'sing', 'sleeppowder', 'spore', 'yawn', 'darkvoid',
+						].includes(moveIdBeingChecked)) {
+							poke.movepool.damageMitigation.push(moveBeingCheckedName);
+							belongsInOther = false;
+						}
+						// other notable/fun moves
+						if (belongsInOther) poke.movepool.other.push(moveBeingCheckedName);
+					}
+
+					// PUSHING TO LEVEL-UP MOVEPOOL
 					let levelUpSpaces = false;
 					if (genVTms.includes(moveid)) {
 						poke.listOfCertainMoves.push(moveid);
@@ -2983,6 +3071,75 @@ export const Scripts: ModdedBattleScriptsData = {
 						// stat deltas
 						sheetOutput += ((poke.crossHp - poke.randHp) !== 0 ? (poke.crossHp - poke.randHp) : ` `) + `~` + ((poke.crossAtk - poke.randAtk) !== 0 ? (poke.crossAtk - poke.randAtk) : ` `) + `~` + ((poke.crossDef - poke.randDef) !== 0 ? (poke.crossDef - poke.randDef) : ` `) + `~` + ((poke.crossSpA - poke.randSpA) !== 0 ? (poke.crossSpA - poke.randSpA) : ` `) + `~` + ((poke.crossSpD - poke.randSpD) !== 0 ? (poke.crossSpD - poke.randSpD) : ` `) + `~` + ((poke.crossSpe - poke.randSpe) !== 0 ? (poke.crossSpe - poke.randSpe) : ` `) + `\n`;
 					}
+				}
+
+				// utility sections... uhh I really need a way to format these but I don't have anything in mind yet akdjhf
+				if (poke.movepool.stab1.length || poke.movepool.stab2.length) {
+					sheetOutput += `[STABs] `
+				}
+				if (poke.movepool.stab1.length) {
+					poke.movepool.stab1.sort();
+					for (const moveid of poke.movepool.stab1) {
+						sheetOutput += moveid + `, `;
+					}
+					sheetOutput += `~~~~~`
+				}
+				if (poke.movepool.stab2.length && poke.chosenType.type1 !== poke.chosenType.type2) {
+					poke.movepool.stab2.sort();
+					for (const moveid of poke.movepool.stab2) {
+						sheetOutput += moveid + `, `;
+					}
+				}
+				if (poke.movepool.stab1.length || poke.movepool.stab2.length) {
+					sheetOutput += `\n`;
+				}
+				if (poke.movepool.speedControl.length) {
+					poke.movepool.speedControl.sort();
+					sheetOutput += `[Speed control] `
+					for (const moveid of poke.movepool.speedControl) {
+						sheetOutput += moveid + `, `;
+					}
+					sheetOutput += `~\n`;
+				}
+				if (poke.movepool.priority.length) {
+					poke.movepool.priority.sort();
+					sheetOutput += `[priority] `
+					for (const moveid of poke.movepool.priority) {
+						sheetOutput += moveid + `, `;
+					}
+					sheetOutput += `~\n`;
+				}
+				if (poke.movepool.spread.length) {
+					poke.movepool.spread.sort();
+					sheetOutput += `[spread] `
+					for (const moveid of poke.movepool.spread) {
+						sheetOutput += moveid + `, `;
+					}
+					sheetOutput += `~\n`;
+				}
+				if (poke.movepool.fieldEffect.length) {
+					poke.movepool.fieldEffect.sort();
+					sheetOutput += `[field effects] `
+					for (const moveid of poke.movepool.fieldEffect) {
+						sheetOutput += moveid + `, `;
+					}
+					sheetOutput += `~\n`;
+				}
+				if (poke.movepool.damageMitigation.length) {
+					poke.movepool.damageMitigation.sort();
+					sheetOutput += `[disruption] `
+					for (const moveid of poke.movepool.damageMitigation) {
+						sheetOutput += moveid + `, `;
+					}
+					sheetOutput += `~\n`;
+				}
+				if (poke.movepool.other.length) {
+					poke.movepool.other.sort();
+					sheetOutput += `[other] `
+					for (const moveid of poke.movepool.other) {
+						sheetOutput += moveid + `, `;
+					}
+					sheetOutput += `~\n`;
 				}
 
 				// learnset
