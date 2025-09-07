@@ -2406,7 +2406,7 @@ export const Scripts: ModdedBattleScriptsData = {
 				) maxbst += 20; // this feels right
 
 				let bonusBoost = 0;
-				if (poke.targetSpA > poke.targetAtk) { // if it WANTS to be special
+				if (poke.spaTarget > poke.atkTarget) { // if it WANTS to be special
 					if (poke.baseStats.spa > poke.crossSpA) poke.crossSpA = poke.baseStats.spa;
 					poke.crossSpA += 10; // do this regardless of how high it is beforehand
 					if (poke.crossSpA < 100) poke.crossSpA += 10;
