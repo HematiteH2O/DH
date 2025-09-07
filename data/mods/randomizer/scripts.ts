@@ -2396,7 +2396,7 @@ export const Scripts: ModdedBattleScriptsData = {
 				if (poke.baseSpecies && [
 					"Rotom", "Giratina", "Darmanitan", "Tornadus", "Thundurus", "Landorus", "Kyurem", "Meloetta", "Enamorus", "Necrozma", "Zacian", "Zamazenta", "Ogerpon",
 					"Deoxys", "Shaymin", "Hoopa"
-				].includes(poke.baseSpecies) && this.dataCache.Pokedex[this.toID(poke.baseSpecies)].randHp;) {
+				].includes(poke.baseSpecies) && this.dataCache.Pokedex[this.toID(poke.baseSpecies)].randHp) {
 					poke.hpTarget = this.dataCache.Pokedex[this.toID(poke.baseSpecies)].randHp;
 					forceHp = true;
 				}
