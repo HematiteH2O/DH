@@ -862,7 +862,7 @@ export const Scripts: ModdedBattleScriptsData = {
 
 			// let's overrule that for some of these
 			if (poke.baseSpecies && [
-				"Rotom", "Darmanitan", "Kyurem", "Necrozma", "Zacian", "Zamazenta", "Ogerpon"
+				"Rotom", "Darmanitan", "Meloetta", "Kyurem", "Necrozma", "Zacian", "Zamazenta", "Ogerpon"
 			].includes(poke.baseSpecies) && poke.name !== "Darmanitan-Galar") {
 				if (this.dataCache.Pokedex[this.toID(poke.baseSpecies)].chosenType) {
 					chosenTypes = [];
@@ -3351,6 +3351,11 @@ export const Scripts: ModdedBattleScriptsData = {
 					sheetOutput += ((poke.randHp - poke.baseStats.hp) !== 0 ? (poke.randHp - poke.baseStats.hp) : ` `) + `~` + ((poke.randAtk - poke.baseStats.atk) !== 0 ? (poke.randAtk - poke.baseStats.atk) : ` `) + `~` + ((poke.randDef - poke.baseStats.def) !== 0 ? (poke.randDef - poke.baseStats.def) : ` `) + `~` + ((poke.randSpA - poke.baseStats.spa) !== 0 ? (poke.randSpA - poke.baseStats.spa) : ` `) + `~` + ((poke.randSpD - poke.baseStats.spd) !== 0 ? (poke.randSpD - poke.baseStats.spd) : ` `) + `~` + ((poke.randSpe - poke.baseStats.spe) !== 0 ? (poke.randSpe - poke.baseStats.spe) : ` `) + `\n`;
 				}
 
+				if (poke.baseSpecies && formsSkipMovepools.includes(poke.baseSpecies) && poke.name !== "Darmanitan-Galar") {
+					poke.sheetOutput = sheetOutput;
+					continue;
+				}
+
 				// be ready to add a crossevo here
 				if (crossevo && poke.name !== "Shedinja" && poke.crossgenAbilities) {
 					sheetOutput += `~~~`; // no icon, so you need an indent to keep aligned with other rows
@@ -3375,15 +3380,10 @@ export const Scripts: ModdedBattleScriptsData = {
 						// base stats
 						sheetOutput += poke.crossHp + `~` + poke.crossAtk + `~` + poke.crossDef + `~` + poke.crossSpA + `~` + poke.crossSpD + `~` + poke.crossSpe + `~` + (poke.crossHp + poke.crossAtk + poke.crossDef + poke.crossSpA + poke.crossSpD + poke.crossSpe) + `\n`;
 						// abilities
-						sheetOutput += poke.crossgenAbilities[3] + (poke.crossgenAbilities[1] ? ` / `+ poke.crossgenAbilities[1] + ` ` : ` `) + (poke.crossgenAbilities[2] ? `// `+ poke.crossgenAbilities[2] + `~~~~~~` : `~~~~~~`);
+						sheetOutput += poke.randAbilities[3] + (poke.crossgenAbilities[1] ? ` / `+ poke.crossgenAbilities[1] + ` ` : ` `) + (poke.crossgenAbilities[2] ? `// `+ poke.crossgenAbilities[2] + `~~~~~~` : `~~~~~~`);
 						// stat deltas
 						sheetOutput += ((poke.crossHp - poke.randHp) !== 0 ? (poke.crossHp - poke.randHp) : ` `) + `~` + ((poke.crossAtk - poke.randAtk) !== 0 ? (poke.crossAtk - poke.randAtk) : ` `) + `~` + ((poke.crossDef - poke.randDef) !== 0 ? (poke.crossDef - poke.randDef) : ` `) + `~` + ((poke.crossSpA - poke.randSpA) !== 0 ? (poke.crossSpA - poke.randSpA) : ` `) + `~` + ((poke.crossSpD - poke.randSpD) !== 0 ? (poke.crossSpD - poke.randSpD) : ` `) + `~` + ((poke.crossSpe - poke.randSpe) !== 0 ? (poke.crossSpe - poke.randSpe) : ` `) + `\n`;
 					}
-				}
-
-				if (poke.baseSpecies && formsSkipMovepools.includes(poke.baseSpecies) && poke.name !== "Darmanitan-Galar") {
-					poke.sheetOutput = sheetOutput;
-					continue;
 				}
 
 				// learnset
