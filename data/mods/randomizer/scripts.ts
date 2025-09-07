@@ -457,6 +457,7 @@ export const Scripts: ModdedBattleScriptsData = {
 
 			// for sanity checks and tracking later
 			poke.listOfCertainMoves = [];
+			poke.movepool = {};
 			poke.movepool.stab1 = [];
 			poke.movepool.stab2 = [];
 			poke.movepool.speedControl = [];
