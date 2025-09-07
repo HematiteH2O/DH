@@ -3,7 +3,7 @@
 // - organized movepool highlights for export
 // - making a sheet : D
 const exceptionalForms = [
-	'Deoxys', 'Giratina', 'Shaymin', 'Darmanitan', 'Tornadus', 'Thundurus', 'Landorus', 'Meloetta', 'Hoopa', 'Enamorus',
+	'Deoxys', 'Giratina', 'Shaymin', 'Darmanitan', 'Tornadus', 'Thundurus', 'Landorus', 'Meloetta', 'Hoopa', 'Enamorus', 'Ogerpon',
 ];
 const formsSkipMovepools = [
 	'Rotom', 'Giratina', 'Darmanitan', 'Tornadus', 'Thundurus', 'Landorus', 'Kyurem', 'Meloetta', 'Enamorus', 'Necrozma', 'Zacian', 'Zamazenta', 'Ogerpon',
@@ -593,8 +593,8 @@ export const Scripts: ModdedBattleScriptsData = {
 				for (const form of poke.otherFormes) {
 					const pokeForme = this.dataCache.Pokedex[this.toID(form)];
 					if (id === 'ogerpon' && pokeForme.battleOnly) continue;
-					pokeForme.forceAbility = randAbilities[Math.floor(Math.random() * randAbilities.length)];
-					if (pokeForme.gender && pokeForme.gender === "N") pokeForme.forceAbility = randAbilitiesGenderless[Math.floor(Math.random() * randAbilitiesGenderless.length)];
+					pokeForme.forceAbility = abilityDex[randAbilities[Math.floor(Math.random() * randAbilities.length)]].name;
+					if (pokeForme.gender && pokeForme.gender === "N") pokeForme.forceAbility = abilityDex[randAbilitiesGenderless[Math.floor(Math.random() * randAbilitiesGenderless.length)]].name;
 				}
 			}
 
@@ -642,6 +642,8 @@ export const Scripts: ModdedBattleScriptsData = {
 			}
 			if (poke.name === "Basculin") slot = 1; // forcing this because 0 is the slot that differentiates the forms
 			poke.crossgenAbilities[slot] = abilityDex[randomForAbility].name;
+
+			if (poke.baseSpecies) poke.crossgenAbilities = poke.randAbilities; // for Darmanitan and Rotom mostly
 
 			// - overwrite all Abilities with lower priority than that Ability with it
 			// - if no Abilities have been overwritten, overwrite a random Ability with the same priority as it
@@ -882,6 +884,11 @@ export const Scripts: ModdedBattleScriptsData = {
 				if (poke.name === "Necrozma-Dawn-Wings" && this.dataCache.Pokedex.lunala.chosenType) {
 					chosenTypes.push(this.dataCache.Pokedex.lunala.chosenType.type1);
 					chosenTypes.push(this.dataCache.Pokedex.lunala.chosenType.type2);
+				}
+				if (poke.name === "Darmanitan-Galar-Zen" && this.dataCache.Pokedex.darmanitangalar.chosenType) {
+					chosenTypes = [];
+					chosenTypes.push(this.dataCache.Pokedex.darmanitangalar.chosenType.type1);
+					chosenTypes.push(this.dataCache.Pokedex.darmanitangalar.chosenType.type2);
 				}
 			}
 			if (poke.forceType) chosenTypes.push(poke.forceType);
@@ -1348,6 +1355,7 @@ export const Scripts: ModdedBattleScriptsData = {
 				if (poke.name === "Meloetta" && this.dataCache.Pokedex.meloettapirouette.forceType) formeForcedType = this.dataCache.Pokedex.meloettapirouette.forceType;
 				if (poke.name === "Zacian" && this.dataCache.Pokedex.zaciancrowned.forceType) formeForcedType = this.dataCache.Pokedex.zaciancrowned.forceType;
 				if (poke.name === "Zamazenta" && this.dataCache.Pokedex.zamazentacrowned.forceType) formeForcedType = this.dataCache.Pokedex.zamazentacrowned.forceType;
+				if (formeForcedType) learnsetTypes.push(formeForcedType);
 
 				poke.learnsetCumulative = {
 							Moves: [],
