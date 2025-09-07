@@ -2872,8 +2872,15 @@ export const Scripts: ModdedBattleScriptsData = {
 					poke2.spaDelta = 0;
 					poke2.spdDelta = 0;
 					poke2.speDelta = 0;
+
+					if (["Wishiwashi", "Palafin"].includes(poke2.name)) poke2.hpDelta = poke.hpDelta;
 	
 					for (let i = 0; i < 6; i++) {
+						if (["Wishiwashi", "Palafin"].includes(poke2.name) && (poke2.hpDelta > poke.hpDelta)) {
+							poke2.hpDelta -=5;
+							continue;
+						}
+
 						let eligibleStats: string[] = [];
 						let minStat: string[] = [];
 						poke2.diffHp = (2 * poke2.hpDelta) - poke.hpDelta;
@@ -2882,8 +2889,8 @@ export const Scripts: ModdedBattleScriptsData = {
 						poke2.diffSpA = (2 * poke2.spaDelta) - poke.spaDelta;
 						poke2.diffSpD = (2 * poke2.spdDelta) - poke.spdDelta;
 						poke2.diffSpe = (2 * poke2.speDelta) - poke.speDelta;
-	
-						if (poke2.hpDelta > -20 && (poke2.baseStats.hp + poke2.hpDelta > 5)) eligibleStats.push('diffHp');
+
+						if (!(["Wishiwashi", "Palafin"].includes(poke2.name)) && poke2.hpDelta > -20 && (poke2.baseStats.hp + poke2.hpDelta > 5)) eligibleStats.push('diffHp');
 						if (poke2.atkDelta > -20 && (poke2.baseStats.atk + poke2.atkDelta > 5)) eligibleStats.push('diffAtk');
 						if (poke2.defDelta > -20 && (poke2.baseStats.def + poke2.defDelta > 5)) eligibleStats.push('diffDef');
 						if (poke2.spaDelta > -20 && (poke2.baseStats.spa + poke2.spaDelta > 5)) eligibleStats.push('diffSpA');
@@ -2915,6 +2922,10 @@ export const Scripts: ModdedBattleScriptsData = {
 					}
 	
 					for (let i = 0; i < 6; i++) {
+						if (["Wishiwashi", "Palafin"].includes(poke2.name) && (poke2.hpDelta < poke.hpDelta)) {
+							poke2.hpDelta +=5;
+							continue;
+						}
 						if (poke2.hpDelta + poke2.atkDelta + poke2.defDelta + poke2.spaDelta + poke2.spdDelta + poke2.speDelta === 0) break; // ideal end state
 	
 						let eligibleStats: string[] = [];
@@ -2926,7 +2937,7 @@ export const Scripts: ModdedBattleScriptsData = {
 						poke2.diffSpD = (2 * poke2.spdDelta) - poke.spdDelta;
 						poke2.diffSpe = (2 * poke2.speDelta) - poke.speDelta;
 	
-						if (poke2.hpDelta < 20 && ((poke2.baseStats.hp + poke2.hpDelta < poke.randHp) || (poke2.baseStats.hp > poke.baseStats.hp))) eligibleStats.push('diffHp');
+						if (!(["Wishiwashi", "Palafin"].includes(poke2.name)) && poke2.hpDelta < 20 && ((poke2.baseStats.hp + poke2.hpDelta < poke.randHp) || (poke2.baseStats.hp > poke.baseStats.hp))) eligibleStats.push('diffHp');
 						if (poke2.atkDelta < 20 && ((poke2.baseStats.atk + poke2.atkDelta < poke.randAtk) || (poke2.baseStats.atk > poke.baseStats.atk))) eligibleStats.push('diffAtk');
 						if (poke2.defDelta < 20 && ((poke2.baseStats.def + poke2.defDelta < poke.randDef) || (poke2.baseStats.def > poke.baseStats.def))) eligibleStats.push('diffDef');
 						if (poke2.spaDelta < 20 && ((poke2.baseStats.spa + poke2.spaDelta < poke.randSpA) || (poke2.baseStats.spa > poke.baseStats.spa))) eligibleStats.push('diffSpA');
