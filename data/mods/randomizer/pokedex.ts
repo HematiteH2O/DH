@@ -11863,6 +11863,7 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 		weightkg: 305,
 		color: "Green",
 		tags: ["Restricted Legendary"],
+		prevo: "Zygarde-10%", // obviously not true but needed for the sheet output
 		eggGroups: ["Undiscovered"],
 		otherFormes: ["Zygarde-10%", "Zygarde-Complete"],
 		 // forme 2 = 10% with Power Constructor ,forme 3 = 50% with Power Construct
@@ -11881,6 +11882,7 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 		weightkg: 33.5,
 		color: "Black",
 		eggGroups: ["Undiscovered"],
+		evos: ["Zygarde"], // obviously not true but needed for the sheet output
 		changesFrom: "Zygarde",
 		gen: 7,
 	},
@@ -12739,6 +12741,7 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 		weightkg: 0.3,
 		color: "Blue",
 		eggGroups: ["Water 2"],
+		evos: ["Wishiwashi-School"], // obviously not true but needed for the sheet output
 		otherFormes: ["Wishiwashi-School"],
 		formeOrder: ["Wishiwashi", "Wishiwashi-School"],
 	},
@@ -12754,6 +12757,7 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 		weightkg: 78.6,
 		color: "Blue",
 		eggGroups: ["Water 2"],
+		prevo: "Wishiwashi", // obviously not true but needed for the sheet output
 		requiredAbility: "Schooling",
 		battleOnly: "Wishiwashi",
 	},
@@ -17418,6 +17422,7 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 		otherFormes: ["Palafin-Hero"],
 		formeOrder: ["Palafin", "Palafin-Hero"],
 		eggGroups: ["Field", "Water 2"],
+		evos: ["Palafin-Hero"], // obviously not true but needed for the sheet output
 	},
 	palafinhero: {
 		num: 964,
@@ -17431,6 +17436,7 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 		weightkg: 97.4,
 		color: "Blue",
 		eggGroups: ["Field", "Water 2"],
+		prevo: "Palafin", // obviously not true but needed for the sheet output
 		requiredAbility: "Zero to Hero",
 		battleOnly: "Palafin",
 	},
@@ -18410,6 +18416,7 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 		color: "Blue",
 		tags: ["Restricted Legendary"],
 		eggGroups: ["Undiscovered"],
+		evos: ["Terapagos-Terastal"], // obviously not true but needed for the sheet output
 		otherFormes: ["Terapagos-Terastal", "Terapagos-Stellar"],
 		formeOrder: ["Terapagos", "Terapagos-Terastal", "Terapagos-Stellar"],
 		forceTeraType: "Stellar",
@@ -18426,6 +18433,7 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 		weightkg: 16,
 		color: "Blue",
 		eggGroups: ["Undiscovered"],
+		prevo: "Terapagos", // obviously not true but needed for the sheet output
 		battleOnly: "Terapagos",
 		forceTeraType: "Stellar",
 	},
