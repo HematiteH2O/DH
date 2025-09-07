@@ -383,7 +383,8 @@ export const Scripts: ModdedBattleScriptsData = {
 			'sapsipper', 'prankster', 'sandforce', 'ironbarbs', 'victorystar',
 		];
 		const abilityRank1 = [
-			'drizzle', 'drought', 'sandstream', 'snowwarning', 'intimidate', 'prankster',
+			'drizzle', 'drought', 'sandstream', 'snowwarning', 'intimidate', 'prankster', 'illusion',
+			// look, Illusion isn't *that* much better than everything else, but if you have an Illusion user and then it evolves and loses it, that's so disappointing
 		];
 		const abilityRank2 = [
 			// major stat checks
@@ -393,7 +394,7 @@ export const Scripts: ModdedBattleScriptsData = {
 			// anti-weather
 			'cloudnine', 'airlock',
 			// unique support
-			'friendguard', 'regenerator', 'healer', 'noguard', 'scrappy', 'unnerve', 'telepathy', 'justified', 'rattled', 'angerpoint', 'illusion',
+			'friendguard', 'regenerator', 'healer', 'noguard', 'scrappy', 'unnerve', 'telepathy', 'justified', 'rattled', 'angerpoint',
 		];
 		const abilityRank3 = [
 			// anti-Intimidate
@@ -1378,7 +1379,7 @@ export const Scripts: ModdedBattleScriptsData = {
 					if (moveAbilitySet.includes("Iron Fist") && learnsetTypes.includes(move.type) && (move.flags['punch'])) forceLearn = true;
 					if ((moveAbilitySet.includes("Rock Head") || moveAbilitySet.includes("Reckless")) && learnsetTypes.includes(move.type) && (move.recoil)) forceLearn = true;
 					if (moveAbilitySet.includes("Skill Link") && learnsetTypes.includes(move.type) && (move.multihit)) forceLearn = true;
-					if (moveAbilitySet.includes("Technician") && learnsetTypes.includes(move.type) && (move.basePower && move.basePower < 61 && move.basePower > 10)) forceLearn = true;
+					if (moveAbilitySet.includes("Technician") && learnsetTypes.includes(move.type) && (move.basePower && move.basePower < 61 && move.basePower > 10) && !move.realMove) forceLearn = true; // "move.realMove" is a field used for Hidden Power
 					if ((moveAbilitySet.includes("Sniper") || moveAbilitySet.includes("Super Luck")) && learnsetTypes.includes(move.type) && (move.critRatio)) forceLearn = true;
 					if (moveAbilitySet.includes("Sniper") && learnsetTypes.includes(move.type) && (move.willCrit)) forceLearn = true;
 					if ((moveAbilitySet.includes("No Guard") || moveAbilitySet.includes("Compound Eyes")) && learnsetTypes.includes(move.type) && (move.accuracy && move.accuracy < 95 && move.accuracy > 60)) forceLearn = true;
@@ -1644,8 +1645,8 @@ export const Scripts: ModdedBattleScriptsData = {
 									else if (learnsetTypes.includes("Fighting") && (altmoveid === "meditate" || altmoveid === "workup" || altmoveid === "wideguard" || altmoveid === "acupressure" || altmoveid === "foresight" || altmoveid === "headlongrush" || altmoveid === "payback" || altmoveid === "chipaway" || altmoveid === "firepunch" || altmoveid === "icepunch" || altmoveid === "thunderpunch" || altmoveid === "poisonjab" || altmoveid === "bounce")) eligibleMoves.push(altmoveid);
 									else if ((learnsetTypes.includes("Rock") || learnsetTypes.includes("Steel")) && (altmoveid === "sharpen" || altmoveid === "irondefense" || altmoveid === "selfdestruct" || altmoveid === "explosion" || altmoveid === "spikecannon" || altmoveid === "bulldoze")) eligibleMoves.push(altmoveid);
 									else if (learnsetTypes.includes("Grass") && (altmoveid === "growth" || altmoveid === "sweetscent" || altmoveid === "ragepowder" || altmoveid === "sunnyday" || altmoveid === "poisonpowder" || altmoveid === "watersport" || altmoveid === "barrage" || altmoveid === "swordsdance" || altmoveid === "secretpower")) eligibleMoves.push(altmoveid);
-									else if (learnsetTypes.includes("Ground") && (altmoveid === "rocktomb" || altmoveid === "rockslide" || altmoveid === "lavaplume")) eligibleMoves.push(altmoveid);
-									else if (learnsetTypes.includes("Dark") && (altmoveid === "howl" || altmoveid === "mudslap") || altmoveid === "spiritbreak") eligibleMoves.push(altmoveid);
+									else if (learnsetTypes.includes("Ground") && (altmoveid === "rocktomb" || altmoveid === "rockslide")) eligibleMoves.push(altmoveid);
+									else if (learnsetTypes.includes("Dark") && (altmoveid === "howl" || altmoveid === "mudslap" || altmoveid === "spiritbreak")) eligibleMoves.push(altmoveid);
 									else if ((learnsetTypes.includes("Fire") || learnsetTypes.includes("Poison")) && altmoveid === "smokescreen") eligibleMoves.push(altmoveid);
 									else if (learnsetTypes.includes("Steel") && (altmoveid === "sonicboom" || altmoveid === "voltswitch" || altmoveid === "zapcannon" || altmoveid === "supercellslam" || altmoveid === "horndrill")) eligibleMoves.push(altmoveid);
 									else if ((learnsetTypes.includes("Poison") || learnsetTypes.includes("Ghost")) && (altmoveid === "memento" || altmoveid === "meanlook")) eligibleMoves.push(altmoveid);
@@ -1710,6 +1711,7 @@ export const Scripts: ModdedBattleScriptsData = {
 								}
 							}
 						}
+						if (!eligibleMoves.length && moveid === "snowscape") eligibleMoves.push("hail");
 
 						if (eligibleMoves.length) {
 							// form change move security
@@ -1907,6 +1909,10 @@ export const Scripts: ModdedBattleScriptsData = {
 				}
 				if (pokeTypes.includes("Steel")) {
 					poke.defTarget += 10;
+					poke.spdTarget += 10;
+				}
+				if (pokeTypes.includes("Fairy")) {
+					poke.defTarget -= 10;
 					poke.spdTarget += 10;
 				}
 				if (poke.chosenType.type1 === poke.chosenType.type2) poke.speTarget += 10;
@@ -2190,7 +2196,6 @@ export const Scripts: ModdedBattleScriptsData = {
 				poke.crossSpe = poke.randSpe = poke.baseStats.spe + poke.speDelta;
 
 				// CROSSGEN STATS
-				// todo: Speed
 
 				const crossAbilityCheck: string[] = [];
 				for (const idNo in poke.crossgenAbilities) crossAbilityCheck.push(poke.crossgenAbilities[idNo]);
@@ -2594,7 +2599,7 @@ export const Scripts: ModdedBattleScriptsData = {
 					}
 				} else {
 					for (let i = 0; i < 20; i++) {
-						if (poke.crossSpe <= targetSpe + 4) break;
+						if (poke.crossSpe <= targetSpe + 4 || poke.crossHp + poke.crossAtk + poke.crossDef + poke.crossSpA + poke.crossSpD + poke.crossSpe + 5 > maxbst) break;
 						poke.crossSpe -= 5;
 					}
 				}
