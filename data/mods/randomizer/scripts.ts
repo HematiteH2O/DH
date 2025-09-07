@@ -2130,7 +2130,7 @@ export const Scripts: ModdedBattleScriptsData = {
 
 				if (poke.baseSpecies && formsSkipMovepools.includes(poke.baseSpecies) && poke.name !== "Darmanitan-Galar") {
 					poke.listOfCertainMoves = this.dataCache.Pokedex[this.toID(poke.baseSpecies)].listOfCertainMoves;
-					if (poke.name !== "Darmanitan-Galar-Zen") poke.listOfCertainMoves = this.dataCache.Pokedex.darmanitangalar.listOfCertainMoves;
+					if (poke.name === "Darmanitan-Galar-Zen") poke.listOfCertainMoves = this.dataCache.Pokedex.darmanitangalar.listOfCertainMoves;
 				}
 
 
