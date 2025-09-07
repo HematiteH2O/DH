@@ -3285,7 +3285,7 @@ export const Scripts: ModdedBattleScriptsData = {
 				if (!poke || !poke.learnsetCumulative.learnset) return;
 				// finalize sheetOutput now.........
 				let sheetOutput: string[] = [
-					`\n=row()-1~\n=row()-1~`
+					`\n=row()-1~`
 				];
 
 				let crossevo = true; // becomes false shortly if already a 3-stage line
