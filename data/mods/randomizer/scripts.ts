@@ -1711,7 +1711,11 @@ export const Scripts: ModdedBattleScriptsData = {
 								}
 							}
 						}
+
+						// Snowscape edge case: always try to replace with Hail if you're not replacing it with anything else
 						if (!eligibleMoves.length && moveid === "snowscape") eligibleMoves.push("hail");
+						// chance of not randomizing moves if they were *already* off-type, but not Normal-type
+						if (!learnsetTypes.includes(this.dataCache.Moves[moveid].type) && poke.types[0] !== this.dataCache.Moves[moveid].type && (!poke.types[1] || poke.types[1] !== this.dataCache.Moves[moveid].type) && this.dataCache.Moves[moveid].type !== "Normal") eligibleMoves.push(moveid);
 
 						if (eligibleMoves.length) {
 							// form change move security
