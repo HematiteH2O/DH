@@ -2794,7 +2794,7 @@ export const Scripts: ModdedBattleScriptsData = {
 					}
 				} else {
 					for (let i = 0; i < 20; i++) {
-						if (poke.crossSpe <= targetSpe + 4) break;
+						if (((poke.crossSpe <= targetSpe + 4) && (poke.crossHp + poke.crossAtk + poke.crossDef + poke.crossSpA + poke.crossSpD + poke.crossSpe - 5 < maxbst)) || poke.crossSpe < 20) break;
 						poke.crossSpe -= 5;
 					}
 				}
