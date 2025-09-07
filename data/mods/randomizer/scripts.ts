@@ -1767,13 +1767,13 @@ export const Scripts: ModdedBattleScriptsData = {
 					let moveBeingChecked = this.dataCache.Moves[moveIdBeingChecked];
 
 					let belongsInOther = false;
-					if (pushLvUp.includes(moveIdBeingChecked)) belongsInOther = true; // will set this to false if it gets sorted anywhere else first
+					if (pushLevelUp.includes(moveIdBeingChecked)) belongsInOther = true; // will set this to false if it gets sorted anywhere else first
 
 					let learnedMoveBeingChecked = false;
 					// - if it's a TM
 					if (genVTms.includes(moveIdBeingChecked)) learnedMoveBeingChecked = true;
 					// - if it's in recommendedLvUp
-					if (pushLvUp.includes(moveIdBeingChecked)) learnedMoveBeingChecked = true;
+					if (pushLevelUp.includes(moveIdBeingChecked)) learnedMoveBeingChecked = true;
 					// - if it's in level-up...
 					// - or if it's in additional moves (level 101 / Egg, breeding) but *not* because it's a synergyMove
 					if (levelLearned && (levelLearned < 101 || synergyMove !== 1)) learnedMoveBeingChecked = true;
@@ -1847,7 +1847,7 @@ export const Scripts: ModdedBattleScriptsData = {
 					if (moveIdBeingChecked !== moveid && genVTms.includes(moveid)) {
 						moveIdBeingChecked = moveid;
 						belongsInOther = false;
-						if (pushLvUp.includes(moveIdBeingChecked)) belongsInOther = true;
+						if (pushLevelUp.includes(moveIdBeingChecked)) belongsInOther = true;
 
 						let moveBeingCheckedName = moveBeingChecked.name;
 						if (levelLearned && levelLearned < 101) {
