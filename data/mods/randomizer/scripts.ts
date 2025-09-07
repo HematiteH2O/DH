@@ -1259,7 +1259,7 @@ export const Scripts: ModdedBattleScriptsData = {
 
 			// form prep
 			if ([
-				"Rotom", "Darmanitan", "Darmanitan-Galar", "Meloetta", "Zacian", "Zamazenta", "Ogerpon"
+				"Rotom", "Darmanitan", "Meloetta", "Zacian", "Zamazenta", "Ogerpon"
 			].includes(poke.name)) {
 				let alreadyForced = [];
 				for (const form of poke.otherFormes) {
