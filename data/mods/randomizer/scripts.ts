@@ -1264,9 +1264,9 @@ export const Scripts: ModdedBattleScriptsData = {
 				// if the Pokémon has pre-evolutions, add their learnsets, too!
 				if (poke.prevo) {
 					const poke2 = this.dataCache.Pokedex[this.toID(poke.prevo)];
-					learnset2 = this.modData('Learnsets', this.toID(poke.prevo)).learnset;
+					if (this.modData('Learnsets', this.toID(poke.prevo)).learnset) learnset2 = this.modData('Learnsets', this.toID(poke.prevo)).learnset;
 					if (poke2.prevo) {
-						learnset3 = this.modData('Learnsets', this.toID(poke2.prevo)).learnset;
+						if (this.modData('Learnsets', this.toID(poke2.prevo)).learnset) learnset3 = this.modData('Learnsets', this.toID(poke2.prevo)).learnset;
 					}
 				}
 
@@ -2220,7 +2220,8 @@ export const Scripts: ModdedBattleScriptsData = {
 					}
 					const spaContrary = ['dracometeor', 'overheat', 'leafstorm', 'makeitrain'];
 					let hasMove = false;
-					for (const moveCheck of spaContrary) if (poke.listOfCertainMoves.includes(moveCheck) && this.dataCache.Moves[moveCheck].type && pokeTypes.includes(this.dataCache.Moves[moveCheck].type)) hasMove = true;
+					// doesn't actually care if it learns it, just if it matches the type, because like... I want to be *able* to add it - it'll be a recommendation either way
+					for (const moveCheck of spaContrary) if (this.dataCache.Moves[moveCheck].type && pokeTypes.includes(this.dataCache.Moves[moveCheck].type)) hasMove = true;
 					if (hasMove) {
 						if (maxSpa > 75) maxSpa = 75;
 						if (maxSpe > 45) maxSpe = 45;
@@ -2502,7 +2503,8 @@ export const Scripts: ModdedBattleScriptsData = {
 					}
 					const spaContrary = ['dracometeor', 'overheat', 'leafstorm', 'makeitrain'];
 					let hasMove = false;
-					for (const moveCheck of spaContrary) if (poke.listOfCertainMoves.includes(moveCheck) && this.dataCache.Moves[moveCheck].type && pokeTypes.includes(this.dataCache.Moves[moveCheck].type)) hasMove = true;
+					// doesn't actually care if it learns it, just if it matches the type, because like... I want to be *able* to add it - it'll be a recommendation either way
+					for (const moveCheck of spaContrary) if (this.dataCache.Moves[moveCheck].type && pokeTypes.includes(this.dataCache.Moves[moveCheck].type)) hasMove = true;
 					if (hasMove) {
 						if (crossMaxSpa > 75) crossMaxSpa = 75;
 						if (crossMaxSpe > 45) crossMaxSpe = 45;
