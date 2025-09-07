@@ -1264,9 +1264,9 @@ export const Scripts: ModdedBattleScriptsData = {
 				// if the Pokémon has pre-evolutions, add their learnsets, too!
 				if (poke.prevo) {
 					const poke2 = this.dataCache.Pokedex[this.toID(poke.prevo)];
-					if (this.modData('Learnsets', this.toID(poke.prevo)).learnset) learnset2 = this.modData('Learnsets', this.toID(poke.prevo)).learnset;
+					if (this.modData('Learnsets', this.toID(poke.prevo)) && this.modData('Learnsets', this.toID(poke.prevo)).learnset) learnset2 = this.modData('Learnsets', this.toID(poke.prevo)).learnset;
 					if (poke2.prevo) {
-						if (this.modData('Learnsets', this.toID(poke2.prevo)).learnset) learnset3 = this.modData('Learnsets', this.toID(poke2.prevo)).learnset;
+						if (this.modData('Learnsets', this.toID(poke2.prevo)) && this.modData('Learnsets', this.toID(poke2.prevo)).learnset) learnset3 = this.modData('Learnsets', this.toID(poke2.prevo)).learnset;
 					}
 				}
 
