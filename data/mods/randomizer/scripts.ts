@@ -1966,7 +1966,7 @@ export const Scripts: ModdedBattleScriptsData = {
 						if (move.num && move.num > 559) {
 							if (movesAfterGenV.includes(moveid)) poke.backports.push(moveName);
 						} else {
-							if (!genVLearnedEggAlready) poke.additionalEggMoves.push(moveName); // helps for inputting movepools
+							if (!genVLearnedEggAlready && !genVTms.includes(moveName)) poke.additionalEggMoves.push(moveName); // helps for inputting movepools
 							if (pushLevelUp.includes(moveid) || (pushLevelUpPrankster.includes(moveid) && moveAbilitySet.includes("Prankster"))) {
 								poke.recommendedLvUp.push(moveName);
 							} else if (synergyMove === 1) {
@@ -3236,7 +3236,7 @@ export const Scripts: ModdedBattleScriptsData = {
 					poke.additionalEggMoves.sort();
 					sheetOutput += `\n~Additional Egg moves\n`
 					for (const moveid of poke.additionalEggMoves) sheetOutput += moveid + `, `;
-					sheetOutput += `~`;
+					sheetOutput += `~\n`;
 				}
 
 				// utility sections... uhh I really need a way to format these but I don't have anything in mind yet akdjhf
