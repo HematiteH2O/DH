@@ -1175,7 +1175,7 @@ export const Scripts: ModdedBattleScriptsData = {
 					type2: [poke.chosenType.type2],
 				};
 				if (poke2.types[0] !== poke.types [0]) poke2.chosenType.type1 = poke2.types[0];
-				if (poke2.types[1] && poke.types[1] && poke2.types[1] !== poke.types [1]) poke2.chosenType.type2 = poke2.types[1];
+				if (poke2.types[1] && poke.types[1] && poke2.types[1] !== poke.types [1]) poke2.chosenType.type2 = (poke2.types[1] ? poke2.types[1] : poke2.chosenType.type1);
 				if (!poke2.types[1] && poke.types[1]) poke2.chosenType.type2 = poke2.chosenType.type1;
 				if (poke2.prevo) {
 					const poke3 = this.dataCache.Pokedex[this.toID(poke2.prevo)];
@@ -1184,7 +1184,7 @@ export const Scripts: ModdedBattleScriptsData = {
 						type2: [poke.chosenType.type2],
 					};
 					if (poke3.types[0] !== poke.types [0]) poke3.chosenType.type1 = poke3.types[0];
-					if (poke3.types[1] && poke.types[1] && poke3.types[1] !== poke.types [1]) poke3.chosenType.type2 = poke3.types[1];
+					if (poke3.types[1] && poke.types[1] && poke3.types[1] !== poke.types [1]) poke3.chosenType.type2 = (poke3.types[1] ? poke3.types[1] : poke3.chosenType.type1);
 					if (!poke3.types[1] && poke.types[1]) poke3.chosenType.type2 = poke3.chosenType.type1;
 				}
 			}
