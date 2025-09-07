@@ -1466,11 +1466,22 @@ export const Scripts: ModdedBattleScriptsData = {
 
 					if (learnset[moveid]) { // if it learns the move
 						learned = true;
+
+						let skipBecauseOfFormes = false;
+						if (['taunt', 'spikes', 'superpower', 'swift', 'irondefense', 'amnesia', 'agility', 'zapcannon', 'counter', 'mirrorcoat', 'extremespeed'].includes(moveid) && poke.name === "Deoxys") skipBecauseOfFormes = true;
+						if (['knockoff', 'spikes', 'snatch', 'swift', 'irondefense', 'amnesia', 'agility', 'recover', 'counter', 'mirrorcoat', 'extremespeed'].includes(moveid) && poke.name === "Deoxys-Attack") skipBecauseOfFormes = true;
+						if (['taunt', 'pursuit', 'superpower', 'swift', 'cosmicpower', 'agility', 'zapcannon', 'hyperbeam', 'extremespeed'].includes(moveid) && poke.name === "Deoxys-Defense") skipBecauseOfFormes = true;
+						if (['taunt', 'spikes', 'snatch', 'superpower', 'cosmicpower', 'irondefense', 'amnesia', 'zapcannon', 'hyperbeam', 'counter', 'mirrorcoat'].includes(moveid) && poke.name === "Deoxys-Speed") skipBecauseOfFormes = true;
+						if (['quickattack', 'airslash', 'leafstorm'].includes(moveid) && poke.name === "Shaymin") skipBecauseOfFormes = true;
+						if (['synthesis', 'aromatherapy', 'healingwish'].includes(moveid) && poke.name === "Shaymin-Sky") skipBecauseOfFormes = true;
+						if (['knockoff', 'darkpulse'].includes(moveid) && poke.name === "Hoopa") skipBecauseOfFormes = true;
+						if (['zenheadbutt', 'shadowball', 'phantomforce', 'nastyplot'].includes(moveid) && poke.name === "Hoopa-Unbound") skipBecauseOfFormes = true;
+
 						for (const source of learnset[moveid]) {
 							// include level-up and Egg moves from all Generations...
 							if (parseInt(source.charAt(0)) === 5 && (source.charAt(1) === 'T' || source.charAt(1) === 'M')) genVLearnedTmAlready = true;
-							if (parseInt(source.charAt(0)) === 5 && (source.charAt(1) === 'E') genVLearnedEggAlready = true;
-							if (source.charAt(1) === 'L') {
+							if (parseInt(source.charAt(0)) === 5 && source.charAt(1) === 'E') genVLearnedEggAlready = true;
+							if (source.charAt(1) === 'L' && !skipBecauseOfFormes) {
 								learnedLvUp = true;
 								if (parseInt(source.charAt(0)) < 8 || future) if (parseInt(source.substr(2)) < parseInt(levelLearned)) {
 									if (parseInt(source.substr(2)) < 2) {
@@ -1506,7 +1517,7 @@ export const Scripts: ModdedBattleScriptsData = {
 						learned = true;
 						for (const source of learnset2[moveid]) {
 							// include level-up and Egg moves from all Generations...
-							if (parseInt(source.charAt(0)) === 5 && (source.charAt(1) === 'E') genVLearnedEggAlready = true;
+							if (parseInt(source.charAt(0)) === 5 && source.charAt(1) === 'E') genVLearnedEggAlready = true;
 							if (source.charAt(1) === 'L') {
 								learnedLvUp = true;
 								if (parseInt(source.charAt(0)) < 8 || future) {
@@ -1549,7 +1560,7 @@ export const Scripts: ModdedBattleScriptsData = {
 						learned = true;
 						for (const source of learnset3[moveid]) {
 							// include level-up and Egg moves from all Generations...
-							if (parseInt(source.charAt(0)) === 5 && (source.charAt(1) === 'E') genVLearnedEggAlready = true;
+							if (parseInt(source.charAt(0)) === 5 && source.charAt(1) === 'E') genVLearnedEggAlready = true;
 							if (source.charAt(1) === 'L') {
 								learnedLvUp = true;
 								if (parseInt(source.charAt(0)) < 8 || future) {
@@ -1624,6 +1635,8 @@ export const Scripts: ModdedBattleScriptsData = {
 						}
 						if (lv1 && !prevoLv1 && !prevo2lv1 && poke.evoLevel) levelLearned = poke.evoLevel;
 					}
+					// now just hard-coding to correct an error I noticed
+					if (moveid === 'superpower' && poke.name === "Deoxys-Attack") levelLearned = 30;
 
 					// NEW SECTION: "SECOND MOVE"
 					let secondMove = null;
