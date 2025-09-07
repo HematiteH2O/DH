@@ -3449,9 +3449,8 @@ export const Scripts: ModdedBattleScriptsData = {
 					poke.additionalEggMoves.sort();
 					sheetOutput += `\n=row()-1~24~~Additional Egg moves\n=row()-1~25~`
 					for (const moveid of poke.additionalEggMoves) sheetOutput += moveid + `, `;
-					sheetOutput += `~\n=row()-1~26~`;
 				}
-
+				sheetOutput += `~\n=row()-1~26~`;
 				// utility sections... uhh I really need a way to format these but I don't have anything in mind yet akdjhf
 				if (poke.movepool.stab1.length || poke.movepool.stab2.length) {
 					sheetOutput += `[STABs] `
