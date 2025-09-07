@@ -14040,6 +14040,7 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 		weightkg: 8,
 		color: "Gray",
 		tags: ["Mythical"],
+		evos: ["Melmetal"],
 		eggGroups: ["Undiscovered"],
 	},
 	melmetal: {
@@ -14053,6 +14054,7 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 		weightkg: 800,
 		color: "Gray",
 		tags: ["Mythical"],
+		prevo: "Meltan",
 		eggGroups: ["Undiscovered"],
 		canGigantamax: "G-Max Meltdown",
 	},
