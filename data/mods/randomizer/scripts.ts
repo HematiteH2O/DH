@@ -1868,10 +1868,11 @@ export const Scripts: ModdedBattleScriptsData = {
 					// wait I've gotta do it twice - sometimes two moves are being done at once
 					if (moveIdBeingChecked !== moveid && genVTms.includes(moveid)) {
 						moveIdBeingChecked = moveid;
+						moveBeingChecked = this.dataCache.Moves[moveIdBeingChecked];
+						moveBeingCheckedName = moveBeingChecked.name;
 						belongsInOther = false;
 						if (pushLevelUp.includes(moveIdBeingChecked)) belongsInOther = true;
 
-						let moveBeingCheckedName = moveBeingChecked.name;
 						if (levelLearned && levelLearned < 101) {
 							moveBeingCheckedName = levelLearned + `) ` + moveBeingCheckedName;
 							if (levelLearned < 10) moveBeingCheckedName = `0` + moveBeingCheckedName; // pad with a leading 0 for alphabetization
