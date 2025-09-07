@@ -775,6 +775,11 @@ export const Scripts: ModdedBattleScriptsData = {
 				for (const type in this.dataCache.TypeChart) {
 					if (chosenTypes.includes(type)) continue;
 					if (poke.abilities && ["Overgrow", "Blaze", "Torrent"].includes(poke.abilities[0]) && ["Fire", "Water", "Grass"].includes(type)) continue;
+					if (["Serperior", "Emboar", "Samurott"].includes(poke.name)) { // the Gen V starters, specifically, *must* have different secondary types from one another
+						if (this.dataCache.Pokedex.serperior.chosenType && this.dataCache.Pokedex.serperior.chosenType.type2 === type) continue;
+						if (this.dataCache.Pokedex.emboar.chosenType && this.dataCache.Pokedex.emboar.chosenType.type2 === type) continue;
+						if (this.dataCache.Pokedex.samurott.chosenType && this.dataCache.Pokedex.samurott.chosenType.type2 === type) continue;
+					}
 					validTypes2.push(type);
 				}
 				let random2 = Math.floor(Math.random() * validTypes2.length);
@@ -838,6 +843,11 @@ export const Scripts: ModdedBattleScriptsData = {
 			for (const type in this.dataCache.TypeChart) {
 				if (chosenTypes.includes(type)) continue;
 				if (poke.abilities && ["Overgrow", "Blaze", "Torrent"].includes(poke.abilities[0]) && ["Fire", "Water", "Grass"].includes(type)) continue;
+				if (["Serperior", "Emboar", "Samurott"].includes(poke.name)) { // the Gen V starters, specifically, *must* have different secondary types from one another
+					if (this.dataCache.Pokedex.serperior.chosenType && this.dataCache.Pokedex.serperior.chosenType.type2 === type) continue;
+					if (this.dataCache.Pokedex.emboar.chosenType && this.dataCache.Pokedex.emboar.chosenType.type2 === type) continue;
+					if (this.dataCache.Pokedex.samurott.chosenType && this.dataCache.Pokedex.samurott.chosenType.type2 === type) continue;
+				}
 				// hard-coding for starters because they have more constraints on valid combinations later
 				if (poke.name === "Charizard" && ["Fire", "Flying", "Dragon"].includes(type)) continue;
 				if (poke.name === "Decidueye" && ["Grass", "Ghost", "Fighting"].includes(type)) continue;
