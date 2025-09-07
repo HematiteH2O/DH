@@ -447,7 +447,7 @@ export const Scripts: ModdedBattleScriptsData = {
 			if (!(this.dataCache.Learnsets[id] && this.dataCache.Learnsets[id].learnset)) {
 				if (!(poke.baseSpecies && (["Hoopa", "Shaymin", "Deoxys"].includes(poke.baseSpecies)))) continue; // skip Megas and G-Maxes this time
 			}
-			if (poke.baseSpecies && ["Pikachu", "Pichu", "Eevee", "Greninja", "Vivillon", "Floette", "Magearna", "Calyrex", "Sinistcha"].includes(poke.baseSpecies)) continue;
+			if (poke.baseSpecies && ["Pikachu", "Pichu", "Eevee", "Greninja", "Vivillon", "Floette", "Magearna", "Zarude", "Calyrex", "Sinistcha"].includes(poke.baseSpecies)) continue;
 			// I can do special handling for Calyrex in a later section
 			if (poke.forme && (poke.forme === "Totem" || poke.forme === "Alola-Totem")) continue;
 			if (poke.num && poke.num < 0) continue; // skip CAPs
