@@ -745,7 +745,7 @@ export const Scripts: ModdedBattleScriptsData = {
 			// RANDOM TYPE
 			// todo:
 			// - randomize 2 types for single-types, 1 type for dual-types - done
-			const chosenTypes: string[] = [];
+			let chosenTypes: string[] = [];
 			if (poke.types) {
 				for (const type of poke.types) {
 					if (poke.abilities && ["Overgrow", "Blaze", "Torrent"].includes(poke.abilities[0]) && !["Fire", "Water", "Grass"].includes(type)) continue;
