@@ -735,6 +735,11 @@ export const Scripts: ModdedBattleScriptsData = {
 				for (const type in this.dataCache.TypeChart) {
 					if (chosenTypes.includes(type)) continue;
 					if (poke.abilities && ["Overgrow", "Blaze", "Torrent"].includes(poke.abilities[0]) && ["Fire", "Water", "Grass"].includes(type)) continue;
+					if (["Serperior", "Emboar", "Samurott"].includes(poke.name)) { // the Gen V starters, specifically, *must* have different secondary types from one another
+						if (this.dataCache.Pokedex.serperior.chosenType && this.dataCache.Pokedex.serperior.chosenType.type2 === type) continue;
+						if (this.dataCache.Pokedex.emboar.chosenType && this.dataCache.Pokedex.emboar.chosenType.type2 === type) continue;
+						if (this.dataCache.Pokedex.samurott.chosenType && this.dataCache.Pokedex.samurott.chosenType.type2 === type) continue;
+					}
 					validTypes1.push(type);
 				}
 				let random1 = Math.floor(Math.random() * validTypes1.length);
@@ -1354,6 +1359,7 @@ export const Scripts: ModdedBattleScriptsData = {
 					let prevoLevelLearned = 999;
 					let prevo2LevelLearned = 999;
 					let genVLearnedTmAlready = false;
+					let genVLearnedEggAlready = false;
 					let guaranteeShowLv = false;
 					let lv1 = false;
 					let prevoLv1 = false;
@@ -1462,9 +1468,8 @@ export const Scripts: ModdedBattleScriptsData = {
 						learned = true;
 						for (const source of learnset[moveid]) {
 							// include level-up and Egg moves from all Generations...
-							if (parseInt(source.charAt(0)) === 5 && (source.charAt(1) === 'T' || source.charAt(1) === 'M')) {
-								genVLearnedTmAlready = true;
-							}
+							if (parseInt(source.charAt(0)) === 5 && (source.charAt(1) === 'T' || source.charAt(1) === 'M')) genVLearnedTmAlready = true;
+							if (parseInt(source.charAt(0)) === 5 && (source.charAt(1) === 'E') genVLearnedEggAlready = true;
 							if (source.charAt(1) === 'L') {
 								learnedLvUp = true;
 								if (parseInt(source.charAt(0)) < 8 || future) if (parseInt(source.substr(2)) < parseInt(levelLearned)) {
@@ -1501,6 +1506,7 @@ export const Scripts: ModdedBattleScriptsData = {
 						learned = true;
 						for (const source of learnset2[moveid]) {
 							// include level-up and Egg moves from all Generations...
+							if (parseInt(source.charAt(0)) === 5 && (source.charAt(1) === 'E') genVLearnedEggAlready = true;
 							if (source.charAt(1) === 'L') {
 								learnedLvUp = true;
 								if (parseInt(source.charAt(0)) < 8 || future) {
@@ -1543,6 +1549,7 @@ export const Scripts: ModdedBattleScriptsData = {
 						learned = true;
 						for (const source of learnset3[moveid]) {
 							// include level-up and Egg moves from all Generations...
+							if (parseInt(source.charAt(0)) === 5 && (source.charAt(1) === 'E') genVLearnedEggAlready = true;
 							if (source.charAt(1) === 'L') {
 								learnedLvUp = true;
 								if (parseInt(source.charAt(0)) < 8 || future) {
@@ -1942,6 +1949,7 @@ export const Scripts: ModdedBattleScriptsData = {
 						if (move.num && move.num > 559) {
 							if (movesAfterGenV.includes(moveid)) poke.backports.push(moveName);
 						} else {
+							if (!genVLearnedEggAlready) poke.additionalEggMoves.push(moveName); // helps for inputting movepools
 							if (pushLevelUp.includes(moveid) || (pushLevelUpPrankster.includes(moveid) && moveAbilitySet.includes("Prankster"))) {
 								poke.recommendedLvUp.push(moveName);
 							} else if (synergyMove === 1) {
@@ -3146,6 +3154,72 @@ export const Scripts: ModdedBattleScriptsData = {
 					}
 				}
 
+				// learnset
+				let levelUpMovesCount = 0;
+				for (const level in poke.learnsetCumulative.learnset) {
+					if (parseInt(level) > 99) {
+						if (poke.recommendedLvUp.length) {
+							poke.recommendedLvUp.sort();
+							sheetOutput += `\n~Additional level-up candidates (pick up to ` + (22 - levelUpMovesCount + poke.extraLevelUpSpaces) + `)\n`
+							for (const moveid of poke.recommendedLvUp) {
+								if (usedSecondMoves.includes(moveid)) continue;
+								sheetOutput += moveid + `, `;
+							}
+							sheetOutput += `~`;
+							poke.recommendedLvUp = {};
+						}
+						if (poke.forcedMoves.length) {
+							poke.forcedMoves.sort();
+							sheetOutput += `\n~Possible synergistic moves\n`
+							for (const moveid of poke.forcedMoves) {
+								if (usedSecondMoves.includes(moveid)) continue;
+								sheetOutput += moveid + `, `;
+							}
+							sheetOutput += `~`;
+							poke.forcedMoves = {};
+						}
+					}
+					if (poke.learnsetCumulative.learnset[level].movesLearned.length) {
+						poke.learnsetCumulative.learnset[level].movesLearned.sort();
+						if (parseInt(level) > 99) {
+							sheetOutput += `\n~Additional moves\n`
+							for (const moveid of poke.learnsetCumulative.learnset[level].movesLearned) {
+								if (usedSecondMoves.includes(moveid)) continue;
+								if (usedSecondMoves.includes(moveid + `*`)) continue;
+								sheetOutput += moveid + `, `;
+							}
+							sheetOutput += `~`;
+						} else {
+							for (const moveid of poke.learnsetCumulative.learnset[level].movesLearned) {
+								sheetOutput += `\n` + (poke.prevo ? ` ` : `~`) + ((poke.prevo && this.dataCache.Pokedex[this.toID(poke.prevo)].prevo) ? ` ` : `~`) + (parseInt(level) + 1) + ` - ` + moveid;
+								levelUpMovesCount++;
+							}
+						}
+					}
+				}
+				if (poke.backports.length) {
+					poke.backports.sort();
+					// TODO: these should include (and be sorted by) TM numbers, ideally
+					sheetOutput += `\n~Possible backports\n`
+					for (const moveid of poke.backports) sheetOutput += moveid + `, `;
+					sheetOutput += `~`;
+				}
+				if (poke.additionalTms.length) {
+					poke.additionalTms.sort();
+					sheetOutput += `\n~Additional TMs and tutors\n`
+					for (const moveid of poke.additionalTms) {
+						if (moveid.charAt(0) === 'x') sheetOutput += moveid.substr(2) + `, `;
+						else sheetOutput += moveid + `, `;
+					}
+					sheetOutput += `~`;
+				}
+				if (poke.additionalEggMoves.length) {
+					poke.additionalEggMoves.sort();
+					sheetOutput += `\n~Additional Egg moves\n`
+					for (const moveid of poke.additionalEggMoves) sheetOutput += moveid + `, `;
+					sheetOutput += `~`;
+				}
+
 				// utility sections... uhh I really need a way to format these but I don't have anything in mind yet akdjhf
 				if (poke.movepool.stab1.length || poke.movepool.stab2.length) {
 					sheetOutput += `[STABs] `
@@ -3166,7 +3240,7 @@ export const Scripts: ModdedBattleScriptsData = {
 					}
 				}
 				if (poke.movepool.stab1.length || poke.movepool.stab2.length) {
-					sheetOutput += `\n`;
+					sheetOutput += `~\n`;
 				}
 				if (poke.movepool.speedControl.length) {
 					poke.movepool.speedControl.sort();
@@ -3221,67 +3295,6 @@ export const Scripts: ModdedBattleScriptsData = {
 						sheetOutput += moveid + `, `;
 					}
 					sheetOutput += `~\n`;
-				}
-
-				// learnset
-				let levelUpMovesCount = 0;
-				for (const level in poke.learnsetCumulative.learnset) {
-					if (parseInt(level) > 99) {
-						if (poke.recommendedLvUp.length) {
-							poke.recommendedLvUp.sort();
-							sheetOutput += `\n~Additional level-up candidates (pick up to ` + (22 - levelUpMovesCount + poke.extraLevelUpSpaces) + `)\n`
-							for (const moveid of poke.recommendedLvUp) {
-								if (usedSecondMoves.includes(moveid)) continue;
-								sheetOutput += moveid + `, `;
-							}
-							sheetOutput += `~`;
-							poke.recommendedLvUp = {};
-						}
-						if (poke.forcedMoves.length) {
-							poke.forcedMoves.sort();
-							sheetOutput += `\n~Possible synergistic moves\n`
-							for (const moveid of poke.forcedMoves) {
-								if (usedSecondMoves.includes(moveid)) continue;
-								sheetOutput += moveid + `, `;
-							}
-							sheetOutput += `~`;
-							poke.forcedMoves = {};
-						}
-					}
-					if (poke.learnsetCumulative.learnset[level].movesLearned.length) {
-						poke.learnsetCumulative.learnset[level].movesLearned.sort();
-						if (parseInt(level) > 99) {
-							sheetOutput += `\n~Additional moves\n`
-							for (const moveid of poke.learnsetCumulative.learnset[level].movesLearned) {
-								if (usedSecondMoves.includes(moveid)) continue;
-								if (usedSecondMoves.includes(moveid + `*`)) continue;
-								sheetOutput += moveid + `, `;
-							}
-							sheetOutput += `~`;
-						} else {
-							for (const moveid of poke.learnsetCumulative.learnset[level].movesLearned) {
-								sheetOutput += `\n` + (poke.prevo ? ` ` : `~`) + ((poke.prevo && this.dataCache.Pokedex[this.toID(poke.prevo)].prevo) ? ` ` : `~`) + (parseInt(level) + 1) + ` - ` + moveid;
-								levelUpMovesCount++;
-							}
-						}
-					}
-				}
-				if (poke.backports.length) {
-					poke.backports.sort();
-					// TODO: these should include (and be sorted by) TM numbers, ideally
-					sheetOutput += `\n~Possible backports\n`
-					for (const moveid of poke.backports) sheetOutput += moveid + `, `;
-					sheetOutput += `~`;
-				}
-				if (poke.additionalTms.length) {
-					poke.additionalTms.sort();
-					// TODO: these should include (and be sorted by) TM numbers, ideally
-					sheetOutput += `\n~Additional TMs and tutors\n`
-					for (const moveid of poke.additionalTms) {
-						if (moveid.charAt(0) === 'x') sheetOutput += moveid.substr(2) + `, `;
-						else sheetOutput += moveid + `, `;
-					}
-					sheetOutput += `~`;
 				}
 				poke.sheetOutput = sheetOutput;
 			}
