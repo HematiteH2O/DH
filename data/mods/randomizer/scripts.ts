@@ -589,7 +589,7 @@ export const Scripts: ModdedBattleScriptsData = {
 			if (poke.name === "Necrozma-Dawn-Wings") poke.randAbilities = this.dataCache.Pokedex.necrozma.randAbilities;
 
 			// other forms - some of these normally don't change Ability, but I think it's more fun if they're allowed in the randomizer!
-			if (['rotom', 'giratina', 'tornadus', 'thundurus', 'landorus', 'meloetta', 'enamorus', 'zacian', 'zamazenta', 'ogerpon']).includes(id) {
+			if (['rotom', 'giratina', 'tornadus', 'thundurus', 'landorus', 'meloetta', 'enamorus', 'zacian', 'zamazenta', 'ogerpon'].includes(id)) {
 				for (const form of poke.otherFormes) {
 					const pokeForme = this.dataCache.Pokedex[this.toID(form)];
 					if (id === 'ogerpon' && pokeForme.battleOnly) continue;
@@ -1315,7 +1315,7 @@ export const Scripts: ModdedBattleScriptsData = {
 				for (const idNo in poke.randAbilities) moveAbilitySet.push(poke.randAbilities[idNo]);
 				// this can only make movepools bigger, so including HAs is fine, and this covers alternate forms as well
 
-				if (['rotom', 'giratina', 'tornadus', 'thundurus', 'landorus', 'meloetta', 'enamorus', 'zacian', 'zamazenta', 'ogerpon']).includes(id) {
+				if (['rotom', 'giratina', 'tornadus', 'thundurus', 'landorus', 'meloetta', 'enamorus', 'zacian', 'zamazenta', 'ogerpon'].includes(id)) {
 					for (const form of poke.otherFormes) {
 						const pokeForme = this.dataCache.Pokedex[this.toID(form)];
 						if (pokeForme.forceAbility) moveAbilitySet.push(pokeForme.forceAbility);
