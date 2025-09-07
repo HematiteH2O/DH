@@ -1649,7 +1649,9 @@ export const Scripts: ModdedBattleScriptsData = {
 							for (const altmoveid of moveGroups[section]) {
 								if (hms.includes(altmoveid)) continue; // never add these to level-up
 								if (usedSecondMoves.includes(altmoveid)) continue;
-								if (['leafage', 'vinewhip', 'branchpoke'].includes(altmoveid) && (alreadyLvUpMoves.includes('leafage') || alreadyLvUpMoves.includes('vinewhip') || alreadyLvUpMoves.includes('branchpoke') || usedSecondMoves.includes('leafage') || usedSecondMoves.includes('vinewhip') || usedSecondMoves.includes('branchpoke'))) continue; // STOP. you get ONE
+								if (['vinewhip', 'branchpoke'].includes(altmoveid) && (alreadyLvUpMoves.includes('leafage') || usedSecondMoves.includes('leafage'))) continue;
+								if (['leafage', 'branchpoke'].includes(altmoveid) && (alreadyLvUpMoves.includes('vinewhip') || usedSecondMoves.includes('vinewhip'))) continue;
+								if (['leafage', 'vinewhip'].includes(altmoveid) && (alreadyLvUpMoves.includes('branchpoke') || usedSecondMoves.includes('branchpoke'))) continue; // STOP. you get ONE
 
 								/*
 								// don't consider a move if you're just going to skip it later anyway
