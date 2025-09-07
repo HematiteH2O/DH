@@ -76206,7 +76206,7 @@ export const Learnsets: {[k: string]: LearnsetData} = {
 			zenheadbutt: ["9M", "8M", "7T"],
 		},
 	},
-	wishiwashi: {
+	wishiwashischool: {
 		learnset: {
 			aquaring: ["8L36", "7L17"],
 			aquatail: ["8L32", "7T", "7L38"],
@@ -88430,7 +88430,7 @@ export const Learnsets: {[k: string]: LearnsetData} = {
 			zenheadbutt: ["9M"],
 		},
 	},
-	palafin: {
+	palafinhero: {
 		learnset: {
 			acrobatics: ["9M", "9L29"],
 			agility: ["9M"],
@@ -93464,7 +93464,7 @@ export const Learnsets: {[k: string]: LearnsetData} = {
 		],
 		eventOnly: true,
 	},
-	terapagos: {
+	terapagosterastal: {
 		learnset: {
 			ancientpower: ["9L10"],
 			aurasphere: ["9M"],
