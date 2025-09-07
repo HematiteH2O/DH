@@ -1240,6 +1240,7 @@ export const Scripts: ModdedBattleScriptsData = {
 							learnset: [],
 				};
 				poke.additionalTms = [];
+				poke.additionalEggMoves = [];
 				poke.recommendedLvUp = [];
 				poke.forcedMoves = [];
 				poke.backports = [];
