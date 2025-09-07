@@ -2786,12 +2786,12 @@ export const Scripts: ModdedBattleScriptsData = {
 				}
 				if (poke.crossSpe < targetSpe) {
 					for (let i = 0; i < 20; i++) {
-						if (poke.crossSpe >= targetSpe - 4) break;
+						if (poke.crossSpe >= targetSpe - 4 || poke.crossHp + poke.crossAtk + poke.crossDef + poke.crossSpA + poke.crossSpD + poke.crossSpe + 5 > maxbst) break;
 						poke.crossSpe += 5;
 					}
 				} else {
 					for (let i = 0; i < 20; i++) {
-						if (poke.crossSpe <= targetSpe + 4 || poke.crossHp + poke.crossAtk + poke.crossDef + poke.crossSpA + poke.crossSpD + poke.crossSpe + 5 > maxbst) break;
+						if (poke.crossSpe <= targetSpe + 4) break;
 						poke.crossSpe -= 5;
 					}
 				}
