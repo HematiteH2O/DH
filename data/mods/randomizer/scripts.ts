@@ -1784,7 +1784,7 @@ export const Scripts: ModdedBattleScriptsData = {
 							if (levelLearned < 10) moveBeingCheckedName = `0` + moveBeingCheckedName; // pad with a leading 0 for alphabetization
 							moveBeingCheckedName = `(` + moveBeingCheckedName;
 						}
-						if ((moveBeingChecked.basePower && moveBeingChecked.basePower > 0) {
+						if (moveBeingChecked.basePower && moveBeingChecked.basePower > 0) {
 							// STABs
 							if (moveBeingChecked.type === poke.chosenType.type1) {
 								poke.movepool.stab1.push(moveBeingCheckedName);
