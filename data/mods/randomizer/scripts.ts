@@ -466,6 +466,7 @@ export const Scripts: ModdedBattleScriptsData = {
 			poke.movepool.fieldEffect = [];
 			poke.movepool.damageMitigation = [];
 			poke.movepool.other = [];
+			poke.movepool.skipDupes = [];
 
 			// RANDOM ABILITY
 			// todo:
@@ -1759,7 +1760,10 @@ export const Scripts: ModdedBattleScriptsData = {
 					// resume: at this point, you have determined exactly what move it is and what level it's going to be learned
 					// UTILITY SECTIONS
 					let moveIdBeingChecked = moveid;
-					if (secondMove) moveIdBeingChecked = this.toID(secondMove.name);
+					if (secondMove) {
+						moveIdBeingChecked = this.toID(secondMove.name);
+						poke.movepool.skipDupes.push(secondMove.name); // if you're being added at a level now, then whenever we get to your real ID, there may be a duplicate
+					}
 					let moveBeingChecked = this.dataCache.Moves[moveIdBeingChecked];
 
 					let belongsInOther = false;
@@ -1777,6 +1781,9 @@ export const Scripts: ModdedBattleScriptsData = {
 					if (moveBeingChecked.num && moveBeingChecked.num > 559) {
 						if (!movesAfterGenV.includes(moveIdBeingChecked)) learnedMoveBeingChecked = false;
 					}
+
+					// if you were added as a secondMove to level-up earlier, but now it's your real ID, you must already have been covered, so let's skip you
+					if (usedSecondMoves.includes(moveid) && moveIdBeingChecked === moveid) learnedMoveBeingChecked = false;
 
 					if (learnedMoveBeingChecked) {
 						let moveBeingCheckedName = moveBeingChecked.name;
@@ -1835,6 +1842,70 @@ export const Scripts: ModdedBattleScriptsData = {
 						// other notable/fun moves
 						if (belongsInOther) poke.movepool.other.push(moveBeingCheckedName);
 					}
+
+					// wait I've gotta do it twice - sometimes two moves are being done at once
+					if (moveIdBeingChecked !== moveid && genVTms.includes(moveid)) {
+						moveIdBeingChecked = moveid;
+						belongsInOther = false;
+						if (pushLvUp.includes(moveIdBeingChecked)) belongsInOther = true;
+
+						let moveBeingCheckedName = moveBeingChecked.name;
+						if (levelLearned && levelLearned < 101) {
+							moveBeingCheckedName = levelLearned + `) ` + moveBeingCheckedName;
+							if (levelLearned < 10) moveBeingCheckedName = `0` + moveBeingCheckedName; // pad with a leading 0 for alphabetization
+							moveBeingCheckedName = `(` + moveBeingCheckedName;
+						}
+						if (moveBeingChecked.basePower && moveBeingChecked.basePower > 0) {
+							// STABs
+							if (moveBeingChecked.type === poke.chosenType.type1) {
+								poke.movepool.stab1.push(moveBeingCheckedName);
+								belongsInOther = false;
+							}
+							if ((poke.chosenType.type2 !== poke.chosenType.type1) && moveBeingChecked.type === poke.chosenType.type2) {
+								poke.movepool.stab2.push(moveBeingCheckedName);
+								belongsInOther = false;
+							}
+							// priority
+							if ((moveBeingChecked.priority && moveBeingChecked.priority > 0) || (pushLevelUpPrankster.includes(moveIdBeingChecked) && moveAbilitySet.includes("Prankster"))) {
+								poke.movepool.priority.push(moveBeingCheckedName);
+								belongsInOther = false;
+							}
+							// spread
+							if (moveBeingChecked.target && ["allAdjacent","allAdjacentFoes"].includes(moveBeingChecked.target)) {
+								poke.movepool.spread.push(moveBeingCheckedName);
+								belongsInOther = false;
+							}
+						}
+						// Speed control
+						if ([
+							'tailwind', 'trickroom',
+							'thunderwave', 'glare', 'stunspore', 'nuzzle', 'afteryou',
+							'bulldoze', 'cottonspore', 'drumbeating', 'electroweb', 'glaciate', 'icywind', 'lowsweep', 'mudshot', 'pounce', 'rocktomb', 'scaryface', 'silktrap', 'stickyweb', 'stringshot', 'syrupbomb', 'tarshot', 'toxicthread',
+						].includes(moveIdBeingChecked)) {
+							poke.movepool.speedControl.push(moveBeingCheckedName);
+							belongsInOther = false;
+						}
+						// field effects
+						if ([
+							'sunnyday', 'raindance', 'sandstorm', 'hail', 'gravity', 'trickroom', 'stealthrock', 'spikes', 'toxicspikes', 'stickyweb',
+						].includes(moveIdBeingChecked)) {
+							poke.movepool.fieldEffect.push(moveBeingCheckedName);
+							belongsInOther = false;
+						}
+						// damage mitigation
+						if ([
+							'reflect', 'lightscreen', 'quickguard', 'wideguard', 'followme', 'ragepowder', 'watersport', 'mudsport',
+							'babydolleyes', 'breakingswipe', 'chillingwater', 'growl', 'lunge', 'nobleroar', 'tearfullook', 'tickle', 'tropkick', 'charm', 'featherdance', 'memento', 'bittermalice', 'mysticalfire', 'skittersmack', 'snarl', 'strugglebug', 'eerieimpulse', 'captivate',
+							'willowisp', 'inferno', 'sacredfire',
+							'grasswhistle', 'hypnosis', 'lovelykiss', 'sing', 'sleeppowder', 'spore', 'yawn', 'darkvoid',
+						].includes(moveIdBeingChecked)) {
+							poke.movepool.damageMitigation.push(moveBeingCheckedName);
+							belongsInOther = false;
+						}
+						// other notable/fun moves
+						if (belongsInOther) poke.movepool.other.push(moveBeingCheckedName);
+					}
+						
 
 					// PUSHING TO LEVEL-UP MOVEPOOL
 					let levelUpSpaces = false;
@@ -3081,6 +3152,7 @@ export const Scripts: ModdedBattleScriptsData = {
 				if (poke.movepool.stab1.length) {
 					poke.movepool.stab1.sort();
 					for (const moveid of poke.movepool.stab1) {
+						if (poke.movepool.skipDupes.includes(moveid)) continue;
 						sheetOutput += moveid + `, `;
 					}
 					sheetOutput += `~~~~~`
@@ -3088,6 +3160,7 @@ export const Scripts: ModdedBattleScriptsData = {
 				if (poke.movepool.stab2.length && poke.chosenType.type1 !== poke.chosenType.type2) {
 					poke.movepool.stab2.sort();
 					for (const moveid of poke.movepool.stab2) {
+						if (poke.movepool.skipDupes.includes(moveid)) continue;
 						sheetOutput += moveid + `, `;
 					}
 				}
@@ -3098,6 +3171,7 @@ export const Scripts: ModdedBattleScriptsData = {
 					poke.movepool.speedControl.sort();
 					sheetOutput += `[Speed control] `
 					for (const moveid of poke.movepool.speedControl) {
+						if (poke.movepool.skipDupes.includes(moveid)) continue;
 						sheetOutput += moveid + `, `;
 					}
 					sheetOutput += `~\n`;
@@ -3106,6 +3180,7 @@ export const Scripts: ModdedBattleScriptsData = {
 					poke.movepool.priority.sort();
 					sheetOutput += `[priority] `
 					for (const moveid of poke.movepool.priority) {
+						if (poke.movepool.skipDupes.includes(moveid)) continue;
 						sheetOutput += moveid + `, `;
 					}
 					sheetOutput += `~\n`;
@@ -3114,6 +3189,7 @@ export const Scripts: ModdedBattleScriptsData = {
 					poke.movepool.spread.sort();
 					sheetOutput += `[spread] `
 					for (const moveid of poke.movepool.spread) {
+						if (poke.movepool.skipDupes.includes(moveid)) continue;
 						sheetOutput += moveid + `, `;
 					}
 					sheetOutput += `~\n`;
@@ -3122,6 +3198,7 @@ export const Scripts: ModdedBattleScriptsData = {
 					poke.movepool.fieldEffect.sort();
 					sheetOutput += `[field effects] `
 					for (const moveid of poke.movepool.fieldEffect) {
+						if (poke.movepool.skipDupes.includes(moveid)) continue;
 						sheetOutput += moveid + `, `;
 					}
 					sheetOutput += `~\n`;
@@ -3130,6 +3207,7 @@ export const Scripts: ModdedBattleScriptsData = {
 					poke.movepool.damageMitigation.sort();
 					sheetOutput += `[disruption] `
 					for (const moveid of poke.movepool.damageMitigation) {
+						if (poke.movepool.skipDupes.includes(moveid)) continue;
 						sheetOutput += moveid + `, `;
 					}
 					sheetOutput += `~\n`;
@@ -3138,6 +3216,7 @@ export const Scripts: ModdedBattleScriptsData = {
 					poke.movepool.other.sort();
 					sheetOutput += `[other] `
 					for (const moveid of poke.movepool.other) {
+						if (poke.movepool.skipDupes.includes(moveid)) continue;
 						sheetOutput += moveid + `, `;
 					}
 					sheetOutput += `~\n`;
