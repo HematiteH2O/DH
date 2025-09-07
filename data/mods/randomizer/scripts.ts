@@ -898,7 +898,7 @@ export const Scripts: ModdedBattleScriptsData = {
 			let loopCount = 0;
 			for (const type1 of chosenTypes) {
 				for (const type2 of chosenTypes) {
-					if (poke.forceType && ![type1, type2].includes(forceType)) continue;
+					if (poke.forceType && ![type1, type2].includes(poke.forceType)) continue;
 					let score = 0;
 					let lowSynergy = false; // for a later step about evaluating setup; true for single-types or dual-types walled by one type
 					let pokeCheck = poke;
@@ -2256,6 +2256,21 @@ export const Scripts: ModdedBattleScriptsData = {
 				if (poke.randAbilities[0] === "Defeatist" && poke.speTarget < 115) poke.speTarget = 115;
 				if (poke.randAbilities[0] === "Analytic" && poke.speTarget > 40) poke.speTarget = 40;
 
+				if (poke.name === "Kyurem-Black" || poke.name === "Kyurem-White") {
+					if (this.dataCache.Pokedex.kyurem.randAtk) poke.atkTarget = this.dataCache.Pokedex.kyurem.randAtk;
+					if (this.dataCache.Pokedex.kyurem.randDef) poke.defTarget = this.dataCache.Pokedex.kyurem.randDef;
+					if (this.dataCache.Pokedex.kyurem.randSpA) poke.spaTarget = this.dataCache.Pokedex.kyurem.randSpA;
+					if (this.dataCache.Pokedex.kyurem.randSpD) poke.spdTarget = this.dataCache.Pokedex.kyurem.randSpD;
+					if (this.dataCache.Pokedex.kyurem.randSpe) poke.speTarget = this.dataCache.Pokedex.kyurem.randSpe;
+				}
+				if (poke.name === "Necrozma-Dusk-Mane" || poke.name === "Necrozma-Dawn-Wings") {
+					if (this.dataCache.Pokedex.necrozma.randAtk) poke.atkTarget = this.dataCache.Pokedex.necrozma.randAtk;
+					if (this.dataCache.Pokedex.necrozma.randDef) poke.defTarget = this.dataCache.Pokedex.necrozma.randDef;
+					if (this.dataCache.Pokedex.necrozma.randSpA) poke.spaTarget = this.dataCache.Pokedex.necrozma.randSpA;
+					if (this.dataCache.Pokedex.necrozma.randSpD) poke.spdTarget = this.dataCache.Pokedex.necrozma.randSpD;
+					if (this.dataCache.Pokedex.necrozma.randSpe) poke.speTarget = this.dataCache.Pokedex.necrozma.randSpe;
+				}
+
 				// offense limits
 				// only either Speed or offense has to adhere to the limits, not necessarily both
 				let maxAtk = 250;
@@ -2377,9 +2392,23 @@ export const Scripts: ModdedBattleScriptsData = {
 				poke.spdDelta = 0;
 				poke.speDelta = 0;
 
+				let forceHp = false;
+				if (poke.baseSpecies && [
+					"Rotom", "Giratina", "Darmanitan", "Tornadus", "Thundurus", "Landorus", "Kyurem", "Meloetta", "Enamorus", "Necrozma", "Zacian", "Zamazenta", "Ogerpon",
+					"Deoxys", "Shaymin", "Hoopa"
+				].includes(poke.baseSpecies) && this.dataCache.Pokedex[this.toID(poke.baseSpecies)].randHp;) {
+					poke.hpTarget = this.dataCache.Pokedex[this.toID(poke.baseSpecies)].randHp;
+					forceHp = true;
+				}
+
 				for (let i = 0; i < 12; i++) { // repeat until +60 or until all stats have hit their targets
+					if (forceHp && poke.randHp + poke.hpDelta < poke.hpTarget) {
+						poke.hpDelta += 5;
+						continue;
+					}
+
 					let eligibleStats: string[] = [];
-					if (poke.name !== "Shedinja" && poke.hpDelta < 40 && (poke.randHp + poke.hpDelta + 5 < poke.hpTarget + 3) && (poke.randHp + poke.hpDelta < 251)) eligibleStats.push('hpDelta');
+					if (!forceHp && poke.name !== "Shedinja" && poke.hpDelta < 40 && (poke.randHp + poke.hpDelta + 5 < poke.hpTarget + 3) && (poke.randHp + poke.hpDelta < 251)) eligibleStats.push('hpDelta');
 					if (poke.atkDelta < 40 && (poke.randAtk + poke.atkDelta + 5 < poke.atkTarget + 3) && (poke.randAtk + poke.atkDelta < 243)) eligibleStats.push('atkDelta');
 					if (poke.defDelta < 40 && (poke.randDef + poke.defDelta + 5 < poke.defTarget + 3) && (poke.randDef + poke.defDelta < 243)) eligibleStats.push('defDelta');
 					if (poke.spaDelta < 40 && (poke.randSpA + poke.spaDelta + 5 < poke.spaTarget + 3) && (poke.randSpA + poke.spaDelta < 243)) eligibleStats.push('spaDelta');
@@ -2392,6 +2421,11 @@ export const Scripts: ModdedBattleScriptsData = {
 
 				// step 6: stat decrease assignment (mostly guided)
 				for (let i = 0; i < 12; i++) { // repeat until -60 unconditionally
+					if (forceHp && poke.randHp + poke.hpDelta > poke.hpTarget) {
+						poke.hpDelta -= 5;
+						continue;
+					}
+
 					let eligibleStats: string[] = [];
 					let minStat: string[] = [];
 					poke.diffHp = poke.hpTarget - (poke.randHp + poke.hpDelta);
@@ -2401,7 +2435,7 @@ export const Scripts: ModdedBattleScriptsData = {
 					poke.diffSpD = poke.spdTarget - (poke.randSpD + poke.spdDelta);
 					poke.diffSpe = poke.speTarget - (poke.randSpe + poke.speDelta);
 
-					if (poke.name !== "Shedinja" && poke.hpDelta > -40 && (poke.randHp + poke.hpDelta > 30)) eligibleStats.push('diffHp');
+					if (!forceHp && poke.name !== "Shedinja" && poke.hpDelta > -40 && (poke.randHp + poke.hpDelta > 30)) eligibleStats.push('diffHp');
 					if (poke.atkDelta > -40 && (poke.randAtk + poke.atkDelta > 5)) eligibleStats.push('diffAtk');
 					if (poke.defDelta > -40 && (poke.randDef + poke.defDelta > 5)) eligibleStats.push('diffDef');
 					if (poke.spaDelta > -40 && (poke.randSpA + poke.spaDelta > 5)) eligibleStats.push('diffSpA');
@@ -2436,8 +2470,42 @@ export const Scripts: ModdedBattleScriptsData = {
 				}
 
 				// step 7: BST correction final pass (mostly guided)
+				if (poke.name === "Kyurem-Black") {
+					if (this.dataCache.Pokedex.zekrom.randAtk && this.dataCache.Pokedex.zekrom.randAtk > poke.atkTarget) poke.atkTarget = this.dataCache.Pokedex.zekrom.randAtk;
+					if (this.dataCache.Pokedex.zekrom.randDef && this.dataCache.Pokedex.zekrom.randDef > poke.defTarget) poke.defTarget = this.dataCache.Pokedex.zekrom.randDef;
+					if (this.dataCache.Pokedex.zekrom.randSpA && this.dataCache.Pokedex.zekrom.randSpA > poke.spaTarget) poke.spaTarget = this.dataCache.Pokedex.zekrom.randSpA;
+					if (this.dataCache.Pokedex.zekrom.randSpD && this.dataCache.Pokedex.zekrom.randSpD > poke.spdTarget) poke.spdTarget = this.dataCache.Pokedex.zekrom.randSpD;
+					if (this.dataCache.Pokedex.zekrom.randSpe && this.dataCache.Pokedex.zekrom.randSpe > poke.speTarget) poke.speTarget = this.dataCache.Pokedex.zekrom.randSpe;
+				}
+				if (poke.name === "Kyurem-White") {
+					if (this.dataCache.Pokedex.reshiram.randAtk && this.dataCache.Pokedex.reshiram.randAtk > poke.atkTarget) poke.atkTarget = this.dataCache.Pokedex.reshiram.randAtk;
+					if (this.dataCache.Pokedex.reshiram.randDef && this.dataCache.Pokedex.reshiram.randDef > poke.defTarget) poke.defTarget = this.dataCache.Pokedex.reshiram.randDef;
+					if (this.dataCache.Pokedex.reshiram.randSpA && this.dataCache.Pokedex.reshiram.randSpA > poke.spaTarget) poke.spaTarget = this.dataCache.Pokedex.reshiram.randSpA;
+					if (this.dataCache.Pokedex.reshiram.randSpD && this.dataCache.Pokedex.reshiram.randSpD > poke.spdTarget) poke.spdTarget = this.dataCache.Pokedex.reshiram.randSpD;
+					if (this.dataCache.Pokedex.reshiram.randSpe && this.dataCache.Pokedex.reshiram.randSpe > poke.speTarget) poke.speTarget = this.dataCache.Pokedex.reshiram.randSpe;
+				}
+				if (poke.name === "Necrozma-Dusk-Mane") {
+					if (this.dataCache.Pokedex.solgaleo.randAtk && this.dataCache.Pokedex.solgaleo.randAtk > poke.atkTarget) poke.atkTarget = this.dataCache.Pokedex.solgaleo.randAtk;
+					if (this.dataCache.Pokedex.solgaleo.randDef && this.dataCache.Pokedex.solgaleo.randDef > poke.defTarget) poke.defTarget = this.dataCache.Pokedex.solgaleo.randDef;
+					if (this.dataCache.Pokedex.solgaleo.randSpA && this.dataCache.Pokedex.solgaleo.randSpA > poke.spaTarget) poke.spaTarget = this.dataCache.Pokedex.solgaleo.randSpA;
+					if (this.dataCache.Pokedex.solgaleo.randSpD && this.dataCache.Pokedex.solgaleo.randSpD > poke.spdTarget) poke.spdTarget = this.dataCache.Pokedex.solgaleo.randSpD;
+					if (this.dataCache.Pokedex.solgaleo.randSpe && this.dataCache.Pokedex.solgaleo.randSpe > poke.speTarget) poke.speTarget = this.dataCache.Pokedex.solgaleo.randSpe;
+				}
+				if (poke.name === "Necrozma-Dawn-Wings") {
+					if (this.dataCache.Pokedex.lunala.randAtk && this.dataCache.Pokedex.lunala.randAtk > poke.atkTarget) poke.atkTarget = this.dataCache.Pokedex.lunala.randAtk;
+					if (this.dataCache.Pokedex.lunala.randDef && this.dataCache.Pokedex.lunala.randDef > poke.defTarget) poke.defTarget = this.dataCache.Pokedex.lunala.randDef;
+					if (this.dataCache.Pokedex.lunala.randSpA && this.dataCache.Pokedex.lunala.randSpA > poke.spaTarget) poke.spaTarget = this.dataCache.Pokedex.lunala.randSpA;
+					if (this.dataCache.Pokedex.lunala.randSpD && this.dataCache.Pokedex.lunala.randSpD > poke.spdTarget) poke.spdTarget = this.dataCache.Pokedex.lunala.randSpD;
+					if (this.dataCache.Pokedex.lunala.randSpe && this.dataCache.Pokedex.lunala.randSpe > poke.speTarget) poke.speTarget = this.dataCache.Pokedex.lunala.randSpe;
+				}
+
 				let skipMaxCheck = false; // (at this point, it becomes random)
 				for (let i = 0; i < 12; i++) { // repeat until +60 or until all stats have hit their targets
+					if (forceHp && poke.randHp + poke.hpDelta < poke.hpTarget) {
+						poke.hpDelta += 5;
+						continue;
+					}
+
 					if ((poke.hpDelta + poke.atkDelta + poke.defDelta + poke.spaDelta + poke.spdDelta + poke.speDelta) > 0) {
 						console.log(poke.name + ` didn't lower stats as much as it raised them`);
 						break;
@@ -2453,7 +2521,7 @@ export const Scripts: ModdedBattleScriptsData = {
 					let diffSpD = poke.spdTarget - (poke.randSpD + poke.spdDelta);
 					let diffSpe = poke.speTarget - (poke.randSpe + poke.speDelta);
 
-					if (poke.name !== "Shedinja" && poke.hpDelta < 40 && (poke.randHp + poke.hpDelta < 251)) eligibleStats.push('diffHp');
+					if (!forceHp && poke.name !== "Shedinja" && poke.hpDelta < 40 && (poke.randHp + poke.hpDelta < 251)) eligibleStats.push('diffHp');
 					if (poke.defDelta < 40 && (poke.randDef + poke.defDelta < 243)) eligibleStats.push('diffDef');
 					if (poke.spdDelta < 40 && (poke.randSpD + poke.spdDelta < 243)) eligibleStats.push('diffSpD');
 					// continue to respect max stats: if Speed is over its threshold, don't raise Attack or SpA more, and...
@@ -2982,8 +3050,6 @@ export const Scripts: ModdedBattleScriptsData = {
 					poke2.spaDelta = 0;
 					poke2.spdDelta = 0;
 					poke2.speDelta = 0;
-
-					if (["Wishiwashi", "Palafin"].includes(poke2.name)) poke2.hpDelta = poke.hpDelta;
 	
 					for (let i = 0; i < 6; i++) {
 						if (["Wishiwashi", "Palafin"].includes(poke2.name) && (poke2.hpDelta > poke.hpDelta)) {
